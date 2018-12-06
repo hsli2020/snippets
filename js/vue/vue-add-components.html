@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+  <div id="app">
+    <button @click="add('a-component', 'test')">Add A</button>
+    <button @click="add('b-component', 'test')">Add B</button>
+    <ul>
+      <li :is="item.component" :text="item.text" v-for="item in items"></li>
+    </ul>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+  <script>
+    var AComponent = Vue.extend({
+      props: ['text'],
+      template: '<li>A Component: {{ text }}</li>'
+    })
+
+    var BComponent = Vue.extend({
+      props: ['text'],
+      template: '<li>B Component: {{ text }}</li>'
+    })
+
+    new Vue({
+      el: '#app',
+      components: {
+        'a-component': AComponent,
+        'b-component': BComponent,
+      },
+      data: {
+        items: []
+      },
+      methods: {
+        add(component, text) {
+          this.items.push({
+            'component': component,
+            'text': text,
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>
