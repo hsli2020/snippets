@@ -1,0 +1,410 @@
+<html>
+<head>
+<!-- link rel="stylesheet" href="index.css" -->
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: silver;
+}
+
+.app {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    position: relative;
+}
+
+h1 {
+    margin: 0;
+    color: sienna;
+}
+
+.game {
+    transition: 0.3em;
+}
+
+.game.stop {
+    filter: blur(10px);
+}
+
+.game .message {
+    width: inherit;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    font-family: sans-serif;
+}
+
+.game .message span {
+    font-weight: bold;
+}
+
+.game .digits {
+    box-sizing: border-box;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    border: 10px solid sienna;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.game .digits span {
+    width: 80px;
+    height: 80px;
+    background-color: blanchedalmond;
+    font-size: 30px;
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 2.5em;
+    color: sienna;
+    box-sizing: border-box;
+}
+
+.game .digits span.wrong {
+    border: 2px solid crimson;
+}
+
+.game .digits span.correct {
+    background-color: chocolate;
+    color: gold;
+}
+
+.select-level,
+.game-over {
+    box-sizing: border-box;
+    width: 240px;
+    height: 240px;
+    border: 10px solid rgba(160, 82,45, 0.8);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 0 0.3em rgba(255, 235, 205, 0.8),
+        0 0 1em 0.5em rgba(160, 82, 45, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+    position: absolute;
+    bottom: 40px;
+    z-index: 2;
+    visibility: hidden;
+}
+
+.select-level .levels {
+    margin-top: 60px;
+    width: 190px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.select-level input[type=radio] {
+    position: absolute;
+    visibility: hidden;
+}
+
+.select-level label {
+    width: 56px;
+    height: 56px;
+    background-color: rgba(160, 82, 45, 0.8);
+    border-radius: 50%;
+    color: blanchedalmond;
+    text-align: center;
+    line-height: 56px;
+    cursor: pointer;
+}
+
+.select-level input[type=radio]:checked + label {
+    background-color: sienna;
+}
+
+.select-level .play,
+.game-over .again {
+    width: 120px;
+    height: 30px;
+    background-color: sienna;
+    color: blanchedalmond;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.select-level .play {
+    margin-top: 30px;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.select-level .play:hover,
+.game-over .again:hover {
+    background-color: saddlebrown;
+}
+
+.select-level .play:active,
+.game-over .again:active {
+    transform: translate(2px, 2px);
+}
+
+.game-over h2 {
+    margin-top: 40px;
+    color: sienna;
+}
+
+.game-over p {
+    margin: 3px;
+    font-size: 20px;
+    color: sienna;
+}
+
+.game-over .again {
+    margin-top: 10px;
+}
+</style>        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+</head>
+<body>
+    <div class="app">
+        <h1>Sudoku Training</h1>
+        <div class="game">
+            <div class="message">
+                <p>
+                    Time:
+                    <span class="time">00:00</span>
+                </p>
+                <p class="round">1/5</p>
+                <p>
+                    Score:
+                    <span class="score">100</span>
+                </p>
+            </div>
+            <div class="digits">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+            </div>
+        </div>
+        <div class="select-level">
+            <div class="levels">
+                <input type="radio" name="level" id="easy" value="easy" checked="checked">
+                <label for="easy">Easy</label>
+
+                <input type="radio" name="level" id="normal" value="normal">
+                <label for="normal">Normal</label>
+
+                <input type="radio" name="level" id="hard" value="hard">
+                <label for="hard">Hard</label>
+            </div>
+            <div class="play">Play</div>
+        </div>
+        <div class="game-over">
+            <h2>Game Over</h2>
+            <p>
+                Time:
+                <span class="final-time">00:00</span>
+            </p>
+            <p>
+                Score:
+                <span class="final-score">3000</span>
+            </p>
+            <div class="again">Play Again</div>
+        </div>
+    </div>
+    <!-- script src="index.js"></script -->
+<script>
+const ALL_DIGITS = ['1','2','3','4','5','6','7','8','9']
+const ANSWER_COUNT = {EASY: 1, NORMAL: 2, HARD: 3}
+const ROUND_COUNT = 3
+const SCORE_RULE = {CORRECT: 100, WRONG: -10}
+
+const $ = (selector) => document.querySelectorAll(selector)
+const dom = {
+    game: $('.game')[0],
+    digits: Array.from($('.game .digits span')),
+    time: $('.game .time')[0],
+    round: $('.game .round')[0],
+    score: $('.game .score')[0],
+    selectLevel: $('.select-level')[0],
+    level: () => {return $('input[type=radio]:checked')[0]},
+    play: $('.select-level .play')[0],
+    gameOver: $('.game-over')[0],
+    again: $('.game-over .again')[0],
+    finalTime: $('.game-over .final-time')[0],
+    finalScore: $('.game-over .final-score')[0],
+}
+
+const render = {
+    initDigits: (texts) => {
+        allTexts = texts.concat(_.fill(Array(ALL_DIGITS.length - texts.length), ''))
+        _.shuffle(dom.digits).forEach((digit, i) => {
+            digit.innerText = allTexts[i]
+            digit.className = ''
+        })
+    },
+    updateDigitStatus: (text, isAnswer) => {
+        if (isAnswer) {
+            let digit = _.find(dom.digits, x => x.innerText == '')
+            digit.innerText = text
+            digit.className = 'correct'
+        } else {
+            _.find(dom.digits, x => x.innerText == text).className = 'wrong'
+        }
+    },
+    updateTime: (value) => {
+        dom.time.innerText = value
+    },
+    updateScore: (value) => {
+        dom.score.innerText = value.toString()
+    },
+    updateRound: (currentRound) => {
+        dom.round.innerText = [
+            currentRound.toString(),
+            '/',
+            ROUND_COUNT.toString(),
+        ].join('')
+    },
+    updateFinal: () => {
+        dom.finalTime.innerText = dom.time.innerText
+        dom.finalScore.innerText = dom.score.innerText
+    },
+}
+
+let answerCount, digits, round, timer, score, canPress
+
+window.onload = init()
+
+function init() {
+    dom.play.addEventListener('click', startGame)
+    dom.again.addEventListener('click', playAgain)
+    window.addEventListener('keyup', pressKey)
+    
+    newGame()
+}
+
+function newGame() {
+    round = 0
+    timer = new Timer(render.updateTime)
+    score = 0
+    canPress = false
+    
+    dom.game.classList.add('stop')
+    dom.selectLevel.style.visibility = 'visible'
+}
+
+function startGame() {
+    render.updateRound(1)
+    render.updateTime('00:00')
+    render.updateScore(0)
+    
+    dom.game.classList.remove('stop')
+    dom.selectLevel.style.visibility = 'hidden'
+    
+    answerCount = ANSWER_COUNT[dom.level().value.toUpperCase()]
+    newRound()
+    timer.start()
+    canPress = true
+}
+
+function newRound() {
+    digits = _.shuffle(ALL_DIGITS).map((x, i) => {
+        return {
+            text: x,
+            isAnswer: (i < answerCount),
+            isPressed: false
+        }
+    })
+    render.initDigits(_.filter(digits, x => !x.isAnswer).map(x => x.text))
+    
+    round++
+    render.updateRound(round)
+}
+
+function playAgain() {
+    dom.game.classList.remove('stop')
+    dom.gameOver.style.visibility = 'hidden'
+    
+    newGame()
+}
+
+function pressKey(e) {
+    if (!canPress) return;
+    if (!ALL_DIGITS.includes(e.key)) return;
+    
+    let digit = _.find(digits, x => (x.text == e.key))
+    if (digit.isPressed) return;
+    
+    digit.isPressed = true
+    render.updateDigitStatus(digit.text, digit.isAnswer)
+    
+    score += digit.isAnswer ? SCORE_RULE.CORRECT : SCORE_RULE.WRONG
+    render.updateScore(score)
+    
+    let hasPressedAllAnswerDigits = (_.filter(digits, x => x.isAnswer && x.isPressed).length == answerCount)
+    if (!hasPressedAllAnswerDigits) return;
+    
+    let hasPlayedAllRounds = (round == ROUND_COUNT)
+    if (hasPlayedAllRounds) {
+        gameOver()
+    }
+    else {
+        newRound()
+    }
+}
+
+function gameOver() {
+    canPress = false
+    timer.stop()
+    render.updateFinal()
+    
+    dom.game.classList.add('stop')
+    dom.gameOver.style.visibility = 'visible'
+}
+
+function Timer(render) {
+    this.render = render
+    this.t = {}
+    this.time = {
+        minute: 0,
+        second: 0,
+    }
+    
+    this.tickTock = () => {
+        this.time.second++
+        if (this.time.second == 60) {
+            this.time.minute++
+            this.time.second = 0
+        }
+        
+        this.render([
+            this.time.minute.toString().padStart(2, '0'),
+            ':',
+            this.time.second.toString().padStart(2, '0'),
+        ].join(''))
+    }
+    
+    this.start = () => {
+        this.t = setInterval(this.tickTock, 1000)
+    }
+    
+    this.stop = () => {
+        clearInterval(this.t)
+    }
+}
+</script>        
+</body>
+</html>

@@ -1,0 +1,224 @@
+<html>
+<head>
+<meta charset="utf-8">
+<!-- link rel="stylesheet" href="index.css" -->
+<!-- https://scrimba.com/c/c9R2Gsy -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.min.js"></script>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(lightyellow, tan);
+}
+
+#app {
+    width: 66vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 1em 4em rgba(0, 0, 0, 0.5);
+    border-radius: 2em;
+    padding: 8em 5em;
+    background: linear-gradient(black, dimgray, black);
+    font-family: sans-serif;
+    font-size: 1vw;
+    user-select: none;
+    position: relative;
+}
+
+.choose-type input[name=arithmetic-type] {
+    position: absolute;
+    visibility: hidden;
+}
+
+.choose-type label {
+    font-size: 2.5em;
+    color: skyblue;
+    margin: 0.3em;
+    letter-spacing: 0.02em;
+    position: relative;
+    transition: 0.3s;
+}
+
+.choose-type label:not(:first-of-type)::before {
+    content: '|';
+    position: absolute;
+    color: skyblue;
+    left: -0.5em;
+    filter: opacity(0.6);
+}
+
+.choose-type label:hover {
+    color: deepskyblue;
+    cursor: pointer;
+}
+
+.choose-type input[name=arithmetic-type]:checked + label {
+    text-transform: capitalize;
+    color: deepskyblue;
+    border-style: solid;
+    border-width: 0 0 0.1em 0;
+}
+
+.score {
+    font-size: 2em;
+    color: silver;
+    margin: 1em 0 2em 0;
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.expression {
+    font-size: 12em;
+    display: flex;
+    align-items: center;
+}
+
+.expression span {
+    margin: 0 0.05em;
+}
+
+.expression .number {
+    color: orange;
+}
+
+.expression .operation {
+    color: skyblue;
+}
+
+.expression .result {
+    color: gold;
+}
+
+.expression .show {
+    color: skyblue;
+    font-size: 0.8em;
+    line-height: 1em;
+    width: 1.5em;
+    text-align: center;
+}
+
+.judgment {
+    font-size: 8em;
+    align-self: flex-end;
+}
+
+.judgment .right {
+    color: lightgreen;
+}
+
+.judgment .wrong {
+    color: orangered;
+}
+
+.button {
+    background-color: #222;
+    border: 1px solid #555;
+    padding: 0.1em;
+}
+
+.button:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: #222;
+}
+</style>
+</head>
+<body>
+    <div id="app">
+        <div class="choose-type">
+            <input type="radio" id="addition" name="arithmetic-type" value="1">
+            <label for="addition">addition</label>
+            <input type="radio" id="subtraction" name="arithmetic-type" value="2">
+            <label for="subtraction">subtraction</label>
+            <input type="radio" id="multiplication" name="arithmetic-type" value="3">
+            <label for="multiplication">multiplication</label>
+            <input type="radio" id="division" name="arithmetic-type" value="4">
+            <label for="division">division</label>
+        </div>
+        <div class="score">
+            <span>ROUND {{round.all - 1}}</span>
+            <span>SCORE {{score}}%</span>
+        </div>
+        <div class="expression">
+            <span class="number">{{numbers[0]}}</span>
+            <span class="operation">{{operation}}</span>
+            <span class="number">{{numbers[1]}}</span>
+            <span class="operation">=</span>
+            <span class="button show" v-show="isThinking" @click="getResult">?</span>
+            <span class="result" v-show="!isThinking">{{result}}</span>
+        </div>
+        <div class="judgment" :style="{visibility: isThinking ? 'hidden' : 'visible'}">
+            <span class="button right" @click="answerRight">?</span>
+            <span class="button wrong" @click="answerWrong">?</span>
+        </div>
+    </div>
+    <!-- script src="index.js"></script -->
+
+<script>
+let vm = new Vue({
+    el: '#app',
+    
+    data: {
+        round: {all: 0, right: 0},
+        numbers: [0, 0],
+        isThinking: true
+    },
+    
+    computed: {
+        operation: function() {
+            return '+'
+        },
+        result: function() {
+            return this.numbers[0] + this.numbers[1]
+        },
+        score: function() {
+            return this.round.all == 1
+                ? 100
+                : Math.round(this.round.right / (this.round.all - 1) * 100)
+        }
+    },
+    
+    methods: {
+        getRandomNumber: function(level) {
+            let min = Math.pow(10, level - 1)
+            let max = Math.pow(10, level)
+            return min + Math.floor(Math.random() * (max - min))
+        },
+        getNumbers: function() {
+            let level = 2
+            let a = this.getRandomNumber(level)
+            let b = this.getRandomNumber(level)
+            return [a, b]
+        },
+        newRound: function() {
+            this.numbers = this.getNumbers()
+            this.isThinking = true
+        },
+        next: function() {
+            this.newRound()
+            this.round.all++
+        },
+        getResult: function() {
+            this.isThinking = false
+        },
+        answerRight: function() {
+            this.round.right++
+            this.next()
+        },
+        answerWrong: function() {
+            this.next()
+        },
+    },
+})
+window.onload = vm.next
+</script>
+</body>
+</html>
