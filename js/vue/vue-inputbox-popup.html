@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="text" @click="openChild"/>
+    <my-input-box v-if="child"
+      :msg="'get data!!!'"
+      @close-child="closeChild($event)"></my-input-box>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+  <script>
+    Vue.component('my-input-box', {
+        template : `<div :style="styleCss">Remote api data show:<br>
+                      <input type="text" v-model="text"/>
+                      <button @click="returnEvent()"> OK </button>
+                    </div>`,
+      props: {
+        msg: { type: String, default : '' }
+      },
+      data () {
+        return {
+          text : '',
+          styleCss: { padding: "20px", border: "1px solid grey", width: "200px" }
+        }
+      },
+      methods : {
+        returnEvent () {
+          var obj = {
+            status : true,
+            data : this.text || this.msg
+          };
+          this.$emit('close-child', obj);
+        }
+      }
+    });
+
+    new Vue({
+      el : "#app",
+      data : {
+         text : '',
+         child : false
+      },
+      methods : {
+        openChild () {
+          this.child = true;
+        },
+        closeChild (event) {
+          this.child = false;
+          this.text = event.data;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
