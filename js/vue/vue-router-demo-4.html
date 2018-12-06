@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Vue Router Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <style>
+    .us {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto;
+      grid-template-areas: 
+        "header header"
+        "nav content"
+        "nav helper"
+        ;
+    }
+    
+    h2 {
+      grid-area: header;
+    }
+    
+    .us__nav {
+      grid-area: nav;
+      border: 1px dotted;
+      margin-right: .75rem;
+      padding: .3rem;
+    }
+    .us__content {
+      grid-area: content;
+    }
+    .us__content--helper {
+      grid-area: helper;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <h1>Nested Named Views</h1>
+  <router-view></router-view>
+</div>
+
+<script>
+const UserSettingsNav = {
+	template: `
+<div class="us__nav">
+  <router-link to="/settings/emails">emails</router-link>
+  <br>
+  <router-link to="/settings/profile">profile</router-link>
+</div>
+`
+}
+
+const UserSettings = {
+	template: `
+<div class="us">
+  <h2>User Settings</h2>
+  <UserSettingsNav/>
+  <router-view class ="us__content"/>
+  <router-view name="helper" class="us__content us__content--helper"/>
+</div>
+  `,
+  components: { UserSettingsNav }
+}
+
+const UserEmailsSubscriptions = {
+	template: `
+<div>
+	<h3>Email Subscriptions</h3>
+</div>
+  `
+}
+
+const UserProfile = {
+	template: `
+<div>
+	<h3>Edit your profile</h3>
+</div>
+  `
+}
+
+const UserProfilePreview = {
+	template: `
+<div>
+	<h3>Preview of your profile</h3>
+</div>
+  `
+}
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: [
+    { path: '/settings',
+      // You could also have named views at tho top
+      component: UserSettings,
+      children: [{
+      	path: 'emails',
+        component: UserEmailsSubscriptions
+      }, {
+      	path: 'profile',
+        components: {
+          default: UserProfile,
+          helper: UserProfilePreview
+        }
+      }]
+    }
+  ]
+})
+
+router.push('/settings/emails')
+
+new Vue({
+  router,
+  el: '#app'
+})
+</script>
+</body>
+</html>
