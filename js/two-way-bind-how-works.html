@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>双向绑定</title>
+</head>
+<body>
+  手写一个简单双向绑定<br/>
+  <input type="text" id="model"><br/>
+  <div id="modelText"></div>
+</body>
+<script>
+  var model = document.querySelector("#model");
+  var modelText = document.querySelector("#modelText");
+  var defaultName = "defaultName";
+  var userInfo = {}
+  model.value = defaultName;
+  Object.defineProperty(userInfo, "name", {
+    get: function () {
+      return defaultName;
+    },
+    set: function (value) {
+      defaultName = value;
+      model.value = value;
+      console.log("-----value");
+      console.log(value);
+      modelText.textContent = value;
+    }
+  })
+
+  userInfo.name = "new value";
+  var isEnd = true;
+
+  model.addEventListener("keyup", function () {
+    if (isEnd) {
+      userInfo.name = this.value;
+    }
+  }, false)
+  //加入监听中文输入事件
+  model.addEventListener("compositionstart", function () {
+    console.log("开始输入中文");
+    isEnd = false;
+  })
+  model.addEventListener("compositionend", function () {
+    isEnd = true;
+    console.log("结束输入中文");
+  })
+</script>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Two-way Data Binding</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/javascript">
+window.onload=function() {
+        
+    // Cache DOM elements
+    const inputElements = document.querySelectorAll('[mm-model]');
+    const boundElements = document.querySelectorAll('[mm-bind]');
+
+    // Initialize scope variable to hold the state of the model.
+    let scope = {};
+
+    function init() {
+        // Loop through input elements
+        for (let el of inputElements) {
+            if (el.type === 'text') {
+                // Get property name from each input with an attribute of 'mm-model'
+                let propName = el.getAttribute('mm-model');
+
+                // Update bound scope property on input change
+                el.addEventListener('keyup', e => {
+                    scope[propName] = el.value;
+                });
+
+                // Set property update logic
+                setPropUpdateLogic(propName);
+            }
+        }
+    };
+
+    function setPropUpdateLogic(prop) {
+        if (!scope.hasOwnProperty(prop)) {
+            let value;
+            Object.defineProperty(scope, prop, {
+                // Automatically update bound dom elements when a scope property is set to a new value
+                set: (newValue) => {
+                    value = newValue;
+
+                    // Set input elements to new value
+                    for (let el of inputElements) {
+                        if (el.getAttribute('mm-model') === prop) {
+                            if (el.type) {
+                                el.value = newValue;
+                            }
+                        }
+                    }
+                    // Set all other bound dom elements to new value
+                    for (let el of boundElements) {
+                        if (el.getAttribute('mm-bind') === prop) {
+                            if (!el.type) {
+                                el.innerHTML = newValue;
+                            }
+                        }
+                    }
+                },
+                get: () => {
+                    return value;
+                },
+                enumerable: true
+            })
+        }
+    }
+
+    init();
+
+    // Set initial scope values 
+    scope.firstname = 'John';
+    scope.lastname = 'Doe';
+}
+</script>
+</head><body>
+<form>
+  <label for="name">First Name:</label>
+  <input type="text" id="name" placeholder="Start typing..." mm-model="firstname">
+  <h1 mm-bind="firstname"></h1>
+
+  <label for="name">Last Name:</label>
+  <input type="text" id="name" placeholder="Start typing..." mm-model="lastname">
+  <h1 mm-bind="lastname"></h1>
+</form>
+</body></html>
