@@ -1,0 +1,9 @@
+:80 {
+    gzip
+    log / stdout "{combined}"
+    on startup "C:\Software\xampp\php\php-cgi.exe -b 127.0.0.1:9000" &
+    root C:\Temp
+    fastcgi / 127.0.0.1:9000 php {
+        index index.php
+    }
+}
