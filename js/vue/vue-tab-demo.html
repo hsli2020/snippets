@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body{ font-family:"Microsoft YaHei"; }
+    #tab{ width: 600px; margin: 0 auto; }
+    .tab-tit{ font-size: 0; width: 600px; }
+    .tab-tit a{
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        width: 25%;
+        text-align: center;
+        background: #ccc;
+        color: #333;
+        text-decoration: none;
+    }
+    .tab-tit .cur{ background: #09f; color: #fff; }
+    .tab-con div{ border: 1px solid #ccc; height: 400px; padding-top: 20px; }
+</style>
+<body>
+<div id="tab">
+    <div class="tab-tit">
+        <!--点击设置tabid的值  如果tabid等于0，第一个a添加cur类名，如果tabid等于1，第二个a添加cur类名，以此类推。添加了cur类名，a就会改变样式 @click,:class ,v-show这三个是vue常用的指令或添加事件的方式-->
+        <a href="javascript:;" @click="tabid=0" :class="{'cur':tabid===0}">html</a>
+        <a href="javascript:;" @click="tabid=1" :class="{'cur':tabid===1}">css</a>
+        <a href="javascript:;" @click="tabid=2" :class="{'cur':tabid===2}">javascript</a>
+        <a href="javascript:;" @click="tabid=3" :class="{'cur':tabid===3}">vue</a>
+    </div>
+    <div class="tab-con">
+        <!--根据tabid的值显示div,如果tabid等于0，第一个div显示，其它三个div不显示。如果tabid等于1，第二个div显示，其它三个div不显示。以此类推-->
+        <div v-show="tabid===0"> html </div>
+        <div v-show="tabid===1"> css </div>
+        <div v-show="tabid===2"> javascript </div>
+        <div v-show="tabid===3"> vue </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    new Vue({
+        el: '#tab',
+        data: {
+            tabid: 0
+        },
+        computed: {},
+        methods: {},
+        mounted: function () {
+        }
+    })
+</script>
+</html>

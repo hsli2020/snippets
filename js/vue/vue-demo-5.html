@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Vue Demo</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="email=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=0">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.17/vue-resource.js"></script>
+<style>
+   .box { width: 900px; height: auto; overflow: hidden; margin: 30px auto; }
+   .left { height: 150px; width: 165px; padding: 5px 20px; display: inline-block; border: 1px solid black; }
+   .left input { padding: 2px; margin-top: 10px; }
+   .right { width: 600px; height: auto; display: inline-block; margin-left: 30px; vertical-align: top; }
+   .right table { border-collapse: collapse; width: 580px; }
+   .right table th { background-color: green; padding: 5px; text-align: center; border: 1px solid black; color: #FFFFFF; }
+   .right table tr { text-align: center; }
+   .right table td { border: 1px solid black; }
+  </style>
+</head>
+<body>
+<div id="app">
+   <div class="box">
+     <div class="left">
+       <input type="text" placeholder="输入编号" v-model="id" />
+       <input type="text" placeholder="输入名称" v-model="name" /><br />
+       <input type="button" value="添加数据" @click="add" />
+       <input type="text" placeholder="搜索数据" v-model="search" />
+     </div>
+     <div class="right">
+       <table>
+         <tr>
+           <th>编号</th>
+           <th>品牌名称</th>
+           <th>创建时间</th>
+           <th>操作</th>
+         </tr>
+         <tr v-for="item in searchData">
+           <td>{{item.id}}</td>
+           <td>{{item.name}}</td>
+           <td>{{item.time | datefmt('yyyy-mm-dd hh:ii:ss')}}</td>
+           <td>
+             <a href="javascript:void(0)" rel="external nofollow" @click="del(item.id)">删除</a>
+           </td>
+         </tr>
+       </table>
+     </div>
+   </div>
+</div>
+<script>
+    //定义全局过滤器
+    Vue.filter("datefmt", function (input, formatstring) {
+        var year = input.getFullYear();
+        var month = (input.getMonth() + 1).toString().padStart(2, '0');
+        var day = (input.getDate()).toString().padStart(2, '0');
+        var hour = (input.getHours()).toString().padStart(2, '0');
+        var minute = (input.getMinutes()).toString().padStart(2, '0');
+        var second = (input.getSeconds()).toString().padStart(2, '0');
+
+        return formatstring.replace('yyyy', year).replace('mm', month).replace('dd', day)
+                           .replace('hh', hour).replace('ii', minute).replace('ss', second)
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            search: '',
+            list: [
+                { "id": 1, "name": "宝马", "time": new Date() },
+                { "id": 2, "name": "奔驰", "time": new Date() },
+                { "id": 3, "name": "本田", "time": new Date() },
+                { "id": 4, "name": "丰田", "time": new Date() },
+                { "id": 5, "name": "大众", "time": new Date() }
+            ]
+        },
+        methods: {
+            del: function (id) {
+                if (!confirm("是否删除数据？")) {
+                    return;
+                }
+                //调用list.findIndex()方法，根据传入的id获取到这个要删除数据的索引值
+                var index = this.list.findIndex(function (item) {
+                    return item.id == id;
+                });
+                //调用list.splice(删除的索引，删除的元素个数)
+                this.list.splice(index, 1);
+            },
+            add: function () {
+                //包装成list要求的对象
+                var tem = {
+                    id: this.id,
+                    name: this.name,
+                    time: new Date()
+                };
+                this.list.push(tem); //将tem追加到list数组中
+                this.id = ""; //清空页面上的文本框中的数据
+                this.name = "";
+            }
+        },
+        computed: {
+            searchData: function () {
+                var search = this.search;
+                if (search) {
+                    return this.list.filter(function (name) {
+                        return Object.keys(name).some(function (key) {
+                            return String(name[key]).toLowerCase().indexOf(search) > -1
+                        })
+                    })
+                }
+                return this.list;
+            }
+        }
+    })
+</script>
+</body></html>
