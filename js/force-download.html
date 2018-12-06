@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <title>Force Download with JavaScript</title>
+</head>
+<body>
+
+<form onsubmit="onFormSubmit(); return false;">
+    <p>
+        <label for="demo_filename">File name:</label><br />
+        <input type="text" id="demo_filename" size="50" />
+    </p>
+    <p>
+        <label for="demo_content">Content:</label><br />
+        <textarea id="demo_content" rows="10" cols="60"></textarea>
+    </p>
+
+    <button type="submit">Download</button>
+</form>
+
+<script type="text/javascript">
+
+function onFormSubmit() {
+    downloadFile(
+        document.getElementById("demo_content").value,
+        document.getElementById("demo_filename").value
+    );
+}
+
+function downloadFile(data, fileName, type="text/plain") {
+  // Create an invisible A element
+  const a = document.createElement("a");
+  a.style.display = "none";
+  document.body.appendChild(a);
+
+  // Set the HREF to a Blob representation of the data to be downloaded
+  a.href = window.URL.createObjectURL(
+    new Blob([data], { type })
+  );
+
+  // Use download attribute to set set desired file name
+  a.setAttribute("download", fileName);
+
+  // Trigger the download by simulating click
+  a.click();
+
+  // Cleanup
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>
