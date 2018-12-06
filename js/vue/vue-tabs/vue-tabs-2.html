@@ -7,7 +7,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-<style id="compiled-css" type="text/css">
+<style type="text/css">
 [v-cloak] { display: none; }
 
 .tabs {
@@ -83,11 +83,11 @@ window.onload=function(){
     */
     Vue.component('pane', {
         name: 'pane',
-        template: '\
-        <div class="pane" v-show="isShow">\
-            <slot></slot>\
-        </div>\
-        ',
+        template: `
+        <div class="pane" v-show="isShow">
+            <slot></slot>
+        </div>
+        `,
         props: {
             //标题
             label: {
@@ -128,22 +128,22 @@ window.onload=function(){
     * 标签页组件
     */
     Vue.component('tabs', {
-        template: '\
-        <div class="tabs">\
-            <div class="tabs-bar">\
-                <!-- 标签页标题-->\
-                <div :class="tabClass(item)"\
-                    v-for="(item, index) in titleList"\
-                    @click="change(index)">\
-                    {{ item.label }}\
-                    <span v-if="item.closable" class="close" @click="close(index,item.name)"></span>\
-                    </div>\
-                </div>\
-                <div class="tabs-content">\
-                <!-- pane 组件位置-->\
-                    <slot></slot>\
-                </div>\
-            </div>',
+        template: `
+            <div class="tabs">
+                <div class="tabs-bar">
+                    <!-- 标签页标题-->
+                    <div :class="tabClass(item)"
+                        v-for="(item, index) in titleList"
+                        @click="change(index)">
+                        {{ item.label }}
+                        <span v-if="item.closable" class="close" @click="close(index,item.name)"></span>
+                    </div>
+                </div>
+                <div class="tabs-content">
+                    <!-- pane 组件位置-->
+                    <slot></slot>
+                </div>
+            </div>`,
         props: {
             value: {
                 type: [String, Number]
