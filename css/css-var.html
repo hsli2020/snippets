@@ -1,0 +1,22 @@
+<!-- css -->
+<style type="text/css">
+    :root {
+        --divHoverColor: red;
+    }
+    div {
+        width: 100px;
+        height: 100px;
+        background: bisque;
+    }
+    div:hover {
+        background: var(--divHoverColor);
+    }
+</style>
+<!-- html -->
+<div onClick="onDivClick('green')"/>
+<!-- js -->
+<script type="text/javascript">
+    function onDivClick(value){
+        document.documentElement.style.setProperty('--divHoverColor', value);
+    }
+</script>
