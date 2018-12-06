@@ -1,0 +1,159 @@
+Templates Overview
+    Introduction
+    Template Lookup Order
+    Custom Output Formats
+    Base Templates and Blocks
+    List Page Templates
+    Homepage Template
+    Section Templates
+    Taxonomy Templates
+    Single Page Templates
+    Content View Templates
+    Data Templates
+    Partial Templates
+    Shortcode Templates
+    Local File Templates
+    404 Page
+    Menu Templates
+    Pagination
+    RSS Templates
+    Sitemap Template
+    Robots.txt
+    Internal Templates
+    Alternative Templating
+    Template Debugging
+
+Functions Quick Reference
+    .AddDate
+    .Format
+    .Get
+    .GetPage
+    .HasMenuCurrent
+    .IsMenuCurrent
+    .Param
+    .Render
+    .Scratch
+    .Unix
+    Math
+    absLangURL
+    absURL
+    after
+    anchorize
+    append
+    apply
+    base64
+    chomp
+    complement
+    cond
+    countrunes
+    countwords
+    dateFormat
+    default
+    delimit
+    dict
+    echoParam
+    emojify
+    eq
+    errorf
+    fileExists
+    findRE
+    first
+    float
+    ge
+    getenv
+    group
+    gt
+    hasPrefix
+    highlight
+    htmlEscape
+    htmlUnescape
+    humanize
+    i18n
+    imageConfig
+    in
+    index
+    int
+    intersect
+    isset
+    jsonify
+    lang.Merge
+    lang.NumFmt
+    last
+    le
+    lower
+    lt
+    markdownify
+    md5
+    ne
+    now
+    os.Stat
+    partialCached
+    path.Base
+    path.Dir
+    path.Ext
+    path.Join
+    path.Split
+    plainify
+    pluralize
+    print
+    printf
+    println
+    querify
+    range
+    readDir
+    readFile
+    ref
+    reflect.IsMap
+    reflect.IsSlice
+    relLangURL
+    relURL
+    relref
+    replace
+    replaceRE
+    safeCSS
+    safeHTML
+    safeHTMLAttr
+    safeJS
+    safeURL
+    seq
+    sha
+    shuffle
+    singularize
+    slice
+    slicestr
+    sort
+    split
+    string
+    strings.Repeat
+    strings.RuneCount
+    strings.TrimLeft
+    strings.TrimPrefix
+    strings.TrimRight
+    strings.TrimSuffix
+    substr
+    symdiff
+    templates.Exists
+    time
+    title
+    transform.Unmarshal
+    trim
+    truncate
+    union
+    uniq
+    upper
+    urlize
+    urls.Parse
+    where
+    with
+
+Variables Overview
+    Site Variables
+    Page Variables
+    Shortcode Variables
+    Taxonomy Variables
+    File Variables
+    Menu Entry Properties
+    Hugo Variables
+    Git Variables
+    Sitemap Variables
+
