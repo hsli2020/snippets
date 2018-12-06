@@ -1,0 +1,127 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <style type="text/css">
+  </style>
+
+  <title>Vue 2.0 Hello World</title>
+
+  <script type="text/javascript">//<![CDATA[
+    window.onload=function(){
+      Vue.component('simple-counter', {
+        template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+        data: function () {
+          return { counter: 0 }
+        }
+      });
+
+      var data = { counter: 0}
+
+      Vue.component('bad-counter', {
+        template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+        data: function () {
+          return data;
+        }
+      });
+
+      Vue.component('child', {
+        // 声明 props
+        props: ['message'],
+        // 就像 data 一样，prop 可以用在模板内
+        // 同样也可以在 vm 实例中像 “this.message” 这样使用
+        template: '<span>{{ message }}</span>'
+      });
+
+      Vue.component('kid', {
+        // camelCase in JavaScript
+        props: ['myMessage'],
+        template: '<span>{{ myMessage }}</span>'
+      });
+
+      Vue.component('example', {
+        props: {
+          // 基础类型检测 （`null` 意思是任何类型都可以）
+          propA: Number,
+          // 多种类型
+          propB: [String, Number],
+          // 必传且是字符串
+          propC: {
+            type: String,
+            required: true
+          },
+          // 数字，有默认值
+          propD: {
+            type: Number,
+            default: 100
+          },
+          // 数组／对象的默认值应当由一个工厂函数返回
+          propE: {
+            type: Object,
+            default: function () {
+              return { message: 'hello' }
+            }
+          },
+          // 自定义验证函数
+          propF: {
+            validator: function (value) {
+              return value > 10
+            }
+          }
+        },
+        template: '<span>{{ propA }}-{{ propB }}-{{ propC }}-{{ propD }}-{{ propE.message }}-{{ propF }}</span>'
+      })
+
+      app = new Vue({
+        el: '#app',
+        data: {
+            parentMsg: 'sometext',
+        },
+        methods: { },
+        computed: { }
+      });
+    }//]]>
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <child message="hello, child"></child>
+
+    <!-- kebab-case in HTML -->
+    <kid my-message="hello, kid"></kid>
+
+    <div>
+      <input v-model="parentMsg">
+      <br>
+      <kid v-bind:my-message="parentMsg"></kid>
+    </div>
+
+    <example
+        :prop-a="11"
+         prop-b="BB22"
+         prop-c="ccc"
+        :prop-d="444"
+        :prop-e="{message: 'EEEE'}"
+        :prop-f="66"></example>
+
+  <!--
+    <div>
+      <simple-counter></simple-counter>
+      <simple-counter></simple-counter>
+      <simple-counter></simple-counter>
+    </div>
+    <div>
+      <bad-counter></bad-counter>
+      <bad-counter></bad-counter>
+      <bad-counter></bad-counter>
+    </div>
+  -->
+  </div>
+</body>
+
+</html>

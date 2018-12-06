@@ -1,0 +1,57 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <style type="text/css"></style>
+
+  <title>Vue 2.0 Hello World</title>
+
+  <script type="text/javascript">//<![CDATA[
+    window.onload=function(){
+
+      Vue.component('button-counter', {
+        template: '<button v-on:click="increment">{{ counter }}</button>',
+        data: function () {
+          return {
+            counter: 0
+          }
+        },
+        methods: {
+          increment: function () {
+            this.counter += 1
+            this.$emit('increment')
+          }
+        },
+      })
+
+      app = new Vue({
+        el: '#app',
+        data: {
+            total: 0
+        },
+        methods: {
+          incrementTotal: function () {
+            this.total += 1
+          }
+        },
+        computed: { }
+      });
+    }//]]>
+  </script>
+</head>
+
+<body>
+  <div id="app">
+
+    <div>
+      <p>{{ total }}</p>
+      <button-counter v-on:increment="incrementTotal"></button-counter>
+      <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+
+  </div>
+</body>
+
+</html>

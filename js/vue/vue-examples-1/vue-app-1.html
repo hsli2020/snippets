@@ -1,0 +1,119 @@
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <script type="text/javascript" src="//vuejs.org/js/vue.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.17/vue-resource.js"></script>
+  <!--
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.7/vue.js"></script>
+  -->
+  <style type="text/css">
+    [v-cloak] { display: none; }
+  </style>
+
+  <title>Vue 2.x Demo</title>
+
+  <script type="text/javascript">//<![CDATA[
+    window.onload=function(){
+      new Vue({
+        el: '#app',
+        ready: function() {
+            this.$http.get('http://play.dev/book.json', function(data) {
+                this.$set('books', data);
+            }).error(function(data, status, request) {
+                console.log('fail' + status + "," + request);
+            })
+        },
+        data: {
+            sortparam: '',
+            book: {
+                id: 0,
+                author: '',
+                name: '',
+                price: ''
+            },
+            books: []
+        },
+        computed: {
+            sum: function() {
+                var result = 0;
+                for (var i = 0; i < this.books.length; i++) {
+                    result = Number(this.books[i].price) + result;
+                };
+                return result;
+            }
+        },
+
+        methods: {
+            addBook: function() {
+                this.book.id = this.books.length + 1;
+                this.books.push(this.book);
+                this.book = {};
+            },
+            delBook: function(book) {
+                this.books.$remove(book);
+            },
+            sortBy: function(sortparam) {
+                this.sortparam = sortparam;
+            }
+        }
+      });
+
+    }//]]> 
+  </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Vue demo</h1>
+            <div id="app">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th @click="sortBy('id')">序号</th>
+                            <th @click="sortBy('name')">书名</th>
+                            <th @click="sortBy('author')">作者</th>
+                            <th @click="sortBy('price')">价格</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="book in books">
+                            <td>{{book.id}}</td>
+                            <td>{{book.name}}</td>
+                            <td>{{book.author}}</td>
+                            <td>{{book.price}}</td>
+                            <td><button type="button" class="btn btn-danger" @click="delBook(book)">删除</button></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="5"><h4>总价:{{sum}}</h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="add-book">
+                    <legend>添加书籍</legend>
+                    <div class="form-group">
+                        <label for="">书名</label>
+                        <input class="form-control" type="text" v-model="book.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="">作者</label>
+                        <input class="form-control" type="text" v-model="book.author">
+                    </div>
+                    <div class="form-group">
+                        <label for="">价格</label>
+                        <input class="form-control" type="text" v-model="book.price">
+                    </div>
+                    <button @click="addBook" class="btn btn-primary btn-block">添加</button>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+</body></html>

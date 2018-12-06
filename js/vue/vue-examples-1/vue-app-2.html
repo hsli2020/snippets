@@ -1,0 +1,87 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <style type="text/css">
+  </style>
+
+  <title>Vue 2.0 Hello World</title>
+
+  <script type="text/javascript">//<![CDATA[
+    window.onload=function(){
+      Vue.component('my-item', {
+        template: '<li>这是个待办项</li>'
+      });
+
+      Vue.component('todo-item', {
+        // todo-item 组件现在接受一个
+        // "prop"，类似于一个自定义属性
+        // 这个属性名为 todo。
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+      });
+
+      app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Vue 2.0',
+          hello: 'Hello Vue.js!',
+          seen: true,
+          title: '页面加载于 ' + new Date(),
+          todos: [
+              { text: '学习 JavaScript' },
+              { text: '学习 Vue' },
+              { text: '整个牛项目' }
+          ],
+          groceryList: [
+            { text: '蔬菜' },
+            { text: '奶酪' },
+            { text: '随便其他什么人吃的东西' }
+          ]
+        },
+        methods: {
+          reverseMessage: function () {
+            this.message = this.message.split('').reverse().join('')
+          }
+        }
+      });
+    }//]]> 
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{hello}}</p>
+
+    <span v-bind:title="title">
+      鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </span>
+
+    <p v-if="seen">现在你看到我了</p>
+
+    <ol>
+      <li v-for="todo in todos">
+        {{ todo.text }}
+      </li>
+      <my-item></my-item>
+    </ol>
+
+    <ol>
+      <!-- 现在我们为每个todo-item提供待办项对象 -->
+      <!-- 待办项对象是变量，即其内容可以是动态的 -->
+      <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+    </ol>
+
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">逆转消息</button>
+
+    <p>{{ message }}</p>
+    <input v-model="message">
+  </div>
+</body>
+
+</html>

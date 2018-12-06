@@ -1,0 +1,59 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Vue 2.0 Hello World</title>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <script type="text/javascript">//<![CDATA[
+    window.onload=function(){
+      Vue.component('todo-item', {
+        template: '\
+          <li>\
+            {{ title }}\
+            <button v-on:click="$emit(\'remove\')">X</button>\
+          </li>\
+        ',
+        props: ['title']
+      })
+
+      app = new Vue({
+        el: '#todo-app',
+        data: {
+          newTodoText: '',
+          todos: [
+            'Do the dishes',
+            'Take out the trash',
+            'Mow the lawn'
+          ]
+        },
+        methods: {
+          addNewTodo: function () {
+            this.todos.push(this.newTodoText)
+            this.newTodoText = ''
+          }
+        }
+      })
+    }//]]> 
+  </script>
+</head><body>
+
+  <div id="todo-app">
+    <input
+      v-model="newTodoText"
+      v-on:keyup.enter="addNewTodo"
+      placeholder="Add a todo"
+    >
+    <ul>
+      <li
+        is="todo-item"
+        v-for="(todo, index) in todos"
+        v-bind:title="todo"
+        v-on:remove="todos.splice(index, 1)"
+      ></li>
+    </ul>
+  </div>
+
+</body></html>

@@ -1,0 +1,222 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <style type="text/css">
+  </style>
+
+  <title>Vue 2.0 Hello World</title>
+
+  <script type="text/javascript">//<![CDATA[
+    window.onload=function(){
+      app = new Vue({
+        el: '#app',
+        data: {
+          hello: 'Hello Vue.js!',
+          message: 'Hello Vue.js!',
+          name: 'Vue.js',
+          firstName: 'Foo',
+          lastName: 'Bar',
+
+          checkedNames: [],
+          checked: false,
+          picked: '',
+          selected: '',
+          multisel: [],
+          counter: 0,
+
+          dynsel: 'A',
+          options: [
+            { text: 'One', value: 'A' },
+            { text: 'Two', value: 'B' },
+            { text: 'Three', value: 'C' }
+          ]
+        },
+        methods: {
+          greet: function (event) {
+            // `this` 在方法里指当前 Vue 实例
+            alert('Hello ' + this.name + '!')
+            // `event` 是原生 DOM 事件
+            alert(event.target.tagName)
+          },
+          say: function (message) {
+            alert(message)
+          },
+          warn: function (message, event) {
+            // 现在我们可以访问原生事件对象
+            if (event) event.preventDefault()
+            alert(message)
+          },
+        },
+        computed: {
+          now: function () {
+            return Date.now()
+          },
+          fullName: {
+            // getter
+            get: function () {
+              return this.firstName + ' ' + this.lastName
+            },
+            // setter
+            set: function (newValue) {
+              var names = newValue.split(' ')
+              this.firstName = names[0]
+              this.lastName = names[names.length - 1]
+            }
+          },
+        }
+      });
+    }//]]> 
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{hello}}</p>
+    <p>{{fullName}}</p>
+    <p>{{firstName + ' ' + lastName}}
+
+    <template v-if="Math.random() > 0.9">
+      <h1>Now you see me</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+    <template v-else>
+      <p>Now you can't see me</p>
+    </template>
+
+    <p>
+      <button v-on:click="counter += 1">增加 1</button>
+      <span>这个按钮被点击了 {{ counter }} 次。</span>
+    </p>
+
+    <p>
+      <button v-on:click="greet">Greet</button>
+
+      <button v-on:click="say('hi')">Say hi</button>
+      <button v-on:click="say('what')">Say what</button>
+
+      <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+    </p>
+
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+
+    <p>
+      <span>Multiline message is:</span>
+      <span style="white-space: pre">{{ message }}</span><br>
+      <textarea v-model="message" placeholder="add multiple lines"></textarea>
+    </p>
+
+    <p>
+      <input type="checkbox" id="checkbox" v-model="checked">
+      <label for="checkbox">{{ checked }}</label><br>
+
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+      <label for="mike">Mike</label>
+      <br>
+      <span>Checked names: {{ checkedNames }}</span>
+    </p>
+
+    <p>
+      <input type="radio" id="one" value="One" v-model="picked">
+      <label for="one">One</label>
+      <br>
+      <input type="radio" id="two" value="Two" v-model="picked">
+      <label for="two">Two</label>
+      <br>
+      <span>Picked: {{ picked }}</span>
+    </p>
+
+    <p>
+      <select v-model="selected">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+    </p>   
+
+    <p>
+      <select v-model="multisel" multiple style="width: 50px">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <br>
+      <span>Selected: {{ multisel }}</span>
+
+      <br>
+      <select v-model="dynsel">
+        <option v-for="option in options" v-bind:value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
+      <span>Selected: {{ dynsel }}</span>
+    </p>
+
+  </div>
+</body>
+<!--
+v-bind 缩写
+
+    完整语法
+    <a v-bind:href="url"></a>
+
+    缩写
+    <a :href="url"></a>
+
+v-on 缩写
+
+    完整语法
+    <a v-on:click="doSomething"></a>
+
+    缩写
+    <a @click="doSomething"></a>
+-->
+<!--
+    阻止单击事件冒泡
+    <a v-on:click.stop="doThis"></a>
+
+    提交事件不再重载页面
+    <form v-on:submit.prevent="onSubmit"></form>
+
+    修饰符可以串联
+    <a v-on:click.stop.prevent="doThat"></a>
+
+    只有修饰符
+    <form v-on:submit.prevent></form>
+
+    添加事件侦听器时使用事件捕获模式
+    <div v-on:click.capture="doThis">...</div>
+
+    只当事件在该元素本身（而不是子元素）触发时触发回调
+    <div v-on:click.self="doThat">...</div>
+
+    点击事件将只会触发一次
+    <a v-on:click.once="doThis"></a>
+
+    只有在 keyCode 是 13 时调用 vm.submit()
+    <input v-on:keyup.13="submit">
+
+    同上
+    <input v-on:keyup.enter="submit">
+
+    缩写语法
+    <input @keyup.enter="submit">
+
+    Alt + C
+    <input @keyup.alt.67="clear">
+
+    Ctrl + Click
+    <div @click.ctrl="doSomething">Do something</div>
+-->
+</html>
