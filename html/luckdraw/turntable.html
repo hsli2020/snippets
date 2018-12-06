@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <title>转盘抽奖</title>
+    <style>
+        p,
+        body {
+            margin: 0;
+        }
+
+        .rui-luck-draw {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .rui-luck-content {
+            height: 75vw;
+            width: 75vw;
+            max-width: 550px;
+            max-height: 550px
+        }
+
+        .rui-luck-turntable,
+        .rui-luck-pointer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            transform-origin: center center;
+            -webkit-transform-origin: center center;
+            -moz-transform-origin: center center;
+            -ms-transform-origin: center center;
+            -o-transform-origin: center center;
+        }
+
+        .rui-luck-name {
+            font-size: 16px;
+            text-align: left;
+            height: 30px;
+            line-height: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .rui-luck-name a {
+            text-decoration: none;
+            color: #777;
+            padding: 0 20px;
+        }
+
+        .rui-luck-pointer {
+            width: 27vw;
+            height: 27vw;
+            max-width: 205px;
+            max-height: 205px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rui-luck-draw">
+        <div class="rui-luck-name">
+            <p><a href="./index.html">转盘抽奖之指针旋转抽奖</a></p>
+            <p><a href="./prize.html">九宫格抽奖</a></p>
+            <p><a href="./turntable.html">转盘抽奖之转盘旋转抽奖</a></p>
+        </div>
+        <div class="rui-luck-content">
+            <div class="rui-luck-box">
+                <img id="luckTurntable" src="./images/turntable.png" alt="" class="rui-luck-content rui-luck-turntable">
+                <img id="luckPointer" onclick="startRotate(this)" src="./images/pointer.png" class="rui-luck-pointer" />
+            </div>
+        </div>
+    </div>
+    <script src="./luckDraw.js"></script>
+    <script>
+        // 转盘旋转，从左向右逆时针计算奖品
+        var luckArr = ['100减99优惠券', '谢谢参与', '39减10优惠券', '谢谢参与', '59减15优惠券', '谢谢参与'];
+        var luck = new LuckDraw();
+        var startRotate = function (elem) {
+            luck._init({
+                rotateId: '#luckTurntable',
+                luckNumber: Math.floor(Math.random() * (5 - 0) + 0),
+                typeNumber: 6,
+                time: 2000,
+                type: 'turntable',
+                circleNumber: 10,
+                success: function (res) {
+                    console.log(res.luckNumber);
+                    console.log(luckArr[res.luckNumber]);
+                    alert(luckArr[res.luckNumber]);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

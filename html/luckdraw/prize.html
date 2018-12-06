@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <title>转盘抽奖</title>
+    <style>
+        body,p{margin: 0;}
+        .rui-luck-draw{
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .rui-luck-box {
+            background:url('./images/chou-bg.png') no-repeat center center/100% 100%;
+            width: 75vw;
+            height: 73vw;
+            box-sizing: border-box;
+            padding: 9vw;
+            position: absolute;
+            top: 11.5vw;
+            left: 12vw;
+            display: -webkit-flex;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .rui-luck-box div {
+            width: 19vw;
+            height: 18vw;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 10px;
+            font-size: 30px;
+            display: flex;
+            display: -webkit-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .rui-luck-box div img{
+            width: 100%;
+            height: 90%;
+        }
+        .rui-luck-box div.rui-active {
+            box-shadow: 0px 0px 50px inset red;
+        }
+        .rui-luck-name{
+            font-size: 16px;
+            text-align: left;
+            height: 30px;
+            line-height: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        .rui-luck-name a{
+            text-decoration: none;
+            color: #777;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rui-luck-name">
+        <p><a href="./index.html">转盘抽奖之指针旋转抽奖</a></p>
+        <p><a href="./prize.html">九宫格抽奖</a></p>
+        <p><a href="./turntable.html">转盘抽奖之转盘旋转抽奖</a></p>
+    </div>
+    <div class="rui-luck-draw">
+        <div class="rui-luck-box">
+            <div class="rui-luck-prize" style="order: 1;" prize="1"><img src="./images/img1.png" alt=""></div>
+            <div class="rui-luck-prize" style="order: 2;" prize="2"><img src="./images/img2.png" alt=""></div>
+            <div class="rui-luck-prize" style="order: 3;" prize="3"><img src="./images/img5.png" alt=""></div>
+            <div class="rui-luck-prize" style="order: 6;" prize="4"><img src="./images/img4.png" alt=""></div>
+            <div class="rui-pointer" style="order: 5;" onclick="startRotate()"></div>
+            <div class="rui-luck-prize" style="order: 9;" prize="5"><img src="./images/img3.png" alt=""></div>
+            <div class="rui-luck-prize" style="order: 8;" prize="6"><img src="./images/img6.png" alt=""></div>
+            <div class="rui-luck-prize" style="order: 7;" prize="7"><img src="./images/img7.png" alt=""></div>
+            <div class="rui-luck-prize" style="order: 4;" prize="8"><img src="./images/img8.png" alt=""></div>
+        </div>
+    </div>
+    <script src="./luckDraw.js"></script>
+    <script>
+        var luckArr = ['10元红包', 'iPad Mini', '莫灰心', '20元话费', '20元话费', '莫灰心', '爱奇艺会员一月', '88元红包'];
+        var luck = new LuckDraw();
+        var startRotate = function (elem) {
+            luck._init({
+                rotateId: '.rui-luck-prize',
+                activeClass: 'rui-active',
+                luckNumber: Math.floor(Math.random() * (7 - 0) + 0),
+                typeNumber: 8,
+                time: 3000,
+                type: 'prize',
+                circleNumber: 10,
+                success: function (res) {
+                    console.log(res.luckNumber)
+                    console.log(luckArr[res.luckNumber])
+                    alert(luckArr[res.luckNumber])
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

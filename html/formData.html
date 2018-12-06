@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+<head>
+<meta charset='UTF-8'>
+<title>FormData example</title>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div id="playground" class="border rounded my-3 p-3">
+        <form id="profileForm" name="profileForm">
+          <div class="row mb-1">
+            <div class="col-md-3">Name</div>
+            <div class="col"><input type="text" class="form-control" name="name" placeholder="Name" /></div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-md-3">URL</div>
+            <div class="col"><input type="text" class="form-control" name="url" placeholder="URL" /></div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-md-3">Country</div>
+            <div class="col"><input type="text" class="form-control" id="country" placeholder="Country" /></div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-md-3">Photo</div>
+            <div class="col"><input type="file" class="form-control" name="photo" /></div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-md-3">Hobbies</div>
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Sports" name="hobbies">
+                <label class="form-check-label">Sports</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Music" name="hobbies">
+                <label class="form-check-label">Music</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Reading" name="hobbies">
+                <label class="form-check-label">Reading</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Painting" name="hobbies">
+                <label class="form-check-label">Painting</label>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button class="btn btn-outline-primary" id="showData">Show Data</button>
+        <button class="btn btn-outline-dark" id="showAllData">Show All Data</button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <pre id="data" class="hidden border rounded my-3 p-3"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+const objectFromFormData = function (formData) {
+  var values = {};
+  for (var pair of formData.entries()) {
+    var key = pair[0];
+    var value = pair[1];
+    if (values[key]) {
+      if (!(values[key] instanceof Array)) {
+        values[key] = new Array(values[key]);
+      }
+      values[key].push(value);
+    } else {
+      values[key] = value;
+    }
+  }
+  return values;
+};
+
+document.querySelector('#showData').addEventListener('click', function (e) {
+  e.preventDefault();
+  const form = new FormData(document.forms['profileForm']);
+  preview(form);
+});
+
+document.querySelector('#showAllData').addEventListener('click', function (e) {
+  e.preventDefault();
+  const form = new FormData(document.forms['profileForm']);
+  form.set('country', document.querySelector('#country').value);
+  preview(form);
+});
+
+function replacer(key, value) {
+  if (value instanceof File) {
+    return ['name', 'size', 'type'].reduce(function (acc, key) {
+      acc[key] = replacer(key, value[key]);
+      return acc;
+    }, {});
+  }
+  return value;
+}
+
+function preview(form) {
+  var data = document.querySelector('#data');
+  var txt = JSON.stringify(objectFromFormData(form), replacer, 2);
+  data.innerHTML = txt;
+  data.classList.remove('hidden');
+  data.scrollIntoView();
+}
+//# sourceURL=pen.js
+</script>
+</body></html>
