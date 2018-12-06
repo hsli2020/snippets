@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Demo</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+ 
+    <div id="app">
+      <world></world> 
+    </div>
+  
+    <script>
+      // 嵌套的子组件必须写在父组件之上
+      city = {
+        template: `<div>我是一个城市</div>`
+      }
+      //嵌套的组件
+      world = {
+        template:`
+            <div>
+                <h2>我是整个世界</h2>
+                <city></city>
+            </div>`,
+        components:{
+            'city': city
+        }
+      }
+      new Vue({
+        el:'#app',
+        data(){
+          return { }
+        },
+        components:{
+          'world': world
+        }
+      })
+    </script>
+</body>
+</html>

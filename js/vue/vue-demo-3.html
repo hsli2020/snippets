@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Demo</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+ 
+    <div id="app">
+ 
+      <!-- 一个局部组件world， 把message数据传给子组件-->
+      <world :here="message"></world> 
+ 
+    </div>
+      
+    <script>
+ 
+      world = {
+        // props接收父组件传过来的here
+        props:['here'],
+        template:`<h2> {{here}} </h2>`
+      }
+ 
+      new Vue({
+        el:'#app',
+        data() {
+          return {
+            message:'不让任何事情成为你不去学习的理由--李华明'
+          }
+        },
+        components:{
+          'world': world
+        }
+      })
+ 
+    </script>
+</body>
+</html>

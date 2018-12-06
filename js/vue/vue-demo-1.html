@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Demo</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+ 
+      <!-- 一个全局化组件 hello -->
+      <hello></hello>
+      <hr>
+      <!-- 一个局部组件 world -->
+      <world></world> 
+      
+    </div>
+      
+    <script>
+ 
+      //注意：组件要写在实例之前，不然就会报错
+      Vue.component('hello',{
+        template:`<h1>我是一个全局话组件</h1>`
+      });
+ 
+      //局部组价 需要用components 去注册
+      world = {
+        template:`<h2>我是一个局部组件</h2>`
+      }
+
+      //实例
+      new Vue({
+        el:'#app',
+        data(){
+          return {}
+        },
+        //components 注册world组件
+        components:{
+          'world': world
+        }
+      })
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Demo</title>
+    <!-- script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script -->
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+ 
+    <div id="app">
+        <div :is="tabShow"></div>
+        <button @click="tab('A')">tab1</button>
+        <button @click="tab('B')">tab2</button>
+        <button @click="tab('C')">tab3</button>
+        <button @click="tab('D')">tab4</button>
+    </div>
+      
+    <script>
+ 
+      A = {
+        template:`<h1>我是第一一一个tab</h1>`
+      }
+      B = {
+        template:`<h1>我是第二二二个tab</h1>`
+      }
+      C = {
+        template:`<h1>我是第三三三个tab</h1>`
+      }
+      D = {
+        template:`<h1>我是第四四四个tab</h1>`
+      }
+ 
+      new Vue({
+        el:'#app',
+        data(){
+          return {
+            tabShow:'A'
+          }
+        },
+        components:{
+            'A': A,
+            'B': B,
+            'C': C,
+            'D': D
+        },
+        methods:{
+            tab(currentShowTab){
+                this.tabShow = currentShowTab;
+            }
+        }
+      })
+    </script>
+</body>
+</html>
