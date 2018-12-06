@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>curl-to-PHP: Convert Curl commands to PHP code</title>
+    <meta charset="utf-8">
+    <script src="resources/jquery.js" type="text/javascript"></script>
+    <script src="resources/highlight.js" type="text/javascript"></script>
+    <script src="resources/common.js" type="text/javascript"></script>
+    <!--<script src="resources/js/json-to-PHP.js" type="text/javascript"></script> -->
+    <script src="resources/curl-to-php.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="resources/color-brewer.css">
+    <link rel="stylesheet" href="resources/common.css">
+</head>
+<body>
+    <header>
+        <h1>Curl-to-PHP</h1>
+        <h2>Instantly convert <a href="http://curl.haxx.se/">curl</a> commands to <a href="http://php.net/">PHP</a> code</h2>
+
+        <p>
+				This tool turns a Curl command into PHP code. Currently, it knows 
+the following options: -d/--data/--data-binary, -H/--header, -I/--head, 
+-u/--user, compressed, ---url and -X/--request. There's probably bugs; 
+please <a href="https://github.com/incarnate/curl-to-php">contribute on GitHub</a>!
+        </p>
+        
+        <p>
+            This script derives from Matt Holt's excellent <a href="https://github.com/mholt/curl-to-go">curl-to-Go</a>.
+        </p>
+
+        <p class="examples">
+            <a href="javascript:" id="example1">Example 1</a> ·
+            <a href="javascript:" id="example2">Example 2</a> ·
+            <a href="javascript:" id="example3">Example 3</a> ·
+            <a href="javascript:" id="example4">Example 4</a> ·
+            <a href="javascript:" id="example5">Example 5</a>
+    </p></header>
+
+    <main>
+        <textarea id="input" rows="4" placeholder="Paste curl here"></textarea>
+        <div id="output"></div>
+    </main>
+
+    <footer>
+        © 2017 - John C <a href="https://github.com/incarnate/curl-to-php">View on GitHub</a>
+    </footer>
+
+</body></html>

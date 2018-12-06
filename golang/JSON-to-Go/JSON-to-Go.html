@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>JSON-to-Go: Convert JSON to Go instantly</title>
+    <meta charset="UTF-8">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                console.log('Successfully registered service worker', reg);
+            }).catch(function(err) {
+                console.warn('Error whilst registering service worker', err);
+            })
+        }
+    </script>
+    <script src="assets/jquery.js"></script>
+    <script src="assets/highlight.js"></script>
+    <script src="assets/json-to-go.js"></script>
+    <script src="assets/common.js"></script>
+    <script src="assets/gofmt.js" async=""></script>
+    <link rel="stylesheet" href="assets/tomorrow.css">
+    <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+    <header>
+        <div class="intro">
+            <h1>JSON-to-Go</h1>
+            <h2>Convert JSON to Go struct</h2>
+            <p>
+					This tool instantly converts JSON into a Go type definition. Paste a
+ JSON structure on the left and the equivalent Go type will be generated
+ to the right, which you can paste into your program. The script has to 
+make some assumptions, so double-check the output!
+            </p>
+            <p>
+                For an example, try converting JSON from the <a href="javascript:" id="sample1">SmartyStreets API</a> or the <a href="javascript:" id="sample2"> GitHub API</a>.
+            </p>
+        </div>
+        <img src="assets/json-to-go.png" id="brand">
+        <div class="clear"></div>
+    </header>
+    <table>
+        <tbody><tr>
+            <th style="width: 45%;">JSON</th>
+            <th style="width: 10%; font-size: 22px;">→</th>
+            <th style="width: 45%;">Go</th>
+        </tr>
+    </tbody></table>
+    <table>
+        <tbody><tr>
+            <td style="width: 50%;">
+                <div id="input" contenteditable=""></div>
+            </td>
+            <td style="width: 50%;">
+                <div id="output"></div>
+            </td>
+        </tr>
+    </tbody></table>
+
+    <footer>
+        © 2015 Matt Holt - <a href="https://github.com/mholt/json-to-go">View on GitHub</a> - <a href="javascript:" id="dark">dark mode</a>
+        <br>
+        The Go Gopher artwork is a derivative of that by Renee French.
+    </footer>
+</body></html>
