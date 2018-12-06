@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+  Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+  for details. All rights reserved. Use of this source code is governed by a
+  BSD-style license that can be found in the LICENSE file.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search for it</title>
+  <style>
+      body {
+        background-color: #F8F8F8;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.2em;
+        margin: 15px;
+      }
+
+      h1, p {
+        color: #333;
+      }
+
+      #sample_container_id {
+        width: 100%;
+        height: 400px;
+        position: relative;
+        border: 1px solid #ccc;
+        background-color: #fff;
+      }
+  </style>
+</head>
+<body>
+  <h1>Search dartlang.org</h1>
+
+  <div class="sample_container_id">
+    <form action="http://www.google.com/search" method="GET" target="_blank">
+      <input type="text" name="q" value="async" size="31" maxlength="255">
+      <input type="submit" value="Google Search">
+      <label>
+        <input type="checkbox" name="sitesearch" value="dartlang.org" checked> Search dartlang.org<br>
+      </label>
+    </form>
+  </div>
+</body>
+</html>

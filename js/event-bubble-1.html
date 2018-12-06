@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Event Bubble</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style> #inner { width: 200px; height: 200px; border: 1px solid grey; }</style>
+</head>
+<body>
+
+<div id="outer">
+  <div id="inner">
+    open console,<br>
+    then click me.<br>
+    or click outside me.
+  </div>
+</div>
+
+<script>
+
+var outer = document.getElementById('outer');
+var inner = document.getElementById('inner');
+
+window.onclick = function() {
+    console.log('window');
+};
+document.onclick = function() {
+    console.log('document');
+};
+document.documentElement.onclick = function() {
+    console.log('html');
+};
+document.body.onclick = function() {
+    console.log('body');
+}
+outer.onclick = function(ev) {
+    ev.stopPropagation();
+    console.log('outer');
+};
+inner.onclick = function(ev) {
+    //ev.stopPropagation();
+    console.log('inner');
+};
+</script>
+</body>
+</html>

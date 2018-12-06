@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Event Bubble</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    div { text-align: right; vertical-align: bottom; }
+    #a { width: 250px; height: 250px; background-color: red; }
+    #b { width: 200px; height: 200px; background-color: blue; }
+    #c { width: 150px; height: 150px; background-color: green; }
+    #d { width: 100px; height: 100px; background-color: cyan; }
+  </style>
+</head>
+<body>
+
+<div id="a">a
+  <div id="b">b
+    <div id="c">c
+      <div id="d">d</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('a').addEventListener('click', function(e) {
+    console.log('target=' + e.target.id + ' & currentTarget=' + e.currentTarget.id)
+  })
+  document.getElementById('b').addEventListener('click', function(e) {
+    console.log('target=' + e.target.id + ' & currentTarget=' + e.currentTarget.id)
+  })
+  document.getElementById('c').addEventListener('click', function(e) {
+    console.log('target=' + e.target.id + ' & currentTarget=' + e.currentTarget.id)
+  })
+  document.getElementById('d').addEventListener('click', function(e) {
+    console.log('target=' + e.target.id + ' & currentTarget=' + e.currentTarget.id)
+  })
+</script>
+
+</body>
+</html>
