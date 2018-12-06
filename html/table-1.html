@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>CSS display table</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+#table {
+    display: table;
+    padding: 5px;
+    border-collapse: collapse;
+}
+.tr {
+    display: table-row;
+    padding: 5px;
+}
+.td {
+    display: table-cell;
+    padding: 5px;
+    width: 150px;
+    border: #f0f0f0 1px solid;
+    margin: 5px;
+}
+</style>
+</head>
+<body>
+    <div id="table">
+    <div class="tr">
+        <div class="td">Row 1, Column 1</div>
+        <div class="td">Row 1, Column 2</div>
+        <div class="td"></div>
+    </div>
+    <div class="tr">
+        <div class="td">Row 2, Column 1</div>
+        <div class="td">Row 2, Column 2</div>
+        <div class="td"></div>
+    </div>
+</div>
+
+</body>
+</html>

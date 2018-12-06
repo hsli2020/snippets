@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue2.x Todo教程</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+    }
+
+    .selected {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="todo-app">
+  <div>
+    <input type="button"
+           value="全部标为完成"
+           @click="markAllAsCompleted"/>
+    <input type="text"
+           placeholder="添加 todo"
+           v-model="newTodoTitle"
+           @keyup.enter="addTodo"/>
+  </div>
+  <!-- todo list -->
+  <ul>
+    <li v-for='todo in filteredTodos' :key='todo.id'>
+      <span :class="{completed: todo.completed}"
+            @dblclick="editTodo(todo)">{{ todo.title }}</span>
+      <input type="button"
+             value="标为完成"
+             @click="markAsCompleted(todo)"/>
+      <input type="button" value="删除" @click="removeTodo(todo)"/>
+      <input type="text"
+             value="编辑 todo..."
+             v-focus="true"
+             v-if="editedTodo!==null && editedTodo.id===todo.id"
+             v-model="todo.title"
+             @keyup.enter="editDone(todo)"
+             @keyup.esc="cancelEdit(todo)"/>
+    </li>
+  </ul>
+  <!-- end todo list -->
+  <div>
+    <span>剩余 {{leftTodosCount}} 项未完成 ---</span>
+    <span>筛选：
+      <input type="button"
+             class="selected"
+             value="全部"
+             @click="intention='all'"/>
+      <input type="button"
+             value="进行中"
+             @click="intention='ongoing'"/>
+      <input type="button"
+             value="已完成"
+             @click="intention='completed'"/>
+      <input type="button"
+             value="清除已完成"
+             @click="clearCompleted"/>
+      <input type="button"
+             value="清除全部"
+             @click="clearAll"/>
+    </span>
+  </div>
+  <hr>
+
+  <footer>
+    <p>tips: 双击编辑 todo；编辑状态下按 <kbd>esc</kbd> 键取消编辑</p>
+    <div>
+      <span>由 <a href="https://www.zmrenwu.com/" target="_blank">追梦人物</a> 编写</span>&nbsp;&nbsp;&nbsp;|&nbsp;
+      <span>基于 vue.js 2.x</span>&nbsp;&nbsp;&nbsp;|&nbsp;
+      <span>完整教程请访问：<a href="https://www.zmrenwu.com/post/63/" target="_blank">Vue todo 教程</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;
+      <span>源码托管于 GitHub：<a href="https://github.com/zmrenwu/vue2.x-todo-tutorial"
+                            target="_blank">vue2.x-todo-tutorial</a></span>
+    </div>
+  </footer>
+</div>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+<script>
+    var STORAGE_KEY = 'vue2.x-todo-tutorial';
+    var todoStorage = {
+        fetch: function () {
+            var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            todos.forEach(function (todo, index) {
+                todo.id = index
+            });
+            todoStorage.uid = todos.length;
+            return todos
+        },
+        save: function (todos) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+        }
+    };
+
+    var app = new Vue({
+        el: '#todo-app',
+        data: function () {
+            return {
+                todos: todoStorage.fetch(),
+                newTodoTitle: '',
+                editedTodo: null, // 用户暂存编辑前的 todo 状态
+                intention: 'all', // 默认为 all
+            }
+        },
+        // 监测 todos 列表的变化，将变化存储到 local storage
+        watch: {
+            todos: {
+                handler: function (todos) {
+                    todoStorage.save(todos)
+                },
+                deep: true
+            }
+        },
+        methods: {
+            addTodo: function () {
+                this.todos.push(
+                    // 修改后的 todo 模型
+                    {id: todoStorage.uid++, title: this.newTodoTitle, completed: false}
+                );
+                this.newTodoTitle = '';
+            },
+            markAsCompleted: function (todo) {
+                todo.completed = true
+            },
+            removeTodo: function (todo) {
+                this.todos.splice(this.todos.indexOf(todo), 1)
+            },
+            editTodo: function (todo) {
+                this.editedTodo = {id: todo.id, title: todo.title}
+            },
+            editDone: function (todo) {
+                this.editedTodo = null
+            },
+            cancelEdit: function (todo) {
+                todo.title = this.editedTodo.title;
+                this.editedTodo = null
+            },
+            markAllAsCompleted: function () {
+                this.todos.map(function (todo) {
+                    if (!todo.completed) {
+                        todo.completed = true
+                    }
+                })
+            },
+            clearCompleted: function () {
+                this.todos = this.todos.filter(todo => !todo.completed)
+            },
+            clearAll: function () {
+                this.todos = []
+            }
+        },
+        computed: {
+            leftTodos: function () {
+                return this.todos.filter(todo => !todo.completed)
+            },
+            leftTodosCount: function () {
+                return this.leftTodos.length
+            },
+            filteredTodos: function () {
+                if (this.intention === 'ongoing') {
+                    return this.leftTodos
+                } else if (this.intention === 'completed') {
+                    return this.todos.filter(todo => todo.completed)
+                } else {
+                    // 其它未定义的意图我们为其返回全部 todos，
+                    // 这里面已经包含了 all 意图了
+                    return this.todos
+                }
+            }
+        },
+        directives: {
+            focus: {
+                inserted: function (el) {
+                    el.focus()
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
