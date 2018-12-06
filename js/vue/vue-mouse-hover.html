@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue mouse</title>
+    <style>
+        html,
+        body {
+            text-align: center;
+            color: #000;
+            background-color: #353535;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #app {
+            width: 600px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .content {
+            float: left;
+            position: relative;
+            height: 150px;
+            width: 150px;
+            margin: 20px;
+            overflow: hidden;
+            background: #ccc;
+        }
+
+        .content .shade {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            line-height: 100px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <mouse-hover style="background:aqua">
+            <div slot>mouse hover</div>
+        </mouse-hover>
+        <mouse-hover style="background:bisque">
+            <div slot>mouse hover</div>
+        </mouse-hover>
+        <mouse-hover style="background:cadetblue">
+            <div slot>mouse hover</div>
+        </mouse-hover>
+        <mouse-hover style="background:chocolate">
+            <div slot>mouse hover</div>
+        </mouse-hover>
+        <mouse-hover style="background:cornflowerblue">
+            <div slot>mouse hover</div>
+        </mouse-hover>
+        <mouse-hover style="background:darkkhaki">
+            <div slot>mouse hover</div>
+        </mouse-hover>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+    <script>
+        (function () {
+            const mouseHover = {
+                name: 'mouseHover',
+                template: `
+                <div class="content" @mouseenter="handleIn" @mouseleave="handleOut">
+                    <div class="shade" ref="shade">
+                        <slot></slot>
+                    </div>
+                </div>
+                `,
+                data: () => {
+                    return {}
+                },
+                methods: {
+                    handleIn: function (e) {
+                        const direction = this.direction(e);
+                        this.animate(direction, 'in');
+                    },
+                    handleOut: function (e) {
+                        const direction = this.direction(e);
+                        this.animate(direction, 'out');
+                    },
+                    direction: function (e, type) {
+                        const clientX = e.clientX;
+                        const clientY = e.clientY;
+                        const top = e.target.offsetTop;
+                        const bottom = parseInt(top + e.target.offsetHeight);
+                        const left = e.target.offsetLeft;
+                        const right = parseInt(left + e.target.offsetWidth);
+                        const absTop = Math.abs(clientY - top);
+                        const absBottom = Math.abs(clientY - bottom);
+                        const absLeft = Math.abs(clientX - left);
+                        const absRight = Math.abs(clientX - right);
+                        const min = Math.min(absTop, absBottom, absLeft, absRight);
+                        let direction;
+                        switch (min) {
+                            case absTop:
+                                direction = "top";
+                                break;
+                            case absBottom:
+                                direction = "bottom";
+                                break;
+                            case absLeft:
+                                direction = "left";
+                                break;
+                            case absRight:
+                                direction = "right";
+                                break;
+                        };
+                        return direction;
+                    },
+                    animate: function (direction, type) {
+                        let top = 0,
+                            left = 0;
+                        if (type == 'in') {
+                            this.$refs.shade.style.transition = 'none';
+                            if (direction == 'top') {
+                                top = '-100%';
+                                left = 0;
+                            } else if (direction == 'right') {
+                                top = 0;
+                                left = '100%';
+                            } else if (direction == 'bottom') {
+                                top = '100%';
+                                left = 0;
+                            } else if (direction == 'left') {
+                                top = 0;
+                                left = '-100%';
+                            }
+                            this.$refs.shade.style.top = top;
+                            this.$refs.shade.style.left = left;
+                            setTimeout(() => {
+                                this.$refs.shade.style.transition = 'all .2s ease 0s';
+                                this.$refs.shade.style.top = 0;
+                                this.$refs.shade.style.left = 0;
+                            }, 0)
+
+                        } else if (type == 'out') {
+                            if (direction == 'top') {
+                                top = '-100%';
+                                left = 0;
+                            } else if (direction == 'right') {
+                                top = 0;
+                                left = '100%';
+                            } else if (direction == 'bottom') {
+                                top = '100%';
+                                left = 0;
+                            } else if (direction == 'left') {
+                                top = 0;
+                                left = '-100%';
+                            }
+                            this.$refs.shade.style.top = top;
+                            this.$refs.shade.style.left = left;
+                        }
+                    }
+                }
+            }
+            Vue.component(mouseHover.name, mouseHover)
+            new Vue({
+                el: '#app'
+            })
+        })();
+    </script>
+</body>
+
+</html>
