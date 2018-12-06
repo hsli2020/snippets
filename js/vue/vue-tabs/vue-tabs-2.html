@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Vue 标签页组件</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<style id="compiled-css" type="text/css">
+[v-cloak] { display: none; }
+
+.tabs {
+    font-size: 14px;
+    color: #657180;
+}
+
+.tabs-bar:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #d7dde4;
+    margin-top: -1px;
+}
+
+.tabs-tab {
+    display: inline-block;
+    padding: 4px 16px;
+    margin-right: 6px;
+    background: #fff;
+    border: 1px solid #d7dde4;
+    cursor: pointer;
+    position: relative;
+}
+
+.tabs-tab:hover {
+    color: #336699;
+    font-weight: bolder;
+}
+
+.tabs-tab-active {
+    color: #336699;
+    border-top: 1px solid #336699;
+    border-bottom: 1px solid #fff;
+    transform:translateY(-1px);
+    transition: transform 0.5s;
+}
+
+.tabs-tab-active:before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: #3399ff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.tabs_content {
+    padding: 8px 0;
+}
+
+.pane {
+    margin-top: 26px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333;
+    text-align: justify;
+}
+
+.close { color: #FF6666; }
+.close::before { content: "\2716"; }
+.close:hover { color: #990033; font-weight: bolder; }
+</style>
+
+<script type="text/javascript">
+
+window.onload=function(){
+    /**
+    * 子窗口组件
+    */
+    Vue.component('pane', {
+        name: 'pane',
+        template: '\
+        <div class="pane" v-show="isShow">\
+            <slot></slot>\
+        </div>\
+        ',
+        props: {
+            //标题
+            label: {
+                type: String,
+                default: ''
+            },
+            //是否可关闭
+            closable: {
+                type: Boolean,
+                default: false
+            }
+        },
+        data: function () {
+            return {
+                //显示或隐藏
+                isShow: true
+            }
+        },
+        methods: {
+            //通知父组件，更新标题
+            init() {
+                this.$parent.init();
+            }
+        },
+        watch: {
+            //当 label 值发生变化时，更新标题
+            label() {
+                this.init();
+            }
+        },
+        //挂载时，更新标题
+        mounted() {
+            this.init();
+        }
+    });
+
+    /**
+    * 标签页组件
+    */
+    Vue.component('tabs', {
+        template: '\
+        <div class="tabs">\
+            <div class="tabs-bar">\
+                <!-- 标签页标题-->\
+                <div :class="tabClass(item)"\
+                    v-for="(item, index) in titleList"\
+                    @click="change(index)">\
+                    {{ item.label }}\
+                    <span v-if="item.closable" class="close" @click="close(index,item.name)"></span>\
+                    </div>\
+                </div>\
+                <div class="tabs-content">\
+                <!-- pane 组件位置-->\
+                    <slot></slot>\
+                </div>\
+            </div>',
+        props: {
+            value: {
+                type: [String, Number]
+            }
+        },
+        data: function () {
+            return {
+                currentIndex: this.value,
+                titleList: []//存放标题
+            }
+        },
+        methods: {
+            //设置样式
+            tabClass: function (item) {
+                return ['tabs-tab', {
+                    //为当前选中的 tab 添加选中样式
+                    'tabs-tab-active': (item.name === this.currentIndex)
+                }]
+
+            },
+            //获取定义的所有 pane 组件
+            getTabs() {
+                return this.$children.filter(function (item) {
+                    return (item.$options.name === 'pane');
+                })
+            },
+            //更新 pane 是否显示状态
+            updateIsShowStatus() {
+                var tabs = this.getTabs();
+                var that = this;
+                //迭代判断并设置某个标签页是显示还是隐藏状态
+                tabs.forEach(function (tab, index) {
+                    return tab.isShow = (index === that.currentIndex);
+                })
+            },
+            //初始化
+            init() {
+                /**
+                * 初始化标题数组
+                */
+                this.titleList = [];
+                var that = this;//设置 this 引用
+                this.getTabs().forEach(function (tab, index) {
+                    that.titleList.push({
+                        label: tab.label,
+                        name: index,
+                        closable: tab.closable
+                    });
+
+                    //初始化默认选中的 tab 索引
+                    if (index === 0) {
+                        if (!that.currentIndex) {
+                            that.currentIndex = index;
+                        }
+                    }
+                });
+
+                this.updateIsShowStatus();
+            },
+            //点击 tab 标题时，更新 value 值为相应的索引值
+            change: function (index) {
+                var nav = this.titleList[index];
+                if (nav) {//避免关闭标签页时，nav 为 undefined 的情况
+                    var name = nav.name;
+                    this.$emit('input', name);
+                }
+            },
+            //关闭标签页
+            close: function (index, name) {
+                //删除对应的标题元素
+                this.titleList.splice(index, 1);
+
+                var tabs = this.getTabs();
+                var that = this;
+                //迭代判断并设置点击的标签页是隐藏状态
+                tabs.forEach(function (tab, index) {
+                    if (index === name) {
+                        return tab.isShow = false;
+                    }
+                });
+            }
+        },
+        watch: {
+            //当 value 值发生改变时，更新 currentIndex
+            value: function (val) {
+                this.currentIndex = val;
+            },
+            //当 currentIndex 值发生改变时，更新 pane 是否显示状态
+            currentIndex: function () {
+                this.updateIsShowStatus();
+            }
+        }
+    });
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            activeIndex: 0
+        }
+    });
+}
+</script>
+</head><body>
+    <div id="app" v-cloak>
+    <tabs v-model="activeIndex">
+        <pane label="科技" closable="true">
+            火星疑似发现“外星人墓地”？至今无法解释
+        </pane>
+        <pane label="体育">
+            全美沸腾！湖人队4年1.2亿迎顶级后卫，詹姆斯：有他就能夺冠
+        </pane>
+        <pane label="娱乐" closable="true">
+            阿米尔汗谈中国武侠 想拍印度版《鹿鼎记》
+        </pane>
+    </tabs>
+</div>
+
+</body></html>
