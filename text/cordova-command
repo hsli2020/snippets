@@ -1,0 +1,242 @@
+Prerequisites
+=============
+*   iOS (Mac)
+*   Amazon Fire OS (Mac, Linux, Windows)
+*   Android (Mac, Linux, Windows)
+*   BlackBerry 10 (Mac, Linux, Windows)
+*   Windows Phone 8 (Windows)
+*   Windows (Windows)
+*   Firefox OS (Mac, Linux, Windows)
+
+Installing the Cordova CLI
+==========================
+$ sudo npm install -g cordova
+On OS X and Linux it can usually be found at /usr/local/share/npm
+
+Create the App
+==============
+$ cordova create hello com.example.hello HelloWorld
+$ cd hello
+
+$ cordova platform add ios
+$ cordova platform add amazon-fireos
+$ cordova platform add android
+$ cordova platform add blackberry10
+$ cordova platform add firefoxos
+
+$ cordova platform add wp8
+$ cordova platform add windows
+$ cordova platform add amazon-fireos
+$ cordova platform add android
+$ cordova platform add blackberry10
+$ cordova platform add firefoxos
+
+$ cordova platforms ls
+
+$ cordova platform remove blackberry10
+$ cordova platform rm amazon-fireos
+$ cordova platform rm android
+
+$ cordova build
+$ cordova build android --release
+
+$ cordova build ios
+
+$ cordova prepare ios
+$ cordova compile ios
+
+Test the App on an Emulator or Device
+=====================================
+$ cordova emulate android
+
+$ cordova run android
+$ phonegap local run android 
+
+Add Plugin Features
+===================
+A list of these plugins, including additional third-party plugins provided by the community,
+can be found in the registry at plugins.cordova.io.
+
+$ cordova plugin search bar code
+
+The cordova plugin add command requires you to specify the repository for the plugin code. 
+Here are examples of how you might use the CLI to add features to the app:
+
+* Basic device information (Device API):
+
+  $ cordova plugin add org.apache.cordova.device
+
+* Network Connection and Battery Events:
+
+  $ cordova plugin add org.apache.cordova.network-information
+  $ cordova plugin add org.apache.cordova.battery-status
+
+* Accelerometer, Compass, and Geolocation:
+
+  $ cordova plugin add org.apache.cordova.device-motion
+  $ cordova plugin add org.apache.cordova.device-orientation
+  $ cordova plugin add org.apache.cordova.geolocation
+
+* Camera, Media playback and Capture:
+
+  $ cordova plugin add org.apache.cordova.camera
+  $ cordova plugin add org.apache.cordova.media-capture
+  $ cordova plugin add org.apache.cordova.media
+
+* Access files on device or network (File API):
+
+  $ cordova plugin add org.apache.cordova.file
+  $ cordova plugin add org.apache.cordova.file-transfer
+
+* Notification via dialog box or vibration:
+
+  $ cordova plugin add org.apache.cordova.dialogs
+  $ cordova plugin add org.apache.cordova.vibration
+
+* Contacts:
+
+  $ cordova plugin add org.apache.cordova.contacts
+
+* Globalization:
+
+  $ cordova plugin add org.apache.cordova.globalization
+
+* Splashscreen:
+
+  $ cordova plugin add org.apache.cordova.splashscreen
+
+* Open new browser windows (InAppBrowser):
+
+  $ cordova plugin add org.apache.cordova.inappbrowser
+
+* Debug console:
+
+  $ cordova plugin add org.apache.cordova.console
+
+$ cordova plugin ls    # or 'plugin list'
+
+$ cordova plugin rm org.apache.cordova.console
+$ cordova plugin remove org.apache.cordova.console    # same
+
+$ cordova plugin add org.apache.cordova.console org.apache.cordova.device
+
+Advanced Plugin Options
+=======================
+
+When adding a plugin, several options allow you to specify from where to fetch the plugin. 
+The examples above use a well-known registry.phonegap.com registry, and the plugin is 
+specified by the id:
+
+  $ cordova plugin add org.apache.cordova.console
+
+The id may also include the plugin's version number, appended after an @ character. 
+The latest version is an alias for the most recent version. For example:
+
+  $ cordova plugin add org.apache.cordova.console@latest
+  $ cordova plugin add org.apache.cordova.console@0.2.1
+
+If the plugin is not registered at registry.phonegap.com but is located in another git
+repository, you can specify an alternate URL:
+
+  $ cordova plugin add https://github.com/apache/cordova-plugin-console.git
+
+The git example above fetches the plugin from the end of the master branch, 
+but an alternate git-ref such as a tag or branch can be appended after a # character:
+
+  $ cordova plugin add https://github.com/apache/cordova-plugin-console.git#r0.2.0
+
+If the plugin (and its plugin.xml file) is in a subdirectory within the git repo, 
+you can specify it with a : character. Note that the # character is still needed:
+
+  $ cordova plugin add https://github.com/someone/aplugin.git#:/my/sub/dir
+
+You can also combine both the git-ref and the subdirectory:
+
+  $ cordova plugin add https://github.com/someone/aplugin.git#r0.0.1:/my/sub/dir
+
+Alternately, specify a local path to the plugin directory that contains the plugin.xml file:
+
+  $ cordova plugin add ../my_plugin_dir
+
+Help Commands
+=============
+
+$ cordova help
+$ cordova        # same
+
+$ cordova run --help
+$ cordova info
+
+$ sudo npm update -g cordova
+$ npm info cordova
+
+$ cordova platform update android
+$ cordova platform update ios
+
+--------------------------------------------------------------------------------
+
+Sign Releases with Cordova Android
+================================== 21st Jul 2014
+
+Since the Cordova CLI was introduced about a year ago, building and deploying Cordova apps
+for development has become incredibly simple and automatable. E.g. for Android:
+
+$ cordova build android
+
+and you can also run the app directly on the device / emulator
+
+$ cordova run android
+$ cordova emulate android
+
+If you want to build a release version of an APK from the command line for production,
+this is also possible. However, this does not sign your release:
+
+$ cordova build android --release
+
+Here are the 2 methods I use / have used to achieve API signing for production / distribution.
+Don’t worry, neither of them use Eclipse!:
+
+Note: Before you can use either of these methods, you must have generated a private key, see 
+Obtain a suitable private key on the Android Developer website.
+
+Method 1
+--------
+Use jarsigner directly
+
+This is the method I used to use and it isn’t Cordova CLI specific (it’s part of the Java SDK
+build tools and this method is part of their standard documentation). After you have created
+your APK (cordova build android --release) you can run the following command:
+
+$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 
+            -keystore release_key_name.keystore app_name.apk alias_name
+
+Jarsigner will prompt for the password and sign the APK.
+
+Method 2 (best)
+---------------
+Part of the CLI workflow
+
+This is now my preferred method and hooks directly into the
+    cordova build android --release 
+command.
+
+Create an ant.properties file in platforms/android/ with a keystore path and alias name:
+
+key.store=/path/to/keystore/release_key_name.keystore
+key.alias=alias_name
+
+The standard Cordova CLI release build process will now prompt for the password and automatically
+sign the APK, ready for upload to Google Play, or other distribution method. The APK will be 
+created at platforms/android/ant-build/app_name-release.apk.
+
+Happy release automation.
+
+<script>
+function onDeviceReady() {
+  navigator.splashscreen.show();
+  // setTimeout;
+  setTimeout(function() {
+    navigator.splashscreen.hide();
+  }, 2000);
+}
+</script>

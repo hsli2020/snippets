@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.mystyle {
+    width: 100%;
+    padding: 25px;
+    background-color: coral;
+    color: white;
+    font-size: 25px;
+    box-sizing: border-box;
+}
+</style>
+</head>
+<body>
+
+<p>Click the "Try it" button to toggle between adding and removing the "mystyle" class name of the DIV element:</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<div id="myDIV">
+This is a DIV element.
+</div>
+
+<script>
+function myFunction() {
+   var x = document.getElementById('myDIV');
+   x.classList.toggle("mystyle");
+}
+</script>
+
+</body>
+</html>
+

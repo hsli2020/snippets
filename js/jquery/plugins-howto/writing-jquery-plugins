@@ -1,0 +1,125 @@
+Writing Your Own jQuery Plugins
+
+The jQuery Plugin Structure
+
+(function($) {
+
+    $.fn.helloWorld = function() {
+        // Future home of "Hello, World!"
+    }
+
+}(jQuery));
+
+Making Our Plugin Do Something
+
+(function($) {
+
+    $.fn.helloWorld = function() {
+        this.each( function() {
+            $(this).text("Hello, World!");
+        });
+    }
+
+}(jQuery));
+
+<script>
+  $(document).ready( function() {
+      $('h2').helloWorld();
+  });
+</script>
+
+(function($) {
+
+    $.fn.helloWorld = function() {
+        return this.each( function() {
+            $(this).text("Hello, World!");
+        });
+    }
+
+}(jQuery));
+
+(function($) {
+
+    $.fn.helloWorld = function( customText ) {
+        return this.each( function() {
+            $(this).text( customText );
+        });
+    }
+
+}(jQuery));
+
+<script>
+  $(document).ready( function() {
+      $('h2').helloWorld('Hola, mundo!');
+  });
+</script>
+
+(function($) {
+
+    $.fn.helloWorld = function( options ) {
+
+        // Establish our default settings
+        var settings = $.extend({
+            text         : 'Hello, World!',
+            color        : null,
+            fontStyle    : null
+        }, options);
+
+        return this.each( function() {
+            $(this).text( settings.text );
+
+            if ( settings.color ) {
+                $(this).css( 'color', settings.color );
+            }
+
+            if ( settings.fontStyle ) {
+                $(this).css( 'font-style', settings.fontStyle );
+            }
+        });
+    }
+
+}(jQuery));
+
+$('h2').helloWorld({
+    text        : 'Salut, le monde!',
+    color       : '#005dff',
+    fontStyle   : 'italic'
+});
+
+(function($) {
+
+	$.fn.helloWorld = function( options ) {
+
+		// Establish our default settings
+		var settings = $.extend({
+			text       : 'Hello, World!',
+			color      : null,
+			fontStyle  : null,
+			complete   : null
+		}, options);
+
+		return this.each( function() {
+			$(this).text( settings.text );
+
+			if ( settings.color ) {
+				$(this).css( 'color', settings.color );
+			}
+
+			if ( settings.fontStyle ) {
+				$(this).css( 'font-style', settings.fontStyle );
+			}
+
+			if ( $.isFunction( settings.complete ) ) {
+				settings.complete.call(this);
+			}
+		});
+	};
+
+}(jQuery));
+
+$('h2').helloWorld({
+    text        : 'Salut, le monde!',
+    color       : '#005dff',
+    fontStyle   : 'italic',
+    complete    : function() { alert( 'Done!' ) }
+});

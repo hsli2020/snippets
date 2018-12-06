@@ -1,0 +1,89 @@
+# !/bin/bash
+
+touch .htaccess
+touch .gitignore
+touch composer.json
+
+mkdir app/
+mkdir app/controllers
+    touch app/controllers/ControllerBase.php
+    touch app/controllers/IndexController.php
+    touch app/controllers/TestController.php
+    touch app/controllers/UserController.php
+    touch app/controllers/AboutController.php
+    touch app/controllers/PrivacyController.php
+    touch app/controllers/TermsController.php
+mkdir app/models
+    touch app/models/Users.php
+    touch app/models/Profiles.php
+mkdir app/views
+    touch app/views/index.volt
+        echo "{{ content() }}" > app/views/index.volt
+    mkdir app/views/layouts
+        touch app/views/layouts/public.volt
+        touch app/views/layouts/private.volt
+    mkdir app/views/partials
+        touch app/views/partials/navigation.volt
+        touch app/views/partials/sidebar.volt
+        touch app/views/partials/header.volt
+        touch app/views/partials/footer.volt
+    mkdir app/views/index
+        touch app/views/index/index.volt
+    mkdir app/views/test
+        touch app/views/test/index.volt
+    mkdir app/views/about
+        touch app/views/about/index.volt
+    mkdir app/views/privacy
+        touch app/views/privacy/index.volt
+    mkdir app/views/terms
+        touch app/views/terms/index.volt
+
+mkdir app/config
+    touch app/config/config.php
+    touch app/config/loader.php
+    touch app/config/routes.php
+    touch app/config/services.php
+
+mkdir app/forms
+    touch app/forms/LoginForm.php
+    touch app/forms/SignUpForm.php
+    touch app/forms/UsersForm.php
+
+mkdir app/library
+    mkdir app/library/Acl
+        touch app/library/Acl/Acl.php
+    mkdir app/library/Auth
+        touch app/library/Auth/Auth.php
+        touch app/library/Auth/Exception.php
+    mkdir app/library/Mail
+        touch app/library/Mail/Mail.php
+        touch app/library/Mail/Exception.php
+
+mkdir app/logs
+    touch app/logs/acl/.gitignore
+
+mkdir app/cache
+    mkdir app/cache/acl
+        touch app/cache/acl/.gitignore
+    mkdir app/cache/metadata
+        touch app/cache/metadata/.gitignore
+    mkdir app/cache/swift
+        touch app/cache/swift/.gitignore
+    mkdir app/cache/volt
+        touch app/cache/volt/.gitignore
+
+mkdir public
+    touch public/.htaccess
+    touch public/index.php
+    mkdir public/lib
+    mkdir public/lib/bootstrap
+    mkdir public/lib/bootstrap/css
+    mkdir public/lib/bootstrap/fonts
+    mkdir public/lib/bootstrap/js
+    mkdir public/lib/jquery
+    mkdir public/lib/jquery/plugins
+    mkdir public/assets
+    mkdir public/assets/css
+    mkdir public/assets/img
+    mkdir public/assets/js
+

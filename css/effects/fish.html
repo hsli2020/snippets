@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="">
+<head>
+<meta charset="UTF-8">
+<meta content="noindex" name="robots">
+<link href="http://codepen.io/jonitrythall/pen/bivaG" rel="canonical">
+
+<style class="cp-pen-styles">
+body {
+  background-color: #42a1c6;
+}
+
+/* Franklin's Container */
+.fish {
+  width: 150px;
+  height: 100px;
+  -webkit-animation: swim 3s infinite;
+          animation: swim 3s infinite; 
+}
+
+/* Franklin */
+.fish-body {
+  position: relative;
+  margin-top: 30px;
+  margin-left: 40px;
+  background-color: orange;
+  border-radius: 50%;
+  width: 150px; 
+  height: 100px;
+}
+
+.eye {
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 20px;
+  z-index: 1;
+  background-color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.pupil {
+  position: absolute;
+  z-index: 2;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-color: black;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
+.fin {
+  margin-top: -100px; 
+  background-color: orange;
+  border-radius: 50%;
+  -webkit-transform: rotate(40deg);
+      -ms-transform: rotate(40deg);
+          transform: rotate(40deg);
+  width: 80px;
+  height: 50px;
+}
+
+.fin-bottom {
+  margin-top: -10px;
+  -webkit-transform: rotate(-40deg);
+      -ms-transform: rotate(-40deg);
+          transform: rotate(-40deg);
+}
+
+/* Bubbles */
+.bubbles {
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
+  margin-right: 50px;
+  background-color: white;
+  border-radius: 50%;
+  opacity: .50;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: up 4s infinite;
+          animation: up 4s infinite;
+}
+
+.bubble-2 {
+  left: 350px;
+  -webkit-animation: up 2s infinite;
+          animation: up 2s infinite;
+}
+
+.bubble-3 {
+  left: 750px;
+  opacity: .30;
+  -webkit-animation: up 5s infinite;
+          animation: up 5s infinite;
+}
+
+.bubble-4 {
+  left: 1150px;
+  -webkit-animation: up 6s infinite;
+          animation: up 6s infinite;
+}
+
+.bubble-5 {
+  left: 50px;
+  -webkit-animation: up 5s infinite;
+          animation: up 5s infinite;
+}
+
+.bubble-6 {
+  left: 300px;
+  opacity: .30;
+  -webkit-animation: up 3s infinite;
+          animation: up 3s infinite;
+}
+
+.bubble-7 {
+  left: 670px;
+  -webkit-animation: up 4s infinite;
+          animation: up 4s infinite;
+}
+
+.bubble-8 {
+  left: 1050px;
+  opacity: .30;
+  -webkit-animation: up 3s infinite;
+          animation: up 3s infinite;
+}
+
+/* Swim Animation */
+@-webkit-keyframes swim {
+  0% {
+    -webkit-transform: translateY(-50px) translateX(0) rotate(30deg);
+            transform: translateY(-50px) translateX(0) rotate(30deg);
+  }
+  25% { 
+    -webkit-transform: translateY(50px) translateX(250px) rotate(20deg); 
+            transform: translateY(50px) translateX(250px) rotate(20deg);
+  }
+  50% {
+    -webkit-transform: translateY(100px) translateX(500px);
+            transform: translateY(100px) translateX(500px);
+  }
+  75% {
+    -webkit-transform: translateY(50px) translateX(850px) rotate(-20deg);
+            transform: translateY(50px) translateX(850px) rotate(-20deg);
+  }
+  100% {
+    -webkit-transform: translateY(-170px) translateX(1200px) rotate(-40deg);
+            transform: translateY(-170px) translateX(1200px) rotate(-40deg);
+  }
+}
+@keyframes swim {
+  0% {
+    -webkit-transform: translateY(-50px) translateX(0) rotate(30deg);
+            transform: translateY(-50px) translateX(0) rotate(30deg);
+  }
+  25% { 
+    -webkit-transform: translateY(50px) translateX(250px) rotate(20deg); 
+            transform: translateY(50px) translateX(250px) rotate(20deg);
+  }
+  50% {
+    -webkit-transform: translateY(100px) translateX(500px);
+            transform: translateY(100px) translateX(500px);
+  }
+  75% {
+    -webkit-transform: translateY(50px) translateX(850px) rotate(-20deg);
+            transform: translateY(50px) translateX(850px) rotate(-20deg);
+  }
+  100% {
+    -webkit-transform: translateY(-170px) translateX(1200px) rotate(-40deg);
+            transform: translateY(-170px) translateX(1200px) rotate(-40deg);
+  }
+}
+
+/* Bubbles Animation */
+@-webkit-keyframes up {
+  100% {
+    -webkit-transform: translateY(-800px);
+            transform: translateY(-800px);
+  }
+}
+@keyframes up {
+  100% {
+    -webkit-transform: translateY(-800px);
+            transform: translateY(-800px);
+  }
+}
+
+</style></head><body>
+<div class="fish">
+  <div class="fish-body">
+    <div class="eye">
+      <div class="pupil"></div>
+    </div>
+  </div>
+  <div class="fin"></div>
+  <div class="fin fin-bottom"></div>
+</div>
+
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+
+<script src="http://codepen.io/assets/editor/live/css_live_reload_init.js"></script>
+</body>
+</html>

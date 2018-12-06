@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Safe Fonts</title>
+<style>
+  html { font-family: "Whitney SSm A","Whitney SSm B","Lucida Grande","Lucida Sans",Verdana,Helvetica,Arial,sans-serif; }
+  body { width: 960px; margin: 0 auto; /*font-family: Verdana, Geneva, sans-serif;*/ }
+  code, kbd, pre, samp { font-family: "Source Code Pro",Inconsolata,"Lucida Console",Terminal,"Courier New",Courier; }
+  table, th , td { border: 1px solid grey; border-collapse: collapse; padding: 5px; }
+  table tr:nth-child(odd) { background-color: #f1f1f1; }
+  table tr:nth-child(even) { background-color: #ffffff; }
+  table tr:hover { background-color: #ffffcc; } 
+</style>
+</head>
+<body>
+
+<div>
+<hr>
+<h2>Commonly Used Font Combinations</h2>
+
+<p>The font-family property should hold several font names as a "fallback" 
+system, to ensure maximum compatibility between browsers/operating systems. If 
+the browser does not support the first font, it tries the next font.</p>
+
+<p>Start with the font you want, and end with a generic family, to let the 
+browser pick a similar font in the generic family, if no other fonts are available:</p>
+
+<p>Below are some commonly used font combinations, organized by generic family.</p>
+<hr>
+
+<h2>Serif Fonts</h2>
+<div>
+<table width="100%">
+<tbody>
+  <tr>
+    <th style="width:55%">font-family</th>
+    <th>Example text</th>
+  </tr>
+  <tr>
+    <td>Georgia, serif</td>
+    <td><h2 style="margin-top:0px;font-family: Georgia, serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: Georgia, serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Palatino Linotype", "Book Antiqua", Palatino, serif</td>
+    <td><h2 style="margin-top:0px;font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Times New Roman", Times, serif</td>
+    <td><h2 style="margin-top:0px;font-family: 'Times New Roman', Times, serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Times New Roman', Times, serif">This is a paragraph</p>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h2>Sans-Serif Fonts</h2>
+<div>
+<table width="100%">
+<tbody>
+  <tr>
+    <th style="width:55%">font-family</th>
+    <th>Example text</th>
+  </tr>
+  <tr>
+    <td>Arial, Helvetica, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: Arial, Helvetica, sans-serif;">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: Arial, Helvetica, sans-serif;">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Arial Black", Gadget, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: Arial Black, Gadget, sans-serif;font-weight:normal;">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: Arial Black, Gadget, sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Comic Sans MS", cursive, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: 'Comic Sans MS', cursive, sans-serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Comic Sans MS', cursive, sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>Impact, Charcoal, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: Impact, Charcoal, sans-serif;font-weight:normal">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: Impact, Charcoal, sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Lucida Sans Unicode", "Lucida Grande", sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>Tahoma, Geneva, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: Tahoma, Geneva, sans-serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: Tahoma, Geneva, sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Trebuchet MS", Helvetica, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: 'Trebuchet MS', Helvetica, sans-serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Trebuchet MS', Helvetica, sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>Verdana, Geneva, sans-serif</td>
+    <td><h2 style="margin-top:0px;font-family: Verdana, Geneva, sans-serif">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: Verdana, Geneva, sans-serif">This is a paragraph</p>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h2>Monospace Fonts</h2>
+<div>
+<table width="100%">
+<tbody>
+  <tr>
+    <th style="width:55%">font-family</th>
+    <th>Example text</th>
+  </tr>
+  <tr>
+    <td>"Courier New", Courier, monospace</td>
+    <td><h2 style="margin-top:0px;font-family: 'Courier New', Courier, monospace">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Courier New', Courier, monospace">This is a paragraph</p>
+    </td>
+  </tr>
+  <tr>
+    <td>"Lucida Console", Monaco, monospace</td>
+    <td><h2 style="margin-top:0px;font-family: 'Lucida Console', Monaco, monospace">This is a heading</h2>
+        <p style="margin-bottom:0px;font-family: 'Lucida Console', Monaco, monospace">This is a paragraph</p>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+
+</body>
+</html>

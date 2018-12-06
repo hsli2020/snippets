@@ -1,0 +1,15 @@
+# default
+$ java -jar closure-compiler-v20171112.jar test.js
+function sayHello(a){alert("Hello, "+a)}sayHello("binnng");
+
+# WHITESPACE_ONLY
+$ java -jar closure-compiler-v20171112.jar --compilation_level WHITESPACE_ONLY test.js
+function sayHello(name){alert("Hello, "+name)}sayHello("binnng");
+
+# SIMPLE
+$ java -jar closure-compiler-v20171112.jar --compilation_level SIMPLE test.js
+function sayHello(a){alert("Hello, "+a)}sayHello("binnng");
+
+# ADVANCED
+$ java -jar closure-compiler-v20171112.jar --compilation_level ADVANCED test.js
+alert("Hello, binnng");

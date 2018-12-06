@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+<head>
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<style>
+.calendar-wrap {
+	float: left;
+}
+
+.calendar {
+	border: 1px solid #000;
+}
+
+.calendar-head th {
+	padding: 3px 5px;
+	border-bottom: 1px solid #000;
+	text-align: center;
+}
+
+.calendar-body td {
+	padding: 3px 5px;
+	text-align: center;
+}
+
+.container {
+	padding: 10px;
+	border: 1px solid;
+}
+
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after { clear: both; }
+</style>
+</head><body>
+<div id="calendar" class="container cf"></div>
+<script >
+/** 
+*  JavaScript calendar
+*/
+
+'use strict';
+
+/**
+*	Constructor
+*/
+var CalendarConstructor = function() {
+	this.date = new Date();
+	this.currentYear = this.date.getFullYear();
+	this.currentMonth = this.date.getMonth();
+	this.daysShort = ["S", "M", "T", "W", "T", "F", "S"];
+	this.monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	];
+	
+};
+
+/**
+*	Create new HTML element with a class
+* @param element Element tag name
+* @param className Element class name
+*	@return HTML element
+*/
+CalendarConstructor.prototype.createNewElement = function(element, className) {
+	var el = document.createElement(element);
+	el.classList.add(className);
+	return el;
+}
+
+/**
+*	Store and parse month data
+* @param month, year
+*	@return monthData object
+*/
+CalendarConstructor.prototype.monthData = function(month, year) {
+	var monthData = {
+		year: year,
+		month: month,
+		// Number of days in current month
+		monthDaysCount: function() {
+			var _this = this;
+			var daysCount = new Date(_this.year, _this.month + 1, 0).getDate();
+			return daysCount;
+  	},
+		// Get week day for every day in the month 0 to 6.
+		weekDay: function(d) {
+			var _this = this;
+			var dayNum = new Date(_this.year, _this.month, d);
+			return dayNum.getDay();
+		}
+	};
+  
+	return monthData;
+};
+
+/**
+*	Get the name of the month
+* @param monthNumber Number of the month (0 - 11)
+*	@return String name of the month
+*/
+CalendarConstructor.prototype.getMonthName = function(monthNumber) {
+	for	( var i = 0; i < this.monthNames.length; i++ ) {
+		if ( i === monthNumber ) {
+			return this.monthNames[i];
+		}
+	}
+}
+
+/**
+*	Construct HTML with month name and year
+* @param monthData object
+*	@return HTML with month name and year
+*/
+CalendarConstructor.prototype.createMonthNameWrap = function(monthData) {
+	var div = this.createNewElement("div", "calendar-month-name");
+	var span = this.createNewElement("span", "month-name");
+	span.innerHTML = "<b>" + this.getMonthName(monthData.month) + "</b> " + monthData.year;	
+	div.appendChild(span);
+	return div;	
+}
+
+/**
+*	Construct HTML thead element
+*	@return HTML
+*/
+CalendarConstructor.prototype.createMonthTableHead = function() {
+	var thead = this.createNewElement("thead", "calendar-header");
+	var tr = this.createNewElement("tr", "calendar-row");
+	
+	for	( var i = 0; i < this.daysShort.length; i++ ) {
+		tr.innerHTML += "<th>" + this.daysShort[i] + "</th>";
+	}
+
+	thead.appendChild(tr);
+	return thead;
+}
+
+/**
+*	Distribute month days to the according table cells
+* @param monthData object
+*	@return HTML
+*/
+CalendarConstructor.prototype.distributeDays = function(monthData, tbody) {
+	var day = 1;
+	var dayCount = monthData.monthDaysCount();
+	
+		while ( day < dayCount ) {
+			var weekRow = document.createElement("tr");
+			for (var i = 0; i < 7; i++) {
+				if (monthData.weekDay(day) == i) {
+					weekRow.innerHTML += "<td>" + day + "</td>";
+					day++;
+				} else {
+					weekRow.innerHTML += "<td></td>";
+				}
+				if ( day > dayCount ) {
+					break;
+				}
+			}
+
+			tbody.appendChild(weekRow);
+		}
+}
+
+/**
+*	Construct HTML tbody element
+* @param monthData object
+*	@return HTML
+*/
+CalendarConstructor.prototype.createMonthTableBody = function(monthData) {
+	var tbody = this.createNewElement("tbody", "calendar-body");
+	this.distributeDays(monthData, tbody);
+	return tbody;
+}
+
+/**
+*	Construct HTML table element
+* @param monthData object
+*	@return HTML table element inside wrapper element
+*/
+CalendarConstructor.prototype.createMonthTableWrap = function(monthData) {
+	var div = this.createNewElement("div", "calendar-month");
+	var table = this.createNewElement("table", "calendar");
+	table.appendChild(this.createMonthTableHead());
+	table.appendChild(this.createMonthTableBody(monthData));
+	div.appendChild(table);
+	return div;	
+}
+
+/**
+*	Create wrapper element for calendar month
+* @param monthData object
+*	@return HTML element
+*/
+CalendarConstructor.prototype.createMonthWrapper = function(monthData) {
+	var div = this.createNewElement("div", "calendar-wrap");
+	div.appendChild(this.createMonthNameWrap(monthData));
+	div.appendChild(this.createMonthTableWrap(monthData));
+	return div;	
+}
+
+/**
+*
+*	Update monthData object by incrementing month and year accordingly
+* @param monthData, counter Object with month data, loop counter
+*	@return monthData Updated monthData object
+*
+*/
+CalendarConstructor.prototype.updateMonthData = function(monthData, counter) {
+	if (counter !== 0) {
+		if (monthData.month < 11) {
+			monthData.month++
+		} else {
+			monthData.month = 0;
+			monthData.year++;
+		}
+	}
+	return monthData;
+}
+
+/**
+*	Assigns properties values to render calendar
+* @param data Object containing inital calendar data
+*        id required Element id to contain calendar
+*        month optional Starting month to display (values from 0 to 11)
+*	       year optional Year of the starting month to display (min value 1970)
+*        count Months optional to display (min value of 1)
+*/
+CalendarConstructor.prototype.parseInputData = function(id, count, month, year) {
+  this.startMonth = month > 11 || month === undefined ? this.currentMonth : month;
+	this.startMonthsYear = year < 1970 || year === undefined ? this.currentYear : year;
+	this.monthCount = count === 0 || count > 3 || count === undefined ? 1 : count;
+	this.containerId = id;
+}
+
+/**
+*	Render calendar HTML to page
+*/
+CalendarConstructor.prototype.renderCalendar = function(id, count, month, year) {
+	this.parseInputData(id, count, month, year);
+	var monthData = this.monthData(this.startMonth, this.startMonthsYear);
+	var calendarContainer = document.getElementById(this.containerId);
+	
+	for(var i = 0; i < this.monthCount; i++) {
+		var updatedData = this.updateMonthData(monthData, i);
+		calendarContainer.appendChild(this.createMonthWrapper(updatedData));
+	}
+}
+
+var calendar = new CalendarConstructor();
+
+calendar.renderCalendar("calendar", 3, 2016, 9);
+//# sourceURL=pen.js
+</script>
+</body>
+</html>

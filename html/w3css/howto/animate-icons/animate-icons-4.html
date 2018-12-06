@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<style>
+#div1 {
+  font-size:48px;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+
+<div id="div1" class="fa"></div>
+
+<script>
+function ratestar() {
+  var a;
+  a = document.getElementById("div1");
+  a.innerHTML = "&#xf006;";
+  setTimeout(function () {
+      a.innerHTML = "&#xf123;";
+    }, 1000);
+  setTimeout(function () {
+      a.innerHTML = "&#xf005;";
+    }, 2000);
+}
+ratestar();
+setInterval(ratestar, 3000);
+</script>
+
+<p>This example demonstrates how to use an icon library to make an animated effect.</p>
+</body>
+</html>

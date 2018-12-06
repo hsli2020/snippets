@@ -1,0 +1,2235 @@
+Classes
+      AboutDialog
+      AboutListTile
+      AbsorbPointer
+      ActionChip
+      AlertDialog
+      Align
+      Alignment
+      AlignmentDirectional
+      AlignmentGeometry
+      AlignmentGeometryTween
+      AlignmentTween
+      AlignTransition
+      AlwaysScrollableScrollPhysics
+      AlwaysStoppedAnimation
+      Animatable
+      AnimatedAlign
+      AnimatedBuilder
+      AnimatedContainer
+      AnimatedCrossFade
+      AnimatedDefaultTextStyle
+      AnimatedIcon
+      AnimatedIconData
+      AnimatedIcons
+      AnimatedList
+      AnimatedListState
+      AnimatedModalBarrier
+      AnimatedOpacity
+      AnimatedPadding
+      AnimatedPhysicalModel
+      AnimatedPositioned
+      AnimatedPositionedDirectional
+      AnimatedSize
+      AnimatedSwitcher
+      AnimatedTheme
+      AnimatedWidget
+      AnimatedWidgetBaseState
+      Animation
+      AnimationController
+      AnimationEagerListenerMixin
+      AnimationLazyListenerMixin
+      AnimationLocalListenersMixin
+      AnimationLocalStatusListenersMixin
+      AnimationMax
+      AnimationMean
+      AnimationMin
+      AnimationWithParentMixin
+      AppBar
+      AspectRatio
+      AssetBundleImageKey
+      AssetBundleImageProvider
+      AssetImage
+      AsyncSnapshot
+      AutomaticKeepAlive
+      AutomaticKeepAliveClientMixin
+      BackButton
+      BackButtonIcon
+      BackdropFilter
+      BallisticScrollActivity
+      Banner
+      BannerPainter
+      Baseline
+      BeveledRectangleBorder
+      BlockSemantics
+      Border
+      BorderDirectional
+      BorderRadius
+      BorderRadiusDirectional
+      BorderRadiusGeometry
+      BorderRadiusTween
+      BorderSide
+      BottomAppBar
+      BottomNavigationBar
+      BottomNavigationBarItem
+      BottomSheet
+      BouncingScrollPhysics
+      BouncingScrollSimulation
+      BoxBorder
+      BoxConstraints
+      BoxConstraintsTween
+      BoxDecoration
+      BoxPainter
+      BoxScrollView
+      BoxShadow
+      BuildContext
+      Builder
+      BuildOwner
+      ButtonBar
+      ButtonTheme
+      ButtonThemeData
+      Canvas
+      Card
+      Center
+      ChangeNotifier
+      Checkbox
+      CheckboxListTile
+      CheckedModeBanner
+      CheckedPopupMenuItem
+      Chip
+      ChipAttributes
+      ChipTheme
+      ChipThemeData
+      ChoiceChip
+      CircleAvatar
+      CircleBorder
+      CircularProgressIndicator
+      ClampingScrollPhysics
+      ClampingScrollSimulation
+      ClipOval
+      ClipPath
+      ClipRect
+      ClipRRect
+      CloseButton
+      Color
+      ColorFilter
+      Colors
+      ColorSwatch
+      ColorTween
+      Column
+      ComponentElement
+      CompositedTransformFollower
+      CompositedTransformTarget
+      CompoundAnimation
+      ConstrainedBox
+      Container
+      Cubic
+      Curve
+      CurvedAnimation
+      Curves
+      CurveTween
+      CustomClipper
+      CustomMultiChildLayout
+      CustomPaint
+      CustomPainter
+      CustomPainterSemantics
+      CustomScrollView
+      CustomSingleChildLayout
+      DataCell
+      DataColumn
+      DataRow
+      DataTable
+      DataTableSource
+      DayPicker
+      DecoratedBox
+      DecoratedBoxTransition
+      Decoration
+      DecorationImage
+      DecorationImagePainter
+      DecorationTween
+      DefaultAssetBundle
+      DefaultMaterialLocalizations
+      DefaultTabController
+      DefaultTextStyle
+      DefaultWidgetsLocalizations
+      DeletableChipAttributes
+      Dialog
+      Directionality
+      DisabledChipAttributes
+      Dismissible
+      Divider
+      DragDownDetails
+      DragEndDetails
+      Draggable
+      DragScrollActivity
+      DragStartDetails
+      DragTarget
+      DragUpdateDetails
+      Drawer
+      DrawerController
+      DrawerControllerState
+      DrawerHeader
+      DrivenScrollActivity
+      DropdownButton
+      DropdownButtonHideUnderline
+      DropdownMenuItem
+      EdgeInsets
+      EdgeInsetsDirectional
+      EdgeInsetsGeometry
+      EdgeInsetsGeometryTween
+      EdgeInsetsTween
+      EditableText
+      EditableTextState
+      ElasticInCurve
+      ElasticInOutCurve
+      ElasticOutCurve
+      Element
+      ErrorWidget
+      ExactAssetImage
+      ExcludeSemantics
+      Expanded
+      ExpandIcon
+      ExpansionPanel
+      ExpansionPanelList
+      ExpansionTile
+      FadeInImage
+      FadeTransition
+      Feedback
+      FileImage
+      FilterChip
+      FittedBox
+      FittedSizes
+      FixedColumnWidth
+      FixedExtentMetrics
+      FixedExtentScrollController
+      FixedExtentScrollPhysics
+      FixedScrollMetrics
+      FlatButton
+      Flex
+      FlexColumnWidth
+      Flexible
+      FlexibleSpaceBar
+      FlippedCurve
+      FloatingActionButton
+      FloatingActionButtonAnimator
+      FloatingActionButtonLocation
+      Flow
+      FlowDelegate
+      FlowPaintingContext
+      FlutterErrorDetails
+      FlutterLogo
+      FlutterLogoDecoration
+      FocusManager
+      FocusNode
+      FocusScope
+      FocusScopeNode
+      FontWeight
+      Form
+      FormField
+      FormFieldState
+      FormState
+      FractionallySizedBox
+      FractionalOffset
+      FractionalOffsetTween
+      FractionalTranslation
+      FractionColumnWidth
+      FutureBuilder
+      GestureDetector
+      GestureRecognizerFactory
+      GestureRecognizerFactoryWithHandlers
+      GlobalKey
+      GlobalObjectKey
+      GlowingOverscrollIndicator
+      Gradient
+      GridPaper
+      GridTile
+      GridTileBar
+      GridView
+      Hero
+      HeroController
+      HoldScrollActivity
+      HSVColor
+      Icon
+      IconButton
+      IconData
+      Icons
+      IconTheme
+      IconThemeData
+      IdleScrollActivity
+      IgnorePointer
+      Image
+      ImageCache
+      ImageConfiguration
+      ImageIcon
+      ImageInfo
+      ImageProvider
+      ImageShader
+      ImageStream
+      ImageStreamCompleter
+      ImplicitlyAnimatedWidget
+      IndexedStack
+      InheritedElement
+      InheritedWidget
+      Ink
+      InkDecoration
+      InkFeature
+      InkHighlight
+      InkResponse
+      InkRipple
+      InkSplash
+      InkWell
+      InputBorder
+      InputChip
+      InputDecoration
+      InputDecorationTheme
+      InputDecorator
+      InspectorSelection
+      InteractiveInkFeature
+      InteractiveInkFeatureFactory
+      Interval
+      IntrinsicColumnWidth
+      IntrinsicHeight
+      IntrinsicWidth
+      IntTween
+      KeepAlive
+      KeepAliveHandle
+      KeepAliveNotification
+      Key
+      KeyedSubtree
+      LabeledGlobalKey
+      LayerLink
+      LayoutBuilder
+      LayoutChangedNotification
+      LayoutId
+      LeafRenderObjectElement
+      LeafRenderObjectWidget
+      LicensePage
+      LimitedBox
+      LinearGradient
+      LinearProgressIndicator
+      ListBody
+      Listenable
+      Listener
+      ListTile
+      ListTileTheme
+      ListView
+      ListWheelScrollView
+      ListWheelViewport
+      Locale
+      LocalHistoryEntry
+      LocalHistoryRoute
+      Localizations
+      LocalizationsDelegate
+      LocalKey
+      LongPressDraggable
+      MaskFilter
+      Material
+      MaterialAccentColor
+      MaterialApp
+      MaterialButton
+      MaterialColor
+      MaterialGap
+      MaterialInkController
+      MaterialLocalizations
+      MaterialPageRoute
+      MaterialPointArcTween
+      MaterialRectArcTween
+      MaterialRectCenterArcTween
+      MaterialSlice
+      MaterialTextGeometry
+      Matrix4
+      Matrix4Tween
+      MatrixUtils
+      MaxColumnWidth
+      MediaQuery
+      MediaQueryData
+      MemoryImage
+      MergeableMaterial
+      MergeableMaterialItem
+      MergeSemantics
+      MetaData
+      MinColumnWidth
+      ModalBarrier
+      ModalRoute
+      MonthPicker
+      MultiChildLayoutDelegate
+      MultiChildRenderObjectElement
+      MultiChildRenderObjectWidget
+      MultiFrameImageStreamCompleter
+      NavigationToolbar
+      Navigator
+      NavigatorObserver
+      NavigatorState
+      NestedScrollView
+      NestedScrollViewViewport
+      NetworkImage
+      NeverScrollableScrollPhysics
+      Notification
+      NotificationListener
+      ObjectKey
+      Offset
+      Offstage
+      OneFrameImageStreamCompleter
+      Opacity
+      OrientationBuilder
+      OutlineButton
+      OutlineInputBorder
+      OverflowBox
+      Overlay
+      OverlayEntry
+      OverlayRoute
+      OverlayState
+      OverscrollIndicatorNotification
+      OverscrollNotification
+      Padding
+      PaddleSliderValueIndicatorShape
+      PageController
+      PageMetrics
+      PageRoute
+      PageRouteBuilder
+      PageScrollPhysics
+      PageStorage
+      PageStorageBucket
+      PageStorageKey
+      PageView
+      PaginatedDataTable
+      PaginatedDataTableState
+      Paint
+      PaintingBinding
+      PaintingContext
+      ParentDataElement
+      ParentDataWidget
+      Path
+      PerformanceOverlay
+      PersistentBottomSheetController
+      PhysicalModel
+      PhysicalShape
+      Placeholder
+      PointerCancelEvent
+      PointerDownEvent
+      PointerEvent
+      PointerMoveEvent
+      PointerUpEvent
+      PopupMenuButton
+      PopupMenuDivider
+      PopupMenuEntry
+      PopupMenuItem
+      PopupMenuItemState
+      PopupRoute
+      Positioned
+      PositionedDirectional
+      PositionedTransition
+      PreferredSize
+      PreferredSizeWidget
+      PrimaryScrollController
+      ProgressIndicator
+      ProxyAnimation
+      ProxyElement
+      ProxyWidget
+      RadialGradient
+      Radio
+      RadioListTile
+      Radius
+      RaisedButton
+      RawChip
+      RawGestureDetector
+      RawGestureDetectorState
+      RawImage
+      RawKeyboardListener
+      RawKeyEvent
+      RawMaterialButton
+      Rect
+      RectTween
+      RefreshIndicator
+      RefreshIndicatorState
+      RefreshProgressIndicator
+      RelativePositionedTransition
+      RelativeRect
+      RelativeRectTween
+      RenderBox
+      RenderNestedScrollViewViewport
+      RenderObject
+      RenderObjectElement
+      RenderObjectToWidgetAdapter
+      RenderObjectToWidgetElement
+      RenderObjectWidget
+      RenderSliverOverlapAbsorber
+      RenderSliverOverlapInjector
+      RenderToggleable
+      RepaintBoundary
+      ReverseAnimation
+      ReverseTween
+      RichText
+      RootRenderObjectElement
+      RotatedBox
+      RotationTransition
+      RoundedRectangleBorder
+      RoundSliderThumbShape
+      Route
+      RouteAware
+      RouteObserver
+      RouteSettings
+      Row
+      RRect
+      RSTransform
+      SafeArea
+      SawTooth
+      Scaffold
+      ScaffoldFeatureController
+      ScaffoldGeometry
+      ScaffoldPrelayoutGeometry
+      ScaffoldState
+      ScaleEndDetails
+      ScaleStartDetails
+      ScaleTransition
+      ScaleUpdateDetails
+      Scrollable
+      ScrollableState
+      ScrollActivity
+      ScrollActivityDelegate
+      Scrollbar
+      ScrollbarPainter
+      ScrollBehavior
+      ScrollConfiguration
+      ScrollContext
+      ScrollController
+      ScrollDragController
+      ScrollEndNotification
+      ScrollHoldController
+      ScrollMetrics
+      ScrollNotification
+      ScrollPhysics
+      ScrollPosition
+      ScrollPositionWithSingleContext
+      ScrollSpringSimulation
+      ScrollStartNotification
+      ScrollUpdateNotification
+      ScrollView
+      SelectableChipAttributes
+      Semantics
+      SemanticsDebugger
+      Shader
+      ShaderMask
+      ShapeBorder
+      ShapeBorderTween
+      ShapeDecoration
+      ShrinkWrappingViewport
+      SimpleDialog
+      SimpleDialogOption
+      Simulation
+      SingleChildLayoutDelegate
+      SingleChildRenderObjectElement
+      SingleChildRenderObjectWidget
+      SingleChildScrollView
+      SingleTickerProviderStateMixin
+      Size
+      SizeChangedLayoutNotification
+      SizeChangedLayoutNotifier
+      SizedBox
+      SizedOverflowBox
+      SizeTransition
+      SizeTween
+      Slider
+      SliderComponentShape
+      SliderTheme
+      SliderThemeData
+      SlideTransition
+      SliverAppBar
+      SliverChildBuilderDelegate
+      SliverChildDelegate
+      SliverChildListDelegate
+      SliverFillRemaining
+      SliverFillViewport
+      SliverFixedExtentList
+      SliverGrid
+      SliverGridDelegate
+      SliverGridDelegateWithFixedCrossAxisCount
+      SliverGridDelegateWithMaxCrossAxisExtent
+      SliverList
+      SliverMultiBoxAdaptorElement
+      SliverMultiBoxAdaptorWidget
+      SliverOverlapAbsorber
+      SliverOverlapAbsorberHandle
+      SliverOverlapInjector
+      SliverPadding
+      SliverPersistentHeader
+      SliverPersistentHeaderDelegate
+      SliverPrototypeExtentList
+      SliverSafeArea
+      SliverToBoxAdapter
+      SnackBar
+      SnackBarAction
+      Stack
+      StadiumBorder
+      State
+      StatefulBuilder
+      StatefulElement
+      StatefulWidget
+      StatelessElement
+      StatelessWidget
+      StatusTransitionWidget
+      Step
+      Stepper
+      StepTween
+      StreamBuilder
+      StreamBuilderBase
+      Switch
+      SwitchListTile
+      Tab
+      TabBar
+      TabBarView
+      TabController
+      Table
+      TableBorder
+      TableCell
+      TableColumnWidth
+      TableRow
+      TableRowInkWell
+      TabPageSelector
+      TabPageSelectorIndicator
+      TapDownDetails
+      TappableChipAttributes
+      TapUpDetails
+      Text
+      TextBox
+      TextDecoration
+      TextEditingController
+      TextEditingValue
+      TextField
+      TextFormField
+      TextInputType
+      TextPainter
+      TextPosition
+      TextRange
+      TextSelection
+      TextSelectionControls
+      TextSelectionDelegate
+      TextSelectionOverlay
+      TextSpan
+      TextStyle
+      TextStyleTween
+      TextTheme
+      Texture
+      Theme
+      ThemeData
+      ThemeDataTween
+      Threshold
+      TickerFuture
+      TickerMode
+      TickerProvider
+      TickerProviderStateMixin
+      TimeOfDay
+      Title
+      Tolerance
+      Tooltip
+      TrackingScrollController
+      TrainHoppingAnimation
+      Transform
+      TransformProperty
+      TransitionRoute
+      Tween
+      TwoLevelList
+      TwoLevelListItem
+      TwoLevelSublist
+      TypeMatcher
+      Typography
+      UnconstrainedBox
+      UnderlineInputBorder
+      UnderlineTabIndicator
+      UniqueKey
+      UniqueWidget
+      UserAccountsDrawerHeader
+      UserScrollNotification
+      ValueKey
+      ValueNotifier
+      Velocity
+      Viewport
+      ViewportNotificationMixin
+      Widget
+      WidgetInspector
+      WidgetInspectorService
+      WidgetsApp
+      WidgetsBinding
+      WidgetsBindingObserver
+      WidgetsFlutterBinding
+      WidgetsLocalizations
+      WidgetToRenderBoxAdapter
+      WillPopScope
+      Wrap
+      YearPicker
+    
+      Constants
+      kAlwaysCompleteAnimation
+      kAlwaysDismissedAnimation
+      kBottomNavigationBarHeight
+      kElevationToShadow
+      kFloatingActionButtonMargin
+      kFloatingActionButtonSegue
+      kFloatingActionButtonTurnInterval
+      kMaterialListPadding
+      kRadialReactionAlpha
+      kRadialReactionDuration
+      kRadialReactionRadius
+      kTabLabelPadding
+      kTabScrollDuration
+      kTextTabBarHeight
+      kThemeAnimationDuration
+      kThemeChangeDuration
+      kToolbarHeight
+    
+      Properties
+      debugHighlightDeprecatedWidgets
+      debugPrint
+      debugPrintBuildScope
+      debugPrintGlobalKeyedWidgetLifecycle
+      debugPrintRebuildDirtyWidgets
+      debugPrintScheduleBuildForStacks
+      debugProfileBuildsEnabled
+      imageCache
+      kListTileExtent
+      kMaterialEdges
+      materialTextSelectionControls
+    
+      Functions
+      applyBoxFit
+      axisDirectionIsReversed
+      axisDirectionToAxis
+      createLocalImageConfiguration
+      debugAssertAllWidgetVarsUnset
+      debugCheckHasDirectionality
+      debugCheckHasMaterial
+      debugCheckHasMediaQuery
+      debugCheckHasTable
+      debugChildrenHaveDuplicateKeys
+      debugDescribeTransform
+      debugDumpApp
+      debugDumpLayerTree
+      debugDumpRenderTree
+      debugItemsHaveDuplicateKeys
+      debugPrintStack
+      debugWidgetBuilderValue
+      decodeImageFromList
+      defaultScrollNotificationPredicate
+      flipAxis
+      flipAxisDirection
+      getAxisDirectionFromAxisReverseAndDirectionality
+      hashList
+      hashValues
+      hourFormat
+      paintBorder
+      paintImage
+      paintZigZag
+      positionDependentBox
+      precacheImage
+      runApp
+      showAboutDialog
+      showBottomSheet
+      showDatePicker
+      showDialog
+      showLicensePage
+      showMenu
+      showModalBottomSheet
+      showTimePicker
+      textDirectionToAxisDirection
+    
+      Enums
+      AnimationStatus
+      AppLifecycleState
+      Axis
+      AxisDirection
+      BannerLocation
+      BlendMode
+      BlurStyle
+      BorderStyle
+      BottomNavigationBarType
+      BoxFit
+      BoxShape
+      Brightness
+      ButtonTextTheme
+      ConnectionState
+      CrossAxisAlignment
+      CrossFadeState
+      DatePickerMode
+      DayPeriod
+      DecorationPosition
+      DiagnosticLevel
+      DismissDirection
+      DragAnchor
+      DrawerAlignment
+      FadeInImagePhase
+      FilterQuality
+      FlexFit
+      FlutterLogoStyle
+      FontStyle
+      GrowthDirection
+      HitTestBehavior
+      HourFormat
+      ImageRepeat
+      ListTileControlAffinity
+      ListTileStyle
+      MainAxisAlignment
+      MainAxisSize
+      MaterialListType
+      MaterialType
+      Orientation
+      Overflow
+      PaintingStyle
+      PathFillType
+      RenderComparison
+      RoutePopDisposition
+      SelectionChangedCause
+      ShowValueIndicator
+      SnackBarClosedReason
+      StackFit
+      StepperType
+      StepState
+      StrokeCap
+      StrokeJoin
+      TabBarIndicatorSize
+      TableCellVerticalAlignment
+      TargetPlatform
+      TextAffinity
+      TextAlign
+      TextBaseline
+      TextDecorationStyle
+      TextDirection
+      TextOverflow
+      TextSelectionHandleType
+      TileMode
+      TimeOfDayFormat
+      VertexMode
+      VerticalDirection
+      WrapAlignment
+      WrapCrossAlignment
+    
+      Typedefs
+      AnimatedCrossFadeBuilder
+      AnimatedListItemBuilder
+      AnimatedListRemovedItemBuilder
+      AnimatedSwitcherLayoutBuilder
+      AnimatedSwitcherTransitionBuilder
+      AnimationStatusListener
+      AsyncWidgetBuilder
+      ComputeNotch
+      CreateRectTween
+      DataColumnSortCallback
+      DismissDirectionCallback
+      DraggableCanceledCallback
+      DragTargetAccept
+      DragTargetBuilder
+      DragTargetLeave
+      DragTargetWillAccept
+      ElementVisitor
+      ErrorWidgetBuilder
+      ExpansionPanelCallback
+      ExpansionPanelHeaderBuilder
+      FormFieldBuilder
+      FormFieldSetter
+      FormFieldValidator
+      GenerateAppTitle
+      GestureDragCancelCallback
+      GestureDragDownCallback
+      GestureDragEndCallback
+      GestureDragStartCallback
+      GestureDragUpdateCallback
+      GestureLongPressCallback
+      GestureRecognizerFactoryConstructor
+      GestureRecognizerFactoryInitializer
+      GestureScaleEndCallback
+      GestureScaleStartCallback
+      GestureScaleUpdateCallback
+      GestureTapCallback
+      GestureTapCancelCallback
+      GestureTapDownCallback
+      GestureTapUpCallback
+      ImageListener
+      IndexedWidgetBuilder
+      InspectorSelectButtonBuilder
+      InspectorSelectionChangedCallback
+      LayoutWidgetBuilder
+      LocaleResolutionCallback
+      NestedScrollViewHeaderSliversBuilder
+      NotificationListenerCallback
+      OrientationWidgetBuilder
+      PointerCancelEventListener
+      PointerDownEventListener
+      PointerMoveEventListener
+      PointerUpEventListener
+      PopupMenuCanceled
+      PopupMenuItemBuilder
+      PopupMenuItemSelected
+      RectCallback
+      RefreshCallback
+      RouteFactory
+      RoutePageBuilder
+      RoutePredicate
+      RouteTransitionsBuilder
+      ScrollNotificationPredicate
+      SelectableDayPredicate
+      SelectionChangedCallback
+      SemanticsBuilderCallback
+      ShaderCallback
+      StatefulWidgetBuilder
+      StateSetter
+      TextSelectionOverlayChanged
+      TransitionBuilder
+      TweenConstructor
+      TweenVisitor
+      ValueChanged
+      ValueGetter
+      ValueSetter
+      ViewportBuilder
+      VoidCallback
+      WidgetBuilder
+      WillPopCallback
+    
+Exceptions
+      FlutterError
+      TickerCanceled
+
+
+widgets library
+===============
+
+The Flutter widgets framework.
+
+To use, import package:flutter/widgets.dart.
+
+See also:
+
+    flutter.io/widgets for a catalog of commonly-used Flutter widgets.
+
+Classes
+
+AbsorbPointer
+    A widget that absorbs pointers during hit testing. 
+Align
+    A widget that aligns its child within itself and optionally sizes itself based on the child's size. 
+Alignment
+    A point within a rectangle. 
+AlignmentDirectional
+    An offset that's expressed as a fraction of a Size, but whose horizontal component is dependent on the writing direction. 
+AlignmentGeometry
+    Base class for Alignment that allows for text-direction aware resolution. 
+AlignmentGeometryTween
+    An interpolation between two AlignmentGeometry. 
+AlignmentTween
+    An interpolation between two alignments. 
+AlignTransition
+    Animated version of an Align that animates its Align.alignment property. 
+AlwaysScrollableScrollPhysics
+    Scroll physics that always lets the user scroll. 
+AlwaysStoppedAnimation<T>
+    An animation that is always stopped at a given value. 
+Animatable<T>
+    An object that can produce a value of type T given an Animation as input. 
+AnimatedAlign
+    Animated version of Align which automatically transitions the child's position over a given duration whenever the given alignment changes. 
+AnimatedBuilder
+    A general-purpose widget for building animations. 
+AnimatedContainer
+    A container that gradually changes its values over a period of time. 
+AnimatedCrossFade
+    A widget that cross-fades between two given children and animates itself between their sizes. 
+AnimatedDefaultTextStyle
+    Animated version of DefaultTextStyle which automatically transitions the default text style (the text style to apply to descendant Text widgets without explicit style) over a given duration whenever the given style changes. 
+AnimatedList
+    A scrolling container that animates items when they are inserted or removed. 
+AnimatedListState
+    The state for a scrolling container that animates items when they are inserted or removed. 
+AnimatedModalBarrier
+    A widget that prevents the user from interacting with widgets behind itself, and can be configured with an animated color value. 
+AnimatedOpacity
+    Animated version of Opacity which automatically transitions the child's opacity over a given duration whenever the given opacity changes. 
+AnimatedPadding
+    Animated version of Padding which automatically transitions the indentation over a given duration whenever the given inset changes. 
+AnimatedPhysicalModel
+    Animated version of PhysicalModel. 
+AnimatedPositioned
+    Animated version of Positioned which automatically transitions the child's position over a given duration whenever the given position changes. 
+AnimatedPositionedDirectional
+    Animated version of PositionedDirectional which automatically transitions the child's position over a given duration whenever the given position changes. 
+AnimatedSize
+    Animated widget that automatically transitions its size over a given duration whenever the given child's size changes. 
+AnimatedSwitcher
+    A widget that by default does a FadeTransition between a new widget and the widget previously set on the AnimatedSwitcher as a child. 
+AnimatedWidget
+    A widget that rebuilds when the given Listenable changes value. 
+AnimatedWidgetBaseState<T extends ImplicitlyAnimatedWidget>
+    A base class for widgets with implicit animations. 
+Animation<T>
+    An animation with a value of type T. 
+AnimationController
+    A controller for an animation. 
+AnimationEagerListenerMixin
+    A mixin that replaces the didRegisterListener/didUnregisterListener contract with a dispose contract. 
+AnimationLazyListenerMixin
+    A mixin that helps listen to another object only when this object has registered listeners. 
+AnimationLocalListenersMixin
+    A mixin that implements the addListener/removeListener protocol and notifies all the registered listeners when notifyListeners is called. 
+AnimationLocalStatusListenersMixin
+    A mixin that implements the addStatusListener/removeStatusListener protocol and notifies all the registered listeners when notifyStatusListeners is called. 
+AnimationMax<T extends num>
+    An animation that tracks the maximum of two other animations. 
+AnimationMean
+    An animation of doubles that tracks the mean of two other animations. 
+AnimationMin<T extends num>
+    An animation that tracks the minimum of two other animations. 
+AnimationWithParentMixin<T>
+    Implements most of the Animation interface by deferring its behavior to a given parent Animation. 
+AspectRatio
+    A widget that attempts to size the child to a specific aspect ratio. 
+AssetBundleImageKey
+    Key for the image obtained by an AssetImage or ExactAssetImage. 
+AssetBundleImageProvider
+    A subclass of ImageProvider that knows about AssetBundles. 
+AssetImage
+    Fetches an image from an AssetBundle, having determined the exact image to use based on the context. 
+AsyncSnapshot<T>
+    Immutable representation of the most recent interaction with an asynchronous computation. 
+AutomaticKeepAlive
+    Allows subtrees to request to be kept alive in lazy lists. 
+AutomaticKeepAliveClientMixin<T extends StatefulWidget>
+    A mixin with convenience methods for clients of AutomaticKeepAlive. 
+BackdropFilter
+    A widget that applies a filter to the existing painted content and then paints child. 
+BallisticScrollActivity
+    An activity that animates a scroll view based on a physics Simulation. 
+Banner
+    Displays a diagonal message above the corner of another widget. 
+BannerPainter
+    Paints a Banner. 
+Baseline
+    A widget that positions its child according to the child's baseline. 
+BeveledRectangleBorder
+    A rectangular border with flattened or "beveled" corners. 
+BlockSemantics
+    A widget that drops the semantics of all widget that were painted before it in the same semantic container. 
+Border
+    A border of a box, comprised of four sides: top, right, bottom, left. 
+BorderDirectional
+    A border of a box, comprised of four sides, the lateral sides of which flip over based on the reading direction. 
+BorderRadius
+    An immutable set of radii for each corner of a rectangle. 
+BorderRadiusDirectional
+    An immutable set of radii for each corner of a rectangle, but with the corners specified in a manner dependent on the writing direction. 
+BorderRadiusGeometry
+    Base class for BorderRadius that allows for text-direction aware resolution. 
+BorderRadiusTween
+    An interpolation between two BorderRadiuss. 
+BorderSide
+    A side of a border of a box. 
+BottomNavigationBarItem
+    An interactive button within either material's BottomNavigationBar or the iOS themed CupertinoTabBar with an icon and title. 
+BouncingScrollPhysics
+    Scroll physics for environments that allow the scroll offset to go beyond the bounds of the content, but then bounce the content back to the edge of those bounds. 
+BouncingScrollSimulation
+    An implementation of scroll physics that matches iOS. 
+BoxBorder
+    Base class for box borders that can paint as rectangle, circles, or rounded rectangles. 
+BoxConstraints
+    Immutable layout constraints for RenderBox layout. 
+BoxConstraintsTween
+    An interpolation between two BoxConstraints. 
+BoxDecoration
+    An immutable description of how to paint a box. 
+BoxPainter
+    A stateful class that can paint a particular Decoration. 
+BoxScrollView
+    A ScrollView that uses a single child layout model. 
+BoxShadow
+    A shadow cast by a box. 
+BuildContext
+    A handle to the location of a widget in the widget tree. 
+Builder
+    A platonic widget that calls a closure to obtain its child widget. 
+BuildOwner
+    Manager class for the widgets framework. 
+Canvas
+    An interface for recording graphical operations. 
+Center
+    A widget that centers its child within itself. 
+ChangeNotifier
+    A class that can be extended or mixed in that provides a change notification API using VoidCallback for notifications. 
+CheckedModeBanner
+    Displays a Banner saying "DEBUG" when running in checked mode. MaterialApp builds one of these by default. Does nothing in release mode. 
+CircleBorder
+    A border that fits a circle within the available space. 
+ClampingScrollPhysics
+    Scroll physics for environments that prevent the scroll offset from reaching beyond the bounds of the content. 
+ClampingScrollSimulation
+    An implementation of scroll physics that matches Android. 
+ClipOval
+    A widget that clips its child using an oval. 
+ClipPath
+    A widget that clips its child using a path. 
+ClipRect
+    A widget that clips its child using a rectangle. 
+ClipRRect
+    A widget that clips its child using a rounded rectangle. 
+Color
+    An immutable 32 bit color value in ARGB format. 
+ColorFilter
+    A description of a color filter to apply when drawing a shape or compositing a layer with a particular Paint. A color filter is a function that takes two colors, and outputs one color. When applied during compositing, it is independently applied to each pixel of the layer being drawn before the entire layer is merged with the destination. 
+ColorSwatch<T>
+    A color that has a small table of related colors called a "swatch". 
+ColorTween
+    An interpolation between two colors. 
+Column
+    A widget that displays its children in a vertical array. 
+ComponentElement
+    An Element that composes other Elements. 
+CompositedTransformFollower
+    A widget that follows a CompositedTransformTarget. 
+CompositedTransformTarget
+    A widget that can be targeted by a CompositedTransformFollower. 
+CompoundAnimation<T>
+    An interface for combining multiple Animations. Subclasses need only implement the value getter to control how the child animations are combined. Can be chained to combine more than 2 animations. 
+ConstrainedBox
+    A widget that imposes additional constraints on its child. 
+Container
+    A convenience widget that combines common painting, positioning, and sizing widgets. 
+Cubic
+    A cubic polynomial mapping of the unit interval. 
+Curve
+    A mapping of the unit interval to the unit interval. 
+CurvedAnimation
+    An animation that applies a curve to another animation. 
+Curves
+    A collection of common animation curves. 
+CurveTween
+    Transforms the value of the given animation by the given curve. 
+CustomClipper<T>
+    An interface for providing custom clips. 
+CustomMultiChildLayout
+    A widget that uses a delegate to size and position multiple children. 
+CustomPaint
+    A widget that provides a canvas on which to draw during the paint phase. 
+CustomPainter
+    The interface used by CustomPaint (in the widgets library) and RenderCustomPaint (in the rendering library). 
+CustomPainterSemantics
+    Contains properties describing information drawn in a rectangle contained by the Canvas used by a CustomPaint. 
+CustomScrollView
+    A ScrollView that creates custom scroll effects using slivers. 
+CustomSingleChildLayout
+    A widget that defers the layout of its single child to a delegate. 
+DecoratedBox
+    A widget that paints a Decoration either before or after its child paints. 
+DecoratedBoxTransition
+    Animated version of a DecoratedBox that animates the different properties of its Decoration. 
+Decoration
+    A description of a box decoration (a decoration applied to a Rect). 
+DecorationImage
+    An image for a box decoration. 
+DecorationImagePainter
+    The painter for a DecorationImage. 
+DecorationTween
+    An interpolation between two Decorations. 
+DefaultAssetBundle
+    A widget that determines the default asset bundle for its descendants. 
+DefaultTextStyle
+    The text style to apply to descendant Text widgets without explicit style. 
+DefaultWidgetsLocalizations
+    US English localizations for the widgets library. 
+Directionality
+    A widget that determines the ambient directionality of text and text-direction-sensitive render objects. 
+Dismissible
+    A widget that can be dismissed by dragging in the indicated direction. 
+DragDownDetails
+    Details object for callbacks that use GestureDragDownCallback. 
+DragEndDetails
+    Details object for callbacks that use GestureDragEndCallback. 
+Draggable<T>
+    A widget that can be dragged from to a DragTarget. 
+DragScrollActivity
+    The activity a scroll view performs when a the user drags their finger across the screen. 
+DragStartDetails
+    Details object for callbacks that use GestureDragStartCallback. 
+DragTarget<T>
+    A widget that receives data when a Draggable widget is dropped. 
+DragUpdateDetails
+    Details object for callbacks that use GestureDragUpdateCallback. 
+DrivenScrollActivity
+    An activity that animates a scroll view based on animation parameters. 
+EdgeInsets
+    An immutable set of offsets in each of the four cardinal directions. 
+EdgeInsetsDirectional
+    An immutable set of offsets in each of the four cardinal directions, but whose horizontal components are dependent on the writing direction. 
+EdgeInsetsGeometry
+    Base class for EdgeInsets that allows for text-direction aware resolution. 
+EdgeInsetsGeometryTween
+    An interpolation between two EdgeInsetsGeometrys. 
+EdgeInsetsTween
+    An interpolation between two EdgeInsetss. 
+EditableText
+    A basic text input field. 
+EditableTextState
+    State for a EditableText. 
+ElasticInCurve
+    An oscillating curve that grows in magnitude while overshooting its bounds. 
+ElasticInOutCurve
+    An oscillating curve that grows and then shrinks in magnitude while overshooting its bounds. 
+ElasticOutCurve
+    An oscillating curve that shrinks in magnitude while overshooting its bounds. 
+Element
+    An instantiation of a Widget at a particular location in the tree. 
+ErrorWidget
+    A widget that renders an exception's message. 
+ExactAssetImage
+    Fetches an image from an AssetBundle, associating it with the given scale. 
+ExcludeSemantics
+    A widget that drops all the semantics of its descendants. 
+Expanded
+    A widget that expands a child of a Row, Column, or Flex. 
+FadeInImage
+    An image that shows a placeholder image while the target image is loading, then fades in the new image when it loads. 
+FadeTransition
+    Animates the opacity of a widget. 
+FileImage
+    Decodes the given File object as an image, associating it with the given scale. 
+FittedBox
+    Scales and positions its child within itself according to fit. 
+FittedSizes
+    The pair of sizes returned by applyBoxFit. 
+FixedColumnWidth
+    Sizes the column to a specific number of pixels. 
+FixedExtentMetrics
+    Metrics for a ScrollPosition to a scroll view with fixed item sizes. 
+FixedExtentScrollController
+    A controller for scroll views whose items have the same size. 
+FixedExtentScrollPhysics
+    A snapping physics that always lands directly on items instead of anywhere within the scroll extent. 
+FixedScrollMetrics
+    An immutable snapshot of values associated with a Scrollable viewport. 
+Flex
+    A widget that displays its children in a one-dimensional array. 
+FlexColumnWidth
+    Sizes the column by taking a part of the remaining space once all the other columns have been laid out. 
+Flexible
+    A widget that controls how a child of a Row, Column, or Flex flexes. 
+FlippedCurve
+    A curve that is the reversed inversion of its given curve. 
+Flow
+    A widget that sizes and positions children efficiently, according to the logic in a FlowDelegate. 
+FlowDelegate
+    A delegate that controls the appearance of a flow layout. 
+FlowPaintingContext
+    A context in which a FlowDelegate paints. 
+FlutterErrorDetails
+    Class for information provided to FlutterExceptionHandler callbacks. 
+FlutterLogoDecoration
+    An immutable description of how to paint Flutter's logo. 
+FocusManager
+    Manages the focus tree. 
+FocusNode
+    A leaf node in the focus tree that can receive focus. 
+FocusScope
+    Establishes a scope in which widgets can receive focus. 
+FocusScopeNode
+    An interior node in the focus tree. 
+FontWeight
+    The thickness of the glyphs used to draw the text 
+Form
+    An optional container for grouping together multiple form field widgets (e.g. TextField widgets). 
+FormField<T>
+    A single form field. 
+FormFieldState<T>
+    The current state of a FormField. Passed to the FormFieldBuilder method for use in constructing the form field's widget. 
+FormState
+    State associated with a Form widget. 
+FractionallySizedBox
+    A widget that sizes its child to a fraction of the total available space. For more details about the layout algorithm, see RenderFractionallySizedOverflowBox. 
+FractionalOffset
+    An offset that's expressed as a fraction of a Size. 
+FractionalOffsetTween
+    An interpolation between two fractional offsets. 
+FractionalTranslation
+    Applies a translation transformation before painting its child. 
+FractionColumnWidth
+    Sizes the column to a fraction of the table's constraints' maxWidth. 
+FutureBuilder<T>
+    Widget that builds itself based on the latest snapshot of interaction with a Future. 
+GestureDetector
+    A widget that detects gestures. 
+GestureRecognizerFactory<T extends GestureRecognizer>
+    Factory for creating gesture recognizers. 
+GestureRecognizerFactoryWithHandlers<T extends GestureRecognizer>
+    Factory for creating gesture recognizers that delegates to callbacks. 
+GlobalKey<T extends State<StatefulWidget>>
+    A key that is unique across the entire app. 
+GlobalObjectKey<T extends State<StatefulWidget>>
+    A global key that takes its identity from the object used as its value. 
+GlowingOverscrollIndicator
+    A visual indication that a scroll view has overscrolled. 
+Gradient
+    A 2D gradient. 
+GridPaper
+    A widget that draws a rectilinear grid of lines one pixel wide. 
+GridView
+    A scrollable, 2D array of widgets. 
+Hero
+    A widget that marks its child as being a candidate for hero animations. 
+HeroController
+    A Navigator observer that manages Hero transitions. 
+HoldScrollActivity
+    A scroll activity that does nothing but can be released to resume normal idle behavior. 
+HSVColor
+    A color represented using alpha, hue, saturation, and value. 
+Icon
+    A graphical icon widget drawn with a glyph from a font described in an IconData such as material's predefined IconDatas in Icons. 
+IconData
+    A description of an icon fulfilled by a font glyph. 
+IconTheme
+    Controls the default color, opacity, and size of icons in a widget subtree. 
+IconThemeData
+    Defines the color, opacity, and size of icons. 
+IdleScrollActivity
+    A scroll activity that does nothing. 
+IgnorePointer
+    A widget that is invisible during hit testing. 
+Image
+    A widget that displays an image. 
+ImageCache
+    Class for the imageCache object. 
+ImageConfiguration
+    Configuration information passed to the ImageProvider.resolve method to select a specific image. 
+ImageIcon
+    An icon that comes from an ImageProvider, e.g. an AssetImage. 
+ImageInfo
+    A dart:ui.Image object with its corresponding scale. 
+ImageProvider<T>
+    Identifies an image without committing to the precise final asset. This allows a set of images to be identified and for the precise image to later be resolved based on the environment, e.g. the device pixel ratio. 
+ImageShader
+    A shader (as used by Paint.shader) that tiles an image. 
+ImageStream
+    A handle to an image resource. 
+ImageStreamCompleter
+    Base class for those that manage the loading of dart:ui.Image objects for ImageStreams. 
+ImplicitlyAnimatedWidget
+    An abstract widget for building widgets that gradually change their values over a period of time. 
+IndexedStack
+    A Stack that shows a single child from a list of children. 
+InheritedElement
+    An Element that uses a InheritedWidget as its configuration. 
+InheritedWidget
+    Base class for widgets that efficiently propagate information down the tree. 
+InspectorSelection
+    Mutable selection state of the inspector. 
+Interval
+    A curve that is 0.0 until begin, then curved (according to curve from 0.0 to 1.0 at end, then 1.0. 
+IntrinsicColumnWidth
+    Sizes the column according to the intrinsic dimensions of all the cells in that column. 
+IntrinsicHeight
+    A widget that sizes its child to the child's intrinsic height. 
+IntrinsicWidth
+    A widget that sizes its child to the child's intrinsic width. 
+IntTween
+    An interpolation between two integers that rounds. 
+KeepAlive
+    Mark a child as needing to stay alive even when it's in a lazy list that would otherwise remove it. 
+KeepAliveHandle
+    A Listenable which can be manually triggered. 
+KeepAliveNotification
+    Indicates that the subtree through which this notification bubbles must be kept alive even if it would normally be discarded as an optimization. 
+Key
+    A Key is an identifier for Widgets, Elements and SemanticsNodes. 
+KeyedSubtree
+    A widget that builds its child. 
+LabeledGlobalKey<T extends State<StatefulWidget>>
+    A global key with a debugging label. 
+LayerLink
+    An object that a LeaderLayer can register with. 
+LayoutBuilder
+    Builds a widget tree that can depend on the parent widget's size. 
+LayoutChangedNotification
+    Indicates that the layout of one of the descendants of the object receiving this notification has changed in some way, and that therefore any assumptions about that layout are no longer valid. 
+LayoutId
+    Metadata for identifying children in a CustomMultiChildLayout. 
+LeafRenderObjectElement
+    An Element that uses a LeafRenderObjectWidget as its configuration. 
+LeafRenderObjectWidget
+    A superclass for RenderObjectWidgets that configure RenderObject subclasses that have no children. 
+LimitedBox
+    A box that limits its size only when it's unconstrained. 
+LinearGradient
+    A 2D linear gradient. 
+ListBody
+    A widget that arranges its children sequentially along a given axis, forcing them to the dimension of the parent in the other axis. 
+Listenable
+    An object that maintains a list of listeners. 
+Listener
+    A widget that calls callbacks in response to pointer events. 
+ListView
+    A scrollable list of widgets arranged linearly. 
+ListWheelScrollView
+    A box in which children on a wheel can be scrolled. 
+ListWheelViewport
+    A viewport showing a subset of children on a wheel. 
+Locale
+    An identifier used to select a user's language and formatting preferences, consisting of a language and a country. This is a subset of locale identifiers as defined by BCP 47. 
+LocalHistoryEntry
+    An entry in the history of a LocalHistoryRoute. 
+LocalHistoryRoute<T>
+    A route that can handle back navigations internally by popping a list. 
+Localizations
+    Defines the Locale for its child and the localized resources that the child depends on. 
+LocalizationsDelegate<T>
+    A factory for a set of localized resources of type T, to be loaded by a Localizations widget. 
+LocalKey
+    A key that is not a GlobalKey. 
+LongPressDraggable<T>
+    Makes its child draggable starting from long press. 
+MaskFilter
+    A mask filter to apply to shapes as they are painted. A mask filter is a function that takes a bitmap of color pixels, and returns another bitmap of color pixels. 
+Matrix4
+    4D Matrix. Values are stored in column major order. 
+Matrix4Tween
+    An interpolation between two Matrix4s. 
+MatrixUtils
+    Utility functions for working with matrices. 
+MaxColumnWidth
+    Sizes the column such that it is the size that is the maximum of two column width specifications. 
+MediaQuery
+    Establishes a subtree in which media queries resolve to the given data. 
+MediaQueryData
+    Information about a piece of media (e.g., a window). 
+MemoryImage
+    Decodes the given Uint8List buffer as an image, associating it with the given scale. 
+MergeSemantics
+    A widget that merges the semantics of its descendants. 
+MetaData
+    Holds opaque meta data in the render tree. 
+MinColumnWidth
+    Sizes the column such that it is the size that is the minimum of two column width specifications. 
+ModalBarrier
+    A widget that prevents the user from interacting with widgets behind itself. 
+ModalRoute<T>
+    A route that blocks interaction with previous routes. 
+MultiChildLayoutDelegate
+    A delegate that controls the layout of multiple children. 
+MultiChildRenderObjectElement
+    An Element that uses a MultiChildRenderObjectWidget as its configuration. 
+MultiChildRenderObjectWidget
+    A superclass for RenderObjectWidgets that configure RenderObject subclasses that have a single list of children. (This superclass only provides the storage for that child list, it doesn't actually provide the updating logic.) 
+MultiFrameImageStreamCompleter
+    Manages the decoding and scheduling of image frames. 
+NavigationToolbar
+    NavigationToolbar is a layout helper to position 3 widgets or groups of widgets along a horizontal axis that's sensible for an application's navigation bar such as in Material Design and in iOS. 
+Navigator
+    A widget that manages a set of child widgets with a stack discipline. 
+NavigatorObserver
+    An interface for observing the behavior of a Navigator. 
+NavigatorState
+    The state for a Navigator widget. 
+NestedScrollView
+    A scrolling view inside of which can be nested other scrolling views, with their scroll positions being intrinsically linked. 
+NestedScrollViewViewport
+    The Viewport variant used by NestedScrollView. 
+NetworkImage
+    Fetches the given URL from the network, associating it with the given scale. 
+NeverScrollableScrollPhysics
+    Scroll physics that does not allow the user to scroll. 
+Notification
+    A notification that can bubble up the widget tree. 
+NotificationListener<T extends Notification>
+    A widget that listens for Notifications bubbling up the tree. 
+ObjectKey
+    A key that takes its identity from the object used as its value. 
+Offset
+    An immutable 2D floating-point offset. 
+Offstage
+    A widget that lays the child out as if it was in the tree, but without painting anything, without making the child available for hit testing, and without taking any room in the parent. 
+OneFrameImageStreamCompleter
+    Manages the loading of dart:ui.Image objects for static ImageStreams (those with only one frame). 
+Opacity
+    A widget that makes its child partially transparent. 
+OrientationBuilder
+    Builds a widget tree that can depend on the parent widget's orientation (distinct from the device orientation). 
+OverflowBox
+    A widget that imposes different constraints on its child than it gets from its parent, possibly allowing the child to overflow the parent. 
+Overlay
+    A Stack of entries that can be managed independently. 
+OverlayEntry
+    A place in an Overlay that can contain a widget. 
+OverlayRoute<T>
+    A route that displays widgets in the Navigator's Overlay. 
+OverlayState
+    The current state of an Overlay. 
+OverscrollIndicatorNotification
+    A notification that an GlowingOverscrollIndicator will start showing an overscroll indication. 
+OverscrollNotification
+    A notification that a Scrollable widget has not changed its scroll position because the change would have caused its scroll position to go outside of its scroll bounds. 
+Padding
+    A widget that insets its child by the given padding. 
+PageController
+    A controller for PageView. 
+PageMetrics
+    Metrics for a PageView. 
+PageRoute<T>
+    A modal route that replaces the entire screen. 
+PageRouteBuilder<T>
+    A utility class for defining one-off page routes in terms of callbacks. 
+PageScrollPhysics
+    Scroll physics used by a PageView. 
+PageStorage
+    A widget that establishes a page storage bucket for this widget subtree. 
+PageStorageBucket
+    A storage bucket associated with a page in an app. 
+PageStorageKey<T>
+    A ValueKey that defines where PageStorage values will be saved. 
+PageView
+    A scrollable list that works page by page. 
+Paint
+    A description of the style to use when drawing on a Canvas. 
+PaintingBinding
+    Binding for the painting library. 
+PaintingContext
+    A place to paint. 
+ParentDataElement<T extends RenderObjectWidget>
+    An Element that uses a ParentDataWidget as its configuration. 
+ParentDataWidget<T extends RenderObjectWidget>
+    Base class for widgets that hook ParentData information to children of RenderObjectWidgets. 
+Path
+    A complex, one-dimensional subset of a plane. 
+PerformanceOverlay
+    Displays performance statistics. 
+PhysicalModel
+    A widget representing a physical layer that clips its children to a shape. 
+PhysicalShape
+    A widget representing a physical layer that clips its children to a path. 
+Placeholder
+    A widget that draws a box that represents where other widgets will one day be added. 
+PointerCancelEvent
+    The input from the pointer is no longer directed towards this receiver. 
+PointerDownEvent
+    The pointer has made contact with the device. 
+PointerEvent
+    Base class for touch, stylus, or mouse events. 
+PointerMoveEvent
+    The pointer has moved with respect to the device while the pointer is in contact with the device. 
+PointerUpEvent
+    The pointer has stopped making contact with the device. 
+PopupRoute<T>
+    A modal route that overlays a widget over the current route. 
+Positioned
+    A widget that controls where a child of a Stack is positioned. 
+PositionedDirectional
+    A widget that controls where a child of a Stack is positioned without committing to a specific TextDirection. 
+PositionedTransition
+    Animated version of Positioned which takes a specific Animation to transition the child's position from a start position to and end position over the lifetime of the animation. 
+PreferredSize
+    A widget with a preferred size. 
+PreferredSizeWidget
+    An interface for widgets that can return the size this widget would prefer if it were otherwise unconstrained. 
+PrimaryScrollController
+    Associates a ScrollController with a subtree. 
+ProxyAnimation
+    An animation that is a proxy for another animation. 
+ProxyElement
+    An Element that uses a ProxyWidget as its configuration. 
+ProxyWidget
+    A widget that has a child widget provided to it, instead of building a new widget. 
+RadialGradient
+    A 2D radial gradient. 
+Radius
+    A radius for either circular or elliptical shapes. 
+RawGestureDetector
+    A widget that detects gestures described by the given gesture factories. 
+RawGestureDetectorState
+    State for a RawGestureDetector. 
+RawImage
+    A widget that displays a dart:ui.Image directly. 
+RawKeyboardListener
+    A widget that calls a callback whenever the user presses or releases a key on a keyboard. 
+RawKeyEvent
+    Base class for raw key events. 
+Rect
+    An immutable, 2D, axis-aligned, floating-point rectangle whose coordinates are relative to a given origin. 
+RectTween
+    An interpolation between two rectangles. 
+RelativePositionedTransition
+    Animated version of Positioned which transitions the child's position based on the value of rect relative to a bounding box with the specified size. 
+RelativeRect
+    An immutable 2D, axis-aligned, floating-point rectangle whose coordinates are given relative to another rectangle's edges, known as the container. Since the dimensions of the rectangle are relative to those of the container, this class has no width and height members. To determine the width or height of the rectangle, convert it to a Rect using toRect() (passing the container's own Rect), and then examine that object. 
+RelativeRectTween
+    An interpolation between two relative rects. 
+RenderBox
+    A render object in a 2D Cartesian coordinate system. 
+RenderNestedScrollViewViewport
+    The RenderViewport variant used by NestedScrollView. 
+RenderObject
+    An object in the render tree. 
+RenderObjectElement
+    An Element that uses a RenderObjectWidget as its configuration. 
+RenderObjectToWidgetAdapter<T extends RenderObject>
+    A bridge from a RenderObject to an Element tree. 
+RenderObjectToWidgetElement<T extends RenderObject>
+    A RootRenderObjectElement that is hosted by a RenderObject. 
+RenderObjectWidget
+    RenderObjectWidgets provide the configuration for RenderObjectElements, which wrap RenderObjects, which provide the actual rendering of the application. 
+RenderSliverOverlapAbsorber
+    A sliver that wraps another, forcing its layout extent to be treated as overlap. 
+RenderSliverOverlapInjector
+    A sliver that has a sliver geometry based on the values stored in a SliverOverlapAbsorberHandle. 
+RepaintBoundary
+    A widget that creates a separate display list for its child. 
+ReverseAnimation
+    An animation that is the reverse of another animation. 
+ReverseTween<T>
+    A Tween that evaluates its parent in reverse. 
+RichText
+    A paragraph of rich text. 
+RootRenderObjectElement
+    The element at the root of the tree. 
+RotatedBox
+    A widget that rotates its child by a integral number of quarter turns. 
+RotationTransition
+    Animates the rotation of a widget. 
+RoundedRectangleBorder
+    A rectangular border with rounded corners. 
+Route<T>
+    An abstraction for an entry managed by a Navigator. 
+RouteAware
+    An interface for objects that are aware of their current Route. 
+RouteObserver<R extends Route>
+    A Navigator observer that notifies RouteAwares of changes to the state of their Route. 
+RouteSettings
+    Data that might be useful in constructing a Route. 
+Row
+    A widget that displays its children in a horizontal array. 
+RRect
+    An immutable rounded rectangle with the custom radii for all four corners. 
+RSTransform
+    A transform consisting of a translation, a rotation, and a uniform scale. 
+SafeArea
+    A widget that insets its child by sufficient padding to avoid intrusions by the operating system. 
+SawTooth
+    A sawtooth curve that repeats a given number of times over the unit interval. 
+ScaleEndDetails
+    Details for GestureScaleEndCallback. 
+ScaleStartDetails
+    Details for GestureScaleStartCallback. 
+ScaleTransition
+    Animates the scale of transformed widget. 
+ScaleUpdateDetails
+    Details for GestureScaleUpdateCallback. 
+Scrollable
+    A widget that scrolls. 
+ScrollableState
+    State object for a Scrollable widget. 
+ScrollActivity
+    Base class for scrolling activities like dragging and flinging. 
+ScrollActivityDelegate
+    A backend for a ScrollActivity. 
+ScrollbarPainter
+    A CustomPainter for painting scrollbars. 
+ScrollBehavior
+    Describes how Scrollable widgets should behave. 
+ScrollConfiguration
+    Controls how Scrollable widgets behave in a subtree. 
+ScrollContext
+    An interface that Scrollable widgets implement in order to use ScrollPosition. 
+ScrollController
+    Controls a scrollable widget. 
+ScrollDragController
+    Scrolls a scroll view as the user drags their finger across the screen. 
+ScrollEndNotification
+    A notification that a Scrollable widget has stopped scrolling. 
+ScrollHoldController
+    Interface for holding a Scrollable stationary. 
+ScrollMetrics
+    A description of a Scrollable's contents, useful for modeling the state of its viewport. 
+ScrollNotification
+    A Notification related to scrolling. 
+ScrollPhysics
+    Determines the physics of a Scrollable widget. 
+ScrollPosition
+    Determines which portion of the content is visible in a scroll view. 
+ScrollPositionWithSingleContext
+    A scroll position that manages scroll activities for a single ScrollContext. 
+ScrollSpringSimulation
+    A SpringSimulation where the value of x is guaranteed to have exactly the end value when the simulation isDone(). 
+ScrollStartNotification
+    A notification that a Scrollable widget has started scrolling. 
+ScrollUpdateNotification
+    A notification that a Scrollable widget has changed its scroll position. 
+ScrollView
+    A widget that scrolls. 
+Semantics
+    A widget that annotates the widget tree with a description of the meaning of the widgets. 
+SemanticsDebugger
+    A widget that visualizes the semantics for the child. 
+Shader
+    Base class for objects such as Gradient and ImageShader which correspond to shaders as used by Paint.shader. 
+ShaderMask
+    A widget that applies a mask generated by a Shader to its child. 
+ShapeBorder
+    Base class for shape outlines. 
+ShapeDecoration
+    An immutable description of how to paint an arbitrary shape. 
+ShrinkWrappingViewport
+    A widget that is bigger on the inside and shrink wraps its children in the main axis. 
+Simulation
+    The base class for all simulations. 
+SingleChildLayoutDelegate
+    A delegate for computing the layout of a render object with a single child. 
+SingleChildRenderObjectElement
+    An Element that uses a SingleChildRenderObjectWidget as its configuration. 
+SingleChildRenderObjectWidget
+    A superclass for RenderObjectWidgets that configure RenderObject subclasses that have a single child slot. (This superclass only provides the storage for that child, it doesn't actually provide the updating logic.) 
+SingleChildScrollView
+    A box in which a single widget can be scrolled. 
+SingleTickerProviderStateMixin<T extends StatefulWidget>
+    Provides a single Ticker that is configured to only tick while the current tree is enabled, as defined by TickerMode. 
+Size
+    Holds a 2D floating-point size. 
+SizeChangedLayoutNotification
+    Indicates that the size of one of the descendants of the object receiving this notification has changed, and that therefore any assumptions about that layout are no longer valid. 
+SizeChangedLayoutNotifier
+    A widget that automatically dispatches a SizeChangedLayoutNotification when the layout dimensions of its child change. 
+SizedBox
+    A box with a specified size. 
+SizedOverflowBox
+    A widget that is a specific size but passes its original constraints through to its child, which may then overflow. 
+SizeTransition
+    Animates its own size and clips and aligns the child. 
+SizeTween
+    An interpolation between two sizes. 
+SlideTransition
+    Animates the position of a widget relative to its normal position. 
+SliverChildBuilderDelegate
+    A delegate that supplies children for slivers using a builder callback. 
+SliverChildDelegate
+    A delegate that supplies children for slivers. 
+SliverChildListDelegate
+    A delegate that supplies children for slivers using an explicit list. 
+SliverFillRemaining
+    A sliver that contains a single box child that fills the remaining space in the viewport. 
+SliverFillViewport
+    A sliver that contains a multiple box children that each fill the viewport. 
+SliverFixedExtentList
+    A sliver that places multiple box children with the same main axis extent in a linear array. 
+SliverGrid
+    A sliver that places multiple box children in a two dimensional arrangement. 
+SliverGridDelegate
+    Controls the layout of tiles in a grid. 
+SliverGridDelegateWithFixedCrossAxisCount
+    Creates grid layouts with a fixed number of tiles in the cross axis. 
+SliverGridDelegateWithMaxCrossAxisExtent
+    Creates grid layouts with tiles that each have a maximum cross-axis extent. 
+SliverList
+    A sliver that places multiple box children in a linear array along the main axis. 
+SliverMultiBoxAdaptorElement
+    An element that lazily builds children for a SliverMultiBoxAdaptorWidget. 
+SliverMultiBoxAdaptorWidget
+    A base class for sliver that have multiple box children. 
+SliverOverlapAbsorber
+    A sliver that wraps another, forcing its layout extent to be treated as overlap. 
+SliverOverlapAbsorberHandle
+    Handle to provide to a SliverOverlapAbsorber, a SliverOverlapInjector, and an NestedScrollViewViewport, to shift overlap in a NestedScrollView. 
+SliverOverlapInjector
+    A sliver that has a sliver geometry based on the values stored in a SliverOverlapAbsorberHandle. 
+SliverPadding
+    A sliver that applies padding on each side of another sliver. 
+SliverPersistentHeader
+    A sliver whose size varies when the sliver is scrolled to the leading edge of the viewport. 
+SliverPersistentHeaderDelegate
+    Delegate for configuring a SliverPersistentHeader. 
+SliverPrototypeExtentList
+    A sliver that places its box children in a linear array and constrains them to have the same extent as a prototype item along the main axis. 
+SliverSafeArea
+    A sliver that insets another sliver by sufficient padding to avoid intrusions by the operating system. 
+SliverToBoxAdapter
+    A sliver that contains a single box widget. 
+Stack
+    A widget that positions its children relative to the edges of its box. 
+StadiumBorder
+    A border that fits a stadium-shaped border (a box with semicircles on the ends) within the rectangle of the widget it is applied to. 
+State<T extends StatefulWidget>
+    The logic and internal state for a StatefulWidget. 
+StatefulBuilder
+    A platonic widget that both has state and calls a closure to obtain its child widget. 
+StatefulElement
+    An Element that uses a StatefulWidget as its configuration. 
+StatefulWidget
+    A widget that has mutable state. 
+StatelessElement
+    An Element that uses a StatelessWidget as its configuration. 
+StatelessWidget
+    A widget that does not require mutable state. 
+StatusTransitionWidget
+    A widget that rebuilds when the given animation changes status. 
+StepTween
+    An interpolation between two integers that floors. 
+StreamBuilder<T>
+    Widget that builds itself based on the latest snapshot of interaction with a Stream. 
+StreamBuilderBase<T, S>
+    Base class for widgets that build themselves based on interaction with a specified Stream. 
+Table
+    A widget that uses the table layout algorithm for its children. 
+TableBorder
+    Border specification for Table widgets. 
+TableCell
+    A widget that controls how a child of a Table is aligned. 
+TableColumnWidth
+    Base class to describe how wide a column in a RenderTable should be. 
+TableRow
+    A horizontal group of cells in a Table. 
+TapDownDetails
+    Details for GestureTapDownCallback, such as position. 
+TapUpDetails
+    Details for GestureTapUpCallback, such as position. 
+Text
+    A run of text with a single style. 
+TextBox
+    A rectangle enclosing a run of text. 
+TextDecoration
+    A linear decoration to draw near the text. 
+TextEditingController
+    A controller for an editable text field. 
+TextEditingValue
+    The current text, selection, and composing state for editing a run of text. 
+TextInputType
+    The type of information for which to optimize the text input control. 
+TextPainter
+    An object that paints a TextSpan tree into a Canvas. 
+TextPosition
+    A visual position in a string of text. 
+TextRange
+    A range of characters in a string of text. 
+TextSelection
+    A range of text that represents a selection. 
+TextSelectionControls
+    An interface for building the selection UI, to be provided by the implementor of the toolbar widget. 
+TextSelectionDelegate
+    An interface for manipulating the selection, to be used by the implementor of the toolbar widget. 
+TextSelectionOverlay
+    An object that manages a pair of text selection handles. 
+TextSpan
+    An immutable span of text. 
+TextStyle
+    An immutable style in which paint text. 
+TextStyleTween
+    An interpolation between two TextStyles. 
+Texture
+    A rectangle upon which a backend texture is mapped. 
+Threshold
+    A curve that is 0.0 until it hits the threshold, then it jumps to 1.0. 
+TickerFuture
+    An object representing an ongoing Ticker sequence. 
+TickerMode
+    Enables or disables tickers (and thus animation controllers) in the widget subtree. 
+TickerProvider
+    An interface implemented by classes that can vend Ticker objects. 
+TickerProviderStateMixin<T extends StatefulWidget>
+    Provides Ticker objects that are configured to only tick while the current tree is enabled, as defined by TickerMode. 
+Title
+    A widget that describes this app in the operating system. 
+Tolerance
+    Structure that specifies maximum allowable magnitudes for distances, durations, and velocity differences to be considered equal. 
+TrackingScrollController
+    A ScrollController whose initialScrollOffset tracks its most recently updated ScrollPosition. 
+TrainHoppingAnimation
+    This animation starts by proxying one animation, but can be given a second animation. When their times cross (either because the second is going in the opposite direction, or because the one overtakes the other), the animation hops over to proxying the second animation, and the second animation becomes the new "first" performance. 
+Transform
+    A widget that applies a transformation before painting its child. 
+TransformProperty
+    Property which handles Matrix4 that represent transforms. 
+TransitionRoute<T>
+    A route with entrance and exit transitions. 
+Tween<T extends dynamic>
+    A linear interpolation between a beginning and ending value. 
+TypeMatcher<T>
+    This class is a work-around for the "is" operator not accepting a variable value as its right operand 
+UnconstrainedBox
+    A widget that imposes no constraints on its child, allowing it to render at its "natural" size. 
+UniqueKey
+    A key that is only equal to itself. 
+UniqueWidget<T extends State<StatefulWidget>>
+    Base class for stateful widgets that have exactly one inflated instance in the tree. 
+UserScrollNotification
+    A notification that the user has changed the direction in which they are scrolling. 
+ValueKey<T>
+    A key that uses a value of a particular type to identify itself. 
+ValueNotifier<T>
+    A ChangeNotifier that holds a single value. 
+Velocity
+    A velocity in two dimensions. 
+Viewport
+    A widget that is bigger on the inside. 
+ViewportNotificationMixin
+    Mixin for Notifications that track how many RenderAbstractViewport they have bubbled through. 
+Widget
+    Describes the configuration for an Element. 
+WidgetInspector
+    A widget that enables inspecting the child widget's structure. 
+WidgetInspectorService
+    Service used by GUI tools to interact with the WidgetInspector. 
+WidgetsApp
+    A convenience class that wraps a number of widgets that are commonly required for an application. 
+WidgetsBinding
+    The glue between the widgets layer and the Flutter engine. 
+WidgetsBindingObserver
+    Interface for classes that register with the Widgets layer binding. 
+WidgetsFlutterBinding
+    A concrete binding for applications based on the Widgets framework. This is the glue that binds the framework to the Flutter engine. 
+WidgetsLocalizations
+    Interface for localized resource values for the lowest levels of the Flutter framework. 
+WidgetToRenderBoxAdapter
+    An adapter for placing a specific RenderBox in the widget tree. 
+WillPopScope
+    Registers a callback to veto attempts by the user to dismiss the enclosing ModalRoute. 
+Wrap
+    A widget that displays its children in multiple horizontal or vertical runs. 
+
+Constants
+
+kAlwaysCompleteAnimation ¡ú const Animation<double>
+    An animation that is always complete.
+    const _AlwaysCompleteAnimation()
+kAlwaysDismissedAnimation ¡ú const Animation<double>
+    An animation that is always dismissed.
+    const _AlwaysDismissedAnimation()
+
+Properties
+
+debugHighlightDeprecatedWidgets ? bool
+    Show banners for deprecated widgets.
+    read / write
+debugPrint ? DebugPrintCallback
+    Prints a message to the console, which you can access using the "flutter" tool's "logs" command ("flutter logs").
+    read / write
+debugPrintBuildScope ? bool
+    Log all calls to BuildOwner.buildScope.
+    read / write
+debugPrintGlobalKeyedWidgetLifecycle ? bool
+    Log when widgets with global keys are deactivated and log when they are reactivated (retaken).
+    read / write
+debugPrintRebuildDirtyWidgets ? bool
+    Log the dirty widgets that are built each frame.
+    read / write
+debugPrintScheduleBuildForStacks ? bool
+    Log the call stacks that mark widgets as needing to be rebuilt.
+    read / write
+debugProfileBuildsEnabled ? bool
+    Adds Timeline events for every Widget built.
+    read / write
+imageCache ¡ú ImageCache
+    The singleton that implements the Flutter framework's image cache.
+    read-only
+
+Functions
+
+applyBoxFit(BoxFit fit, Size inputSize, Size outputSize) ¡ú FittedSizes
+    Apply a BoxFit value. 
+axisDirectionIsReversed(AxisDirection axisDirection) ¡ú bool
+    Returns whether travelling along the given axis direction visits coordinates along that axis in numerically decreasing order. 
+axisDirectionToAxis(AxisDirection axisDirection) ¡ú Axis
+    Returns the Axis that contains the given AxisDirection. 
+createLocalImageConfiguration(BuildContext context, { Size size }) ¡ú ImageConfiguration
+    Creates an ImageConfiguration based on the given BuildContext (and optionally size). 
+debugAssertAllWidgetVarsUnset(String reason) ¡ú bool
+    Returns true if none of the widget library debug variables have been changed. 
+debugCheckHasDirectionality(BuildContext context) ¡ú bool
+    Asserts that the given context has a Directionality ancestor. 
+debugCheckHasMediaQuery(BuildContext context) ¡ú bool
+    Asserts that the given context has a MediaQuery ancestor. 
+debugCheckHasTable(BuildContext context) ¡ú bool
+    Asserts that the given context has a Table ancestor. 
+debugChildrenHaveDuplicateKeys(Widget parent, Iterable<Widget> children) ¡ú bool
+    Asserts if the given child list contains any duplicate non-null keys. 
+debugDescribeTransform(Matrix4 transform) ¡ú List<String>
+    Returns a list of strings representing the given transform in a format useful for TransformProperty. 
+debugDumpApp() ¡ú void
+    Print a string representation of the currently running app. 
+debugDumpLayerTree() ¡ú void
+    Prints a textual representation of the entire layer tree. 
+debugDumpRenderTree() ¡ú void
+    Prints a textual representation of the entire render tree. 
+debugItemsHaveDuplicateKeys(Iterable<Widget> items) ¡ú bool
+    Asserts if the given list of items contains any duplicate non-null keys. 
+debugPrintStack({String label, int maxFrames }) ¡ú void
+    Dump the current stack to the console using debugPrint and FlutterError.defaultStackFilter. 
+debugWidgetBuilderValue(Widget widget, Widget built) ¡ú void
+    Asserts that the built widget is not null. 
+decodeImageFromList(Uint8List list) ¡ú Future<Image>
+    Creates an image from a list of bytes. 
+defaultScrollNotificationPredicate(ScrollNotification notification) ¡ú bool
+    A ScrollNotificationPredicate that checks whether notification.depth == 0, which means that the notification did not bubble through any intervening scrolling widgets. 
+flipAxis(Axis direction) ¡ú Axis
+    Returns the opposite of the given Axis. 
+flipAxisDirection(AxisDirection axisDirection) ¡ú AxisDirection
+    Returns the opposite of the given AxisDirection. 
+getAxisDirectionFromAxisReverseAndDirectionality(BuildContext context, Axis axis, bool reverse) ¡ú AxisDirection
+    Returns the AxisDirection in the given Axis in the current Directionality (or the reverse if reverse is true). 
+hashList(Iterable<Object> arguments) ¡ú int
+    Combine the Object.hashCode values of an arbitrary number of objects from an Iterable into one value. This function will return the same value if given null as if given an empty list. 
+hashValues(Object arg01, Object arg02, [ Object arg03 = _hashEnd, Object arg04 = _hashEnd, Object arg05 = _hashEnd, Object arg06 = _hashEnd, Object arg07 = _hashEnd, Object arg08 = _hashEnd, Object arg09 = _hashEnd, Object arg10 = _hashEnd, Object arg11 = _hashEnd, Object arg12 = _hashEnd, Object arg13 = _hashEnd, Object arg14 = _hashEnd, Object arg15 = _hashEnd, Object arg16 = _hashEnd, Object arg17 = _hashEnd, Object arg18 = _hashEnd, Object arg19 = _hashEnd, Object arg20 = _hashEnd ]) ¡ú int
+    Combine up to twenty objects' hash codes into one value. 
+paintBorder(Canvas canvas, Rect rect, { BorderSide top: BorderSide.none, BorderSide right: BorderSide.none, BorderSide bottom: BorderSide.none, BorderSide left: BorderSide.none }) ¡ú void
+    Paints a border around the given rectangle on the canvas. 
+paintImage({Canvas canvas, Rect rect, Image image, ColorFilter colorFilter, BoxFit fit, Alignment alignment: Alignment.center, Rect centerSlice, ImageRepeat repeat: ImageRepeat.noRepeat, bool flipHorizontally: false }) ¡ú void
+    Paints an image into the given rectangle on the canvas. 
+paintZigZag(Canvas canvas, Paint paint, Offset start, Offset end, int zigs, double width) ¡ú void
+    Draw a line between two points, which cuts diagonally back and forth across the line that connects the two points. 
+positionDependentBox({Size size, Size childSize, Offset target, bool preferBelow, double verticalOffset: 0.0, double margin: 10.0 }) ¡ú Offset
+    Position a child box within a container box, either above or below a target point. 
+precacheImage(ImageProvider provider, BuildContext context, { Size size }) ¡ú Future<Null>
+    Prefetches an image into the image cache. 
+runApp(Widget app) ¡ú void
+    Inflate the given widget and attach it to the screen. 
+textDirectionToAxisDirection(TextDirection textDirection) ¡ú AxisDirection
+    Returns the AxisDirection in which reading occurs in the given TextDirection. 
+
+Enums
+
+AnimationStatus
+    The status of an animation 
+AppLifecycleState
+    States that an application can be in. 
+Axis
+    The two cardinal directions in two dimensions. 
+AxisDirection
+    A direction along either the horizontal or vertical Axis. 
+BannerLocation
+    Where to show a Banner. 
+BlendMode
+    Algorithms to use when painting on the canvas. 
+BlurStyle
+    Styles to use for blurs in MaskFilter objects. 
+BorderStyle
+    The style of line to draw for a BorderSide in a Border. 
+BoxFit
+    How a box should be inscribed into another box. 
+BoxShape
+    The shape to use when rendering a Border or BoxDecoration. 
+ConnectionState
+    The state of connection to an asynchronous computation. 
+CrossAxisAlignment
+    How the children should be placed along the cross axis in a flex layout. 
+CrossFadeState
+    Specifies which of two children to show. See AnimatedCrossFade. 
+DecorationPosition
+    Where to paint a box decoration. 
+DiagnosticLevel
+    The various priority levels used to filter which diagnostics are shown and omitted. 
+DismissDirection
+    The direction in which a Dismissible can be dismissed. 
+DragAnchor
+    Where the Draggable should be anchored during a drag. 
+FadeInImagePhase
+    The phases a FadeInImage goes through. 
+FilterQuality
+    Quality levels for image filters. 
+FlexFit
+    How the child is inscribed into the available space. 
+FlutterLogoStyle
+    Possible ways to draw Flutter's logo. 
+FontStyle
+    Whether to slant the glyphs in the font 
+GrowthDirection
+    The direction in which a sliver's contents are ordered, relative to the scroll offset axis. 
+HitTestBehavior
+    How to behave during hit tests. 
+ImageRepeat
+    How to paint any portions of a box not covered by an image. 
+MainAxisAlignment
+    How the children should be placed along the main axis in a flex layout. 
+MainAxisSize
+    How much space should be occupied in the main axis. 
+Orientation
+    Whether in portrait or landscape. 
+Overflow
+    Whether overflowing children should be clipped, or their overflow be visible. 
+PaintingStyle
+    Strategies for painting shapes and paths on a canvas. 
+PathFillType
+    Determines the winding rule that decides how the interior of a Path is calculated. 
+RenderComparison
+    The description of the difference between two objects, in the context of how it will affect the rendering. 
+RoutePopDisposition
+    Indicates whether the current route should be popped. 
+SelectionChangedCause
+    Indicates what triggered the change in selected text (including changes to the cursor location). 
+StackFit
+    How to size the non-positioned children of a Stack. 
+StrokeCap
+    Styles to use for line endings. 
+StrokeJoin
+    Styles to use for line joins. 
+TableCellVerticalAlignment
+    Vertical alignment options for cells in RenderTable objects. 
+TargetPlatform
+    The platform that user interaction should adapt to target. 
+TextAffinity
+    Whether a TextPosition is visually upstream or downstream of its offset. 
+TextAlign
+    Whether and how to align text horizontally. 
+TextBaseline
+    A horizontal line used for aligning text. 
+TextDecorationStyle
+    The style in which to draw a text decoration 
+TextDirection
+    A direction in which text flows. 
+TextOverflow
+    How overflowing text should be handled. 
+TextSelectionHandleType
+    Which type of selection handle to be displayed. 
+TileMode
+    Defines what happens at the edge of the gradient. 
+VertexMode
+    Defines how a list of points is interpreted when drawing a set of triangles. 
+VerticalDirection
+    A direction in which boxes flow vertically. 
+WrapAlignment
+    How Wrap should align objects. 
+WrapCrossAlignment
+    Who Wrap should align children within a run in the cross axis. 
+
+Typedefs
+
+AnimatedCrossFadeBuilder(Widget topChild, Key topChildKey, Widget bottomChild, Key bottomChildKey) ¡ú Widget
+    Signature for the AnimatedCrossFade.layoutBuilder callback. 
+AnimatedListItemBuilder(BuildContext context, int index, Animation<double> animation) ¡ú Widget
+    Signature for the builder callback used by AnimatedList. 
+AnimatedListRemovedItemBuilder(BuildContext context, Animation<double> animation) ¡ú Widget
+    Signature for the builder callback used by AnimatedListState.removeItem. 
+AnimatedSwitcherLayoutBuilder(List<Widget> children) ¡ú Widget
+    Signature for builders used to generate custom layouts for AnimatedSwitcher. 
+AnimatedSwitcherTransitionBuilder(Widget child, Animation<double> animation) ¡ú Widget
+    Signature for builders used to generate custom transitions for AnimatedSwitcher. 
+AnimationStatusListener(AnimationStatus status) ¡ú void
+    Signature for listeners attached using Animation.addStatusListener. 
+AsyncWidgetBuilder<T>(BuildContext context, AsyncSnapshot<T> snapshot) ¡ú Widget
+    Signature for strategies that build widgets based on asynchronous interaction. 
+CreateRectTween(Rect begin, Rect end) ¡ú Tween<Rect>
+    Signature for a function that takes two Rect instances and returns a RectTween that transitions between them. 
+DismissDirectionCallback(DismissDirection direction) ¡ú void
+    Signature used by Dismissible to indicate that it has been dismissed in the given direction. 
+DraggableCanceledCallback(Velocity velocity, Offset offset) ¡ú void
+    Signature for when a Draggable is dropped without being accepted by a DragTarget. 
+DragTargetAccept<T>(T data) ¡ú void
+    Signature for causing a DragTarget to accept the given data. 
+DragTargetBuilder<T>(BuildContext context, List<T> candidateData, List rejectedData) ¡ú Widget
+    Signature for building children of a DragTarget. 
+DragTargetLeave<T>(T data) ¡ú void
+    Signature for when a Draggable leaves a DragTarget. 
+DragTargetWillAccept<T>(T data) ¡ú bool
+    Signature for determining whether the given data will be accepted by a DragTarget. 
+ElementVisitor(Element element) ¡ú void
+    Signature for the callback to BuildContext.visitChildElements. 
+ErrorWidgetBuilder(FlutterErrorDetails details) ¡ú Widget
+    Signature for the constructor that is called when an error occurs while building a widget. 
+FormFieldBuilder<T>(FormFieldState<T> field) ¡ú Widget
+    Signature for building the widget representing the form field. 
+FormFieldSetter<T>(T newValue) ¡ú void
+    Signature for being notified when a form field changes value. 
+FormFieldValidator<T>(T value) ¡ú String
+    Signature for validating a form field. 
+GenerateAppTitle(BuildContext context) ¡ú String
+    The signature of WidgetsApp.onGenerateTitle. 
+GestureDragCancelCallback() ¡ú void
+    Signature for when the pointer that previously triggered a GestureDragDownCallback did not complete. 
+GestureDragDownCallback(DragDownDetails details) ¡ú void
+    Signature for when a pointer has contacted the screen and might begin to move. 
+GestureDragEndCallback(DragEndDetails details) ¡ú void
+    Signature for when a pointer that was previously in contact with the screen and moving is no longer in contact with the screen. 
+GestureDragStartCallback(DragStartDetails details) ¡ú void
+    Signature for when a pointer has contacted the screen and has begun to move. 
+GestureDragUpdateCallback(DragUpdateDetails details) ¡ú void
+    Signature for when a pointer that is in contact with the screen and moving has moved again. 
+GestureLongPressCallback() ¡ú void
+    Signature for when a pointer has remained in contact with the screen at the same location for a long period of time. 
+GestureRecognizerFactoryConstructor<T extends GestureRecognizer>() ¡ú T
+    Signature for closures that implement GestureRecognizerFactory.constructor. 
+GestureRecognizerFactoryInitializer<T extends GestureRecognizer>(T instance) ¡ú void
+    Signature for closures that implement GestureRecognizerFactory.initializer. 
+GestureScaleEndCallback(ScaleEndDetails details) ¡ú void
+    Signature for when the pointers are no longer in contact with the screen. 
+GestureScaleStartCallback(ScaleStartDetails details) ¡ú void
+    Signature for when the pointers in contact with the screen have established a focal point and initial scale of 1.0. 
+GestureScaleUpdateCallback(ScaleUpdateDetails details) ¡ú void
+    Signature for when the pointers in contact with the screen have indicated a new focal point and/or scale. 
+GestureTapCallback() ¡ú void
+    Signature for when a tap has occurred. 
+GestureTapCancelCallback() ¡ú void
+    Signature for when the pointer that previously triggered a GestureTapDownCallback will not end up causing a tap. 
+GestureTapDownCallback(TapDownDetails details) ¡ú void
+    Signature for when a pointer that might cause a tap has contacted the screen. 
+GestureTapUpCallback(TapUpDetails details) ¡ú void
+    Signature for when a pointer that will trigger a tap has stopped contacting the screen. 
+ImageListener(ImageInfo image, bool synchronousCall) ¡ú void
+    Signature for callbacks reporting that an image is available. 
+IndexedWidgetBuilder(BuildContext context, int index) ¡ú Widget
+    Signature for a function that creates a widget for a given index, e.g., in a list. 
+InspectorSelectButtonBuilder(BuildContext context, VoidCallback onPressed) ¡ú Widget
+    Signature for the builder callback used by WidgetInspector.selectButtonBuilder. 
+InspectorSelectionChangedCallback() ¡ú void
+    Signature for the selection change callback used by WidgetInspectorService.selectionChangedCallback. 
+LayoutWidgetBuilder(BuildContext context, BoxConstraints constraints) ¡ú Widget
+    The signature of the LayoutBuilder builder function. 
+LocaleResolutionCallback(Locale locale, Iterable<Locale> supportedLocales) ¡ú Locale
+    The signature of WidgetsApp.localeResolutionCallback. 
+NestedScrollViewHeaderSliversBuilder(BuildContext context, bool innerBoxIsScrolled) ¡ú List<Widget>
+    Signature used by NestedScrollView for building its header. 
+NotificationListenerCallback<T extends Notification>(T notification) ¡ú bool
+    Signature for Notification listeners. 
+OrientationWidgetBuilder(BuildContext context, Orientation orientation) ¡ú Widget
+    Signature for a function that builds a widget given an Orientation. 
+PointerCancelEventListener(PointerCancelEvent event) ¡ú void
+    Signature for listening to PointerCancelEvent events. 
+PointerDownEventListener(PointerDownEvent event) ¡ú void
+    Signature for listening to PointerDownEvent events. 
+PointerMoveEventListener(PointerMoveEvent event) ¡ú void
+    Signature for listening to PointerMoveEvent events. 
+PointerUpEventListener(PointerUpEvent event) ¡ú void
+    Signature for listening to PointerUpEvent events. 
+RouteFactory(RouteSettings settings) ¡ú Route
+    Creates a route for the given route settings. 
+RoutePageBuilder(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) ¡ú Widget
+    Signature for the PageRouteBuilder function that builds the route's primary contents. 
+RoutePredicate(Route route) ¡ú bool
+    Signature for the Navigator.popUntil predicate argument. 
+RouteTransitionsBuilder(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) ¡ú Widget
+    Signature for the PageRouteBuilder function that builds the route's transitions. 
+ScrollNotificationPredicate(ScrollNotification notification) ¡ú bool
+    A predicate for ScrollNotification, used to customize widgets that listen to notifications from their children. 
+SelectionChangedCallback(TextSelection selection, SelectionChangedCause cause) ¡ú void
+    Signature for the callback that reports when the user changes the selection (including the cursor location). 
+SemanticsBuilderCallback(Size size) ¡ú List<CustomPainterSemantics>
+    Signature of the function returned by CustomPainter.semanticsBuilder. 
+ShaderCallback(Rect bounds) ¡ú Shader
+    Signature for a function that creates a Shader for a given Rect. 
+StatefulWidgetBuilder(BuildContext context, StateSetter setState) ¡ú Widget
+    Signature for the builder callback used by StatefulBuilder. 
+StateSetter(VoidCallback fn) ¡ú void
+    The signature of State.setState functions. 
+TextSelectionOverlayChanged(TextEditingValue value, Rect caretRect) ¡ú void
+    Signature for reporting changes to the selection component of a TextEditingValue for the purposes of a TextSelectionOverlay. The caretRect argument gives the location of the caret in the coordinate space of the RenderBox given by the TextSelectionOverlay.renderObject. 
+TransitionBuilder(BuildContext context, Widget child) ¡ú Widget
+    A builder that builds a widget given a child. 
+TweenConstructor<T>(T targetValue) ¡ú Tween<T>
+    Signature for a Tween factory. 
+TweenVisitor<T>(Tween<T> tween, T targetValue, TweenConstructor<T> constructor) ¡ú Tween<T>
+    Signature for callbacks passed to AnimatedWidgetBaseState.forEachTween. 
+ValueChanged<T>(T value) ¡ú void
+    Signature for callbacks that report that an underlying value has changed. 
+ValueGetter<T>() ¡ú T
+    Signature for callbacks that are to report a value on demand. 
+ValueSetter<T>(T value) ¡ú void
+    Signature for callbacks that report that a value has been set. 
+ViewportBuilder(BuildContext context, ViewportOffset position) ¡ú Widget
+    Signature used by Scrollable to build the viewport through which the scrollable content is displayed. 
+VoidCallback() ¡ú void
+    Signature of callbacks that have no arguments and return no data. 
+WidgetBuilder(BuildContext context) ¡ú Widget
+    Signature for a function that creates a widget, e.g. StatelessWidget.build or State.build. 
+WillPopCallback() ¡ú Future<bool>
+    Signature for a callback that verifies that it's OK to call Navigator.pop. 
+
+Exceptions / Errors
+
+FlutterError
+    Error class used to report Flutter-specific assertion failures and contract violations. 
+TickerCanceled
+    Exception thrown by Ticker objects on the TickerFuture.orCancel future when the ticker is canceled. 

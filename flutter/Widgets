@@ -1,0 +1,209 @@
+# Basic Widgets
+    Container
+    Row
+    Column
+    Image
+    Text
+    Icon
+    RaisedButton
+    Scaffold
+    Appbar
+    FlutterLogo
+
+# Material Components Widgets
+
+## App structure and navigation
+    Scaffold
+    Appbar
+    BottomNavigationBar
+    TabBar
+    TabBarView
+    MaterialApp
+    WidgetsApp
+    Drawer
+
+## Buttons
+    RaisedButton
+    FloatingActionButton
+    FlatButton
+    IconButton
+    PopupMenuButton
+    ButtonBar
+
+## Input and selections
+    TextField
+    Checkbox
+    Radio
+    Switch
+    Slider
+    Date & Time Pickers
+
+## Dialogs, alerts, and panels
+    SimpleDialog
+    AlertDialog
+    BottomSheet
+    ExpansionPanel
+    SnackBar
+
+## Information displays
+    Image
+    Icon
+    Chip
+    Tooltip
+    DataTable
+    Card
+    LinearProgressIndicator
+    GridView
+
+## Layout
+    ListTile
+    Stepper
+    Divider
+
+# Cupertino (iOS-style) Widgets
+    CupertinoActivityIndicator
+    CupertinoAlertDialog
+    CupertinoButton
+    CupertinoDialog
+    CupertinoDialogAction
+    CupertinoSlider
+    CupertinoSwitch
+    CupertinoPicker
+    CupertinoPageTransition
+    CupertinoFullscreenDialogTransition
+    CupertinoNavigationBar
+    CupertinoTabBar
+    CupertinoPageScaffold
+    CupertinoTabScaffold
+    CupertinoTabView
+
+# Layout Widgets
+
+## Single-child layout widgets
+    Container
+    Padding
+    Center
+    Align
+    FittedBox
+    AspectRatio
+    ConstrainedBox
+    Baseline
+    FractionallySizedBox
+    IntrinsicHeight
+    IntrinsicWidth
+    LimitedBox
+    Offstage
+    OverflowBox
+    SizedBox
+    SizedOverflowBox
+    Transform
+    CustomSingleChildLayout
+
+## Multi-child layout widgets
+    Row
+    Column
+    Stack
+    IndexedStack
+    GridView
+    Flow
+    Table
+    Wrap
+    ListBody
+    ListView
+    CustomMultiChildLayout
+
+## Layout helpers
+    LayoutBuilder
+
+
+# Text Widgets
+    Text
+    RichText
+    DefaultTextStyle
+
+# Assets, Images, and Icon Widgets
+    Image
+    Icon
+    RawImage
+    AssetBundle
+
+# Input Widgets
+    Form
+    FormField
+    RawKeyboardListener
+
+# Animation and Motion Widgets
+    AnimatedContainer
+    AnimatedCrossFade
+    Hero
+    AnimatedBuilder
+    DecoratedBoxTransition
+    FadeTransition
+    PositionedTransition
+    RotationTransition
+    ScaleTransition
+    SizeTransition
+    SlideTransition
+    AnimatedDefaultTextStyle
+    AnimatedListState
+    AnimatedModalBarrier
+    AnimatedOpacity
+    AnimatedPhysicalModel
+    AnimatedPositioned
+    AnimatedSize
+    AnimatedWidget
+    AnimatedWidgetBaseState
+
+# Interaction Model Widgets
+
+# Touch interactions
+    Draggable
+    LongPressDraggable
+    GestureDetector
+    DragTarget
+    Dismissible
+    IgnorePointer
+    AbsorbPointer
+    Scrollable
+
+# Routing
+    Hero
+    Navigator
+
+# Styling Widgets
+    Padding
+    Theme
+    MediaQuery
+
+# Painting and Effect Widgets
+    Opacity
+    Transform
+    DecoratedBox
+    FractionalTranslation
+    RotatedBox
+    ClipOval
+    ClipPath
+    ClipRect
+    CustomPaint
+    BackdropFilter
+
+# Async Widgets
+    FutureBuilder
+    StreamBuilder
+
+# Scrolling Widgets
+    ListView
+    NestedScrollView
+    GridView
+    SingleChildScrollView
+    Scrollable
+    Scrollbar
+    CustomScrollView
+    NotificationListener
+    ScrollConfiguration
+    RefreshIndicator
+
+# Accessibility Widgets
+    Semantics
+    MergeSemantics
+    ExcludeSemantics

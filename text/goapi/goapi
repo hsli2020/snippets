@@ -1,0 +1,1384 @@
+math
+func Abs(x float64) float64
+func Cbrt(x float64) float64
+func Ceil(x float64) float64
+func Copysign(x, y float64) float64
+func Dim(x, y float64) float64
+func Erf(x float64) float64
+func Erfc(x float64) float64
+func Exp(x float64) float64
+func Exp2(x float64) float64
+func Expm1(x float64) float64
+func Float32bits(f float32) uint32
+func Float32frombits(b uint32) float32
+func Float64bits(f float64) uint64
+func Float64frombits(b uint64) float64
+func Floor(x float64) float64
+func Frexp(f float64) (frac float64, exp int)
+func Gamma(x float64) float64
+func Hypot(p, q float64) float64
+func Ilogb(x float64) int
+func Inf(sign int) float64
+func IsInf(f float64, sign int) bool
+func IsNaN(f float64) (is bool)
+func J0(x float64) float64
+func J1(x float64) float64
+func Jn(n int, x float64) float64
+func Ldexp(frac float64, exp int) float64
+func Lgamma(x float64) (lgamma float64, sign int)
+func Log(x float64) float64
+func Log10(x float64) float64
+func Log1p(x float64) float64
+func Log2(x float64) float64
+func Logb(x float64) float64
+func Max(x, y float64) float64
+func Min(x, y float64) float64
+func Mod(x, y float64) float64
+func Modf(f float64) (int float64, frac float64)
+func NaN() float64
+func Nextafter(x, y float64) (r float64)
+func Pow(x, y float64) float64
+func Pow10(e int) float64
+func Remainder(x, y float64) float64
+func Signbit(x float64) bool
+func Sin(x float64) float64
+func Sincos(x float64) (sin, cos float64)
+func Sinh(x float64) float64
+func Sqrt(x float64) float64
+func Tan(x float64) float64
+func Tanh(x float64) float64
+func Trunc(x float64) float64
+func Y0(x float64) float64
+func Y1(x float64) float64
+func Yn(n int, x float64) float64
+
+math/rand
+func ExpFloat64() float64
+func Float32() float32
+func Float64() float64
+func Int() int
+func Int31() int32
+func Int31n(n int32) int32
+func Int63() int64
+func Int63n(n int64) int64
+func Intn(n int) int
+func NormFloat64() float64
+func Perm(n int) []int
+func Seed(seed int64)
+func Uint32() uint32
+func New(src Source) *Rand
+func (r *Rand) ExpFloat64() float64
+func (r *Rand) Float32() float32
+func (r *Rand) Float64() float64
+func (r *Rand) Int() int
+func (r *Rand) Int31() int32
+func (r *Rand) Int31n(n int32) int32
+func (r *Rand) Int63() int64
+func (r *Rand) Int63n(n int64) int64
+func (r *Rand) Intn(n int) int
+func (r *Rand) NormFloat64() float64
+func (r *Rand) Perm(n int) []int
+func (r *Rand) Seed(seed int64)
+func (r *Rand) Uint32() uint32
+func NewSource(seed int64) Source
+func NewZipf(r *Rand, s float64, v float64, imax uint64) *Zipf
+func (z *Zipf) Uint64() uint64
+
+net
+func InterfaceAddrs() ([]Addr, error)
+func Interfaces() ([]Interface, error)
+func JoinHostPort(host, port string) string
+func LookupAddr(addr string) (name []string, err error)
+func LookupCNAME(name string) (cname string, err error)
+func LookupHost(host string) (addrs []string, err error)
+func LookupIP(host string) (addrs []IP, err error)
+func LookupMX(name string) (mx []*MX, err error)
+func LookupNS(name string) (ns []*NS, err error)
+func LookupPort(network, service string) (port int, err error)
+func LookupSRV(service, proto, name string) (cname string, addrs []*SRV, err error)
+func LookupTXT(name string) (txt []string, err error)
+func SplitHostPort(hostport string) (host, port string, err error)
+func (e *AddrError) Error() string
+func (e *AddrError) Temporary() bool
+func (e *AddrError) Timeout() bool
+func Dial(network, address string) (Conn, error)
+func DialTimeout(network, address string, timeout time.Duration) (Conn, error)
+func FileConn(f *os.File) (c Conn, err error)
+func Pipe() (Conn, Conn)
+func (e *DNSConfigError) Error() string
+func (e *DNSConfigError) Temporary() bool
+func (e *DNSConfigError) Timeout() bool
+func (e *DNSError) Error() string
+func (e *DNSError) Temporary() bool
+func (e *DNSError) Timeout() bool
+func (d *Dialer) Dial(network, address string) (Conn, error)
+func (f Flags) String() string
+func ParseMAC(s string) (hw HardwareAddr, err error)
+func (a HardwareAddr) String() string
+func IPv4(a, b, c, d byte) IP
+func ParseCIDR(s string) (IP, *IPNet, error)
+func ParseIP(s string) IP
+func (ip IP) DefaultMask() IPMask
+func (ip IP) Equal(x IP) bool
+func (ip IP) IsGlobalUnicast() bool
+func (ip IP) IsInterfaceLocalMulticast() bool
+func (ip IP) IsLinkLocalMulticast() bool
+func (ip IP) IsLinkLocalUnicast() bool
+func (ip IP) IsLoopback() bool
+func (ip IP) IsMulticast() bool
+func (ip IP) IsUnspecified() bool
+func (ip IP) MarshalText() ([]byte, error)
+func (ip IP) Mask(mask IPMask) IP
+func (ip IP) String() string
+func (ip IP) To16() IP
+func (ip IP) To4() IP
+func (ip *IP) UnmarshalText(text []byte) error
+func ResolveIPAddr(net, addr string) (*IPAddr, error)
+func (a *IPAddr) Network() string
+func (a *IPAddr) String() string
+func DialIP(netProto string, laddr, raddr *IPAddr) (*IPConn, error)
+func ListenIP(netProto string, laddr *IPAddr) (*IPConn, error)
+func (c *IPConn) Close() error
+func (c *IPConn) File() (f *os.File, err error)
+func (c *IPConn) LocalAddr() Addr
+func (c *IPConn) Read(b []byte) (int, error)
+func (c *IPConn) ReadFrom(b []byte) (int, Addr, error)
+func (c *IPConn) ReadFromIP(b []byte) (int, *IPAddr, error)
+func (c *IPConn) ReadMsgIP(b, oob []byte) (n, oobn, flags int, addr *IPAddr, err error)
+func (c *IPConn) RemoteAddr() Addr
+func (c *IPConn) SetDeadline(t time.Time) error
+func (c *IPConn) SetReadBuffer(bytes int) error
+func (c *IPConn) SetReadDeadline(t time.Time) error
+func (c *IPConn) SetWriteBuffer(bytes int) error
+func (c *IPConn) SetWriteDeadline(t time.Time) error
+func (c *IPConn) Write(b []byte) (int, error)
+func (c *IPConn) WriteMsgIP(b, oob []byte, addr *IPAddr) (n, oobn int, err error)
+func (c *IPConn) WriteTo(b []byte, addr Addr) (int, error)
+func (c *IPConn) WriteToIP(b []byte, addr *IPAddr) (int, error)
+func CIDRMask(ones, bits int) IPMask
+func IPv4Mask(a, b, c, d byte) IPMask
+func (m IPMask) Size() (ones, bits int)
+func (m IPMask) String() string
+func (n *IPNet) Contains(ip IP) bool
+func (n *IPNet) Network() string
+func (n *IPNet) String() string
+func InterfaceByIndex(index int) (*Interface, error)
+func InterfaceByName(name string) (*Interface, error)
+func (ifi *Interface) Addrs() ([]Addr, error)
+func (ifi *Interface) MulticastAddrs() ([]Addr, error)
+func (e InvalidAddrError) Error() string
+func (e InvalidAddrError) Temporary() bool
+func (e InvalidAddrError) Timeout() bool
+func FileListener(f *os.File) (l Listener, err error)
+func Listen(net, laddr string) (Listener, error)
+func (e *OpError) Error() string
+func (e *OpError) Temporary() bool
+func (e *OpError) Timeout() bool
+func FilePacketConn(f *os.File) (c PacketConn, err error)
+func ListenPacket(net, laddr string) (PacketConn, error)
+func (e *ParseError) Error() string
+func ResolveTCPAddr(net, addr string) (*TCPAddr, error)
+func (a *TCPAddr) Network() string
+func (a *TCPAddr) String() string
+func DialTCP(net string, laddr, raddr *TCPAddr) (*TCPConn, error)
+func (c *TCPConn) Close() error
+func (c *TCPConn) CloseRead() error
+func (c *TCPConn) CloseWrite() error
+func (c *TCPConn) File() (f *os.File, err error)
+func (c *TCPConn) LocalAddr() Addr
+func (c *TCPConn) Read(b []byte) (int, error)
+func (c *TCPConn) ReadFrom(r io.Reader) (int64, error)
+func (c *TCPConn) RemoteAddr() Addr
+func (c *TCPConn) SetDeadline(t time.Time) error
+func (c *TCPConn) SetKeepAlive(keepalive bool) error
+func (c *TCPConn) SetKeepAlivePeriod(d time.Duration) error
+func (c *TCPConn) SetLinger(sec int) error
+func (c *TCPConn) SetNoDelay(noDelay bool) error
+func (c *TCPConn) SetReadBuffer(bytes int) error
+func (c *TCPConn) SetReadDeadline(t time.Time) error
+func (c *TCPConn) SetWriteBuffer(bytes int) error
+func (c *TCPConn) SetWriteDeadline(t time.Time) error
+func (c *TCPConn) Write(b []byte) (int, error)
+func ListenTCP(net string, laddr *TCPAddr) (*TCPListener, error)
+func (l *TCPListener) Accept() (Conn, error)
+func (l *TCPListener) AcceptTCP() (*TCPConn, error)
+func (l *TCPListener) Addr() Addr
+func (l *TCPListener) Close() error
+func (l *TCPListener) File() (f *os.File, err error)
+func (l *TCPListener) SetDeadline(t time.Time) error
+func ResolveUDPAddr(net, addr string) (*UDPAddr, error)
+func (a *UDPAddr) Network() string
+func (a *UDPAddr) String() string
+func DialUDP(net string, laddr, raddr *UDPAddr) (*UDPConn, error)
+func ListenMulticastUDP(net string, ifi *Interface, gaddr *UDPAddr) (*UDPConn, error)
+func ListenUDP(net string, laddr *UDPAddr) (*UDPConn, error)
+func (c *UDPConn) Close() error
+func (c *UDPConn) File() (f *os.File, err error)
+func (c *UDPConn) LocalAddr() Addr
+func (c *UDPConn) Read(b []byte) (int, error)
+func (c *UDPConn) ReadFrom(b []byte) (int, Addr, error)
+func (c *UDPConn) ReadFromUDP(b []byte) (n int, addr *UDPAddr, err error)
+func (c *UDPConn) ReadMsgUDP(b, oob []byte) (n, oobn, flags int, addr *UDPAddr, err error)
+func (c *UDPConn) RemoteAddr() Addr
+func (c *UDPConn) SetDeadline(t time.Time) error
+func (c *UDPConn) SetReadBuffer(bytes int) error
+func (c *UDPConn) SetReadDeadline(t time.Time) error
+func (c *UDPConn) SetWriteBuffer(bytes int) error
+func (c *UDPConn) SetWriteDeadline(t time.Time) error
+func (c *UDPConn) Write(b []byte) (int, error)
+func (c *UDPConn) WriteMsgUDP(b, oob []byte, addr *UDPAddr) (n, oobn int, err error)
+func (c *UDPConn) WriteTo(b []byte, addr Addr) (int, error)
+func (c *UDPConn) WriteToUDP(b []byte, addr *UDPAddr) (int, error)
+func ResolveUnixAddr(net, addr string) (*UnixAddr, error)
+func (a *UnixAddr) Network() string
+func (a *UnixAddr) String() string
+func DialUnix(net string, laddr, raddr *UnixAddr) (*UnixConn, error)
+func ListenUnixgram(net string, laddr *UnixAddr) (*UnixConn, error)
+func (c *UnixConn) Close() error
+func (c *UnixConn) CloseRead() error
+func (c *UnixConn) CloseWrite() error
+func (c *UnixConn) File() (f *os.File, err error)
+func (c *UnixConn) LocalAddr() Addr
+func (c *UnixConn) Read(b []byte) (int, error)
+func (c *UnixConn) ReadFrom(b []byte) (int, Addr, error)
+func (c *UnixConn) ReadFromUnix(b []byte) (n int, addr *UnixAddr, err error)
+func (c *UnixConn) ReadMsgUnix(b, oob []byte) (n, oobn, flags int, addr *UnixAddr, err error)
+func (c *UnixConn) RemoteAddr() Addr
+func (c *UnixConn) SetDeadline(t time.Time) error
+func (c *UnixConn) SetReadBuffer(bytes int) error
+func (c *UnixConn) SetReadDeadline(t time.Time) error
+func (c *UnixConn) SetWriteBuffer(bytes int) error
+func (c *UnixConn) SetWriteDeadline(t time.Time) error
+func (c *UnixConn) Write(b []byte) (int, error)
+func (c *UnixConn) WriteMsgUnix(b, oob []byte, addr *UnixAddr) (n, oobn int, err error)
+func (c *UnixConn) WriteTo(b []byte, addr Addr) (n int, err error)
+func (c *UnixConn) WriteToUnix(b []byte, addr *UnixAddr) (n int, err error)
+func ListenUnix(net string, laddr *UnixAddr) (*UnixListener, error)
+func (l *UnixListener) Accept() (c Conn, err error)
+func (l *UnixListener) AcceptUnix() (*UnixConn, error)
+func (l *UnixListener) Addr() Addr
+func (l *UnixListener) Close() error
+func (l *UnixListener) File() (f *os.File, err error)
+func (l *UnixListener) SetDeadline(t time.Time) (err error)
+func (e UnknownNetworkError) Error() string
+func (e UnknownNetworkError) Temporary() bool
+func (e UnknownNetworkError) Timeout() bool
+
+net/http
+func CanonicalHeaderKey(s string) string
+func DetectContentType(data []byte) string
+func Error(w ResponseWriter, error string, code int)
+func Handle(pattern string, handler Handler)
+func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+func ListenAndServe(addr string, handler Handler) error
+func ListenAndServeTLS(addr string, certFile string, keyFile string, handler Handler) error
+func MaxBytesReader(w ResponseWriter, r io.ReadCloser, n int64) io.ReadCloser
+func NotFound(w ResponseWriter, r *Request)
+func ParseHTTPVersion(vers string) (major, minor int, ok bool)
+func ParseTime(text string) (t time.Time, err error)
+func ProxyFromEnvironment(req *Request) (*url.URL, error)
+func ProxyURL(fixedURL *url.URL) func(*Request) (*url.URL, error)
+func Redirect(w ResponseWriter, r *Request, urlStr string, code int)
+func Serve(l net.Listener, handler Handler) error
+func ServeContent(w ResponseWriter, req *Request, name string, modtime time.Time, content io.ReadSeeker)
+func ServeFile(w ResponseWriter, r *Request, name string)
+func SetCookie(w ResponseWriter, cookie *Cookie)
+func StatusText(code int) string
+func (c *Client) Do(req *Request) (resp *Response, err error)
+func (c *Client) Get(url string) (resp *Response, err error)
+func (c *Client) Head(url string) (resp *Response, err error)
+func (c *Client) Post(url string, bodyType string, body io.Reader) (resp *Response, err error)
+func (c *Client) PostForm(url string, data url.Values) (resp *Response, err error)
+func (c *Cookie) String() string
+func (d Dir) Open(name string) (File, error)
+func FileServer(root FileSystem) Handler
+func NotFoundHandler() Handler
+func RedirectHandler(url string, code int) Handler
+func StripPrefix(prefix string, h Handler) Handler
+func TimeoutHandler(h Handler, dt time.Duration, msg string) Handler
+func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
+func (h Header) Add(key, value string)
+func (h Header) Del(key string)
+func (h Header) Get(key string) string
+func (h Header) Set(key, value string)
+func (h Header) Write(w io.Writer) error
+func (h Header) WriteSubset(w io.Writer, exclude map[string]bool) error
+func (err *ProtocolError) Error() string
+func NewRequest(method, urlStr string, body io.Reader) (*Request, error)
+func ReadRequest(b *bufio.Reader) (req *Request, err error)
+func (r *Request) AddCookie(c *Cookie)
+func (r *Request) Cookie(name string) (*Cookie, error)
+func (r *Request) Cookies() []*Cookie
+func (r *Request) FormFile(key string) (multipart.File, *multipart.FileHeader, error)
+func (r *Request) FormValue(key string) string
+func (r *Request) MultipartReader() (*multipart.Reader, error)
+func (r *Request) ParseForm() error
+func (r *Request) ParseMultipartForm(maxMemory int64) error
+func (r *Request) PostFormValue(key string) string
+func (r *Request) ProtoAtLeast(major, minor int) bool
+func (r *Request) Referer() string
+func (r *Request) SetBasicAuth(username, password string)
+func (r *Request) UserAgent() string
+func (r *Request) Write(w io.Writer) error
+func (r *Request) WriteProxy(w io.Writer) error
+func Get(url string) (resp *Response, err error)
+func Head(url string) (resp *Response, err error)
+func Post(url string, bodyType string, body io.Reader) (resp *Response, err error)
+func PostForm(url string, data url.Values) (resp *Response, err error)
+func ReadResponse(r *bufio.Reader, req *Request) (*Response, error)
+func (r *Response) Cookies() []*Cookie
+func (r *Response) Location() (*url.URL, error)
+func (r *Response) ProtoAtLeast(major, minor int) bool
+func (r *Response) Write(w io.Writer) error
+func NewFileTransport(fs FileSystem) RoundTripper
+func NewServeMux() *ServeMux
+func (mux *ServeMux) Handle(pattern string, handler Handler)
+func (mux *ServeMux) HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+func (mux *ServeMux) Handler(r *Request) (h Handler, pattern string)
+func (mux *ServeMux) ServeHTTP(w ResponseWriter, r *Request)
+func (srv *Server) ListenAndServe() error
+func (srv *Server) ListenAndServeTLS(certFile, keyFile string) error
+func (srv *Server) Serve(l net.Listener) error
+func (t *Transport) CancelRequest(req *Request)
+func (t *Transport) CloseIdleConnections()
+func (t *Transport) RegisterProtocol(scheme string, rt RoundTripper)
+func (t *Transport) RoundTrip(req *Request) (resp *Response, err error)
+
+net/http/cgi
+func Request() (*http.Request, error)
+func RequestFromMap(params map[string]string) (*http.Request, error)
+func Serve(handler http.Handler) error
+func (h *Handler) ServeHTTP(rw http.ResponseWriter, req *http.Request)
+
+net/http/cookiejar
+func New(o *Options) (*Jar, error)
+func (j *Jar) Cookies(u *url.URL) (cookies []*http.Cookie)
+func (j *Jar) SetCookies(u *url.URL, cookies []*http.Cookie)
+
+net/http/fcgi
+func Serve(l net.Listener, handler http.Handler) error
+
+net/http/httptest
+func NewRecorder() *ResponseRecorder
+func (rw *ResponseRecorder) Flush()
+func (rw *ResponseRecorder) Header() http.Header
+func (rw *ResponseRecorder) Write(buf []byte) (int, error)
+func (rw *ResponseRecorder) WriteHeader(code int)
+func NewServer(handler http.Handler) *Server
+func NewTLSServer(handler http.Handler) *Server
+func NewUnstartedServer(handler http.Handler) *Server
+func (s *Server) Close()
+func (s *Server) CloseClientConnections()
+func (s *Server) Start()
+func (s *Server) StartTLS()
+
+net/http/httputil
+func DumpRequest(req *http.Request, body bool) (dump []byte, err error)
+func DumpRequestOut(req *http.Request, body bool) ([]byte, error)
+func DumpResponse(resp *http.Response, body bool) (dump []byte, err error)
+func NewChunkedReader(r io.Reader) io.Reader
+func NewChunkedWriter(w io.Writer) io.WriteCloser
+func NewClientConn(c net.Conn, r *bufio.Reader) *ClientConn
+func NewProxyClientConn(c net.Conn, r *bufio.Reader) *ClientConn
+func (cc *ClientConn) Close() error
+func (cc *ClientConn) Do(req *http.Request) (resp *http.Response, err error)
+func (cc *ClientConn) Hijack() (c net.Conn, r *bufio.Reader)
+func (cc *ClientConn) Pending() int
+func (cc *ClientConn) Read(req *http.Request) (resp *http.Response, err error)
+func (cc *ClientConn) Write(req *http.Request) (err error)
+func NewSingleHostReverseProxy(target *url.URL) *ReverseProxy
+func (p *ReverseProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request)
+func NewServerConn(c net.Conn, r *bufio.Reader) *ServerConn
+func (sc *ServerConn) Close() error
+func (sc *ServerConn) Hijack() (c net.Conn, r *bufio.Reader)
+func (sc *ServerConn) Pending() int
+func (sc *ServerConn) Read() (req *http.Request, err error)
+func (sc *ServerConn) Write(req *http.Request, resp *http.Response) error
+
+net/http/pprof
+func Cmdline(w http.ResponseWriter, r *http.Request)
+func Handler(name string) http.Handler
+func Index(w http.ResponseWriter, r *http.Request)
+func Profile(w http.ResponseWriter, r *http.Request)
+func Symbol(w http.ResponseWriter, r *http.Request)
+
+net/mail
+func ParseAddressList(list string) ([]*Address, error)
+func ParseAddress(address string) (*Address, error)
+func (a *Address) String() string
+func (h Header) AddressList(key string) ([]*Address, error)
+func (h Header) Date() (time.Time, error)
+func (h Header) Get(key string) string
+func ReadMessage(r io.Reader) (msg *Message, err error)
+
+net/rpc
+func Accept(lis net.Listener)
+func HandleHTTP()
+func Register(rcvr interface{}) error
+func RegisterName(name string, rcvr interface{}) error
+func ServeCodec(codec ServerCodec)
+func ServeConn(conn io.ReadWriteCloser)
+func ServeRequest(codec ServerCodec) error
+func Dial(network, address string) (*Client, error)
+func DialHTTP(network, address string) (*Client, error)
+func DialHTTPPath(network, address, path string) (*Client, error)
+func NewClient(conn io.ReadWriteCloser) *Client
+func NewClientWithCodec(codec ClientCodec) *Client
+func (client *Client) Call(serviceMethod string, args interface{}, reply interface{}) error
+func (client *Client) Close() error
+func (client *Client) Go(serviceMethod string, args interface{}, reply interface{}, done chan *Call) *Call
+func NewServer() *Server
+func (server *Server) Accept(lis net.Listener)
+func (server *Server) HandleHTTP(rpcPath, debugPath string)
+func (server *Server) Register(rcvr interface{}) error
+func (server *Server) RegisterName(name string, rcvr interface{}) error
+func (server *Server) ServeCodec(codec ServerCodec)
+func (server *Server) ServeConn(conn io.ReadWriteCloser)
+func (server *Server) ServeHTTP(w http.ResponseWriter, req *http.Request)
+func (server *Server) ServeRequest(codec ServerCodec) error
+func (e ServerError) Error() string
+
+net/rpc/jsonrpc
+func Dial(network, address string) (*rpc.Client, error)
+func NewClient(conn io.ReadWriteCloser) *rpc.Client
+func NewClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+func NewServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+func ServeConn(conn io.ReadWriteCloser)
+
+net/smtp
+func SendMail(addr string, a Auth, from string, to []string, msg []byte) error
+func CRAMMD5Auth(username, secret string) Auth
+func PlainAuth(identity, username, password, host string) Auth
+func Dial(addr string) (*Client, error)
+func NewClient(conn net.Conn, host string) (*Client, error)
+func (c *Client) Auth(a Auth) error
+func (c *Client) Close() error
+func (c *Client) Data() (io.WriteCloser, error)
+func (c *Client) Extension(ext string) (bool, string)
+func (c *Client) Hello(localName string) error
+func (c *Client) Mail(from string) error
+func (c *Client) Quit() error
+func (c *Client) Rcpt(to string) error
+func (c *Client) Reset() error
+func (c *Client) StartTLS(config *tls.Config) error
+func (c *Client) Verify(addr string) error
+
+net/textproto
+func CanonicalMIMEHeaderKey(s string) string
+func TrimBytes(b []byte) []byte
+func TrimString(s string) string
+func Dial(network, addr string) (*Conn, error)
+func NewConn(conn io.ReadWriteCloser) *Conn
+func (c *Conn) Close() error
+func (c *Conn) Cmd(format string, args ...interface{}) (id uint, err error)
+func (e *Error) Error() string
+func (h MIMEHeader) Add(key, value string)
+func (h MIMEHeader) Del(key string)
+func (h MIMEHeader) Get(key string) string
+func (h MIMEHeader) Set(key, value string)
+func (p *Pipeline) EndRequest(id uint)
+func (p *Pipeline) EndResponse(id uint)
+func (p *Pipeline) Next() uint
+func (p *Pipeline) StartRequest(id uint)
+func (p *Pipeline) StartResponse(id uint)
+func (p ProtocolError) Error() string
+func NewReader(r *bufio.Reader) *Reader
+func (r *Reader) DotReader() io.Reader
+func (r *Reader) ReadCodeLine(expectCode int) (code int, message string, err error)
+func (r *Reader) ReadContinuedLine() (string, error)
+func (r *Reader) ReadContinuedLineBytes() ([]byte, error)
+func (r *Reader) ReadDotBytes() ([]byte, error)
+func (r *Reader) ReadDotLines() ([]string, error)
+func (r *Reader) ReadLine() (string, error)
+func (r *Reader) ReadLineBytes() ([]byte, error)
+func (r *Reader) ReadMIMEHeader() (MIMEHeader, error)
+func (r *Reader) ReadResponse(expectCode int) (code int, message string, err error)
+func NewWriter(w *bufio.Writer) *Writer
+func (w *Writer) DotWriter() io.WriteCloser
+func (w *Writer) PrintfLine(format string, args ...interface{}) error
+
+net/url
+func QueryEscape(s string) string
+func QueryUnescape(s string) (string, error)
+func (e *Error) Error() string
+func (e EscapeError) Error() string
+func Parse(rawurl string) (url *URL, err error)
+func ParseRequestURI(rawurl string) (url *URL, err error)
+func (u *URL) IsAbs() bool
+func (u *URL) Parse(ref string) (*URL, error)
+func (u *URL) Query() Values
+func (u *URL) RequestURI() string
+func (u *URL) ResolveReference(ref *URL) *URL
+func (u *URL) String() string
+func User(username string) *Userinfo
+func UserPassword(username, password string) *Userinfo
+func (u *Userinfo) Password() (string, bool)
+func (u *Userinfo) String() string
+func (u *Userinfo) Username() string
+func ParseQuery(query string) (m Values, err error)
+func (v Values) Add(key, value string)
+func (v Values) Del(key string)
+func (v Values) Encode() string
+func (v Values) Get(key string) string
+func (v Values) Set(key, value string)
+
+os
+func Chdir(dir string) error
+func Chmod(name string, mode FileMode) error
+func Chown(name string, uid, gid int) error
+func Chtimes(name string, atime time.Time, mtime time.Time) error
+func Clearenv()
+func Environ() []string
+func Exit(code int)
+func Expand(s string, mapping func(string) string) string
+func ExpandEnv(s string) string
+func Getegid() int
+func Getenv(key string) string
+func Geteuid() int
+func Getgid() int
+func Getgroups() ([]int, error)
+func Getpagesize() int
+func Getpid() int
+func Getppid() int
+func Getuid() int
+func Getwd() (pwd string, err error)
+func Hostname() (name string, err error)
+func IsExist(err error) bool
+func IsNotExist(err error) bool
+func IsPathSeparator(c uint8) bool
+func IsPermission(err error) bool
+func Lchown(name string, uid, gid int) error
+func Link(oldname, newname string) error
+func Mkdir(name string, perm FileMode) error
+func MkdirAll(path string, perm FileMode) error
+func NewSyscallError(syscall string, err error) error
+func Readlink(name string) (string, error)
+func Remove(name string) error
+func RemoveAll(path string) error
+func Rename(oldname, newname string) error
+func SameFile(fi1, fi2 FileInfo) bool
+func Setenv(key, value string) error
+func Symlink(oldname, newname string) error
+func TempDir() string
+func Truncate(name string, size int64) error
+func Create(name string) (file *File, err error)
+func NewFile(fd uintptr, name string) *File
+func Open(name string) (file *File, err error)
+func OpenFile(name string, flag int, perm FileMode) (file *File, err error)
+func Pipe() (r *File, w *File, err error)
+func (f *File) Chdir() error
+func (f *File) Chmod(mode FileMode) error
+func (f *File) Chown(uid, gid int) error
+func (file *File) Close() error
+func (file *File) Fd() uintptr
+func (f *File) Name() string
+func (f *File) Read(b []byte) (n int, err error)
+func (f *File) ReadAt(b []byte, off int64) (n int, err error)
+func (f *File) Readdir(n int) (fi []FileInfo, err error)
+func (f *File) Readdirnames(n int) (names []string, err error)
+func (f *File) Seek(offset int64, whence int) (ret int64, err error)
+func (file *File) Stat() (fi FileInfo, err error)
+func (f *File) Sync() (err error)
+func (f *File) Truncate(size int64) error
+func (f *File) Write(b []byte) (n int, err error)
+func (f *File) WriteAt(b []byte, off int64) (n int, err error)
+func (f *File) WriteString(s string) (ret int, err error)
+func Lstat(name string) (fi FileInfo, err error)
+func Stat(name string) (fi FileInfo, err error)
+func (m FileMode) IsDir() bool
+func (m FileMode) IsRegular() bool
+func (m FileMode) Perm() FileMode
+func (m FileMode) String() string
+func (e *LinkError) Error() string
+func (e *PathError) Error() string
+func FindProcess(pid int) (p *Process, err error)
+func StartProcess(name string, argv []string, attr *ProcAttr) (*Process, error)
+func (p *Process) Kill() error
+func (p *Process) Release() error
+func (p *Process) Signal(sig Signal) error
+func (p *Process) Wait() (*ProcessState, error)
+func (p *ProcessState) Exited() bool
+func (p *ProcessState) Pid() int
+func (p *ProcessState) String() string
+func (p *ProcessState) Success() bool
+func (p *ProcessState) Sys() interface{}
+func (p *ProcessState) SysUsage() interface{}
+func (p *ProcessState) SystemTime() time.Duration
+func (p *ProcessState) UserTime() time.Duration
+func (e *SyscallError) Error() string
+
+reflect
+func Copy(dst, src Value) int
+func DeepEqual(a1, a2 interface{}) bool
+func Select(cases []SelectCase) (chosen int, recv Value, recvOK bool)
+func (d ChanDir) String() string
+func (k Kind) String() string
+func (tag StructTag) Get(key string) string
+func ChanOf(dir ChanDir, t Type) Type
+func MapOf(key, elem Type) Type
+func PtrTo(t Type) Type
+func SliceOf(t Type) Type
+func TypeOf(i interface{}) Type
+func Append(s Value, x ...Value) Value
+func AppendSlice(s, t Value) Value
+func Indirect(v Value) Value
+func MakeChan(typ Type, buffer int) Value
+func MakeFunc(typ Type, fn func(args []Value) (results []Value)) Value
+func MakeMap(typ Type) Value
+func MakeSlice(typ Type, len, cap int) Value
+func New(typ Type) Value
+func NewAt(typ Type, p unsafe.Pointer) Value
+func ValueOf(i interface{}) Value
+func Zero(typ Type) Value
+func (v Value) Addr() Value
+func (v Value) Bool() bool
+func (v Value) Bytes() []byte
+func (v Value) Call(in []Value) []Value
+func (v Value) CallSlice(in []Value) []Value
+func (v Value) CanAddr() bool
+func (v Value) CanInterface() bool
+func (v Value) CanSet() bool
+func (v Value) Cap() int
+func (v Value) Close()
+func (v Value) Complex() complex128
+func (v Value) Convert(t Type) Value
+func (v Value) Elem() Value
+func (v Value) Field(i int) Value
+func (v Value) FieldByIndex(index []int) Value
+func (v Value) FieldByName(name string) Value
+func (v Value) FieldByNameFunc(match func(string) bool) Value
+func (v Value) Float() float64
+func (v Value) Index(i int) Value
+func (v Value) Int() int64
+func (v Value) Interface() (i interface{})
+func (v Value) InterfaceData() [2]uintptr
+func (v Value) IsNil() bool
+func (v Value) IsValid() bool
+func (v Value) Kind() Kind
+func (v Value) Len() int
+func (v Value) MapIndex(key Value) Value
+func (v Value) MapKeys() []Value
+func (v Value) Method(i int) Value
+func (v Value) MethodByName(name string) Value
+func (v Value) NumField() int
+func (v Value) NumMethod() int
+func (v Value) OverflowComplex(x complex128) bool
+func (v Value) OverflowFloat(x float64) bool
+func (v Value) OverflowInt(x int64) bool
+func (v Value) OverflowUint(x uint64) bool
+func (v Value) Pointer() uintptr
+func (v Value) Recv() (x Value, ok bool)
+func (v Value) Send(x Value)
+func (v Value) Set(x Value)
+func (v Value) SetBool(x bool)
+func (v Value) SetBytes(x []byte)
+func (v Value) SetCap(n int)
+func (v Value) SetComplex(x complex128)
+func (v Value) SetFloat(x float64)
+func (v Value) SetInt(x int64)
+func (v Value) SetLen(n int)
+func (v Value) SetMapIndex(key, val Value)
+func (v Value) SetPointer(x unsafe.Pointer)
+func (v Value) SetString(x string)
+func (v Value) SetUint(x uint64)
+func (v Value) Slice(i, j int) Value
+func (v Value) Slice3(i, j, k int) Value
+func (v Value) String() string
+func (v Value) TryRecv() (x Value, ok bool)
+func (v Value) TrySend(x Value) bool
+func (v Value) Type() Type
+func (v Value) Uint() uint64
+func (v Value) UnsafeAddr() uintptr
+func (e *ValueError) Error() string
+
+regexp
+func Match(pattern string, b []byte) (matched bool, err error)
+func MatchReader(pattern string, r io.RuneReader) (matched bool, err error)
+func MatchString(pattern string, s string) (matched bool, err error)
+func QuoteMeta(s string) string
+func Compile(expr string) (*Regexp, error)
+func CompilePOSIX(expr string) (*Regexp, error)
+func MustCompile(str string) *Regexp
+func MustCompilePOSIX(str string) *Regexp
+func (re *Regexp) Expand(dst []byte, template []byte, src []byte, match []int) []byte
+func (re *Regexp) ExpandString(dst []byte, template string, src string, match []int) []byte
+func (re *Regexp) Find(b []byte) []byte
+func (re *Regexp) FindAll(b []byte, n int) [][]byte
+func (re *Regexp) FindAllIndex(b []byte, n int) [][]int
+func (re *Regexp) FindAllString(s string, n int) []string
+func (re *Regexp) FindAllStringIndex(s string, n int) [][]int
+func (re *Regexp) FindAllStringSubmatch(s string, n int) [][]string
+func (re *Regexp) FindAllStringSubmatchIndex(s string, n int) [][]int
+func (re *Regexp) FindAllSubmatch(b []byte, n int) [][][]byte
+func (re *Regexp) FindAllSubmatchIndex(b []byte, n int) [][]int
+func (re *Regexp) FindIndex(b []byte) (loc []int)
+func (re *Regexp) FindReaderIndex(r io.RuneReader) (loc []int)
+func (re *Regexp) FindReaderSubmatchIndex(r io.RuneReader) []int
+func (re *Regexp) FindString(s string) string
+func (re *Regexp) FindStringIndex(s string) (loc []int)
+func (re *Regexp) FindStringSubmatch(s string) []string
+func (re *Regexp) FindStringSubmatchIndex(s string) []int
+func (re *Regexp) FindSubmatch(b []byte) [][]byte
+func (re *Regexp) FindSubmatchIndex(b []byte) []int
+func (re *Regexp) LiteralPrefix() (prefix string, complete bool)
+func (re *Regexp) Longest()
+func (re *Regexp) Match(b []byte) bool
+func (re *Regexp) MatchReader(r io.RuneReader) bool
+func (re *Regexp) MatchString(s string) bool
+func (re *Regexp) NumSubexp() int
+func (re *Regexp) ReplaceAll(src, repl []byte) []byte
+func (re *Regexp) ReplaceAllFunc(src []byte, repl func([]byte) []byte) []byte
+func (re *Regexp) ReplaceAllLiteral(src, repl []byte) []byte
+func (re *Regexp) ReplaceAllLiteralString(src, repl string) string
+func (re *Regexp) ReplaceAllString(src, repl string) string
+func (re *Regexp) ReplaceAllStringFunc(src string, repl func(string) string) string
+func (re *Regexp) Split(s string, n int) []string
+func (re *Regexp) String() string
+func (re *Regexp) SubexpNames() []string
+
+regexp/syntax
+func IsWordChar(r rune) bool
+func EmptyOpContext(r1, r2 rune) EmptyOp
+func (e *Error) Error() string
+func (e ErrorCode) String() string
+func (i *Inst) MatchEmptyWidth(before rune, after rune) bool
+func (i *Inst) MatchRune(r rune) bool
+func (i *Inst) String() string
+func Compile(re *Regexp) (*Prog, error)
+func (p *Prog) Prefix() (prefix string, complete bool)
+func (p *Prog) StartCond() EmptyOp
+func (p *Prog) String() string
+func Parse(s string, flags Flags) (*Regexp, error)
+func (re *Regexp) CapNames() []string
+func (x *Regexp) Equal(y *Regexp) bool
+func (re *Regexp) MaxCap() int
+func (re *Regexp) Simplify() *Regexp
+func (re *Regexp) String() string
+
+runtime
+func BlockProfile(p []BlockProfileRecord) (n int, ok bool)
+func Breakpoint()
+func CPUProfile() []byte
+func Caller(skip int) (pc uintptr, file string, line int, ok bool)
+func Callers(skip int, pc []uintptr) int
+func GC()
+func GOMAXPROCS(n int) int
+func GOROOT() string
+func Goexit()
+func GoroutineProfile(p []StackRecord) (n int, ok bool)
+func Gosched()
+func LockOSThread()
+func MemProfile(p []MemProfileRecord, inuseZero bool) (n int, ok bool)
+func NumCPU() int
+func NumCgoCall() int64
+func NumGoroutine() int
+func ReadMemStats(m *MemStats)
+func SetBlockProfileRate(rate int)
+func SetCPUProfileRate(hz int)
+func SetFinalizer(x, f interface{})
+func Stack(buf []byte, all bool) int
+func ThreadCreateProfile(p []StackRecord) (n int, ok bool)
+func UnlockOSThread()
+func Version() string
+func FuncForPC(pc uintptr) *Func
+func (f *Func) Entry() uintptr
+func (f *Func) FileLine(pc uintptr) (file string, line int)
+func (f *Func) Name() string
+func (r *MemProfileRecord) InUseBytes() int64
+func (r *MemProfileRecord) InUseObjects() int64
+func (r *MemProfileRecord) Stack() []uintptr
+func (r *StackRecord) Stack() []uintptr
+func (e *TypeAssertionError) Error() string
+func (*TypeAssertionError) RuntimeError()
+
+sync
+func NewCond(l Locker) *Cond
+func (c *Cond) Broadcast()
+func (c *Cond) Signal()
+func (c *Cond) Wait()
+func (m *Mutex) Lock()
+func (m *Mutex) Unlock()
+func (o *Once) Do(f func())
+func (rw *RWMutex) Lock()
+func (rw *RWMutex) RLock()
+func (rw *RWMutex) RLocker() Locker
+func (rw *RWMutex) RUnlock()
+func (rw *RWMutex) Unlock()
+func (wg *WaitGroup) Add(delta int)
+func (wg *WaitGroup) Done()
+func (wg *WaitGroup) Wait()
+
+sync/atomic
+func AddInt32(addr *int32, delta int32) (new int32)
+func AddInt64(addr *int64, delta int64) (new int64)
+func AddUint32(addr *uint32, delta uint32) (new uint32)
+func AddUint64(addr *uint64, delta uint64) (new uint64)
+func AddUintptr(addr *uintptr, delta uintptr) (new uintptr)
+func CompareAndSwapInt32(addr *int32, old, new int32) (swapped bool)
+func CompareAndSwapInt64(addr *int64, old, new int64) (swapped bool)
+func CompareAndSwapPointer(addr *unsafe.Pointer, old, new unsafe.Pointer) (swapped bool)
+func CompareAndSwapUint32(addr *uint32, old, new uint32) (swapped bool)
+func CompareAndSwapUint64(addr *uint64, old, new uint64) (swapped bool)
+func CompareAndSwapUintptr(addr *uintptr, old, new uintptr) (swapped bool)
+func LoadInt32(addr *int32) (val int32)
+func LoadInt64(addr *int64) (val int64)
+func LoadPointer(addr *unsafe.Pointer) (val unsafe.Pointer)
+func LoadUint32(addr *uint32) (val uint32)
+func LoadUint64(addr *uint64) (val uint64)
+func LoadUintptr(addr *uintptr) (val uintptr)
+func StoreInt32(addr *int32, val int32)
+func StoreInt64(addr *int64, val int64)
+func StorePointer(addr *unsafe.Pointer, val unsafe.Pointer)
+func StoreUint32(addr *uint32, val uint32)
+func StoreUint64(addr *uint64, val uint64)
+func StoreUintptr(addr *uintptr, val uintptr)
+func SwapInt32(addr *int32, new int32) (old int32)
+func SwapInt64(addr *int64, new int64) (old int64)
+func SwapPointer(addr *unsafe.Pointer, new unsafe.Pointer) (old unsafe.Pointer)
+func SwapUint32(addr *uint32, new uint32) (old uint32)
+func SwapUint64(addr *uint64, new uint64) (old uint64)
+func SwapUintptr(addr *uintptr, new uintptr) (old uintptr)
+
+syscall
+func AcceptEx(ls Handle, as Handle, buf *byte, rxdatalen uint32, laddrlen uint32, raddrlen uint32, recvd *uint32, overlapped *Overlapped) (err error)
+func Bind(fd Handle, sa Sockaddr) (err error)
+func BytePtrFromString(s string) (*byte, error)
+func ByteSliceFromString(s string) ([]byte, error)
+func CancelIo(s Handle) (err error)
+func CancelIoEx(s Handle, o *Overlapped) (err error)
+func CertAddCertificateContextToStore(store Handle, certContext *CertContext, addDisposition uint32, storeContext **CertContext) (err error)
+func CertCloseStore(store Handle, flags uint32) (err error)
+func CertFreeCertificateChain(ctx *CertChainContext)
+func CertFreeCertificateContext(ctx *CertContext) (err error)
+func CertGetCertificateChain(engine Handle, leaf *CertContext, time *Filetime, additionalStore Handle, para *CertChainPara, flags uint32, reserved uintptr, chainCtx **CertChainContext) (err error)
+func CertVerifyCertificateChainPolicy(policyOID uintptr, chain *CertChainContext, para *CertChainPolicyPara, status *CertChainPolicyStatus) (err error)
+func Chdir(path string) (err error)
+func Chmod(path string, mode uint32) (err error)
+func Chown(path string, uid int, gid int) (err error)
+func Clearenv()
+func Close(fd Handle) (err error)
+func CloseHandle(handle Handle) (err error)
+func CloseOnExec(fd Handle)
+func Closesocket(s Handle) (err error)
+func CommandLineToArgv(cmd *uint16, argc *int32) (argv *[8192]*[8192]uint16, err error)
+func ComputerName() (name string, err error)
+func Connect(fd Handle, sa Sockaddr) (err error)
+func ConnectEx(fd Handle, sa Sockaddr, sendBuf *byte, sendDataLen uint32, bytesSent *uint32, overlapped *Overlapped) error
+func ConvertSidToStringSid(sid *SID, stringSid **uint16) (err error)
+func ConvertStringSidToSid(stringSid *uint16, sid **SID) (err error)
+func CopySid(destSidLen uint32, destSid *SID, srcSid *SID) (err error)
+func CreateDirectory(path *uint16, sa *SecurityAttributes) (err error)
+func CreatePipe(readhandle *Handle, writehandle *Handle, sa *SecurityAttributes, size uint32) (err error)
+func CreateProcess(appName *uint16, commandLine *uint16, procSecurity *SecurityAttributes, threadSecurity *SecurityAttributes, inheritHandles bool, creationFlags uint32, env *uint16, currentDir *uint16, startupInfo *StartupInfo, outProcInfo *ProcessInformation) (err error)
+func CryptAcquireContext(provhandle *Handle, container *uint16, provider *uint16, provtype uint32, flags uint32) (err error)
+func CryptGenRandom(provhandle Handle, buflen uint32, buf *byte) (err error)
+func CryptReleaseContext(provhandle Handle, flags uint32) (err error)
+func DeleteFile(path *uint16) (err error)
+func DnsQuery(name string, qtype uint16, options uint32, extra *byte, qrs **DNSRecord, pr *byte) (status error)
+func DnsRecordListFree(rl *DNSRecord, freetype uint32)
+func DuplicateHandle(hSourceProcessHandle Handle, hSourceHandle Handle, hTargetProcessHandle Handle, lpTargetHandle *Handle, dwDesiredAccess uint32, bInheritHandle bool, dwOptions uint32) (err error)
+func Environ() []string
+func EscapeArg(s string) string
+func Exec(argv0 string, argv []string, envv []string) (err error)
+func Exit(code int)
+func ExitProcess(exitcode uint32)
+func Fchdir(fd Handle) (err error)
+func Fchmod(fd Handle, mode uint32) (err error)
+func Fchown(fd Handle, uid int, gid int) (err error)
+func FindClose(handle Handle) (err error)
+func FindNextFile(handle Handle, data *Win32finddata) (err error)
+func FlushFileBuffers(handle Handle) (err error)
+func FlushViewOfFile(addr uintptr, length uintptr) (err error)
+func FormatMessage(flags uint32, msgsrc uint32, msgid uint32, langid uint32, buf []uint16, args *byte) (n uint32, err error)
+func FreeAddrInfoW(addrinfo *AddrinfoW)
+func FreeEnvironmentStrings(envs *uint16) (err error)
+func FreeLibrary(handle Handle) (err error)
+func Fsync(fd Handle) (err error)
+func Ftruncate(fd Handle, length int64) (err error)
+func GetAcceptExSockaddrs(buf *byte, rxdatalen uint32, laddrlen uint32, raddrlen uint32, lrsa **RawSockaddrAny, lrsalen *int32, rrsa **RawSockaddrAny, rrsalen *int32)
+func GetAdaptersInfo(ai *IpAdapterInfo, ol *uint32) (errcode error)
+func GetAddrInfoW(nodename *uint16, servicename *uint16, hints *AddrinfoW, result **AddrinfoW) (sockerr error)
+func GetCommandLine() (cmd *uint16)
+func GetComputerName(buf *uint16, n *uint32) (err error)
+func GetConsoleMode(console Handle, mode *uint32) (err error)
+func GetCurrentDirectory(buflen uint32, buf *uint16) (n uint32, err error)
+func GetEnvironmentStrings() (envs *uint16, err error)
+func GetEnvironmentVariable(name *uint16, buffer *uint16, size uint32) (n uint32, err error)
+func GetExitCodeProcess(handle Handle, exitcode *uint32) (err error)
+func GetFileAttributes(name *uint16) (attrs uint32, err error)
+func GetFileAttributesEx(name *uint16, level uint32, info *byte) (err error)
+func GetFileInformationByHandle(handle Handle, data *ByHandleFileInformation) (err error)
+func GetFileType(filehandle Handle) (n uint32, err error)
+func GetFullPathName(path *uint16, buflen uint32, buf *uint16, fname **uint16) (n uint32, err error)
+func GetIfEntry(pIfRow *MibIfRow) (errcode error)
+func GetLastError() (lasterr error)
+func GetLengthSid(sid *SID) (len uint32)
+func GetLongPathName(path *uint16, buf *uint16, buflen uint32) (n uint32, err error)
+func GetProcAddress(module Handle, procname string) (proc uintptr, err error)
+func GetProcessTimes(handle Handle, creationTime *Filetime, exitTime *Filetime, kernelTime *Filetime, userTime *Filetime) (err error)
+func GetQueuedCompletionStatus(cphandle Handle, qty *uint32, key *uint32, overlapped **Overlapped, timeout uint32) (err error)
+func GetShortPathName(longpath *uint16, shortpath *uint16, buflen uint32) (n uint32, err error)
+func GetStartupInfo(startupInfo *StartupInfo) (err error)
+func GetSystemTimeAsFileTime(time *Filetime)
+func GetTempPath(buflen uint32, buf *uint16) (n uint32, err error)
+func GetTimeZoneInformation(tzi *Timezoneinformation) (rc uint32, err error)
+func GetTokenInformation(t Token, infoClass uint32, info *byte, infoLen uint32, returnedLen *uint32) (err error)
+func GetUserNameEx(nameFormat uint32, nameBuffre *uint16, nSize *uint32) (err error)
+func GetUserProfileDirectory(t Token, dir *uint16, dirLen *uint32) (err error)
+func GetVersion() (ver uint32, err error)
+func Getegid() (egid int)
+func Getenv(key string) (value string, found bool)
+func Geteuid() (euid int)
+func Getgid() (gid int)
+func Getgroups() (gids []int, err error)
+func Getpagesize() int
+func Getpid() (pid int)
+func Getppid() (ppid int)
+func Getsockopt(s Handle, level int32, optname int32, optval *byte, optlen *int32) (err error)
+func GetsockoptInt(fd Handle, level, opt int) (int, error)
+func Gettimeofday(tv *Timeval) (err error)
+func Getuid() (uid int)
+func Getwd() (wd string, err error)
+func Lchown(path string, uid int, gid int) (err error)
+func Link(oldpath, newpath string) (err error)
+func Listen(s Handle, n int) (err error)
+func LoadCancelIoEx() error
+func LoadConnectEx() error
+func LoadGetAddrInfo() error
+func LoadSetFileCompletionNotificationModes() error
+func LookupAccountName(systemName *uint16, accountName *uint16, sid *SID, sidLen *uint32, refdDomainName *uint16, refdDomainNameLen *uint32, use *uint32) (err error)
+func LookupAccountSid(systemName *uint16, sid *SID, name *uint16, nameLen *uint32, refdDomainName *uint16, refdDomainNameLen *uint32, use *uint32) (err error)
+func MapViewOfFile(handle Handle, access uint32, offsetHigh uint32, offsetLow uint32, length uintptr) (addr uintptr, err error)
+func Mkdir(path string, mode uint32) (err error)
+func MoveFile(from *uint16, to *uint16) (err error)
+func NetApiBufferFree(buf *byte) (neterr error)
+func NetGetJoinInformation(server *uint16, name **uint16, bufType *uint32) (neterr error)
+func NetUserGetInfo(serverName *uint16, userName *uint16, level uint32, buf **byte) (neterr error)
+func NewCallback(fn interface{}) uintptr
+func Ntohs(netshort uint16) (u uint16)
+func OpenProcessToken(h Handle, access uint32, token *Token) (err error)
+func Pipe(p []Handle) (err error)
+func PostQueuedCompletionStatus(cphandle Handle, qty uint32, key uint32, overlapped *Overlapped) (err error)
+func Read(fd Handle, p []byte) (n int, err error)
+func ReadConsole(console Handle, buf *uint16, toread uint32, read *uint32, inputControl *byte) (err error)
+func ReadDirectoryChanges(handle Handle, buf *byte, buflen uint32, watchSubTree bool, mask uint32, retlen *uint32, overlapped *Overlapped, completionRoutine uintptr) (err error)
+func ReadFile(handle Handle, buf []byte, done *uint32, overlapped *Overlapped) (err error)
+func Readlink(path string, buf []byte) (n int, err error)
+func Recvfrom(fd Handle, p []byte, flags int) (n int, from Sockaddr, err error)
+func RegCloseKey(key Handle) (regerrno error)
+func RegEnumKeyEx(key Handle, index uint32, name *uint16, nameLen *uint32, reserved *uint32, class *uint16, classLen *uint32, lastWriteTime *Filetime) (regerrno error)
+func RegOpenKeyEx(key Handle, subkey *uint16, options uint32, desiredAccess uint32, result *Handle) (regerrno error)
+func RegQueryInfoKey(key Handle, class *uint16, classLen *uint32, reserved *uint32, subkeysLen *uint32, maxSubkeyLen *uint32, maxClassLen *uint32, valuesLen *uint32, maxValueNameLen *uint32, maxValueLen *uint32, saLen *uint32, lastWriteTime *Filetime) (regerrno error)
+func RegQueryValueEx(key Handle, name *uint16, reserved *uint32, valtype *uint32, buf *byte, buflen *uint32) (regerrno error)
+func RemoveDirectory(path *uint16) (err error)
+func Rename(oldpath, newpath string) (err error)
+func Rmdir(path string) (err error)
+func Seek(fd Handle, offset int64, whence int) (newoffset int64, err error)
+func Sendto(fd Handle, p []byte, flags int, to Sockaddr) (err error)
+func SetCurrentDirectory(path *uint16) (err error)
+func SetEndOfFile(handle Handle) (err error)
+func SetEnvironmentVariable(name *uint16, value *uint16) (err error)
+func SetFileAttributes(name *uint16, attrs uint32) (err error)
+func SetFileCompletionNotificationModes(handle Handle, flags uint8) (err error)
+func SetFilePointer(handle Handle, lowoffset int32, highoffsetptr *int32, whence uint32) (newlowoffset uint32, err error)
+func SetFileTime(handle Handle, ctime *Filetime, atime *Filetime, wtime *Filetime) (err error)
+func SetHandleInformation(handle Handle, mask uint32, flags uint32) (err error)
+func SetNonblock(fd Handle, nonblocking bool) (err error)
+func Setenv(key, value string) error
+func Setsockopt(s Handle, level int32, optname int32, optval *byte, optlen int32) (err error)
+func SetsockoptIPMreq(fd Handle, level, opt int, mreq *IPMreq) (err error)
+func SetsockoptIPv6Mreq(fd Handle, level, opt int, mreq *IPv6Mreq) (err error)
+func SetsockoptInet4Addr(fd Handle, level, opt int, value [4]byte) (err error)
+func SetsockoptInt(fd Handle, level, opt int, value int) (err error)
+func SetsockoptLinger(fd Handle, level, opt int, l *Linger) (err error)
+func SetsockoptTimeval(fd Handle, level, opt int, tv *Timeval) (err error)
+func Shutdown(fd Handle, how int) (err error)
+func StartProcess(argv0 string, argv []string, attr *ProcAttr) (pid int, handle uintptr, err error)
+func StringBytePtr(s string) *byte
+func StringByteSlice(s string) []byte
+func StringToUTF16(s string) []uint16
+func StringToUTF16Ptr(s string) *uint16
+func Symlink(path, link string) (err error)
+func Syscall(trap, nargs, a1, a2, a3 uintptr) (r1, r2 uintptr, err Errno)
+func Syscall12(trap, nargs, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 uintptr) (r1, r2 uintptr, err Errno)
+func Syscall15(trap, nargs, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15 uintptr) (r1, r2 uintptr, err Errno)
+func Syscall6(trap, nargs, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, err Errno)
+func Syscall9(trap, nargs, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err Errno)
+func TerminateProcess(handle Handle, exitcode uint32) (err error)
+func TimespecToNsec(ts Timespec) int64
+func TranslateAccountName(username string, from, to uint32, initSize int) (string, error)
+func TranslateName(accName *uint16, accNameFormat uint32, desiredNameFormat uint32, translatedName *uint16, nSize *uint32) (err error)
+func TransmitFile(s Handle, handle Handle, bytesToWrite uint32, bytsPerSend uint32, overlapped *Overlapped, transmitFileBuf *TransmitFileBuffers, flags uint32) (err error)
+func UTF16FromString(s string) ([]uint16, error)
+func UTF16PtrFromString(s string) (*uint16, error)
+func UTF16ToString(s []uint16) string
+func Unlink(path string) (err error)
+func UnmapViewOfFile(addr uintptr) (err error)
+func Utimes(path string, tv []Timeval) (err error)
+func UtimesNano(path string, ts []Timespec) (err error)
+func VirtualLock(addr uintptr, length uintptr) (err error)
+func VirtualUnlock(addr uintptr, length uintptr) (err error)
+func WSACleanup() (err error)
+func WSAEnumProtocols(protocols *int32, protocolBuffer *WSAProtocolInfo, bufferLength *uint32) (n int32, err error)
+func WSAIoctl(s Handle, iocc uint32, inbuf *byte, cbif uint32, outbuf *byte, cbob uint32, cbbr *uint32, overlapped *Overlapped, completionRoutine uintptr) (err error)
+func WSARecv(s Handle, bufs *WSABuf, bufcnt uint32, recvd *uint32, flags *uint32, overlapped *Overlapped, croutine *byte) (err error)
+func WSARecvFrom(s Handle, bufs *WSABuf, bufcnt uint32, recvd *uint32, flags *uint32, from *RawSockaddrAny, fromlen *int32, overlapped *Overlapped, croutine *byte) (err error)
+func WSASend(s Handle, bufs *WSABuf, bufcnt uint32, sent *uint32, flags uint32, overlapped *Overlapped, croutine *byte) (err error)
+func WSASendTo(s Handle, bufs *WSABuf, bufcnt uint32, sent *uint32, flags uint32, to *RawSockaddrAny, tolen int32, overlapped *Overlapped, croutine *byte) (err error)
+func WSASendto(s Handle, bufs *WSABuf, bufcnt uint32, sent *uint32, flags uint32, to Sockaddr, overlapped *Overlapped, croutine *byte) (err error)
+func WSAStartup(verreq uint32, data *WSAData) (sockerr error)
+func WaitForSingleObject(handle Handle, waitMilliseconds uint32) (event uint32, err error)
+func Write(fd Handle, p []byte) (n int, err error)
+func WriteConsole(console Handle, buf *uint16, towrite uint32, written *uint32, reserved *byte) (err error)
+func WriteFile(handle Handle, buf []byte, done *uint32, overlapped *Overlapped) (err error)
+func CertCreateCertificateContext(certEncodingType uint32, certEncoded *byte, encodedLen uint32) (context *CertContext, err error)
+func CertEnumCertificatesInStore(store Handle, prevContext *CertContext) (context *CertContext, err error)
+func LoadDLL(name string) (dll *DLL, err error)
+func MustLoadDLL(name string) *DLL
+func (d *DLL) FindProc(name string) (proc *Proc, err error)
+func (d *DLL) MustFindProc(name string) *Proc
+func (d *DLL) Release() (err error)
+func (e *DLLError) Error() string
+func (e Errno) Error() string
+func (e Errno) Temporary() bool
+func (e Errno) Timeout() bool
+func NsecToFiletime(nsec int64) (ft Filetime)
+func (ft *Filetime) Nanoseconds() int64
+func Accept(fd Handle) (nfd Handle, sa Sockaddr, err error)
+func CertOpenStore(storeProvider uintptr, msgAndCertEncodingType uint32, cryptProv uintptr, flags uint32, para uintptr) (handle Handle, err error)
+func CertOpenSystemStore(hprov Handle, name *uint16) (store Handle, err error)
+func CreateFile(name *uint16, access uint32, mode uint32, sa *SecurityAttributes, createmode uint32, attrs uint32, templatefile int32) (handle Handle, err error)
+func CreateFileMapping(fhandle Handle, sa *SecurityAttributes, prot uint32, maxSizeHigh uint32, maxSizeLow uint32, name *uint16) (handle Handle, err error)
+func CreateIoCompletionPort(filehandle Handle, cphandle Handle, key uint32, threadcnt uint32) (handle Handle, err error)
+func FindFirstFile(name *uint16, data *Win32finddata) (handle Handle, err error)
+func GetCurrentProcess() (pseudoHandle Handle, err error)
+func GetStdHandle(stdhandle int) (handle Handle, err error)
+func LoadLibrary(libname string) (handle Handle, err error)
+func LocalFree(hmem Handle) (handle Handle, err error)
+func Open(path string, mode int, perm uint32) (fd Handle, err error)
+func OpenProcess(da uint32, inheritHandle bool, pid uint32) (handle Handle, err error)
+func Socket(domain, typ, proto int) (fd Handle, err error)
+func GetHostByName(name string) (h *Hostent, err error)
+func NewLazyDLL(name string) *LazyDLL
+func (d *LazyDLL) Handle() uintptr
+func (d *LazyDLL) Load() error
+func (d *LazyDLL) NewProc(name string) *LazyProc
+func (p *LazyProc) Addr() uintptr
+func (p *LazyProc) Call(a ...uintptr) (r1, r2 uintptr, lastErr error)
+func (p *LazyProc) Find() error
+func (p *Proc) Addr() uintptr
+func (p *Proc) Call(a ...uintptr) (r1, r2 uintptr, lastErr error)
+func GetProtoByName(name string) (p *Protoent, err error)
+func (rsa *RawSockaddrAny) Sockaddr() (Sockaddr, error)
+func LookupSID(system, account string) (sid *SID, domain string, accType uint32, err error)
+func StringToSid(s string) (*SID, error)
+func (sid *SID) Copy() (*SID, error)
+func (sid *SID) Len() int
+func (sid *SID) LookupAccount(system string) (account, domain string, accType uint32, err error)
+func (sid *SID) String() (string, error)
+func GetServByName(name string, proto string) (s *Servent, err error)
+func (s Signal) Signal()
+func (s Signal) String() string
+func Getpeername(fd Handle) (sa Sockaddr, err error)
+func Getsockname(fd Handle) (sa Sockaddr, err error)
+func NsecToTimespec(nsec int64) (ts Timespec)
+func (ts *Timespec) Nano() int64
+func (ts *Timespec) Unix() (sec int64, nsec int64)
+func NsecToTimeval(nsec int64) (tv Timeval)
+func (tv *Timeval) Nano() int64
+func (tv *Timeval) Nanoseconds() int64
+func (tv *Timeval) Unix() (sec int64, nsec int64)
+func OpenCurrentProcessToken() (Token, error)
+func (t Token) Close() error
+func (t Token) GetTokenPrimaryGroup() (*Tokenprimarygroup, error)
+func (t Token) GetTokenUser() (*Tokenuser, error)
+func (t Token) GetUserProfileDirectory() (string, error)
+func (w WaitStatus) Continued() bool
+func (w WaitStatus) CoreDump() bool
+func (w WaitStatus) ExitStatus() int
+func (w WaitStatus) Exited() bool
+func (w WaitStatus) Signal() Signal
+func (w WaitStatus) Signaled() bool
+func (w WaitStatus) StopSignal() Signal
+func (w WaitStatus) Stopped() bool
+func (w WaitStatus) TrapCause() int
+
+testing
+func AllocsPerRun(runs int, f func()) (avg float64)
+func Main(matchString func(pat, str string) (bool, error), tests []InternalTest, benchmarks []InternalBenchmark, examples []InternalExample)
+func RegisterCover(c Cover)
+func RunBenchmarks(matchString func(pat, str string) (bool, error), benchmarks []InternalBenchmark)
+func RunExamples(matchString func(pat, str string) (bool, error), examples []InternalExample) (ok bool)
+func RunTests(matchString func(pat, str string) (bool, error), tests []InternalTest) (ok bool)
+func Short() bool
+func Verbose() bool
+func (c *B) Error(args ...interface{})
+func (c *B) Errorf(format string, args ...interface{})
+func (c *B) Fail()
+func (c *B) FailNow()
+func (c *B) Failed() bool
+func (c *B) Fatal(args ...interface{})
+func (c *B) Fatalf(format string, args ...interface{})
+func (c *B) Log(args ...interface{})
+func (c *B) Logf(format string, args ...interface{})
+func (b *B) ReportAllocs()
+func (b *B) ResetTimer()
+func (b *B) SetBytes(n int64)
+func (c *B) Skip(args ...interface{})
+func (c *B) SkipNow()
+func (c *B) Skipf(format string, args ...interface{})
+func (c *B) Skipped() bool
+func (b *B) StartTimer()
+func (b *B) StopTimer()
+func Benchmark(f func(b *B)) BenchmarkResult
+func (r BenchmarkResult) AllocedBytesPerOp() int64
+func (r BenchmarkResult) AllocsPerOp() int64
+func (r BenchmarkResult) MemString() string
+func (r BenchmarkResult) NsPerOp() int64
+func (r BenchmarkResult) String() string
+func (c *T) Error(args ...interface{})
+func (c *T) Errorf(format string, args ...interface{})
+func (c *T) Fail()
+func (c *T) FailNow()
+func (c *T) Failed() bool
+func (c *T) Fatal(args ...interface{})
+func (c *T) Fatalf(format string, args ...interface{})
+func (c *T) Log(args ...interface{})
+func (c *T) Logf(format string, args ...interface{})
+func (t *T) Parallel()
+func (c *T) Skip(args ...interface{})
+func (c *T) SkipNow()
+func (c *T) Skipf(format string, args ...interface{})
+func (c *T) Skipped() bool
+
+testing/iotest
+func DataErrReader(r io.Reader) io.Reader
+func HalfReader(r io.Reader) io.Reader
+func NewReadLogger(prefix string, r io.Reader) io.Reader
+func NewWriteLogger(prefix string, w io.Writer) io.Writer
+func OneByteReader(r io.Reader) io.Reader
+func TimeoutReader(r io.Reader) io.Reader
+func TruncateWriter(w io.Writer, n int64) io.Writer
+
+testing/quick
+func Check(function interface{}, config *Config) (err error)
+func CheckEqual(f, g interface{}, config *Config) (err error)
+func Value(t reflect.Type, rand *rand.Rand) (value reflect.Value, ok bool)
+func (s *CheckEqualError) Error() string
+func (s *CheckError) Error() string
+func (s SetupError) Error() string
+
+text/scanner
+func TokenString(tok rune) string
+func (pos *Position) IsValid() bool
+func (pos Position) String() string
+func (s *Scanner) Init(src io.Reader) *Scanner
+func (s *Scanner) Next() rune
+func (s *Scanner) Peek() rune
+func (s *Scanner) Pos() (pos Position)
+func (s *Scanner) Scan() rune
+func (s *Scanner) TokenText() string
+
+text/tabwriter
+func NewWriter(output io.Writer, minwidth, tabwidth, padding int, padchar byte, flags uint) *Writer
+func (b *Writer) Flush() (err error)
+func (b *Writer) Init(output io.Writer, minwidth, tabwidth, padding int, padchar byte, flags uint) *Writer
+func (b *Writer) Write(buf []byte) (n int, err error)
+
+text/template
+func HTMLEscape(w io.Writer, b []byte)
+func HTMLEscapeString(s string) string
+func HTMLEscaper(args ...interface{}) string
+func JSEscape(w io.Writer, b []byte)
+func JSEscapeString(s string) string
+func JSEscaper(args ...interface{}) string
+func URLQueryEscaper(args ...interface{}) string
+func Must(t *Template, err error) *Template
+func New(name string) *Template
+func ParseFiles(filenames ...string) (*Template, error)
+func ParseGlob(pattern string) (*Template, error)
+func (t *Template) AddParseTree(name string, tree *parse.Tree) (*Template, error)
+func (t *Template) Clone() (*Template, error)
+func (t *Template) Delims(left, right string) *Template
+func (t *Template) Execute(wr io.Writer, data interface{}) (err error)
+func (t *Template) ExecuteTemplate(wr io.Writer, name string, data interface{}) error
+func (t *Template) Funcs(funcMap FuncMap) *Template
+func (t *Template) Lookup(name string) *Template
+func (t *Template) Name() string
+func (t *Template) New(name string) *Template
+func (t *Template) Parse(text string) (*Template, error)
+func (t *Template) ParseFiles(filenames ...string) (*Template, error)
+func (t *Template) ParseGlob(pattern string) (*Template, error)
+func (t *Template) Templates() []*Template
+
+text/template/parse
+func IsEmptyTree(n Node) bool
+func Parse(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{}) (treeSet map[string]*Tree, err error)
+func (a *ActionNode) Copy() Node
+func (a *ActionNode) String() string
+func (b *BoolNode) Copy() Node
+func (b *BoolNode) String() string
+func (b *BranchNode) String() string
+func (c *ChainNode) Add(field string)
+func (c *ChainNode) Copy() Node
+func (c *ChainNode) String() string
+func (c *CommandNode) Copy() Node
+func (c *CommandNode) String() string
+func (d *DotNode) Copy() Node
+func (d *DotNode) String() string
+func (d *DotNode) Type() NodeType
+func (f *FieldNode) Copy() Node
+func (f *FieldNode) String() string
+func NewIdentifier(ident string) *IdentifierNode
+func (i *IdentifierNode) Copy() Node
+func (i *IdentifierNode) SetPos(pos Pos) *IdentifierNode
+func (i *IdentifierNode) String() string
+func (i *IfNode) Copy() Node
+func (l *ListNode) Copy() Node
+func (l *ListNode) CopyList() *ListNode
+func (l *ListNode) String() string
+func (n *NilNode) Copy() Node
+func (n *NilNode) String() string
+func (n *NilNode) Type() NodeType
+func (t NodeType) Type() NodeType
+func (n *NumberNode) Copy() Node
+func (n *NumberNode) String() string
+func (p *PipeNode) Copy() Node
+func (p *PipeNode) CopyPipe() *PipeNode
+func (p *PipeNode) String() string
+func (p Pos) Position() Pos
+func (r *RangeNode) Copy() Node
+func (s *StringNode) Copy() Node
+func (s *StringNode) String() string
+func (t *TemplateNode) Copy() Node
+func (t *TemplateNode) String() string
+func (t *TextNode) Copy() Node
+func (t *TextNode) String() string
+func New(name string, funcs ...map[string]interface{}) *Tree
+func (t *Tree) Copy() *Tree
+func (t *Tree) ErrorContext(n Node) (location, context string)
+func (t *Tree) Parse(text, leftDelim, rightDelim string, treeSet map[string]*Tree, funcs ...map[string]interface{}) (tree *Tree, err error)
+func (v *VariableNode) Copy() Node
+func (v *VariableNode) String() string
+func (w *WithNode) Copy() Node
+
+time
+func After(d Duration) <-chan Time
+func Sleep(d Duration)
+func Tick(d Duration) <-chan Time
+func ParseDuration(s string) (Duration, error)
+func Since(t Time) Duration
+func (d Duration) Hours() float64
+func (d Duration) Minutes() float64
+func (d Duration) Nanoseconds() int64
+func (d Duration) Seconds() float64
+func (d Duration) String() string
+func FixedZone(name string, offset int) *Location
+func LoadLocation(name string) (*Location, error)
+func (l *Location) String() string
+func (m Month) String() string
+func (e *ParseError) Error() string
+func NewTicker(d Duration) *Ticker
+func (t *Ticker) Stop()
+func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time
+func Now() Time
+func Parse(layout, value string) (Time, error)
+func ParseInLocation(layout, value string, loc *Location) (Time, error)
+func Unix(sec int64, nsec int64) Time
+func (t Time) Add(d Duration) Time
+func (t Time) AddDate(years int, months int, days int) Time
+func (t Time) After(u Time) bool
+func (t Time) Before(u Time) bool
+func (t Time) Clock() (hour, min, sec int)
+func (t Time) Date() (year int, month Month, day int)
+func (t Time) Day() int
+func (t Time) Equal(u Time) bool
+func (t Time) Format(layout string) string
+func (t *Time) GobDecode(data []byte) error
+func (t Time) GobEncode() ([]byte, error)
+func (t Time) Hour() int
+func (t Time) ISOWeek() (year, week int)
+func (t Time) In(loc *Location) Time
+func (t Time) IsZero() bool
+func (t Time) Local() Time
+func (t Time) Location() *Location
+func (t Time) MarshalBinary() ([]byte, error)
+func (t Time) MarshalJSON() ([]byte, error)
+func (t Time) MarshalText() ([]byte, error)
+func (t Time) Minute() int
+func (t Time) Month() Month
+func (t Time) Nanosecond() int
+func (t Time) Round(d Duration) Time
+func (t Time) Second() int
+func (t Time) String() string
+func (t Time) Sub(u Time) Duration
+func (t Time) Truncate(d Duration) Time
+func (t Time) UTC() Time
+func (t Time) Unix() int64
+func (t Time) UnixNano() int64
+func (t *Time) UnmarshalBinary(data []byte) error
+func (t *Time) UnmarshalJSON(data []byte) (err error)
+func (t *Time) UnmarshalText(data []byte) (err error)
+func (t Time) Weekday() Weekday
+func (t Time) Year() int
+func (t Time) YearDay() int
+func (t Time) Zone() (name string, offset int)
+func AfterFunc(d Duration, f func()) *Timer
+func NewTimer(d Duration) *Timer
+func (t *Timer) Reset(d Duration) bool
+func (t *Timer) Stop() bool
+func (d Weekday) String() string
+
+unicode
+func In(r rune, ranges ...*RangeTable) bool
+func Is(rangeTab *RangeTable, r rune) bool
+func IsControl(r rune) bool
+func IsDigit(r rune) bool
+func IsGraphic(r rune) bool
+func IsLetter(r rune) bool
+func IsLower(r rune) bool
+func IsMark(r rune) bool
+func IsNumber(r rune) bool
+func IsOneOf(ranges []*RangeTable, r rune) bool
+func IsPrint(r rune) bool
+func IsPunct(r rune) bool
+func IsSpace(r rune) bool
+func IsSymbol(r rune) bool
+func IsTitle(r rune) bool
+func IsUpper(r rune) bool
+func SimpleFold(r rune) rune
+func To(_case int, r rune) rune
+func ToLower(r rune) rune
+func ToTitle(r rune) rune
+func ToUpper(r rune) rune
+func (special SpecialCase) ToLower(r rune) rune
+func (special SpecialCase) ToTitle(r rune) rune
+func (special SpecialCase) ToUpper(r rune) rune
+
+unicode/utf16
+func Decode(s []uint16) []rune
+func DecodeRune(r1, r2 rune) rune
+func Encode(s []rune) []uint16
+func EncodeRune(r rune) (r1, r2 rune)
+func IsSurrogate(r rune) bool
+
+unicode/utf8
+func DecodeLastRune(p []byte) (r rune, size int)
+func DecodeLastRuneInString(s string) (r rune, size int)
+func DecodeRune(p []byte) (r rune, size int)
+func DecodeRuneInString(s string) (r rune, size int)
+func EncodeRune(p []byte, r rune) int
+func FullRune(p []byte) bool
+func FullRuneInString(s string) bool
+func RuneCount(p []byte) int
+func RuneCountInString(s string) (n int)
+func RuneLen(r rune) int
+func RuneStart(b byte) bool
+func Valid(p []byte) bool
+func ValidRune(r rune) bool
+func ValidString(s string) bool
+
+unsafe
+func Alignof(v ArbitraryType) uintptr
+func Offsetof(v ArbitraryType) uintptr
+func Sizeof(v ArbitraryType) uintptr

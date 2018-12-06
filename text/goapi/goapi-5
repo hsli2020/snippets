@@ -1,0 +1,119 @@
+io/ioutil
+func NopCloser(r io.Reader) io.ReadCloser
+func ReadAll(r io.Reader) ([]byte, error)
+func ReadDir(dirname string) ([]os.FileInfo, error)
+func ReadFile(filename string) ([]byte, error)
+func TempDir(dir, prefix string) (name string, err error)
+func TempFile(dir, prefix string) (f *os.File, err error)
+func WriteFile(filename string, data []byte, perm os.FileMode) error
+
+log
+func Fatal(v ...interface{})
+func Fatalf(format string, v ...interface{})
+func Fatalln(v ...interface{})
+func Flags() int
+func Panic(v ...interface{})
+func Panicf(format string, v ...interface{})
+func Panicln(v ...interface{})
+func Prefix() string
+func Print(v ...interface{})
+func Printf(format string, v ...interface{})
+func Println(v ...interface{})
+func SetFlags(flag int)
+func SetOutput(w io.Writer)
+func SetPrefix(prefix string)
+func New(out io.Writer, prefix string, flag int) *Logger
+func (l *Logger) Fatal(v ...interface{})
+func (l *Logger) Fatalf(format string, v ...interface{})
+func (l *Logger) Fatalln(v ...interface{})
+func (l *Logger) Flags() int
+func (l *Logger) Output(calldepth int, s string) error
+func (l *Logger) Panic(v ...interface{})
+func (l *Logger) Panicf(format string, v ...interface{})
+func (l *Logger) Panicln(v ...interface{})
+func (l *Logger) Prefix() string
+func (l *Logger) Print(v ...interface{})
+func (l *Logger) Printf(format string, v ...interface{})
+func (l *Logger) Println(v ...interface{})
+func (l *Logger) SetFlags(flag int)
+func (l *Logger) SetPrefix(prefix string)
+
+log/syslog
+
+os/exec
+func LookPath(file string) (f string, err error)
+func Command(name string, arg ...string) *Cmd
+func (c *Cmd) CombinedOutput() ([]byte, error)
+func (c *Cmd) Output() ([]byte, error)
+func (c *Cmd) Run() error
+func (c *Cmd) Start() error
+func (c *Cmd) StderrPipe() (io.ReadCloser, error)
+func (c *Cmd) StdinPipe() (io.WriteCloser, error)
+func (c *Cmd) StdoutPipe() (io.ReadCloser, error)
+func (c *Cmd) Wait() error
+func (e *Error) Error() string
+func (e *ExitError) Error() string
+
+os/signal
+func Notify(c chan<- os.Signal, sig ...os.Signal)
+func Stop(c chan<- os.Signal)
+
+
+os/user
+func (e UnknownUserError) Error() string
+func (e UnknownUserIdError) Error() string
+func Current() (*User, error)
+func Lookup(username string) (*User, error)
+func LookupId(uid string) (*User, error)
+
+path
+func Base(path string) string
+func Clean(path string) string
+func Dir(path string) string
+func Ext(path string) string
+func IsAbs(path string) bool
+func Join(elem ...string) string
+func Match(pattern, name string) (matched bool, err error)
+func Split(path string) (dir, file string)
+
+path/filepath
+func Abs(path string) (string, error)
+func Base(path string) string
+func Clean(path string) string
+func Dir(path string) string
+func EvalSymlinks(path string) (string, error)
+func Ext(path string) string
+func FromSlash(path string) string
+func Glob(pattern string) (matches []string, err error)
+func HasPrefix(p, prefix string) bool
+func IsAbs(path string) (b bool)
+func Join(elem ...string) string
+func Match(pattern, name string) (matched bool, err error)
+func Rel(basepath, targpath string) (string, error)
+func Split(path string) (dir, file string)
+func SplitList(path string) []string
+func ToSlash(path string) string
+func VolumeName(path string) (v string)
+func Walk(root string, walkFn WalkFunc) error
+
+runtime/debug
+func FreeOSMemory()
+func PrintStack()
+func ReadGCStats(stats *GCStats)
+func SetGCPercent(percent int) int
+func SetMaxStack(bytes int) int
+func SetMaxThreads(threads int) int
+func Stack() []byte
+
+runtime/pprof
+func Profiles() []*Profile
+func StartCPUProfile(w io.Writer) error
+func StopCPUProfile()
+func WriteHeapProfile(w io.Writer) error
+func Lookup(name string) *Profile
+func NewProfile(name string) *Profile
+func (p *Profile) Add(value interface{}, skip int)
+func (p *Profile) Count() int
+func (p *Profile) Name() string
+func (p *Profile) Remove(value interface{})
+func (p *Profile) WriteTo(w io.Writer, debug int) error

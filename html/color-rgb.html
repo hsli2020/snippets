@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colors</title>
+    <style type="text/css">
+    #container{margin: 0 auto;width:800px;}
+    #display{width:400px;height:320px;background-color:rgb(255,0,0);float:left;}
+    #img{width:400px;}
+    input{width:100px;height:20px;font-size: 20px;background-color: #e5e5e5;}
+    table{width:800px;height:200px;text-align: center;font-size: 20px;background-color:#FFFFFF;border-collapse: collapse;}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="display"></div>
+        <img id="img" src="http://upload.wikimedia.org/wikipedia/commons/f/fd/RGB.jpg">
+        <table border="1">
+            <tr>
+                <td>Red : <input id="inputField1" type="number" onkeyup="myFunction()" value="255" min="0" max="255"/></td>
+                <td>Green : <input id="inputField2" type="number" onkeyup="myFunction()" value="0" min="0" max="255"/></td>
+                <td>Blue : <input id="inputField3" type="number" onkeyup="myFunction()" value="0" min="0" max="255"/></td>
+                <td rowspan="2">Hex</td><td rowspan="2">Color Name</td>
+            </tr>
+            <tr><td>Red</td><td>Green</td><td>Blue</td></tr>
+            <tr><td>255</td><td>0</td><td>0</td><td>#FF0000</td><td>Red</td></tr>
+            <tr><td>0</td><td>255</td><td>0</td><td>#00FF00</td><td>Green</td></tr>
+            <tr><td>0</td><td>0</td><td>255</td><td>#0000FF</td><td>Blue</td></tr>
+            <tr><td>255</td><td>0</td><td>255</td><td>#FF00FF</td><td>Fuchsia</td></tr>
+            <tr><td>255</td><td>255</td><td>0</td><td>#FFFF00</td><td>Yellow</td></tr>
+            <tr><td>0</td><td>255</td><td>255</td><td>#00FFFF</td><td>Cyan</td></tr>
+            <tr><td>255</td><td>255</td><td>255</td><td>#FFFFFF</td><td>White</td></tr>
+            <tr><td>0</td><td>0</td><td>0</td><td>#000000</td><td>Black</td></tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        function myFunction(){
+            if (inputField1.value<=255 && inputField1.value>=0 && 
+                inputField2.value<=255 && inputField2.value>=0 && 
+                inputField3.value<=255 && inputField1.value>=0) {
+                document.getElementById('display').style.backgroundColor ="rgb("+
+                    document.getElementById("inputField1").value+","+
+                    document.getElementById("inputField2").value+","+
+                    document.getElementById("inputField3").value+")";
+            } else {
+                alert("The R,G,B value can't be negative or greater than 255");
+            }
+        };
+    </script>
+</body>
+</html>

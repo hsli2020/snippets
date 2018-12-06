@@ -1,0 +1,123 @@
+JavaScript API to access different parts of the device: 
+=======================================================
+Accelerometer
+Camera 
+Capture 
+Compass 
+Connection 
+Contacts 
+Device 
+Events
+File
+Geolocation
+Media
+Notifications (alert, sound, vibration) 
+Storage
+
+Documentation: http://docs.phonegap.com/
+
+cordova-2.0.0.js
+cordova-2.0.0.jar
+
+<script type="text/javascript"> 
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() { alert("PhoneGap loaded"); }
+</script>
+
+function showAlert() { 
+    navigator.notification.alert("Testing notification.alert", 
+        afterAlert, "Alert title", "Button");
+}
+afterAlert() { // Do something }
+
+showConfirm() { 
+    navigator.notification.confirm("Do you like PhoneGap?", 
+        onConfirm, "About PhoneGap", "Yes,No");
+}
+onConfirm(buttonIndex) { // Do something depending on the button (index starting in 1) }
+
+navigator.notification.beep(1);
+navigator.notification.vibrate(2000);
+
+// Internet connection
+function checkConnection() {
+    var networkState = navigator.network.connection.type;
+
+    states = {}; 
+    states[Connection.UNKNOWN]  = "Unknown connection";    
+    states[Connection.ETHERNET] = "Ethernet connection";   
+    states[Connection.WIFI]     = "WiFi connection";       
+    states[Connection.CELL_2G]  = "Cell 2G connection";    
+    states[Connection.CELL_3G]  = "Cell 3G connection";    
+    states[Connection.CELL_4G]  = "Cell 4G connection";    
+    states[Connection.NONE]     = "No network connection"; 
+
+    alert("Connection type: " + states[networkState]);
+}
+
+// Device information (name, PhoneGap version, platform, UUID, version)
+function showDeviceInfo() {
+    alert("name: " + device.name + "\n" +
+          "cordova: " + device.cordova + "\n" + 
+          "platform: " + device.platform + "\n" + 
+          "uuid: " + device.uuid + "\n" + 
+          "version: " + device.version);
+}
+
+// Get picture
+function takePicture() { 
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL
+    });
+}
+
+function onSuccess(imageData) {
+    var image = document.getElementById("myImage");
+    image.src = "data:image/jpeg;base64," + imageData;
+}
+
+function onFail(message) { alert("Failed because: " + message); }
+function onDeviceReady() { refreshPosts(); }
+
+function refreshPosts() { 
+    var url = window.localStorage.getItem("feedUrl");
+    $("#url").val(url);
+
+    jQuery.getFeed({
+        url: "http://planet.gnome.org/rss20.xml", 
+        success: function(feed) {
+            for (var i = 0; i < feed.items.length; i++) {
+                var item = feed.items[i];
+                console.log("Item " + i + ": " + item.title);
+                appendPost(item);
+            }
+            $("#posts").listview("refresh");
+        }
+    }); 
+}
+function appendPost(item) { $("#posts").append("<li>" + item.title + "</li>"); }
+
+function appendPost(item) {
+    var link = $("<a />").attr("href", item.link); 
+    $("<h3 />").append(item.title).appendTo(link);
+    $("<p />").append(item.updated).appendTo(link);
+
+    var li = $("<li />").append(link);
+
+    $("#posts").append(li);
+}
+
+// Save feed URL using Storage API
+function saveFeedURL() {
+    var url = $("#url").val();
+    window.localStorage.setItem("feedUrl", url);
+    refreshPosts();
+}
+
+function goToOptions() { $.mobile.changePage("#options"); }
+
+function isOnline() {
+    var networkState = navigator.network.connection.type;
+    return (networkState != Connection.NONE);
+}

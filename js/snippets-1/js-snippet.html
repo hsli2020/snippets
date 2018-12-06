@@ -1,0 +1,64 @@
+<script type="text/javascript">
+    function loadScript() {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://plus.google.com/js/client:plusone.js?onload=ggAsynInit';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    };
+</script>
+
+<script>
+  function loadScript() {
+    var s = document.createElement("script"),
+       el = document.getElementsByTagName("script")[0];
+
+    s.async = true;
+    s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b")
+          + ".scorecardresearch.com/beacon.js";
+    el.parentNode.insertBefore(s, el);
+  }
+</script>
+
+<script type="text/javascript">
+    deleteCookie('ezsegs');
+</script>
+
+<script data-timing="async" data-version="1.9" type="text/javascript">
+DM_ResourcePlanner.add('ad-plugin', function()
+{
+    var k = document.createElement('script');
+        k.type='text/javascript';
+        k.async=true;
+
+    var m,
+        src = (m = location.href.match(/\bkxsrc=([^&]+)/)) && decodeURIComponent(m[1]);
+
+    k.src = /^https?:\/\/([^\/]+\.)?krxd\.net(:\d{1,5})?\//i.test(src)
+        ? src
+        : src === "disable"
+            ? ""
+            : (location.protocol === "https:"?"https:":"http:")+"//cdn.krxd.net/controltag?confid=IfwB8IQs";
+
+    var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(k,s);
+
+    function retrieve(n)
+    {
+        var m, k='kx'+n;
+
+        if (window.localStorage) {
+            return window.localStorage[k] || "";
+        } else if (navigator.cookieEnabled) {
+            m = document.cookie.match(k+'=([^;]*)');
+            return (m && unescape(m[1])) || "";
+        } else {
+            return '';
+        }
+    }
+
+    Krux.segments = retrieve('segs') && retrieve('segs').split(',') || [];
+    setCookie('krux_segments', Krux.segments);
+});
+</script>

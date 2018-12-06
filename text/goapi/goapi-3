@@ -1,0 +1,122 @@
+flag
+func Arg(i int) string
+func Args() []string
+func Bool(name string, value bool, usage string) *bool
+func BoolVar(p *bool, name string, value bool, usage string)
+func Duration(name string, value time.Duration, usage string) *time.Duration
+func DurationVar(p *time.Duration, name string, value time.Duration, usage string)
+func Float64(name string, value float64, usage string) *float64
+func Float64Var(p *float64, name string, value float64, usage string)
+func Int(name string, value int, usage string) *int
+func Int64(name string, value int64, usage string) *int64
+func Int64Var(p *int64, name string, value int64, usage string)
+func IntVar(p *int, name string, value int, usage string)
+func NArg() int
+func NFlag() int
+func Parse()
+func Parsed() bool
+func PrintDefaults()
+func Set(name, value string) error
+func String(name string, value string, usage string) *string
+func StringVar(p *string, name string, value string, usage string)
+func Uint(name string, value uint, usage string) *uint
+func Uint64(name string, value uint64, usage string) *uint64
+func Uint64Var(p *uint64, name string, value uint64, usage string)
+func UintVar(p *uint, name string, value uint, usage string)
+func Var(value Value, name string, usage string)
+func Visit(fn func(*Flag))
+func VisitAll(fn func(*Flag))
+func Lookup(name string) *Flag
+func NewFlagSet(name string, errorHandling ErrorHandling) *FlagSet
+func (f *FlagSet) Arg(i int) string
+func (f *FlagSet) Args() []string
+func (f *FlagSet) Bool(name string, value bool, usage string) *bool
+func (f *FlagSet) BoolVar(p *bool, name string, value bool, usage string)
+func (f *FlagSet) Duration(name string, value time.Duration, usage string) *time.Duration
+func (f *FlagSet) DurationVar(p *time.Duration, name string, value time.Duration, usage string)
+func (f *FlagSet) Float64(name string, value float64, usage string) *float64
+func (f *FlagSet) Float64Var(p *float64, name string, value float64, usage string)
+func (f *FlagSet) Init(name string, errorHandling ErrorHandling)
+func (f *FlagSet) Int(name string, value int, usage string) *int
+func (f *FlagSet) Int64(name string, value int64, usage string) *int64
+func (f *FlagSet) Int64Var(p *int64, name string, value int64, usage string)
+func (f *FlagSet) IntVar(p *int, name string, value int, usage string)
+func (f *FlagSet) Lookup(name string) *Flag
+func (f *FlagSet) NArg() int
+func (f *FlagSet) NFlag() int
+func (f *FlagSet) Parse(arguments []string) error
+func (f *FlagSet) Parsed() bool
+func (f *FlagSet) PrintDefaults()
+func (f *FlagSet) Set(name, value string) error
+func (f *FlagSet) SetOutput(output io.Writer)
+func (f *FlagSet) String(name string, value string, usage string) *string
+func (f *FlagSet) StringVar(p *string, name string, value string, usage string)
+func (f *FlagSet) Uint(name string, value uint, usage string) *uint
+func (f *FlagSet) Uint64(name string, value uint64, usage string) *uint64
+func (f *FlagSet) Uint64Var(p *uint64, name string, value uint64, usage string)
+func (f *FlagSet) UintVar(p *uint, name string, value uint, usage string)
+func (f *FlagSet) Var(value Value, name string, usage string)
+func (f *FlagSet) Visit(fn func(*Flag))
+func (f *FlagSet) VisitAll(fn func(*Flag))
+
+
+hash/adler32
+func Checksum(data []byte) uint32
+func New() hash.Hash32
+
+hash/crc32
+func Checksum(data []byte, tab *Table) uint32
+func ChecksumIEEE(data []byte) uint32
+func New(tab *Table) hash.Hash32
+func NewIEEE() hash.Hash32
+func Update(crc uint32, tab *Table, p []byte) uint32
+func MakeTable(poly uint32) *Table
+
+fmt
+func Errorf(format string, a ...interface{}) error
+func Fprint(w io.Writer, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
+func Fscan(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface{}) (n int, err error)
+func Fscanln(r io.Reader, a ...interface{}) (n int, err error)
+func Print(a ...interface{}) (n int, err error)
+func Printf(format string, a ...interface{}) (n int, err error)
+func Println(a ...interface{}) (n int, err error)
+func Scan(a ...interface{}) (n int, err error)
+func Scanf(format string, a ...interface{}) (n int, err error)
+func Scanln(a ...interface{}) (n int, err error)
+func Sprint(a ...interface{}) string
+func Sprintf(format string, a ...interface{}) string
+func Sprintln(a ...interface{}) string
+func Sscan(str string, a ...interface{}) (n int, err error)
+func Sscanf(str string, format string, a ...interface{}) (n int, err error)
+func Sscanln(str string, a ...interface{}) (n int, err error)
+
+errors
+func New(text string) error
+
+expvar
+func Do(f func(KeyValue))
+func Publish(name string, v Var)
+func NewFloat(name string) *Float
+func (v *Float) Add(delta float64)
+func (v *Float) Set(value float64)
+func (v *Float) String() string
+func (f Func) String() string
+func NewInt(name string) *Int
+func (v *Int) Add(delta int64)
+func (v *Int) Set(value int64)
+func (v *Int) String() string
+func NewMap(name string) *Map
+func (v *Map) Add(key string, delta int64)
+func (v *Map) AddFloat(key string, delta float64)
+func (v *Map) Do(f func(KeyValue))
+func (v *Map) Get(key string) Var
+func (v *Map) Init() *Map
+func (v *Map) Set(key string, av Var)
+func (v *Map) String() string
+func NewString(name string) *String
+func (v *String) Set(value string)
+func (v *String) String() string
+func Get(name string) Var

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vertical flexbox</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style type="text/css">
+    section {
+      display: flex;
+      flex-flow: column;
+      height: 300px;
+    }
+    header {
+      background: tomato;
+    }
+    div {
+      flex: 2 ;
+      background: gold;
+      overflow: auto;
+    }
+    footer {
+      background: lightgreen;
+      min-height: 60px; 
+    }
+  </style>
+</head>
+<body>
+  <section>
+  <header>
+    header: sized to content
+      <br/>(but is it really?)
+  </header>
+  <div>
+    main content: fills remaining space<br>
+    x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+    <!-- uncomment to see it break -->
+    x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+    x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+    x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+    x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+    <!-- -->
+  </div>
+  <footer>
+    footer: fixed height in px
+  </footer>
+</section>
+</body>
+</html>

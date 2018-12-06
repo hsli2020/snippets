@@ -1,0 +1,9 @@
+{{ define "title"}}<title>Index Page</title>{{ end }}
+
+{{ define "sidebar" }}
+    {{ template "sidebar_index" }} 
+    {{ template "sidebar_base" }}
+{{ end }}
+{{ define "content" }}
+    {{ template "listings_table" . }}
+{{ end }}

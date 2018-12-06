@@ -1,0 +1,33 @@
+PHP页面跳转一、header()函数
+
+< ?php 
+//重定向浏览器 
+header("Location: http://bbs.lampbrother.net"); 
+//确保重定向后，后续代码不会被执行 
+exit;
+?>
+
+PHP页面跳转二、Meta标签
+
+<meta http-equiv="refresh" content="1;url=http://bbs.lampbrother.net"> 
+
+
+<?php $url = "http://bbs.lampbrother.net"; ?> 
+<html>   
+<head>   
+<meta http-equiv="refresh" content="1; url=<?php echo $url; ?>">   
+</head>   
+<body>   
+页面只停留一秒……   
+</body> 
+</html>  
+
+
+PHP页面跳转三、JavaScript
+
+<?php  
+$url = "http://bbs.lampbrother.net";  
+echo "<script language='javascript' type='text/javascript'>";  
+echo "window.location.href='$url'";  
+echo "</script>";  
+?> 

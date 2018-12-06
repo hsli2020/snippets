@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<title>Demo W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="lib/w3.css">
+<link rel="stylesheet" href="lib/w3-theme-black.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<body>
+
+<!-- Side Navigation -->
+<nav class="w3-sidenav w3-white w3-card-2 w3-animate-left" style="display:none">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-xxxlarge w3-text-theme">Close &times;</a>
+  <a href="javascript:void(0)">Link 1</a>		
+  <a href="javascript:void(0)">Link 2</a>		
+  <a href="javascript:void(0)">Link 3</a>		
+  <a href="javascript:void(0)">Link 4</a>		
+  <a href="javascript:void(0)">Link 5</a>		
+</nav>
+
+<!-- Header -->
+<header class="w3-container w3-theme w3-padding" id="myHeader">
+  <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-opennav"></i> 
+  <div class="w3-center">
+  <h5>BEAUTIFUL RESPONSIVE WEB SITES</h5>
+  <h1 class="w3-animate-bottom">BUILT WITH W3.CSS</h1>
+  <h5>INSPIRED BY GOOGLE MATERIAL DESIGN<br><br></h5>
+    <div class="w3-padding-32">
+      <a href="#id01" class="w3-btn w3-xxlarge w3-theme-dark" style="font-weight:900;">LEARN W3.CSS</a>
+    </div>
+  </div>
+</header>
+
+<!-- Modal -->
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-8 w3-animate-top">
+      <header class="w3-container w3-theme"> 
+        <a href="" class="w3-closebtn">&times;</a>
+        <h4>Oh snap! We just showed you a modal..</h4>
+        <h5>Because we can <i class="fa fa-smile-o"></i></h5>
+      </header>
+      <div class="w3-padding">
+        <p>Cool huh? Ok, enough teasing around..</p>
+        <p>Go to our <a class="w3-btn" href="/w3css/default.asp">W3.CSS Tutorial</a> to learn more!</p>
+      </div>
+      <footer class="w3-container w3-theme">
+        <p>Modal footer</p>
+      </footer>
+    </div>
+</div>
+
+<div class="w3-row-padding w3-center w3-margin-top">
+<div class="w3-third">
+  <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+  <h4>Responsive</h4><br>
+  <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+  <p>Built-in responsiveness</p>
+  <p>Mobile first fluid grid</p>
+  <p>Fits any screen sizes</p>
+  <p>PC Tablet and Mobile</p>
+  </div>
+</div>
+
+<div class="w3-third">
+  <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+  <h4>Standard CSS</h4><br>
+  <i class="fa fa-css3 w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+  <p>Standard CSS only</p>
+  <p>Easy to learn</p>
+  <p>No need for jQuery</p>
+  <p>No JavaScript library</p>
+  </div>
+</div>
+
+<div class="w3-third">
+  <div class="w3-card-2 w3-padding-top" style="min-height:460px">
+  <h4>Material Design</h4><br>
+  <i class="fa fa-diamond w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+  <p>Paper like design</p>
+  <p>Bold colors and shadows</p>
+  <p>Equal across platforms</p>
+  <p>Equal across devices</p>
+  </div>
+</div>
+</div>
+
+<div class="w3-container">
+<hr>
+<div class="w3-center">
+  <h2>Color Classes</h2>
+</div>
+
+<div class="w3-row">
+  <div class="w3-col w3-container m2 w3-red"><p>Red</p></div>
+  <div class="w3-col w3-container m2 w3-blue"><p>Blue</p></div>
+  <div class="w3-col w3-container m2 w3-blue-grey"><p>Blue Grey</p></div>
+  <div class="w3-col w3-container m2 w3-teal"><p>Teal</p></div>
+  <div class="w3-col w3-container m2 w3-yellow"><p>Yellow</p></div>
+  <div class="w3-col w3-container m2 w3-orange"><p>Orange</p></div>
+</div>
+
+<hr>
+<div class="w3-center">
+  <h2>Built-In Responsiveness</h2>
+  <p class="w3-large">Resize the page to see the effect!</p>
+</div>
+<br>
+
+<div class="w3-row w3-border">
+  <div class="w3-half w3-container w3-blue w3-border">
+    <h5>w3-half</h5>  
+    <p>The w3-half class uses half (50%) of the screen window.</p>
+    <p>On small screens (max 600 pixels) it automatically resizes to full screen width.</p>
+  </div>
+  <div class="w3-half w3-container">
+    <h5>w3-half</h5>  
+  </div>
+</div>
+<br>
+
+<div class="w3-row w3-border">
+  <div class="w3-third w3-container w3-green">
+    <h5>w3-third</h5>  
+    <p>The w3-third class uses one third (33.33%) of the screen widow.</p>
+    <p>On small screens (max 600 pixels) it automatically resizes to full screen width.</p>
+  </div>
+  <div class="w3-third w3-container">
+    <h5>w3-third</h5>  
+  </div>
+  <div class="w3-third w3-container">
+    <h5>w3-third</h5>  
+  </div>
+</div>
+<br>
+
+<div class="w3-row w3-border">
+  <div class="w3-quarter w3-container w3-red">
+    <h5>w3-quarter</h5>  
+    <p>The w3-quarter class uses one quarter (25%) of the screen window.</p>
+    <p>On small screens (max 600 pixels) it automatically resizes to full screen width.</p>
+  </div>
+  <div class="w3-quarter w3-container">
+    <h5>w3-quarter</h5>  
+  </div>
+  <div class="w3-quarter w3-container">
+    <h5>w3-quarter</h5>  
+  </div>
+  <div class="w3-quarter w3-container">
+    <h5>w3-quarter</h5>  
+  </div>
+</div> 
+     
+<div class="w3-center">
+  <h2>Containers</h2>	
+  <p>Use containers to create headers, sections and footers.</p>
+</div>   
+
+<header class="w3-container w3-blue-grey">
+  <h2>Header</h2>
+</header>
+
+<div class="w3-padding w3-white">
+  <span onclick="this.parentElement.style.display='none'" class="w3-text-black w3-closebtn">&times;</span>
+  <h2>London</h2>
+  <p>London is the capital city of England. It is the most populous city in the United Kingdom,
+  with a metropolitan area of over 13 million inhabitants.</p>
+  <p>Standing on the River Thames, London has been a major settlement for two millennia,
+  its history going back to its founding by the Romans, who named it Londinium.</p>
+  <p>By the way, you can add a close icon to all containers if you want the ability to hide them. Look to your right!</p>
+</div>
+
+<footer class="w3-container w3-blue-grey">
+  <h5>Footer</h5>
+  <p class="w3-text-white-opacity">Footer information goes here</p>
+</footer>
+
+<hr>
+<div class="w3-center">
+  <h2>Color Themes</h2>	
+  <p>The color themes have been designed to work harmoniously with each other.</p>
+</div>
+</div>
+
+<div class="w3-row-padding">
+
+<div class="w3-half">
+<div class="w3-card white">
+  <div class="w3-container w3-indigo">
+    <h3>&#9776; Theme Indigo</h3>
+  </div>
+  <div class="w3-container">
+  <h3 class="w3-text-indigo">Movies 2014</h3>
+  </div>
+  <ul class="w3-ul w3-border-top">
+    <li>
+      <h3>Frozen</h3>
+      <p>The response to the animations was ridiculous</p>
+    </li>
+    <li>
+      <h3>The Fault in Our Stars</h3>
+      <p>Touching, gripping and genuinely well made</p>
+    </li>
+    <li>
+      <h3>The Avengers</h3>
+      <p>A huge sucess for Marvel and Disney</p>
+    </li>
+  </ul>
+  <div class="w3-container w3-indigo w3-xlarge">
+  &laquo;<span class="w3-right">&raquo;</span>
+  </div>
+</div>
+</div>
+
+<div class="w3-half">
+<div class="w3-card white">
+  <div class="w3-container w3-theme">
+    <h3>&#9776; Theme</h3>
+  </div>
+  <div class="w3-container">
+  <h3 class="w3-text-theme">Movies 2014</h3>
+  </div>
+  <ul class="w3-ul w3-border-top">
+    <li>
+      <h3>Frozen</h3>
+      <p>The response to the animations was ridiculous</p>
+    </li>
+    <li>
+      <h3>The Fault in Our Stars</h3>
+      <p>Touching, gripping and genuinely well made</p>
+    </li>
+    <li>
+      <h3>The Avengers</h3>
+      <p>A huge sucess for Marvel and Disney</p>
+    </li>
+  </ul>
+  <div class="w3-container w3-theme w3-xlarge">
+  &laquo;<span class="w3-right">&raquo;</span>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="w3-container w3-center">
+  <hr>
+  <h3>Paper-like Cards with Shadows</h3>	
+</div>
+
+<div class="w3-row-padding"> 
+
+<div class="w3-third">
+<div class="w3-card-2">
+  <img src="img_car.png" alt="Car" style="width:100%">
+  <div class="w3-container">
+  <p>w3-card-2</p>
+  </div>
+</div>
+</div>
+
+<div class="w3-third">
+<div class="w3-card-4">
+  <img src="img_car.png" alt="Car" style="width:100%">
+  <div class="w3-container">
+  <p>w3-card-4</p>
+  </div>
+</div>
+</div>
+
+<div class="w3-third">
+<div class="w3-card-8">
+  <img src="img_car.png" alt="Car" style="width:100%">
+  <div class="w3-container">
+  <p>w3-card-8</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="w3-container">
+  <hr>
+  <div class="w3-center">
+    <h2>Tables</h2>	
+    <p w3-class="w3-large">Don't worry. W3.CSS takes care of your tables.</p>
+  </div>
+<div class="w3-responsive w3-card-4">
+<table class="w3-table w3-striped w3-bordered">
+<thead>
+<tr class="w3-theme">
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Jill</td>
+  <td>Smith</td>
+  <td>50</td>
+</tr>
+<tr class="w3-white">
+  <td>Eve</td>
+  <td>Jackson</td>
+  <td>94</td>
+</tr>
+<tr>
+  <td>Adam</td>
+  <td>Johnson</td>
+  <td>67</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+<h2 class="w3-center">Forms and Lists</h2>	
+</div>
+
+<div class="w3-row-padding">
+
+<div class="w3-half">
+<form class="w3-form w3-card-4">
+
+  <div class="w3-input-group">      
+    <input class="w3-input" type="text" required>
+    <label class="w3-label w3-validate">Name</label>
+  </div>
+  <div class="w3-input-group">      
+    <input class="w3-input" type="text" required>
+    <label class="w3-label w3-validate">Email</label>
+  </div>
+  <div class="w3-input-group">      
+    <textarea class="w3-input"></textarea>
+    <label class="w3-label">Subject</label>
+  </div>
+
+  <div class="w3-row">
+  <div class="w3-half">
+    <input id="milk" class="w3-check" type="checkbox" checked="checked">
+    <label class="w3-validate">Milk</label>
+    <br>
+    <input id="sugar" class="w3-check" type="checkbox">
+    <label class="w3-validate">Sugar</label>
+    <br>
+    <input id="lemon" class="w3-check" type="checkbox" disabled>
+    <label class="w3-validate">Lemon (Disabled)</label>
+    <br><br>
+  </div>
+
+  <div class="w3-half">
+    <input id="male" class="w3-radio" type="radio" name="gender" value="male" checked>
+    <label class="w3-validate">Male</label>
+    <br>
+    <input id="female" class="w3-radio" type="radio" name="gender" value="female">
+    <label class="w3-validate">Female</label>
+    <br>
+    <input id="unknown" class="w3-radio" type="radio" name="gender" value="" disabled>
+    <label class="w3-validate"> Don't know (Disabled)</label>
+  </div>
+  </div>
+  
+</form>
+</div>
+<div class="w3-half">
+<div class="w3-card-4 w3-container">
+<h2>Lists</h2>	
+<ul class="w3-ul">
+  <li>Jill</li>
+  <li>Eve</li>
+  <li>Adam</li>
+</ul>
+<br>
+</div>
+</div>
+</div>
+
+<div class="w3-container">
+<hr>
+<h2 class="w3-center">Navigation</h2>	
+
+<div class="w3-topnav w3-theme w3-large">
+  <a href="javascript:void(0)"><i class="fa fa-home w3-xlarge"></i></a>
+  <a href="javascript:void(0)">Link 1</a>
+  <a href="javascript:void(0)">Link 2</a>
+  <a href="javascript:void(0)">Link 3</a>
+  <a href="javascript:void(0)">Link 4</a>
+</div>
+
+<hr>
+<h2 class="w3-center">Buttons</h2>	
+<div class="w3-center">
+  <br>
+  <a class="w3-btn">Button</a>
+  <a class="w3-btn w3-theme">Button</a>
+  <a class="w3-btn w3-disabled">Button</a>
+  <br><br>
+  <a class="w3-btn-floating w3-teal"><i class="fa fa-plus"></i></a>
+  <a class="w3-btn-floating w3-disabled"><i class="fa fa-plus"></i></a>  
+  <a class="w3-btn-floating w3-disabled"><i class="fa fa-plus"></i></a>
+  <br><br>
+  <a class="w3-btn-floating-large w3-teal"><i class="fa fa-plus"></i></a>
+  <a class="w3-btn-floating-large w3-disabled"><i class="fa fa-plus"></i></a>  
+  <a class="w3-btn-floating-large w3-disabled"><i class="fa fa-plus"></i></a>
+</div>
+</div>
+
+<br>
+
+<!-- Footer -->
+<footer class="w3-container w3-theme-dark">
+  <h3>Footer</h3>
+  <p>Remember to check out our&nbsp;&nbsp;<a href="w3css_references.asp" class="w3-btn w3-red">W3.CSS Reference</a>
+  <div style="position:relative;bottom:55px;" class="w3-tooltip w3-right">
+    <span class="w3-text w3-black">Go To Top</span>&nbsp;   
+    <a class="w3-text-white" href="#myHeader"><span class="w3-xlarge">
+    <i class="fa fa-chevron-circle-up"></i></span></a>
+  </div>
+
+  </p>
+</footer>
+
+<!-- Script for Side Navigation -->
+<script>
+function w3_open() {
+    document.getElementsByClassName("w3-sidenav")[0].style.width = "100%";
+    document.getElementsByClassName("w3-sidenav")[0].style.textAlign = "center";
+    document.getElementsByClassName("w3-sidenav")[0].style.fontSize = "50px";
+    document.getElementsByClassName("w3-sidenav")[0].style.paddingTop = "10%";
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
+    document.getElementsByClassName("w3-sidenav")[0].style.opacity = "0.9";
+}
+function w3_close() {
+    document.getElementsByClassName("w3-sidenav")[0].style.display = "none";
+}
+</script>
+
+<script src="/lib/w3codecolors.js"></script> 
+</body>
+</html>

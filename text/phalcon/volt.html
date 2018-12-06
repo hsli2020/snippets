@@ -1,0 +1,116 @@
+  {{ link_to(null, 'class': 'brand', 'Website') }}
+
+  <ul class="nav">
+    {%- set menus = [
+      'Home': null,
+      'Users': 'users',
+      'Profiles': 'profiles',
+      'Permissions': 'permissions'
+    ] -%}
+
+    {%- for key, value in menus %}
+      {% if value == dispatcher.getControllerName() %}
+      <li class="active">{{ link_to(value, key) }}</li>
+      {% else %}
+      <li>{{ link_to(value, key) }}</li>
+      {% endif %}
+    {%- endfor -%}
+  </ul>
+
+  <li>{{ link_to('users/changePassword', 'Change Password') }}</li>
+  <li>{{ link_to('session/logout', 'Logout') }}</li>
+
+  <ul class="nav">
+    {%- set menus = [
+      'Home': 'index',
+      'About': 'about'
+    ] -%}
+
+    {%- for key, value in menus %}
+      {% if value == dispatcher.getControllerName() %}
+      <li class="active">{{ link_to(value, key) }}</li>
+      {% else %}
+      <li>{{ link_to(value, key) }}</li>
+      {% endif %}
+    {%- endfor -%}
+  </ul>
+
+  <ul class="nav pull-right">
+    {%- if not(logged_in is empty) %}
+    <li>{{ link_to('users', 'Users Panel') }}</li>
+    <li>{{ link_to('session/logout', 'Logout') }}</li>
+    {% else %}
+    <li>{{ link_to('session/login', 'Login') }}</li>
+    {% endif %}
+  </ul>
+
+    {{ link_to("index", "Home") }}
+    {{ link_to("about", "About") }}
+    {{ link_to("privacy", "Privacy Policy") }}
+    {{ link_to("terms", "Terms") }}
+
+    © 2010 - {{ date("Y") }} Phalcon Team.
+
+        {{ link_to("users/index", "&larr; Go Back") }}
+        {{ link_to("users/create", "Create users", "class": "btn btn-primary") }}
+
+    {% for user in page.items %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.profile.name }}</td>
+            <td>{{ user.banned == 'Y' ? 'Yes' : 'No' }}</td>
+            <td>{{ user.suspended == 'Y' ? 'Yes' : 'No' }}</td>
+            <td>{{ user.active == 'Y' ? 'Yes' : 'No' }}</td>
+            <td width="12%">{{ link_to("users/edit/" ~ user.id, 
+                               '<i class="icon-pencil"></i> Edit', "class": "btn") }}</td>
+            <td width="12%">{{ link_to("users/delete/" ~ user.id, 
+                               '<i class="icon-remove"></i> Delete', "class": "btn") }}</td>
+        </tr>
+    {% endfor %}
+
+<div class="btn-group pull-right">
+    {{ link_to("users/search", '<i class="icon-fast-backward"></i> First', "class": "btn") }}
+
+    {{ link_to("users/search?page=" ~ page.before, 
+            '<i class="icon-step-backward"></i> Previous', "class": "btn ") }}
+
+    {{ link_to("users/search?page=" ~ page.next, 
+            '<i class="icon-step-forward"></i> Next', "class": "btn") }}
+
+    {{ link_to("users/search?page=" ~ page.last, 
+            '<i class="icon-fast-forward"></i> Last', "class": "btn") }}
+
+    <span class="help-inline">{{ page.current }}/{{ page.total_pages }}</span>
+</div>
+
+    {{ link_to("users/create", 
+        "<i class='icon-plus-sign'></i> Create Users", "class": "btn btn-primary") }}
+    <td>{{ date("Y-m-d H:i:s", change.createdAt) }}</td>
+
+<form method="post" action="{{ url("users/search") }}" autocomplete="off">
+
+    {{ form.render("id") }}
+    {{ form.render("name") }}
+    {{ form.render("email") }}
+    {{ form.render("profilesId") }}
+    {{ submit_button("Search", "class": "btn btn-primary") }}
+
+    {{ form.render('email') }}
+    {{ form.messages('email') }}
+
+    <td>{{ select('profileId', profiles, 
+        'using': ['id', 'name'], 
+        'useEmpty': true, 
+        'emptyText': '...', 
+        'emptyValue': '') }}</td>
+
+    {% for action in actions %}
+        <td align="center">
+            <input type="checkbox" name="permissions[]" 
+                value="{{ resource ~ '.' ~ action }}"  
+                {% if permissions[resource ~ '.' ~ action] is defined %} 
+                checked="checked" {% endif %}></td>
+        <td>{{ acl.getActionDescription(action) ~ ' ' ~ resource }}</td>
+    {% endfor %}

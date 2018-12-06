@@ -1,0 +1,622 @@
+$ which node
+/cygdrive/c/Tools/nodejs/node
+
+$ which npm
+/cygdrive/c/Tools/nodejs/npm
+
+$ node --v8-options | grep harmony
+  --es_staging (enable test-worthy harmony features (for internal use only))
+  --harmony (enable all completed harmony features)
+  --harmony_shipping (enable all shipped harmony features)
+  --harmony_default_parameters (nop flag for "harmony default parameters")
+  --harmony_destructuring_assignment (nop flag for "harmony destructuring assignment")
+  --harmony_destructuring_bind (nop flag for "harmony destructuring bind")
+  --harmony_regexps (nop flag for "harmony regular expression extensions")
+  --harmony_proxies (nop flag for "harmony proxies")
+  --harmony_reflect (nop flag for "harmony Reflect API")
+  --harmony_tostring (nop flag for "harmony toString")
+  --harmony_array_prototype_values (enable "harmony Array.prototype.values" (in progress))
+  --harmony_object_observe (enable "harmony Object.observe" (in progress))
+  --harmony_function_sent (enable "harmony function.sent" (in progress))
+  --harmony_sharedarraybuffer (enable "harmony sharedarraybuffer" (in progress))
+  --harmony_simd (enable "harmony simd" (in progress))
+  --harmony_do_expressions (enable "harmony do-expressions" (in progress))
+  --harmony_regexp_property (enable "harmony unicode regexp property classes" (in progress))
+  --harmony_string_padding (enable "harmony String-padding methods" (in progress))
+  --harmony_regexp_lookbehind (enable "harmony regexp lookbehind")
+  --harmony_tailcalls (enable "harmony tail calls")
+  --harmony_object_values_entries (enable "harmony Object.values / Object.entries")
+  --harmony_object_own_property_descriptors (enable "harmony Object.getOwnPropertyDescriptors()")
+  --harmony_exponentiation_operator (enable "harmony exponentiation operator `**`")
+  --harmony_function_name (enable "harmony Function name inference")
+  --harmony_instanceof (enable "harmony instanceof support")
+  --harmony_iterator_close (enable "harmony iterator finalization")
+  --harmony_unicode_regexps (enable "harmony unicode regexps")
+  --harmony_regexp_exec (enable "harmony RegExp exec override behavior")
+  --harmony_sloppy (enable "harmony features in sloppy mode")
+  --harmony_sloppy_let (enable "harmony let in sloppy mode")
+  --harmony_sloppy_function (enable "harmony sloppy function block scoping")
+  --harmony_regexp_subclass (enable "harmony regexp subclassing")
+  --harmony_restrictive_declarations (enable "harmony limitations on sloppy mode function declarations")
+  --harmony_species (enable "harmony Symbol.species")
+  --harmony_instanceof_opt (optimize ES6 instanceof support)
+
+$ npm install --global babel-cli
+C:\Users\admin\AppData\Roaming\npm\babel-doctor -> C:\Users\admin\AppData\Roaming\npm\node_modules\babel-cli\bin\babel-doctor.js
+C:\Users\admin\AppData\Roaming\npm\babel -> C:\Users\admin\AppData\Roaming\npm\node_modules\babel-cli\bin\babel.js
+C:\Users\admin\AppData\Roaming\npm\babel-external-helpers -> C:\Users\admin\AppData\Roaming\npm\node_modules\babel-cli\bin\babel-external-helpers.js
+C:\Users\admin\AppData\Roaming\npm\babel-node -> C:\Users\admin\AppData\Roaming\npm\node_modules\babel-cli\bin\babel-node.js
+C:\Users\admin\AppData\Roaming\npm
+`-- babel-cli@6.18.0
+  +-- babel-core@6.21.0
+  | +-- babel-code-frame@6.20.0
+  | | +-- chalk@1.1.3
+  | | | +-- ansi-styles@2.2.1
+  | | | +-- escape-string-regexp@1.0.5
+  | | | +-- has-ansi@2.0.0
+  | | | | `-- ansi-regex@2.0.0
+  | | | +-- strip-ansi@3.0.1
+  | | | `-- supports-color@2.0.0
+  | | +-- esutils@2.0.2
+  | | `-- js-tokens@2.0.0
+  | +-- babel-generator@6.21.0
+  | | +-- detect-indent@4.0.0
+  | | | `-- repeating@2.0.1
+  | | |   `-- is-finite@1.0.2
+  | | |     `-- number-is-nan@1.0.1
+  | | `-- jsesc@1.3.0
+  | +-- babel-helpers@6.16.0
+  | +-- babel-messages@6.8.0
+  | +-- babel-template@6.16.0
+  | +-- babel-traverse@6.21.0
+  | | +-- globals@9.14.0
+  | | `-- invariant@2.2.2
+  | |   `-- loose-envify@1.3.0
+  | +-- babel-types@6.21.0
+  | | `-- to-fast-properties@1.0.2
+  | +-- babylon@6.14.1
+  | +-- debug@2.5.2
+  | | `-- ms@0.7.2
+  | +-- json5@0.5.1
+  | +-- minimatch@3.0.3
+  | | `-- brace-expansion@1.1.6
+  | |   +-- balanced-match@0.4.2
+  | |   `-- concat-map@0.0.1
+  | `-- private@0.1.6
+  +-- babel-polyfill@6.20.0
+  | +-- core-js@2.4.1
+  | `-- regenerator-runtime@0.10.1
+  +-- babel-register@6.18.0
+  | +-- home-or-tmp@2.0.0
+  | | +-- os-homedir@1.0.2
+  | | `-- os-tmpdir@1.0.2
+  | +-- mkdirp@0.5.1
+  | | `-- minimist@0.0.8
+  | `-- source-map-support@0.4.8
+  +-- babel-runtime@6.20.0
+  +-- chokidar@1.6.1
+  | +-- anymatch@1.3.0
+  | | +-- arrify@1.0.1
+  | | `-- micromatch@2.3.11
+  | |   +-- arr-diff@2.0.0
+  | |   | `-- arr-flatten@1.0.1
+  | |   +-- array-unique@0.2.1
+  | |   +-- braces@1.8.5
+  | |   | +-- expand-range@1.8.2
+  | |   | | `-- fill-range@2.2.3
+  | |   | |   +-- is-number@2.1.0
+  | |   | |   +-- isobject@2.1.0
+  | |   | |   +-- randomatic@1.1.6
+  | |   | |   `-- repeat-string@1.6.1
+  | |   | +-- preserve@0.2.0
+  | |   | `-- repeat-element@1.1.2
+  | |   +-- expand-brackets@0.1.5
+  | |   | `-- is-posix-bracket@0.1.1
+  | |   +-- extglob@0.3.2
+  | |   +-- filename-regex@2.0.0
+  | |   +-- kind-of@3.1.0
+  | |   | `-- is-buffer@1.1.4
+  | |   +-- normalize-path@2.0.1
+  | |   +-- object.omit@2.0.1
+  | |   | +-- for-own@0.1.4
+  | |   | | `-- for-in@0.1.6
+  | |   | `-- is-extendable@0.1.1
+  | |   +-- parse-glob@3.0.4
+  | |   | +-- glob-base@0.3.0
+  | |   | `-- is-dotfile@1.0.2
+  | |   `-- regex-cache@0.4.3
+  | |     +-- is-equal-shallow@0.1.3
+  | |     `-- is-primitive@2.0.0
+  | +-- async-each@1.0.1
+  | +-- glob-parent@2.0.0
+  | +-- inherits@2.0.3
+  | +-- is-binary-path@1.0.1
+  | | `-- binary-extensions@1.8.0
+  | +-- is-glob@2.0.1
+  | | `-- is-extglob@1.0.0
+  | `-- readdirp@2.1.0
+  |   +-- readable-stream@2.2.2
+  |   | +-- buffer-shims@1.0.0
+  |   | +-- core-util-is@1.0.2
+  |   | +-- isarray@1.0.0
+  |   | +-- process-nextick-args@1.0.7
+  |   | +-- string_decoder@0.10.31
+  |   | `-- util-deprecate@1.0.2
+  |   `-- set-immediate-shim@1.0.1
+  +-- commander@2.9.0
+  | `-- graceful-readlink@1.0.1
+  +-- convert-source-map@1.3.0
+  +-- fs-readdir-recursive@1.0.0
+  +-- glob@5.0.15
+  | +-- inflight@1.0.6
+  | | `-- wrappy@1.0.2
+  | `-- once@1.4.0
+  +-- lodash@4.17.3
+  +-- output-file-sync@1.1.2
+  | +-- graceful-fs@4.1.11
+  | `-- object-assign@4.1.0
+  +-- path-is-absolute@1.0.1
+  +-- slash@1.0.0
+  +-- source-map@0.5.6
+  `-- v8flags@2.0.11
+    `-- user-home@1.1.1
+
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@^1.0.0 (node_modules\babel-cli\node_modules\chokidar\node_modules\fsevents):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.0.15: wanted {"os":"darwin","arch":"any"} (current: {"os":"win32","arch":"x64"})
+
+$ npm install --save-dev babel-preset-react
+npm WARN saveError ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+C:\Babun\.babun\cygwin\home\Admin
+`-- babel-preset-react@6.16.0
+  +-- babel-plugin-syntax-flow@6.18.0
+  +-- babel-plugin-syntax-jsx@6.18.0
+  +-- babel-plugin-transform-flow-strip-types@6.21.0
+  | `-- babel-runtime@6.20.0
+  |   +-- core-js@2.4.1
+  |   `-- regenerator-runtime@0.10.1
+  +-- babel-plugin-transform-react-display-name@6.8.0
+  +-- babel-plugin-transform-react-jsx@6.8.0
+  | `-- babel-helper-builder-react-jsx@6.21.1
+  |   +-- babel-types@6.21.0
+  |   | `-- to-fast-properties@1.0.2
+  |   +-- esutils@2.0.2
+  |   `-- lodash@4.17.3
+  +-- babel-plugin-transform-react-jsx-self@6.11.0
+  `-- babel-plugin-transform-react-jsx-source@6.9.0
+
+npm WARN enoent ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+npm WARN Admin No description
+npm WARN Admin No repository field.
+npm WARN Admin No README data
+npm WARN Admin No license field.
+
+$ npm install --save-dev babel-preset-es2015
+npm WARN saveError ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+C:\Babun\.babun\cygwin\home\Admin
+`-- babel-preset-es2015@6.18.0
+  +-- babel-plugin-check-es2015-constants@6.8.0
+  +-- babel-plugin-transform-es2015-arrow-functions@6.8.0
+  +-- babel-plugin-transform-es2015-block-scoped-functions@6.8.0
+  +-- babel-plugin-transform-es2015-block-scoping@6.21.0
+  | +-- babel-template@6.16.0
+  | | `-- babylon@6.14.1
+  | `-- babel-traverse@6.21.0
+  |   +-- babel-code-frame@6.20.0
+  |   | +-- chalk@1.1.3
+  |   | | +-- ansi-styles@2.2.1
+  |   | | +-- escape-string-regexp@1.0.5
+  |   | | +-- has-ansi@2.0.0
+  |   | | | `-- ansi-regex@2.0.0
+  |   | | +-- strip-ansi@3.0.1
+  |   | | `-- supports-color@2.0.0
+  |   | `-- js-tokens@2.0.0
+  |   +-- debug@2.5.2
+  |   | `-- ms@0.7.2
+  |   +-- globals@9.14.0
+  |   `-- invariant@2.2.2
+  |     `-- loose-envify@1.3.0
+  +-- babel-plugin-transform-es2015-classes@6.18.0
+  | +-- babel-helper-define-map@6.18.0
+  | +-- babel-helper-function-name@6.18.0
+  | +-- babel-helper-optimise-call-expression@6.18.0
+  | +-- babel-helper-replace-supers@6.18.0
+  | `-- babel-messages@6.8.0
+  +-- babel-plugin-transform-es2015-computed-properties@6.8.0
+  +-- babel-plugin-transform-es2015-destructuring@6.19.0
+  +-- babel-plugin-transform-es2015-duplicate-keys@6.8.0
+  +-- babel-plugin-transform-es2015-for-of@6.18.0
+  +-- babel-plugin-transform-es2015-function-name@6.9.0
+  +-- babel-plugin-transform-es2015-literals@6.8.0
+  +-- babel-plugin-transform-es2015-modules-amd@6.18.0
+  +-- babel-plugin-transform-es2015-modules-commonjs@6.18.0
+  | `-- babel-plugin-transform-strict-mode@6.18.0
+  +-- babel-plugin-transform-es2015-modules-systemjs@6.19.0
+  | `-- babel-helper-hoist-variables@6.18.0
+  +-- babel-plugin-transform-es2015-modules-umd@6.18.0
+  +-- babel-plugin-transform-es2015-object-super@6.8.0
+  +-- babel-plugin-transform-es2015-parameters@6.21.0
+  | +-- babel-helper-call-delegate@6.18.0
+  | `-- babel-helper-get-function-arity@6.18.0
+  +-- babel-plugin-transform-es2015-shorthand-properties@6.18.0
+  +-- babel-plugin-transform-es2015-spread@6.8.0
+  +-- babel-plugin-transform-es2015-sticky-regex@6.8.0
+  | `-- babel-helper-regex@6.18.0
+  +-- babel-plugin-transform-es2015-template-literals@6.8.0
+  +-- babel-plugin-transform-es2015-typeof-symbol@6.18.0
+  +-- babel-plugin-transform-es2015-unicode-regex@6.11.0
+  | `-- regexpu-core@2.0.0
+  |   +-- regenerate@1.3.2
+  |   +-- regjsgen@0.2.0
+  |   `-- regjsparser@0.1.5
+  |     `-- jsesc@0.5.0
+  `-- babel-plugin-transform-regenerator@6.21.0
+    `-- regenerator-transform@0.9.8
+      `-- private@0.1.6
+
+npm WARN enoent ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+npm WARN Admin No description
+npm WARN Admin No repository field.
+npm WARN Admin No README data
+npm WARN Admin No license field.
+
+$ npm install --save-dev babel-register
+npm WARN saveError ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+C:\Babun\.babun\cygwin\home\Admin
+`-- babel-register@6.18.0
+  +-- babel-core@6.21.0
+  | +-- babel-generator@6.21.0
+  | | +-- detect-indent@4.0.0
+  | | | `-- repeating@2.0.1
+  | | |   `-- is-finite@1.0.2
+  | | |     `-- number-is-nan@1.0.1
+  | | `-- jsesc@1.3.0
+  | +-- babel-helpers@6.16.0
+  | +-- convert-source-map@1.3.0
+  | +-- json5@0.5.1
+  | +-- minimatch@3.0.3
+  | | `-- brace-expansion@1.1.6
+  | |   +-- balanced-match@0.4.2
+  | |   `-- concat-map@0.0.1
+  | +-- path-is-absolute@1.0.1
+  | +-- slash@1.0.0
+  | `-- source-map@0.5.6
+  +-- home-or-tmp@2.0.0
+  | +-- os-homedir@1.0.2
+  | `-- os-tmpdir@1.0.2
+  +-- mkdirp@0.5.1
+  | `-- minimist@0.0.8
+  `-- source-map-support@0.4.8
+
+npm WARN enoent ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+npm WARN Admin No description
+npm WARN Admin No repository field.
+npm WARN Admin No README data
+npm WARN Admin No license field.
+
+$ npm install babel-core --save
+npm WARN saveError ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+C:\Babun\.babun\cygwin\home\Admin
+`-- babel-core@6.21.0
+
+npm WARN enoent ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+npm WARN Admin No description
+npm WARN Admin No repository field.
+npm WARN Admin No README data
+npm WARN Admin No license field.
+
+$ npm install --save babel-polyfill
+npm WARN saveError ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+C:\Babun\.babun\cygwin\home\Admin
+`-- babel-polyfill@6.20.0
+
+npm WARN enoent ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+npm WARN Admin No description
+npm WARN Admin No repository field.
+npm WARN Admin No README data
+npm WARN Admin No license field.
+
+$ npm install --save-dev eslint babel-eslint
+npm WARN saveError ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+C:\Babun\.babun\cygwin\home\Admin
++-- babel-eslint@7.1.1
+| `-- lodash.pickby@4.6.0
+`-- eslint@3.12.2
+  +-- concat-stream@1.6.0
+  | +-- inherits@2.0.3
+  | +-- readable-stream@2.2.2
+  | | +-- buffer-shims@1.0.0
+  | | +-- core-util-is@1.0.2
+  | | +-- process-nextick-args@1.0.7
+  | | +-- string_decoder@0.10.31
+  | | `-- util-deprecate@1.0.2
+  | `-- typedarray@0.0.6
+  +-- doctrine@1.5.0
+  | `-- isarray@1.0.0
+  +-- escope@3.6.0
+  | +-- es6-map@0.1.4
+  | | +-- d@0.1.1
+  | | +-- es5-ext@0.10.12
+  | | +-- es6-iterator@2.0.0
+  | | +-- es6-set@0.1.4
+  | | +-- es6-symbol@3.1.0
+  | | `-- event-emitter@0.3.4
+  | +-- es6-weak-map@2.0.1
+  | `-- esrecurse@4.1.0
+  |   `-- estraverse@4.1.1
+  +-- espree@3.3.2
+  | +-- acorn@4.0.4
+  | `-- acorn-jsx@3.0.1
+  |   `-- acorn@3.3.0
+  +-- estraverse@4.2.0
+  +-- file-entry-cache@2.0.0
+  | +-- flat-cache@1.2.2
+  | | +-- circular-json@0.3.1
+  | | +-- del@2.2.2
+  | | | +-- globby@5.0.0
+  | | | | +-- array-union@1.0.2
+  | | | | | `-- array-uniq@1.0.3
+  | | | | `-- arrify@1.0.1
+  | | | +-- is-path-cwd@1.0.0
+  | | | +-- is-path-in-cwd@1.0.0
+  | | | | `-- is-path-inside@1.0.0
+  | | | +-- pify@2.3.0
+  | | | +-- pinkie-promise@2.0.1
+  | | | | `-- pinkie@2.0.4
+  | | | `-- rimraf@2.5.4
+  | | +-- graceful-fs@4.1.11
+  | | `-- write@0.2.1
+  | `-- object-assign@4.1.0
+  +-- glob@7.1.1
+  | +-- fs.realpath@1.0.0
+  | +-- inflight@1.0.6
+  | | `-- wrappy@1.0.2
+  | `-- once@1.4.0
+  +-- ignore@3.2.0
+  +-- imurmurhash@0.1.4
+  +-- inquirer@0.12.0
+  | +-- ansi-escapes@1.4.0
+  | +-- cli-cursor@1.0.2
+  | | `-- restore-cursor@1.0.1
+  | |   +-- exit-hook@1.1.1
+  | |   `-- onetime@1.1.0
+  | +-- cli-width@2.1.0
+  | +-- figures@1.7.0
+  | +-- readline2@1.0.1
+  | | +-- code-point-at@1.1.0
+  | | +-- is-fullwidth-code-point@1.0.0
+  | | `-- mute-stream@0.0.5
+  | +-- run-async@0.1.0
+  | +-- rx-lite@3.1.2
+  | +-- string-width@1.0.2
+  | `-- through@2.3.8
+  +-- is-my-json-valid@2.15.0
+  | +-- generate-function@2.0.0
+  | +-- generate-object-property@1.2.0
+  | | `-- is-property@1.0.2
+  | +-- jsonpointer@4.0.1
+  | `-- xtend@4.0.1
+  +-- is-resolvable@1.0.0
+  | `-- tryit@1.0.3
+  +-- js-yaml@3.7.0
+  | +-- argparse@1.0.9
+  | | `-- sprintf-js@1.0.3
+  | `-- esprima@2.7.3
+  +-- json-stable-stringify@1.0.1
+  | `-- jsonify@0.0.0
+  +-- levn@0.3.0
+  | +-- prelude-ls@1.1.2
+  | `-- type-check@0.3.2
+  +-- natural-compare@1.4.0
+  +-- optionator@0.8.2
+  | +-- deep-is@0.1.3
+  | +-- fast-levenshtein@2.0.5
+  | `-- wordwrap@1.0.0
+  +-- path-is-inside@1.0.2
+  +-- pluralize@1.2.1
+  +-- progress@1.1.8
+  +-- require-uncached@1.0.3
+  | +-- caller-path@0.1.0
+  | | `-- callsites@0.2.0
+  | `-- resolve-from@1.0.1
+  +-- shelljs@0.7.5
+  | +-- interpret@1.0.1
+  | `-- rechoir@0.6.2
+  |   `-- resolve@1.2.0
+  +-- strip-bom@3.0.0
+  +-- strip-json-comments@1.0.4
+  +-- table@3.8.3
+  | +-- ajv@4.10.3
+  | | `-- co@4.6.0
+  | +-- ajv-keywords@1.4.1
+  | +-- slice-ansi@0.0.4
+  | `-- string-width@2.0.0
+  |   `-- is-fullwidth-code-point@2.0.0
+  +-- text-table@0.2.0
+  `-- user-home@2.0.0
+
+npm WARN enoent ENOENT: no such file or directory, open 'C:\Babun\.babun\cygwin\home\Admin\package.json'
+npm WARN Admin No description
+npm WARN Admin No repository field.
+npm WARN Admin No README data
+npm WARN Admin No license field.
+
+$ npm install -g traceur
+C:\Users\admin\AppData\Roaming\npm\traceur -> C:\Users\admin\AppData\Roaming\npm\node_modules\traceur\traceur
+C:\Users\admin\AppData\Roaming\npm
+`-- traceur@0.0.111
+  +-- commander@2.9.0
+  | `-- graceful-readlink@1.0.1
+  +-- glob@5.0.15
+  | +-- inflight@1.0.6
+  | | `-- wrappy@1.0.2
+  | +-- inherits@2.0.3
+  | +-- minimatch@3.0.3
+  | | `-- brace-expansion@1.1.6
+  | |   +-- balanced-match@0.4.2
+  | |   `-- concat-map@0.0.1
+  | +-- once@1.4.0
+  | `-- path-is-absolute@1.0.1
+  +-- rsvp@3.3.3
+  +-- semver@4.3.6
+  `-- source-map-support@0.2.10
+    `-- source-map@0.1.32
+      `-- amdefine@1.0.1
+
+$ npm i -g eslint
+C:\Users\admin\AppData\Roaming\npm\eslint -> C:\Users\admin\AppData\Roaming\npm\node_modules\eslint\bin\eslint.js
+C:\Users\admin\AppData\Roaming\npm
+`-- eslint@3.12.2
+  +-- babel-code-frame@6.20.0
+  | `-- js-tokens@2.0.0
+  +-- chalk@1.1.3
+  | +-- ansi-styles@2.2.1
+  | +-- escape-string-regexp@1.0.5
+  | +-- has-ansi@2.0.0
+  | +-- strip-ansi@3.0.1
+  | `-- supports-color@2.0.0
+  +-- concat-stream@1.6.0
+  | +-- inherits@2.0.3
+  | +-- readable-stream@2.2.2
+  | | +-- buffer-shims@1.0.0
+  | | +-- core-util-is@1.0.2
+  | | +-- process-nextick-args@1.0.7
+  | | +-- string_decoder@0.10.31
+  | | `-- util-deprecate@1.0.2
+  | `-- typedarray@0.0.6
+  +-- debug@2.5.2
+  | `-- ms@0.7.2
+  +-- doctrine@1.5.0
+  | `-- isarray@1.0.0
+  +-- escope@3.6.0
+  | +-- es6-map@0.1.4
+  | | +-- d@0.1.1
+  | | +-- es5-ext@0.10.12
+  | | +-- es6-iterator@2.0.0
+  | | +-- es6-set@0.1.4
+  | | +-- es6-symbol@3.1.0
+  | | `-- event-emitter@0.3.4
+  | +-- es6-weak-map@2.0.1
+  | `-- esrecurse@4.1.0
+  |   `-- estraverse@4.1.1
+  +-- espree@3.3.2
+  | +-- acorn@4.0.4
+  | `-- acorn-jsx@3.0.1
+  |   `-- acorn@3.3.0
+  +-- estraverse@4.2.0
+  +-- esutils@2.0.2
+  +-- file-entry-cache@2.0.0
+  | +-- flat-cache@1.2.2
+  | | +-- circular-json@0.3.1
+  | | +-- del@2.2.2
+  | | | +-- globby@5.0.0
+  | | | | +-- array-union@1.0.2
+  | | | | | `-- array-uniq@1.0.3
+  | | | | `-- arrify@1.0.1
+  | | | +-- is-path-cwd@1.0.0
+  | | | +-- is-path-in-cwd@1.0.0
+  | | | | `-- is-path-inside@1.0.0
+  | | | +-- pify@2.3.0
+  | | | +-- pinkie-promise@2.0.1
+  | | | | `-- pinkie@2.0.4
+  | | | `-- rimraf@2.5.4
+  | | +-- graceful-fs@4.1.11
+  | | `-- write@0.2.1
+  | `-- object-assign@4.1.0
+  +-- glob@7.1.1
+  | +-- fs.realpath@1.0.0
+  | +-- inflight@1.0.6
+  | | `-- wrappy@1.0.2
+  | +-- minimatch@3.0.3
+  | | `-- brace-expansion@1.1.6
+  | |   +-- balanced-match@0.4.2
+  | |   `-- concat-map@0.0.1
+  | +-- once@1.4.0
+  | `-- path-is-absolute@1.0.1
+  +-- globals@9.14.0
+  +-- ignore@3.2.0
+  +-- imurmurhash@0.1.4
+  +-- inquirer@0.12.0
+  | +-- ansi-escapes@1.4.0
+  | +-- ansi-regex@2.0.0
+  | +-- cli-cursor@1.0.2
+  | | `-- restore-cursor@1.0.1
+  | |   +-- exit-hook@1.1.1
+  | |   `-- onetime@1.1.0
+  | +-- cli-width@2.1.0
+  | +-- figures@1.7.0
+  | +-- readline2@1.0.1
+  | | +-- code-point-at@1.1.0
+  | | +-- is-fullwidth-code-point@1.0.0
+  | | | `-- number-is-nan@1.0.1
+  | | `-- mute-stream@0.0.5
+  | +-- run-async@0.1.0
+  | +-- rx-lite@3.1.2
+  | +-- string-width@1.0.2
+  | `-- through@2.3.8
+  +-- is-my-json-valid@2.15.0
+  | +-- generate-function@2.0.0
+  | +-- generate-object-property@1.2.0
+  | | `-- is-property@1.0.2
+  | +-- jsonpointer@4.0.1
+  | `-- xtend@4.0.1
+  +-- is-resolvable@1.0.0
+  | `-- tryit@1.0.3
+  +-- js-yaml@3.7.0
+  | +-- argparse@1.0.9
+  | | `-- sprintf-js@1.0.3
+  | `-- esprima@2.7.3
+  +-- json-stable-stringify@1.0.1
+  | `-- jsonify@0.0.0
+  +-- levn@0.3.0
+  | +-- prelude-ls@1.1.2
+  | `-- type-check@0.3.2
+  +-- lodash@4.17.3
+  +-- mkdirp@0.5.1
+  | `-- minimist@0.0.8
+  +-- natural-compare@1.4.0
+  +-- optionator@0.8.2
+  | +-- deep-is@0.1.3
+  | +-- fast-levenshtein@2.0.5
+  | `-- wordwrap@1.0.0
+  +-- path-is-inside@1.0.2
+  +-- pluralize@1.2.1
+  +-- progress@1.1.8
+  +-- require-uncached@1.0.3
+  | +-- caller-path@0.1.0
+  | | `-- callsites@0.2.0
+  | `-- resolve-from@1.0.1
+  +-- shelljs@0.7.5
+  | +-- interpret@1.0.1
+  | `-- rechoir@0.6.2
+  |   `-- resolve@1.2.0
+  +-- strip-bom@3.0.0
+  +-- strip-json-comments@1.0.4
+  +-- table@3.8.3
+  | +-- ajv@4.10.3
+  | | `-- co@4.6.0
+  | +-- ajv-keywords@1.4.1
+  | +-- slice-ansi@0.0.4
+  | `-- string-width@2.0.0
+  |   `-- is-fullwidth-code-point@2.0.0
+  +-- text-table@0.2.0
+  `-- user-home@2.0.0
+    `-- os-homedir@1.0.2
+
+$ npm i -g eslint-config-airbnb
+C:\Users\admin\AppData\Roaming\npm
++-- UNMET PEER DEPENDENCY eslint@^3.9.1
++-- eslint-config-airbnb@13.0.0
+| +-- UNMET PEER DEPENDENCY eslint@^3.9.1
+| +-- eslint-config-airbnb-base@10.0.1
+| `-- UNMET PEER DEPENDENCY eslint-plugin-import@^2.1.0
++-- UNMET PEER DEPENDENCY eslint-plugin-import@^2.1.0
++-- UNMET PEER DEPENDENCY eslint-plugin-jsx-a11y@^2.2.3
+`-- UNMET PEER DEPENDENCY eslint-plugin-react@^6.6.0
+
+npm WARN eslint-config-airbnb@13.0.0 requires a peer of eslint@^3.9.1 but none was installed.
+npm WARN eslint-config-airbnb@13.0.0 requires a peer of eslint-plugin-jsx-a11y@^2.2.3 but none was installed.
+npm WARN eslint-config-airbnb@13.0.0 requires a peer of eslint-plugin-import@^2.1.0 but none was installed.
+npm WARN eslint-config-airbnb@13.0.0 requires a peer of eslint-plugin-react@^6.6.0 but none was installed.
+npm WARN eslint-config-airbnb-base@10.0.1 requires a peer of eslint@^3.9.1 but none was installed.
+npm WARN eslint-config-airbnb-base@10.0.1 requires a peer of eslint-plugin-import@^2.1.0 but none was installed.
+

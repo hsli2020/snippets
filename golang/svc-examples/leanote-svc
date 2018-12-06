@@ -1,0 +1,166 @@
+package service
+
+/app/service/AlbumService.go               type AlbumService struct { }
+/app/service/AttachService.go              type AttachService struct { }
+/app/service/AuthService.go                type AuthService struct { }
+/app/service/BlogService.go                type BlogService struct { }
+/app/service/ConfigService.go              type ConfigService struct { .... }
+/app/service/EmailService.go               type EmailService struct { .... }
+/app/service/FileService.go                type FileService struct { }
+/app/service/GroupService.go               type GroupService struct { }
+/app/service/NotebookService.go            type NotebookService struct { }
+/app/service/NoteContentHistoryService.go  type NoteContentHistoryService struct { }
+/app/service/NoteImageService.go           type NoteImageService struct { }
+/app/service/NoteService.go                type NoteService struct { }
+/app/service/PwdService.go                 type PwdService struct { }
+/app/service/SessionService.go             type SessionService struct { }
+/app/service/ShareService.go               type ShareService struct { }
+/app/service/SuggestionService.go          type SuggestionService struct { }
+/app/service/TagService.go                 type TagService struct { }
+/app/service/ThemeService.go               type ThemeService struct { }
+/app/service/TokenService.go               type TokenService struct { }
+/app/service/TrashService.go               type TrashService struct { }
+/app/service/UpgradeService.go             type UpgradeService struct { }
+/app/service/UserService.go                type UserService struct { }
+
+File: /app/service/init.go
+==========================
+
+var notebookService, NotebookS *NotebookService
+var noteService, NoteS *NoteService
+var noteContentHistoryService, NoteContentHistoryS *NoteContentHistoryService
+var trashService, TrashS *TrashService
+var shareService, ShareS *ShareService
+var userService, UserS *UserService
+var groupService, GroupS *GroupService
+var tagService, TagS *TagService
+var blogService, BlogS *BlogService
+var tokenService, TokenS *TokenService
+var noteImageService, NoteImageS *NoteImageService
+var fileService, FileS *FileService
+var albumService, AlbumS *AlbumService
+var attachService, AttachS *AttachService
+var configService, ConfigS *ConfigService
+var PwdS *PwdService
+var SuggestionS *SuggestionService
+var emailService, EmailS *EmailService
+var AuthS *AuthService
+var UpgradeS *UpgradeService
+var SessionS, sessionService *SessionService
+var ThemeS, themeService *ThemeService
+
+// onAppStart调用
+func InitService() {
+	notebookService = NotebookS = &NotebookService{}
+    noteService = NoteS	= &NoteService{}
+	noteContentHistoryService = NoteContentHistoryS	= &NoteContentHistoryService{}
+    trashService = TrashS = &TrashService{}
+	shareService = ShareS = &ShareService{}
+    userService = UserS	= &UserService{}
+    groupService = GroupS = &GroupService{}
+    tagService = TagS = &TagService{}
+    blogService = BlogS	= &BlogService{}
+    tokenService = TokenS = &TokenService{}
+    noteImageService = NoteImageS = &NoteImageService{}
+    fileService = FileS	= &FileService{}
+    albumService = AlbumS = &AlbumService{}
+    attachService = AttachS	= &AttachService{}
+    configService = ConfigS	= &ConfigService{}
+	PwdS = &PwdService{}
+	SuggestionS = &SuggestionService{}
+	AuthS = &AuthService{}
+    emailService = EmailS = NewEmailService()
+	UpgradeS = &UpgradeService{}
+    sessionService = SessionS = &SessionService{}
+    themeService = ThemeS = &ThemeService{}
+}
+
+File: /app/controllers/admin/init.go
+====================================
+
+var userService *service.UserService
+var noteService *service.NoteService
+// ...
+var configService *service.ConfigService
+var emailService *service.EmailService
+var upgradeService *service.UpgradeService
+
+func InitService() {
+	notebookService = service.NotebookS
+	noteService = service.NoteS
+    // ...
+	configService = service.ConfigS
+	emailService = service.EmailS
+	upgradeService = service.UpgradeS
+}
+
+File: /app/controllers/api/init.go
+==================================
+
+var userService *service.UserService
+var noteService *service.NoteService
+// ...
+var configService *service.ConfigService
+var emailService *service.EmailService
+var sessionService *service.SessionService
+
+func InitService() {
+	notebookService = service.NotebookS
+	noteService = service.NoteS
+    // ...
+	configService = service.ConfigS
+	emailService = service.EmailS
+	sessionService = service.SessionS
+}
+
+File: /app/controllers/init.go
+==============================
+
+var userService *service.UserService
+var noteService *service.NoteService
+// ...
+var configService *service.ConfigService
+var emailService *service.EmailService
+var sessionService *service.SessionService
+var themeService *service.ThemeService
+
+func InitService() {
+	notebookService = service.NotebookS
+	noteService = service.NoteS
+    // ...
+	configService = service.ConfigS
+	emailService = service.EmailS
+	sessionService = service.SessionS
+	themeService = service.ThemeS
+}
+
+File: /app/controllers/member/init.go
+=====================================
+
+var userService *service.UserService
+var groupService *service.GroupService
+var noteService *service.NoteService
+// ...
+var configService *service.ConfigService
+var emailService *service.EmailService
+var upgradeService *service.UpgradeService
+var themeService *service.ThemeService
+
+func InitService() {
+	userService = service.UserS
+	groupService = service.GroupS
+	noteService = service.NoteS
+    // ...
+	configService = service.ConfigS
+	emailService = service.EmailS
+	upgradeService = service.UpgradeS
+	themeService = service.ThemeS
+}
+
+File: /app/init.go
+    service.InitService()
+    controllers.InitService()
+    admin.InitService()
+    member.InitService()
+    service.ConfigS.InitGlobalConfigs()
+    api.InitService()

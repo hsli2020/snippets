@@ -1,0 +1,300 @@
+JavaScript APIs for WebExtensions can be used inside the extension's background
+scripts and in any other documents bundled with the extension, including browser
+action or page action popups, sidebars, options pages, or new tab pages. A few
+of these APIs can also be accessed by an extension's content scripts (see the 
+list in the content script guide).
+
+To use the more powerful APIs you need to request permission in your extension's 
+manifest.json.
+
+You can access the APIs using the browser namespace:
+
+Many of the APIs are asynchronous, returning a Promise:
+
+browser.alarms
+browser.bookmarks
+browser.browserAction
+browser.browserSettings
+browser.browsingData
+browser.clipboard
+browser.commands
+browser.contextualIdentities
+browser.cookies
+browser.devtools.inspectedWindow
+browser.devtools.network
+browser.devtools.panels
+browser.downloads
+browser.events
+browser.extension
+browser.extensionTypes
+browser.find
+browser.history
+browser.i18n
+browser.identity
+browser.idle
+browser.management
+browser.menus
+browser.notifications
+browser.omnibox
+browser.pageAction
+browser.permissions
+browser.pkcs11
+browser.privacy
+browser.proxy
+browser.runtime
+browser.sessions
+browser.sidebarAction
+browser.storage
+browser.tabs
+browser.theme
+browser.topSites
+browser.types
+browser.webNavigation
+browser.webRequest
+browser.windows
+
+Note that this is different from Google Chrome's extension system, which uses the chrome
+namespace instead of browser, and which uses callbacks instead of promises for asynchronous
+functions. As a porting aid, the Firefox implementation of WebExtensions APIs supports
+chrome and callbacks as well as browser and promises. Mozilla has also written a polyfill
+which enables code that uses browser and promises to work unchanged in Chrome: 
+https://github.com/mozilla/webextension-polyfill.
+
+Firefox also implements these APIs under the chrome namespace using callbacks. This allows
+code written for Chrome to run largely unchanged in Firefox for the APIs documented here.
+
+Microsoft Edge uses the browser namespace, but doesn't yet support promise-based asynchronous
+APIs. In Edge, for the time being, asynchronous APIs must use callbacks.
+
+# alarms
+
+Schedule code to run at a specific time in the future. This is like setTimeout() and
+setInterval(), except that those functions don't work with background pages that are
+loaded on demand.
+
+
+# bookmarks
+
+The WebExtensions bookmarks API lets an extension interact with and manipulate the browser's
+bookmarking system. You can use it to bookmark pages, retrieve existing bookmarks, and edit,
+remove, and organize bookmarks.
+
+
+# browserAction
+
+Adds a button to the browser's toolbar.
+
+
+# browserSettings
+
+# browsingData
+
+Enables extensions to clear the data that is accumulated while the user is browsing.
+
+
+# clipboard
+
+The clipboard API enables an extension to copy items to the system clipboard. Currently the API
+only supports copying images, but it's intended to support copying text and HTML in the future.
+
+
+# commands
+
+Listen for the user executing commands that you have registered using the commands manifest.json key.
+
+
+# contextualIdentities
+
+Work with contextual identities: list, create, remove, and update contextual identities.
+
+
+# cookies
+
+Enables extensions to get and set cookies, and be notified when they change.
+
+
+# devtools.inspectedWindow
+
+The devtools.inspectedWindow API lets a devtools extension interact with the window that the 
+developer tools are attached to.
+
+
+# devtools.network
+
+The devtools.network API lets a devtools extension get information about network requests 
+associated with the window that the devtools are attached to (the inspected window).
+
+
+# devtools.panels
+
+The devtools.panels API lets a devtools extension define its user interface inside the devtools window.
+
+
+# downloads
+
+Enables extensions to interact with the browser's download manager. You can use this API
+module to download files, cancel, pause, resume downloads, and show downloaded files in
+the file manager.
+
+
+# events
+
+Common types used by APIs that dispatch events.
+
+
+# extension
+
+Utilities related to your extension. Get URLs to resources packages with your extension,
+get the Window object for your extension's pages, get the values for various settings.
+Note that the messaging APIs in this module are deprecated in favor of the equivalent
+APIs in the runtime module.
+
+
+# extensionTypes
+
+Some common types used in other WebExtension APIs.
+
+
+# find
+
+Finds text in a web page, and highlights matches.
+
+
+# history
+
+Use the history API to interact with the browser history.
+
+
+# i18n
+
+Functions to internationalize your extension. You can use these APIs to get localized strings 
+from locale files packaged with your extension, find out the browser's current language, and 
+find out the value of its Accept-Language header.
+
+
+# identity
+
+Use the identity API to get an OAuth2 authorization code or access token, which an extension can 
+then use to access user data from a service which supports OAuth2 access (such as a Google or a 
+Facebook account).
+
+
+# idle
+
+Find out when the user's system is idle, locked, or active.
+
+
+# management
+
+Get information about installed add-ons.
+
+
+# menus
+
+Add items to the browser's menu system.
+
+
+# notifications
+
+Display notifications to the user, using the underlying operating system's notification mechanism.
+Because this API uses the operating system's notification mechanism, the details of how notifications 
+appear and behave may differ according to the operating system and the user's settings.
+
+
+# omnibox
+
+Enables extensions to implement customised behavior when the user types into the browser's address bar.
+
+
+# pageAction
+
+A page action is a clickable icon inside the browser's address bar.
+
+
+# permissions
+
+Extensions need permissions to access many of the more powerful WebExtension APIs. They
+can ask for permissions at install time by including the permissions they need in the
+permissions manifest.json key. The main advantages of asking for permissions at install 
+time are:
+
+
+# pkcs11
+
+The pkcs11 API enables an extension to enumerate PKCS #11 security modules, and to make 
+them accessible to the browser as sources of keys and certificates.
+
+
+# privacy
+
+Access and modify various privacy-related browser settings.
+
+
+# proxy
+
+Use the proxy API to register an extended Proxy Auto-Configuration (PAC) file, which implements
+a policy for proxying web requests. This implementation deviates from standard PAC design in
+several ways because the de-facto specification for PAC files hasn't changed since its initial
+implementation circa 1995. There is no standards body maintaining the specification.
+
+
+# runtime
+
+This module provides information about your extension and the environment it's running in.
+
+
+# sessions
+
+Use the sessions API to list, and restore, tabs and windows that have been closed while the
+browser has been running.
+
+
+# sidebarAction
+
+Gets and sets properties of an extension's sidebar.
+
+
+# storage
+
+Enables extensions to store and retrieve data, and listen for changes to stored items.
+
+
+# tabs
+
+Interact with the browser's tab system.
+
+
+# theme
+
+Enables browser extensions to update the browser theme.
+
+
+# topSites
+
+Use the topSites API to get an array containing all the sites listed in the browser's 
+"New Tab" page.
+
+
+# types
+
+Defines the BrowserSetting type, which is used to represent a browser setting.
+
+
+# webNavigation
+
+Add event listeners for the various stages of a navigation. A navigation consists of a 
+frame in the browser transitioning from one URL to another, usually (but not always) 
+in response to a user action like clicking a link or entering a URL in the location bar.
+
+
+# webRequest
+
+Add event listeners for the various stages of making an HTTP request. The event listener
+receives detailed information about the request, and can modify or cancel the request.
+
+
+# windows
+
+Interact with browser windows. You can use this API to get information about open windows
+and to open, modify, and close windows. You can also listen for window open, close, and 
+activate events.

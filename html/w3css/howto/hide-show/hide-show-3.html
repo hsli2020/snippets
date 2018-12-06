@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.mystyle {
+    width: 100%;
+    padding: 25px;
+    background-color: coral;
+    color: white;
+    font-size: 25px;
+    box-sizing: border-box;
+}
+</style>
+</head>
+<body>
+
+<p>Click the "Try it" button to toggle between adding and removing the "mystyle" class name of the DIV element:</p>
+
+<p><strong>Note:</strong> The classList property is not supported in IE9 and earlier. In this example, we check if the browser supports the classList.toggle() method. If not, use the className property together with other JS properties and methods to achieve the same result (for IE9).</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<div id="myDIV">
+This is a DIV element.
+</div>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("myDIV");
+
+    if (x.classList) { 
+        x.classList.toggle("mystyle");
+    } else {
+        var classes = x.className.split(" ");
+        var i = classes.indexOf("mystyle");
+
+        if (i >= 0) 
+            classes.splice(i, 1);
+        else 
+            classes.push("mystyle");
+            x.className = classes.join(" "); 
+    }
+}
+</script>
+
+</body>
+</html>
+

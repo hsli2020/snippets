@@ -1,0 +1,290 @@
+Built-in objects
+    Array
+    ArrayBuffer
+    AsyncFunction
+    Atomics
+    Boolean
+    DataView
+    Date
+    Error
+    EvalError
+    Float32Array
+    Float64Array
+    Function
+    Generator
+    GeneratorFunction
+    Infinity
+    Int16Array
+    Int32Array
+    Int8Array
+    InternalError
+    Intl
+    Intl.Collator
+    Intl.DateTimeFormat
+    Intl.NumberFormat
+    Intl.PluralRules
+    JSON
+    Map
+    Math
+    NaN
+    Number
+    Object
+    Promise
+    Proxy
+    RangeError
+    ReferenceError
+    Reflect
+    RegExp
+    Set
+    SharedArrayBuffer
+    String
+    Symbol
+    SyntaxError
+    TypeError
+    TypedArray
+    URIError
+    Uint16Array
+    Uint32Array
+    Uint8Array
+    Uint8ClampedArray
+    WeakMap
+    WeakSet
+    WebAssembly
+    decodeURI()
+    decodeURIComponent()
+    encodeURI()
+    encodeURIComponent()
+    escape()
+    eval()
+    isFinite()
+    isNaN()
+    null
+    parseFloat()
+    parseInt()
+    undefined
+    unescape()
+    uneval()
+
+String
+Properties
+    String.prototype
+    string.length
+Methods
+    String.fromCharCode()
+    String.fromCodePoint()
+    String.prototype.anchor()
+    String.prototype.big()
+    String.prototype.blink()
+    String.prototype.bold()
+    String.prototype.charAt()
+    String.prototype.charCodeAt()
+    String.prototype.codePointAt()
+    String.prototype.concat()
+    String.prototype.endsWith()
+    String.prototype.fixed()
+    String.prototype.fontcolor()
+    String.prototype.fontsize()
+    String.prototype.includes()
+    String.prototype.indexOf()
+    String.prototype.italics()
+    String.prototype.lastIndexOf()
+    String.prototype.link()
+    String.prototype.localeCompare()
+    String.prototype.match()
+    String.prototype.normalize()
+    String.prototype.padEnd()
+    String.prototype.padStart()
+    String.prototype.quote()
+    String.prototype.repeat()
+    String.prototype.replace()
+    String.prototype.search()
+    String.prototype.slice()
+    String.prototype.small()
+    String.prototype.split()
+    String.prototype.startsWith()
+    String.prototype.strike()
+    String.prototype.sub()
+    String.prototype.substr()
+    String.prototype.substring()
+    String.prototype.sup()
+    String.prototype.toLocaleLowerCase()
+    String.prototype.toLocaleUpperCase()
+    String.prototype.toLowerCase()
+    String.prototype.toSource()
+    String.prototype.toString()
+    String.prototype.toUpperCase()
+    String.prototype.trim()
+    String.prototype.trimLeft()
+    String.prototype.trimRight()
+    String.prototype.valueOf()
+    String.prototype[@@iterator]()
+    String.raw()
+
+Date < Function < Object
+    Date.UTC()
+    Date.now()
+    Date.parse()
+    Date.prototype.getDate()
+    Date.prototype.getDay()
+    Date.prototype.getFullYear()
+    Date.prototype.getHours()
+    Date.prototype.getMilliseconds()
+    Date.prototype.getMinutes()
+    Date.prototype.getMonth()
+    Date.prototype.getSeconds()
+    Date.prototype.getTime()
+    Date.prototype.getTimezoneOffset()
+    Date.prototype.getUTCDate()
+    Date.prototype.getUTCDay()
+    Date.prototype.getUTCFullYear()
+    Date.prototype.getUTCHours()
+    Date.prototype.getUTCMilliseconds()
+    Date.prototype.getUTCMinutes()
+    Date.prototype.getUTCMonth()
+    Date.prototype.getUTCSeconds()
+    Date.prototype.getYear()
+    Date.prototype.setDate()
+    Date.prototype.setFullYear()
+    Date.prototype.setHours()
+    Date.prototype.setMilliseconds()
+    Date.prototype.setMinutes()
+    Date.prototype.setMonth()
+    Date.prototype.setSeconds()
+    Date.prototype.setTime()
+    Date.prototype.setUTCDate()
+    Date.prototype.setUTCFullYear()
+    Date.prototype.setUTCHours()
+    Date.prototype.setUTCMilliseconds()
+    Date.prototype.setUTCMinutes()
+    Date.prototype.setUTCMonth()
+    Date.prototype.setUTCSeconds()
+    Date.prototype.setYear()
+    Date.prototype.toDateString()
+    Date.prototype.toGMTString()
+    Date.prototype.toISOString()
+    Date.prototype.toJSON()
+    Date.prototype.toLocaleDateString()
+    Date.prototype.toLocaleFormat()
+    Date.prototype.toLocaleString()
+    Date.prototype.toLocaleTimeString()
+    Date.prototype.toSource()
+    Date.prototype.toString()
+    Date.prototype.toTimeString()
+    Date.prototype.toUTCString()
+    Date.prototype.valueOf()
+    Date.prototype[@@toPrimitive]
+
+Array
+Properties
+    Array.length
+    Array.prototype
+    Array.prototype[@@unscopables]
+Methods
+    Array.from()
+    Array.isArray()
+    Array.observe()
+    Array.of()
+    Array.prototype.concat()
+    Array.prototype.copyWithin()
+    Array.prototype.entries()
+    Array.prototype.every()
+    Array.prototype.fill()
+    Array.prototype.filter()
+    Array.prototype.find()
+    Array.prototype.findIndex()
+    Array.prototype.forEach()
+    Array.prototype.includes()
+    Array.prototype.indexOf()
+    Array.prototype.join()
+    Array.prototype.keys()
+    Array.prototype.lastIndexOf()
+    Array.prototype.map()
+    Array.prototype.pop()
+    Array.prototype.push()
+    Array.prototype.reduce()
+    Array.prototype.reduceRight()
+    Array.prototype.reverse()
+    Array.prototype.shift()
+    Array.prototype.slice()
+    Array.prototype.some()
+    Array.prototype.sort()
+    Array.prototype.splice()
+    Array.prototype.toLocaleString()
+    Array.prototype.toSource()
+    Array.prototype.toString()
+    Array.prototype.unshift()
+    Array.prototype.values()
+    Array.prototype[@@iterator]()
+    Array.unobserve()
+    get Array[@@species]
+
+Object
+Properties
+    Object.prototype
+    Object.prototype.__count__
+    Object.prototype.__noSuchMethod__
+    Object.prototype.__parent__
+    Object.prototype.__proto__
+    Object.prototype.constructor
+Methods
+    Object.assign()
+    Object.create()
+    Object.defineProperties()
+    Object.defineProperty()
+    Object.entries()
+    Object.freeze()
+    Object.getNotifier()
+    Object.getOwnPropertyDescriptor()
+    Object.getOwnPropertyDescriptors()
+    Object.getOwnPropertyNames()
+    Object.getOwnPropertySymbols()
+    Object.getPrototypeOf()
+    Object.is()
+    Object.isExtensible()
+    Object.isFrozen()
+    Object.isSealed()
+    Object.keys()
+    Object.observe()
+    Object.preventExtensions()
+    Object.prototype.__defineGetter__()
+    Object.prototype.__defineSetter__()
+    Object.prototype.__lookupGetter__()
+    Object.prototype.__lookupSetter__()
+    Object.prototype.eval()
+    Object.prototype.hasOwnProperty()
+    Object.prototype.isPrototypeOf()
+    Object.prototype.propertyIsEnumerable()
+    Object.prototype.toLocaleString()
+    Object.prototype.toSource()
+    Object.prototype.toString()
+    Object.prototype.unwatch()
+    Object.prototype.valueOf()
+    Object.prototype.watch()
+    Object.seal()
+    Object.setPrototypeOf()
+    Object.unobserve()
+    Object.values()
+
+
+ 4. Core ES6 features
+
+    4.1 From var to const/let
+    4.2 From IIFEs to blocks
+    4.3 From concatenating strings to template literals
+    4.4 From function expressions to arrow functions
+    4.5 Handling multiple return values
+    4.6 From for to forEach() to for-of
+    4.7 Handling parameter default values
+    4.8 Handling named parameters
+    4.9 From arguments to rest parameters
+    4.10 From apply() to the spread operator (...)
+    4.11 From concat() to the spread operator (...)
+    4.12 From function expressions in object literals to method definitions
+    4.13 From constructors to classes
+    4.14 From custom error constructors to subclasses of Error
+    4.15 From objects to Maps
+    4.16 New string methods
+    4.17 New Array methods
+    4.18 From CommonJS modules to ES6 modules
+    4.19 What to do next
+

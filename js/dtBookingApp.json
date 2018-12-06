@@ -1,0 +1,530 @@
+{
+  "_invokeQueue": [
+    [
+      "$provide", "constant",
+      {
+        "0": "States",
+        "1": {
+          "names": [
+            "booking.login",
+            "booking.dashboard",
+            "booking.registration",
+            "booking.verify",
+            "booking.licence",
+            "booking.location",
+            "booking.calendar",
+            "booking.timeslot",
+            "booking.payment",
+            "booking.finalize",
+            "booking.complete",
+            "booking.finish",
+            "booking.error",
+            "booking.cancel",
+            "booking.success"
+          ],
+          "toTop": [ 0, 0, 0, 0, 0, 0, 50, -145, 0, 0, 0, 0, 0, 0, 0 ]
+        }
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "bookingCancel",
+        "1": [ "$scope", "$log", "$state", null ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "bookingSuccess",
+        "1": [ "$scope", "$log", "$state", null ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "calendarController",
+        "1": [
+          "$scope",
+          "$window",
+          "$filter",
+          "$log",
+          "$state",
+          "stepState",
+          "userService",
+          "scheduleAvailability",
+          "bookingTimeService",
+          "appointmentService",
+          "errorService",
+          "locale",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "completeController",
+        "1": [
+          "$scope",
+          "$window",
+          "$log",
+          "$state",
+          "stepState",
+          "userService",
+          "bookingTimeService",
+          "finalizeBooking",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "dashboardController",
+        "1": [
+          "$scope",
+          "$window",
+          "$log",
+          "locale",
+          "appointmentService",
+          "bookingTimeService",
+          "$modal",
+          "userService",
+          "stepState",
+          "errorService",
+          "registrationSvc",
+          "$filter",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "confirmDeleteController",
+        "1": [
+          "$scope",
+          "$log",
+          "$modalInstance",
+          "appointment",
+          "appointmentService",
+          "errorService",
+          "driver",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "RescheduleController",
+        "1": [
+          "$scope",
+          "$modalInstance",
+          "appointment",
+          "appointmentService",
+          "bookingTimeService",
+          "errorService",
+          "userService",
+          "driver",
+          "$log",
+          "stepState",
+          "$filter",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "errorController",
+        "1": [
+          "$scope",
+          "$log",
+          "$state",
+          "userService",
+          "stepState",
+          "$window",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "finalizeBookingController",
+        "1": [
+          "$scope",
+          "$log",
+          "stepState",
+          "userService",
+          "$timeout",
+          "finalizeBooking",
+          "errorService",
+          "verifyPayment",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "licenceController",
+        "1": [
+          "$scope",
+          "$log",
+          "$state",
+          "$modal",
+          "userService",
+          "bookingTimeService",
+          "stepState",
+          "$translate",
+          "licenceClassService",
+          "appointmentService",
+          "locale",
+          "errorService",
+          "$filter",
+          "registrationSvc",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "eligibilityWarningModalController",
+        "1": [
+          "$scope",
+          "$modalInstance",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "locationController",
+        "1": [
+          "$scope",
+          "$rootScope",
+          "$window",
+          "$log",
+          "$state",
+          "userService",
+          "bookingTimeService",
+          "stepState",
+          "dtcLocationData",
+          "errorService",
+          "leafletData",
+          "leafletBoundsHelpers",
+          "dtCacheServices",
+          "dtCacheServicesKeys",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "loginController",
+        "1": [
+          "$scope",
+          "$log",
+          "$state",
+          "$window",
+          "userService",
+          "stepState",
+          "$routeParams",
+          "locale",
+          "loginSvc",
+          "errorService",
+          "$location",
+          "vcRecaptchaService",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "paymentController",
+        "1": [
+          "$filter",
+          "$scope",
+          "$rootScope",
+          "$log",
+          "$state",
+          "$sce",
+          "stepState",
+          "userService",
+          "bookingTimeService",
+          "locale",
+          "bookingFees",
+          "errorService",
+          "$window",
+          "$cookies",
+          "appointmentService",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "paymentSubmitController",
+        "1": [
+          "$scope",
+          "$rootScope",
+          "$log",
+          "$sce",
+          "stepState",
+          "userService",
+          "prepareBookingPaymentService",
+          "locale",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "quitController",
+        "1": [
+          "$scope",
+          "userService",
+          "registrationSvc",
+          "$window",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "registrationController",
+        "1": [
+          "$scope",
+          "$log",
+          "$state",
+          "$window",
+          "userService",
+          "stepState",
+          "$routeParams",
+          "locale",
+          "registrationSvc",
+          "errorService",
+          "vcRecaptchaService",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "timeslotController",
+        "1": [
+          "$scope",
+          "$filter",
+          "$window",
+          "$log",
+          "$state",
+          "userService",
+          "stepState",
+          "bookingTimeService",
+          "appointmentService",
+          "locale",
+          "bookingFees",
+          "errorService",
+          "appointmentCancelService",
+          null
+        ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "verifyEmailController",
+        "1": [ "$scope", "$log", "$state", "$routeParams", "userService", null ]
+      }
+    ],
+    [
+      "$compileProvider", "directive",
+      {
+        "0": "dtMotorcyclespeeds",
+        "1": [ "$log", "$translate", null ]
+      }
+    ],
+    [
+      "$controllerProvider", "register",
+      {
+        "0": "ComponentController"
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "appointmentService",
+        "1": [ "$log", "$window", "$resource", "$http", "userService", null ]
+      }
+    ],
+    [
+      "$provide", "factory",
+      {
+        "0": "createBooking",
+        "1": [ "$resource", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "licenceClassService",
+        "1": [ "$resource", "$log", "$window", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "bookingTimeService",
+        "1": [ "$resource", "$log", "$filter", "$window", "locale", "userService", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "scheduleAvailability",
+        "1": [ "$resource", "$log", "$window", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "appointmentCancelService",
+        "1": [ "$resource", "$log", "$window", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "finalizeBooking",
+        "1": [ "$resource", "$window", "locale", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "bookingFees",
+        "1": [ "$resource", "$window", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "prepareBookingPaymentService",
+        "1": [ "$resource", "$window", "locale", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "verifyPayment",
+        "1": [ "$resource", "$window", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "loginSvc",
+        "1": [ "$window", "$http", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "registrationSvc",
+        "1": [ "$window", "$http", "$resource", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "stepState",
+        "1": [ "$rootScope", "$state", "$log", "$window", "userService", "States", "$translate", null ]
+      }
+    ],
+    [
+      "$provide", "service",
+      {
+        "0": "userService",
+        "1": [
+          "$window",
+          "$resource",
+          "$log",
+          "user",
+          "$rootScope",
+          "registrationSvc",
+          "$filter",
+          null
+        ]
+      }
+    ]
+  ],
+  "_configBlocks": [
+    [
+      "$injector", "invoke",
+      {
+        "0": [
+          "$urlRouterProvider",
+          "$stateProvider",
+          "$provide",
+          "$httpProvider",
+          "$translateProvider",
+          null
+        ]
+      }
+    ]
+  ],
+  "_runBlocks": [
+    [
+      "$rootScope",
+      "$state",
+      "$location",
+      "$stateParams",
+      "$log",
+      "stepState",
+      "userService",
+      "$cookies",
+      "$http",
+      "appointmentService",
+      null
+    ],
+    [ "$httpBackend", "$log", null ]
+  ],
+  "requires": [
+    "DriveTest.AutoSubmit",
+    "DriveTest.filters",
+    "DriveTest.services",
+    "DriveTest.LicenceExpiry",
+    "DriveTest.Email",
+    "DriveTest.LicenceNumber",
+    "DriveTest.Focus",
+    "DriveTest.directives",
+    "pascalprecht.translate",
+    "leaflet-directive",
+    "ngResource",
+    "ui.router",
+    "ui.bootstrap",
+    "ngRoute",
+    "DriveTest.findACentre",
+    "DriveTest.CompareValidation",
+    "DriveTest.DateValidation",
+    "ngAnimate",
+    "ngSanitize",
+    "DriveTest.ViewTitle",
+    "ngCookies",
+    "ngMessages",
+    "DriveTest.ButtonSubmit",
+    "vcRecaptcha"
+  ],
+  "name": "dtBooking"
+}

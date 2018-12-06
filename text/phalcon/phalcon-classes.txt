@@ -1,0 +1,392 @@
+Abstract class Phalcon\Acl
+
+Abstract class Phalcon\Acl\Adapter
+Class Phalcon\Acl\Adapter\Memory
+Class Phalcon\Acl\Exception
+Class Phalcon\Acl\Resource
+Class Phalcon\Acl\Role
+
+Abstract class Phalcon\Annotations\Adapter
+Class Phalcon\Annotations\Adapter\Apc
+Class Phalcon\Annotations\Adapter\Files
+Class Phalcon\Annotations\Adapter\Memory
+Class Phalcon\Annotations\Adapter\Xcache
+Class Phalcon\Annotations\Annotation
+Class Phalcon\Annotations\Collection
+Class Phalcon\Annotations\Exception
+Class Phalcon\Annotations\Reader
+Class Phalcon\Annotations\Reflection
+Class Phalcon\Assets\Collection
+Class Phalcon\Assets\Exception
+Class Phalcon\Assets\Filters\Cssmin
+Class Phalcon\Assets\Filters\Jsmin
+Class Phalcon\Assets\Filters\None
+Class Phalcon\Assets\Inline
+Class Phalcon\Assets\Inline\Css
+Class Phalcon\Assets\Inline\Js
+Class Phalcon\Assets\Manager
+Class Phalcon\Assets\Resource
+Class Phalcon\Assets\Resource\Css
+Class Phalcon\Assets\Resource\Js
+
+Abstract class Phalcon\Cache\Backend
+Class Phalcon\Cache\Backend\Apc
+Class Phalcon\Cache\Backend\File
+Class Phalcon\Cache\Backend\Libmemcached
+Class Phalcon\Cache\Backend\Memcache
+Class Phalcon\Cache\Backend\Memory
+Class Phalcon\Cache\Backend\Mongo
+Class Phalcon\Cache\Backend\Redis
+Class Phalcon\Cache\Backend\Xcache
+Class Phalcon\Cache\Exception
+Class Phalcon\Cache\Frontend\Base64
+Class Phalcon\Cache\Frontend\Data
+Class Phalcon\Cache\Frontend\Igbinary
+Class Phalcon\Cache\Frontend\Json
+Class Phalcon\Cache\Frontend\None
+Class Phalcon\Cache\Frontend\Output
+Class Phalcon\Cache\Multiple
+
+Class Phalcon\Cli\Console
+Class Phalcon\Cli\Console\Exception
+Class Phalcon\Cli\Dispatcher
+Class Phalcon\Cli\Dispatcher\Exception
+Class Phalcon\Cli\Router
+Class Phalcon\Cli\Router\Exception
+Class Phalcon\Cli\Router\Route
+Class Phalcon\Cli\Task
+
+Class Phalcon\Config
+Class Phalcon\Config\Adapter\Ini
+Class Phalcon\Config\Adapter\Json
+Class Phalcon\Config\Adapter\Php
+Class Phalcon\Config\Adapter\Yaml
+Class Phalcon\Config\Exception
+Class Phalcon\Crypt
+
+Class Phalcon\Crypt\Exception
+
+Abstract class Phalcon\Db
+Abstract class Phalcon\Db\Adapter
+Abstract class Phalcon\Db\Adapter\Pdo
+
+Abstract class Phalcon\Db\Dialect
+Class Phalcon\Db\Adapter\Pdo\Mysql
+Class Phalcon\Db\Adapter\Pdo\Oracle
+Class Phalcon\Db\Adapter\Pdo\Postgresql
+Class Phalcon\Db\Adapter\Pdo\Sqlite
+Class Phalcon\Db\Column
+Class Phalcon\Db\Dialect\MySQL
+Class Phalcon\Db\Dialect\Oracle
+Class Phalcon\Db\Dialect\Postgresql
+Class Phalcon\Db\Dialect\Sqlite
+Class Phalcon\Db\Exception
+Class Phalcon\Db\Index
+Class Phalcon\Db\Profiler
+Class Phalcon\Db\Profiler\Item
+Class Phalcon\Db\RawValue
+Class Phalcon\Db\Reference
+Class Phalcon\Db\Result\Pdo
+
+Class Phalcon\Debug
+Class Phalcon\Debug\Dump
+Class Phalcon\Debug\Exception
+
+Abstract class Phalcon\Di\Injectable
+Class Phalcon\Di
+Class Phalcon\Di\Exception
+Class Phalcon\Di\FactoryDefault
+Class Phalcon\Di\FactoryDefault\Cli
+Class Phalcon\Di\Service
+Class Phalcon\Di\Service\Builder
+
+Abstract class Phalcon\Dispatcher
+
+Class Phalcon\Escaper
+Class Phalcon\Escaper\Exception
+Class Phalcon\Events\Event
+Class Phalcon\Events\Exception
+Class Phalcon\Events\Manager
+Class Phalcon\Exception
+Class Phalcon\Filter
+
+Class Phalcon\Filter\Exception
+
+Abstract class Phalcon\Flash
+Class Phalcon\Flash\Direct
+Class Phalcon\Flash\Exception
+Class Phalcon\Flash\Session
+
+Abstract class Phalcon\Forms\Element
+Class Phalcon\Forms\Element\Check
+Class Phalcon\Forms\Element\Date
+Class Phalcon\Forms\Element\Email
+Class Phalcon\Forms\Element\File
+Class Phalcon\Forms\Element\Hidden
+Class Phalcon\Forms\Element\Numeric
+Class Phalcon\Forms\Element\Password
+Class Phalcon\Forms\Element\Radio
+Class Phalcon\Forms\Element\Select
+Class Phalcon\Forms\Element\Submit
+Class Phalcon\Forms\Element\Text
+Class Phalcon\Forms\Element\TextArea
+Class Phalcon\Forms\Exception
+Class Phalcon\Forms\Form
+Class Phalcon\Forms\Manager
+
+Class Phalcon\Http\Cookie
+Class Phalcon\Http\Cookie\Exception
+Class Phalcon\Http\Request
+Class Phalcon\Http\Request\Exception
+Class Phalcon\Http\Request\File
+Class Phalcon\Http\Response
+Class Phalcon\Http\Response\Cookies
+Class Phalcon\Http\Response\Exception
+Class Phalcon\Http\Response\Headers
+
+Class Phalcon\Image
+
+Abstract class Phalcon\Image\Adapter
+Class Phalcon\Image\Adapter\Gd
+Class Phalcon\Image\Adapter\Imagick
+Class Phalcon\Image\Exception
+Class Phalcon\Kernel
+Class Phalcon\Loader
+Class Phalcon\Loader\Exception
+
+Abstract class Phalcon\Logger
+Abstract class Phalcon\Logger\Adapter
+Class Phalcon\Logger\Adapter\File
+Class Phalcon\Logger\Adapter\Firephp
+Class Phalcon\Logger\Adapter\Stream
+Class Phalcon\Logger\Adapter\Syslog
+Class Phalcon\Logger\Exception
+
+Abstract class Phalcon\Logger\Formatter
+Class Phalcon\Logger\Formatter\Firephp
+Class Phalcon\Logger\Formatter\Json
+Class Phalcon\Logger\Formatter\Line
+Class Phalcon\Logger\Formatter\Syslog
+Class Phalcon\Logger\Item
+Class Phalcon\Logger\Multiple
+
+Abstract class Phalcon\Mvc\Collection
+Abstract class Phalcon\Mvc\Collection\Behavior
+Abstract class Phalcon\Mvc\Controller
+
+Class Phalcon\Mvc\Application
+Class Phalcon\Mvc\Application\Exception
+Class Phalcon\Mvc\Collection\Behavior\SoftDelete
+Class Phalcon\Mvc\Collection\Behavior\Timestampable
+Class Phalcon\Mvc\Collection\Document
+Class Phalcon\Mvc\Collection\Exception
+Class Phalcon\Mvc\Collection\Manager
+Class Phalcon\Mvc\Dispatcher
+Class Phalcon\Mvc\Dispatcher\Exception
+Class Phalcon\Mvc\Micro
+Class Phalcon\Mvc\Micro\Collection
+Class Phalcon\Mvc\Micro\Exception
+Class Phalcon\Mvc\Micro\LazyLoader
+
+Abstract class Phalcon\Mvc\Model
+Abstract class Phalcon\Mvc\Model\Behavior
+Abstract class Phalcon\Mvc\Model\MetaData
+Abstract class Phalcon\Mvc\Model\Query\Lang
+Abstract class Phalcon\Mvc\Model\Resultset
+Abstract class Phalcon\Mvc\Model\Validator
+
+Class Phalcon\Mvc\Model\Behavior\SoftDelete
+Class Phalcon\Mvc\Model\Behavior\Timestampable
+Class Phalcon\Mvc\Model\Criteria
+Class Phalcon\Mvc\Model\Exception
+Class Phalcon\Mvc\Model\Manager
+Class Phalcon\Mvc\Model\Message
+Class Phalcon\Mvc\Model\MetaData\Apc
+Class Phalcon\Mvc\Model\MetaData\Files
+Class Phalcon\Mvc\Model\MetaData\Libmemcached
+Class Phalcon\Mvc\Model\MetaData\Memcache
+Class Phalcon\Mvc\Model\MetaData\Memory
+Class Phalcon\Mvc\Model\MetaData\Redis
+Class Phalcon\Mvc\Model\MetaData\Session
+Class Phalcon\Mvc\Model\MetaData\Strategy\Annotations
+Class Phalcon\Mvc\Model\MetaData\Strategy\Introspection
+Class Phalcon\Mvc\Model\MetaData\Xcache
+Class Phalcon\Mvc\Model\Query
+Class Phalcon\Mvc\Model\Query\Builder
+Class Phalcon\Mvc\Model\Query\Status
+Class Phalcon\Mvc\Model\Relation
+Class Phalcon\Mvc\Model\Resultset\Complex
+Class Phalcon\Mvc\Model\Resultset\Simple
+Class Phalcon\Mvc\Model\Row
+Class Phalcon\Mvc\Model\Transaction
+Class Phalcon\Mvc\Model\Transaction\Exception
+Class Phalcon\Mvc\Model\Transaction\Failed
+Class Phalcon\Mvc\Model\Transaction\Manager
+Class Phalcon\Mvc\Model\ValidationFailed
+Class Phalcon\Mvc\Model\Validator\Email
+Class Phalcon\Mvc\Model\Validator\Exclusionin
+Class Phalcon\Mvc\Model\Validator\Inclusionin
+Class Phalcon\Mvc\Model\Validator\Ip
+Class Phalcon\Mvc\Model\Validator\Numericality
+Class Phalcon\Mvc\Model\Validator\PresenceOf
+Class Phalcon\Mvc\Model\Validator\Regex
+Class Phalcon\Mvc\Model\Validator\StringLength
+Class Phalcon\Mvc\Model\Validator\Uniqueness
+Class Phalcon\Mvc\Model\Validator\Url
+Class Phalcon\Mvc\Router
+Class Phalcon\Mvc\Router\Annotations
+Class Phalcon\Mvc\Router\Exception
+Class Phalcon\Mvc\Router\Group
+Class Phalcon\Mvc\Router\Route
+Class Phalcon\Mvc\Url
+Class Phalcon\Mvc\Url\Exception
+Class Phalcon\Mvc\User\Component
+Class Phalcon\Mvc\User\Module
+Class Phalcon\Mvc\User\Plugin
+Class Phalcon\Mvc\View
+
+Abstract class Phalcon\Mvc\View\Engine
+Class Phalcon\Mvc\View\Engine\Php
+Class Phalcon\Mvc\View\Engine\Volt
+Class Phalcon\Mvc\View\Engine\Volt\Compiler
+Class Phalcon\Mvc\View\Engine\Volt\Exception
+Class Phalcon\Mvc\View\Exception
+Class Phalcon\Mvc\View\Simple
+
+Abstract class Phalcon\Paginator\Adapter
+Class Phalcon\Paginator\Adapter\Model
+Class Phalcon\Paginator\Adapter\NativeArray
+Class Phalcon\Paginator\Adapter\QueryBuilder
+Class Phalcon\Paginator\Exception
+
+Class Phalcon\Queue\Beanstalk
+Class Phalcon\Queue\Beanstalk\Job
+
+Final class Phalcon\Registry
+Class Phalcon\Security
+Class Phalcon\Security\Exception
+Class Phalcon\Security\Random
+
+Abstract class Phalcon\Session
+Abstract class Phalcon\Session\Adapter
+
+Class Phalcon\Session\Adapter\Files
+Class Phalcon\Session\Adapter\Libmemcached
+Class Phalcon\Session\Adapter\Memcache
+Class Phalcon\Session\Adapter\Redis
+Class Phalcon\Session\Bag
+Class Phalcon\Session\Exception
+
+Class Phalcon\Tag
+Class Phalcon\Tag\Exception
+
+Abstract class Phalcon\Tag\Select
+Abstract class Phalcon\Text
+Abstract class Phalcon\Translate
+Abstract class Phalcon\Translate\Adapter
+
+Class Phalcon\Translate\Adapter\Csv
+Class Phalcon\Translate\Adapter\Gettext
+Class Phalcon\Translate\Adapter\NativeArray
+Class Phalcon\Translate\Exception
+Class Phalcon\Translate\Interpolator\AssociativeArray
+Class Phalcon\Translate\Interpolator\IndexedArray
+
+Abstract class Phalcon\Validation\Validator
+Class Phalcon\Validation
+Class Phalcon\Validation\Exception
+Class Phalcon\Validation\Message
+Class Phalcon\Validation\Message\Group
+Class Phalcon\Validation\Validator\Alnum
+Class Phalcon\Validation\Validator\Alpha
+Class Phalcon\Validation\Validator\Between
+Class Phalcon\Validation\Validator\Confirmation
+Class Phalcon\Validation\Validator\CreditCard
+Class Phalcon\Validation\Validator\Digit
+Class Phalcon\Validation\Validator\Email
+Class Phalcon\Validation\Validator\ExclusionIn
+Class Phalcon\Validation\Validator\File
+Class Phalcon\Validation\Validator\Identical
+Class Phalcon\Validation\Validator\InclusionIn
+Class Phalcon\Validation\Validator\Numericality
+Class Phalcon\Validation\Validator\PresenceOf
+Class Phalcon\Validation\Validator\Regex
+Class Phalcon\Validation\Validator\StringLength
+Class Phalcon\Validation\Validator\Uniqueness
+Class Phalcon\Validation\Validator\Url
+Class Phalcon\Version
+
+Interface Phalcon\Acl\AdapterInterface
+Interface Phalcon\Acl\ResourceInterface
+Interface Phalcon\Acl\RoleInterface
+Interface Phalcon\Annotations\AdapterInterface
+Interface Phalcon\Annotations\ReaderInterface
+Interface Phalcon\Assets\FilterInterface
+Interface Phalcon\Cache\BackendInterface
+Interface Phalcon\Cache\FrontendInterface
+Interface Phalcon\CryptInterface
+Interface Phalcon\Db\AdapterInterface
+Interface Phalcon\Db\ColumnInterface
+Interface Phalcon\Db\DialectInterface
+Interface Phalcon\Db\IndexInterface
+Interface Phalcon\Db\ReferenceInterface
+Interface Phalcon\Db\ResultInterface
+Interface Phalcon\DiInterface
+Interface Phalcon\Di\InjectionAwareInterface
+Interface Phalcon\Di\ServiceInterface
+Interface Phalcon\DispatcherInterface
+Interface Phalcon\EscaperInterface
+Interface Phalcon\Events\EventsAwareInterface
+Interface Phalcon\Events\ManagerInterface
+Interface Phalcon\FilterInterface
+Interface Phalcon\Filter\UserFilterInterface
+Interface Phalcon\FlashInterface
+Interface Phalcon\Forms\ElementInterface
+Interface Phalcon\Http\CookieInterface
+Interface Phalcon\Http\RequestInterface
+Interface Phalcon\Http\Request\FileInterface
+Interface Phalcon\Http\ResponseInterface
+Interface Phalcon\Http\Response\CookiesInterface
+Interface Phalcon\Http\Response\HeadersInterface
+Interface Phalcon\Image\AdapterInterface
+Interface Phalcon\Logger\AdapterInterface
+Interface Phalcon\Logger\FormatterInterface
+Interface Phalcon\Mvc\CollectionInterface
+Interface Phalcon\Mvc\Collection\BehaviorInterface
+Interface Phalcon\Mvc\Collection\ManagerInterface
+Interface Phalcon\Mvc\ControllerInterface
+Interface Phalcon\Mvc\DispatcherInterface
+Interface Phalcon\Mvc\EntityInterface
+Interface Phalcon\Mvc\Micro\CollectionInterface
+Interface Phalcon\Mvc\Micro\MiddlewareInterface
+Interface Phalcon\Mvc\ModelInterface
+Interface Phalcon\Mvc\Model\BehaviorInterface
+Interface Phalcon\Mvc\Model\CriteriaInterface
+Interface Phalcon\Mvc\Model\ManagerInterface
+Interface Phalcon\Mvc\Model\MessageInterface
+Interface Phalcon\Mvc\Model\MetaDataInterface
+Interface Phalcon\Mvc\Model\MetaData\StrategyInterface
+Interface Phalcon\Mvc\Model\QueryInterface
+Interface Phalcon\Mvc\Model\Query\BuilderInterface
+Interface Phalcon\Mvc\Model\Query\StatusInterface
+Interface Phalcon\Mvc\Model\RelationInterface
+Interface Phalcon\Mvc\Model\ResultInterface
+Interface Phalcon\Mvc\Model\ResultsetInterface
+Interface Phalcon\Mvc\Model\TransactionInterface
+Interface Phalcon\Mvc\Model\Transaction\ManagerInterface
+Interface Phalcon\Mvc\Model\ValidatorInterface
+Interface Phalcon\Mvc\ModuleDefinitionInterface
+Interface Phalcon\Mvc\RouterInterface
+Interface Phalcon\Mvc\Router\GroupInterface
+Interface Phalcon\Mvc\Router\RouteInterface
+Interface Phalcon\Mvc\UrlInterface
+Interface Phalcon\Mvc\ViewBaseInterface
+Interface Phalcon\Mvc\ViewInterface
+Interface Phalcon\Mvc\View\EngineInterface
+Interface Phalcon\Paginator\AdapterInterface
+Interface Phalcon\Session\AdapterInterface
+Interface Phalcon\Session\BagInterface
+Interface Phalcon\Translate\AdapterInterface
+Interface Phalcon\Translate\InterpolatorInterface
+Interface Phalcon\Validation\MessageInterface
+Interface Phalcon\Validation\ValidatorInterface

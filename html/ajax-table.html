@@ -1,0 +1,39 @@
+<Html>
+<head>
+<script language="javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+$(document).ready (function () {
+    $.getJSON ("users.php",
+        function (json) {
+            var tr;
+            for (var i = 0; i < json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + json[i].UserID + "</td>");
+                tr.append("<td>" + json[i].FirstName + "</td>");
+                tr.append("<td>" + json[i].LastName + "</td>");
+                $('table').append(tr);
+            }
+        });
+    });
+</script>
+</head>
+
+<body>
+
+<table border='1px'>
+    <tr>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+</table>
+
+</body>
+</html>
+<!-- users.php
+[
+    {"UserID":"1","FirstName":"Ram","LastName":"Sri"},
+    {"UserID":"2","FirstName":"Lam","LastName":"Bob"},
+    {"UserID":"3","FirstName":"Sam","LastName":"Dob"}
+]
+-->

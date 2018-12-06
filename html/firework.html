@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>Javascript多彩雪花从天降</title>
+<style type="text/css">
+.jb51Snow{display:block; overflow:hidden; font-size:12px; position:absolute};
+body{background:#000;margin:0px}
+html{overflow:hidden; background:#000;}
+a{color:White;text-decoration:none}
+.jb51Title{color:red;height:140px;width:800px;margin:0px auto;text-align:center}
+</style>
+</head>
+<body>
+
+<script type="text/javascript">
+var yanhua = "yanhua.jb51.net";
+var Fire = function (r, color) {
+    this.radius = r || 12;
+    this.color = color || "FF6600";
+
+    this.xpos = 0;
+    this.ypos = 0;
+    this.zpos = 0;
+
+    this.vx = 0;
+    this.vy = 0;
+    this.vz = 0;
+
+    this.mass = 1;
+
+    this.p = document.createElement("span");
+
+    this.p.className = "jb"+"51Snow";
+    this.p.innerHTML = "*";
+    this.p.style.fontSize = this.radius + "px";
+    this.p.style.color = "#" + this.color;
+}
+
+Fire.prototype = {
+    append: function (parent) {
+        parent.appendChild(this.p);
+    },
+
+    setSize: function (scale) {
+         this.p.style.fontSize = this.radius * scale + "px";
+     },
+
+    setPosition: function (x, y) {
+         this.p.style.left = x + "px";
+         this.p.style.top = y + "px";
+    },
+
+    setVisible: function (b) {
+         this.p.style.display = b ? "block" : "none";
+    }
+}
+
+var fireworks = function () {
+
+    var fires = new Array();
+    var count = 100;
+    var fl = 250;
+
+    var vpx = 500;
+    var vpy = 300;
+
+    var gravity = .3;
+
+    var floor = 200;
+    var bounce = -.8;
+    var timer;
+
+    return {
+        init: function () {
+          for (var i = 0; i < count; i++) {
+              var color = 0xFF0000;
+              color = (Math.random() * 0xFFFFFF).toString(16).toString().split(".")[0];
+              while (color.length < 6) {
+                  color = "0" + color;
+              }
+
+              var fire = new Fire(12, color);
+
+              fires.push(fire);
+              fire.ypos = -100;
+
+              fire.vx = Math.random() * 6 - 3;
+              fire.vy = Math.random() * 6 - 3;
+              fire.vz = Math.random() * 6 - 3;
+
+              fire.append(document.body);
+          }
+
+          var that = this;
+
+          timer = setInterval(function () {
+              for (var i = 0; i < count; i++) {
+                  that.move(fires[i]);
+              }
+          }, 30);
+      },
+
+      move: function (fire) {
+
+          fire.vy += gravity;
+
+          fire.xpos += fire.vx;
+          fire.ypos += fire.vy;
+          fire.zpos += fire.vz;
+
+          if (fire.ypos > floor) {
+              fire.ypos = floor;
+              fire.vy *= bounce;
+          }
+
+          if (fire.zpos > -fl) {
+              var scale = fl / (fl + fire.zpos);
+              fire.setSize(scale);
+              fire.setPosition(vpx + fire.xpos * scale,
+                      vpy + fire.ypos * scale);
+
+              fire.setVisible(true);
+          } else {
+              fire.setVisible(false);
+          }
+      }
+    }
+}
+
+if (yanhua === 'yanhua.jb' + '51.' + 'net')
+fireworks().init();
+function jb51Snow() {
+    window.location.reload();
+}
+
+if (yanhua === 'yanhua.jb' + '51.' + 'net')
+setInterval(jb51Snow, 6000);
+</script>
+</body>
+
+</html>

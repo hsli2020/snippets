@@ -1,0 +1,124 @@
+** 全局配置
+    Vue.config.debug = true; // 默认值：false
+    Vue.config.delimiters = ['${', '}']    // ES6 模板字符串 
+                                           // 文本插值的定界符。默认值： ["{{", "}}"]
+    Vue.config.unsafeDelimiters = ['{!!', '!!}'] // 默认值： ["{{{", "}}}"]
+    Vue.config.silent = true // 默认值： false 取消 Vue.js 所有的日志与警告。
+    Vue.config.async = false // 默认值： true
+    Vue.config.devtools = true // 默认值： true 
+
+** 全局 API
+    Vue.extend( options )
+    Vue.nextTick( callback )
+    Vue.set( object, key, value )
+    Vue.delete( object, key )
+    Vue.directive( id, [definition] )
+    Vue.elementDirective( id, [definition] )
+    Vue.filter( id, [definition] )
+    Vue.component( id, [definition] )
+    Vue.transition( id, [hooks] )
+    Vue.partial( id, [partial] )
+    Vue.use( plugin, [options] )
+    Vue.mixin( mixin )
+
+** 选项 / 数据
+    data       类型： Object | Function 限制： 在组件定义中只能是函数。
+    props      类型： Array | Object
+    propsData  类型： Object 限制： 只用于 new 创建实例中。
+    computed   类型： Object 实例计算属性。getter 和 setter 的 this 自动地绑定到实例。
+    methods    类型： Object
+    watch      类型： Object
+
+** 选项 / DOM
+    el         类型： String | HTMLElement | Function 限制： 在组件定义中只能是函数。
+    template   类型： String
+    replace    类型： Boolean 默认值： true
+
+** 选项 / 生命周期钩子
+    init          类型: Function
+    created       类型：Function
+    beforeCompile 类型：Function
+    compiled      类型：Function
+    ready         类型：Function
+    attached      类型：Function
+    detached      类型：Function
+    beforeDestroy 类型：Function
+    destroyed     类型：Function
+
+** 选项 / 资源
+    directives        类型： Object 一个对象，包含指令。
+    elementDirectives 类型： Object 一个对象，包含元素指令。
+    filters           类型： Object 一个对象，包含过滤器。
+    components        类型： Object 一个对象，包含组件。
+    transitions       类型： Object 一个对象，包含过渡。
+    partials          类型： Object 一个对象，包含 partial。
+
+** 选项 / 杂项
+    parent       类型： Vue 实例
+    events       类型： Object
+    mixins       类型： Array
+    name         类型： String 限制： 只能用在 Vue.extend() 中。
+    extends      类型： Object | Function
+
+** 实例属性
+    vm.$data     类型： Object 
+    vm.$el       类型： HTMLElement 只读 
+    vm.$options  类型： Object 只读
+    vm.$parent   类型： Vue 实例 只读 父实例，如果当前实例有的话。
+    vm.$root     类型： Vue 实例 只读 当前组件树的根 Vue 实例。如果没有父实例，值将是它自身。
+    vm.$children 类型： Array<Vue instance> 只读 当前实例的直接子组件。
+    vm.$refs     类型： Object 只读 一个对象，包含注册有 v-ref 的子组件。
+    vm.$els      类型： Object 只读 一个对象，包含注册有 v-el 的 DOM 元素。
+
+** 实例方法 / 数据
+    vm.$watch( expOrFn, callback, [options] )
+    vm.$get( expression )
+    vm.$set( keypath, value )
+    vm.$delete( key )
+    vm.$eval( expression )
+    vm.$interpolate( templateString )
+    vm.$log( [keypath] )
+
+** 实例方法 / 事件
+    vm.$on( event, callback )
+    vm.$once( event, callback )
+    vm.$off( [event, callback] )
+    vm.$emit( event, […args] )
+    vm.$dispatch( event, […args] )
+    vm.$broadcast( event, […args] )
+
+** 实例方法 / DOM
+    vm.$appendTo( elementOrSelector, [callback] )
+    vm.$before( elementOrSelector, [callback] )
+    vm.$after( elementOrSelector, [callback] )
+    vm.$remove( [callback] )
+    vm.$nextTick( callback )
+
+** 实例方法 / 生命周期
+    vm.$mount( [elementOrSelector] )
+    vm.$destroy( [remove] )
+
+** 指令
+    v-text  类型： String 更新元素的 textContent。
+    v-html  类型： String
+    v-if    类型： *
+    v-show  类型： *
+    v-else  不需要表达式 限制： 前一兄弟元素必须有 v-if 或 v-show。
+    v-for   类型： Array | Object | Number | String
+    v-on    缩写： @ 类型： Function | Inline Statement
+    v-bind  缩写： : 类型： * (with argument) | Object (without argument)
+    v-model 类型： 随表单控件类型不同而不同。
+    v-ref   不需要表达式 限制： 子组件
+    v-el    不需要表达式 参数： id（必需）
+    v-pre   不需要表达式
+    v-cloak 不需要表达式
+
+** 特殊元素
+    component/slot/partial
+
+** 过滤器
+    capitalize/uppercase/lowercase/currency/pluralize/json/debounce/limitBy/filterBy/orderBy
+
+** 数组扩展方法
+    array.$set(index, value) 通过索引设置数组元素并触发视图更新。
+    array.$remove(reference) 通过索引删除数组元素并触发视图更新。

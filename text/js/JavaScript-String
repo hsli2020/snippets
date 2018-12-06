@@ -1,0 +1,61 @@
+Standard built-in objects
+
+String
+Properties
+
+    String.length
+    String.prototype
+
+Methods
+
+    String.fromCharCode()
+    String.fromCodePoint()
+    String.prototype.anchor()
+    String.prototype.big()
+    String.prototype.blink()
+    String.prototype.bold()
+    String.prototype.charAt()
+    String.prototype.charCodeAt()
+    String.prototype.codePointAt()
+    String.prototype.concat()
+    String.prototype.endsWith()
+    String.prototype.fixed()
+    String.prototype.fontcolor()
+    String.prototype.fontsize()
+    String.prototype.includes()
+    String.prototype.indexOf()
+    String.prototype.italics()
+    String.prototype.lastIndexOf()
+    String.prototype.link()
+    String.prototype.localeCompare()
+    String.prototype.match()
+    String.prototype.normalize()
+    String.prototype.quote()
+    String.prototype.repeat()
+    String.prototype.replace()
+    String.prototype.search()
+    String.prototype.slice()
+    String.prototype.small()
+    String.prototype.split()
+    String.prototype.startsWith()
+    String.prototype.strike()
+    String.prototype.sub()
+    String.prototype.substr()
+    String.prototype.substring()
+    String.prototype.sup()
+    String.prototype.toLocaleLowerCase()
+    String.prototype.toLocaleUpperCase()
+    String.prototype.toLowerCase()
+    String.prototype.toSource()
+    String.prototype.toString()
+    String.prototype.toUpperCase()
+    String.prototype.trim()
+    String.prototype.trimLeft()
+    String.prototype.trimRight()
+    String.prototype.valueOf()
+    String.prototype[@@iterator]()
+    String.raw()
+
+Inheritance:
+Function
+Object

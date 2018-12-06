@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+<head>
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet">
+<style class="cp-pen-styles">body {
+  margin: 0;
+  background-color: #464646;
+}
+
+svg {
+  display: block;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+.waveforms {
+  display: flex;
+  width: 688px;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+.waveforms .waveform {
+  border: 3px solid transparent;
+  cursor: pointer;
+}
+.waveforms .waveform.active {
+  border: 3px solid #50B9FF;
+  border-radius: 2px;
+  background-color: #f7f9fb;
+}
+
+@keyframes visualize {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-108px);
+  }
+}
+.animated {
+  animation: visualize 0.2s linear infinite;
+  animation-play-state: paused;
+}
+
+.playing .active .animated {
+  animation-play-state: running;
+}
+
+.button {
+  margin-top: 8px;
+  height: 36px;
+  padding: 8px 30px;
+  border-radius: 18px;
+  background-color: #44BFA3;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 20px;
+  line-height: 20px;
+}
+.button:hover {
+  background-color: #57c6ac;
+}
+
+html, body {
+  height: 100%;
+}
+</style></head><body>
+<div class="container">
+  <div class="waveforms">
+    <div class="waveform active" data-wave="sine">
+      <svg xmlns="http://www.w3.org/2000/svg" width="325" height="54" viewBox="0 0 325 54" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+          <linearGradient id="a" x1="2.491%" y1="0%" y2="91.333%">
+            <stop stop-color="#F7FAFD" offset="0%"/>
+            <stop stop-color="#F7F8FA" offset="100%"/>
+          </linearGradient>
+          <rect id="b" width="325.084" height="54.602" rx="2"/>
+          <linearGradient id="purple" x1="18.652%" x2="89.546%" y1="0%" y2="104.612%">
+            <stop stop-color="#EE538D" offset="0%"/>
+            <stop stop-color="#D61BD5" offset="100%"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+          <rect width="325" height="54" fill="url(#a)" rx="2"/>
+          <path stroke="#979797" d="M53.695 53.77V.45M1.39 27.34h322.75M1.39 9.437h322.75M1.39 45.242h322.75M107.987 54.22V0M162.317 54.22V0M216.648 54.22V0M270.978 54.22V0" stroke-dasharray="1,1"/>
+          <path fill="url(#purple)" d="M410.282 44.587c5.265 0 10.137-1.952 15.12-5.715 3.745-2.827 6.568-5.663 12.69-12.37 6.156-6.746 8.935-9.54 12.6-12.308 4.786-3.616 9.407-5.467 14.37-5.467V7.385c-5.288 0-10.18 1.96-15.184 5.74-3.754 2.835-6.57 5.664-12.725 12.41-6.122 6.707-8.91 9.507-12.563 12.266-4.767 3.6-9.368 5.444-14.308 5.444-4.94 0-9.54-1.843-14.307-5.443-3.654-2.758-6.44-5.558-12.505-12.202-6.214-6.81-9.03-9.638-12.783-12.474-5.004-3.78-9.896-5.74-15.185-5.74v1.343c4.964 0 9.585 1.85 14.37 5.467 3.666 2.77 6.445 5.562 12.543 12.244 6.18 6.77 9.003 9.607 12.747 12.434 4.984 3.763 9.856 5.715 15.12 5.715zm-109.89-1.343c-4.94 0-9.54-1.843-14.308-5.443-3.653-2.758-6.44-5.558-12.504-12.202-6.215-6.81-9.03-9.638-12.784-12.474-4.86-3.672-9.616-5.626-14.733-5.735v-.005h-.452v.004c-5.115.108-9.87 2.062-14.732 5.734-3.754 2.836-6.57 5.665-12.725 12.41-6.122 6.708-8.91 9.508-12.563 12.267-4.767 3.6-9.368 5.444-14.308 5.444-4.94 0-9.54-1.843-14.307-5.443-3.654-2.758-6.44-5.558-12.505-12.202-6.214-6.81-9.03-9.638-12.783-12.474-4.86-3.672-9.617-5.626-14.734-5.735v-.005h-.451v.004c-5.117.108-9.873 2.062-14.733 5.734-3.756 2.836-6.57 5.665-12.726 12.41-6.122 6.708-8.91 9.508-12.564 12.267-4.767 3.602-9.37 5.444-14.308 5.444v1.343c5.264 0 10.137-1.95 15.122-5.715 3.743-2.827 6.567-5.663 12.688-12.37 6.156-6.746 8.936-9.54 12.6-12.308 4.714-3.56 9.267-5.41 14.146-5.465 4.878.054 9.43 1.903 14.145 5.464 3.665 2.77 6.444 5.562 12.542 12.244 6.18 6.77 9.003 9.607 12.747 12.434 4.984 3.763 9.856 5.715 15.12 5.715 5.265 0 10.137-1.952 15.12-5.715 3.745-2.827 6.568-5.663 12.69-12.37 6.156-6.746 8.935-9.54 12.6-12.308 4.714-3.56 9.267-5.41 14.145-5.465 4.878.054 9.432 1.903 14.145 5.464 3.665 2.77 6.444 5.562 12.543 12.244 6.18 6.77 9.002 9.607 12.746 12.434 4.985 3.763 9.858 5.715 15.122 5.715 5.264 0 10.137-1.952 15.12-5.715 3.744-2.827 6.568-5.663 12.69-12.37 6.156-6.746 8.935-9.54 12.6-12.308 4.786-3.616 9.407-5.467 14.37-5.467V7.385c-5.288 0-10.18 1.96-15.184 5.74-3.754 2.835-6.57 5.664-12.725 12.41-6.122 6.707-8.91 9.507-12.564 12.266-4.768 3.6-9.37 5.444-14.308 5.444zM27.615 8.73c-4.878.054-9.43 1.903-14.145 5.464-3.664 2.77-6.444 5.562-12.6 12.308-6.122 6.707-8.945 9.543-12.688 12.37-4.985 3.764-9.858 5.715-15.123 5.715v-1.343c4.94 0 9.54-1.842 14.308-5.443 3.654-2.758 6.44-5.558 12.564-12.266 6.155-6.745 8.97-9.574 12.725-12.41 4.86-3.672 9.616-5.626 14.733-5.735v-.005h.451v.004c5.118.108 9.874 2.062 14.734 5.734 3.755 2.836 6.57 5.665 12.784 12.474 6.063 6.644 8.85 9.444 12.505 12.203 4.768 3.602 9.37 5.444 14.31 5.444v1.343c-5.266 0-10.14-1.95-15.124-5.715-3.744-2.827-6.567-5.663-12.747-12.434-6.098-6.682-8.878-9.475-12.542-12.244-4.713-3.56-9.266-5.41-14.145-5.465z" class="animated"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="waveform" data-wave="square">
+      <svg xmlns="http://www.w3.org/2000/svg" width="325" height="54" viewBox="0 0 325 54">
+        <defs>
+          <linearGradient id="a" x1="2.491%" y1="0%" y2="91.333%">
+            <stop stop-color="#F7FAFD" offset="0%"/>
+            <stop stop-color="#F7F8FA" offset="100%"/>
+          </linearGradient>
+          <linearGradient id="green" x1="9.348%" x2="93.296%" y1="5.486%" y2="107.677%">
+            <stop stop-color="#00AE3A" offset="0%"/>
+            <stop stop-color="#00D5AC" offset="100%"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+          <rect width="325" height="54" fill="url(#a)" rx="2"/>
+          <path stroke="#979797" d="M53.695 53.77V.45M1.39 27.34h322.75M1.39 9.437h322.75M1.39 45.242h322.75M107.987 54.22V0M162.317 54.22V0M216.648 54.22V0M270.978 54.22V0" stroke-dasharray="1,1"/>
+          <path fill="url(#green)" fill-rule="evenodd" d="M325.788 46.044v.184h-55.225V10.146h-52.99v36.082H162.17V10.146h-53.197v36.082H53.197V10.146H.212V8.803h54.33v36.082h53.086V8.803h55.887v36.082h52.713V8.803h55.68v36.082h52.72V8.803h55.887v36.082h52.713V8.803h55.68v36.082H541.787v1.343h-54.225V10.146h-52.99v36.082H379.17V10.146h-53.197v36.082l-.185-.184z" class="animated"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="waveforms">
+    <div class="waveform" data-wave="triangle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="325" height="54" viewBox="0 0 325 54">
+        <defs>
+          <linearGradient id="a" x1="2.491%" y1="0%" y2="91.333%">
+            <stop stop-color="#F7FAFD" offset="0%"/>
+            <stop stop-color="#F7F8FA" offset="100%"/>
+          </linearGradient>
+          <linearGradient id="blue" x1="5.665%" y1="0%" y2="100%">
+            <stop stop-color="#785FCA" offset="0%"/>
+            <stop stop-color="#018AE5" offset="100%"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+          <rect width="325" height="54" fill="url(#a)" rx="2"/>
+          <path stroke="#979797" d="M53.695 53.77V.45M1.39 27.34h322.75M1.39 9.437h322.75M1.39 45.242h322.75M107.987 54.22V0M162.317 54.22V0M216.648 54.22V0M270.978 54.22V0" stroke-dasharray="1,1"/>
+          <path fill="url(#blue)" fill-rule="evenodd" d="M324.753 27.22v.204l-26.715 19.08-56.46-36.624-53.492 36.69-53.19-36.486-54.598 36.51-53.45-36.696L.304 28.978v-1.554l26.53-19.17L80.306 44.97l54.598-36.51 53.18 36.48 53.47-36.676L298 44.872l26.753-19.324v.107l24.08-17.4 53.474 36.713 54.598-36.51-.01 1.626-54.597 36.51-53.45-36.696-24.095 17.32z" class="animated"/>
+        </g>
+      </svg>
+    </div>
+    <div class="waveform" data-wave="sawtooth">
+      <svg xmlns="http://www.w3.org/2000/svg" width="325" height="54" viewBox="0 0 325 54">
+        <defs>
+          <linearGradient id="a" x1="2.491%" y1="0%" y2="91.333%">
+            <stop stop-color="#F7FAFD" offset="0%"/>
+            <stop stop-color="#F7F8FA" offset="100%"/>
+          </linearGradient>
+          <linearGradient id="orange" x1="5.665%" y1="0%" y2="100%">
+            <stop stop-color="#FF3D00" offset="0%"/>
+            <stop stop-color="#E57701" offset="100%"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" fill-rule="evenodd">
+          <rect width="325" height="54" x="1" fill="url(#a)" rx="2"/>
+          <path stroke="#979797" d="M54.695 53.77V.45M2.39 27.34h322.75M2.39 9.437h322.75M2.39 45.242h322.75M108.987 54.22V0M163.317 54.22V0M217.648 54.22V0M271.978 54.22V0" stroke-dasharray="1,1"/>
+          <path fill="url(#orange)" fill-rule="evenodd" d="M326.22 28.25v.005l-54.56 18.512v-36.61L163.1 46.768v-36.61L53.7 46.766V10.17L.94 28.255v-1.278L55.05 8.267v36.625l109.4-36.61V44.89L273.008 8.28v36.61L326.2 26.984v-.004l54.112-18.71v36.625l109.4-36.61v36.607l-1.35 1.88V10.157l-109.4 36.61V10.173l-52.74 18.078z" class="animated" />
+        </g>
+      </svg>
+    </div>
+  </div>
+  <a class="button" id="play">Play</a>
+</div>
+
+<script>
+class Sound {
+
+  constructor(context) {
+    this.context = context;
+  }
+
+  init() {
+    this.oscillator = this.context.createOscillator();
+    this.gainNode = this.context.createGain();
+
+    this.oscillator.connect(this.gainNode);
+    this.gainNode.connect(this.context.destination);
+  }
+
+  play(value) {
+    this.init();
+
+    this.gainNode.gain.setValueAtTime(0.5, this.context.currentTime);
+
+    this.oscillator.start();
+  }
+
+  stop() {
+    this.gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 1);
+    this.oscillator.stop(this.context.currentTime + 1);
+  }}
+
+var context = new AudioContext();
+var sound = new Sound(context);
+sound.init();
+var wave = 'sine';
+var state = 'paused';
+
+var buttons = document.querySelectorAll('.waveform');
+var playBtn = document.querySelector('#play');
+var container = document.querySelector('.container');
+buttons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    cleanClass('active');
+    wave = button.dataset.wave;
+    sound.oscillator.type = wave;
+    button.classList.add('active');
+  });
+});
+
+playBtn.addEventListener('click', function () {
+  container.classList.toggle('playing');
+
+  if (playBtn.text == 'Play') {
+    sound.play();
+    sound.oscillator.type = wave;
+    playBtn.text = 'Pause';
+  } else {
+    sound.stop();
+    playBtn.text = 'Play';
+  }
+});
+
+function cleanClass(rclass) {
+  buttons.forEach(function (button) {
+    button.classList.remove(rclass);
+  });
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://gabrielecirulli.github.io/2048/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>2048</title>
+  <link href="./css/main.css" rel="stylesheet" type="text/css">
+  <!--
+  <link rel="shortcut icon" href="http://gabrielecirulli.github.io/2048/favicon.ico">
+  <link rel="apple-touch-icon" href="http://gabrielecirulli.github.io/2048/meta/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <meta property="og:title" content="2048 game">
+  <meta property="og:site_name" content="2048 game">
+  <meta property="og:description" content="Join the numbers and get to the 2048 tile! Careful: this game is extremely addictive!">
+</head>
+<body data-twttr-rendered="true">
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">2048</h1>
+      <div class="scores-container">
+        <div class="score-container">1124<div class="score-addition">+12</div></div>
+        <div class="best-container">1124</div>
+      </div>
+    </div>
+    <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+          <a class="retry-button">Try again</a>
+          <div class="score-sharing"></div>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container"><div class="tile tile-2 tile-position-1-1">2</div><div class="tile tile-2 tile-position-1-1">2</div><div class="tile tile-4 tile-position-1-1 tile-merged">4</div><div class="tile tile-8 tile-position-1-2">8</div><div class="tile tile-64 tile-position-1-3">64</div><div class="tile tile-16 tile-position-1-4">16</div><div class="tile tile-4 tile-position-2-2">4</div><div class="tile tile-128 tile-position-2-3">128</div><div class="tile tile-4 tile-position-2-4">4</div><div class="tile tile-4 tile-position-2-4">4</div><div class="tile tile-8 tile-position-2-4 tile-merged">8</div><div class="tile tile-2 tile-position-4-4 tile-new">2</div></div>
+    </div>
+  </div>
+
+  <script src="./js/animframe_polyfill.js"></script>
+  <script src="./js/keyboard_input_manager.js"></script>
+  <script src="./js/html_actuator.js"></script>
+  <script src="./js/grid.js"></script>
+  <script src="./js/tile.js"></script>
+  <script src="./js/local_score_manager.js"></script>
+  <script src="./js/game_manager.js"></script>
+  <script src="./js/application.js"></script>
+
+</body></html>

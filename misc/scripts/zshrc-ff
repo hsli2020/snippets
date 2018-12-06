@@ -1,0 +1,40 @@
+function f {
+  if test -z "$1"
+  then
+    find . -type f -o -type d \( -name .git \) -prune
+    return
+  fi 
+
+  find . -type f -o -type d \( -name .git \) -prune | grep $@
+  #| tee /dev/tty | pbcopy
+}
+
+function ff {
+  if test -z "$1"
+  then
+    find . -type f -not -name "*.gif"\
+                   -not -name "*.jpg"\
+                   -not -name "*.jpeg"\
+                   -not -name "*.png"\
+        -o -type d \( -name .git \) -prune\
+        -o -type d \( -name vendor \) -prune | vi -
+    return
+  fi 
+
+  find . -type f -not -name "*.gif"\
+                 -not -name "*.jpg"\
+                 -not -name "*.jpeg"\
+                 -not -name "*.png"\
+      -o -type d \( -name .git \) -prune | grep $@ | vi -
+}
+
+function gopath() {
+  CURDIR=`pwd`
+  if [ ! -d "$CURDIR/src" ]
+  then
+    echo "Please create a src/ folder first"
+    return
+  fi
+  export GOPATH="$(cygpath -am $CURDIR)"
+}
+

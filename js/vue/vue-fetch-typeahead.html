@@ -1,0 +1,205 @@
+## https://github.com/bedakb/vue-typeahead-component
+## main.js
+
+import Vue from 'vue'
+import App from './App'
+
+Vue.config.productionTip = false
+
+new Vue({
+    el: '#app',
+    template: '<App/>',
+    components: { App }
+})
+
+## App.vue
+
+<template>
+    <div id="app">
+       <div class="Wrap text-center">
+           <h1>Vue Typeahead</h1>
+           <p>Simple VueJS 2 TypeAhead component builded with Fetch Browser API.</p>
+           
+           <!-- Our component-->
+           <typeahead
+              source="https://jsonplaceholder.typicode.com/posts"
+              placeholder="What TV Serie you are looking for..."
+              filter-key="title"
+              :start-at="2"
+           >
+           </typeahead>   
+       </div>
+    </div>
+</template>
+
+<script>
+    import Typeahead from './components/Typeahead.vue'
+
+    export default {
+        name: 'app',
+        components: { Typeahead  },
+        data() {
+            return {
+                series: [
+                    { id: 1, title: 'Game of Thrones', body: 'You know nothing, Jon Snow' },
+                    { id: 2, title: 'Suits', body: 'You always have a choice'  },
+                    { id: 3, title: 'Dr House', body: 'If nobody hates you, you are doing something wrong' },
+                    { id: 4, title: 'Breaking Bad', body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
+                    { id: 5, title: 'Arrow', body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
+                    { id: 6, title: 'Silicon Valley', body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
+                ]
+            }
+        }
+    }
+</script>
+
+<style>
+    body {
+        margin: 0; padding: 0;
+        font-family: 'Open Sans', Arial, sans-serif;
+        box-sizing: border-box;
+        background: linear-gradient(135deg, #41B883 0%,#354953 100%);
+        background-size: cover;
+        min-height: 100vh;
+        color: #fff;
+    }
+    h1 { font-size: 6vw; }
+    h1, h2, h3, h4 {
+        margin: 0; padding: 0;
+        font-family: 'Lobster', Arial, sans-serif;
+    }
+    .text-center { text-align: center; }
+    .Wrap { max-width: 60vw; margin: 15vh auto; }
+</style>
+
+## componets/Typeahead.vue
+
+<template>
+    <div>
+        <input 
+            v-model="query"
+            @blur="reset"
+            type="text" 
+            class="SearchInput" 
+            :placeholder="placeholder"
+        >
+        <transition-group name="fade" tag="ul" class="Results">
+            <li v-for="item, key in filtered" :key="key">
+                <span>
+                    <strong>{{ item.title  }}</strong> - <small>{{ item.id  }}</small><br>
+                    <small>{{ item.body  }}</small>
+                </span>
+            </li>
+        </transition-group>
+        <p v-show="isEmpty">Sorry, but we can't find any match for given term :( </p>
+    </div>
+</template>
+
+<script> 
+    export default {
+        name: 'Typeahead',
+        props: {
+            source: {
+                type: [String, Array],
+                required: true
+            },
+            filterKey: {
+                type: String,
+                required: true
+            },
+            startAt: {
+                type: Number,
+                default: 3
+            },
+            placeholder: {
+                type: String,
+                default: ''
+            }
+        },
+
+        data() {
+            return {
+                items: [],
+                query: ''
+            }
+        },
+
+        mounted() {
+            this.fetchItems()
+        },
+
+        computed: {
+            filtered() {
+                if(this.query.length >= this.startAt) {
+                    return this.items.filter(item => {
+                        if( item.hasOwnProperty(this.filterKey)  ) {
+                            return item[this.filterKey]
+                                .toLowerCase()
+                                .indexOf(this.query.toLowerCase()) > -1
+                        } else {
+                            console.error(`Seems like property you passed down ${this.filterKey} doesn't exist on object ! `)
+                        }
+                    })
+                }
+            },
+            isEmpty() {
+                if( typeof this.filtered === 'undefined'  ) {
+                    return false
+                } else {
+                    return this.filtered.length < 1
+                }
+            }
+        },
+
+        methods: {
+            fetchItems() {
+                if ( typeof this.source === 'string' ) {
+                    fetch(this.source)
+                        .then(stream => stream.json())
+                        .then(data => this.items = data)
+                        .catch(error => console.error(error))
+                } else {
+                    this.items = this.source
+                }
+            },
+            reset() {
+                this.query = ''
+            }
+        }
+    }
+</script>
+
+<style>
+    .SearchInput {
+        width: 100%;
+        padding: 1.5em 1em;
+        font-size: 1em;
+        outline: 0;
+        border: 5px solid #41B883;
+    }
+
+    .Results {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        position: relative;
+    }
+
+    .Results li {
+        background: rgba(53, 73, 94, 0.3);
+        margin: 0;
+        padding: 1em;
+        list-style: none;
+        width: 100%;
+        border-bottom: 1px solid #394E62;
+        transition: ease-in-out 0.5s;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.3s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+</style>

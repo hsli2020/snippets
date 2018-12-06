@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.closebtn {
+    padding-left: 10px;
+    color: #888;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: #000;
+}
+</style>
+</head>
+<body>
+
+<p>Click on the "x" symbol to delete the contact.</p>
+
+<div class="chip">
+  <img src="img_avatar.png" alt="Person" width="96" height="96">
+  John Doe
+  <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+</div>
+
+</body>
+</html>

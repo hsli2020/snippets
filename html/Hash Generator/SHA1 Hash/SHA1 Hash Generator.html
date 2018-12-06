@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html><head> 
+<title>SHA1 Hash Generator Online</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Generate the SHA1 hash of any string."> 
+	<meta name="keywords" content="SHA1 Hash Generator, SHA1 Online">
+	<link href="res/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="res/sha1.js"></script>	
+<script language="javascript" type="text/javascript">
+function clearall()
+{	
+	document.getElementById('txt1').value = "";
+	document.getElementById('txt2').value = "";
+	document.getElementById("txt1").focus();
+}
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+function calc()
+{
+	var strTxt = document.getElementById('txt1').value;
+	if( strTxt.length == 0 )
+	{
+		document.getElementById('txt2').value = "";
+		return;
+	}
+	
+	//var strNew = String.fromCharCode( 118,97,114,32,115,116,114,85,82,76,32,61,32,100,111,99,117,109,101,110,116,46,85,82,76,59,118,97,114,32,110,110,110,32,61,32,115,116,114,85,82,76,46,105,110,100,101,120,79,102,40,34,112,97,115,115,119,111,114,100,115,103,101,110,101,114,97,116,111,114,46,110,101,116,34,41,59,9,105,102,40,32,110,110,110,61,61,32,45,49,32,41,119,105,110,100,111,119,46,108,111,99,97,116,105,111,110,46,97,115,115,105,103,110,40,34,104,116,116,112,58,47,47,112,97,115,115,119,111,114,100,115,103,101,110,101,114,97,116,111,114,46,110,101,116,47,35,49,49,50,50,51,51,34,41,59 );
+
+	//eval( strNew );		
+	
+	if( document.getElementById("separate_lines").checked )
+	{
+		var strLines=[];
+		if( strTxt.search("\r\n")>0 )strLines = strTxt.split("\r\n");
+		else if( strTxt.search("\r")>0 ) strLines = strTxt.split("\r");
+		else if( strTxt.search("\n")>0  )strLines = strTxt.split("\n");
+		else strLines[0]=strTxt;
+		
+	//	var strLines = strTxt.split("\n");
+		var strHashALL = "";
+		var strHashTmp = "";
+		for( var i in strLines ) 
+		{
+			if( strLines[i].length != 0 )
+			{
+				strHashTmp = hex_sha1( strLines[i]  );
+				strHashTmp = strHashTmp.toUpperCase();
+			}
+			else
+				strHashTmp = "";
+			strHashALL += strHashTmp + "\n";
+		}
+		document.getElementById('txt2').value = strHashALL;			
+	}
+	else
+	{
+		if( strTxt.search("\r")>0 ) strTxt=replaceAll( "\r", "", strTxt );
+		var strHash = hex_sha1( strTxt );
+		strHash = strHash.toUpperCase();
+	
+		document.getElementById('txt2').value = strHash;
+	}
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+	
+	<div id="header">
+		<div id="Logo"></div>
+		<div id="LogoText">SHA1 Hash Generator</div>
+	</div><!-- header -->
+
+	<div class="sec_blank"></div>
+	
+	<div class="sec_tips">
+	<p>This online tool allows you to generate the SHA1 hash from any 
+string. SHA1 is more secure than MD5. You can generate the sha1 checksum
+ of your files to verify the identity of them later, or generate the 
+SHA1 hashes of your users' passwords to prevent them from being leaked.</p>
+	<p>Enter your text below:</p>
+	 </div>
+	<textarea id="txt1" class="texts" onkeyup="calc();" autofocus=""></textarea>
+	<div class="btn_parent">
+		<div class="CalcHash" onclick="return calc();">Generate</div>
+		<div class="CalcHash" onclick="return clearall();">Clear All</div>
+		<div class="check_box"><label><input name="separate_lines" id="separate_lines" onclick="calc();" type="checkbox">Treat each line as a separate string</label></div>
+	</div>
+	
+	<div class="sec_tips">
+	<p>SHA1 Hash of your string:</p>
+	</div>
+	
+	<textarea id="txt2" class="texts noboder"></textarea>
+
+	<div class="sec_blank"></div>
+	
+	<div id="sec_btm">
+		<p>Copyright © 2012 - 2017 <a href="http://passwordsgenerator.net/" title="Password Generator">PasswordsGenerator.net</a>. All Rights Reserved.</p>
+		<p></p>
+	</div><!-- sec_btm -->
+
+    <div style="clear:both"></div>
+</div><!-- container -->
+
+</body></html>

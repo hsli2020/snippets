@@ -1,0 +1,120 @@
+encoding/json
+func Compact(dst *bytes.Buffer, src []byte) error
+func HTMLEscape(dst *bytes.Buffer, src []byte)
+func Indent(dst *bytes.Buffer, src []byte, prefix, indent string) error
+func Marshal(v interface{}) ([]byte, error)
+func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
+func Unmarshal(data []byte, v interface{}) error
+func NewDecoder(r io.Reader) *Decoder
+func (dec *Decoder) Buffered() io.Reader
+func (dec *Decoder) Decode(v interface{}) error
+func (dec *Decoder) UseNumber()
+func NewEncoder(w io.Writer) *Encoder
+func (enc *Encoder) Encode(v interface{}) error
+func (e *InvalidUTF8Error) Error() string
+func (e *InvalidUnmarshalError) Error() string
+func (e *MarshalerError) Error() string
+func (n Number) Float64() (float64, error)
+func (n Number) Int64() (int64, error)
+func (n Number) String() string
+func (m *RawMessage) MarshalJSON() ([]byte, error)
+func (m *RawMessage) UnmarshalJSON(data []byte) error
+func (e *SyntaxError) Error() string
+func (e *UnmarshalFieldError) Error() string
+func (e *UnmarshalTypeError) Error() string
+func (e *UnsupportedTypeError) Error() string
+func (e *UnsupportedValueError) Error() string
+
+encoding/xml
+func Escape(w io.Writer, s []byte)
+func EscapeText(w io.Writer, s []byte) error
+func Marshal(v interface{}) ([]byte, error)
+func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
+func Unmarshal(data []byte, v interface{}) error
+func (c CharData) Copy() CharData
+func (c Comment) Copy() Comment
+func NewDecoder(r io.Reader) *Decoder
+func (d *Decoder) Decode(v interface{}) error
+func (d *Decoder) DecodeElement(v interface{}, start *StartElement) error
+func (d *Decoder) RawToken() (Token, error)
+func (d *Decoder) Skip() error
+func (d *Decoder) Token() (t Token, err error)
+func (d Directive) Copy() Directive
+func NewEncoder(w io.Writer) *Encoder
+func (enc *Encoder) Encode(v interface{}) error
+func (enc *Encoder) EncodeElement(v interface{}, start StartElement) error
+func (enc *Encoder) EncodeToken(t Token) error
+func (enc *Encoder) Flush() error
+func (enc *Encoder) Indent(prefix, indent string)
+func (p ProcInst) Copy() ProcInst
+func (e StartElement) Copy() StartElement
+func (e StartElement) End() EndElement
+func (e *SyntaxError) Error() string
+func (e *TagPathError) Error() string
+func CopyToken(t Token) Token
+func (e UnmarshalError) Error() string
+func (e *UnsupportedTypeError) Error() string
+
+html
+func EscapeString(s string) string
+func UnescapeString(s string) string
+
+
+html/template
+func HTMLEscape(w io.Writer, b []byte)
+func HTMLEscapeString(s string) string
+func HTMLEscaper(args ...interface{}) string
+func JSEscape(w io.Writer, b []byte)
+func JSEscapeString(s string) string
+func JSEscaper(args ...interface{}) string
+func URLQueryEscaper(args ...interface{}) string
+func (e *Error) Error() string
+func Must(t *Template, err error) *Template
+func New(name string) *Template
+func ParseFiles(filenames ...string) (*Template, error)
+func ParseGlob(pattern string) (*Template, error)
+func (t *Template) AddParseTree(name string, tree *parse.Tree) (*Template, error)
+func (t *Template) Clone() (*Template, error)
+func (t *Template) Delims(left, right string) *Template
+func (t *Template) Execute(wr io.Writer, data interface{}) error
+func (t *Template) ExecuteTemplate(wr io.Writer, name string, data interface{}) error
+func (t *Template) Funcs(funcMap FuncMap) *Template
+func (t *Template) Lookup(name string) *Template
+func (t *Template) Name() string
+func (t *Template) New(name string) *Template
+func (t *Template) Parse(src string) (*Template, error)
+func (t *Template) ParseFiles(filenames ...string) (*Template, error)
+func (t *Template) ParseGlob(pattern string) (*Template, error)
+func (t *Template) Templates() []*Template
+
+index/suffixarray
+func New(data []byte) *Index
+func (x *Index) Bytes() []byte
+func (x *Index) FindAllIndex(r *regexp.Regexp, n int) (result [][]int)
+func (x *Index) Lookup(s []byte, n int) (result []int)
+func (x *Index) Read(r io.Reader) error
+func (x *Index) Write(w io.Writer) error
+
+io
+func Copy(dst Writer, src Reader) (written int64, err error)
+func CopyN(dst Writer, src Reader, n int64) (written int64, err error)
+func ReadAtLeast(r Reader, buf []byte, min int) (n int, err error)
+func ReadFull(r Reader, buf []byte) (n int, err error)
+func WriteString(w Writer, s string) (n int, err error)
+func (l *LimitedReader) Read(p []byte) (n int, err error)
+func Pipe() (*PipeReader, *PipeWriter)
+func (r *PipeReader) Close() error
+func (r *PipeReader) CloseWithError(err error) error
+func (r *PipeReader) Read(data []byte) (n int, err error)
+func (w *PipeWriter) Close() error
+func (w *PipeWriter) CloseWithError(err error) error
+func (w *PipeWriter) Write(data []byte) (n int, err error)
+func LimitReader(r Reader, n int64) Reader
+func MultiReader(readers ...Reader) Reader
+func TeeReader(r Reader, w Writer) Reader
+func NewSectionReader(r ReaderAt, off int64, n int64) *SectionReader
+func (s *SectionReader) Read(p []byte) (n int, err error)
+func (s *SectionReader) ReadAt(p []byte, off int64) (n int, err error)
+func (s *SectionReader) Seek(offset int64, whence int) (int64, error)
+func (s *SectionReader) Size() int64
+func MultiWriter(writers ...Writer) Writer

@@ -1,0 +1,124 @@
+container/list
+func (e *Element) Next() *Element
+func (e *Element) Prev() *Element
+func New() *List
+func (l *List) Back() *Element
+func (l *List) Front() *Element
+func (l *List) Init() *List
+func (l *List) InsertAfter(v interface{}, mark *Element) *Element
+func (l *List) InsertBefore(v interface{}, mark *Element) *Element
+func (l *List) Len() int
+func (l *List) MoveAfter(e, mark *Element)
+func (l *List) MoveBefore(e, mark *Element)
+func (l *List) MoveToBack(e *Element)
+func (l *List) MoveToFront(e *Element)
+func (l *List) PushBack(v interface{}) *Element
+func (l *List) PushBackList(other *List)
+func (l *List) PushFront(v interface{}) *Element
+func (l *List) PushFrontList(other *List)
+func (l *List) Remove(e *Element) interface{}
+
+container/ring
+func New(n int) *Ring
+func (r *Ring) Do(f func(interface{}))
+func (r *Ring) Len() int
+func (r *Ring) Link(s *Ring) *Ring
+func (r *Ring) Move(n int) *Ring
+func (r *Ring) Next() *Ring
+func (r *Ring) Prev() *Ring
+func (r *Ring) Unlink(n int) *Ring
+
+crypto/md5
+func New() hash.Hash
+func Sum(data []byte) [Size]byte
+
+database/sql
+func Register(name string, driver driver.Driver)
+func Open(driverName, dataSourceName string) (*DB, error)
+func (db *DB) Begin() (*Tx, error)
+func (db *DB) Close() error
+func (db *DB) Driver() driver.Driver
+func (db *DB) Exec(query string, args ...interface{}) (Result, error)
+func (db *DB) Ping() error
+func (db *DB) Prepare(query string) (*Stmt, error)
+func (db *DB) Query(query string, args ...interface{}) (*Rows, error)
+func (db *DB) QueryRow(query string, args ...interface{}) *Row
+func (db *DB) SetMaxIdleConns(n int)
+func (db *DB) SetMaxOpenConns(n int)
+func (n *NullBool) Scan(value interface{}) error
+func (n NullBool) Value() (driver.Value, error)
+func (n *NullFloat64) Scan(value interface{}) error
+func (n NullFloat64) Value() (driver.Value, error)
+func (n *NullInt64) Scan(value interface{}) error
+func (n NullInt64) Value() (driver.Value, error)
+func (ns *NullString) Scan(value interface{}) error
+func (ns NullString) Value() (driver.Value, error)
+func (r *Row) Scan(dest ...interface{}) error
+func (rs *Rows) Close() error
+func (rs *Rows) Columns() ([]string, error)
+func (rs *Rows) Err() error
+func (rs *Rows) Next() bool
+func (rs *Rows) Scan(dest ...interface{}) error
+func (s *Stmt) Close() error
+func (s *Stmt) Exec(args ...interface{}) (Result, error)
+func (s *Stmt) Query(args ...interface{}) (*Rows, error)
+func (s *Stmt) QueryRow(args ...interface{}) *Row
+func (tx *Tx) Commit() error
+func (tx *Tx) Exec(query string, args ...interface{}) (Result, error)
+func (tx *Tx) Prepare(query string) (*Stmt, error)
+func (tx *Tx) Query(query string, args ...interface{}) (*Rows, error)
+func (tx *Tx) QueryRow(query string, args ...interface{}) *Row
+func (tx *Tx) Rollback() error
+func (tx *Tx) Stmt(stmt *Stmt) *Stmt
+
+database/sql/driver
+func IsScanValue(v interface{}) bool
+func IsValue(v interface{}) bool
+func (n NotNull) ConvertValue(v interface{}) (Value, error)
+func (n Null) ConvertValue(v interface{}) (Value, error)
+func (RowsAffected) LastInsertId() (int64, error)
+func (v RowsAffected) RowsAffected() (int64, error)
+
+encoding/base64
+func NewDecoder(enc *Encoding, r io.Reader) io.Reader
+func NewEncoder(enc *Encoding, w io.Writer) io.WriteCloser
+func (e CorruptInputError) Error() string
+func NewEncoding(encoder string) *Encoding
+func (enc *Encoding) Decode(dst, src []byte) (n int, err error)
+func (enc *Encoding) DecodeString(s string) ([]byte, error)
+func (enc *Encoding) DecodedLen(n int) int
+func (enc *Encoding) Encode(dst, src []byte)
+func (enc *Encoding) EncodeToString(src []byte) string
+func (enc *Encoding) EncodedLen(n int) int
+
+encoding/csv
+func (e *ParseError) Error() string
+func NewReader(r io.Reader) *Reader
+func (r *Reader) Read() (record []string, err error)
+func (r *Reader) ReadAll() (records [][]string, err error)
+func NewWriter(w io.Writer) *Writer
+func (w *Writer) Error() error
+func (w *Writer) Flush()
+func (w *Writer) Write(record []string) (err error)
+func (w *Writer) WriteAll(records [][]string) (err error)
+
+encoding/gob
+func Register(value interface{})
+func RegisterName(name string, value interface{})
+func NewDecoder(r io.Reader) *Decoder
+func (dec *Decoder) Decode(e interface{}) error
+func (dec *Decoder) DecodeValue(v reflect.Value) error
+func NewEncoder(w io.Writer) *Encoder
+func (enc *Encoder) Encode(e interface{}) error
+func (enc *Encoder) EncodeValue(value reflect.Value) error
+
+encoding/hex
+func Decode(dst, src []byte) (int, error)
+func DecodeString(s string) ([]byte, error)
+func DecodedLen(x int) int
+func Dump(data []byte) string
+func Dumper(w io.Writer) io.WriteCloser
+func Encode(dst, src []byte) int
+func EncodeToString(src []byte) string
+func EncodedLen(n int) int
+func (e InvalidByteError) Error() string

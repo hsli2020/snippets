@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled Document</title>
+<style>
+*, *:before, *:after {
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;  /* ie8+ */
+}
+html,body{
+	margin:0;
+	padding:0;
+	height:100%;
+}
+.wrap{
+	display:table;
+	height:100%;
+	width:100%;
+	max-width:1200px;
+	margin:auto;
+}
+.tr{display:table-row}
+.tc{display:table-cell;vertical-align:top;}
+.header,.footer{height:1px; background-color:#0ee;}/* collapse to content height*/
+
+.header h1{margin:0 auto;width:50%;}
+.logo{width:100%;max-width:300px;margin:auto;height:auto;display:block;}
+.footer img{width:100%;height:auto;}
+
+.footer .tc{
+	height:150px;
+	height:15vh;
+	background-size:cover;
+	border-bottom:5px solid #fff;
+}
+
+.main{height:100%;background-color:#ee0;}
+.table{display:table;width:100%;height:100%;}
+.leftimg{
+	width:45%;
+	display:table-cell;
+	height:100%;
+	overflow:hidden;
+	border-bottom:10px solid #fff;
+	background-size:cover;
+}
+.rightimg{
+	border-left:10px solid #fff;
+	border-bottom:10px solid #fff;
+	width:54%;
+	display:table-cell;
+	height:100%;
+	overflow:hidden;
+	background-size:cover;
+
+}
+.main img{width:auto;height:100%}
+
+/*  */
+.menu {
+    padding: 10px;
+	margin:0 0 10px;
+    background: #333;
+    color: #FFF;
+    font-weight: bold;
+    overflow: hidden;
+	display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.menu a {
+    padding: 0 10px;
+	text-decoration:none;
+	color:#fff;
+}
+
+@media screen and (max-width:600px){
+	.menu a{display:none}
+}
+
+</style>
+</head>
+
+<body>
+<div class="wrap table">
+  <div class="header tr">
+    <h1><a href="#"><img class="logo" src="http://after5eventscincy.com/images/logo.png" alt="After 5 events"></a></h1>
+    <nav class="menu"> <a href="#">ABOUT</a> <a href="#">PACKAGES</a> <a href="#">LOVE NOTES</a> <a href="#">LOOKBOOK</a> <a href="#">CONTACT</a> </nav>
+  </div>
+  <div class="main tr">
+    <div class="table">
+      <div class="leftimg">&nbsp;</div>
+      <div class="rightimg">&nbsp;</div>
+    </div>
+  </div>
+  <div class="footer tr"><div class="tc">&nbsp;</div></div>
+</div>
+</body>
+</html>

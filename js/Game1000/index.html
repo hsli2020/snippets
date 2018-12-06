@@ -1,0 +1,81 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>消消看，挑战1000分</title>
+<link rel="stylesheet" href="res/style1.css">
+</head>
+<body>
+<div class="page">
+	<div class="header">
+		<div class="title"><span></span></div>
+		<div class="text">
+			<div id="targetScore"></div>
+			<div id="score"></div>
+		</div>
+	</div>
+	<div class="GameStage" id="GameStage"></div>
+	<div class="btns">
+		<a href="javascript:void(0)" class="btn_01" id="reset"><span>重新开始</span></a>
+	</div>
+	<div class="memo">技巧提示 ^_^</div>
+	<div class="memo">一次消除的砖块越多，得分越高；</div>
+	<div class="memo">尽量把同颜色的砖块积累到一起消除；</div>
+	<!--div class="moreGame" style="margin-top:1em">
+		<h2>其它游戏：</h2>
+		<div class="gameItem">
+			<div class="i_icon"><span class="g_2048">2048</span></div>
+			<div class="i_name"><a href="/2048/index.html">经典游戏2048，快来挑战</a></div>
+		</div>
+		<div id="tj"></div>
+		<!-- <div class="gameItem">
+			<div class="i_name" style="float:right"><a href="/index.html">更多游戏&gt;&gt;</a></div>
+		</div> >
+	</div-->
+<style>
+.moreGame .gameItem{margin-bottom:1em;}
+.moreGame .i_icon img{width:3em;}
+</style>
+<!--script>
+var isAndroid = navigator.userAgent.indexOf('Android') !== -1;
+if(isAndroid){
+	document.getElementById('tj').innerHTML = '<div class="gameItem">'+
+			'<div class="i_icon"><a href="/tuijian/1.html"><img src="/images/a_d_1.jpg" alt=""></a></div>'+
+			'<div class="i_name"><a href="/tuijian/1.html">【斗地主】牛牛来了</a></div>'+
+		'</div>'+
+		'<div class="gameItem">'+
+			'<div class="i_icon"><a href="/tuijian/2.html"><img src="/images/a_d_2.jpg" alt=""></a></div>'+
+			'<div class="i_name"><a href="/tuijian/2.html">【扎金花】全民炸翻天</a></div>'+
+		'</div>'
+}
+</script-->
+<!--script>
+(function(){
+	//一号店
+	if(isAndroid){
+		return;
+	};
+	var yhd_url = ["http://1.ziwoo.cn/1387967941043/wxwx.php",
+	"http://1.ziwoo.cn/1387967941043/wxwx.php",
+	"http://1.ziwoo.cn/1387967941043/wxwx.php",
+	"http://1.ziwoo.cn/1387967941043/wxwx.php",
+	"http://1.ziwoo.cn/1387967941043/wxwx.php"];
+
+	document.write('<div style="text-align:center;" id="yhd_f"><iframe id="f" width="320px" height="270px" style="margin:0 auto;background:#fff;" src="' + yhd_url[Math.round(Math.random() * (yhd_url.length-1))] + '" frameborder="no" border="0" marginwidth="0" marginheight="0" allowtransparency="yes" scrolling="no"></iframe></div>');
+})();
+</script-->
+
+</div>
+<div id="shareLayer"><div class="zan"></div><div id="tit" class="gameText"></div><a href="javascript:void(0)" class="btn_01" id="shareBtn"><span>分享给朋友</span></a><a href="javascript:void(0)" class="btn_01" id="reset_1"><span>重新开始</span></a></div>
+<script type="text/javascript" src="res/wx.js"></script>
+
+ <div style="display:none">
+<script src="res/z_stat.js" language="JavaScript"></script>
+  </div> 
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+type ActivityService service        /github/activity_*.go
+type AdminService service           /github/admin_*.go
+type AppsService service            /github/apps_*.go
+type AuthorizationsService service  /github/authorizations_*.go
+type GistsService service           /github/gists_*.go
+type GitService service             /github/git_*.go
+type GitignoresService service      /github/gitignore_*.go
+type IssuesService service          /github/issues_*.go
+type LicensesService service        /github/licenses_*.go
+type MigrationService service       /github/migrations_*.go
+type OrganizationsService service   /github/orgs_*.go
+type ProjectsService service        /github/projects_*.go
+type PullRequestsService service    /github/pulls_*.go
+type ReactionsService service       /github/reactions_*.go
+type RepositoriesService service    /github/repos_*.go
+type SearchService service          /github/search_*.go
+type UsersService service           /github/users_*.go
+
+File: /github/github.go
+
+type service struct {
+	client *Client
+}
+
+// A Client manages communication with the GitHub API.
+type Client struct {
+	clientMu sync.Mutex
+	client   *http.Client
+
+	BaseURL *url.URL
+
+	rateMu     sync.Mutex
+	rateLimits [categories]Rate
+
+    // Reuse a single struct instead of allocating one for each service on the heap.
+    // ??
+	common service
+
+	// Services used for talking to different parts of the GitHub API.
+	Activity       *ActivityService
+	Admin          *AdminService
+	Apps           *AppsService
+	Authorizations *AuthorizationsService
+	Gists          *GistsService
+	Git            *GitService
+	Gitignores     *GitignoresService
+	Issues         *IssuesService
+	Licenses       *LicensesService
+	Marketplace    *MarketplaceService
+	Migrations     *MigrationService
+	Organizations  *OrganizationsService
+	Projects       *ProjectsService
+	PullRequests   *PullRequestsService
+	Reactions      *ReactionsService
+	Repositories   *RepositoriesService
+	Search         *SearchService
+	Users          *UsersService
+}
+
+// NewClient returns a new GitHub API client.
+
+func NewClient(httpClient *http.Client) *Client {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
+	baseURL, _   := url.Parse(defaultBaseURL)
+	uploadURL, _ := url.Parse(uploadBaseURL)
+
+	c := &Client{client: httpClient, BaseURL: baseURL .... }
+
+	c.common.client = c
+
+	c.Activity       = (*ActivityService)(&c.common)
+	c.Admin          = (*AdminService)(&c.common)
+	c.Apps           = (*AppsService)(&c.common)
+	c.Authorizations = (*AuthorizationsService)(&c.common)
+	c.Gists          = (*GistsService)(&c.common)
+	c.Git            = (*GitService)(&c.common)
+	c.Gitignores     = (*GitignoresService)(&c.common)
+	c.Issues         = (*IssuesService)(&c.common)
+	c.Licenses       = (*LicensesService)(&c.common)
+	c.Marketplace    = &MarketplaceService{client: c}
+	c.Migrations     = (*MigrationService)(&c.common)
+	c.Organizations  = (*OrganizationsService)(&c.common)
+	c.Projects       = (*ProjectsService)(&c.common)
+	c.PullRequests   = (*PullRequestsService)(&c.common)
+	c.Reactions      = (*ReactionsService)(&c.common)
+	c.Repositories   = (*RepositoriesService)(&c.common)
+	c.Search         = (*SearchService)(&c.common)
+	c.Users          = (*UsersService)(&c.common)
+
+	return c
+}

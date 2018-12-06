@@ -1,0 +1,100 @@
+// Block represents a block in the blockchain
+type Block struct {
+	Timestamp     int64
+	Transactions  []*Transaction
+	PrevBlockHash []byte
+	Hash          []byte
+	Nonce         int
+	Height        int
+}
+
+func NewBlock(transactions []*Transaction, prevBlockHash []byte, height int) *Block
+func NewGenesisBlock(coinbase *Transaction) *Block
+func (b *Block) HashTransactions() []byte
+func (b *Block) Serialize() []byte
+func DeserializeBlock(d []byte) *Block
+
+// Blockchain implements interactions with a DB
+type Blockchain struct {
+	tip []byte
+	db  *bolt.DB
+}
+
+func CreateBlockchain(address, nodeID string) *Blockchain {
+func NewBlockchain(nodeID string) *Blockchain {
+func (bc *Blockchain) AddBlock(block *Block) {
+func (bc *Blockchain) FindTransaction(ID []byte) (Transaction, error) {
+func (bc *Blockchain) FindUTXO() map[string]TXOutputs {
+func (bc *Blockchain) Iterator() *BlockchainIterator {
+func (bc *Blockchain) GetBestHeight() int {
+func (bc *Blockchain) GetBlock(blockHash []byte) (Block, error) {
+func (bc *Blockchain) GetBlockHashes() [][]byte {
+func (bc *Blockchain) MineBlock(transactions []*Transaction) *Block {
+func (bc *Blockchain) SignTransaction(tx *Transaction, privKey ecdsa.PrivateKey) {
+func (bc *Blockchain) VerifyTransaction(tx *Transaction) bool {
+
+// Transaction represents a Bitcoin transaction
+type Transaction struct {
+	ID   []byte
+	Vin  []TXInput
+	Vout []TXOutput
+}
+
+func (tx Transaction) IsCoinbase() bool
+func (tx Transaction) Serialize() []byte
+func (tx *Transaction) Hash() []byte
+func (tx *Transaction) Sign(privKey ecdsa.PrivateKey, prevTXs map[string]Transaction)
+func (tx Transaction) String() string
+func (tx *Transaction) TrimmedCopy() Transaction
+func (tx *Transaction) Verify(prevTXs map[string]Transaction) bool
+func NewCoinbaseTX(to, data string) *Transaction
+func NewUTXOTransaction(wallet *Wallet, to string, amount int, UTXOSet *UTXOSet) *Transaction
+func DeserializeTransaction(data []byte) Transaction
+
+// TXInput represents a transaction input
+type TXInput struct {
+	Txid      []byte
+	Vout      int
+	Signature []byte
+	PubKey    []byte
+}
+
+// UsesKey checks whether the address initiated the transaction
+func (in *TXInput) UsesKey(pubKeyHash []byte) bool
+
+// TXOutput represents a transaction output
+type TXOutput struct {
+	Value      int
+	PubKeyHash []byte
+}
+
+func NewTXOutput(value int, address string) *TXOutput {
+func (out *TXOutput) Lock(address []byte) {
+func (out *TXOutput) IsLockedWithKey(pubKeyHash []byte) bool {
+func (outs TXOutputs) Serialize() []byte {
+func DeserializeOutputs(data []byte) TXOutputs {
+
+// Wallet stores private and public keys
+type Wallet struct {
+	PrivateKey ecdsa.PrivateKey
+	PublicKey  []byte
+}
+
+func NewWallet() *Wallet {
+func (w Wallet) GetAddress() []byte {
+func HashPubKey(pubKey []byte) []byte {
+func ValidateAddress(address string) bool {
+func checksum(payload []byte) []byte {
+func newKeyPair() (ecdsa.PrivateKey, []byte) {
+
+// Wallets stores a collection of wallets
+type Wallets struct {
+	Wallets map[string]*Wallet
+}
+
+func NewWallets(nodeID string) (*Wallets, error) {
+func (ws *Wallets) CreateWallet() string {
+func (ws *Wallets) GetAddresses() []string {
+func (ws Wallets) GetWallet(address string) Wallet {
+func (ws *Wallets) LoadFromFile(nodeID string) error {
+func (ws Wallets) SaveToFile(nodeID string) {

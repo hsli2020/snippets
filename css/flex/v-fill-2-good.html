@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>flex expanding central content</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style type="text/css">
+    html, body, .r_flex_container{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: red;
+        margin: 0;
+    }
+    .r_flex_container {
+        display:flex;
+        flex-flow: column nowrap;
+        background-color:blue;
+    }
+
+    .r_flex_fixed_child {
+        flex:none;
+        background-color:black;
+        color:white;
+
+    }
+    .r_flex_expand_child {
+        flex:auto;
+        background-color:yellow;
+        overflow-y:scroll;
+    }
+  </style>
+</head>
+<body>
+  
+<body>
+	<div class="r_flex_container">
+	  <div class="r_flex_fixed_child">
+	  	<p> This is the fixed child of the flex container </p>
+	  </div>
+	  <div class="r_flex_expand_child">
+          <article>an article blah blah blah <br>
+              asdfasdf  asdf   asdf  1 <br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  2<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf <br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  3<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  4<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf <br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  5<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  6 <br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  7<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf <br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  8<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+              asdfasdf  asdf   asdf  asdf<br>
+              an article blah blah blah <br>
+	  	    	asdfasdf  9   9  9</article>
+	  </div>
+	  <div class="r_flex_fixed_child">
+	  	this is the fixed footer child of the flex container
+	  	asdfadsf
+	  	<p> another line</p>
+	  </div>
+	  
+	</div>
+</body>
+</html>

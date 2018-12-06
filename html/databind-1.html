@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <div>
+        <div>
+            <label>Name:<input type="text" id="name"/></label>
+            <label>Sex:<input type="text" id="sex"/></label>
+            <label>Age:<input type="text" id="age"/></label>
+            <label>Time:<input type="text" id="time"/></label>
+        </div>
+        <div>
+            <label>a:<span id="param01">1</span></label>
+            <label>b:<span id="param02">2</span></label>
+            <label>c:<span id="param03">3</span></label>
+            <label>d:<span id="param04">4</span></label>
+        </div>
+    </div>
+    <button onclick="showResult()">Show Result</button>
+    <script>
+        // data是模拟服务器返回的JSON数据
+        var data = '{"name":"Alex","sex":"Male","age":22,"time":"2016-5-10",' +
+                   '"param01":111,"param02":222,"param03":333,"param04":444}';
+
+        // 多条input或者span的快速赋值
+        // var json = eval('(' + data + ')');
+        var json = JSON.parse(data);
+        for (var key in json) {
+            if ($('#' + key).attr('type') == 'text') {
+                $('#' + key).val(json[key]);
+            }
+            if ($('#' + key).prop('tagName') == 'SPAN'){
+                $('#' + key).text(json[key]);
+            }
+        }
+
+        // 获取文本和文本框的内容转为JSON对象
+        function showResult() {
+            var model = {};
+            $('input[type="text"]').each(function() {
+                model[$(this).attr('id')] = $(this).val();
+            });
+            $('span').each(function() {
+                model[$(this).attr('id')] = $(this).text();
+            });
+            console.log(model);
+        }
+    </script>
+</body>
+</html>

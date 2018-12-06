@@ -1,0 +1,60 @@
+5 Simple Steps to Develop a jQuery Plugin
+=========================================
+
+1. Create your plugin with custom name
+
+Let say we are creating a plugin call tgs.
+
+$.fn.tgs = function() {
+  // Our plugin implementation goes here
+};
+
+$("#someId").tgs();
+
+2. Target more than one dom elements
+
+$.fn.tgs = function() {
+  this.each(function() {
+    // You will get each targeted element here
+  });
+};
+
+$(".someClass").tgs();
+
+3. Make the plugin chainable with other jQuery functions
+
+$.fn.tgs = function() {
+  return this.each(function() {
+    // You will get each targeted element here
+    // and it will be returned back
+  });
+};
+
+$("#someId").tgs().removeClass("someClass");
+
+4. Make the plugin configurable by passing options
+
+$.fn.tgs = function(options) {
+  var settings = $.extend({
+    // Below are the default settings.
+    fontStyle: "bold",
+    backgroundColor: "yellow"
+  }, options );
+};
+
+$("#someId").tgs({fontStyle: "italic", backgroundColor: "white"});
+
+5. Self invoking Function or Closure
+
+(function($){
+  $.fn.tgs = function(options) {
+    var settings = $.extend({
+      // Below are the default settings.
+      fontStyle: "bold",
+      backgroundColor: "yellow"
+    }, options );
+
+    //Plugin implementation goes here as required
+    //Return something from here as required
+  };
+}(jQuery));

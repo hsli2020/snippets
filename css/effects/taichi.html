@@ -1,0 +1,59 @@
+<<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>taichi</title>
+  <style>
+  html, body{ height: 100%; } /* 如果忘了设置高度就实现不了垂直居中了哦 */
+
+  body {
+	background-color: #464BB3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    /* 通过justify-content和align-items实现水平和垂直居中，高度高度高度 */
+
+  .taichi {
+    width: 0px; /* 巧妙的方法，宽度设为0 */
+    height: 600px;
+    border-left: 300px solid black;
+    border-right: 300px solid white;
+    /* border要为高度的一半，不然画出的就会是椭圆 */
+    /* 利用左右两边的border实现黑白各半 */
+    border-radius: 50%;
+    animation: rotate 10s infinite linear;
+    /* 添加animation旋转动画,linear表示动画从头到尾速度相同 */
+    box-shadow: 0 0 60px #5E9BEE; /* 使用box-shadow创造出淡淡的发光效果 */
+  }
+ 
+  .taichi::before {
+    content: ''; /* content: ""其实相当于一个空的span元素，可以用来填充东西 */
+    display: block; /* MDN告诉我们伪元素默认是行内元素 */
+    width: 100px;
+    height: 100px;
+    border: 100px solid black; /* 大圆高度600，两个小圆各占300 */
+    border-radius: 50%;
+    background-color: white;
+    margin-left: -150px;
+  }
+ 
+  .taichi::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 100px;
+    border: 100px solid white;
+    border-radius: 50%;
+    background-color: black;
+    margin-left: -150px;
+  }
+
+  @keyframes rotate{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+  }
+</style>
+</head><body>
+  <div class="taichi"></div>
+</body></html>

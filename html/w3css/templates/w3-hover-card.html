@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-black w3-xxlarge" style="width:70px">
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a> 
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-globe"></i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash"></i></a> 
+</div>
+
+<div style="margin-left:70px">
+  <div class="w3-bar w3-light-grey w3-border">
+    <a href="#" class="w3-bar-item w3-button w3-green"><i class="fa fa-home"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-globe"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i></a>
+    <a href="#" class="w3-bar-item w3-button">Home</a>
+    <a href="#" class="w3-bar-item w3-button">Link 1</a>
+    <div class="w3-dropdown-hover">
+      <button class="w3-button">Dropdown</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="#" class="w3-bar-item w3-button">Item 1</a>
+        <a href="#" class="w3-bar-item w3-button">Item 2</a>
+        <a href="#" class="w3-bar-item w3-button">Item 3</a>
+      </div>
+    </div>
+    <div class="w3-dropdown-hover">
+      <button class="w3-button">Tokyo</button>
+      <div class="w3-dropdown-content w3-card-4" style="width:250px">
+        <img src="https://www.w3schools.com/w3css/img_tokyo.jpg" alt="Tokyo" style="width:100%">
+        <div class="w3-container">
+          <p>Tokyo is the capital city of Japan.</p>
+          <p>13 million inhabitants.</p>
+        </div>
+      </div>
+    </div>
+    <span class="w3-bar-item">Text</span>
+    <input type="text" class="w3-bar-item w3-input" placeholder="Search..">
+    <a href="#" class="w3-bar-item w3-button w3-green">Go</a>
+  </div>
+
+  <div class="w3-container">
+
+    <h2>Card Dropdowns</h2>
+    <p>Move the mouse over "London" or "Tokyo":</p>
+  
+    <div class="w3-dropdown-hover"><span class="w3-btn w3-green">London</span>
+      <div class="w3-dropdown-content w3-card-4" style="width:250px">
+        <img src="https://www.w3schools.com/w3css/img_london.jpg" alt="London" style="width:100%">
+        <div class="w3-container">
+          <p>London is the capital city of England.</p>
+          <p>It is the most populous city in the UK.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="w3-dropdown-hover"><span class="w3-btn w3-green">Tokyo</span>
+      <div class="w3-dropdown-content w3-card-4" style="width:250px">
+        <img src="https://www.w3schools.com/w3css/img_tokyo.jpg" alt="Tokyo" style="width:100%">
+        <div class="w3-container">
+          <p>Tokyo is the capital city of Japan.</p>
+          <p>13 million inhabitants.</p>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div class="w3-container">
+    <h2>Dynamic Progress Bar with Labels</h2>
+    <p>Label outside of the progress bar:</p>
+  
+    <div class="w3-light-grey">
+      <div id="myBar" class="w3-container w3-green" style="height:24px;width:0%">
+      </div>
+    </div>
+  
+    <p id="myP">Added <span id="demo">0</span> of 10 photos</p>
+  
+    <button class="w3-button w3-light-grey" onclick="move();this.disabled='true'">Upload Photos</button> 
+  </div>
+
+<div class="w3-row">
+  <div class="w3-col m2 w3-green w3-center"><p>m2</p></div>
+  <div class="w3-col m2 w3-red w3-center"><p>m2</p></div>
+  <div class="w3-col m2 w3-blue w3-center"><p>m2</p></div>
+  <div class="w3-col m2 w3-dark-grey w3-center"><p>m2</p></div>
+  <div class="w3-col m2 w3-black w3-center"><p>m2</p></div>
+  <div class="w3-col m2 w3-purple w3-center"><p>m2</p></div>
+</div> 
+  
+<div class="w3-container">
+  <h2>Animated Slides</h2>
+  <p>Slide or fade in an element from the top, bottom, left or right of the screen with the w3-animate-* classes.</p>
+</div>
+
+<div class="w3-content w3-section" style="max-width:500px">
+  <img class="mySlides w3-animate-top" src="https://www.w3schools.com/w3css/img_rr_01.jpg" style="width:100%">
+  <img class="mySlides w3-animate-bottom" src="https://www.w3schools.com/w3css/img_rr_02.jpg" style="width:100%">
+  <img class="mySlides w3-animate-left" src="https://www.w3schools.com/w3css/img_rr_03.jpg" style="width:100%">
+  <img class="mySlides w3-animate-right" src="https://www.w3schools.com/w3css/img_rr_04.jpg" style="width:100%">
+</div>
+
+  <div class="w3-container">
+    <h2>Tabbed Image Gallery</h2>
+    <p>Click on the images below:</p>
+  
+    <div class="w3-row-padding">
+      <div class="w3-col s3 w3-container">
+      <a href="javascript:void(0)" class="w3-hover-opacity" onclick="openImg('Nature');">
+        <img src="https://www.w3schools.com/w3css/img_nature.jpg" alt="Nature" style="width:100%">
+      </a>
+      </div>
+      <div class="w3-col s3 w3-container">
+        <a href="javascript:void(0)" class="w3-hover-opacity" onclick="openImg('Fjords');">
+          <img src="https://www.w3schools.com/w3css/img_fjords.jpg" alt="Fjords" style="width:100%">
+        </a>
+      </div>
+      <div class="w3-col s3 w3-container">
+        <a href="javascript:void(0)" class="w3-hover-opacity" onclick="openImg('Mountains');">
+          <img src="https://www.w3schools.com/w3css/img_mountains.jpg" alt="Mountains" style="width:100%">
+        </a>
+      </div>
+      <div class="w3-col s3 w3-container">
+        <a href="javascript:void(0)" class="w3-hover-opacity" onclick="openImg('Lights');">
+          <img src="https://www.w3schools.com/w3css/img_lights.jpg" alt="Lights" style="width:100%">
+        </a>
+      </div>
+    </div><br>
+  
+    <div id="Nature" class="picture w3-display-container" style="display:none">
+      <img src="https://www.w3schools.com/w3css/img_nature_wide.jpg" alt="Nature" style="width:100%">
+      <span onclick="this.parentElement.style.display='none'" 
+      class="w3-display-topright w3-button w3-transparent w3-text-white">&times;</span>
+      <div class="w3-display-bottomleft w3-container w3-padding w3-text-white">Nature</div>
+    </div>
+    
+    <div id="Fjords" class="picture w3-display-container" style="display:none">
+      <img src="https://www.w3schools.com/w3css/img_fjords_wide.jpg" alt="Fjords" style="width:100%">
+      <span onclick="this.parentElement.style.display='none'" 
+      class="w3-display-topright w3-button w3-transparent w3-text-white">&times;</span>
+      <div class="w3-display-bottomleft w3-container w3-padding w3-text-white">Fjords</div>
+    </div>
+    
+    <div id="Mountains" class="picture w3-display-container" style="display:none">
+      <img src="https://www.w3schools.com/w3css/img_mountains_wide.jpg" alt="Mountains" style="width:100%">
+      <span onclick="this.parentElement.style.display='none'" 
+      class="w3-display-topright w3-button w3-transparent">&times;</span>
+      <div class="w3-display-bottomleft w3-container w3-padding w3-text-white">Mountains</div>
+    </div>
+    
+    <div id="Lights" class="picture w3-display-container" style="display:none">
+      <img src="https://www.w3schools.com/w3css/img_lights_wide.jpg" alt="Lights" style="width:100%">
+      <span onclick="this.parentElement.style.display='none'" 
+      class="w3-display-topright w3-button w3-transparent w3-text-white">&times;</span>
+      <div class="w3-display-bottomleft w3-container w3-padding w3-text-white">Northern Lights</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function openImg(imgName) {
+  var i, x;
+  x = document.getElementsByClassName("picture");
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  document.getElementById(imgName).style.display = "block";
+}
+</script>
+
+<script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width = 0;
+  var id = setInterval(frame, 50);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+      document.getElementById("myP").className = "w3-text-green w3-animate-opacity";
+      document.getElementById("myP").innerHTML = "Successfully uploaded 10 photos!";
+    } else {
+      width++; 
+      elem.style.width = width + '%'; 
+      var num = width * 1 / 10;
+      num = num.toFixed(0)
+      document.getElementById("demo").innerHTML = num;
+    }
+  }
+}
+</script>
+
+<script>
+var slideIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none"; 
+    }
+    slideIndex++;
+    if (slideIndex > x.length) {slideIndex = 1} 
+    x[slideIndex-1].style.display = "block"; 
+    setTimeout(carousel, 2000); 
+}
+</script>
+
+</body>
+</html>

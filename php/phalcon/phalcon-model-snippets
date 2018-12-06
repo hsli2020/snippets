@@ -1,0 +1,55 @@
+// Both find() and findFirst() methods accept an associative array
+// specifying the search criteria:
+
+$robot = Robots::findFirst("type = 'mechanical'");
+
+$robots = Robots::find(
+    array(
+        "conditions" => "name LIKE 'steve%'",
+        "columns" => "id, name",
+        "bind" => array("status" => "A", "type" => "some-time"),
+        "bindTypes" => array(Column::BIND_PARAM_STR, Column::BIND_PARAM_INT),
+        "order" => "name DESC, status",
+        "type = 'virtual'",
+        "order" => "name",
+        "offset" => 5,
+        "limit" => 100,
+        "group" => "name, status",
+
+        "for_update" => true,
+        "shared_lock" => true,
+        "cache" => array("lifetime" => 3600, "key" => "my-find-key"),
+        "hydration" => Resultset::HYDRATE_OBJECTS
+    )
+);
+
+// While findFirst() returns directly an instance of the called class (when there is
+// data to be returned), the find() method returns a Phalcon\Mvc\Model\Resultset\Simple.
+//
+// THIS MEANS beforeSave/afterSave/afterFetch never get called in find()
+//
+// This is an object that encapsulates all the functionality a resultset has like traversing,
+// seeking specific records, counting, etc.
+
+// These objects are more powerful than standard arrays. One of the greatest features of the
+// Phalcon\Mvc\Model\Resultset is that at any time there is only one record in memory. This
+// greatly helps in memory management especially when working with large amounts of data.
+
+$robots->setHydrateMode(Resultset::HYDRATE_ARRAYS);  // array
+$robots->setHydrateMode(Resultset::HYDRATE_OBJECTS); // stdClass
+$robots->setHydrateMode(Resultset::HYDRATE_RECORDS); // Robots instance
+
+foreach ($robots as $robot) {
+   echo $robot->name, "\n";
+}
+
+// If you prefer, there is also available a way to create queries in an
+// object-oriented way, instead of using an array of parameters:
+
+$robots = Robots::query()
+    ->where("type = :type:")
+    ->andWhere("year < 2000")
+    ->bind(array("type" => "mechanical"))
+    ->order("name")
+    ->execute();
+

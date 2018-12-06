@@ -1,0 +1,86 @@
+.container {
+    display: flex; /* or inline-flex */
+
+    flex-direction: row | row-reverse | column | column-reverse;
+    /*
+      - row (default): left to right in ltr; right to left in rtl
+      - row-reverse: right to left in ltr; left to right in rtl
+      - column: same as row but top to bottom
+      - column-reverse: same as row-reverse but bottom to top
+    */
+
+    flex-wrap: nowrap | wrap | wrap-reverse;
+    /*
+      - nowrap (default): single-line / left to right in ltr; right to left in rtl
+      - wrap: multi-line / left to right in ltr; right to left in rtl
+      - wrap-reverse: multi-line / right to left in ltr; left to right in rtl
+    */
+
+    flex-flow: <'flex-direction'> || <'flex-wrap'>  /* Default is row nowrap */
+
+    justify-content: flex-start | flex-end | center | space-between | space-around;
+    /*
+      - flex-start (default): items are packed toward the start line
+      - flex-end: items are packed toward to end line
+      - center: items are centered along the line
+      - space-between: items are evenly distributed in the line; first item is on the 
+          start line, last item on the end line
+      - space-around: items are evenly distributed in the line with equal space around
+          them. Note that visually the spaces aren't equal, since all the items have
+          equal space on both sides. The first item will have one unit of space against
+          the container edge, but two units of space between the next item because
+          that next item has it's own spacing that applies.
+    */
+
+    align-items: flex-start | flex-end | center | baseline | stretch;
+    /*
+      - flex-start: cross-start margin edge of the items is placed on the cross-start line
+      - flex-end: cross-end margin edge of the items is placed on the cross-end line
+      - center: items are centered in the cross-axis
+      - baseline: items are aligned such as their baselines align
+      - stretch (default): stretch to fill the container (still respect min-width/max-width)
+    */
+
+    align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+    /*
+      - flex-start: lines packed to the start of the container
+      - flex-end: lines packed to the end of the container
+      - center: lines packed to the center of the container
+      - space-between: lines evenly distributed; the first line is at the start of the 
+          container while the last one is at the end
+      - space-around: lines evenly distributed with equal space around each line
+      - stretch (default): lines stretch to take up the remaining space
+    */
+}
+
+.item {
+    order: <integer>;
+    flex-grow: <number>; /* default 0 */
+    flex-shrink: <number>; /* default 1 */
+    flex-basis: <length> | auto; /* default auto */
+    flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] /* Default is 0 1 auto */
+    align-self: auto | flex-start | flex-end | center | baseline | stretch;
+}
+
+* Note that float, clear and vertical-align have no effect on a flex item. 
+* Note that CSS columns have no effect on a flex container. 
+
+Examples
+========
+
+perfect centering
+-----------------
+
+.parent {
+  display: flex;
+  height: 300px; /* Or whatever */
+}
+
+.child {
+  width: 100px;  /* Or whatever */
+  height: 100px; /* Or whatever */
+  margin: auto;  /* Magic! */
+}
+
+This relies on the fact a margin set to `auto` in a flex container absorb extra space. 
+So setting a vertical margin of auto will make the item perfectly centered in both axis.

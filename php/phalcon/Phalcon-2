@@ -1,0 +1,57 @@
+public $dispatcher;			\Phalcon\Mvc\Dispatcher | \Phalcon\Mvc\DispatcherInterface
+public $router;				\Phalcon\Mvc\Router | \Phalcon\Mvc\RouterInterface
+public $url;				\Phalcon\Mvc\Url | \Phalcon\Mvc\UrlInterface
+public $request;			\Phalcon\Http\Request | \Phalcon\HTTP\RequestInterface
+public $response;			\Phalcon\Http\Response | \Phalcon\HTTP\ResponseInterface
+public $cookies;			\Phalcon\Http\Response\Cookies | 
+                            \Phalcon\Http\Response\CookiesInterface
+public $filter;				\Phalcon\Filter | \Phalcon\FilterInterface
+public $flash;				\Phalcon\Flash\Direct
+public $flashSession;		\Phalcon\Flash\Session
+public $session;			\Phalcon\Session\AdapterInterface |
+							\Phalcon\Session\Adapter |
+							\Phalcon\Session\Adapter\Files
+public $eventsManager;		\Phalcon\Events\Manager
+public $db;					\Phalcon\Db
+public $security;			\Phalcon\Security
+public $crypt;				\Phalcon\Crypt
+public $tag;				\Phalcon\Tag
+public $escaper;			\Phalcon\Escaper | \Phalcon\EscaperInterface
+public $annotations;		\Phalcon\Annotations\Adapter\Memory | 
+                            \Phalcon\Annotations\Adapter
+public $modelsManager;		\Phalcon\Mvc\Model\Manager | 
+                            \Phalcon\Mvc\Model\ManagerInterface
+public $modelsMetadata;		\Phalcon\Mvc\Model\MetaData\Memory | 
+                            \Phalcon\Mvc\Model\MetadataInterface
+public $transactionManager; \Phalcon\Mvc\Model\Transaction\Manager
+public $assets;				\Phalcon\Assets\Manager
+public $di;					\Phalcon\DI|\Phalcon\DiInterface
+public $persistent;
+public $view;				\Phalcon\Mvc\View|\Phalcon\Mvc\ViewInterface
+
+
+Phalcon\Models
+    Phalcon\Models::beforeValidation()
+    Phalcon\Models::beforeValidationOnCreate()
+    Phalcon\Models::beforeValidationOnUpdate()
+
+    Phalcon\Models::onValidationFails()
+
+    Phalcon\Models::afterValidationOnCreate()
+    Phalcon\Models::afterValidationOnUpdate()
+    Phalcon\Models::afterValidation()
+
+    Phalcon\Models::beforeSave()
+    Phalcon\Models::afterSave()
+
+    Phalcon\Models::beforeUpdate()
+    Phalcon\Models::afterUpdate()
+
+    Phalcon\Models::beforeCreate()
+    Phalcon\Models::afterCreate()
+
+    Phalcon\Models::beforeDelete()
+    Phalcon\Models::afterDelete()
+
+Phalcon\Mvc\Controller
+    Phalcon\Mvc\Controller::beforeExecuteRoute($dispatcher)

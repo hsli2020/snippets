@@ -1,0 +1,108 @@
+<?php
+
+Injecting Services
+==================
+
+If a controller extends Phalcon\Mvc\Controller then it has easy access to the service
+container in application. For example, if we have registered a service like this:
+
+use Phalcon\Di;
+
+$di = new Di();
+
+$di->set('storage', function () {
+    return new Storage('/some/directory');
+}, true);
+
+Then, we can access to that service in several ways:
+
+use Phalcon\Mvc\Controller;
+
+class FilesController extends Controller
+{
+    public function saveAction()
+    {
+        // Injecting the service by just accessing the property with the same name
+        $this->storage->save('/some/file');
+
+        // Accessing the service from the DI
+        $this->di->get('storage')->save('/some/file');
+
+        // Another way to access the service using the magic getter
+        $this->di->getStorage()->save('/some/file');
+
+        // Another way to access the service using the magic getter
+        $this->getDi()->getStorage()->save('/some/file');
+
+        // Using the array-syntax
+        $this->di['storage']->save('/some/file');
+    }
+}
+
+Service Name Conventions
+========================
+
+Although you can register services with the names you want, Phalcon has a several naming
+conventions that allow it to get the the correct (built-in) service when you need it.
+
+Service Name 	Description 	                        Default 	                         Shared
+============    ===========                             =======                              ======
+dispatcher 	    Controllers Dispatching Service 	    Phalcon\Mvc\Dispatcher 	                Yes
+router 	        Routing Service 	                    Phalcon\Mvc\Router 	                    Yes
+url 	        URL Generator Service 	                Phalcon\Mvc\Url 	                    Yes
+request 	    HTTP Request Environment Service 	    Phalcon\Http\Request 	                Yes
+response 	    HTTP Response Environment Service 	    Phalcon\Http\Response 	                Yes
+cookies 	    HTTP Cookies Management Service 	    Phalcon\Http\Response\Cookies 	        Yes
+filter 	        Input Filtering Service 	            Phalcon\Filter 	                        Yes
+flash 	        Flash Messaging Service 	            Phalcon\Flash\Direct 	                Yes
+flashSession 	Flash Session Messaging Service 	    Phalcon\Flash\Session 	                Yes
+session 	    Session Service 	                    Phalcon\Session\Adapter\Files 	        Yes
+eventsManager 	Events Management Service 	            Phalcon\Events\Manager 	                Yes
+db 	            Low-Level Database Connection Service 	Phalcon\Db 	                            Yes
+security 	    Security helpers 	                    Phalcon\Security 	                    Yes
+crypt 	        Encrypt/Decrypt data 	                Phalcon\Crypt 	                        Yes
+tag 	        HTML generation helpers 	            Phalcon\Tag 	                        Yes
+escaper 	    Contextual Escaping 	                Phalcon\Escaper 	                    Yes
+annotations 	Annotations Parser 	                    Phalcon\Annotations\Adapter\Memory 	    Yes
+modelsManager 	Models Management Service 	            Phalcon\Mvc\Model\Manager 	            Yes
+modelsMetadata 	Models Meta-Data Service 	            Phalcon\Mvc\Model\MetaData\Memory 	    Yes
+transactionManager 	Models Transaction Manager Service 	Phalcon\Mvc\Model\Transaction\Manager 	Yes
+modelsCache 	Cache backend for models cache 	        None 	                                No
+viewsCache 	    Cache backend for views fragments 	    None 	                                No
+
+
+Events in Controllers
+=====================
+
+Controllers automatically act as listeners for dispatcher events, implementing methods with
+those event names allow you to implement hook points before/after the actions are executed:
+
+use Phalcon\Mvc\Controller;
+
+class PostsController extends Controller
+{
+    public function beforeExecuteRoute($dispatcher)
+    {
+        // This is executed before every found action
+        if ($dispatcher->getActionName() == 'save') {
+
+            $this->flash->error("You don't have permission to save posts");
+
+            $this->dispatcher->forward(
+                array(
+                    'controller' => 'home',
+                    'action'     => 'index'
+                )
+            );
+
+            return false;
+        }
+    }
+
+    public function afterExecuteRoute($dispatcher)
+    {
+        // Executed after every found action
+    }
+}
+
+

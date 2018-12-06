@@ -1,0 +1,61 @@
+PSR-0: Autoloading Standard
+===========================
+
+Deprecated - As of 2014-10-21 PSR-0 has been marked as deprecated.
+PSR-4 is now recommended as an alternative.
+
+A fully-qualified namespace and class must have the following structure
+    \<Vendor Name>\(<Namespace>\)*<Class Name>
+
+Each _ character in the CLASS NAME is converted to a DIRECTORY_SEPARATOR.
+The _ character has no special meaning in the namespace.
+
+Examples
+                               \Doctrine\Common\IsolatedClassLoader =>
+    /path/to/project/lib/vendor/Doctrine/Common/IsolatedClassLoader.php
+
+                               \Symfony\Core\Request =>
+    /path/to/project/lib/vendor/Symfony/Core/Request.php
+
+                               \Zend\Acl =>
+    /path/to/project/lib/vendor/Zend/Acl.php
+
+                               \Zend\Mail\Message =>
+    /path/to/project/lib/vendor/Zend/Mail/Message.php
+
+Underscores in Namespaces and Class Names
+
+                               \namespace\package\Class_Name =>
+    /path/to/project/lib/vendor/namespace/package/Class/Name.php
+
+                               \namespace\package_name\Class_Name =>
+    /path/to/project/lib/vendor/namespace/package_name/Class/Name.php
+
+PSR-4: Autoloader
+=================
+
+A fully qualified class name has the following form:
+    \<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>
+
+Examples: The table below shows the corresponding file path for a given fully
+qualified class name, namespace prefix, and base directory.
+
+Fully Qualified Class Name:	    \Acme\Log\Writer\File_Writer
+Namespace Prefix:	             Acme\Log\Writer
+Base Directory:	                ./acme-log-writer/lib/
+Resulting File Path:            ./acme-log-writer/lib/File_Writer.php
+
+Fully Qualified Class Name:	    \Aura\Web\Response\Status
+Namespace Prefix:	             Aura\Web
+Base Directory:	                /path/to/aura-web/src/
+Resulting File Path:            /path/to/aura-web/src/Response/Status.php
+
+Fully Qualified Class Name:	    \Symfony\Core\Request
+Namespace Prefix:	             Symfony\Core
+Base Directory:	                ./vendor/Symfony/Core/
+Resulting File Path:            ./vendor/Symfony/Core/Request.php
+
+Fully Qualified Class Name:	    \Zend\Acl
+Namespace Prefix:	             Zend
+Base Directory:	                /usr/includes/Zend/
+Resulting File Path:            /usr/includes/Zend/Acl.php

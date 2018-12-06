@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Boxes That Fill Height (or more)</title>
+  <style>
+    .fill-height-or-more {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .fill-height-or-more > div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .some-area > div {
+      padding: 1rem;
+    }
+    .some-area > div:nth-child(1) {
+      background: #88cc66;
+    }
+    .some-area > div:nth-child(2) {
+      background: #79b5d2;
+    }
+    .some-area > div:nth-child(3) {
+      background: #8cbfd9;
+    }
+    .some-area > div:nth-child(4) {
+      background: #9fcadf;
+    }
+    .some-area > div:nth-child(5) {
+      background: #b3d5e6;
+    }
+    .some-area > div h1, .some-area > div h2 {
+      margin: 0 0 0.2rem 0;
+    }
+    .some-area > div p {
+      margin: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="some-area fill-height-or-more">
+  <div>
+      <h1>Boxes That Fill Height (or more)</h1>
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+  </div>
+  <div>
+      <h2>Two</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ut.</p>
+  </div>
+  <div>
+      <h2>Three</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ut.</p>
+  </div>
+  <div>
+      <h2>Four</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ut.</p>
+  </div>
+  <div>
+      <h2>Five</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ut.</p>
+  </div>
+</section>
+  
+</body>
+</html>

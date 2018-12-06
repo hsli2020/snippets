@@ -1,0 +1,276 @@
+echo cmd/cgo 
+/cygdrive/c/Tools/Go/bin/godoc cmd/cgo | grep ^func
+echo cmd/fix 
+/cygdrive/c/Tools/Go/bin/godoc cmd/fix | grep ^func
+echo cmd/go 
+/cygdrive/c/Tools/Go/bin/godoc cmd/go | grep ^func
+echo cmd/gofmt 
+/cygdrive/c/Tools/Go/bin/godoc cmd/gofmt | grep ^func
+echo cmd/yacc 
+/cygdrive/c/Tools/Go/bin/godoc cmd/yacc | grep ^func
+echo archive/tar 
+/cygdrive/c/Tools/Go/bin/godoc archive/tar | grep ^func
+echo archive/zip 
+/cygdrive/c/Tools/Go/bin/godoc archive/zip | grep ^func
+echo bufio 
+/cygdrive/c/Tools/Go/bin/godoc bufio | grep ^func
+echo bytes 
+/cygdrive/c/Tools/Go/bin/godoc bytes | grep ^func
+echo compress/bzip2 
+/cygdrive/c/Tools/Go/bin/godoc compress/bzip2 | grep ^func
+echo compress/flate 
+/cygdrive/c/Tools/Go/bin/godoc compress/flate | grep ^func
+echo compress/gzip 
+/cygdrive/c/Tools/Go/bin/godoc compress/gzip | grep ^func
+echo compress/lzw 
+/cygdrive/c/Tools/Go/bin/godoc compress/lzw | grep ^func
+echo compress/zlib 
+/cygdrive/c/Tools/Go/bin/godoc compress/zlib | grep ^func
+echo container/heap 
+/cygdrive/c/Tools/Go/bin/godoc container/heap | grep ^func
+echo container/list 
+/cygdrive/c/Tools/Go/bin/godoc container/list | grep ^func
+echo container/ring 
+/cygdrive/c/Tools/Go/bin/godoc container/ring | grep ^func
+echo crypto 
+/cygdrive/c/Tools/Go/bin/godoc crypto | grep ^func
+echo crypto/aes 
+/cygdrive/c/Tools/Go/bin/godoc crypto/aes | grep ^func
+echo crypto/cipher 
+/cygdrive/c/Tools/Go/bin/godoc crypto/cipher | grep ^func
+echo crypto/des 
+/cygdrive/c/Tools/Go/bin/godoc crypto/des | grep ^func
+echo crypto/dsa 
+/cygdrive/c/Tools/Go/bin/godoc crypto/dsa | grep ^func
+echo crypto/ecdsa 
+/cygdrive/c/Tools/Go/bin/godoc crypto/ecdsa | grep ^func
+echo crypto/elliptic 
+/cygdrive/c/Tools/Go/bin/godoc crypto/elliptic | grep ^func
+echo crypto/hmac 
+/cygdrive/c/Tools/Go/bin/godoc crypto/hmac | grep ^func
+echo crypto/md5 
+/cygdrive/c/Tools/Go/bin/godoc crypto/md5 | grep ^func
+echo crypto/rand 
+/cygdrive/c/Tools/Go/bin/godoc crypto/rand | grep ^func
+echo crypto/rc4 
+/cygdrive/c/Tools/Go/bin/godoc crypto/rc4 | grep ^func
+echo crypto/rsa 
+/cygdrive/c/Tools/Go/bin/godoc crypto/rsa | grep ^func
+echo crypto/sha1 
+/cygdrive/c/Tools/Go/bin/godoc crypto/sha1 | grep ^func
+echo crypto/sha256 
+/cygdrive/c/Tools/Go/bin/godoc crypto/sha256 | grep ^func
+echo crypto/sha512 
+/cygdrive/c/Tools/Go/bin/godoc crypto/sha512 | grep ^func
+echo crypto/subtle 
+/cygdrive/c/Tools/Go/bin/godoc crypto/subtle | grep ^func
+echo crypto/tls 
+/cygdrive/c/Tools/Go/bin/godoc crypto/tls | grep ^func
+echo crypto/x509 
+/cygdrive/c/Tools/Go/bin/godoc crypto/x509 | grep ^func
+echo crypto/x509/pkix 
+/cygdrive/c/Tools/Go/bin/godoc crypto/x509/pkix | grep ^func
+echo database/sql 
+/cygdrive/c/Tools/Go/bin/godoc database/sql | grep ^func
+echo database/sql/driver 
+/cygdrive/c/Tools/Go/bin/godoc database/sql/driver | grep ^func
+echo debug/dwarf 
+/cygdrive/c/Tools/Go/bin/godoc debug/dwarf | grep ^func
+echo debug/elf 
+/cygdrive/c/Tools/Go/bin/godoc debug/elf | grep ^func
+echo debug/gosym 
+/cygdrive/c/Tools/Go/bin/godoc debug/gosym | grep ^func
+echo debug/macho 
+/cygdrive/c/Tools/Go/bin/godoc debug/macho | grep ^func
+echo debug/pe 
+/cygdrive/c/Tools/Go/bin/godoc debug/pe | grep ^func
+echo encoding 
+/cygdrive/c/Tools/Go/bin/godoc encoding | grep ^func
+echo encoding/ascii85 
+/cygdrive/c/Tools/Go/bin/godoc encoding/ascii85 | grep ^func
+echo encoding/asn1 
+/cygdrive/c/Tools/Go/bin/godoc encoding/asn1 | grep ^func
+echo encoding/base32 
+/cygdrive/c/Tools/Go/bin/godoc encoding/base32 | grep ^func
+echo encoding/base64 
+/cygdrive/c/Tools/Go/bin/godoc encoding/base64 | grep ^func
+echo encoding/binary 
+/cygdrive/c/Tools/Go/bin/godoc encoding/binary | grep ^func
+echo encoding/csv 
+/cygdrive/c/Tools/Go/bin/godoc encoding/csv | grep ^func
+echo encoding/gob 
+/cygdrive/c/Tools/Go/bin/godoc encoding/gob | grep ^func
+echo encoding/hex 
+/cygdrive/c/Tools/Go/bin/godoc encoding/hex | grep ^func
+echo encoding/json 
+/cygdrive/c/Tools/Go/bin/godoc encoding/json | grep ^func
+echo encoding/pem 
+/cygdrive/c/Tools/Go/bin/godoc encoding/pem | grep ^func
+echo encoding/xml 
+/cygdrive/c/Tools/Go/bin/godoc encoding/xml | grep ^func
+echo errors 
+/cygdrive/c/Tools/Go/bin/godoc errors | grep ^func
+echo expvar 
+/cygdrive/c/Tools/Go/bin/godoc expvar | grep ^func
+echo flag 
+/cygdrive/c/Tools/Go/bin/godoc flag | grep ^func
+echo fmt 
+/cygdrive/c/Tools/Go/bin/godoc fmt | grep ^func
+echo go/ast 
+/cygdrive/c/Tools/Go/bin/godoc go/ast | grep ^func
+echo go/build 
+/cygdrive/c/Tools/Go/bin/godoc go/build | grep ^func
+echo go/doc 
+/cygdrive/c/Tools/Go/bin/godoc go/doc | grep ^func
+echo go/format 
+/cygdrive/c/Tools/Go/bin/godoc go/format | grep ^func
+echo go/parser 
+/cygdrive/c/Tools/Go/bin/godoc go/parser | grep ^func
+echo go/printer 
+/cygdrive/c/Tools/Go/bin/godoc go/printer | grep ^func
+echo go/scanner 
+/cygdrive/c/Tools/Go/bin/godoc go/scanner | grep ^func
+echo go/token 
+/cygdrive/c/Tools/Go/bin/godoc go/token | grep ^func
+echo hash 
+/cygdrive/c/Tools/Go/bin/godoc hash | grep ^func
+echo hash/adler32 
+/cygdrive/c/Tools/Go/bin/godoc hash/adler32 | grep ^func
+echo hash/crc32 
+/cygdrive/c/Tools/Go/bin/godoc hash/crc32 | grep ^func
+echo hash/crc64 
+/cygdrive/c/Tools/Go/bin/godoc hash/crc64 | grep ^func
+echo hash/fnv 
+/cygdrive/c/Tools/Go/bin/godoc hash/fnv | grep ^func
+echo html 
+/cygdrive/c/Tools/Go/bin/godoc html | grep ^func
+echo html/template 
+/cygdrive/c/Tools/Go/bin/godoc html/template | grep ^func
+echo image 
+/cygdrive/c/Tools/Go/bin/godoc image | grep ^func
+echo image/color 
+/cygdrive/c/Tools/Go/bin/godoc image/color | grep ^func
+echo image/color/palette 
+/cygdrive/c/Tools/Go/bin/godoc image/color/palette | grep ^func
+echo image/draw 
+/cygdrive/c/Tools/Go/bin/godoc image/draw | grep ^func
+echo image/gif 
+/cygdrive/c/Tools/Go/bin/godoc image/gif | grep ^func
+echo image/jpeg 
+/cygdrive/c/Tools/Go/bin/godoc image/jpeg | grep ^func
+echo image/png 
+/cygdrive/c/Tools/Go/bin/godoc image/png | grep ^func
+echo index/suffixarray 
+/cygdrive/c/Tools/Go/bin/godoc index/suffixarray | grep ^func
+echo io 
+/cygdrive/c/Tools/Go/bin/godoc io | grep ^func
+echo io/ioutil 
+/cygdrive/c/Tools/Go/bin/godoc io/ioutil | grep ^func
+echo log 
+/cygdrive/c/Tools/Go/bin/godoc log | grep ^func
+echo log/syslog 
+/cygdrive/c/Tools/Go/bin/godoc log/syslog | grep ^func
+echo math 
+/cygdrive/c/Tools/Go/bin/godoc math | grep ^func
+echo math/big 
+/cygdrive/c/Tools/Go/bin/godoc math/big | grep ^func
+echo math/cmplx 
+/cygdrive/c/Tools/Go/bin/godoc math/cmplx | grep ^func
+echo math/rand 
+/cygdrive/c/Tools/Go/bin/godoc math/rand | grep ^func
+echo mime 
+/cygdrive/c/Tools/Go/bin/godoc mime | grep ^func
+echo mime/multipart 
+/cygdrive/c/Tools/Go/bin/godoc mime/multipart | grep ^func
+echo net 
+/cygdrive/c/Tools/Go/bin/godoc net | grep ^func
+echo net/http 
+/cygdrive/c/Tools/Go/bin/godoc net/http | grep ^func
+echo net/http/cgi 
+/cygdrive/c/Tools/Go/bin/godoc net/http/cgi | grep ^func
+echo net/http/cookiejar 
+/cygdrive/c/Tools/Go/bin/godoc net/http/cookiejar | grep ^func
+echo net/http/fcgi 
+/cygdrive/c/Tools/Go/bin/godoc net/http/fcgi | grep ^func
+echo net/http/httptest 
+/cygdrive/c/Tools/Go/bin/godoc net/http/httptest | grep ^func
+echo net/http/httputil 
+/cygdrive/c/Tools/Go/bin/godoc net/http/httputil | grep ^func
+echo net/http/pprof 
+/cygdrive/c/Tools/Go/bin/godoc net/http/pprof | grep ^func
+echo net/mail 
+/cygdrive/c/Tools/Go/bin/godoc net/mail | grep ^func
+echo net/rpc 
+/cygdrive/c/Tools/Go/bin/godoc net/rpc | grep ^func
+echo net/rpc/jsonrpc 
+/cygdrive/c/Tools/Go/bin/godoc net/rpc/jsonrpc | grep ^func
+echo net/smtp 
+/cygdrive/c/Tools/Go/bin/godoc net/smtp | grep ^func
+echo net/textproto 
+/cygdrive/c/Tools/Go/bin/godoc net/textproto | grep ^func
+echo net/url 
+/cygdrive/c/Tools/Go/bin/godoc net/url | grep ^func
+echo os 
+/cygdrive/c/Tools/Go/bin/godoc os | grep ^func
+echo os/exec 
+/cygdrive/c/Tools/Go/bin/godoc os/exec | grep ^func
+echo os/signal 
+/cygdrive/c/Tools/Go/bin/godoc os/signal | grep ^func
+echo os/user 
+/cygdrive/c/Tools/Go/bin/godoc os/user | grep ^func
+echo path 
+/cygdrive/c/Tools/Go/bin/godoc path | grep ^func
+echo path/filepath 
+/cygdrive/c/Tools/Go/bin/godoc path/filepath | grep ^func
+echo reflect 
+/cygdrive/c/Tools/Go/bin/godoc reflect | grep ^func
+echo regexp 
+/cygdrive/c/Tools/Go/bin/godoc regexp | grep ^func
+echo regexp/syntax 
+/cygdrive/c/Tools/Go/bin/godoc regexp/syntax | grep ^func
+echo runtime 
+/cygdrive/c/Tools/Go/bin/godoc runtime | grep ^func
+echo runtime/cgo 
+/cygdrive/c/Tools/Go/bin/godoc runtime/cgo | grep ^func
+echo runtime/debug 
+/cygdrive/c/Tools/Go/bin/godoc runtime/debug | grep ^func
+echo runtime/pprof 
+/cygdrive/c/Tools/Go/bin/godoc runtime/pprof | grep ^func
+echo runtime/race 
+/cygdrive/c/Tools/Go/bin/godoc runtime/race | grep ^func
+echo sort 
+/cygdrive/c/Tools/Go/bin/godoc sort | grep ^func
+echo strconv 
+/cygdrive/c/Tools/Go/bin/godoc strconv | grep ^func
+echo strings 
+/cygdrive/c/Tools/Go/bin/godoc strings | grep ^func
+echo sync 
+/cygdrive/c/Tools/Go/bin/godoc sync | grep ^func
+echo sync/atomic 
+/cygdrive/c/Tools/Go/bin/godoc sync/atomic | grep ^func
+echo syscall 
+/cygdrive/c/Tools/Go/bin/godoc syscall | grep ^func
+echo testing 
+/cygdrive/c/Tools/Go/bin/godoc testing | grep ^func
+echo testing/iotest 
+/cygdrive/c/Tools/Go/bin/godoc testing/iotest | grep ^func
+echo testing/quick 
+/cygdrive/c/Tools/Go/bin/godoc testing/quick | grep ^func
+echo text/scanner 
+/cygdrive/c/Tools/Go/bin/godoc text/scanner | grep ^func
+echo text/tabwriter 
+/cygdrive/c/Tools/Go/bin/godoc text/tabwriter | grep ^func
+echo text/template 
+/cygdrive/c/Tools/Go/bin/godoc text/template | grep ^func
+echo text/template/parse 
+/cygdrive/c/Tools/Go/bin/godoc text/template/parse | grep ^func
+echo time 
+/cygdrive/c/Tools/Go/bin/godoc time | grep ^func
+echo unicode 
+/cygdrive/c/Tools/Go/bin/godoc unicode | grep ^func
+echo unicode/utf16 
+/cygdrive/c/Tools/Go/bin/godoc unicode/utf16 | grep ^func
+echo unicode/utf8 
+/cygdrive/c/Tools/Go/bin/godoc unicode/utf8 | grep ^func
+echo unsafe 
+/cygdrive/c/Tools/Go/bin/godoc unsafe | grep ^func

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    section {
+      display: grid;
+      align-items: stretch;
+      height: 300px;
+      grid-template-rows: min-content auto 60px;
+    }
+    header {
+      background: tomato;
+    }
+    div {
+      background: gold;
+      overflow: auto;
+    }
+    footer {
+      background: lightgreen;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <header>
+      header: sized to content
+      <br>(but is it really?)
+    </header>
+    <div>
+      main content: fills remaining space<br>
+      x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+      
+      x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+      x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+      x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+      x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>x<br>
+      
+    </div>
+    <footer>
+      footer: fixed height in px
+    </footer>
+  </section>
+</body>
+</html>

@@ -1,0 +1,160 @@
+#PS1="\W \$ "
+#PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
+PS1="\[\033[01;32m\]\w\n\$\[\033[00m\] "
+
+#set -o vi
+
+export EDITOR=vi
+
+USB=/Volumes/KINGSTON
+
+# aliases
+alias  l="ls -lG"
+alias ls="ls -G"
+alias ll="ls -lG"
+alias la="ls -alG"
+alias du="du -csh"
+#lias dir="ls -lG | grep ^d"
+alias cls="clear"
+alias zdel="find . -maxdepth 1 -type f -size 0 | xargs rm"
+alias dir='find . -type d -name ".git" -prune -o -type d -print'
+alias xd="xxd -g1 -l320"
+alias mvi="mvim -v"
+alias homestead="ssh vagrant@127.0.0.1 -p 2222"
+alias hobo7="VBoxManage startvm --type headless hobo7"
+alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc"
+#lias mysql="/usr/local/mysql/bin/mysql"
+alias ptags="ctags -R --exclude=@.ctagsignore --languages=php --tag-relative=yes --PHP-kinds=cfi"
+alias g="git"
+alias pull="git pull --rebase"
+alias push="git push"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias apache="sudo apachectl"
+alias dex2jar="~/bin/dex2jar/d2j-dex2jar.sh"
+
+# navigate
+alias prj="cd ~/Projects"
+alias doc="cd ~/Documents"
+alias dl="cd ~/Downloads"
+alias tmp="cd ~/tmp"
+alias usb="cd $USB"
+alias repo="cd ~/Repository"
+alias am="cd ~/Projects/avid/ashley"
+alias dev="cd ~/dev"
+alias snipp="cd ~/Snippets"
+
+# quick open files
+alias vimrc="vi ~/.vimrc"
+alias bashrc="vi ~/.bash_profile"
+alias kb="vi ~/Files/kbase"
+alias kw="vi ~/Files/keywords"
+alias todo="vi ~/Files/todo"
+alias tips="vi ~/Files/tips"
+alias hosts="sudo vi /etc/hosts"
+
+[[ $- == *i* ]]      && . ~/bin/git-prompt.sh
+[[ -f ~/.fzf.bash ]] && . ~/.fzf.bash
+
+Black="\[\033[0;30m\]"
+Red="\[\033[0;31m\]"
+Green="\[\033[0;32m\]"
+Yellow="\[\033[0;33m\]"
+Blue="\[\033[0;34m\]"
+Purple="\[\033[0;35m\]"
+Cyan="\[\033[0;36m\]"
+White="\[\033[0;37m\]"
+
+# if [ -f /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash ]; then
+#     . /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+# fi
+
+function _git_prompt() {
+  local ansi="$White"
+  local status="`git status -unormal 2>&1`"
+  if ! echo "$status" | grep -E 'Not a git repo' > /dev/null;
+  then
+    if echo "$status" | grep -E 'nothing to commit' > /dev/null;
+    then
+      local ansi=$Yellow
+    elif echo "$status" | grep -E 'Changes to be committed' > /dev/null; 
+    then
+      local ansi=$Green
+    elif echo "$status" | grep -E 'nothing added to commit but untracked files present' > /dev/null; 
+    then
+      local ansi=$Cyan
+    else
+      local ansi=$Red
+    fi
+  fi
+  echo -n "$Yellow\w $ansi"'$(__git_ps1 "(%s)")'"\033[0m\n\$ "
+}
+
+function _prompt_command() {
+  PS1="`_git_prompt`"
+}
+PROMPT_COMMAND=_prompt_command
+
+function f {
+  if test -z "$1"
+  then
+    find . -type f -o -type d \( -name .git \) -prune
+    return
+  fi 
+
+  find . -type f -o -type d \( -name .git \) -prune | grep $@
+  #| tee /dev/tty | pbcopy
+}
+
+function ff {
+  if test -z "$1"
+  then
+    find . -type f -not -name "*.gif"\
+                   -not -name "*.jpg"\
+                   -not -name "*.jpeg"\
+                   -not -name "*.png"\
+        -o -type d \( -name .git \)\
+        -o -type d \( -name vendor \) -prune | vi -
+    return
+  fi 
+
+  find . -type f -not -name "*.gif"\
+                 -not -name "*.jpg"\
+                 -not -name "*.jpeg"\
+                 -not -name "*.png"\
+      -o -type d \( -name .git \) -prune | grep $@ | vi -
+}
+
+function google {
+  open "https://google.com/search?q=$*"
+}
+
+# Create a new directory and enter it
+function mkd() {
+  mkdir -p "$@" && cd "$@"
+}
+
+function closure {
+  java -jar ~/bin/compiler.jar --js_output_file=$2 $1
+}
+
+PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
+export PATH
+
+#not so good
+#export LSCOLORS=ExFxCxDxBxegedabagacad
+
+#nice
+#export LSCOLORS=dxfxcxdxbxegedabagacad
+
+#nice
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export DOCKER_HOST=tcp://localhost:4243
+export ANDROID_HOME=/Users/hsli/Library/Android/sdk
+export ANT_HOME=/Users/hsli/bin/ant
+export GOPATH=/Users/hsli/Code/GoHub
+export GOROOT=/usr/local/go
+
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/git/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANT_HOME/bin

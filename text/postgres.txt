@@ -1,0 +1,274 @@
+﻿c:\PostgreSQL\9.5\bin>psql --help
+psql是PostgreSQL 的交互式客户端工具。
+使用方法:
+  psql [选项]... [数据库名称 [用户名称]]
+通用选项:
+  -c, --command=命令       执行单一命令(SQL或内部指令)然后结束
+  -d, --dbname=数据库名称  指定要连接的数据库 (默认："Admin")
+  -f, --file=文件名        从文件中执行命令然后退出
+  -l, --list               列出所有可用的数据库,然后退出
+  -v, --set=, --variable=NAME=VALUE
+                           设置psql变量NAME为VALUE
+                           (例如，-v ON_ERROR_STOP=1)
+  -V, --version            输出版本信息, 然后退出
+  -X, --no-psqlrc          不读取启动文档(~/.psqlrc)
+  -1 ("one"), --single-transaction
+                           作为一个单一事务来执行命令文件(如果是非交互型的)
+  -?, --help[=options]     显示此帮助，然后退出
+      --help=commands      列出反斜线命令，然后退出
+      --help=variables     列出特殊变量，然后退出
+
+输入和输出选项：
+  -a, --echo-all           显示所有来自于脚本的输入
+  -b, --echo-errors        回显失败的命令
+  -e, --echo-queries       显示发送给服务器的命令
+  -E, --echo-hidden        显示内部命令产生的查询
+  -L, --log-file=文件名    将会话日志写入文件
+  -n, --no-readline        禁用增强命令行编辑功能(readline)
+  -o, --output=FILENAME    将查询结果写入文件(或 |管道)
+  -q, --quiet              以沉默模式运行(不显示消息，只有查询结果)
+  -s, --single-step        单步模式 (确认每个查询)
+  -S, --single-line        单行模式 (一行就是一条 SQL 命令)
+
+输出格式选项 :
+  -A, --no-align           使用非对齐表格输出模式
+  -F, --field-separator=STRING
+                           为字段设置分隔符,用于不整齐的输出(默认："|")
+  -H, --html               HTML 表格输出模式
+  -P, --pset=变量[=参数]   设置将变量打印到参数的选项(查阅 \pset 命令)
+  -R, --record-separator=STRING
+                           为不整齐的输出设置字录的分隔符(默认：换行符号)
+  -t, --tuples-only        只打印记录i
+  -T, --table-attr=文本    设定 HTML 表格标记属性（例如,宽度,边界)
+  -x, --expanded           打开扩展表格输出
+  -z, --field-separator-zero
+                           为不整齐的输出设置字段分隔符为字节0
+  -0, --record-separator-zero
+                           为不整齐的输出设置记录分隔符为字节0
+
+联接选项:
+  -h, --host=主机名        数据库服务器主机或socket目录(默认："本地接口")
+  -p, --port=端口          数据库服务器的端口(默认："5432")
+  -U, --username=用户名    指定数据库用户名(默认："Admin")
+  -w, --no-password        永远不提示输入口令
+  -W, --password           强制口令提示 (自动)
+
+更多信息，请在psql中输入"\?"(用于内部指令)或者 "\help"(用于SQL命令)，
+或者参考PostgreSQL文档中的psql章节.
+
+臭虫报告至 <pgsql-bugs@postgresql.org>.
+--------------------------------------------------------------------------------
+c:\PostgreSQL\9.5\bin>psql -U postgres
+psql (9.5.0)
+输入 "help" 来获取帮助信息.
+
+postgres=# help
+您正在使用psql, 这是一种用于访问PostgreSQL的命令行界面
+键入： \copyright 显示发行条款
+       \h 显示 SQL 命令的说明
+       \? 显示 pgsql 命令的说明
+       \g 或者以分号(;)结尾以执行查询
+       \q 退出
+postgres=# \?
+一般性
+  \copyright            显示PostgreSQL的使用和发行许可条款
+  \g [文件] or;         执行查询 (并把结果写入文件或 |管道)
+  \gset [PREFIX]        执行查询并把结果存到psql变量中
+  \q                    退出 psql
+  \watch [SEC]          每隔SEC秒执行一次查询
+
+帮助
+  \? [commands]          show help on backslash commands
+  \? options             show help on psql command-line options
+  \? variables           show help on special variables
+  \h [名称]              SQL命令语法上的说明，用*显示全部命令的语法说明
+
+查询缓存区
+  \e [FILE] [LINE]        使用外部编辑器编辑查询缓存区(或文件)
+  \ef [FUNCNAME [LINE]]   使用外部编辑器编辑函数定义
+  \p                      显示查询缓存区的内容
+  \r                      重置(清除)查询缓存区
+  \w 文件                 将查询缓存区的内容写入文件
+
+输入/输出
+  \copy ...             执行 SQL COPY，将数据流发送到客户端主机
+  \echo [字符串]        将字符串写到标准输出
+  \i 文件               从文件中执行命令
+  \ir FILE              与 \i类似, 但是相对于当前脚本的位置
+  \o [文件]             将全部查询结果写入文件或 |管道
+  \qecho [字符串]       将字符串写到查询输出串流(参考 \o)
+
+资讯性
+  (选项: S = 显示系统对象, + = 其余的详细信息)
+  \d[S+]                列出表,视图和序列
+  \d[S+]  名称          描述表，视图，序列，或索引
+  \da[S]  [模式]        列出聚合函数
+  \db[+]  [模式]        列出表空间
+  \dc[S+] [PATTERN]     列表转换
+  \dC[+]  [PATTERN]     列出类型强制转换
+  \dd[S]  [PATTERN]     显示没有在别处显示的对象描述
+  \ddp     [模式]       列出默认权限
+  \dD[S+] [PATTERN]     列出共同值域
+  \det[+] [PATTERN]     列出引用表
+  \des[+] [模式]        列出外部服务器
+  \deu[+] [模式]        列出用户映射
+ \dew[+] [模式]         列出外部数据封装器
+   \df[antw][S+] [模式] 列出[只包括 聚合/常规/触发器/窗口]函数
+  \dF[+]  [模式]        列出文本搜索配置
+  \dFd[+] [模式]        列出文本搜索字典
+ \dFp[+] [模式]         列出文本搜索解析器
+  \dFt[+] [模式]        列出文本搜索模版
+  \dg[+]  [PATTERN]     列出角色
+ \di[S+] [模式]         列出索引
+  \dl                   列出大对象， 功能与\lo_list相同
+  \dL[S+] [PATTERN]     列出所有过程语言
+  \dm[S+] [PATTERN]     列出所有物化视图
+  \dn[S+] [PATTERN]     列出所有模式
+  \do[S]  [模式]        列出运算符
+  \dO[S+] [PATTERN]     列出所有校对规则
+  \dp     [模式]        列出表，视图和序列的访问权限
+  \drds [模式1 [模式2]] 列出每个数据库的角色设置
+  \ds[S+] [模式]        列出序列
+  \dt[S+] [模式]        列出表
+  \dT[S+] [模式]        列出数据类型
+  \du[+]  [PATTERN]     列出角色
+  \dv[S+] [模式]        列出视图
+  \dE[S+] [PATTERN]     列出引用表
+  \dx[+]  [PATTERN]     列出扩展
+  \dy     [PATTERN]     列出所有事件触发器
+  \l[+]   [PATTERN]     列出所有数据库
+  \sf[+] FUNCNAME       显示一个函数的定义
+  \z      [模式]        和\dp的功能相同
+
+格式化
+  \a                    在非对齐模式和对齐模式之间切换
+  \C [字符串]           设置表的标题，或如果没有的标题就取消
+  \f [字符串]           显示或设定非对齐模式查询输出的字段分隔符
+  \H                    切换HTML输出模式 (目前是 关闭)
+  \pset [NAME [VALUE]]  设置表输出选项
+                         (NAME := {format|border|expanded|fieldsep|fieldsep_zero|footer|null|
+                     numericlocale|recordsep|recordsep_zero|tuples_only|title|tableattr|pager|
+                   unicode_border_linestyle|unicode_column_linestyle|unicode_header_linestyle})
+  \t [开|关]            只显示记录 (目前是 关闭)
+  \T [字符串]           设置HTML <表格>标签属性, 或者如果没有的话取消设置
+  \x [on|off|auto]      切换扩展输出模式(目前是 关闭)
+
+连接
+  \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}
+                        连接到新数据库（当前是"postgres"）
+  \encoding [编码名称]  显示或设定客户端编码
+  \password [USERNAME]  安全地为用户更改口令
+  \conninfo             显示当前连接的相关信息
+
+操作系统
+  \cd [目录]            更改目前的工作目录
+  \setenv NAME [VALUE]  设置或清空环境变量
+ \timing [开|关]        切换命令计时开关 (目前是 关闭)
+  \! [命令]             在 shell中执行命令或启动一个交互式shell
+
+变量
+  \prompt [文本] 名称   提示用户设定内部变量
+  \set [名称 [值数]]    设定内部变量，若无参数则列出全部变量
+  \unset 名称           清空(删除)内部变量
+
+大对象
+  \lo_export LOBOID 文件
+  \lo_import 文件 [注释]
+  \lo_list
+  \lo_unlink LOBOID   大对象运算
+--------------------------------------------------------------------------------
+postgres=# help
+您正在使用psql, 这是一种用于访问PostgreSQL的命令行界面
+键入： \copyright 显示发行条款
+       \h 显示 SQL 命令的说明
+       \? 显示 pgsql 命令的说明
+       \g 或者以分号(;)结尾以执行查询
+       \q 退出
+postgres=# \h
+可用的说明：
+  ABORT                            DEALLOCATE
+  ALTER AGGREGATE                  DECLARE
+  ALTER COLLATION                  DELETE
+  ALTER CONVERSION                 DISCARD
+  ALTER DATABASE                   DO
+  ALTER DEFAULT PRIVILEGES         DROP AGGREGATE
+  ALTER DOMAIN                     DROP CAST
+  ALTER EVENT TRIGGER              DROP COLLATION
+  ALTER EXTENSION                  DROP CONVERSION
+  ALTER FOREIGN DATA WRAPPER       DROP DATABASE
+  ALTER FOREIGN TABLE              DROP DOMAIN
+  ALTER FUNCTION                   DROP EVENT TRIGGER
+  ALTER GROUP                      DROP EXTENSION
+  ALTER INDEX                      DROP FOREIGN DATA WRAPPER
+  ALTER LANGUAGE                   DROP FOREIGN TABLE
+  ALTER LARGE OBJECT               DROP FUNCTION
+  ALTER MATERIALIZED VIEW          DROP GROUP
+  ALTER OPERATOR                   DROP INDEX
+  ALTER OPERATOR CLASS             DROP LANGUAGE
+  ALTER OPERATOR FAMILY            DROP MATERIALIZED VIEW
+  ALTER POLICY                     DROP OPERATOR
+  ALTER ROLE                       DROP OPERATOR CLASS
+  ALTER RULE                       DROP OPERATOR FAMILY
+  ALTER SCHEMA                     DROP OWNED
+  ALTER SEQUENCE                   DROP POLICY
+  ALTER SERVER                     DROP ROLE
+  ALTER SYSTEM                     DROP RULE
+  ALTER TABLE                      DROP SCHEMA
+  ALTER TABLESPACE                 DROP SEQUENCE
+  ALTER TEXT SEARCH CONFIGURATION  DROP SERVER
+  ALTER TEXT SEARCH DICTIONARY     DROP TABLE
+  ALTER TEXT SEARCH PARSER         DROP TABLESPACE
+  ALTER TEXT SEARCH TEMPLATE       DROP TEXT SEARCH CONFIGURATION
+  ALTER TRIGGER                    DROP TEXT SEARCH DICTIONARY
+  ALTER TYPE                       DROP TEXT SEARCH PARSER
+  ALTER USER                       DROP TEXT SEARCH TEMPLATE
+  ALTER USER MAPPING               DROP TRANSFORM
+  ALTER VIEW                       DROP TRIGGER
+  ANALYZE                          DROP TYPE
+  BEGIN                            DROP USER
+  CHECKPOINT                       DROP USER MAPPING
+  CLOSE                            DROP VIEW
+  CLUSTER                          END
+  COMMENT                          EXECUTE
+  COMMIT                           EXPLAIN
+  COMMIT PREPARED                  FETCH
+  COPY                             GRANT
+  CREATE AGGREGATE                 IMPORT FOREIGN SCHEMA
+  CREATE CAST                      INSERT
+  CREATE COLLATION                 LISTEN
+  CREATE CONVERSION                LOAD
+  CREATE DATABASE                  LOCK
+  CREATE DOMAIN                    MOVE
+  CREATE EVENT TRIGGER             NOTIFY
+  CREATE EXTENSION                 PREPARE
+  CREATE FOREIGN DATA WRAPPER      PREPARE TRANSACTION
+  CREATE FOREIGN TABLE             REASSIGN OWNED
+  CREATE FUNCTION                  REFRESH MATERIALIZED VIEW
+  CREATE GROUP                     REINDEX
+  CREATE INDEX                     RELEASE SAVEPOINT
+  CREATE LANGUAGE                  RESET
+  CREATE MATERIALIZED VIEW         REVOKE
+  CREATE OPERATOR                  ROLLBACK
+  CREATE OPERATOR CLASS            ROLLBACK PREPARED
+  CREATE OPERATOR FAMILY           ROLLBACK TO SAVEPOINT
+  CREATE POLICY                    SAVEPOINT
+  CREATE ROLE                      SECURITY LABEL
+  CREATE RULE                      SELECT
+  CREATE SCHEMA                    SELECT INTO
+  CREATE SEQUENCE                  SET
+  CREATE SERVER                    SET CONSTRAINTS
+  CREATE TABLE                     SET ROLE
+  CREATE TABLE AS                  SET SESSION AUTHORIZATION
+  CREATE TABLESPACE                SET TRANSACTION
+  CREATE TEXT SEARCH CONFIGURATION SHOW
+  CREATE TEXT SEARCH DICTIONARY    START TRANSACTION
+  CREATE TEXT SEARCH PARSER        TABLE
+  CREATE TEXT SEARCH TEMPLATE      TRUNCATE
+  CREATE TRANSFORM                 UNLISTEN
+  CREATE TRIGGER                   UPDATE
+  CREATE TYPE                      VACUUM
+  CREATE USER                      VALUES
+  CREATE USER MAPPING              WITH
+  CREATE VIEW
+
+postgres=#

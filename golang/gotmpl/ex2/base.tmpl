@@ -1,0 +1,18 @@
+{{ define "base" }}
+<html>
+<head>
+    {{ template "title" . }}
+</head>
+<body>
+    {{ template "scripts" . }}
+    {{ template "sidebar" . }}
+    {{ template "content" . }}
+<footer>
+    ...
+</footer>
+</body>
+</html>
+{{ end }}
+
+{{ define "scripts" }}{{ end }}
+{{ define "sidebar" }}{{ end }}

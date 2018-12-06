@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html><head>
+<title>SHA256 Hash Generator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Generate the SHA256 hash of any string.">
+<meta name="keywords" content="SHA256 Hash Generator, SHA256 Online">
+<link href="res/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" async="" defer="defer" src="res/piwik.js"></script>
+<script type="text/javascript" src="res/sha256.js"></script>
+<script language="javascript" type="text/javascript">
+function clearall()
+{
+	document.getElementById('txt1').value = "";
+	document.getElementById('txt2').value = "";
+	document.getElementById("txt1").focus();
+}
+function replaceAll(find, replace, str)
+{
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+function calc()
+{
+	var strTxt = document.getElementById('txt1').value;
+	if( strTxt.length == 0 )
+	{
+		document.getElementById('txt2').value = "";
+		return;
+	}
+
+	if( document.getElementById("separate_lines").checked )
+	{
+		var strLines=[];
+		if( strTxt.search("\r\n")>0 )strLines = strTxt.split("\r\n");
+		else if( strTxt.search("\r")>0 ) strLines = strTxt.split("\r");
+		else if( strTxt.search("\n")>0  )strLines = strTxt.split("\n");
+		else strLines[0]=strTxt;
+
+	//	var strLines = strTxt.split("\n");
+		var strHashALL = "";
+		var strHashTmp = "";
+		for( var i in strLines )
+		{
+			if( strLines[i].length != 0 )
+			{
+				strHashTmp = hex_sha256( strLines[i]  );
+				strHashTmp = strHashTmp.toUpperCase();
+			}
+			else
+				strHashTmp = "";
+			strHashALL += strHashTmp + "\n";
+		}
+		document.getElementById('txt2').value = strHashALL;
+	}
+	else
+	{
+		if( strTxt.search("\r")>0 ) strTxt=replaceAll( "\r", "", strTxt );
+		var strHash = hex_sha256( strTxt );
+		strHash = strHash.toUpperCase();
+
+		document.getElementById('txt2').value = strHash;
+	}
+}
+</script>
+</head><body>
+
+<div class="container">
+	<div id="header">
+		<div id="Logo"></div>
+		<div id="LogoText">SHA256 Hash Generator</div>
+	</div><!-- header -->
+
+	<div class="sec_blank"></div>
+
+	<div class="sec_tips">
+        <p>This online tool allows you to generate the SHA256 hash of any string. SHA256 is designed by NSA, it's more reliable than SHA1.</p>
+        <p>Enter your text below:</p>
+	</div>
+
+	<textarea id="txt1" class="texts" onkeyup="calc();" autofocus=""></textarea>
+
+	<div class="btn_parent">
+		<div class="CalcHash" onclick="return calc();">Generate</div>
+		<div class="CalcHash" onclick="return clearall();">Clear All</div>
+		<div class="check_box"><label><input name="separate_lines" id="separate_lines" onclick="calc();" type="checkbox">Treat each line as a separate string</label></div>
+	</div>
+
+	<div class="sec_tips">
+        <p>SHA256 Hash of your string:</p>
+	</div>
+
+	<textarea id="txt2" class="texts noboder"></textarea>
+
+	<div class="sec_blank"></div>
+
+	<div id="sec_btm">
+		<p>Copyright © 2012 - 2016 <a href="http://passwordsgenerator.net/" title="Password Generator">PasswordsGenerator.net</a>. All Rights Reserved.</p>
+		<p></p>
+	</div><!-- sec_btm -->
+
+    <div style="clear:both"></div>
+</div><!-- container -->
+
+</body></html>

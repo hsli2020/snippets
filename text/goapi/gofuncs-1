@@ -1,0 +1,495 @@
+fmt
+===
+func Errorf(format string, a ...interface{}) error
+func Fprint(w io.Writer, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
+func Fscan(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface{}) (n int, err error)
+func Fscanln(r io.Reader, a ...interface{}) (n int, err error)
+func Print(a ...interface{}) (n int, err error)
+func Printf(format string, a ...interface{}) (n int, err error)
+func Println(a ...interface{}) (n int, err error)
+func Scan(a ...interface{}) (n int, err error)
+func Scanf(format string, a ...interface{}) (n int, err error)
+func Scanln(a ...interface{}) (n int, err error)
+func Sprint(a ...interface{}) string
+func Sprintf(format string, a ...interface{}) string
+func Sprintln(a ...interface{}) string
+func Sscan(str string, a ...interface{}) (n int, err error)
+func Sscanf(str string, format string, a ...interface{}) (n int, err error)
+func Sscanln(str string, a ...interface{}) (n int, err error)
+
+strings
+=======
+func Contains(s, substr string) bool
+func ContainsAny(s, chars string) bool
+func ContainsRune(s string, r rune) bool
+func Count(s, sep string) int
+func EqualFold(s, t string) bool
+func Fields(s string) []string
+func FieldsFunc(s string, f func(rune) bool) []string
+func HasPrefix(s, prefix string) bool
+func HasSuffix(s, suffix string) bool
+func Index(s, sep string) int
+func IndexAny(s, chars string) int
+func IndexByte(s string, c byte) int
+func IndexFunc(s string, f func(rune) bool) int
+func IndexRune(s string, r rune) int
+func Join(a []string, sep string) string
+func LastIndex(s, sep string) int
+func LastIndexAny(s, chars string) int
+func LastIndexFunc(s string, f func(rune) bool) int
+func Map(mapping func(rune) rune, s string) string
+func Repeat(s string, count int) string
+func Replace(s, old, new string, n int) string
+func Split(s, sep string) []string
+func SplitAfter(s, sep string) []string
+func SplitAfterN(s, sep string, n int) []string
+func SplitN(s, sep string, n int) []string
+func Title(s string) string
+func ToLower(s string) string
+func ToLowerSpecial(_case unicode.SpecialCase, s string) string
+func ToTitle(s string) string
+func ToTitleSpecial(_case unicode.SpecialCase, s string) string
+func ToUpper(s string) string
+func ToUpperSpecial(_case unicode.SpecialCase, s string) string
+func Trim(s string, cutset string) string
+func TrimFunc(s string, f func(rune) bool) string
+func TrimLeft(s string, cutset string) string
+func TrimLeftFunc(s string, f func(rune) bool) string
+func TrimPrefix(s, prefix string) string
+func TrimRight(s string, cutset string) string
+func TrimRightFunc(s string, f func(rune) bool) string
+func TrimSpace(s string) string
+func TrimSuffix(s, suffix string) string
+func NewReader(s string) *Reader
+func (r *Reader) Len() int
+func (r *Reader) Read(b []byte) (n int, err error)
+func (r *Reader) ReadAt(b []byte, off int64) (n int, err error)
+func (r *Reader) ReadByte() (b byte, err error)
+func (r *Reader) ReadRune() (ch rune, size int, err error)
+func (r *Reader) Seek(offset int64, whence int) (int64, error)
+func (r *Reader) UnreadByte() error
+func (r *Reader) UnreadRune() error
+func (r *Reader) WriteTo(w io.Writer) (n int64, err error)
+func NewReplacer(oldnew ...string) *Replacer
+func (r *Replacer) Replace(s string) string
+func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error)
+
+time
+====
+func After(d Duration) <-chan Time
+func Sleep(d Duration)
+func Tick(d Duration) <-chan Time
+func ParseDuration(s string) (Duration, error)
+func Since(t Time) Duration
+func (d Duration) Hours() float64
+func (d Duration) Minutes() float64
+func (d Duration) Nanoseconds() int64
+func (d Duration) Seconds() float64
+func (d Duration) String() string
+func FixedZone(name string, offset int) *Location
+func LoadLocation(name string) (*Location, error)
+func (l *Location) String() string
+func (m Month) String() string
+func (e *ParseError) Error() string
+func NewTicker(d Duration) *Ticker
+func (t *Ticker) Stop()
+func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time
+func Now() Time
+func Parse(layout, value string) (Time, error)
+func ParseInLocation(layout, value string, loc *Location) (Time, error)
+func Unix(sec int64, nsec int64) Time
+func (t Time) Add(d Duration) Time
+func (t Time) AddDate(years int, months int, days int) Time
+func (t Time) After(u Time) bool
+func (t Time) Before(u Time) bool
+func (t Time) Clock() (hour, min, sec int)
+func (t Time) Date() (year int, month Month, day int)
+func (t Time) Day() int
+func (t Time) Equal(u Time) bool
+func (t Time) Format(layout string) string
+func (t *Time) GobDecode(data []byte) error
+func (t Time) GobEncode() ([]byte, error)
+func (t Time) Hour() int
+func (t Time) ISOWeek() (year, week int)
+func (t Time) In(loc *Location) Time
+func (t Time) IsZero() bool
+func (t Time) Local() Time
+func (t Time) Location() *Location
+func (t Time) MarshalBinary() ([]byte, error)
+func (t Time) MarshalJSON() ([]byte, error)
+func (t Time) MarshalText() ([]byte, error)
+func (t Time) Minute() int
+func (t Time) Month() Month
+func (t Time) Nanosecond() int
+func (t Time) Round(d Duration) Time
+func (t Time) Second() int
+func (t Time) String() string
+func (t Time) Sub(u Time) Duration
+func (t Time) Truncate(d Duration) Time
+func (t Time) UTC() Time
+func (t Time) Unix() int64
+func (t Time) UnixNano() int64
+func (t *Time) UnmarshalBinary(data []byte) error
+func (t *Time) UnmarshalJSON(data []byte) (err error)
+func (t *Time) UnmarshalText(data []byte) (err error)
+func (t Time) Weekday() Weekday
+func (t Time) Year() int
+func (t Time) YearDay() int
+func (t Time) Zone() (name string, offset int)
+func AfterFunc(d Duration, f func()) *Timer
+func NewTimer(d Duration) *Timer
+func (t *Timer) Reset(d Duration) bool
+func (t *Timer) Stop() bool
+func (d Weekday) String() string
+
+flag
+====
+func Arg(i int) string
+func Args() []string
+func Bool(name string, value bool, usage string) *bool
+func BoolVar(p *bool, name string, value bool, usage string)
+func Duration(name string, value time.Duration, usage string) *time.Duration
+func DurationVar(p *time.Duration, name string, value time.Duration, usage string)
+func Float64(name string, value float64, usage string) *float64
+func Float64Var(p *float64, name string, value float64, usage string)
+func Int(name string, value int, usage string) *int
+func Int64(name string, value int64, usage string) *int64
+func Int64Var(p *int64, name string, value int64, usage string)
+func IntVar(p *int, name string, value int, usage string)
+func NArg() int
+func NFlag() int
+func Parse()
+func Parsed() bool
+func PrintDefaults()
+func Set(name, value string) error
+func String(name string, value string, usage string) *string
+func StringVar(p *string, name string, value string, usage string)
+func Uint(name string, value uint, usage string) *uint
+func Uint64(name string, value uint64, usage string) *uint64
+func Uint64Var(p *uint64, name string, value uint64, usage string)
+func UintVar(p *uint, name string, value uint, usage string)
+func Var(value Value, name string, usage string)
+func Visit(fn func(*Flag))
+func VisitAll(fn func(*Flag))
+func Lookup(name string) *Flag
+func NewFlagSet(name string, errorHandling ErrorHandling) *FlagSet
+func (f *FlagSet) Arg(i int) string
+func (f *FlagSet) Args() []string
+func (f *FlagSet) Bool(name string, value bool, usage string) *bool
+func (f *FlagSet) BoolVar(p *bool, name string, value bool, usage string)
+func (f *FlagSet) Duration(name string, value time.Duration, usage string) *time.Duration
+func (f *FlagSet) DurationVar(p *time.Duration, name string, value time.Duration, usage string)
+func (f *FlagSet) Float64(name string, value float64, usage string) *float64
+func (f *FlagSet) Float64Var(p *float64, name string, value float64, usage string)
+func (f *FlagSet) Init(name string, errorHandling ErrorHandling)
+func (f *FlagSet) Int(name string, value int, usage string) *int
+func (f *FlagSet) Int64(name string, value int64, usage string) *int64
+func (f *FlagSet) Int64Var(p *int64, name string, value int64, usage string)
+func (f *FlagSet) IntVar(p *int, name string, value int, usage string)
+func (f *FlagSet) Lookup(name string) *Flag
+func (f *FlagSet) NArg() int
+func (f *FlagSet) NFlag() int
+func (f *FlagSet) Parse(arguments []string) error
+func (f *FlagSet) Parsed() bool
+func (f *FlagSet) PrintDefaults()
+func (f *FlagSet) Set(name, value string) error
+func (f *FlagSet) SetOutput(output io.Writer)
+func (f *FlagSet) String(name string, value string, usage string) *string
+func (f *FlagSet) StringVar(p *string, name string, value string, usage string)
+func (f *FlagSet) Uint(name string, value uint, usage string) *uint
+func (f *FlagSet) Uint64(name string, value uint64, usage string) *uint64
+func (f *FlagSet) Uint64Var(p *uint64, name string, value uint64, usage string)
+func (f *FlagSet) UintVar(p *uint, name string, value uint, usage string)
+func (f *FlagSet) Var(value Value, name string, usage string)
+func (f *FlagSet) Visit(fn func(*Flag))
+func (f *FlagSet) VisitAll(fn func(*Flag))
+
+path
+====
+func Base(path string) string
+func Clean(path string) string
+func Dir(path string) string
+func Ext(path string) string
+func IsAbs(path string) bool
+func Join(elem ...string) string
+func Match(pattern, name string) (matched bool, err error)
+func Split(path string) (dir, file string)
+
+path/filepath
+=============
+func Abs(path string) (string, error)
+func Base(path string) string
+func Clean(path string) string
+func Dir(path string) string
+func EvalSymlinks(path string) (string, error)
+func Ext(path string) string
+func FromSlash(path string) string
+func Glob(pattern string) (matches []string, err error)
+func HasPrefix(p, prefix string) bool
+func IsAbs(path string) (b bool)
+func Join(elem ...string) string
+func Match(pattern, name string) (matched bool, err error)
+func Rel(basepath, targpath string) (string, error)
+func Split(path string) (dir, file string)
+func SplitList(path string) []string
+func ToSlash(path string) string
+func VolumeName(path string) (v string)
+func Walk(root string, walkFn WalkFunc) error
+
+log
+===
+func Fatal(v ...interface{})
+func Fatalf(format string, v ...interface{})
+func Fatalln(v ...interface{})
+func Flags() int
+func Panic(v ...interface{})
+func Panicf(format string, v ...interface{})
+func Panicln(v ...interface{})
+func Prefix() string
+func Print(v ...interface{})
+func Printf(format string, v ...interface{})
+func Println(v ...interface{})
+func SetFlags(flag int)
+func SetOutput(w io.Writer)
+func SetPrefix(prefix string)
+func New(out io.Writer, prefix string, flag int) *Logger
+func (l *Logger) Fatal(v ...interface{})
+func (l *Logger) Fatalf(format string, v ...interface{})
+func (l *Logger) Fatalln(v ...interface{})
+func (l *Logger) Flags() int
+func (l *Logger) Output(calldepth int, s string) error
+func (l *Logger) Panic(v ...interface{})
+func (l *Logger) Panicf(format string, v ...interface{})
+func (l *Logger) Panicln(v ...interface{})
+func (l *Logger) Prefix() string
+func (l *Logger) Print(v ...interface{})
+func (l *Logger) Printf(format string, v ...interface{})
+func (l *Logger) Println(v ...interface{})
+func (l *Logger) SetFlags(flag int)
+func (l *Logger) SetPrefix(prefix string)
+
+strconv
+=======
+func AppendBool(dst []byte, b bool) []byte
+func AppendFloat(dst []byte, f float64, fmt byte, prec int, bitSize int) []byte
+func AppendInt(dst []byte, i int64, base int) []byte
+func AppendQuote(dst []byte, s string) []byte
+func AppendQuoteRune(dst []byte, r rune) []byte
+func AppendQuoteRuneToASCII(dst []byte, r rune) []byte
+func AppendQuoteToASCII(dst []byte, s string) []byte
+func AppendUint(dst []byte, i uint64, base int) []byte
+func Atoi(s string) (i int, err error)
+func CanBackquote(s string) bool
+func FormatBool(b bool) string
+func FormatFloat(f float64, fmt byte, prec, bitSize int) string
+func FormatInt(i int64, base int) string
+func FormatUint(i uint64, base int) string
+func IsPrint(r rune) bool
+func Itoa(i int) string
+func ParseBool(str string) (value bool, err error)
+func ParseFloat(s string, bitSize int) (f float64, err error)
+func ParseInt(s string, base int, bitSize int) (i int64, err error)
+func ParseUint(s string, base int, bitSize int) (n uint64, err error)
+func Quote(s string) string
+func QuoteRune(r rune) string
+func QuoteRuneToASCII(r rune) string
+func QuoteToASCII(s string) string
+func Unquote(s string) (t string, err error)
+func UnquoteChar(s string, quote byte) (value rune, multibyte bool, tail string, err error)
+func (e *NumError) Error() string
+
+io
+==
+func Copy(dst Writer, src Reader) (written int64, err error)
+func CopyN(dst Writer, src Reader, n int64) (written int64, err error)
+func ReadAtLeast(r Reader, buf []byte, min int) (n int, err error)
+func ReadFull(r Reader, buf []byte) (n int, err error)
+func WriteString(w Writer, s string) (n int, err error)
+func (l *LimitedReader) Read(p []byte) (n int, err error)
+func Pipe() (*PipeReader, *PipeWriter)
+func (r *PipeReader) Close() error
+func (r *PipeReader) CloseWithError(err error) error
+func (r *PipeReader) Read(data []byte) (n int, err error)
+func (w *PipeWriter) Close() error
+func (w *PipeWriter) CloseWithError(err error) error
+func (w *PipeWriter) Write(data []byte) (n int, err error)
+func LimitReader(r Reader, n int64) Reader
+func MultiReader(readers ...Reader) Reader
+func TeeReader(r Reader, w Writer) Reader
+func NewSectionReader(r ReaderAt, off int64, n int64) *SectionReader
+func (s *SectionReader) Read(p []byte) (n int, err error)
+func (s *SectionReader) ReadAt(p []byte, off int64) (n int, err error)
+func (s *SectionReader) Seek(offset int64, whence int) (int64, error)
+func (s *SectionReader) Size() int64
+func MultiWriter(writers ...Writer) Writer
+
+io/ioutil
+=========
+func NopCloser(r io.Reader) io.ReadCloser
+func ReadAll(r io.Reader) ([]byte, error)
+func ReadDir(dirname string) ([]os.FileInfo, error)
+func ReadFile(filename string) ([]byte, error)
+func TempDir(dir, prefix string) (name string, err error)
+func TempFile(dir, prefix string) (f *os.File, err error)
+func WriteFile(filename string, data []byte, perm os.FileMode) error
+
+bufio
+=====
+func ScanBytes(data []byte, atEOF bool) (advance int, token []byte, err error)
+func ScanLines(data []byte, atEOF bool) (advance int, token []byte, err error)
+func ScanRunes(data []byte, atEOF bool) (advance int, token []byte, err error)
+func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error)
+func NewReadWriter(r *Reader, w *Writer) *ReadWriter
+func NewReader(rd io.Reader) *Reader
+func NewReaderSize(rd io.Reader, size int) *Reader
+func (b *Reader) Buffered() int
+func (b *Reader) Peek(n int) ([]byte, error)
+func (b *Reader) Read(p []byte) (n int, err error)
+func (b *Reader) ReadByte() (c byte, err error)
+func (b *Reader) ReadBytes(delim byte) (line []byte, err error)
+func (b *Reader) ReadLine() (line []byte, isPrefix bool, err error)
+func (b *Reader) ReadRune() (r rune, size int, err error)
+func (b *Reader) ReadSlice(delim byte) (line []byte, err error)
+func (b *Reader) ReadString(delim byte) (line string, err error)
+func (b *Reader) Reset(r io.Reader)
+func (b *Reader) UnreadByte() error
+func (b *Reader) UnreadRune() error
+func (b *Reader) WriteTo(w io.Writer) (n int64, err error)
+func NewScanner(r io.Reader) *Scanner
+func (s *Scanner) Bytes() []byte
+func (s *Scanner) Err() error
+func (s *Scanner) Scan() bool
+func (s *Scanner) Split(split SplitFunc)
+func (s *Scanner) Text() string
+func NewWriter(w io.Writer) *Writer
+func NewWriterSize(w io.Writer, size int) *Writer
+func (b *Writer) Available() int
+func (b *Writer) Buffered() int
+func (b *Writer) Flush() error
+func (b *Writer) ReadFrom(r io.Reader) (n int64, err error)
+func (b *Writer) Reset(w io.Writer)
+func (b *Writer) Write(p []byte) (nn int, err error)
+func (b *Writer) WriteByte(c byte) error
+func (b *Writer) WriteRune(r rune) (size int, err error)
+func (b *Writer) WriteString(s string) (int, error)
+
+bytes
+=====
+func Compare(a, b []byte) int
+func Contains(b, subslice []byte) bool
+func Count(s, sep []byte) int
+func Equal(a, b []byte) bool
+func EqualFold(s, t []byte) bool
+func Fields(s []byte) [][]byte
+func FieldsFunc(s []byte, f func(rune) bool) [][]byte
+func HasPrefix(s, prefix []byte) bool
+func HasSuffix(s, suffix []byte) bool
+func Index(s, sep []byte) int
+func IndexAny(s []byte, chars string) int
+func IndexByte(s []byte, c byte) int
+func IndexFunc(s []byte, f func(r rune) bool) int
+func IndexRune(s []byte, r rune) int
+func Join(s [][]byte, sep []byte) []byte
+func LastIndex(s, sep []byte) int
+func LastIndexAny(s []byte, chars string) int
+func LastIndexFunc(s []byte, f func(r rune) bool) int
+func Map(mapping func(r rune) rune, s []byte) []byte
+func Repeat(b []byte, count int) []byte
+func Replace(s, old, new []byte, n int) []byte
+func Runes(s []byte) []rune
+func Split(s, sep []byte) [][]byte
+func SplitAfter(s, sep []byte) [][]byte
+func SplitAfterN(s, sep []byte, n int) [][]byte
+func SplitN(s, sep []byte, n int) [][]byte
+func Title(s []byte) []byte
+func ToLower(s []byte) []byte
+func ToLowerSpecial(_case unicode.SpecialCase, s []byte) []byte
+func ToTitle(s []byte) []byte
+func ToTitleSpecial(_case unicode.SpecialCase, s []byte) []byte
+func ToUpper(s []byte) []byte
+func ToUpperSpecial(_case unicode.SpecialCase, s []byte) []byte
+func Trim(s []byte, cutset string) []byte
+func TrimFunc(s []byte, f func(r rune) bool) []byte
+func TrimLeft(s []byte, cutset string) []byte
+func TrimLeftFunc(s []byte, f func(r rune) bool) []byte
+func TrimPrefix(s, prefix []byte) []byte
+func TrimRight(s []byte, cutset string) []byte
+func TrimRightFunc(s []byte, f func(r rune) bool) []byte
+func TrimSpace(s []byte) []byte
+func TrimSuffix(s, suffix []byte) []byte
+func NewBuffer(buf []byte) *Buffer
+func NewBufferString(s string) *Buffer
+func (b *Buffer) Bytes() []byte
+func (b *Buffer) Grow(n int)
+func (b *Buffer) Len() int
+func (b *Buffer) Next(n int) []byte
+func (b *Buffer) Read(p []byte) (n int, err error)
+func (b *Buffer) ReadByte() (c byte, err error)
+func (b *Buffer) ReadBytes(delim byte) (line []byte, err error)
+func (b *Buffer) ReadFrom(r io.Reader) (n int64, err error)
+func (b *Buffer) ReadRune() (r rune, size int, err error)
+func (b *Buffer) ReadString(delim byte) (line string, err error)
+func (b *Buffer) Reset()
+func (b *Buffer) String() string
+func (b *Buffer) Truncate(n int)
+func (b *Buffer) UnreadByte() error
+func (b *Buffer) UnreadRune() error
+func (b *Buffer) Write(p []byte) (n int, err error)
+func (b *Buffer) WriteByte(c byte) error
+func (b *Buffer) WriteRune(r rune) (n int, err error)
+func (b *Buffer) WriteString(s string) (n int, err error)
+func (b *Buffer) WriteTo(w io.Writer) (n int64, err error)
+func NewReader(b []byte) *Reader
+func (r *Reader) Len() int
+func (r *Reader) Read(b []byte) (n int, err error)
+func (r *Reader) ReadAt(b []byte, off int64) (n int, err error)
+func (r *Reader) ReadByte() (b byte, err error)
+func (r *Reader) ReadRune() (ch rune, size int, err error)
+func (r *Reader) Seek(offset int64, whence int) (int64, error)
+func (r *Reader) UnreadByte() error
+func (r *Reader) UnreadRune() error
+func (r *Reader) WriteTo(w io.Writer) (n int64, err error)
+
+database/sql
+============
+func Register(name string, driver driver.Driver)
+func Open(driverName, dataSourceName string) (*DB, error)
+func (db *DB) Begin() (*Tx, error)
+func (db *DB) Close() error
+func (db *DB) Driver() driver.Driver
+func (db *DB) Exec(query string, args ...interface{}) (Result, error)
+func (db *DB) Ping() error
+func (db *DB) Prepare(query string) (*Stmt, error)
+func (db *DB) Query(query string, args ...interface{}) (*Rows, error)
+func (db *DB) QueryRow(query string, args ...interface{}) *Row
+func (db *DB) SetMaxIdleConns(n int)
+func (db *DB) SetMaxOpenConns(n int)
+func (n *NullBool) Scan(value interface{}) error
+func (n NullBool) Value() (driver.Value, error)
+func (n *NullFloat64) Scan(value interface{}) error
+func (n NullFloat64) Value() (driver.Value, error)
+func (n *NullInt64) Scan(value interface{}) error
+func (n NullInt64) Value() (driver.Value, error)
+func (ns *NullString) Scan(value interface{}) error
+func (ns NullString) Value() (driver.Value, error)
+func (r *Row) Scan(dest ...interface{}) error
+func (rs *Rows) Close() error
+func (rs *Rows) Columns() ([]string, error)
+func (rs *Rows) Err() error
+func (rs *Rows) Next() bool
+func (rs *Rows) Scan(dest ...interface{}) error
+func (s *Stmt) Close() error
+func (s *Stmt) Exec(args ...interface{}) (Result, error)
+func (s *Stmt) Query(args ...interface{}) (*Rows, error)
+func (s *Stmt) QueryRow(args ...interface{}) *Row
+func (tx *Tx) Commit() error
+func (tx *Tx) Exec(query string, args ...interface{}) (Result, error)
+func (tx *Tx) Prepare(query string) (*Stmt, error)
+func (tx *Tx) Query(query string, args ...interface{}) (*Rows, error)
+func (tx *Tx) QueryRow(query string, args ...interface{}) *Row
+func (tx *Tx) Rollback() error
+func (tx *Tx) Stmt(stmt *Stmt) *Stmt
+

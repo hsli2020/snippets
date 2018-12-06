@@ -1,0 +1,560 @@
+<html class="">
+<head>
+<meta charset="UTF-8">
+<meta content="noindex" name="robots">
+<link href="http://codepen.io/www139/pen/XXpQwx" rel="canonical">
+
+<style class="cp-pen-styles">
+#loadersContainer{
+  display:table;
+  margin:auto;
+  overflow:hidden;
+}
+
+#loadersContainer *{
+  margin:3em 0;
+}
+
+*{
+  -webkit-font-smoothing: antialiased;
+}
+
+/*loader 1*/
+.loader1{
+  width:64px;
+  height:64px;
+  position:relative;
+  -o-animation:loaderRotate 2s infinite linear;
+  -moz-animation:loaderRotate 2s infinite linear;
+  -webkit-animation:loaderRotate 2s infinite linear;
+  -ms-animation:loaderRotate 2s infinite linear;
+  animation:loaderRotate 2s infinite linear;
+  border-radius:50%;
+  box-sizing:border-box;
+}
+.loader1:after{
+  content:'';
+  display:block;
+  border:3px solid transparent;
+  border-left:3px solid #FF3E31;
+  box-sizing:border-box;
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  border-radius:50%;
+  -o-animation:borderFlexLoader 2s infinite linear;
+  -moz-animation:borderFlexLoader 2s infinite linear;
+  -webkit-animation:borderFlexLoader 2s infinite linear;
+  -ms-animation:borderFlexLoader 2s infinite linear;
+  animation:borderFlexLoader 2s infinite linear;
+}
+.loader1:before{
+  content:'';
+  display:block;
+  border:3px solid transparent;
+  border-left:3px solid #FF3E31;
+  box-sizing:border-box;
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  border-radius:50%;
+}
+
+@-o-keyframes loaderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@-moz-keyframes loaderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@-webkit-keyframes loaderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@-ms-keyframes loaderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes loaderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-o-keyframes borderFlexLoader{
+  0%{
+    transform:rotate(0deg);
+  }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(0deg);
+  }
+}
+
+@-webkit-keyframes borderFlexLoader{
+  0%{
+    transform:rotate(0deg);
+  }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(0deg);
+  }
+}
+
+@-moz-keyframes borderFlexLoader{
+  0%{
+    transform:rotate(0deg);
+  }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(0deg);
+  }
+}
+
+@-ms-keyframes borderFlexLoader{
+  0%{
+    transform:rotate(0deg);
+  }
+  50%{
+    transform:rotate(180deg);
+  }
+  100%{
+    transform:rotate(0deg);
+  }
+}
+
+@keyframes borderFlexLoader{
+  0%{
+    transform:rotate(0deg);
+  }
+  50%{
+    transform:rotate(90deg);
+  }
+  100%{
+    transform:rotate(0deg);
+  }
+}
+/*end loader 1*/
+
+
+/*loader2*/
+.loader2{
+  position:relative;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  box-sizing:border-box;
+}
+.loader2:after{
+  content:'';
+  display:block;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-bottom:3px solid #457AA6;
+  border-radius:50%;
+  -o-animation:loader2BorderRotate 1.5s infinite ease;
+  -moz-animation:loader2BorderRotate 1.5s infinite ease;
+  -webkit-animation:loader2BorderRotate 1.5s infinite ease;
+  -ms-animation:loader2BorderRotate 1.5s infinite ease;
+  animation:loader2BorderRotate 1.5s infinite ease;
+}
+.loader2:before{
+  content:'';
+  display:block;
+  box-sizing:border-box;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-top:3px solid #457AA6;
+  border-radius:50%;
+  -o-animation:loader2BorderRotate 2s infinite ease reverse;
+  -ms-animation:loader2BorderRotate 2s infinite ease reverse;
+  -webkit-animation:loader2BorderRotate 2s infinite ease reverse;
+  -moz-animation:loader2BorderRotate 2s infinite ease reverse;
+  animation:loader2BorderRotate 2s infinite ease reverse;
+}
+
+@-o-keyframes loader2BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-moz-keyframes loader2BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-webkit-keyframes loader2BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-ms-keyframes loader2BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes loader2BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+/*end loader2*/
+
+
+/*loader3*/
+.loader3{
+  position:relative;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  box-sizing:border-box;
+}
+.loader3:after{
+  content:'';
+  display:block;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-bottom:3px solid #2D9D31;
+  border-left:3px solid #2D9D31;
+  border-radius:50%;
+  animation:loader3BorderRotate 2s infinite;
+}
+.loader3:before{
+  content:'';
+  display:block;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-top:3px solid #2D9D31;
+  border-right:3px solid #2D9D31;
+  border-radius:50%;
+  animation:loader3BorderRotate 2s infinite reverse;
+}
+@-o-keyframes loader3BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-moz-keyframes loader3BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-webkit-keyframes loader3BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@-ms-keyframes loader3BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes loader3BorderRotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+/*end loader3*/
+
+/*loader4*/
+.loader4{
+  border-radius:50%;
+  width:64px;
+  height:64px;
+  position:relative;
+  box-sizing:border-box;
+}
+.loader4:before{
+  content:'';
+  display:block;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border-radius:50%;
+  border:3px solid transparent;
+  border-right:3px solid #FFFFFF;
+  border-top:3px solid #FFFFFF;
+  margin:2px;
+  -o-animation:loader4 1s infinite ease;
+  -moz-animation:loader4 1s infinite ease;
+  -webkit-animation:loader4 1s infinite ease;
+  -ms-animation:loader4 1s infinite ease;
+  animation:loader4 1s infinite ease;
+}
+.loader4:after{
+  content:'';
+  display:block;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border-radius:50%;
+  border:3px solid transparent;
+  border-left:3px solid #000;
+  border-bottom:3px solid #000;
+  -o-animation:loader4 1.5s infinite ease;
+  -moz-animation:loader4 1.5s infinite ease;
+  -webkit-animation:loader4 1.5s infinite ease;
+  -ms-animation:loader4 1.5s infinite ease;
+  animation:loader4 1.5s infinite ease;
+}
+@-o-keyframes loader4{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@-moz-keyframes loader4{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@-webkit-keyframes loader4{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@-ms-keyframes loader4{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+@keyframes loader4{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+/*end loader4*/
+
+
+/*loader 5*/
+.loader5{
+  width:64px;
+  height:64px;
+  position:relative;
+  border-radius:50%;
+  animation:loader5 1.5s infinite ease reverse;
+  box-sizing:border-box;
+}
+.loader5:after{
+  content:'';
+  display:block;
+  border-radius:50%;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-bottom-color:#fff;
+  border-left-color:#fff;
+  margin:3px;
+  animation:loader5 3s infinite ease reverse;
+}
+.loader5:before{
+  content:'';
+  display:block;
+  border-radius:50%;
+  position:absolute;
+  box-sizing:border-box;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-right-color:#000;
+  border-top-color:#000;
+  animation:loader5 3s infinite ease;
+}
+@keyframes loader5{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+/*end loader5*/
+
+/*loader6*/
+.loader6{
+  width:64px;
+  height:64px;
+  position:relative;
+  border-radius:50%;
+}
+
+.loader6:before{
+  content:'';
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-radius:50%;
+  border-left:3px solid #000;
+  border-top:3px solid #fff;
+  border-right:3px solid #C6631C;
+  border-bottom:3px solid #39C6C5;
+  transform:rotate(45deg);
+  margin:3px;
+  animation:loader6Rotate 3s infinite cubic-bezier(.17,.67,.83,.67) reverse;
+}
+.loader6:after{
+  content:'';
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:3px solid transparent;
+  border-left:3px solid #C72835;
+  border-right:3px solid #FFDA00;
+  border-top:3px solid #34C62A;
+  border-bottom:3px solid #3C7DC6;
+  border-radius:50%;
+  animation:loader6Rotate 3s infinite cubic-bezier(.17,.67,.83,.67);
+}
+@keyframes loader6Rotate{
+  0%{
+    transform:rotate(0deg);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+/*end loader6*/
+
+html,body{
+  width:100%;
+  height:100%;
+  background-color:#333;
+  margin:0;
+  padding:0;
+}
+</style>
+</head>
+<body>
+
+<div id="loadersContainer">
+  <div class="loader1"></div>
+  <div class="loader2"></div>
+  <div class="loader3"></div>
+  <div class="loader4"></div>
+  <div class="loader5"></div>
+  <div class="loader6"></div>
+</div>
+
+</body>
+</html>

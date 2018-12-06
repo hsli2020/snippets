@@ -1,0 +1,881 @@
+class str(object='')
+class str(object=b'', encoding='utf-8', errors='strict')
+
+str.capitalize()
+str.casefold()
+str.center(width[, fillchar])
+str.count(sub[, start[, end]])
+str.encode(encoding="utf-8", errors="strict")
+str.endswith(suffix[, start[, end]])
+str.expandtabs(tabsize=8)
+str.find(sub[, start[, end]])
+str.format(*args, **kwargs)
+str.format_map(mapping)
+str.index(sub[, start[, end]])
+str.isalnum()
+str.isalpha()
+str.isdecimal()
+str.isdigit()
+str.isidentifier()
+str.islower()
+str.isnumeric()
+str.isprintable()
+str.isspace()
+str.istitle()
+str.isupper()
+str.join(iterable)
+str.ljust(width[, fillchar])
+str.lower()
+str.lstrip([chars])
+str.partition(sep)
+str.replace(old, new[, count])
+str.rfind(sub[, start[, end]])
+str.rindex(sub[, start[, end]])
+str.rjust(width[, fillchar])
+str.rpartition(sep)
+str.rsplit(sep=None, maxsplit=-1)
+str.rstrip([chars])
+str.split(sep=None, maxsplit=-1)
+str.splitlines([keepends])
+str.startswith(prefix[, start[, end]])
+str.strip([chars])
+str.swapcase()
+str.title()
+str.translate(table)
+str.upper()
+str.zfill(width)
+
+Bytes Objects
+=============
+
+class bytes([source[, encoding[, errors]]])
+class bytearray([source[, encoding[, errors]]])
+
+bytes.count(sub[, start[, end]])
+bytearray.count(sub[, start[, end]])
+
+bytes.decode(encoding="utf-8", errors="strict")
+bytearray.decode(encoding="utf-8", errors="strict")
+
+bytes.endswith(suffix[, start[, end]])
+bytearray.endswith(suffix[, start[, end]])
+
+bytes.find(sub[, start[, end]])
+bytearray.find(sub[, start[, end]])
+
+bytes.index(sub[, start[, end]])
+bytearray.index(sub[, start[, end]])
+
+bytes.join(iterable)
+bytearray.join(iterable)
+
+static bytes.maketrans(from, to)
+static bytearray.maketrans(from, to)
+
+bytes.partition(sep)
+bytearray.partition(sep)
+
+bytes.replace(old, new[, count])
+bytearray.replace(old, new[, count])
+
+bytes.rfind(sub[, start[, end]])
+bytearray.rfind(sub[, start[, end]])
+
+bytes.rindex(sub[, start[, end]])
+bytearray.rindex(sub[, start[, end]])
+
+bytes.rpartition(sep)
+bytearray.rpartition(sep)
+
+bytes.startswith(prefix[, start[, end]])
+bytearray.startswith(prefix[, start[, end]])
+
+bytes.translate(table, delete=b'')
+bytearray.translate(table, delete=b'')
+
+bytes.center(width[, fillbyte])
+bytearray.center(width[, fillbyte])
+
+bytes.ljust(width[, fillbyte])
+bytearray.ljust(width[, fillbyte])
+
+bytes.lstrip([chars])
+bytearray.lstrip([chars])
+
+bytes.rjust(width[, fillbyte])
+bytearray.rjust(width[, fillbyte])
+
+bytes.rsplit(sep=None, maxsplit=-1)
+bytearray.rsplit(sep=None, maxsplit=-1)
+
+bytes.rstrip([chars])
+bytearray.rstrip([chars])
+
+bytes.split(sep=None, maxsplit=-1)
+bytearray.split(sep=None, maxsplit=-1)
+
+bytes.strip([chars])
+bytearray.strip([chars])
+
+bytes.capitalize()
+bytearray.capitalize()
+
+bytes.expandtabs(tabsize=8)
+bytearray.expandtabs(tabsize=8)
+
+bytes.isalnum()
+bytearray.isalnum()
+
+bytes.isalpha()
+bytearray.isalpha()
+
+bytes.isdigit()
+bytearray.isdigit()
+
+bytes.islower()
+bytearray.islower()
+
+bytes.isspace()
+bytearray.isspace()
+
+bytes.istitle()
+bytearray.istitle()
+
+bytes.isupper()
+bytearray.isupper()
+
+bytes.lower()
+bytearray.lower()
+
+bytes.splitlines(keepends=False)
+bytearray.splitlines(keepends=False)
+
+bytes.swapcase()
+bytearray.swapcase()
+
+bytes.title()
+bytearray.title()
+
+bytes.upper()
+bytearray.upper()
+
+bytes.zfill(width)
+bytearray.zfill(width)
+
+re.compile(pattern, flags=0)
+re.search(pattern, string, flags=0)
+re.match(pattern, string, flags=0)
+re.fullmatch(pattern, string, flags=0)
+re.split(pattern, string, maxsplit=0, flags=0)
+re.findall(pattern, string, flags=0)
+re.finditer(pattern, string, flags=0)
+re.sub(pattern, repl, string, count=0, flags=0)
+re.subn(pattern, repl, string, count=0, flags=0)
+re.escape(pattern)
+re.purge()
+
+class datetime.date
+class datetime.time
+class datetime.datetime
+class datetime.timedelta
+class datetime.tzinfo
+class datetime.timezone
+
+object
+    timedelta
+    tzinfo
+        timezone
+    time
+    date
+        datetime
+
+class datetime.timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
+timedelta.total_seconds()
+
+class datetime.date(year, month, day)
+
+classmethod date.today()
+classmethod date.fromtimestamp(timestamp)
+classmethod date.fromordinal(ordinal)
+
+date.year
+date.month
+date.day
+
+date.replace(year=self.year, month=self.month, day=self.day)
+date.timetuple()
+date.toordinal()
+date.weekday()
+date.isoweekday()
+date.isocalendar()
+date.isoformat()
+date.__str__()
+date.ctime()
+date.strftime(format)
+date.__format__(format)
+
+class datetime.datetime(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None, *, fold=0)
+
+classmethod datetime.today()
+classmethod datetime.now(tz=None)
+classmethod datetime.utcnow()
+classmethod datetime.fromtimestamp(timestamp, tz=None)
+classmethod datetime.utcfromtimestamp(timestamp)
+classmethod datetime.fromordinal(ordinal)
+classmethod datetime.combine(date, time, tzinfo=self.tzinfo)
+classmethod datetime.strptime(date_string, format)
+
+datetime.year
+datetime.month
+datetime.day
+datetime.hour
+datetime.minute
+datetime.second
+datetime.microsecond
+datetime.tzinfo
+datetime.fold
+
+datetime.date()
+datetime.time()
+datetime.timetz()
+datetime.replace(year=self.year, month=self.month, day=self.day, hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, * fold=0)
+datetime.astimezone(tz=None)
+datetime.utcoffset()
+datetime.dst()
+datetime.tzname()
+datetime.timetuple()
+datetime.utctimetuple()
+datetime.toordinal()
+datetime.timestamp()
+datetime.weekday()
+datetime.isoweekday()
+datetime.isocalendar()
+datetime.isoformat(sep='T', timespec='auto')
+datetime.__str__()
+datetime.ctime()
+datetime.strftime(format)
+datetime.__format__(format)
+
+class datetime.time(hour=0, minute=0, second=0, microsecond=0, tzinfo=None, *, fold=0)
+
+time.hour
+time.minute
+time.second
+time.microsecond
+time.tzinfo
+time.fold
+
+time.replace(hour=self.hour, minute=self.minute, second=self.second, microsecond=self.microsecond, tzinfo=self.tzinfo, * fold=0)
+time.isoformat(timespec='auto')
+time.__str__()
+time.strftime(format)
+time.__format__(format)
+time.utcoffset()
+time.dst()
+time.tzname()
+
+class datetime.tzinfo
+
+tzinfo.utcoffset(dt)
+tzinfo.dst(dt)
+tzinfo.tzname(dt)
+tzinfo.fromutc(dt)
+
+class datetime.timezone(offset, name=None)
+
+timezone.utcoffset(dt)
+timezone.tzname(dt)
+timezone.dst(dt)
+timezone.fromutc(dt)
+timezone.utc
+
+time.altzone
+time.asctime([t])
+time.clock()
+time.clock_getres(clk_id)
+time.clock_gettime(clk_id)
+time.clock_settime(clk_id, time)
+time.CLOCK_HIGHRES
+time.CLOCK_MONOTONIC
+time.CLOCK_MONOTONIC_RAW
+time.CLOCK_PROCESS_CPUTIME_ID
+time.CLOCK_REALTIME
+time.CLOCK_THREAD_CPUTIME_ID
+time.ctime([secs])
+time.daylight
+time.get_clock_info(name)
+time.gmtime([secs])
+time.localtime([secs])
+time.mktime(t)
+time.monotonic()
+time.perf_counter()
+time.process_time()
+time.sleep(secs)
+time.strftime(format[, t])
+time.strptime(string[, format])
+
+class time.struct_time
+
+time.time()
+time.timezone
+time.tzname
+time.tzset()
+
+random.seed(a=None, version=2)
+random.getstate()
+random.setstate(state)
+random.getrandbits(k)
+
+random.randrange(stop)
+random.randrange(start, stop[, step])
+random.randint(a, b)
+
+random.choice(seq)
+random.choices(population, weights=None, *, cum_weights=None, k=1)
+random.shuffle(x[, random])
+random.sample(population, k)
+
+random.random()
+random.uniform(a, b)
+random.triangular(low, high, mode)
+random.betavariate(alpha, beta)
+random.expovariate(lambd)
+random.gammavariate(alpha, beta)
+random.gauss(mu, sigma)
+random.lognormvariate(mu, sigma)
+random.normalvariate(mu, sigma)
+random.vonmisesvariate(mu, kappa)
+random.paretovariate(alpha)
+random.weibullvariate(alpha, beta)
+
+class random.SystemRandom([seed])
+
+math.ceil(x)
+math.floor(x)
+math.trunc(x)
+math.sqrt(x)
+math.copysign(x, y)
+math.fabs(x)
+math.factorial(x)
+math.fmod(x, y)
+math.frexp(x)
+math.fsum(iterable)
+math.gcd(a, b)
+math.isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)
+math.isfinite(x)
+math.isinf(x)
+math.isnan(x)
+math.ldexp(x, i)
+math.modf(x)
+math.exp(x)
+math.expm1(x)
+math.log(x[, base])
+math.log1p(x)
+math.log2(x)
+math.log10(x)
+math.pow(x, y)
+math.acos(x)
+math.asin(x)
+math.atan(x)
+math.atan2(y, x)
+math.cos(x)
+math.hypot(x, y)
+math.sin(x)
+math.tan(x)
+math.degrees(x)
+math.radians(x)
+math.acosh(x)
+math.asinh(x)
+math.atanh(x)
+math.cosh(x)
+math.sinh(x)
+math.tanh(x)
+math.erf(x)
+math.erfc(x)
+math.gamma(x)
+math.lgamma(x)
+math.pi
+math.e
+math.tau
+math.inf
+math.nan
+
+class numbers.Complex
+class numbers.Real
+class numbers.Rational
+class numbers.Integral
+
+itertools.accumulate(iterable[, func])
+itertools.chain(*iterables)
+itertools.combinations(iterable, r)
+itertools.combinations_with_replacement(iterable, r)
+itertools.compress(data, selectors)
+itertools.count(start=0, step=1)
+itertools.cycle(iterable)
+itertools.dropwhile(predicate, iterable)
+itertools.filterfalse(predicate, iterable)
+itertools.groupby(iterable, key=None)
+itertools.islice(iterable, stop)
+itertools.islice(iterable, start, stop[, step])
+itertools.permutations(iterable, r=None)
+itertools.product(*iterables, repeat=1)
+itertools.repeat(object[, times])
+itertools.starmap(function, iterable)
+itertools.takewhile(predicate, iterable)
+itertools.tee(iterable, n=2)
+itertools.zip_longest(*iterables, fillvalue=None)
+classmethod chain.from_iterable(iterable)
+
+functools.cmp_to_key(func)
+functools.lru_cache(maxsize=128, typed=False)
+functools.total_ordering
+functools.partial(func, *args, **keywords)¶
+functools.reduce(function, iterable[, initializer])
+functools.singledispatch(default)
+functools.update_wrapper(wrapper, wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)
+functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)
+
+class functools.partialmethod(func, *args, **keywords)
+
+partial.func
+partial.args
+partial.keywords
+
+class pathlib.PurePath(*pathsegments)
+class pathlib.PurePosixPath(*pathsegments)
+class pathlib.PureWindowsPath(*pathsegments)
+
+PurePath.parts
+
+PurePath.drive
+PurePath.root
+PurePath.anchor
+PurePath.parents
+PurePath.parent
+PurePath.name
+PurePath.suffix
+PurePath.suffixes
+PurePath.stem
+PurePath.as_posix()
+PurePath.as_uri()
+PurePath.is_absolute()
+PurePath.is_reserved()
+PurePath.joinpath(*other)
+PurePath.match(pattern)
+PurePath.relative_to(*other)
+PurePath.with_name(name)
+PurePath.with_suffix(suffix)
+
+class pathlib.Path(*pathsegments)
+class pathlib.PosixPath(*pathsegments)
+class pathlib.WindowsPath(*pathsegments)
+
+classmethod Path.cwd()
+classmethod Path.home()
+
+Path.stat()
+Path.chmod(mode)
+Path.exists()
+Path.expanduser()
+Path.glob(pattern)
+Path.group()
+Path.is_dir()
+Path.is_file()
+Path.is_symlink()
+Path.is_socket()
+Path.is_fifo()
+Path.is_block_device()
+Path.is_char_device()
+Path.iterdir()
+Path.lchmod(mode)
+Path.lstat()
+Path.mkdir(mode=0o777, parents=False, exist_ok=False)
+Path.open(mode='r', buffering=-1, encoding=None, errors=None, newline=None)
+Path.owner()
+Path.read_bytes()
+Path.read_text(encoding=None, errors=None)
+Path.rename(target)
+Path.replace(target)
+Path.resolve(strict=False)
+Path.rglob(pattern)
+Path.rmdir()
+Path.samefile(other_path)
+Path.symlink_to(target, target_is_directory=False)
+Path.touch(mode=0o666, exist_ok=True)
+Path.unlink()
+Path.write_bytes(data)
+Path.write_text(data, encoding=None, errors=None)
+
+os.path.abspath(path)
+os.path.basename(path)
+os.path.commonpath(paths)
+os.path.commonprefix(list)
+os.path.dirname(path)
+os.path.exists(path)
+os.path.lexists(path)
+os.path.expanduser(path)
+os.path.expandvars(path)
+os.path.getatime(path)
+os.path.getmtime(path)
+os.path.getctime(path)
+os.path.getsize(path)
+os.path.isabs(path)
+os.path.isfile(path)
+os.path.isdir(path)
+os.path.islink(path)
+os.path.ismount(path)
+os.path.join(path, *paths)
+os.path.normcase(path)
+os.path.normpath(path)
+os.path.realpath(path)
+os.path.relpath(path, start=os.curdir)
+os.path.samefile(path1, path2)
+os.path.sameopenfile(fp1, fp2)
+os.path.samestat(stat1, stat2)
+os.path.split(path)
+os.path.splitdrive(path)
+os.path.splitext(path)
+os.path.splitunc(path)
+os.path.supports_unicode_filenames
+
+glob.glob(pathname, *, recursive=False)
+glob.iglob(pathname, recursive=False)
+glob.escape(pathname)
+
+fnmatch.fnmatch(filename, pattern)
+fnmatch.fnmatchcase(filename, pattern)
+fnmatch.filter(names, pattern)
+fnmatch.translate(pattern)
+
+marshal.dump(value, file[, version])
+marshal.load(file)
+marshal.dumps(value[, version])
+marshal.loads(bytes)
+marshal.version
+
+os.ctermid()
+os.environ
+os.environb
+os.chdir(path)
+os.fchdir(fd)
+os.getcwd()
+os.fsencode(filename)
+os.fsdecode(filename)
+os.fspath(path)
+os.getenv(key, default=None)
+os.getenvb(key, default=None)
+os.get_exec_path(env=None)
+os.getegid()
+os.geteuid()
+os.getgid()
+os.getgrouplist(user, group)
+os.getgroups()
+os.getlogin()
+os.getpgid(pid)
+os.getpgrp()
+os.getpid()
+os.getppid()
+os.getpriority(which, who)
+os.getresuid()
+os.getresgid()
+os.getuid()
+os.initgroups(username, gid)
+os.putenv(key, value)
+os.setegid(egid)
+os.seteuid(euid)
+os.setgid(gid)
+os.setgroups(groups)
+os.setpgrp()
+os.setpgid(pid, pgrp)
+os.setpriority(which, who, priority)
+os.setregid(rgid, egid)
+os.setresgid(rgid, egid, sgid)
+os.setresuid(ruid, euid, suid)
+os.setreuid(ruid, euid)
+os.getsid(pid)
+os.setsid()
+os.setuid(uid)
+os.strerror(code)
+os.supports_bytes_environ
+os.umask(mask)
+os.uname()
+os.unsetenv(key)
+os.fdopen(fd, *args, **kwargs)
+os.close(fd)
+os.closerange(fd_low, fd_high)
+os.device_encoding(fd)
+os.dup(fd)
+os.dup2(fd, fd2, inheritable=True)
+os.fchmod(fd, mode)
+os.fchown(fd, uid, gid)
+os.fdatasync(fd)
+os.fpathconf(fd, name)
+os.fstat(fd)
+os.fstatvfs(fd)
+os.fsync(fd)
+os.ftruncate(fd, length)
+os.get_blocking(fd)
+os.isatty(fd)
+os.lockf(fd, cmd, len)
+os.lseek(fd, pos, how)
+os.open(path, flags, mode=0o777, *, dir_fd=None)
+os.openpty()
+os.pipe()
+os.pipe2(flags)
+os.posix_fallocate(fd, offset, len)
+os.posix_fadvise(fd, offset, len, advice)
+os.pread(fd, buffersize, offset)
+os.pwrite(fd, str, offset)
+os.read(fd, n)
+os.sendfile(out, in, offset, count)
+os.sendfile(out, in, offset, count, [headers, ][trailers, ]flags=0)
+os.set_blocking(fd, blocking)
+os.SF_NODISKIO
+os.SF_MNOWAIT
+os.SF_SYNC
+os.readv(fd, buffers)
+os.tcgetpgrp(fd)
+os.tcsetpgrp(fd, pg)
+os.ttyname(fd)
+os.write(fd, str)
+os.writev(fd, buffers)
+os.get_terminal_size(fd=STDOUT_FILENO)
+os.get_inheritable(fd)
+os.set_inheritable(fd, inheritable)
+os.get_handle_inheritable(handle)
+os.set_handle_inheritable(handle, inheritable)
+os.access(path, mode, *, dir_fd=None, effective_ids=False, follow_symlinks=True)
+os.chdir(path)
+os.chflags(path, flags, *, follow_symlinks=True)
+os.chmod(path, mode, *, dir_fd=None, follow_symlinks=True)
+os.chown(path, uid, gid, *, dir_fd=None, follow_symlinks=True)
+os.chroot(path)
+os.fchdir(fd)
+os.getcwd()
+os.getcwdb()
+os.lchflags(path, flags)
+os.lchmod(path, mode)
+os.lchown(path, uid, gid)
+os.link(src, dst, *, src_dir_fd=None, dst_dir_fd=None, follow_symlinks=True)
+os.listdir(path='.')
+os.lstat(path, *, dir_fd=None)
+os.mkdir(path, mode=0o777, *, dir_fd=None)
+os.makedirs(name, mode=0o777, exist_ok=False)
+os.mkfifo(path, mode=0o666, *, dir_fd=None)
+os.mknod(path, mode=0o600, device=0, *, dir_fd=None)
+os.major(device)
+os.minor(device)
+os.makedev(major, minor)
+os.pathconf(path, name)
+os.pathconf_names
+os.readlink(path, *, dir_fd=None)
+os.remove(path, *, dir_fd=None)
+os.removedirs(name)
+os.rename(src, dst, *, src_dir_fd=None, dst_dir_fd=None)
+os.renames(old, new)
+os.replace(src, dst, *, src_dir_fd=None, dst_dir_fd=None)
+os.rmdir(path, *, dir_fd=None)
+os.scandir(path='.')
+os.stat(path, *, dir_fd=None, follow_symlinks=True)
+os.stat_float_times([newvalue])
+os.statvfs(path)
+os.supports_dir_fd
+os.supports_effective_ids
+os.supports_fd
+os.supports_follow_symlinks
+os.symlink(src, dst, target_is_directory=False, *, dir_fd=None)
+os.sync()
+os.truncate(path, length)
+os.unlink(path, *, dir_fd=None)
+os.utime(path, times=None, *, [ns, ]dir_fd=None, follow_symlinks=True)
+os.walk(top, topdown=True, onerror=None, followlinks=False)
+os.fwalk(top='.', topdown=True, onerror=None, *, follow_symlinks=False, dir_fd=None)
+os.getxattr(path, attribute, *, follow_symlinks=True)
+os.listxattr(path=None, *, follow_symlinks=True)
+os.removexattr(path, attribute, *, follow_symlinks=True)
+os.setxattr(path, attribute, value, flags=0, *, follow_symlinks=True)
+os.XATTR_SIZE_MAX
+os.XATTR_CREATE
+os.XATTR_REPLACE
+os.abort()
+os.execl(path, arg0, arg1, ...)
+os.execle(path, arg0, arg1, ..., env)
+os.execlp(file, arg0, arg1, ...)
+os.execlpe(file, arg0, arg1, ..., env)
+os.execv(path, args)
+os.execve(path, args, env)
+os.execvp(file, args)
+os.execvpe(file, args, env)
+os._exit(n)
+os.fork()
+os.forkpty()
+os.kill(pid, sig)
+os.killpg(pgid, sig)
+os.nice(increment)
+os.plock(op)
+os.popen(cmd, mode='r', buffering=-1)
+os.spawnl(mode, path, ...)
+os.spawnle(mode, path, ..., env)
+os.spawnlp(mode, file, ...)
+os.spawnlpe(mode, file, ..., env)
+os.spawnv(mode, path, args)
+os.spawnve(mode, path, args, env)
+os.spawnvp(mode, file, args)
+os.spawnvpe(mode, file, args, env)
+os.startfile(path[, operation])
+os.system(command)
+os.times()
+os.wait()
+os.waitid(idtype, id, options)
+os.waitpid(pid, options)
+os.wait3(options)
+os.wait4(pid, options)
+os.sched_get_priority_min(policy)
+os.sched_get_priority_max(policy)
+os.sched_setscheduler(pid, policy, param)
+os.sched_getscheduler(pid)
+os.sched_setparam(pid, param)
+os.sched_getparam(pid)
+os.sched_rr_get_interval(pid)
+os.sched_yield()
+os.sched_setaffinity(pid, mask)
+os.sched_getaffinity(pid)
+os.confstr(name)
+os.confstr_names
+os.cpu_count()
+os.getloadavg()
+os.sysconf(name)
+os.sysconf_names
+os.curdir
+os.pardir
+os.sep
+os.altsep
+os.extsep
+os.pathsep
+os.defpath
+os.linesep
+os.devnull
+os.getrandom(size, flags=0)
+os.urandom(size)
+
+class io.IOBase
+class io.RawIOBase
+class io.BufferedIOBase
+class io.FileIO(name, mode='r', closefd=True, opener=None)
+class io.BytesIO([initial_bytes])
+class io.BufferedReader(raw, buffer_size=DEFAULT_BUFFER_SIZE)
+class io.BufferedWriter(raw, buffer_size=DEFAULT_BUFFER_SIZE)
+class io.BufferedRandom(raw, buffer_size=DEFAULT_BUFFER_SIZE)
+class io.BufferedRWPair(reader, writer, buffer_size=DEFAULT_BUFFER_SIZE)
+class io.TextIOBase
+class io.TextIOWrapper(buffer, encoding=None, errors=None, newline=None, line_buffering=False, write_through=False)
+class io.StringIO(initial_value='', newline='\n')
+class io.IncrementalNewlineDecoder
+
+class logging.Logger
+class logging.Formatter(fmt=None, datefmt=None, style='%')
+class logging.Filter(name='')
+class logging.LogRecord(name, level, pathname, lineno, msg, args, exc_info, func=None, sinfo=None)
+class logging.LoggerAdapter(logger, extra)
+
+Logger.propagate
+Logger.setLevel(lvl)
+Logger.isEnabledFor(lvl)
+Logger.getEffectiveLevel()
+Logger.getChild(suffix)
+Logger.debug(msg, *args, **kwargs)
+Logger.info(msg, *args, **kwargs)
+Logger.warning(msg, *args, **kwargs)
+Logger.error(msg, *args, **kwargs)
+Logger.critical(msg, *args, **kwargs)
+Logger.log(lvl, msg, *args, **kwargs)
+Logger.exception(msg, *args, **kwargs)
+Logger.addFilter(filt)
+Logger.removeFilter(filt)
+Logger.filter(record)
+Logger.addHandler(hdlr)
+Logger.removeHandler(hdlr)
+Logger.findCaller(stack_info=False)
+Logger.handle(record)
+Logger.makeRecord(name, lvl, fn, lno, msg, args, exc_info, func=None, extra=None, sinfo=None)
+Logger.hasHandlers()
+
+html.escape(s, quote=True)
+html.unescape(s)
+
+sys.abiflags
+sys.argv
+sys.base_exec_prefix
+sys.base_prefix
+sys.byteorder
+sys.builtin_module_names
+sys.call_tracing(func, args)
+sys._clear_type_cache()
+sys._current_frames()
+sys._debugmallocstats()
+sys.dllhandle
+sys.displayhook(value)
+sys.dont_write_bytecode
+sys.excepthook(type, value, traceback)
+sys.__displayhook__
+sys.__excepthook__
+sys.exc_info()
+sys.exec_prefix
+sys.executable
+sys.exit([arg])
+sys.flags
+sys.float_info
+sys.float_repr_style
+sys.getallocatedblocks()
+sys.getcheckinterval()
+sys.getdefaultencoding()
+sys.getdlopenflags()
+sys.getfilesystemencoding()
+sys.getfilesystemencodeerrors()
+sys.getrefcount(object)
+sys.getrecursionlimit()
+sys.getsizeof(object[, default])
+sys.getswitchinterval()
+sys._getframe([depth])
+sys.getprofile()
+sys.gettrace()
+sys.get_asyncgen_hooks()
+sys.get_coroutine_wrapper()
+sys.hash_info
+sys.hexversion
+sys.implementation
+sys.int_info
+sys.__interactivehook__
+sys.intern(string)
+sys.is_finalizing()
+sys.last_type
+sys.last_value
+sys.last_traceback
+sys.maxsize
+sys.maxunicode
+sys.meta_path
+sys.modules
+sys.path
+sys.path_hooks
+sys.path_importer_cache
+sys.setcheckinterval(interval)
+sys.setdlopenflags(n)
+sys.setprofile(profilefunc)
+sys.setrecursionlimit(limit)
+sys.setswitchinterval(interval)
+sys.settrace(tracefunc)
+sys.set_asyncgen_hooks(firstiter, finalizer)
+sys.set_coroutine_wrapper(wrapper)
+sys._enablelegacywindowsfsencoding()
+sys.stdin
+sys.stdout
+sys.stderr
+sys.__stdin__
+sys.__stdout__
+sys.__stderr__
+sys.thread_info
+sys.tracebacklimit
+sys.warnoptions
+sys._xoptions
+
+

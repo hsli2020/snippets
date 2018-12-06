@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<title>Transitions</title>
+</head>
+
+<style>
+</style>
+
+<body>
+	<div>
+		<button onClick="update();">Do transition</button>
+	</div>
+	<svg width="780" height="510">
+	</svg>
+
+	<script src="http://d3js.org/d3.v4.min.js"></script>
+	<script>
+var data = [];
+var numCircles = 20, width = 620, height = 350, maxRadius = 50;
+
+function rnd(x) {return Math.floor(Math.random() * x);}
+
+function randomise() {
+	data = [];
+	numCircles = 10;
+	for(var i=0; i<numCircles; i++) {
+		data.push({
+			x: rnd(width) + 70,
+			y: rnd(height) + 70,
+			r: rnd(maxRadius) + 20,
+			fill: d3.rgb(rnd(255), rnd(255), rnd(255))
+		});
+	}
+}
+
+function update() {
+	randomise();
+
+	var u = d3.select('svg')
+		.selectAll('circle')
+		.data(data);
+
+	// Enter
+	u.enter()
+		.append('circle')
+		.attr('r', 0)
+		.attr('cx', width / 2)
+		.attr('cy', height / 2)
+		.style('fill', 'white')
+		.merge(u)
+	  .transition()
+		.duration(1500)
+		.attr('cx', function(d) {return d.x;})
+		.attr('cy', function(d) {return d.y;})
+		.attr('r', function(d) {return d.r;})
+		.style('fill', function(d) {return d.fill;});
+
+	// Exit
+	u.exit()
+		.transition()
+		.duration(1500)
+		.attr('r', 0)
+	  .style('opacity', 0)
+		.each('end', function() {
+			d3.select(this).remove();
+		});
+}
+
+update();
+	</script>
+</body>
+</html>

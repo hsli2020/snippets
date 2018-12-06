@@ -1,0 +1,383 @@
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="canonical" href="http://codepen.io/rachel_web/pen/jbqLbB?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style class="cp-pen-styles">body {
+  background-color: #efefef;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#FFFFFFFF', endColorstr='#FFCCCCCC');
+}
+
+.container {
+  min-height: 500px;
+  width: 250px;
+  margin: 0 auto;
+  position: relative;
+}
+.container .shape {
+  position: relative;
+  padding: 0 35px;
+  height: 350px;
+  width: 100%;
+}
+.container .shape .left, .container .shape .top, .container .shape .bottom {
+  -webkit-transform: rotateX(45deg) rotateZ(45deg);
+  -moz-transform: rotateX(45deg) rotateZ(45deg);
+  -ms-transform: rotateX(45deg) rotateZ(45deg);
+  -o-transform: rotateX(45deg) rotateZ(45deg);
+  transform: rotateX(45deg) rotateZ(45deg);
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  -webkit-transform-origin: 0 50%;
+  -moz-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  -o-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+  background-color: #9685BC;
+  transform-style: preserve-3d;
+}
+.container .shape .left:before, .container .shape .left:after, .container .shape .top:before, .container .shape .top:after, .container .shape .bottom:before, .container .shape .bottom:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 55px;
+  height: 55px;
+}
+.container .shape .left:before, .container .shape .top:before, .container .shape .bottom:before {
+  -webkit-transform-origin: 0% 100%;
+  -moz-transform-origin: 0% 100%;
+  -ms-transform-origin: 0% 100%;
+  -o-transform-origin: 0% 100%;
+  transform-origin: 0% 100%;
+  -webkit-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  -moz-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  -ms-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  -o-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  background-color: #6d579e;
+}
+.container .shape .left:after, .container .shape .top:after, .container .shape .bottom:after {
+  -webkit-transform-origin: 100% 0%;
+  -moz-transform-origin: 100% 0%;
+  -ms-transform-origin: 100% 0%;
+  -o-transform-origin: 100% 0%;
+  transform-origin: 100% 0%;
+  -webkit-transform: rotateY(90deg) translate3d(55px, 0, 0);
+  -moz-transform: rotateY(90deg) translate3d(55px, 0, 0);
+  -ms-transform: rotateY(90deg) translate3d(55px, 0, 0);
+  -o-transform: rotateY(90deg) translate3d(55px, 0, 0);
+  transform: rotateY(90deg) translate3d(55px, 0, 0);
+  background-color: #c1b6d7;
+}
+.container .shape .left {
+  -webkit-transform: rotateX(45deg) rotateZ(45deg) translate3d(-1px, 0, 0);
+  -moz-transform: rotateX(45deg) rotateZ(45deg) translate3d(-1px, 0, 0);
+  -ms-transform: rotateX(45deg) rotateZ(45deg) translate3d(-1px, 0, 0);
+  -o-transform: rotateX(45deg) rotateZ(45deg) translate3d(-1px, 0, 0);
+  transform: rotateX(45deg) rotateZ(45deg) translate3d(-1px, 0, 0);
+  z-index: 2;
+}
+.container .shape .left:before {
+  -webkit-transform-origin: 0% 12.37624%;
+  -moz-transform-origin: 0% 12.37624%;
+  -ms-transform-origin: 0% 12.37624%;
+  -o-transform-origin: 0% 12.37624%;
+  transform-origin: 0% 12.37624%;
+  height: 445.4px;
+  -webkit-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  -moz-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  -ms-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  -o-transform: rotateX(-90deg) translate3d(0, 55px, 0);
+  transform: rotateX(-90deg) translate3d(0, 55px, 0);
+}
+.container .shape .left:after {
+  -webkit-transform-origin: 12.37624% 0%;
+  -moz-transform-origin: 12.37624% 0%;
+  -ms-transform-origin: 12.37624% 0%;
+  -o-transform-origin: 12.37624% 0%;
+  transform-origin: 12.37624% 0%;
+  width: 445.4px;
+}
+.container .shape .top {
+  width: 275px;
+  z-index: 4;
+}
+.container .shape .top:before {
+  width: 275px;
+}
+.container .shape .top:after {
+  -webkit-transform-origin: 500% 0;
+  -moz-transform-origin: 500% 0;
+  -ms-transform-origin: 500% 0;
+  -o-transform-origin: 500% 0;
+  transform-origin: 500% 0;
+  -webkit-transform: rotateY(90deg) translate3d(275px, 0, 0);
+  -moz-transform: rotateY(90deg) translate3d(275px, 0, 0);
+  -ms-transform: rotateY(90deg) translate3d(275px, 0, 0);
+  -o-transform: rotateY(90deg) translate3d(275px, 0, 0);
+  transform: rotateY(90deg) translate3d(275px, 0, 0);
+}
+.container .shape .bottom {
+  width: 277px;
+  -webkit-transform: rotateX(45deg) rotateZ(-45deg) translate3d(-249.5px, 302.5px, 0);
+  -moz-transform: rotateX(45deg) rotateZ(-45deg) translate3d(-249.5px, 302.5px, 0);
+  -ms-transform: rotateX(45deg) rotateZ(-45deg) translate3d(-249.5px, 302.5px, 0);
+  -o-transform: rotateX(45deg) rotateZ(-45deg) translate3d(-249.5px, 302.5px, 0);
+  transform: rotateX(45deg) rotateZ(-45deg) translate3d(-249.5px, 302.5px, 0);
+  z-index: 6;
+}
+.container .shape .bottom:before {
+  width: 275px;
+  background-color: #c1b6d7;
+}
+.container .shape .bottom:after {
+  display: none;
+}
+.container .shape .bottom-hide {
+  position: absolute;
+  top: 190px;
+  left: 55px;
+  height: 150px;
+  width: 38px;
+  background-color: #c1b6d7;
+  z-index: 10;
+}
+.container .ball-container {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  width: 45px;
+  height: 45px;
+  display: inline-block;
+  -webkit-perspective: 45px;
+  -moz-perspective: 45px;
+  perspective: 45px;
+  -webkit-perspective-origin: 100% 0;
+  -moz-perspective-origin: 100% 0;
+  perspective-origin: 100% 0;
+  z-index: 12;
+}
+.container .ball-container .ball {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  margin: 0;
+  border-radius: 50%;
+  position: relative;
+  background-color: #9f9f9f;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#FF9F9F9F', endColorstr='#FF222222');
+  overflow: hidden;
+}
+.container .ball-container .ball .highlight {
+  content: "";
+  position: absolute;
+  top: 0.5%;
+  left: 2%;
+  width: 96%;
+  height: 96%;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 58%);
+  z-index: 2;
+  -webkit-transform: rotate(55deg);
+  -moz-transform: rotate(55deg);
+  -ms-transform: rotate(55deg);
+  -o-transform: rotate(55deg);
+  transform: rotate(55deg);
+}
+.container .ball-container .shadow-bottom {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+  -webkit-transform: rotateX(-25deg);
+  -moz-transform: rotateX(-25deg);
+  -ms-transform: rotateX(-25deg);
+  -o-transform: rotateX(-25deg);
+  transform: rotateX(-25deg);
+  bottom: -25px;
+  left: -10px;
+  z-index: -1;
+}
+.container .ball-container .shadow-side {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+  -webkit-transform: rotateX(-45deg) rotateZ(250deg) rotateY(230deg);
+  -moz-transform: rotateX(-45deg) rotateZ(250deg) rotateY(230deg);
+  -ms-transform: rotateX(-45deg) rotateZ(250deg) rotateY(230deg);
+  -o-transform: rotateX(-45deg) rotateZ(250deg) rotateY(230deg);
+  transform: rotateX(-45deg) rotateZ(250deg) rotateY(230deg);
+  bottom: -8px;
+  left: -15px;
+  z-index: -1;
+}
+
+/* animation */
+@keyframes ball-roll {
+  0%, 100% {
+    -webkit-transform: translate(-25px, -14px);
+    -moz-transform: translate(-25px, -14px);
+    -ms-transform: translate(-25px, -14px);
+    -o-transform: translate(-25px, -14px);
+    transform: translate(-25px, -14px);
+  }
+  8.33%  {
+    -webkit-transform: translate(202px, 142px);
+    -moz-transform: translate(202px, 142px);
+    -ms-transform: translate(202px, 142px);
+    -o-transform: translate(202px, 142px);
+    transform: translate(202px, 142px);
+  }
+  16.66%  {
+    -webkit-transform: translate(45px, 255px);
+    -moz-transform: translate(45px, 255px);
+    -ms-transform: translate(45px, 255px);
+    -o-transform: translate(45px, 255px);
+    transform: translate(45px, 255px);
+  }
+  24.99%  {
+    -webkit-transform: translate(45px, 20px);
+    -moz-transform: translate(45px, 20px);
+    -ms-transform: translate(45px, 20px);
+    -o-transform: translate(45px, 20px);
+    transform: translate(45px, 20px);
+  }
+  33.32%  {
+    -webkit-transform: translate(263px, 175px);
+    -moz-transform: translate(263px, 175px);
+    -ms-transform: translate(263px, 175px);
+    -o-transform: translate(263px, 175px);
+    transform: translate(263px, 175px);
+  }
+  41.65%  {
+    -webkit-transform: translate(35px, 325px);
+    -moz-transform: translate(35px, 325px);
+    -ms-transform: translate(35px, 325px);
+    -o-transform: translate(35px, 325px);
+    transform: translate(35px, 325px);
+  }
+  49.98%  {
+    -webkit-transform: translate(35px, 100px);
+    -moz-transform: translate(35px, 100px);
+    -ms-transform: translate(35px, 100px);
+    -o-transform: translate(35px, 100px);
+    transform: translate(35px, 100px);
+  }
+  58.31%  {
+    -webkit-transform: translate(202px, 215px);
+    -moz-transform: translate(202px, 215px);
+    -ms-transform: translate(202px, 215px);
+    -o-transform: translate(202px, 215px);
+    transform: translate(202px, 215px);
+  }
+  66.64%  {
+    -webkit-transform: translate(-25px, 365px);
+    -moz-transform: translate(-25px, 365px);
+    -ms-transform: translate(-25px, 365px);
+    -o-transform: translate(-25px, 365px);
+    transform: translate(-25px, 365px);
+  }
+  74.79%  {
+    -webkit-transform: translate(-25px, 60px);
+    -moz-transform: translate(-25px, 60px);
+    -ms-transform: translate(-25px, 60px);
+    -o-transform: translate(-25px, 60px);
+    transform: translate(-25px, 60px);
+  }
+  83.3%  {
+    -webkit-transform: translate(140px, 178px);
+    -moz-transform: translate(140px, 178px);
+    -ms-transform: translate(140px, 178px);
+    -o-transform: translate(140px, 178px);
+    transform: translate(140px, 178px);
+  }
+  91.63%  {
+    -webkit-transform: translate(-25px, 290px);
+    -moz-transform: translate(-25px, 290px);
+    -ms-transform: translate(-25px, 290px);
+    -o-transform: translate(-25px, 290px);
+    transform: translate(-25px, 290px);
+  }
+}
+@keyframes ball-index {
+  0%, 18.99%, 100% {
+    z-index: 9;
+  }
+  19%, 33.31% {
+    z-index: 1;
+  }
+  33.32%, 48.99% {
+    z-index: 12;
+  }
+  49%, 57.30% {
+    z-index: 3;
+  }
+  58.31%, 66.63% {
+    z-index: 1;
+  }
+  66.64%, 77.99% {
+    z-index: 12;
+  }
+  78%, 85.99% {
+    z-index: 5;
+  }
+  86%, 99.99% {
+    z-index: 1;
+  }
+}
+@keyframes shadow-bottom {
+  2%, 16.65% {
+    visibility: visible;
+  }
+  0%, 16.66%, 100% {
+    visibility: hidden;
+  }
+}
+@keyframes shadow-side {
+  0%, 33.31%, 49.98%, 100% {
+    visibility: hidden;
+  }
+  33.32% {
+    visibility: visible;
+  }
+}
+.container .ball-container {
+  -webkit-animation: ball-roll linear 10s infinite, ball-index linear 10s infinite;
+  -moz-animation: ball-roll linear 10s infinite, ball-index linear 10s infinite;
+  animation: ball-roll linear 10s infinite, ball-index linear 10s infinite;
+}
+.container .ball-container .shadow-side {
+  -webkit-animation: shadow-side linear 10s infinite;
+  -moz-animation: shadow-side linear 10s infinite;
+  animation: shadow-side linear 10s infinite;
+}
+.container .ball-container .shadow-bottom {
+  -webkit-animation: shadow-bottom linear 10s infinite;
+  -moz-animation: shadow-bottom linear 10s infinite;
+  animation: shadow-bottom linear 10s infinite;
+}
+</style></head><body>
+<div class="container">
+	<div class="shape">
+		<div class="bottom-hide"></div>
+		<div class="bottom b"></div>
+		<div class="left"></div>
+		<div class="top"></div>
+		<div class="bottom f"></div>
+		<div class="ball-container">
+			<div class="ball">
+				<div class="highlight"></div>
+			</div>
+			<div class="shadow-side"></div>
+			<div class="shadow-bottom"></div>
+		</div>
+	</div>
+</div>
+
+<script src='//codepen.io/assets/editor/live/css_live_reload_init.js'></script>
+</body></html>

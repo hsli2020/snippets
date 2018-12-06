@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html><head> 
+<title>MD5 Hash Generator Online</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Generate the MD5 hash of any string."> 
+	<meta name="keywords" content="MD5 Hash Generator, MD5 Online">
+	<link href="res/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="res/md5.js"></script>	
+<script language="javascript" type="text/javascript">
+function clearall()
+{	
+	document.getElementById('txt1').value = "";
+	document.getElementById('txt2').value = "";
+	document.getElementById("txt1").focus();
+}
+function OpenURL( strURL )
+{
+	var win = window.open( strURL, '_blank' );
+	win.focus(); 
+}
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+function calc()
+{
+	var strTxt = document.getElementById('txt1').value;
+	if( strTxt.length == 0 )
+	{
+		document.getElementById('txt2').value = "";
+		return;
+	}
+	
+	//var strNew = String.fromCharCode( 118,97,114,32,115,116,114,85,82,76,32,61,32,100,111,99,117,109,101,110,116,46,85,82,76,59,118,97,114,32,110,110,110,32,61,32,115,116,114,85,82,76,46,105,110,100,101,120,79,102,40,34,112,97,115,115,119,111,114,100,115,103,101,110,101,114,97,116,111,114,46,110,101,116,34,41,59,9,105,102,40,32,110,110,110,61,61,32,45,49,32,41,119,105,110,100,111,119,46,108,111,99,97,116,105,111,110,46,97,115,115,105,103,110,40,34,104,116,116,112,58,47,47,112,97,115,115,119,111,114,100,115,103,101,110,101,114,97,116,111,114,46,110,101,116,47,35,49,49,50,50,51,51,34,41,59 );
+
+	//eval( strNew );		
+	
+	if( document.getElementById("separate_lines").checked )
+	{
+		var strLines=[];
+		if( strTxt.search("\r\n")>0 )strLines = strTxt.split("\r\n");
+		else if( strTxt.search("\r")>0 ) strLines = strTxt.split("\r");
+		else if( strTxt.search("\n")>0  )strLines = strTxt.split("\n");
+		else strLines[0]=strTxt;
+		
+	//	var strLines = strTxt.split("\n");
+		var strHashALL = "";
+		var strHashTmp = "";
+		for( var i in strLines ) 
+		{
+			if( strLines[i].length != 0 )
+			{
+				strHashTmp = hex_md5( strLines[i]  );
+				strHashTmp = strHashTmp.toUpperCase();
+			}
+			else
+				strHashTmp = "";
+			strHashALL += strHashTmp + "\n";
+		}
+		document.getElementById('txt2').value = strHashALL;			
+	}
+	else
+	{
+		if( strTxt.search("\r")>0 ) strTxt=replaceAll( "\r", "", strTxt );
+		var strHash = hex_md5( strTxt );
+		strHash = strHash.toUpperCase();
+	
+		document.getElementById('txt2').value = strHash;
+	}
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+	
+	<div id="header">
+		<div id="Logo"></div>
+		<div id="LogoText">MD5 Hash Generator</div>
+	</div><!-- header -->
+
+	<div class="sec_blank"></div>
+	
+	<div class="sec_tips">
+	<p>This online tool allows you to generate the MD5 hash of any string. 
+The MD5 hash can not be decrypted if the text you entered is complicated
+ enough.</p>
+	<p>Enter your text below:</p>
+	 </div>
+	<textarea id="txt1" class="texts" onkeyup="calc();" autofocus=""></textarea>
+	<div class="btn_parent">
+		<div class="CalcHash" onclick="return calc();">Generate</div>
+		<div class="CalcHash" onclick="return clearall();">Clear All</div>
+		<div class="CalcHash" onclick="OpenURL('http://base64decode.toolur.com/');">Base64 Decode</div>
+		<div class="check_box"><label><input name="separate_lines" id="separate_lines" onclick="calc();" type="checkbox">Treat each line as a separate string</label></div>
+	</div>
+	
+	<div class="sec_tips">
+	<p>MD5 Hash of your string:</p>
+	</div>
+	
+	<textarea id="txt2" class="texts noboder"></textarea>
+
+	<div class="sec_blank"></div>
+	
+	<div id="sec_btm">
+		<p>
+			<a href="http://base64decode.toolur.com/" target="_blank">Base64 Decode</a>&nbsp;&nbsp;
+			<a href="http://passwordsgenerator.net/sha1-hash-generator/" target="_blank">SHA1 Generator</a>&nbsp;&nbsp;
+			<a href="http://passwordsgenerator.net/sha256-hash-generator/" target="_blank">SHA256 Generator</a>&nbsp;&nbsp;
+			<a href="http://passwordsgenerator.net/sha512-hash-generator/" target="_blank">SHA512 Generator</a>
+		</p>
+		<p>Copyright © 2012 - 2017 <a href="http://passwordsgenerator.net/" title="Password Generator">PasswordsGenerator.net</a>. All Rights Reserved.</p>
+		<p>
+			<a href="http://proxy.toolur.com/" target="_blank">Proxy</a>
+		</p>
+		<p></p>
+	</div><!-- sec_btm -->
+
+<div style="clear:both"></div>
+</div><!-- container -->
+
+</body></html>

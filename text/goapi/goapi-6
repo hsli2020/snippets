@@ -1,0 +1,117 @@
+sort
+func Float64s(a []float64)
+func Float64sAreSorted(a []float64) bool
+func Ints(a []int)
+func IntsAreSorted(a []int) bool
+func IsSorted(data Interface) bool
+func Search(n int, f func(int) bool) int
+func SearchFloat64s(a []float64, x float64) int
+func SearchInts(a []int, x int) int
+func SearchStrings(a []string, x string) int
+func Sort(data Interface)
+func Stable(data Interface)
+func Strings(a []string)
+func StringsAreSorted(a []string) bool
+func (p Float64Slice) Len() int
+func (p Float64Slice) Less(i, j int) bool
+func (p Float64Slice) Search(x float64) int
+func (p Float64Slice) Sort()
+func (p Float64Slice) Swap(i, j int)
+func (p IntSlice) Len() int
+func (p IntSlice) Less(i, j int) bool
+func (p IntSlice) Search(x int) int
+func (p IntSlice) Sort()
+func (p IntSlice) Swap(i, j int)
+func Reverse(data Interface) Interface
+func (p StringSlice) Len() int
+func (p StringSlice) Less(i, j int) bool
+func (p StringSlice) Search(x string) int
+func (p StringSlice) Sort()
+func (p StringSlice) Swap(i, j int)
+
+strconv
+func AppendBool(dst []byte, b bool) []byte
+func AppendFloat(dst []byte, f float64, fmt byte, prec int, bitSize int) []byte
+func AppendInt(dst []byte, i int64, base int) []byte
+func AppendQuote(dst []byte, s string) []byte
+func AppendQuoteRune(dst []byte, r rune) []byte
+func AppendQuoteRuneToASCII(dst []byte, r rune) []byte
+func AppendQuoteToASCII(dst []byte, s string) []byte
+func AppendUint(dst []byte, i uint64, base int) []byte
+func Atoi(s string) (i int, err error)
+func CanBackquote(s string) bool
+func FormatBool(b bool) string
+func FormatFloat(f float64, fmt byte, prec, bitSize int) string
+func FormatInt(i int64, base int) string
+func FormatUint(i uint64, base int) string
+func IsPrint(r rune) bool
+func Itoa(i int) string
+func ParseBool(str string) (value bool, err error)
+func ParseFloat(s string, bitSize int) (f float64, err error)
+func ParseInt(s string, base int, bitSize int) (i int64, err error)
+func ParseUint(s string, base int, bitSize int) (n uint64, err error)
+func Quote(s string) string
+func QuoteRune(r rune) string
+func QuoteRuneToASCII(r rune) string
+func QuoteToASCII(s string) string
+func Unquote(s string) (t string, err error)
+func UnquoteChar(s string, quote byte) (value rune, multibyte bool, tail string, err error)
+func (e *NumError) Error() string
+
+
+
+strings
+func Contains(s, substr string) bool
+func ContainsAny(s, chars string) bool
+func ContainsRune(s string, r rune) bool
+func Count(s, sep string) int
+func EqualFold(s, t string) bool
+func Fields(s string) []string
+func FieldsFunc(s string, f func(rune) bool) []string
+func HasPrefix(s, prefix string) bool
+func HasSuffix(s, suffix string) bool
+func Index(s, sep string) int
+func IndexAny(s, chars string) int
+func IndexByte(s string, c byte) int
+func IndexFunc(s string, f func(rune) bool) int
+func IndexRune(s string, r rune) int
+func Join(a []string, sep string) string
+func LastIndex(s, sep string) int
+func LastIndexAny(s, chars string) int
+func LastIndexFunc(s string, f func(rune) bool) int
+func Map(mapping func(rune) rune, s string) string
+func Repeat(s string, count int) string
+func Replace(s, old, new string, n int) string
+func Split(s, sep string) []string
+func SplitAfter(s, sep string) []string
+func SplitAfterN(s, sep string, n int) []string
+func SplitN(s, sep string, n int) []string
+func Title(s string) string
+func ToLower(s string) string
+func ToLowerSpecial(_case unicode.SpecialCase, s string) string
+func ToTitle(s string) string
+func ToTitleSpecial(_case unicode.SpecialCase, s string) string
+func ToUpper(s string) string
+func ToUpperSpecial(_case unicode.SpecialCase, s string) string
+func Trim(s string, cutset string) string
+func TrimFunc(s string, f func(rune) bool) string
+func TrimLeft(s string, cutset string) string
+func TrimLeftFunc(s string, f func(rune) bool) string
+func TrimPrefix(s, prefix string) string
+func TrimRight(s string, cutset string) string
+func TrimRightFunc(s string, f func(rune) bool) string
+func TrimSpace(s string) string
+func TrimSuffix(s, suffix string) string
+func NewReader(s string) *Reader
+func (r *Reader) Len() int
+func (r *Reader) Read(b []byte) (n int, err error)
+func (r *Reader) ReadAt(b []byte, off int64) (n int, err error)
+func (r *Reader) ReadByte() (b byte, err error)
+func (r *Reader) ReadRune() (ch rune, size int, err error)
+func (r *Reader) Seek(offset int64, whence int) (int64, error)
+func (r *Reader) UnreadByte() error
+func (r *Reader) UnreadRune() error
+func (r *Reader) WriteTo(w io.Writer) (n int64, err error)
+func NewReplacer(oldnew ...string) *Replacer
+func (r *Replacer) Replace(s string) string
+func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error)

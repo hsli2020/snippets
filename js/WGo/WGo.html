@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WGo</title>
+  <link rel="stylesheet" type="text/css" href="WGo_files/wgo.css">
+  <style>
+    .player { height: 100%; }
+  </style>
+</head>
+<body>
+<div id="choose-game" class="show">
+  Choose Game :
+  <select id="gameMode">
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G1 - English.sgf" selected="selected">AlphaGo vs AlphaGo 1 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G2 - English.sgf">AlphaGo vs AlphaGo 2 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G3 - English.sgf">AlphaGo vs AlphaGo 3 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G4 - English.sgf">AlphaGo vs AlphaGo 4 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G5 - English.sgf">AlphaGo vs AlphaGo 5 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G6 - English.sgf">AlphaGo vs AlphaGo 6 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G7 - English.sgf">AlphaGo vs AlphaGo 7 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G8 - English.sgf">AlphaGo vs AlphaGo 8 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G9 - English.sgf">AlphaGo vs AlphaGo 9 (English)</option>
+      <option value="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G10 - English.sgf">AlphaGo vs AlphaGo 10 (English)</option>
+  </select>
+</div>
+<div class="player wgo-player-main wgo-medium show wgo-player-main wgo-twocols wgo-large" data-wgo="/deepmind-media/alphago/sgf-files/ag-vs-ag/ag-vs-ag-wk1/AG%20vs%20AG%20-%20G1%20-%20English.sgf" id="wgo_0"><div class="wgo-player-left" style="display: none; height: 908px;"><div class="wgo-player-left-wrapper"></div></div><div class="wgo-player-center"><div class="wgo-player-top" style="display: block;"><div class="wgo-player-top-wrapper"><div class="wgo-player-control"><div class="wgo-control-wrapper"><div class="wgo-ctrlgroup wgo-ctrlgroup-left"><button class="wgo-button wgo-button-menu" title="Menu"></button></div><div class="wgo-ctrlgroup wgo-ctrlgroup-right"><button class="wgo-button wgo-button-about" title="About"></button></div><div class="wgo-ctrlgroup wgo-ctrlgroup-control"><button class="wgo-button wgo-button-first wgo-disabled" title="First" disabled="disabled"></button><button class="wgo-button wgo-button-multiprev wgo-disabled" title="10 moves back" disabled="disabled"></button><button class="wgo-button wgo-button-previous wgo-disabled" title="Previous" disabled="disabled"></button><form class="wgo-player-mn-wrapper"><input class="wgo-player-mn-value" value="0" type="text"></form><button class="wgo-button wgo-button-next" title="Next"></button><button class="wgo-button wgo-button-multinext" title="10 moves forward"></button><button class="wgo-button wgo-button-last" title="Last"></button></div></div></div></div></div><div class="wgo-player-board" style="height: auto; padding-top: 0px;"><div class="wgo-board" style="background-image: url(&quot;https://storage.googleapis.com/deepmind-media/alphago/wgo-files/wood1.jpg&quot;); width: 856px; height: 856px;"><canvas style="position: absolute; z-index: 100;" width="856" height="856"></canvas><canvas style="position: absolute; z-index: 200;" width="856" height="856"></canvas><canvas style="position: absolute; z-index: 300;" width="856" height="856"></canvas></div></div><div class="wgo-player-bottom" style="display: none;"><div class="wgo-player-bottom-wrapper"></div></div></div><div class="wgo-player-right" style="display: block; height: 908px;"><div class="wgo-player-right-wrapper"><div class="wgo-infobox"><div class="wgo-box-wrapper wgo-player-wrapper wgo-white"><div class="wgo-box-title">AlphaGo</div><div class="wgo-player-info"><div class="wgo-player-info-box-wrapper"><div class="wgo-player-info-box"><div class="wgo-player-info-title">Rank</div><div class="wgo-player-info-value">-</div></div></div><div class="wgo-player-info-box-wrapper"><div class="wgo-player-info-box"><div class="wgo-player-info-title">Caps</div><div class="wgo-player-info-value">0</div></div></div><div class="wgo-player-info-box-wrapper"><div class="wgo-player-info-box"><div class="wgo-player-info-title">Time</div><div class="wgo-player-info-value">--:--</div></div></div></div></div><div class="wgo-box-wrapper wgo-player-wrapper wgo-black"><div class="wgo-box-title">Alphago</div><div class="wgo-player-info"><div class="wgo-player-info-box-wrapper"><div class="wgo-player-info-box"><div class="wgo-player-info-title">Rank</div><div class="wgo-player-info-value">-</div></div></div><div class="wgo-player-info-box-wrapper"><div class="wgo-player-info-box"><div class="wgo-player-info-title">Caps</div><div class="wgo-player-info-value">0</div></div></div><div class="wgo-player-info-box-wrapper"><div class="wgo-player-info-box"><div class="wgo-player-info-title">Time</div><div class="wgo-player-info-value">--:--</div></div></div></div></div></div><div class="wgo-commentbox wgo-gameinfo"><div class="wgo-box-wrapper wgo-comments-wrapper"><div class="wgo-box-title">Game info</div><div class="wgo-comments-content"><div class="wgo-help" style="display: none;"></div><div class="wgo-notification" style="display: none;"></div><div class="wgo-comment-text" style="display: block;"><div class="wgo-info-list"><div class="wgo-info-item"><span class="wgo-info-label">Rules</span><span class="wgo-info-value">Chinese</span></div><div class="wgo-info-item"><span class="wgo-info-label">Komi</span><span class="wgo-info-value">7.50</span></div><div class="wgo-info-item"><span class="wgo-info-label">White</span><span class="wgo-info-value">AlphaGo</span></div><div class="wgo-info-item"><span class="wgo-info-label">Black</span><span class="wgo-info-value">Alphago</span></div><div class="wgo-info-item"><span class="wgo-info-label">Result</span><span class="wgo-info-value"><a href="javascript:%20void(0)" onclick="this.parentNode.innerHTML = 'W+Resign'" title="Click to show result.">show</a></span></div></div></div></div></div></div></div></div></div>
+
+<!-- IFRAME RESIZE MESSAGING SCRIPT -->
+  <script>
+    var domain = 'ag-vs-ag-wk1';
+    var context = '/deepmind-media/alphago/sgf-files';
+    var matches = [
+      {
+        'title' : 'AlphaGo vs AlphaGo 1 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G1 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 2 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G2 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 3 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G3 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 4 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G4 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 5 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G5 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 6 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G6 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 7 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G7 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 8 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G8 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 9 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G9 - English.sgf'
+      },
+      {
+        'title' : 'AlphaGo vs AlphaGo 10 (English)',
+        'url' : context + '/ag-vs-ag/ag-vs-ag-wk1/AG vs AG - G10 - English.sgf'
+      }
+    ];
+  </script>
+  <script src="WGo_files/wgo.js"></script>
+  <script src="WGo_files/kifu.js"></script>
+  <script src="WGo_files/sgfparser.js"></script>
+  <script src="WGo_files/player_003.js"></script>
+  <script src="WGo_files/basicplayer.js"></script>
+  <script src="WGo_files/basicplayer_005.js"></script>
+  <script src="WGo_files/basicplayer_002.js"></script>
+  <script src="WGo_files/basicplayer_004.js"></script>
+  <script src="WGo_files/basicplayer_003.js"></script>
+  <script src="WGo_files/player_002.js"></script>
+  <script src="WGo_files/scoremode.js"></script>
+  <script src="WGo_files/player.js"></script>
+  <script src="WGo_files/game-selector.js"></script>
+  <script>
+    var CONTAINER_ELEMENT_SELECTOR = 'body';
+    var targetContainer = document.querySelector(CONTAINER_ELEMENT_SELECTOR);
+    window.addEventListener('message', function (e) {
+      var data = JSON.parse(e.data)
+      if (!data.type === 'requestDimensions') return;
+      var messageId = data.messageId
+      var dimensions = {
+        width: targetContainer.clientWidth,
+        height: targetContainer.clientHeight + 10
+      }
+      //window.parent.postMessage(JSON.stringify({
+      //  type: 'requestDimensions',
+      //  messageId: messageId,
+      //  dimensions: dimensions
+      //}), '*');
+    }, false);
+  </script>
+<!-- END RESIZE MESSAGING SCRIPT -->
+
+</body></html>

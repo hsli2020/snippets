@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <div>
+        <div>
+            <label><input type="radio" name="param01" value="1">1</label>
+            <label><input type="radio" name="param01" value="2">2</label>
+            <label><input type="radio" name="param01" value="3">3</label>
+        </div>
+        <div>
+            <label><input type="radio" name="param02" value="1">1</label>
+            <label><input type="radio" name="param02" value="2">2</label>
+            <label><input type="radio" name="param02" value="3">3</label>
+        </div>
+        <div>
+            <label><input type="radio" name="param03" value="1">1</label>
+            <label><input type="radio" name="param03" value="2">2</label>
+            <label><input type="radio" name="param03" value="3">3</label>
+        </div>
+        <div>
+            <label><input type="checkbox" name="param04">1</label>
+            <label><input type="checkbox" name="param04">2</label>
+            <label><input type="checkbox" name="param04">3</label>
+            <label><input type="checkbox" name="param04">3</label>
+        </div>
+        <div>
+            <label><input type="checkbox" name="param05">1</label>
+            <label><input type="checkbox" name="param05">2</label>
+            <label><input type="checkbox" name="param05">3</label>
+            <label><input type="checkbox" name="param05">3</label>
+        </div>
+        <button onclick="showResult()">显示结果</button>
+    </div>
+    <script>
+        // 多条radio或者checkbox的快速赋值
+        var data = '{"param01":"1","param02":"3","param03":"2","param04":",1,0,0,0","param05":",0,0,1,1"}';
+
+        // var json = eval( '(' + data + ')');
+        var json = JSON.parse(data);
+        for (var key in json) {
+            if ($('input[name=' + key +  ']').attr('type') == 'radio') {
+                showRadioValue(key, json[key]);
+            }
+            if ($('input[name=' + key +  ']').attr('type') == 'checkbox') {
+                showCheckBoxValue(key, json[key]);
+            }
+        }
+
+        function showRadioValue(name, value) {
+            $('input[name=' + name +  ']').each(function() {
+                if (value == $(this).val()) {
+                    $(this).attr('checked', 'true');
+                }
+            });
+        }
+
+        function getRadioValue(name) {
+            var value = 0;
+            var i = 0;
+            $('input[name=' + name + ']').each(function() {
+                if ($('input[name=' + name + ']').eq(i).is( ':checked')) {
+                    value = $('input[name=' + name + ']').eq(i).val();
+                    return;
+                }
+                i++;
+            });
+            return value;
+        }
+
+        function showCheckBoxValue(name, value) {
+            var values = value.split(',');
+            var row = 1;
+            $('input[name="' + name + '"]').each(function() {
+                if (values[row] == 1) {
+                    $(this).attr("checked" , 'true');
+                }
+                row++;
+            });
+        }
+
+        function getCheckboxValue(name) {
+            //var text = "" ;
+            var vals = [];
+            $('input[name="' + name + '"]').each(function() {
+                if ($(this ).is(':checked')) {
+                    vals.push("1");
+                } else {
+                    vals.push("0");
+                }
+                //text += "," + t;
+            });
+            return vals.join(","); //text;
+        }
+
+        function showResult() {
+            var model = {};
+            var radioName = '';
+            var checkboxName = '';
+            $("input[type='radio']").each(function() {
+                if ($(this).attr('name') != radioName){
+                    radioName = $(this).attr('name');
+                    model[radioName] = getRadioValue(radioName);
+                }
+            });
+            $("input[type='checkbox']").each(function() {
+                if ($(this).attr('name') != checkboxName){
+                    checkboxName = $(this).attr('name');
+                    model[checkboxName] = getCheckboxValue(checkboxName);
+                }
+            });
+            console.log(model);
+        }
+    </script>
+</body>
+</html>

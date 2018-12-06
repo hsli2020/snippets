@@ -1,0 +1,313 @@
+#PS1="\W \$ "
+#PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
+#PS1="\[\033[01;32m\]\w\n\$\[\033[00m\] "
+
+#set -o vi
+
+export EDITOR=vi
+#export ASHLEY_DEBUG=1
+
+USB=/Volumes/USB8G
+REPO=~/Projects/devbox/ashley
+DEVBOX=root@www-dev.ashleymadison.com
+
+# aliases
+alias  l="ls -lG"
+alias ls="ls -G"
+alias ll="ls -lG"
+alias la="ls -alG"
+alias rm='rm -i'
+alias mv='mv -i'
+alias du="du -csh"
+alias fd="mdfind -onlyin ."
+#lias dir="ls -lG | grep ^d"
+alias cls="clear"
+alias zdel="find . -maxdepth 1 -type f -size 0 | xargs rm"
+alias dir='find . -type d -name ".git" -prune -o -type d -print'
+alias xd="xxd -g1 -l320"
+#lias mvi="mvim -v"
+alias lvm="ssh root@local-devbox"
+alias ldev="ssh root@local-devbox"
+alias rvm="ssh root@remote-devbox"
+alias rdev="ssh root@remote-devbox"
+alias db="mysql -hwww-dev.ashleymadison.com -uroot -D aminno -A"
+#lias hobo="./puppet_dev/vboxscripts/hobo_up.sh -f /Users/hansonli/Projects/devbox/devbox.ova -n ashley_box -s /Users/hansonli/Projects/devbox -i 192.168.50.11 -m 08:00:27:7E:BB:E2 -h devbox -a bt"
+alias hobo7="VBoxManage startvm --type headless hobo7"
+alias ashley="~/Projects/devbox/ashley/tasks/ashley.sh"
+alias a="~/Projects/devbox/ashley/tasks/ashley.sh"
+alias pub="~/Projects/devbox/ashley/tasks/ashley.sh publish"
+alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc"
+#lias mysql="/usr/local/mysql/bin/mysql"
+alias ptags="ctags -R --exclude=@.ctagsignore --languages=php --tag-relative=no --PHP-kinds=cfi -f tags"
+alias g="git"
+alias pull="git pull --rebase"
+alias push="git push"
+#lias mod='git status | grep modified | cut -d ":" -f 2'
+#lias unmod='git status | grep modified | cut -d ":" -f 2 | xargs git co'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias tinyproxy="/usr/local/Cellar/tinyproxy/1.8.3/sbin/tinyproxy"
+alias dex2jar="~/bin/dex2jar/d2j-dex2jar.sh"
+
+# navigate
+alias prj="cd ~/Projects"
+alias doc="cd ~/Documents"
+alias dev="cd ~/Documents/dev"
+alias dl="cd ~/Downloads"
+alias tmp="cd ~/tmp"
+alias usb="cd $USB"
+alias repo="cd ~/Projects/github/"
+alias am="cd $REPO"
+alias cctld="cd $REPO/../ashley-cctld"
+alias gdrv="cd ~/Google\ Drive/"
+alias gdoc="cd ~/Google\ Drive/Documents"
+alias gdc="cd ~/Google\ Drive/Code"
+
+# quick open files
+alias vimrc="vi ~/.vimrc"
+alias bashrc="vi ~/.bash_profile"
+alias notepad="vi ~/notepad"
+alias ideas="vi ~/ideas.rst"
+alias kb="vi ~/kbase"
+alias kw="vi ~/keywords"
+alias todo="vi ~/todo.rst"
+alias tk="vi ~/tickets"
+alias fix="vi ~/tickets"
+alias hosts="sudo vi /etc/hosts"
+
+# filelist
+alias src='find common-new/src/Ashley -type f'
+alias ccfs="find common-new/config/countries -type f | grep ini | vi -"
+alias mig="find sql/migration -type f | grep 'sql$' | vi -"
+alias fff="find frontend -type f | grep"
+alias fn='find . -type f -name'
+
+alias mkzip='zip -r ashley-$(date "+%Y%m%d") ashley -x \*.idx \*.pack > /dev/null'
+
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+# rvm use 1.9.3
+
+[[ $- == *i* ]]   &&   . ~/bin/git-prompt.sh
+
+Black="\[\033[0;30m\]"
+Red="\[\033[0;31m\]"
+Green="\[\033[0;32m\]"
+Yellow="\[\033[0;33m\]"
+Blue="\[\033[0;34m\]"
+Purple="\[\033[0;35m\]"
+Cyan="\[\033[0;36m\]"
+White="\[\033[0;37m\]"
+
+# if [ -f /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash ]; then
+#     . /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash
+# fi
+
+GIT_PS1_SHOWCOLORHINTS=true
+
+function _git_prompt() {
+  local ansi="$White"
+  local status="`git status -unormal 2>&1`"
+  if ! echo "$status" | grep -E 'Not a git repo' > /dev/null; then
+    if echo "$status" | grep -E 'nothing to commit' > /dev/null; then
+      local ansi=$Yellow
+    elif echo "$status" | grep -E 'Changes to be committed' > /dev/null; then
+      local ansi=$Green
+    elif echo "$status" | grep -E 'nothing added to commit but untracked files present' > /dev/null; then
+      local ansi=$Cyan
+    else
+      local ansi=$Red
+    fi
+  fi
+  echo -n "$Yellow\w $ansi"'$(__git_ps1 "(%s)")'"\033[0m\n\$ "
+# echo -n "$Yellow\w $ansi"'$(git symbolic-ref -q --short HEAD 2>/dev/null)'"\033[0m\n\$ "
+}
+
+function _prompt_command() {
+  PS1="`_git_prompt`"
+}
+PROMPT_COMMAND=_prompt_command
+
+function master {
+  git co master
+  git pull
+# find . -type f -o -type d \( -name .git \) -prune > ../filelist/filelist
+  git co -
+}
+
+function f {
+  if test -z "$1"
+  then
+    #find . -type f
+    return
+  fi
+
+ #find . -type f -name $@
+  find . -type f | grep $@
+  #| tee /dev/tty | pbcopy
+}
+
+function ff {
+  if test -z "$1"
+  then
+    find . -type f | vi -
+    return
+  fi
+
+ #find . -type f -name $@ | vi -
+  find . -type f | grep $@ | vi -
+}
+
+function gf {
+  if test -z "$1"
+  then
+    git show --pretty="format:" --name-only --no-commit-id | vi -
+    return
+  fi
+
+  git show --pretty="format:" --name-only --no-commit-id "$1" | vi -
+}
+
+function t {
+  if test -z "$1"
+  then
+    return
+  fi
+
+  if [ $# -eq 2 ]
+  then
+    for i in $(seq $1 $2)
+    do
+      open https://jira.avidlifemedia.com/browse/AMPD-$i
+    done
+    return
+  fi
+
+  open https://jira.avidlifemedia.com/browse/AMPD-$1
+}
+
+function po {
+  if test -z "$1"
+  then
+    find common-new/config/locale -type f | grep messages.po | vi -
+    return
+  fi
+  #find . -type f | grep messages.po | vi -
+  #find $REPO/common-new/config/locale -type f | grep messages.po | vi -
+  vi common-new/config/locale/$1/LC_MESSAGES/messages.po
+}
+
+function cfg {
+  if test -z "$1"
+  then
+    find common-new/config -name "*.ini" -o -name "*.yml" | vi -
+    return
+  fi
+  find common-new/config -name "*.ini" -o -name "*.yml" | grep -i $1 | vi -
+}
+
+function et {
+  if test -z "$1"
+  then
+    find admin/def/emails -type f | vi -
+    return
+  fi
+  find admin/def/emails -type f | grep -i $1 | vi -
+}
+
+function ccf {
+  if test -z "$1"
+  then
+    vi $REPO/common-new/config/countries.ini
+    return
+  fi
+
+  vi $REPO/common-new/config/countries/$1.ini
+}
+
+alias aws='ssh -i ~/aws-key-1.pem ec2-user@54.191.161.222'
+
+function awscp {
+  if test -z "$1"
+  then
+    echo "awscp files"
+    return
+  fi
+
+  scp -i ~/aws-key-1.pem "$1" ec2-user@54.191.161.222:/var/www/html/"$2"
+}
+
+function devboxdl {
+  scp root@www-dev.ashleymadison.com:$1 $2
+}
+
+function devboxup {
+  scp $1 root@www-dev.ashleymadison.com:$2
+}
+
+function closure {
+  java -jar ~/bin/compiler.jar --js_output_file=$2 $1
+}
+
+alias bak='cp ~/.vimrc ~/.bash_profile ~/.gitconfig ~/accounts ~/git-tips ~/kbase ~/keywords ~/notepad ~/tips ~/Google\ Drive/Documents/AshleyMadison/'
+
+function google {
+  open "https://google.com/search?q=$*"
+}
+
+# Create a new directory and enter it
+function mkd() {
+    mkdir -p "$@" && cd "$@"
+}
+
+PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
+export PATH
+
+function logs {
+  ssh $DEVBOX "tail -f /data/logs/php-fpm/app-error.log"
+}
+
+function errlog {
+  ssh $DEVBOX "cat /data/logs/php-fpm/app-error.log" | vi -
+}
+
+function phpcs {
+  if test -z "$1"
+  then
+    echo "phpcs file.php"
+    return
+  fi
+
+  ~/Projects/devbox/ashley/vendor/squizlabs/php_codesniffer/scripts/phpcs --report=full --standard=PSR2 "$1"
+}
+
+function phpmd {
+  if test -z "$1"
+  then
+    echo "phpmd file.php"
+    return
+  fi
+
+  ~/Projects/devbox/ashley/vendor/phpmd/phpmd/src/bin/phpmd "$1" text ~/Projects/devbox/ashley/common-new/build/phpmd.xml
+}
+
+#not so good
+#export LSCOLORS=ExFxCxDxBxegedabagacad
+
+#nice
+#export LSCOLORS=dxfxcxdxbxegedabagacad
+
+#nice
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export DOCKER_HOST=tcp://localhost:4243
+
+. ~/bin/ssh_alias_qa
+. ~/bin/ssh_alias_prod
+
+# MacPorts Installer addition on 2013-02-05_at_09:17:23: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/git/bin/:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+export NVM_DIR="/Users/hansonli/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -1,0 +1,173 @@
+$ go tool link -help
+usage: link [options] main.o
+  -B note
+        add an ELF NT_GNU_BUILD_ID note when using ELF
+  -D address
+        set data segment address (default -1)
+  -E entry
+        set entry symbol name
+  -H type
+        set header type
+  -I linker
+        use linker as ELF dynamic linker
+  -L directory
+        add specified directory to library path
+  -R quantum
+        set address rounding quantum (default -1)
+  -T address
+        set text segment address (default -1)
+  -V    print version and exit
+  -X definition
+        add string value definition of the form importpath.name=value
+  -a    disassemble output
+  -buildid id
+        record id as Go toolchain build id
+  -buildmode mode
+        set build mode
+  -c    dump call graph
+  -cpuprofile file
+        write cpu profile to file
+  -d    disable dynamic executable
+  -debugtramp int
+        debug trampolines
+  -dumpdep
+        dump symbol dependency graph
+  -extar string
+        archive program for buildmode=c-archive
+  -extld linker
+        use linker when linking in external mode
+  -extldflags flags
+        pass flags to external linker
+  -f    ignore version mismatch
+  -g    disable go package data checks
+  -h    halt on error
+  -importcfg file
+        read import configuration from file
+  -installsuffix suffix
+        set package directory suffix
+  -k symbol
+        set field tracking symbol
+  -libgcc string
+        compiler support lib for internal linking; use "none" to disable
+  -linkmode mode
+        set link mode
+  -linkshared
+        link against installed Go shared libraries
+  -memprofile file
+        write memory profile to file
+  -memprofilerate rate
+        set runtime.MemProfileRate to rate
+  -msan
+        enable MSan interface
+  -n    dump symbol table
+  -o file
+        write output to file
+  -pluginpath string
+        full path name for plugin
+  -r path
+        set the ELF dynamic linker search path to dir1:dir2:...
+  -race
+        enable race detector
+  -s    disable symbol table
+  -tmpdir directory
+        use directory for temporary files
+  -u    reject unsafe packages
+  -v    print link trace
+  -w    disable DWARF generation
+
+$ go tool compile -help
+usage: compile [options] file.go...
+  -%    debug non-static initializers
+  -+    compiling runtime
+  -B    disable bounds checking
+  -C    disable printing of columns in error messages
+  -D path
+        set relative path for local imports
+  -E    debug symbol export
+  -I directory
+        add directory to import search path
+  -K    debug missing line numbers
+  -L    show full file names in error messages
+  -N    disable optimizations
+  -S    print assembly listing
+  -V    print version and exit
+  -W    debug parse tree after type checking
+  -asmhdr file
+        write assembly header to file
+  -bench file
+        append benchmark times to file
+  -blockprofile file
+        write block profile to file
+  -buildid id
+        record id as the build id in the export metadata
+  -c int
+        concurrency during compilation, 1 means no concurrency (default 1)
+  -complete
+        compiling complete package (no C or assembly)
+  -cpuprofile file
+        write cpu profile to file
+  -d list
+        print debug information about items in list; try -d help
+  -dolinkobj
+        generate linker-specific objects; if false, some invalid code may compile (default true)
+  -dwarf
+        generate DWARF symbols (default true)
+  -dwarflocationlists
+        add location lists to DWARF in optimized mode
+  -dynlink
+        support references to Go symbols defined in other shared libraries
+  -e    no limit on number of errors reported
+  -f    debug stack frames
+  -gendwarfinl int
+        generate DWARF inline info records (default 2)
+  -goversion string
+        required version of the runtime
+  -h    halt on error
+  -i    debug line number stack
+  -importcfg file
+        read import configuration from file
+  -importmap definition
+        add definition of the form source=actual to import map
+  -installsuffix suffix
+        set pkg directory suffix
+  -j    debug runtime-initialized variables
+  -l    disable inlining
+  -linkobj file
+        write linker-specific object to file
+  -live
+        debug liveness analysis
+  -m    print optimization decisions
+  -memprofile file
+        write memory profile to file
+  -memprofilerate rate
+        set runtime.MemProfileRate to rate
+  -msan
+        build code compatible with C/C++ memory sanitizer
+  -mutexprofile file
+        write mutex profile to file
+  -nolocalimports
+        reject local (relative) imports
+  -o file
+        write output to file
+  -p path
+        set expected package import path
+  -pack
+        write package file instead of object file
+  -r    debug generated wrappers
+  -race
+        enable race detector
+  -s    warn about composite literals that can be simplified
+  -shared
+        generate code that can be linked into a shared library
+  -std
+        compiling standard library
+  -traceprofile file
+        write an execution trace to file
+  -trimpath prefix
+        remove prefix from recorded source file paths
+  -u    reject unsafe code
+  -v    increase debug verbosity
+  -w    debug type checking
+  -wb
+        enable write barrier (default true)
+$
