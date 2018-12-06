@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Modal with pure JavaScript</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay {
+  position: fixed;
+  will-change: transform;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  transition: 1ms opacity ease;
+}
+.modal-overlay.modal-open {
+  opacity: 1;
+}
+
+.modal {
+  position: absolute;
+  z-index: 10000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80vw;
+  padding: 30px 20px;
+  transition: 1ms opacity ease;
+  opacity: 0;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.modal.modal-anchored {
+  top: 2vh;
+  transform: translate(-50%, 0);
+}
+.modal.modal-open {
+  opacity: 1;
+}
+
+.modal-close {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 12px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  padding: 5px 7px 7px;
+  cursor: pointer;
+  color: #fff;
+  border: 0;
+  outline: none;
+  background: #e74c3c;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.modal-close:hover {
+  background: #c0392b;
+}
+
+.modal-overlay.fade-and-drop {
+  display: block;
+  opacity: 0;
+  transition: 500ms opacity 500ms ease;
+}
+.modal-overlay.fade-and-drop.modal-open {
+  top: 0;
+  transition: 500ms opacity ease;
+  opacity: 1;
+}
+
+.modal.fade-and-drop {
+  top: -300vh;
+  opacity: 1;
+  display: block;
+  transition: 500ms top ease;
+}
+.modal.fade-and-drop.modal-open {
+  top: 50%;
+  transition: 500ms top 500ms ease;
+}
+.modal.fade-and-drop.modal-open.modal-anchored {
+  transition: 500ms top 500ms ease;
+}
+
+.modal-overlay.zoom {
+  display: block;
+  opacity: 0;
+  transition: 500ms opacity 500ms ease;
+}
+.modal-overlay.zoom.modal-open {
+  top: 0;
+  transition: 500ms opacity ease;
+  opacity: 1;
+}
+
+.modal.zoom {
+  transition: 500ms transform ease;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 1;
+  display: block;
+}
+.modal.zoom.modal-open {
+  transition: 500ms  transform 500ms ease;
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal.zoom.modal-open.modal-anchored {
+  transition: 500ms         transform 500ms ease;
+}
+
+.modal-header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-body {
+  padding: 20px 0;
+}
+
+.modal-footer {
+  padding-top: 20px;
+  text-align: right;
+  border-top: 1px solid #eee;
+}
+.modal-footer button:not(:last-child) {
+  margin-right: .2em;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  cursor: pointer;
+}
+.btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.btn.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn.btn-primary:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+.btn.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+.btn.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.btn.btn-secondary:hover {
+  color: #fff;
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+.btn.btn-secondary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+.trigger-button {
+  font-size: 17px;
+  display: inline-block;
+  margin: 20px;
+  padding: 10px 30px;
+  cursor: pointer;
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+  background: #2ecc71;
+  box-shadow: 0 5px 1px #27ae60;
+}
+.trigger-button:hover {
+  background: #27ae60;
+  box-shadow: 0 5px 1px #145b32;
+}
+.trigger-button:active {
+  border-top: 5px solid white;
+  box-shadow: none;
+}
+.trigger-button.trigger-button-2 {
+  background: #3498db;
+  box-shadow: 0 5px 1px #196090;
+}
+.trigger-button.trigger-button-2:hover {
+  background: #196090;
+  box-shadow: 0 5px 1px #0a2639;
+}
+.trigger-button.trigger-button-2:active {
+  border-top: 5px solid white;
+  box-shadow: none;
+}
+
+</style>
+
+<script>
+  window.console = window.console || function(t) {};
+</script>
+
+</head>
+
+<body translate="no" >
+
+  <button id="trigger-modal-1" class="trigger-button" type="button">Fade and Drop</button>
+  <button id="trigger-modal-2" class="trigger-button trigger-button-2" type="button">Zoom in</button>
+
+<template id="modal-content">
+  <div class="modal-header">Modal header</div>
+  <div class="modal-body">
+    <p>我是一个模态框，我使用的是一个默认效果</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary">确认</button>
+    <button class="btn btn-secondary">取消</button>
+  </div>
+</template>
+
+<script >
+// 创建一个立即调用的函数表达式来包装我们的代码
+(function(){
+    // 定义构造器
+    this.Modal = function() {
+
+        // 创建引用的全局元素
+        this.closeButton = null // 创建关闭按钮
+        this.modal = null       // 创建模态框元素
+        this.overlay = null     // 创建模态框蒙层
+
+        // 确定正确的前缀（浏览器私有前缀)
+        this.transitionEnd = transitionSelect()
+
+        // 定义默认的options
+        var defaults = {
+            className: 'fade-and-drop',
+            closeButton: true,
+            content: '',
+            maxWidth: 600,
+            minWidth: 280,
+            overlay: true,
+            autoOpen: false
+        }
+
+        // 通过扩展arugments中传递的缺省值来创建选项
+        if (arguments[0] && typeof arguments[0] === 'object') {
+            this.options = extendDefaults(defaults, arguments[0])
+        }
+      
+        if(this.options.autoOpen === true) {
+          this.open()
+        }
+    }
+
+    // 公有方法
+
+    // 关闭模态弹出框
+    Modal.prototype.close = function() {
+        // 存储this
+        var $this = this
+
+        // 移除打开模态框时添加的类名
+        this.modal.className = this.modal.className.replace(' modal-open', '')
+        this.overlay.className = this.overlay.className.replace(' modal-open', '')
+
+        // 监听CSS的transitionEnd事件，然后从DOM中删除节点
+        this.modal.addEventListener(this.transitionEnd, function(){
+            $this.modal.parentNode.removeChild($this.modal)
+        })
+
+        this.overlay.addEventListener(this.transitionEnd, function(){
+            if ($this.overlay.parentNode) {
+                $this.overlay.parentNode.removeChild($this.overlay)
+            }
+        })
+    }
+
+    // 打开模态框
+    Modal.prototype.open = function() {
+        // 创建模态框
+        buildOut.call(this)
+
+        // 初始化事件侦听器
+        initializeEvents.call(this)
+
+        // 向DOM中添加元素之后，使用getComputedStyle强制浏览器重新计算并识别刚刚添加的元素，这样CSS动画就有了一个起点
+        window.getComputedStyle(this.modal).height
+
+        // 检查Modal的高度是否比窗口高，如果是则添加modal-open 和 modal-anchored类名，否则添加modal-open类
+        this.modal.className = this.modal.className + (this.modal.offsetHeight > window.innerHeight ? ' modal-open modal-anchored' : ' modal-open')
+
+        this.overlay.className = this.overlay.className + ' modal-open'
+    }
+
+    // 私有方法
+    function buildOut() {
+        var content, contentHolder, docFrag;
+
+        // 如果content是HTML字符串，则追回HTML字符串
+        // 如果content是domNode，则追回其内容
+        if (typeof this.options.content === 'string') {
+            content = this.options.content
+        } else {
+            content = this.options.content.innerHTML
+        }
+
+        // 创建一个DocumentFragment
+        docFrag = document.createDocumentFragment()
+
+        // 创建modal元素
+        this.modal = document.createElement('div')
+        // 设置模态框元素的类名
+        this.modal.className = 'modal ' + this.options.className
+        // 设置模态框样式（尺寸）
+        this.modal.style.minWidth = this.options.minWidth + 'px'
+        this.modal.style.maxWidth = this.options.maxWidth + 'px'
+
+        // 如果options中的closeButton值为true，则创建关闭按钮
+        if (this.options.closeButton === true) {
+            this.closeButton = document.createElement('button')
+            this.closeButton.className = 'modal-close close-button'
+            this.closeButton.innerHTML = '×'
+            this.modal.appendChild(this.closeButton)
+        }
+
+        // 如果options中的overlay值为true，则给模态框添加一个蒙层
+        if (this.options.overlay === true) {
+            this.overlay = document.createElement('div')
+            this.overlay.className = 'modal-overlay ' + this.options.className
+            docFrag.appendChild(this.overlay)
+        }
+
+        // 创建模态框内容区域，并插入到模态框中
+        contentHolder = document.createElement('div')
+        contentHolder.className = 'modal-content'
+        contentHolder.innerHTML = content
+        this.modal.appendChild(contentHolder)
+
+        // 把模态框插入到 DocumentFragment中
+        docFrag.appendChild(this.modal)
+
+        // 把DocumentFragment插入到body中
+        document.body.appendChild(docFrag)
+    }
+
+    // 使用用户选扩展默认值的方法
+    function extendDefaults(source, properties) {
+        var property
+        for (property in properties) {
+            if (properties.hasOwnProperty(property)) {
+                source[property] = properties[property]
+            }
+        }
+        return source
+    }
+
+    // 初始化事件监听器
+    function initializeEvents() {
+        // 给关闭按钮添加click事件，点击关闭模态框
+        if (this.closeButton) {
+            this.closeButton.addEventListener('click', this.close.bind(this))
+        }
+
+        // 给蒙层添加click事件，点击关闭模态框
+        if (this.overlay) {
+            this.overlay.addEventListener('click', this.close.bind(this))
+        }
+    }
+
+    // 选择正确的浏览器私有前缀
+    function transitionSelect() {
+        var el = document.createElement('div')
+        if (el.style.WebkitTransition) {
+          return 'webkitTransitionEnd'
+        }
+        return 'transitionend'
+    }
+}())
+
+var modalContent = document.getElementById('modal-content').innerHTML;
+
+
+// 创建自己的模态框
+var myModalDefault = new Modal({
+    content: modalContent,
+    maxWidth: 600
+})
+
+var triggerModalDefalut = document.getElementById('trigger-modal-1')
+
+triggerModalDefalut.addEventListener('click', function(){
+    myModalDefault.open()
+})
+
+// zoomIn
+var modalZoomIn = new Modal({
+    className: 'zoom',
+    content: modalContent,
+    maxWidth: 600
+})
+
+var triggerModalZoomIn = document.getElementById('trigger-modal-2')
+
+triggerModalZoomIn.addEventListener('click', function(){
+    modalZoomIn.open()
+})
+      //# sourceURL=pen.js
+</script>
+  
+</body>
+</html>

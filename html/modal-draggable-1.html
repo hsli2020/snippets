@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<style class="cp-pen-styles">/* Skin for Simple Dialog Box Plugin */
+.dialog-box {
+  width:300px;
+  height:150px;
+  background-color:white;
+  border:1px solid #ccc;
+  -webkit-box-shadow:0 1px 5px rgba(0,0,0,.2);
+  -mz-box-shadow:0 1px 5px rgba(0,0,0,.2);
+  box-shadow:0 1px 5px rgba(0,0,0,.2);
+  position:absolute;
+  width:200px;
+  height:100px;
+  margin-top:-51px;
+  margin-left:-101px;
+  z-index:9999;
+  color:#666;
+  visibility:hidden;
+  opacity:0;
+}
+.dialog-box .dialog-title {
+  margin:0;
+  padding:0;
+  font:inherit;
+  color:inherit;
+  font-weight:bold;
+  height:2em;
+  line-height:2em;
+  overflow:hidden;
+  padding:0 .8em;
+  background-color:#eee;
+  cursor:move;
+}
+.dialog-box .dialog-content {
+  border-top:1px solid #ccc;
+  padding:1em;
+  position:absolute;
+  top:2em;
+  right:0;
+  bottom:3em;
+  left:0;
+  overflow:auto;
+}
+.dialog-box .dialog-content iframe {
+  display:block;
+  border:none;
+  background:none;
+  margin:0;
+  padding:0;
+  overflow:auto;
+  width:100%;
+  height:100%;
+}
+.dialog-box .dialog-content::-webkit-scrollbar {
+  width:8px;
+  height:8px;
+  background-color:#f5f5f5;
+  border-left:1px solid #ccc;
+}
+.dialog-box .dialog-content::-webkit-scrollbar-thumb {
+  background-color:#666;
+  border:none;
+}
+.dialog-box .dialog-content::-webkit-scrollbar-thumb:hover {background-color:#555}
+.dialog-box .dialog-content::-webkit-scrollbar-thumb:active {background-color:#444}
+.dialog-box .dialog-action {
+  position:absolute;
+  right:0;
+  bottom:0;
+  left:0;
+  height:2em;
+  padding:.5em;
+  background-color:#eee;
+  border-top:1px solid #ccc;
+  text-align:right;
+}
+.dialog-box .dialog-action .btn {
+  text-decoration:none;
+  border:none;
+  outline:none;
+  color:inherit;
+  font-weight:bold;
+  background-color:white;
+  border:1px solid #ccc;
+  -webkit-border-radius:.2em;
+  -moz-border-radius:.2em;
+  border-radius:.2em;
+  padding:.4em 1em;
+  margin-left:.2em;
+  line-height:2em;
+  cursor:pointer;
+}
+.dialog-box .dialog-close,
+.dialog-box .dialog-minmax {
+  border:none;
+  outline:none;
+  background:none;
+  font:inherit;
+  font-family:Arial,Sans-Serif;
+  font-style:normal;
+  font-weight:bold;
+  font-size:150%;
+  line-height:1.4em;
+  color:#aaa;
+  text-decoration:none;
+  position:absolute;
+  top:0;
+  right:.3em;
+  text-align:center;
+  cursor:pointer;
+}
+.dialog-box .dialog-minmax {right:1.5em}
+.dialog-box .dialog-close:focus,
+.dialog-box .dialog-minmax:focus,
+.dialog-box .dialog-action .btn:focus {
+  border-width:0;
+  outline:none;
+}
+.dialog-box .dialog-close:hover,
+.dialog-box .dialog-minmax:hover {color:#777}
+.dialog-box .dialog-close:focus,
+.dialog-box .dialog-minmax:focus {color:#C90000}
+.dialog-box .dialog-close:active,
+.dialog-box .dialog-minmax:active {color:#444}
+.dialog-box .dialog-action .btn:hover {border-color:#bbb}
+.dialog-box .dialog-action .btn:focus {
+  border-color:#aaa;
+  border-width:1px;
+}
+.dialog-box .dialog-action .btn:active {
+  border-color:#aaa;
+  background-color:#f5f5f5;
+}
+.dialog-box + .dialog-box-overlay {
+  background-color:black;
+  opacity:.2;
+  filter:alpha(opacity=20);
+  position:fixed !important;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  z-index:9997;
+  display:none;
+}
+.dialog-box.fixed-dialog-box {
+  position:fixed !important;
+  position:absolute;
+}
+.dialog-box.minimize {
+  width:2em !important;
+  height:2em !important;
+  overflow:hidden !important;
+  margin-top:0 !important;
+  margin-left:0 !important;
+  top:-1px !important;
+  left:1em !important;
+}
+.dialog-box.minimize .dialog-title {
+  color:transparent;
+  text-shadow:none;
+  text-indent:-9999px;
+}
+.dialog-box.minimize .dialog-minmax {
+  right:0;
+  left:0;
+}
+.dialog-box.minimize .dialog-close,
+.dialog-box.minimize .dialog-content,
+.dialog-box.minimize .dialog-action {
+  display:none;
+  visibility:hidden;
+}</style>
+</head><body>
+
+<p>
+<a href="javascript:setDialog('open', {title: 'Example Title', content: 'Hello!'});">Open Dialog!</a>
+<a href="javascript:setDialog('close');">Close Dialog!</a></p>
+
+<h3>Advanced Example</h3>
+<pre><code>document.getElementById('ny-btn').onclick = function() {
+    setDialog("open", {
+        title: "The Dialog Box Title",
+        width: 400,
+        height: 200,
+        content: "Hello!",
+        buttons: {
+            "Delete": function() {
+                setDialog("open", {
+                    title: "Confirmation",
+                    content: "Are you sure?",
+                    overlay: true,
+                    buttons: {
+                        "Yes": function() {
+                            setDialog("close");
+                        },
+                        "No": function() {
+                            alert("Canceled!");
+                            setDialog("close");
+                        }
+                    }
+                });
+            }
+        }
+    });
+};</code></pre>
+<script>// Simple Dialog Box Plugin by Taufik Nurrohman
+// URL: http://www.dte.web.id + https://plus.google.com/108949996304093815163/about
+// Licence: none
+
+(function (a, b) {
+
+	var uniqueId = new Date().getTime();
+
+	(function () {// Create the dialog box markup
+		var div = b.createElement('div'),
+		ovr = b.createElement('div');
+		div.className = 'dialog-box';
+		div.id = 'dialog-box-' + uniqueId;
+		div.innerHTML = '<h3 class="dialog-title">&nbsp;</h3><a href="javascript:;" class="dialog-minmax" title="Minimize">&ndash;</a><a href="javascript:;" class="dialog-close" title="Close">&times;</a><div class="dialog-content">&nbsp;</div><div class="dialog-action"></div>';
+		ovr.className = 'dialog-box-overlay';
+		b.body.appendChild(div);
+		b.body.appendChild(ovr);
+	})();
+
+	var maximize = false,
+	dialog = b.getElementById('dialog-box-' + uniqueId), // The HTML of dialog box
+	dialog_title = dialog.children[0],
+	dialog_minmax = dialog.children[1],
+	dialog_close = dialog.children[2],
+	dialog_content = dialog.children[3],
+	dialog_action = dialog.children[4],
+	dialog_overlay = dialog.nextSibling;
+
+	a.setDialog = function (set, config) {
+
+		var selected = null, // Object of the element to be moved
+		x_pos = 0,
+		y_pos = 0, // Stores x & y coordinates of the mouse pointer
+		x_elem = 0,
+		y_elem = 0, // Stores top, left values (edge) of the element
+		defaults = {
+			title: dialog_title.innerHTML,
+			content: dialog_content.innerHTML,
+			width: 300,
+			height: 150,
+			top: false,
+			left: false,
+			buttons: {
+				"Close": function () {
+					setDialog('close');
+				} },
+
+			specialClass: "",
+			fixed: true,
+			overlay: false };
+		// Default options...
+
+		for (var i in config) {defaults[i] = typeof config[i] ? config[i] : defaults[i];}
+
+		// Will be called when user starts dragging an element
+		function _drag_init(elem) {
+			selected = elem; // Store the object of the element which needs to be moved
+			x_elem = x_pos - selected.offsetLeft;
+			y_elem = y_pos - selected.offsetTop;
+		}
+
+		// Will be called when user dragging an element
+		function _move_elem(e) {
+			x_pos = b.all ? a.event.clientX : e.pageX;
+			y_pos = b.all ? a.event.clientY : e.pageY;
+			if (selected !== null) {
+				selected.style.left = !defaults.left ? x_pos - x_elem + selected.offsetWidth / 2 + 'px' : x_pos - x_elem - defaults.left + 'px';
+				selected.style.top = !defaults.top ? y_pos - y_elem + selected.offsetHeight / 2 + 'px' : y_pos - y_elem - defaults.top + 'px';
+			}
+		}
+
+		// Destroy the object when we are done
+		function _destroy() {
+			selected = null;
+		}
+
+		dialog.className = "dialog-box " + (defaults.fixed ? 'fixed-dialog-box ' : '') + defaults.specialClass;
+		dialog.style.visibility = set == "open" ? "visible" : "hidden";
+		dialog.style.opacity = set == "open" ? 1 : 0;
+		dialog.style.width = defaults.width + 'px';
+		dialog.style.height = defaults.height + 'px';
+		dialog.style.top = !defaults.top ? "50%" : '0px';
+		dialog.style.left = !defaults.left ? "50%" : '0px';
+		dialog.style.marginTop = !defaults.top ? '-' + defaults.height / 2 + 'px' : defaults.top + 'px';
+		dialog.style.marginLeft = !defaults.left ? '-' + defaults.width / 2 + 'px' : defaults.left + 'px';
+		dialog_title.innerHTML = defaults.title;
+		dialog_content.innerHTML = defaults.content;
+		dialog_action.innerHTML = "";
+		dialog_overlay.style.display = set == "open" && defaults.overlay ? "block" : "none";
+
+		if (defaults.buttons) {
+			for (var j in defaults.buttons) {
+				var btn = b.createElement('a');
+				btn.className = 'btn';
+				btn.href = 'javascript:;';
+				btn.innerHTML = j;
+				btn.onclick = defaults.buttons[j];
+				dialog_action.appendChild(btn);
+			}
+		} else {
+			dialog_action.innerHTML = '&nbsp;';
+		}
+
+		// Bind the draggable function here...
+		dialog_title.onmousedown = function () {
+			_drag_init(this.parentNode);
+			return false;
+		};
+
+		dialog_minmax.innerHTML = '&ndash;';
+		dialog_minmax.title = 'Minimize';
+		dialog_minmax.onclick = dialogMinMax;
+
+		dialog_close.onclick = function () {
+			setDialog("close", { content: "" });
+		};
+
+		b.onmousemove = _move_elem;
+		b.onmouseup = _destroy;
+
+		maximize = set == "open" ? true : false;
+	};
+
+	// Maximized or minimized dialog box
+	function dialogMinMax() {
+		if (maximize) {
+			dialog.className += ' minimize';
+			dialog_minmax.innerHTML = '+';
+			dialog_minmax.title = dialog_title.innerHTML.replace(/<.*?>/g, "");
+			maximize = false;
+		} else {
+			dialog.className = dialog.className.replace(/(^| )minimize($| )/g, "");
+			dialog_minmax.innerHTML = '&ndash;';
+			dialog_minmax.title = 'Minimize';
+			maximize = true;
+		}
+	}
+
+})(window, document);
+//# sourceURL=pen.js
+</script>
+</body></html>
