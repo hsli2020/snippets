@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+  <style type="text/css">
+    body { padding-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <div id="root" class="container">
+    <tabs>
+      <tab name="About us" :selected="true">
+        <h1>Here is the content <b>About us</b> tabs</h1>
+      </tab>
+
+      <tab name="About our culture">
+        <h1>Here is the content <b>About our culture</b></h1>
+      </tab>
+
+      <tab name="About our vision">
+        <h1>Here is the content <b>About our vision</b></h1>
+      </tab>
+    </tabs>
+  </div>
+
+  <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
+  <script src="vue-tabs.js"></script>
+
+</body>
+</html>
