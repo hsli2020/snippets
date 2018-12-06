@@ -1,0 +1,120 @@
+VUE API
+    全局配置
+        silent
+        optionMergeStrategies
+        devtools
+        errorHandler
+        warnHandler
+        ignoredElements
+        keyCodes
+        performance
+        productionTip
+    全局 API
+        Vue.extend
+        Vue.nextTick
+        Vue.set
+        Vue.delete
+        Vue.directive
+        Vue.filter
+        Vue.component
+        Vue.use
+        Vue.mixin
+        Vue.compile
+        Vue.version
+    选项 / 数据
+        data
+        props
+        propsData
+        computed
+        methods
+        watch
+    选项 / DOM
+        el
+        template
+        render
+        renderError
+    选项 / 生命周期钩子
+        beforeCreate
+        created
+        beforeMount
+        mounted
+        beforeUpdate
+        updated
+        activated
+        deactivated
+        beforeDestroy
+        destroyed
+        errorCaptured
+    选项 / 资源
+        directives
+        filters
+        components
+    选项 / 组合
+        parent
+        mixins
+        extends
+        provide / inject
+    选项 / 其它
+        name
+        delimiters
+        functional
+        model
+        inheritAttrs
+        comments
+    实例属性
+        vm.$data
+        vm.$props
+        vm.$el
+        vm.$options
+        vm.$parent
+        vm.$root
+        vm.$children
+        vm.$slots
+        vm.$scopedSlots
+        vm.$refs
+        vm.$isServer
+        vm.$attrs
+        vm.$listeners
+    实例方法 / 数据
+        vm.$watch
+        vm.$set
+        vm.$delete
+    实例方法 / 事件
+        vm.$on
+        vm.$once
+        vm.$off
+        vm.$emit
+    实例方法 / 生命周期
+        vm.$mount
+        vm.$forceUpdate
+        vm.$nextTick
+        vm.$destroy
+    指令
+        v-text
+        v-html
+        v-show
+        v-if
+        v-else
+        v-else-if
+        v-for
+        v-on
+        v-bind
+        v-model
+        v-pre
+        v-cloak
+        v-once
+    特殊特性
+        key
+        ref
+        slot
+        slot-scope
+        scope
+        is
+    内置的组件
+        component
+        transition
+        transition-group
+        keep-alive
+        slot
+    VNode 接口
+    服务端渲染
