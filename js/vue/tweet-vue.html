@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - VueVixens Tutorial Componentized vfor</title>
+<style>
+body {
+  background-color: #e6ecf0;
+  font-family: sans-serif;
+}
+
+.tweet-content {
+  display: flex;
+  padding: 10px;
+}
+
+.status {
+  width: 600px;
+  margin: 20px auto;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.logo {
+  height: 75px;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.characters-remaining {
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+span {
+  color: grey;
+}
+
+.comment-bar {
+  background-color: #f5f8fa;
+  padding: 10px;
+  border-top: 1px solid #e6ecf0;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #1DA1F2;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.like {
+  cursor: pointer;
+  font-size: 25px;
+}
+</style>
+</head>
+
+<body>
+
+  <div id="app">
+  <tweet
+    v-for="tweet in tweets"
+    v-bind:key="tweet.id"
+    v-bind:tweet-text="tweet.tweetText">
+  </tweet>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.min.js'></script>
+
+  <script>
+  Vue.component('tweet', {
+  props: ['tweetText'],
+  data: function () {
+    return {
+      charactersRemaining: 280,
+      commentText: '',
+      liked: false };
+
+  },
+  methods: {
+    countCharacters: function () {
+      this.charactersRemaining = 280 - this.commentText.length;
+    },
+    toggleLike: function () {
+      this.liked = !this.liked;
+    } },
+
+  template: `<div class="status">
+  <div class="tweet-content">
+    <img src="https://pbs.twimg.com/profile_images/1070775214370373633/borvu2Xx_400x400.jpg" class="logo" alt="Vue Vixens DC logo">
+    <div class="tweet">
+      <a href="https://twitter.com/vuevixensdc">Vue Vixens DC</a>
+      <span>@VueVixensDC · Mar 20</span>
+      <p class="tweet-text">
+        {{ tweetText }}
+      </p>
+      <div class="reactions">
+        <span v-on:click="toggleLike" class="like">
+          <span v-if="liked">♥️</span>
+          <span v-else>♡</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="comment-bar">
+    <textarea placeholder="tweet your reply" v-model="commentText" v-on:input="countCharacters">
+    </textarea>
+    <span class="characters-remaining">
+      {{ charactersRemaining }} characters remaining
+    </span>
+  </div>
+</div>` 
+});
+
+new Vue({
+  el: '#app',
+  data: {
+    tweets: [
+      { id: 1, tweetText: 'hello world!' },
+      { id: 2, tweetText: 'hi!' }
+    ]
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/16.4.2/umd/react.production.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.2/umd/react-dom.production.min.js'></script>
+
+<style>
+html, body,
+.content {
+  background-color: #ccc;
+  height: 100%;
+}
+
+.profile-row {
+  margin-bottom: 40px;
+}
+
+
+.profile-pic {
+  height: 50px;
+  width: 50px;
+}
+
+.post-time {
+  color: #90949c;
+}
+
+.blue-icon {
+  color: #0099ff;
+}
+
+.no-outline {
+  border-color: white !important;
+}
+</style>
+</head>
+<body>
+
+    <div class="content">
+      <div id="root"></div>
+    </div>
+
+<script>
+class Comment extends React.Component {
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      characterCount: 0 };
+
+  }
+
+  handleChange(event) {
+    console.log(this);
+    this.setState({
+      characterCount: event.target.value.length });
+  }
+
+  render() {
+    return (
+      React.createElement("div", null,
+      React.createElement("textarea", { className: "form-control", placeholder: "Write a comment...", onChange: this.handleChange }),
+      React.createElement("small", null, this.props.maxLetters - this.state.characterCount, " Remaining")));
+  }}
+
+const LikeIcon = () => {
+  return (
+    React.createElement("div", null,
+    React.createElement("span", { className: "fa-stack fa-sm" },
+    React.createElement("i", { className: "fa fa-circle fa-stack-2x blue-icon" }),
+    React.createElement("i", { className: "fa fa-thumbs-up fa-stack-1x fa-inverse" }))));
+};
+
+class Like extends React.Component {
+  constructor() {
+    super();
+    this.state = { liked: false };
+    this.toggleLike = this.toggleLike.bind(this);
+  }
+
+  toggleLike() {
+    this.setState(previousState => ({
+      liked: !previousState.liked }));
+  }
+
+  render() {
+    return (
+      React.createElement("div", null,
+
+      this.state.liked && React.createElement(LikeIcon, null),
+      React.createElement("hr", null),
+      React.createElement("div", null,
+      React.createElement("button", { type: "button", className: "btn no-outline btn-secondary", onClick: this.toggleLike },
+      React.createElement("i", {
+        className: "fa fa-thumbs-o-up fa-4 align-middle",
+        "aria-hidden": "true" }), "\xA0",
+
+      React.createElement("span", { className: "align-middle" }, "Like")))));
+  }
+}
+
+const Status = () => {
+  return (
+    React.createElement("div", { className: "col-6 offset-3" },
+    React.createElement("div", { className: "card" },
+    React.createElement("div", { className: "card-block" },
+    React.createElement("div", { className: "row" },
+    React.createElement("div", { class: "col-2" },
+    React.createElement("img", { src: "https://zen-of-programming.com/react-intro/selfiesquare.jpg", class: "profile-pic" })),
+
+    React.createElement("div", { class: "col-10 profile-row" },
+    React.createElement("div", { class: "row" },
+    React.createElement("a", { href: "#" }, "The Zen of Programming")),
+
+    React.createElement("div", { class: "row" },
+    React.createElement("small", { class: "post-time" }, "10 mins")))),
+
+    React.createElement("p", null, "Hello, world!"),
+    React.createElement(Like, null)),
+
+    React.createElement("div", { className: "card-footer text-muted" },
+    React.createElement(Comment, { maxLetters: 140 })))));
+};
+
+ReactDOM.render(React.createElement(Status, null), document.getElementById("root"));
+</script>
+</body>
+</html>
