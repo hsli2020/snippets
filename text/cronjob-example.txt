@@ -1,0 +1,51 @@
+20 Useful Crontab Examples
+==========================
+
+0 2 * * * /bin/sh backup.sh             # execute at 2am daily.
+
+0 5,17 * * * /scripts/script.sh         # execute twice a day.
+
+* * * * *  /scripts/script.sh           # execute on every minutes.
+
+0 17 * * sun  /scripts/script.sh        # execute on every Sunday at 5 PM.
+
+*/10 * * * * /scripts/monitor.sh        # execute on every 10 minutes.
+
+* * * jan,may,aug *  /script/script.sh  # execute on selected months.
+
+0 17 * * sun,fri  /script/script.sh     # execute on selected days.
+
+0 */4 * * * /scripts/script.sh          # execute on every four hours.
+
+0 4,17 * * sun,mon /scripts/script.sh   # execute twice on every Sunday and Monday.
+
+
+@yearly  /scripts/script.sh        # execute on yearly ( @yearly ).
+@monthly /scripts/script.sh        # execute on monthly ( @monthly ).
+@weekly  /bin/script.sh            # execute on Weekly ( @weekly ).
+@daily   /scripts/script.sh        # execute on daily ( @daily ).
+@hourly  /scripts/script.sh        # execute on hourly ( @hourly ).
+@reboot  /scripts/script.sh        # execute on system reboot ( @reboot ).
+
+
+string         meaning
+------         -------
+@reboot        Run once, at startup.
+@yearly        Run once a year, "0 0 1 1 *".
+@annually      (same as @yearly)
+@monthly       Run once a month, "0 0 1 * *".
+@weekly        Run once a week, "0 0 * * 0".
+@daily         Run once a day, "0 0 * * *".
+@midnight      (same as @daily)
+@hourly        Run once an hour, "0 * * * *".
+
+
+# Minute   Hour   Day of Month       Month          Day of Week        Command    
+# (0-59)  (0-23)     (1-31)    (1-12 or Jan-Dec)  (0-6 or Sun-Sat)                
+    0        2          12             *                *            /usr/bin/find
+
+
+To schedule a script to execute a script on first Sunday only is not possible by time parameter, 
+But we can use the condition in command fields to do it.
+
+0 2 * * sun  [ $(date +%d) -le 07 ] && /script/script.sh        # execute on first sunday of every month.

@@ -1,0 +1,884 @@
+@charset "utf-8";
+
+/*
+ * ////////// * CSS全局变量 * //////////
+ */
+
+:root {
+    --qingColor: #ff5c6f;
+    --qingFontSize: 14px;
+    --qingZIndex: 100;
+}
+
+/*
+ * ////////// * 公共样式 * //////////
+ */
+
+/* trough */
+.qing .trough {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 2px;
+    color: #fff;
+    background-color: var(--qingColor);
+    cursor: pointer;
+    user-select: none;
+}
+.qing .trough .view {
+    width: calc(100% - 20px);
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.qing .trough .arrow {
+    width: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    transform: rotate(-180deg);
+    transition: transform .2s ease;
+}
+.qing .trough .arrow.active {
+    transform: rotate(0deg);
+}
+/* curtain */
+.qing .curtain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    visibility: hidden;
+    width: 250px;
+    border-radius: 2px;
+    background-color: #fff;
+    opacity: 0;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .4);
+    position: absolute;
+    top: 14px;
+    left: 0;
+    z-index: var(--qingZIndex);
+    transition: opacity .6s ease, top .2s ease;
+}
+.qing .curtain.active {
+    visibility: visible;
+    opacity: 1;
+    top: 34px;
+}
+
+/*
+ * ////////// * 日期选择器组件 * //////////
+ */
+
+.qing-date-picker {
+    width: 100%;
+    font-size: 16px;
+    color: #333;
+    user-select: none;
+    position: relative;
+}
+.qing-date-picker .curtain {
+    width: 240px;
+    padding: 5px;
+}
+.qing-date-picker .bar {
+    display: flex;
+    width: 100%;
+    padding-bottom: 2px;
+    border-bottom: 1px dashed #ccc;
+}
+.qing-date-picker .bar .bar-item {
+    display: flex;
+    width: 100px;
+    padding: 2px 10px;
+}
+.qing-date-picker .bar .angle {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--qingColor);
+    cursor: pointer;
+}
+.qing-date-picker .bar .angle.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+.qing-date-picker .bar .year-pop,
+.qing-date-picker .bar .month-pop {
+    width: 60px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.qing-date-picker .week {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.qing-date-picker .week .week-item {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 12px;
+}
+.qing-date-picker .board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.qing-date-picker .board .day {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.qing-date-picker .board .day-disable {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    color: #bbb;
+}
+.qing-date-picker .board .day.today {
+    background-color: #ddd;
+}
+.qing-date-picker .board .day.active {
+    color: #fff;
+    background-color: var(--qingColor);
+}
+.qing-date-picker .control {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 5px;
+    margin-top: 5px;
+    border-top: 1px dashed #ccc;
+}
+.qing-date-picker .control .today,
+.qing-date-picker .control .close {
+    width: 38px;
+    height: 20px;
+    padding: 0;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #333;
+    background-color: #eee;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.qing-date-picker .curtain .title {
+    width: 100%;
+    padding-bottom: 5px;
+    text-align: center;
+    border-bottom: 1px dashed #ccc;
+}
+.qing-date-picker .curtain .prev,
+.qing-date-picker .curtain .next {
+    width: 30px;
+    text-align: center;
+    color: var(--qingColor);
+    cursor: pointer;
+}
+.qing-date-picker .curtain .prev-disabled,
+.qing-date-picker .curtain .next-disabled {
+    width: 30px;
+    text-align: center;
+    color: #ccc;
+    cursor: not-allowed;
+}
+.qing-date-picker .curtain .year-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 180px;
+}
+.qing-date-picker .curtain .year {
+    width: 40px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.qing-date-picker .curtain .month {
+    width: 30px;
+    margin: 10px 25px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.qing-date-picker .curtain .year.thisyear,
+.qing-date-picker .curtain .month.thismonth {
+    color: var(--qingColor);
+}
+.qing-date-picker .curtain .year:hover,
+.qing-date-picker .curtain .month:hover {
+    background-color: #eee;
+}
+
+/*
+ * ////////// * 时间选择器组件 * //////////
+ */
+
+.qing-time-picker {
+    width: 100%;
+    font-size: 16px;
+    color: #666;
+    user-select: none;
+    position: relative;
+}
+.qing-time-picker .curtain {
+    width: 240px;
+    padding: 5px;
+    font-size: 12px;
+}
+.qing-time-picker .select {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 3px 0 8px;
+    border-bottom: 1px dashed #ccc;
+}
+.qing-time-picker .select .select-item {
+    width: 78px;
+    height: 20px;
+    padding: 0;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: var(--qingColor);
+    cursor: pointer;
+    position: relative;
+}
+.qing-time-picker .select .select-item[disabled] {
+    color: #333;
+    background-color: #eee;
+    cursor: default;
+}
+.qing-time-picker .select .select-item[disabled]::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--qingColor);
+    position: absolute;
+    top: 22px;
+    left: calc(50% - 2px);
+}
+.qing-time-picker .time {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 5px 0;
+}
+.qing-time-picker .time .hour,
+.qing-time-picker .time .minute,
+.qing-time-picker .time .second {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.qing-time-picker .time .hour.active,
+.qing-time-picker .time .minute.active,
+.qing-time-picker .time .second.active {
+    color: #fff;
+    background-color: var(--qingColor);
+}
+.qing-time-picker .control {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 5px;
+    border-top: 1px dashed #ccc;
+}
+.qing-time-picker .control .now,
+.qing-time-picker .control .ok {
+    width: 38px;
+    height: 20px;
+    padding: 0;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    color: #333;
+    background-color: #eee;
+    cursor: pointer;
+}
+.qing-time-picker .control .ok {
+    color: #fff;
+    background-color: var(--qingColor);
+}
+
+/*
+ * ////////// * 分页组件 * //////////
+ */
+
+.qing-paginator {
+    display: flex;
+    color: #666;
+    font-size: 16px;
+}
+.qing-paginator .square {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 2px;
+    background-color: #eee;
+    cursor: pointer;
+    user-select: none;
+}
+.qing-paginator .end {
+    font-size: 20px;
+    font-weight: 900;
+}
+.qing-paginator .end.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+.qing-paginator .bar {
+    display: flex;
+    padding: 0 2px;
+}
+.qing-paginator .bar .square {
+    margin: 0 2px;
+}
+.qing-paginator .bar .gap {
+    color: #999;
+    cursor: default;
+}
+.qing-paginator .bar .page.active {
+    color: #fff;
+    background-color: var(--qingColor);
+}
+.qing-paginator .jumper {
+    margin-left: 10px;
+    font-size: 14px;
+}
+.qing-paginator .jumper .goto {
+    color: #999;
+}
+.qing-paginator .jumper .jump {
+    width: 28px;
+    height: 28px;
+    padding: 0 5px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    color: #666;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .1) inset;
+    caret-color: #999;
+    outline: none;
+}
+.qing-paginator .combobox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 78px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 5px;
+    margin-left: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    font-size: 12px;
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .1) inset;
+    caret-color: #999;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+.qing-paginator .combobox .show {
+    width: 60px;
+    text-align: center;
+}
+.qing-paginator .combobox .arrow {
+    color: #999;
+    font-size: 12px;
+    font-weight: 900;
+    transform: rotate(-180deg);
+    transition: transform .2s ease;
+}
+.qing-paginator .combobox .arrow.active {
+    transform: rotate(0deg);
+}
+.qing-paginator .combobox .panel {
+    visibility: hidden;
+    width: 90px;
+    border-radius: 2px;
+    font-size: 14px;
+    overflow: hidden;
+    background-color: #fff;
+    opacity: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 13px;
+    left: -1px;
+    z-index: var(--qingZIndex);
+    transition: opacity .6s ease, top .2s ease;
+}
+.qing-paginator .combobox .panel.active {
+    visibility: visible;
+    opacity: 1;
+    top: 33px;
+}
+.qing-paginator .combobox .option {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.qing-paginator .combobox .option.active {
+    font-weight: 700;
+}
+.qing-paginator .combobox .option:hover {
+    background-color: #e6f7ff;
+}
+
+/*
+ * ////////// * 树组件 * //////////
+ */
+
+.qing-tree {
+    color: #000;
+    font-size: var(--qingFontSize);
+}
+.qing-tree .trunk .fruit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.qing-tree .fruit .arrow {
+    width: 0;
+    height: 0;
+    margin-right: 5px;
+    border-left: 4px solid #333;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform .2s;
+}
+.qing-tree .fruit .arrow.active {
+    transform: rotate(90deg);
+}
+.qing-tree .fruit .blank {
+    width: 4px;
+    height: 8px;
+    margin-right: 5px;
+}
+.qing-tree .fruit .cb {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #fff;
+}
+.qing-tree .fruit .cb.checked,
+.qing-tree .fruit .cb.somechecked {
+    border-color: var(--qingColor);
+    background-color: var(--qingColor);
+    position: relative;
+}
+.qing-tree .fruit .cb.checked::after {
+    content: '';
+    width: 3px;
+    height: 7px;
+    border: 2px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    transform: rotate(50deg);
+    transform-origin: center;
+}
+.qing-tree .fruit .cb.somechecked::after {
+    content: '';
+    width: 8px;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 2px;
+}
+.qing-tree .trunk .sub {
+    height: 0px;
+    overflow: hidden;
+    transition: height .2s;
+}
+
+/*
+ * ////////// * 级联选择器组件 * //////////
+ */
+
+.qing-cascader {
+    width: 100%;
+    font-size: var(--qingFontSize);
+    color: #333;
+    user-select: none;
+    position: relative;
+}
+.qing-cascader .curtain .board {
+    width: 250px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 1px 0 2px rgba(0, 0, 0, .4);
+    position: absolute;
+    top: 0;
+    left: 250px;
+}
+.qing-cascader .curtain > .board {
+    box-shadow: none;
+    position: relative;
+    left: 0;
+}
+.qing-cascader .board .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+.qing-cascader .board .row:hover,
+.qing-cascader .board .result:hover {
+    background-color: #eee;
+}
+.qing-cascader .board .trunk.active {
+    color: var(--qingColor);
+    background-color: #eee;
+}
+.qing-cascader .board .label {
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.qing-cascader .board .arrow {
+    color: #666;
+    font-size: 900;
+}
+.qing-cascader .curtain .control {
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+}
+.qing-cascader .control .search {
+    width: 220px;
+    height: 20px;
+    padding: 2px 5px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .1) inset;
+    caret-color: #aaa;
+    outline: none;
+}
+.qing-cascader .board .result {
+    box-sizing: border-box;
+    padding: 10px;
+    opacity: 0;
+    font-size: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transform: translate(0, 20px);
+    transition: opacity .2s ease, transform .2s ease;
+}
+.qing-cascader .board .result.active {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+.qing-cascader .result .s {
+    font-size: var(--qingFontSize);
+}
+.qing-cascader .result .highlight {
+    color: var(--qingColor);
+}
+.qing-cascader .board .null {
+    padding: 10px;
+    color: #999;
+}
+
+/*
+ * ////////// * 多选框组件 * //////////
+ */
+
+.qing-checkbox {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.qing-checkbox.checked,
+.qing-checkbox.somechecked {
+    border-color: var(--qingColor);
+    background-color: var(--qingColor);
+    position: relative;
+}
+.qing-checkbox.checked::after {
+    content: '';
+    width: 3px;
+    height: 7px;
+    border: 2px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    transform: rotate(50deg);
+    transform-origin: center;
+}
+.qing-checkbox.somechecked::after {
+    content: '';
+    width: 8px;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 2px;
+}
+.qing-checkbox.disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+.qing-checkbox.checked.disabled {
+    border-color: #bfcbd9;
+}
+.qing-checkbox.checked.disabled::after {
+    border-color: #999;
+}
+
+/*
+ * ////////// * 单选框组件 * //////////
+ */
+
+.qing-radio {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+.qing-radio.checked {
+    border-color: var(--qingColor);
+    position: relative;
+}
+.qing-radio.checked::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--qingColor);
+    position: absolute;
+    top: calc(50% - 4px);
+    left: calc(50% - 4px);
+}
+.qing-radio.disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+.qing-radio.checked.disabled {
+    border-color: #aaa;
+}
+.qing-radio.checked.disabled::after {
+    background-color: #aaa;
+}
+
+/*
+ * ////////// * 开关组件 * //////////
+ */
+
+.qing-switch {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background-color: #ccc;
+    cursor: pointer;
+    position: relative;
+    transition: background-color .5s ease;
+}
+.qing-switch.checked {
+    background-color: var(--qingColor);
+}
+.qing-switch.disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+.qing-switch .button {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left .5s ease;
+}
+.qing-switch .button.checked {
+    left: calc(100% - 20px);
+}
+/*small规格*/
+.qing-switch.switch-small {
+    width: 28px;
+    height: 16px;
+    border-radius: 8px;
+}
+.qing-switch.switch-small .button {
+    width: 12px;
+    height: 12px;
+}
+.qing-switch.switch-small .button.checked {
+    left: calc(100% - 14px);
+}
+
+/*
+ * ////////// * 计数器组件 * //////////
+ */
+
+.qing-input-number {
+    display: flex;
+    align-items: center;
+    width: 110px;
+    font-size: 16px;
+}
+.qing-input-number .decrease,
+.qing-input-number .increase {
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
+    border: 1px solid #ccc;
+    color: #666;
+    background-color: #f9f9f9;
+    user-select: none;
+    cursor: pointer;
+}
+.qing-input-number .decrease.disabled,
+.qing-input-number .increase.disabled {
+    color: #aaa;
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+.qing-input-number .decrease {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+.qing-input-number .increase {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.qing-input-number .monitor {
+    width: 50px;
+    height: 28px;
+    text-align: center;
+    padding: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    color: #666;
+    caret-color: #666;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .1) inset;
+    outline: none;
+}
+.qing-input-number .monitor:disabled {
+    color: #aaa;
+    background-color: #eee;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+/*small规格*/
+.qing-input-number.input-number-small {
+    width: 70px;
+    font-size: 12px;
+}
+.qing-input-number.input-number-small .decrease,
+.qing-input-number.input-number-small .increase {
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+}
+.qing-input-number.input-number-small .monitor {
+    width: 30px;
+    height: 18px;
+    font-size: 12px;
+}
+
+/*
+ * ////////// * 输入框组件 * //////////
+ */
+
+.qing-input {
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+}
+.qing-input .wrap {
+    width: 100%;
+    position: relative;
+}
+.qing-input .input {
+    width: calc(100% - 22px);
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    color: #666;
+    caret-color: #666;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .1) inset;
+    outline: none;
+}
+.qing-input .input.click {
+    border-right: none;
+}
+.qing-input .entry .input::placeholder {
+    color: #aaa;
+}
+.qing-input .button {
+    width: 70px;
+    height: 34px;
+    border: none;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    color: #fff;
+    background-color: var(--qingColor);
+    outline: none;
+    cursor: pointer;
+}
+.qing-input .clear {
+    display: none;
+    width: 12px;
+    height: 12px;
+    line-height: 11px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, .3);
+    cursor: pointer;
+    transform: rotate(45deg);
+    position: absolute;
+    top: calc(50% - 6px);
+    right: 10px;
+}
+.qing-input .clear.active {
+    display: block;
+}
