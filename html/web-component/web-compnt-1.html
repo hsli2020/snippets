@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Template with script and styles demo</title>
+</head>
+
+<body>
+
+<template id="template">
+  <script>
+    const button = document.getElementById('click-me');
+    button.addEventListener('click', event => alert(event));
+  </script>
+  <style>
+    #click-me {
+      all: unset;
+      background: tomato;
+      border: 0;
+      border-radius: 4px;
+      color: white;
+      font-family: Helvetica;
+      font-size: 1.5rem;
+      padding: .5rem 1rem;
+    }
+  </style>
+  <button id="click-me">Log click event</button>
+</template>
+
+<script>
+  'use strict';
+  
+  const template = document.getElementById('template');
+  
+  document.body.appendChild(
+  document.importNode(template.content, true));
+</script>
+
+</body></html>

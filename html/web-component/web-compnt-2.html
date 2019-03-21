@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Dialog with template with script</title>
+  <style>
+  #launch-dialog {
+    background: tomato;
+    border-radius: 4px;
+    color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 0.5rem 1rem;
+    position: static;
+  }
+  </style>
+</head>
+
+<body>
+
+<template id="dialog-template">
+  <script>
+    document.getElementById('launch-dialog').addEventListener('click', () => {
+      const wrapper = document.querySelector('.wrapper');
+      const closeButton = document.querySelector('button.close');
+      const wasFocused = document.activeElement;
+      wrapper.classList.add('open');
+      closeButton.focus();
+      closeButton.addEventListener('click', () => {
+        wrapper.classList.remove('open');
+        wasFocused.focus();
+      });
+    });
+  </script>
+  <style>
+    .wrapper {
+      opacity: 0;
+      transition: visibility 0s, opacity 0.25s ease-in;
+    }
+    .wrapper:not(.open) {
+      visibility: hidden;
+    }
+    .wrapper.open {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 100vh;
+      position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.8);
+      height: 100%;
+      position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      width: 100%;
+    }
+    .dialog {
+      background: #ffffff;
+      max-width: 600px;
+      padding: 1rem;
+      position: fixed;
+    }
+    button {
+      all: unset;
+      cursor: pointer;
+      font-size: 1.25rem;
+      position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    button:focus {
+      border: 2px solid blue;
+    }
+  </style>
+  <div class="wrapper">
+  <div class="overlay"></div>
+    <div class="dialog" role="dialog" aria-labelledby="title" aria-describedby="content">
+      <button class="close" aria-label="Close">✖️</button>
+      <h1 id="title">Hello world</h1>
+      <div id="content" class="content">
+        <p>This is content in the body of our modal</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<button id="launch-dialog">Launch dialog</button>
+
+<script>
+  const template = document.getElementById('dialog-template');
+  
+  document.body.appendChild(
+      document.importNode(template.content, true));
+</script>
+
+</body>
+</html>
