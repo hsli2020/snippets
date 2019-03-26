@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JS Playground</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container">
+  <h1>javascript call function by name string</h1>
+  <p>
+    <a href="https://stackoverflow.com/questions/359788/how-to-execute-a-javascript-function-when-i-have-its-name-as-a-string">
+    How to execute a JavaScript function when I have its name as a string?</a>
+  </p>
+  <p>
+  <a href="https://github.com/intoli/remote-browser">https://github.com/intoli/remote-browser</a>
+  </p>
+</div>
+
+<script>
+function callFuncByName(functionName, context /*, args */) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    var namespaces = functionName.split(".");
+    var func = namespaces.pop();
+    for(var i = 0; i < namespaces.length; i++) {
+        context = context[namespaces[i]];
+    }
+    if (context[func] == undefined || typeof(context[func]) != 'function') {
+        return;
+    }
+    return context[func].apply(context, args);
+}
+
+// call global functions
+function hello(name) { console.log("Hello " + name); }
+function byebye(name) { console.log("Byebye " + name); }
+
+callFuncByName("hello", window, "everyone"); // yes
+callFuncByName("byebye", window, "everyone"); // yes
+callFuncByName("nofunc", window, "everyone"); // no
+
+// call functions inside namespace
+var app = { };
+app.Utils = { };
+app.Utils.File = { };
+app.Utils.File.rename = function(oldname, newname) {
+    console.log("rename " + oldname + " to " + newname);
+};
+
+callFuncByName("app.Utils.File.rename", window, "oldfile0", "newfile0"); // yes
+callFuncByName("app.Utils.File", window, "oldfile1", "newfile1"); // no
+callFuncByName("Utils.File.rename", app, "oldfile2", "newfile2"); // yes
+callFuncByName("rename", app.Utils.File, "oldfile3", "newfile3"); // yes
+
+class Foo {
+  method1(){
+    console.log("method 1");
+  }
+  method2(){
+    this['method1']();
+    console.log("method 2");
+  }
+}
+
+let foo = new Foo();
+foo['method2']();
+
+// another way
+setTimeout("hello('everyone')", 0);
+setTimeout("byebye('everyone')", 0);
+setTimeout("nofunc('everyone')", 0);
+setTimeout("app.Utils.File.rename('oldname', 'newname')", 0);
+</script>
+</body>
+</html>
