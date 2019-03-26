@@ -1,0 +1,42 @@
+Example product offers response
+
+{
+  "status": "completed",
+  "asin": "B007JR5304",
+  "offers": [
+    {
+      "seller": {
+        "num_ratings": null,
+        "percent_positive": null,
+        "first_party": false,
+        "name": "Amazon Warehouse",
+        "id": "A2L77EE7U53NWQ"
+      },
+      "marketplace_fulfilled": true,
+      "international": false,
+      "offer_id": "eMLzuculxk",
+      "available": true,
+      "handling_days": {
+        "max": 0,
+        "min": 0
+      },
+      "price": 928,
+      "prime_only": false,
+      "condition": "Used - Very Good",
+      "addon": false,
+      "shipping_options": [
+        {
+          "price": 0,
+          "delivery_days": {
+            "max": 4,
+            "min": 4
+          },
+          "name": "one-day"
+        }
+      ],
+      "minimum_quantity": null,
+    }
+  ],
+  "timestamp": 1543523165,
+  "retailer": "amazon"
+}

@@ -1,0 +1,115 @@
+Example product details response
+
+{
+    "status": "completed",
+    "original_retail_price": 899,
+    "timestamp": 1515775557,
+    "all_variants": [
+        {
+            "variant_specifics": [
+                {
+                    "dimension": "Size",
+                    "value": "2"
+                }
+            ],
+            "product_id": "B00Q3H18EQ"
+        },
+        {
+            "variant_specifics": [
+                {
+                    "dimension": "Size",
+                    "value": "1"
+                }
+            ],
+            "product_id": "B00KFP6NHO"
+        }
+    ],
+    "retailer": "amazon",
+    "feature_bullets": [
+        "Includes four freeze-and-feed popsicle molds with handles shaped perfectly for little hands",
+        "Perfect for fresh homemade puree popsicles - turn fresh fruit/veggie puree or juice into 1 fl. oz popsicles",
+        "Wide popsicle-holder base catches drips as the popsicle melts to reduce the risk of messes",
+        "Great for teething babies to help soothe sore gums",
+        "6 Months + / BPA Free"
+    ],
+    "variant_specifics": [
+        {
+            "dimension": "Size",
+            "value": "1"
+        }
+    ],
+    "main_image": "https://images-na.ssl-images-amazon.com/images/I/61K0YbuLi-L.jpg",
+    "images": [
+        "https://images-na.ssl-images-amazon.com/images/I/61K0YbuLi-L.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/81KtOn8ddTL.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/71%2BruDKMSoL.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/91AE6dpp5EL.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/61FQEQJR2HL.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/511agWyBf3L.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/31cC6K6y%2ByL.jpg",
+        "https://images-na.ssl-images-amazon.com/images/I/31ocdUye0ML.jpg"
+    ],
+    "package_dimensions": {
+        "weight": {
+            "amount": 8.5,
+            "unit": "ounces"
+        },
+        "size": {
+            "width": {
+                "amount": 4,
+                "unit": "inches"
+            },
+            "depth": {
+                "amount": 5.8,
+                "unit": "inches"
+            },
+            "length": {
+                "amount": 5.8,
+                "unit": "inches"
+            }
+        }
+    },
+    "epids": [
+        {
+            "type": "MPN",
+            "value": "5438"
+        },
+        {
+            "type": "UPC",
+            "value": "048526054381"
+        },
+        {
+            "type": "EAN",
+            "value": "0048526054381"
+        }
+    ],
+    "product_id": "B00KFP6NHO",
+    "asin": "B00KFP6NHO",
+    "ship_price": 0,
+    "categories": [
+        "Home & Kitchen",
+        "Kitchen & Dining",
+        "Kitchen Utensils & Gadgets",
+        "Specialty Tools & Gadgets",
+        "Ice Pop Molds"
+    ],
+    "review_count": 829,
+    "epids_map": {
+        "MPN": "5438",
+        "UPC": "048526054381",
+        "EAN": "0048526054381"
+    },
+    "title": "Nuby Garden Fresh Fruitsicle Frozen Pop Tray",
+    "brand": "Nuby",
+    "product_description": "Size:1  Nuby's Garden Fresh Fruitsicle Frozen Popsicle Tray\nis specially designed for making fresh puree popsicles at home. Nuby’s\nFruitsicles are the perfect size for baby’s small hands and are designed to\ncatch drips as the pop melts. Fruitsicles are perfect for teething babies with\nsore gums. This set includes four fruitsicle handles and a tray to mold the\npops while keeping them in place while in your freezer. To use: fill\ncompartments with fresh puree, breast milk, or juice. Snap handles into mold\nand freeze until solid. BPA Free. By Nuby",
+    "product_details": [
+        "Product Dimensions: 5.8 x 5.8 x 4 inches ; 7.8 ounces",
+        "Shipping Weight: 8.5 ounces",
+        "Domestic Shipping: Item can be shipped within U.S.",
+        "UPC: 048526054381 013513034066",
+        "Item model number: 5438"
+    ],
+    "question_count": 26,
+    "stars": 4.5,
+    "price": 799
+}

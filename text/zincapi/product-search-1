@@ -1,0 +1,38 @@
+https://api.zinc.io/v1/search?query=fish%20oil&page=1&retailer=amazon
+
+Example product offers response
+
+{
+  "status": "completed",
+  "timestamp": 1522268852,
+  "retailer": "amazon",
+  "results": [
+    {
+      "product_id": "B000NPYY04",
+      "title": "Nature's Bounty Fish Oil, 1200 mg Omega-3, 200 Rapid Release Softgels, Dietary Supplement for Supporting Cardiovascular Health(1)",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51KGjV22PWL._AC_US218_.jpg",
+      "num_reviews": 395,
+      "stars": "4.5 out of 5 stars",
+      "fresh": false,
+      "price": 1248
+    },
+    {
+      "product_id": "B004U3Y9FU",
+      "title": "Nature Made Burpless Fish Oil 1000 mg w. Omega-3 300 mg Softgels 150 Ct",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/516F1UWawAL._AC_US218_.jpg",
+      "num_reviews": 0,
+      "stars": "4.4 out of 5 stars",
+      "fresh": false,
+      "price": 1299
+    },
+    {
+      "product_id": "B002VLZHLS",
+      "title": "Kirkland Signature Fish Oil Concentrate with Omega-3 Fatty Acids, 400 Softgels, 1000mg",
+      "image": "https://images-na.ssl-images-amazon.com/images/I/41bpqnspd1L._AC_US218_.jpg",
+      "num_reviews": 0,
+      "stars": "4.6 out of 5 stars",
+      "fresh": false,
+      "price": 1642
+    }
+  ]
+}

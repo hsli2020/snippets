@@ -1,0 +1,103 @@
+https://api.zinc.io/v1/realtime/search?query=vitamin&retailer=amazon
+
+Example realtime search response
+
+{
+  "status": "completed",
+  "timestamp": 1537653337,
+  "nextPage": "https://api.zinc.io/v1/realtime/search?nextToken=eyJzZWVuIjpbMjY4NDM1NDU2LDAsMTA0ODU3NiwwLDAsNDIxMDY4OCwwLDAsMTYzODQsMCwwLDAsMTMxMDcyLDAsMjU2LDAsMzI3NjgsMjU2LDAsNDA5NiwxMDQ4NTc2LDAsMCwyMzA0LDQsMjA2MDgsMjY4NDM1NDU2LDAsMCwwLC0yMTQ3NDgzNjQ4LDAsMCwwLDY3MTE3MDU2LDAsMTMxMDcyLDUzNjg3MDkxMiwwLDAsMCwyNTYsMCw1MTIwLDAsNTI0MjkyLDAsMzI3NjgsNjU1MzYsMCwxNiwwLDIwODAsMCwwLDAsMCw2NTUzNiwwLDEwNTYsMCwxMDI0LDAsMCwxNjc3NzIxNiwwLDAsMCwwLDI2ODQzNTQ1Niw1NzYsODE5Miw2NCwxMDczNzQxODI0LDEwNDg1NzYsMCwwLDQsMCwxMDQ4NTc2LDI3MiwwLDI4NTIxMjY3MiwwLDAsMCwwLDAsMCwwLDAsMTY3NzcyMTYsMCwwLC0yMTQ3NDgyNjI0LDI2NDE5MiwwLDAsMCw0MDk2LDAsMCw1MTIsMCwwLDAsMCwwLDIzMDQsMjYyMTQ0LDAsMCwyNjg0MzU0NTYsMCwxLDAsMCw2NTUzNywwLDUyOCwwLDAsMCwtMjE0NzQ2NzI2NCwwLDE2Mzg0LDAsMF0sInBhZ2UiOjIsImNvdW50cnkiOiJ1cyIsInF1ZXJ5Ijoidml0YW1pbiJ9",
+  "nextToken": "eyJzZWVuIjpbMjY4NDM1NDU2LDAsMTA0ODU3NiwwLDAsNDIxMDY4OCwwLDAsMTYzODQsMCwwLDAsMTMxMDcyLDAsMjU2LDAsMzI3NjgsMjU2LDAsNDA5NiwxMDQ4NTc2LDAsMCwyMzA0LDQsMjA2MDgsMjY4NDM1NDU2LDAsMCwwLC0yMTQ3NDgzNjQ4LDAsMCwwLDY3MTE3MDU2LDAsMTMxMDcyLDUzNjg3MDkxMiwwLDAsMCwyNTYsMCw1MTIwLDAsNTI0MjkyLDAsMzI3NjgsNjU1MzYsMCwxNiwwLDIwODAsMCwwLDAsMCw2NTUzNiwwLDEwNTYsMCwxMDI0LDAsMCwxNjc3NzIxNiwwLDAsMCwwLDI2ODQzNTQ1Niw1NzYsODE5Miw2NCwxMDczNzQxODI0LDEwNDg1NzYsMCwwLDQsMCwxMDQ4NTc2LDI3MiwwLDI4NTIxMjY3MiwwLDAsMCwwLDAsMCwwLDAsMTY3NzcyMTYsMCwwLC0yMTQ3NDgyNjI0LDI2NDE5MiwwLDAsMCw0MDk2LDAsMCw1MTIsMCwwLDAsMCwwLDIzMDQsMjYyMTQ0LDAsMCwyNjg0MzU0NTYsMCwxLDAsMCw2NTUzNywwLDUyOCwwLDAsMCwtMjE0NzQ2NzI2NCwwLDE2Mzg0LDAsMF0sInBhZ2UiOjIsImNvdW50cnkiOiJ1cyIsInF1ZXJ5Ijoidml0YW1pbiJ9",
+  "retailer": "amazon",
+  "results": [
+    {
+      "product_id": "B00K2RJAR0",
+      "title": "OPTIMUM NUTRITION Opti-Men, Mens Daily Multivitamin Supplement with Vitamins C, D, E, B12, 150 Count",
+      "price": 2278,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/41raAjeCEwL._AC_US218_.jpg",
+      "brand": "Optimum Nutrition",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B007L0DPE0",
+      "title": "Vitafusion Women's Gummy Vitamins, 150 Count (Packaging May Vary)",
+      "price": 979,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51eGHGb0zqL._AC_US218_.jpg",
+      "brand": "Vitafusion",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B002H0KZ9M",
+      "title": "Vitafusion Multi-vite, Gummy Vitamins For Adults, 150 Count (Packaging May Vary)",
+      "price": 979,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/515YezxBrlL._AC_US218_.jpg",
+      "brand": "Vitafusion",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B003G4BP5G",
+      "title": "Centrum Adult (200 Count) Multivitamin / Multimineral Supplement Tablet, Vitamin D3",
+      "price": 949,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/41IpifEYOpL._AC_US218_.jpg",
+      "brand": "Centrum",
+      "prime": false,
+      "product_details": []
+    },
+    {
+      "product_id": "B00GB85JR4",
+      "title": "NatureWise Vitamin D3 5,000 IU for Healthy Muscle Function, Bone Health and Immune Support, Non-GMO in Cold-Pressed Organic Olive Oil,Gluten-Free, 1-year supply, 360 count",
+      "price": 1105,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/61X2dIACG9L._AC_US218_.jpg",
+      "brand": "NatureWise",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B00WR6JGD2",
+      "title": "Dr. Tobias Multivitamin for Women and for Men - Enhanced Bioavailability - With Whole Food & Herbal Ingredients, Minerals and Enzymes - Rich in Vitamin B & C - Womens And Mens Daily Vitamins - Non-GMO",
+      "price": 2277,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/61GaW6R4iuL._AC_US218_.jpg",
+      "brand": "Dr. Tobias",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B007L0DONW",
+      "title": "Vitafusion Men's Gummy Vitamins, 150 Count (Packaging May Vary)",
+      "price": 1174,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/519q4FPn5eL._AC_US218_.jpg",
+      "brand": "Vitafusion",
+      "prime": false,
+      "product_details": []
+    },
+    {
+      "product_id": "B071ZH84QG",
+      "title": "Centrum Men (250 Count) Multivitamin / Multimineral Supplement Tablet, Vitamin D3",
+      "price": 1977,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51MR+UHdh8L._AC_US218_.jpg",
+      "brand": "Centrum",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B0771X1HTZ",
+      "title": "One A Day Men's Health Formula Multivitamin, 250 Count",
+      "price": 1424,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/41-X+7wZ1DL._AC_US218_.jpg",
+      "brand": "ONE A DAY",
+      "prime": true,
+      "product_details": []
+    },
+    {
+      "product_id": "B01KE592JU",
+      "title": "Men's Daily Multimineral/Multivitamin Supplement - Vitamins A C E D B1 B2 B3 B5 B6 B12. Magnesium, Biotin, Spirulina, Zinc. Antioxidant For Heart & Immune Health. 60 Daily Gluten Free Multivitamins.",
+      "price": 1897,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/51T72DkubeL._AC_US218_.jpg",
+      "brand": "Vimerson Health",
+      "prime": true,
+      "product_details": []
+    }
+  ]
+}
