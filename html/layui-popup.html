@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en-us"><head>
+  <meta charset="utf-8">
+  <title>Inventory Invoice • BTE DataExchange</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="http://192.168.0.12/lib/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!--
+  <link rel="stylesheet" href="http://192.168.0.12/lib/layer/skin/layer.css">
+  -->
+  <style type="text/css">
+    .a-modal-shade {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        _height: expression(document.body.offsetHeight+"px");
+    }
+    .a-modal, .a-modal-shade {
+        position: fixed;
+        _position: absolute;
+        pointer-events: auto;
+    }
+    .modal-anim {
+        -webkit-animation-name: bounceIn;
+        animation-name: bounceIn;
+    }
+    .a-modal {
+        -webkit-overflow-scrolling: touch;
+        top: 150px;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        -webkit-background-clip: content;
+        box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+        border-radius: 2px;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-duration: .3s;
+        animation-duration: .3s;
+    }
+    .a-modal-molv .a-modal-title {
+        background: #009f95;
+        color: #fff;
+        border: none;
+    }
+    .a-modal-title {
+        padding: 0 80px 0 20px;
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+        color: #333;
+        overflow: hidden;
+        background-color: #F8F8F8;
+        border-radius: 2px 2px 0 0;
+    }
+    .a-modal-imgbar, .a-modal-imgtit a, .a-modal-tab .a-modal-title span, .a-modal-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .a-modal-setwin {
+        position: absolute;
+        right: 15px;
+        *right: 0;
+        top: 15px;
+        font-size: 0;
+        line-height: initial;
+    }
+    .a-modal-ico {
+        background: url(default/icon.png) no-repeat;
+    }
+    .a-modal-close {
+        position: absolute;
+    }
+    .a-modal-iframe .a-modal-btn, .a-modal-page .a-modal-btn {
+        padding-top: 10px;
+    }
+    .a-modal-btn {
+        text-align: right;
+        padding: 0 10px 12px;
+        padding-top: 0px;
+        pointer-events: auto;
+    }
+    .a-modal-btn .a-modal-btn0 {
+        border-color: #4898d5;
+        background-color: #2e8ded;
+        color: #fff;
+    }
+    .a-modal-molv .a-modal-btn .a-modal-btn1 {
+        background: #92B8B1;
+    }
+    .a-modal-molv .a-modal-btn a {
+        background: #009f95;
+    }
+    .a-modal-btn a:hover {
+        opacity: .9;
+        text-decoration: none;
+    }
+    .a-modal-btn a {
+        height: 28px;
+        line-height: 28px;
+        margin: 0 6px;
+        padding: 0 15px;
+        border: 1px solid #dedede;
+        background-color: #f1f1f1;
+        color: #333;
+        border-radius: 2px;
+        font-weight: 400;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .a-modal-btn a, .a-modal-dialog .a-modal-ico, .a-modal-setwin a {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        vertical-align: top;
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(.5);
+        -ms-transform: scale(.5);
+        transform: scale(.5);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="a-modal-shade" times="2" 
+     style="z-index:19891015; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>
+
+<div class="a-modal a-modal-page a-modal-molv modal-anim" type="page" times="2" showtime="0" contype="string" 
+     style="z-index: 19891016; width: 600px; height: auto; top: 166px; left: 393px;">
+
+  <div class="a-modal-title" style="cursor: move;" move="ok">Edit Invoice</div>
+
+  <div id="" class="a-modal-content" style="height: 290px;">
+    <div style="padding: 20px 20px 0 20px;">
+
+      <style>.form-group { margin-bottom: 10px; }</style>
+      <form class="form-horizontal">
+        <input type="hidden" id="id" value="45706">
+
+        <div class="form-group">
+          <label class="control-label col-md-2">Supplier</label>
+          <div class="col-md-4">
+            <input class="form-control" type="text" id="supplier" value="AMAZON CA">
+          </div>
+
+          <label class="control-label col-md-1">Date</label>
+          <div class="col-md-4">
+            <input class="form-control" type="text" id="invoice_date" value="2019-05-16">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-2">Invoice#</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" id="invoice" value="190507UJL">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-2">UPC</label>
+          <div class="col-md-4">
+            <input class="form-control" type="text" id="upc" value="813810019168">
+          </div>
+
+          <label class="control-label col-md-1">QTY</label>
+          <div class="col-md-4">
+            <input class="form-control" type="text" id="qty" value="3">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-2">MPN</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" id="mpn" value="SS-69050">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-2">Tracking#</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" id="tracking" value="2011985041887516">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-2">Note</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" id="note" value="">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <span class="a-modal-setwin">
+    <a class="a-modal-ico a-modal-close a-modal-close1" href="javascript:;"></a>
+  </span>
+
+  <div class="a-modal-btn">
+    <a class="a-modal-btn0">Save</a>
+    <a class="a-modal-btn1">Close</a>
+  </div>
+
+</div>
+<!--
+  <script type="text/javascript" src="http://192.168.0.12/lib/jquery/jquery-3.1.0.min.js"></script>
+  <script type="text/javascript" src="http://192.168.0.12/lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://192.168.0.12/lib/layer/layer.js"></script>
+-->
+</body>
+</html>
