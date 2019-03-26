@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<meta name="robots" content="noindex">
+<title>CodePen - Virtual user 4</title>
+<style>
+svg {
+  width: 40px;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+div {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body translate="no">
+<div>
+<h1>The speed and randomness can be updated</h1>
+<label>Speed<input id="speed" type="range" min="0" max="100" value="20" /></label>
+<label>Randomness<input id="randomness" type="range" min="0" max="100" value="10" /></label>
+</div>
+
+<svg viewBox="11.8 9 16 22"><path d="M20,21l4.5,8l-3.4,2l-4.6-8.1L12,29V9l16,12H20z"></path></svg>
+
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/perlin.js'></script>
+<script>
+const el = document.querySelector('svg');
+const speed = document.querySelector('#speed');
+const randomness = document.querySelector('#randomness');
+
+let random = 0;
+
+function render(a) {
+  const s = 0.001 * (speed.value / 100);
+  const noiseX = (noise.simplex3(1, 0, a * s) + 1) / 2;
+  const noiseY = (noise.simplex3(11, 0, a * s) + 1) / 2;
+
+  random += randomness.value / 1000;
+  const randX = noise.simplex3(1, 0, random) * window.innerWidth * 0.1;
+  const randY = noise.simplex3(3, 0, random) * window.innerHeight * 0.1;
+  const x = noiseX * innerWidth + randX;
+  const y = noiseY * innerHeight + randY;
+
+  el.style.transform = `translate(${x}px, ${y}px)`;
+  requestAnimationFrame(render);
+}
+
+requestAnimationFrame(render);
+//# sourceURL=pen.js
+</script>
+</body>
+</html>

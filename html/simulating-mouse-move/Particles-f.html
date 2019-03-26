@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<meta name="robots" content="noindex">
+<title>CodePen - Virtual user 5</title>
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>
+</head>
+<body translate="no">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js'></script>
+<script src='https://codepen.io/Mamboleoo/pen/1f00f3ea7c5d979a88c2f507be965ba7.js'></script>
+<script id="rendered-js">
+let img;
+
+function preload() {
+  img = new Image('mouse.png');
+}
+
+const mouses = [];
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  noStroke();
+  for (let i = 0; i < 500; i++) {
+    mouses.push(new Mouse());
+  }
+}
+
+class Mouse {
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.randomX = Math.random() * 300;
+    this.randomY = Math.random() * 300;
+    this.speed = Math.random() * 0.00015 + 0.00001;
+    this.width = Math.random() * 15 + 5;
+    this.height = this.width * (img.height / img.width);
+  }
+
+  update() {
+    this.x = (perlin.simplex3(this.randomX, 0, millis() * this.speed) + 1) / 2 * width;
+    this.y = (perlin.simplex3(this.randomY, 0, millis() * this.speed) + 1) / 2 * height;
+  }
+
+  draw() {
+    image(img, this.x, this.y, this.width, this.height);
+  }
+}
+
+function draw() {
+  clear();
+  mouses.forEach(mouse => {
+    mouse.update();
+    mouse.draw();
+  });
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+//# sourceURL=pen.js
+</script>
+</body>
+</html>

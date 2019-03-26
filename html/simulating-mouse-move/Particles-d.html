@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>CodePen - Virtual user 3</title>
+<style>
+body {
+  cursor: none;
+  padding: 0 20px;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg {
+  width: 40px;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+h1 {
+  text-align: center;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body translate="no">
+<svg viewBox="11.8 9 16 22" class="mouse"><path d="M20,21l4.5,8l-3.4,2l-4.6-8.1L12,29V9l16,12H20z"></path></svg>
+<h1>This demo is running automatically unless the user starts moving its mouse and runs again after 500ms of inactivity</h1>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/perlin.js'></script>
+
+<script>
+const el = document.querySelector('.mouse');
+let lastMove = 0;
+
+function onMouseMove(e) {
+  x = e.clientX;
+  y = e.clientY;
+  updateMouse(x, y);
+  lastMove = Date.now();
+}
+
+function updateMouse(x, y) {
+  el.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function render(a) {
+  if (Date.now() - lastMove > 500) {
+    const noiseX = (noise.simplex3(2, 0, a * 0.0004) + 1) / 2;
+    const noiseY = (noise.simplex3(10, 0, a * 0.0004) + 1) / 2;
+    const x = noiseX * innerWidth;
+    const y = noiseY * innerHeight;
+    updateMouse(x, y);
+  }
+
+  requestAnimationFrame(render);
+}
+
+window.addEventListener('mousemove', onMouseMove);
+requestAnimationFrame(render);
+//# sourceURL=pen.js
+</script>
+</body>
+</html>
