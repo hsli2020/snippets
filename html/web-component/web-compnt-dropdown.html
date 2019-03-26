@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodePen - drop down menu</title>
+<style>body { background-color: #2b2b2b; }</style>
+</head>
+<body>
+<template id="my-drop-down">
+<style>
+      .menu-wrap {
+        width: 20.8334vw;
+        display: block;
+        background-color: transparent;
+        font-family: 'ExtraLight';
+        user-select: none;
+				margin: 20px 40px;
+      }
+
+      .menu-label {
+        font-size: 1vw;
+        color: rgba(227, 141, 39, .8);
+        padding: 1% 0% 2.5% 7%;
+      }
+
+      .menu-head {
+        border: 1px solid #e38d27;
+      }
+
+      .menu-head,
+      .menu-body {
+        background-color: rgba(0, 0, 0, .6);
+      }
+
+      .menu-head,
+      ::slotted(.menu-option) {
+        min-height: 2.2vw;
+      }
+
+      .current-choice {
+        color: #fff;
+        height: 2.2vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: .7vw .1vw .1vw 1.7vw;
+      }
+
+      .current-choice,
+      ::slotted(.menu-option) {
+        text-transform: capitalize;
+        font-size: 1.2vw;
+      }
+
+      .menu-body {
+        max-height: 13vw;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+
+      ::slotted(.menu-option) {
+        color: rgba(255, 255, 255, .3);
+        position: relative;
+        padding-left: 1.7vw;
+        display: flex;
+        align-items: center;
+        transition: padding .5s linear, background-color .25s linear, color .25s linear;
+      }
+
+      ::slotted(.menu-option::after) {
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: rgba(255, 255, 255, .15);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      ::slotted(.menu-option:hover) {
+        background-color: #e38d27;
+        color: #fff;
+        padding-left: 12%;
+      }
+
+      .menu-body::-webkit-scrollbar {
+        width: 2.292vw;
+      }
+
+      .menu-body::-webkit-scrollbar-thumb {
+        background-color: #e38d27;
+        border: .78125vw solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+      }
+
+      .menu-body::-webkit-scrollbar-track {
+        background-color: #111;
+        border: .78125vw solid black;
+      }
+</style>
+<div id="my-menu" class="menu-wrap">
+<div class="menu-label">Chose your language</div>
+<div class="menu-head">
+<div class="current-choice">English</div>
+</div>
+<div id="menu-body" class="menu-body">
+<slot></slot>
+</div>
+</div>
+</template>
+
+<drop-down>
+<div class="menu-option">English</div>
+<div class="menu-option">Deutsch</div>
+<div class="menu-option">Espanol</div>
+<div class="menu-option">Magyar</div>
+<div class="menu-option">Dansk</div>
+<div class="menu-option">Euskara</div>
+<div class="menu-option">Hrvatski</div>
+<div class="menu-option">Italiano</div>
+</drop-down>
+<drop-down>
+<div class="menu-option">English</div>
+<div class="menu-option">Deutsch</div>
+</drop-down>
+<drop-down>
+<div class="menu-option">English</div>
+<div class="menu-option">Deutsch</div>
+<div class="menu-option">Espanol</div>
+<div class="menu-option">Magyar</div>
+<div class="menu-option">Dansk</div>
+<div class="menu-option">Euskara</div>
+<div class="menu-option">Hrvatski</div>
+<div class="menu-option">Italiano</div>
+<div class="menu-option">English</div>
+<div class="menu-option">Deutsch</div>
+<div class="menu-option">Espanol</div>
+<div class="menu-option">Magyar</div>
+<div class="menu-option">Dansk</div>
+<div class="menu-option">Euskara</div>
+<div class="menu-option">Hrvatski</div>
+<div class="menu-option">Italiano</div>
+<div class="menu-option">English</div>
+<div class="menu-option">Deutsch</div>
+</drop-down>
+</body>
+<script id="rendered-js">
+class DropDown extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    // init the component
+    let shadowDom = this.attachShadow({ mode: "open" });
+    let template = document.getElementById("my-drop-down");
+    let templateHtml = template.content.cloneNode(true);
+    shadowDom.appendChild(templateHtml);
+
+    // define the menu, menu body and hide it
+    let menu = shadowDom.getElementById("my-menu");
+    let menuHead = menu.children[1];
+    let menuBody = menu.children[2];
+    menuBody.style.display = "none";
+
+    // toggle the menu body
+    function toggleMenu() {
+      menuHead.addEventListener("click", function () {
+        if (menuBody.style.display === "none") {
+          menuBody.style.display = "block";
+        } else {
+          menuBody.style.display = "none";
+        }
+      });
+
+      menuBody.addEventListener("click", function (ev) {
+        if (ev.target !== ev.currentTarget) {
+          menuHead.children[0].textContent = ev.target.textContent;
+        }
+
+        menuBody.style.display = "none";
+      });
+    }
+    // init toggle listeners
+    toggleMenu();
+  }}
+
+
+// init the element
+customElements.define("drop-down", DropDown);
+      //# sourceURL=pen.js
+    </script>
+</body>
+</html>

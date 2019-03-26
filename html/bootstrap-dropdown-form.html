@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+  <h2>Dropdowns</h2>
+  <p>The .dropdown class is used to indicate a dropdown menu.</p>
+  <p>Use the .dropdown-menu class to actually build the dropdown menu.</p>
+  <p>To open the dropdown menu, use a button or a link with a class of .dropdown-toggle and data-toggle="dropdown".</p>                                          
+
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"> Filter
+          <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu" style="margin-top: 0;">
+          <div class="container" style="width:400px;">
+            <p class="h3">Narrow By:</p>
+            <form class="form-horizontal" role="form" method="POST">
+              <div class="form-group">
+                <label class="control-label col-sm-4">Start Date:</label>
+                <div class="col-sm-8">
+                  <input class="form-control col-sm-8" type="text" placeholder="Start Date" name="start_date">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4">End Date:</label>
+                <div class="col-sm-8">
+                  <input class="form-control" type="text" placeholder="End Date" name="end_date">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4">Status:</label>
+                <div class="col-sm-8">
+                <select class="form-control" name="status">
+                  <option value="">Select Status...</option>
+                  {% include "partials/rmastatus.volt" %}
+                </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-4">Condtion:</label>
+                <div class="col-sm-8">
+                <select class="form-control" name="condition">
+                  <option value="">Select Condition...</option>
+                  {% include "partials/rmacondition.volt" %}
+                </select>
+                </div>
+              </div>
+              <div class="form-check">
+                <label class="control-label col-md-4"></label>
+                <div class="col-sm-8">
+                  <input type="checkbox" class="form-check-input" name="refund" value="0">
+                  <label class="form-check-label">Not Refund</label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-filter"></span> Query</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
