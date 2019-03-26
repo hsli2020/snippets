@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodePen - BasicSoundGenerator</title>
+</head>
+<body translate="no">
+<script>
+TuneGenerator();
+
+function TuneGenerator() {
+
+  const notesGenerator = new NotesGenerator();
+
+  setInterval(function () {
+    notesGenerator.playNote(3);
+  }, 800);
+
+  setInterval(function () {
+    notesGenerator.playNote(0);
+  }, 4200);
+}
+
+function NotesGenerator() {
+
+  const context = new AudioContext();
+
+  // Choose the importance of each note. Notes with a 0 probability won't be played
+  const nextNote = distribution({ 131: 2, 139: 0, 147: 1, 156: 0, 165: 2, 175: 1, 185: 0, 196: 2, 208: 0, 220: 1, 233: 0, 247: 1,
+    262: 2, 277: 0, 294: 1, 311: 0, 330: 2, 349: 1, 370: 0, 392: 2, 415: 0, 440: 1, 466: 0, 496: 1 });
+
+  // The factor determines the octave
+  // Choose the importance of each factor
+  const nextFac = distribution({ '-1': 2, '0': 2, '1': 2, '2': 1, '3': 0 });
+
+  this.playNote = function (maxFactor) {
+    const oscillator = context.createOscillator();
+
+    const waveForm = Math.random() > 0.5 ? "sine" : "triangle";
+    oscillator.type = waveForm;
+
+    let fac = parseInt(nextFac());
+    while (fac > maxFactor)
+    fac = parseInt(nextFac());
+
+    oscillator.frequency.value = parseInt(nextNote()) * Math.pow(2, fac);
+
+    const gainNode = context.createGain();
+    gainNode.gain.value = .2;
+
+    // generate sound
+    oscillator.connect(gainNode);
+    gainNode.connect(context.destination);
+
+    oscillator.start(0);
+
+    const duration = getRandomInt(2, 6);
+
+    gainNode.gain.linearRampToValueAtTime(0.0001, context.currentTime + duration);
+    oscillator.stop(context.currentTime + duration);
+  };
+
+  /**
+   * takes an object that maps his keys to probabilities (or counts)
+   * returns a function that returns one of the keys with that discrete distribution
+   */
+  function distribution(obj) {
+    const o = normalizedObj(obj);
+
+    return function () {
+      let count = 0;
+      const rand = Math.random();
+
+      for (let key in o) {
+        count += o[key];
+
+        if (rand < count)
+        return key;
+      }
+    };
+  }
+
+  /**
+   * takes an object that maps his keys to probabilities (or counts) and normalize each probability
+   */
+  function normalizedObj(obj) {
+    var normalizedObj = {};
+    var sum = 0;
+
+    for (key in obj)
+    sum += obj[key];
+
+    for (key in obj)
+    normalizedObj[key] = obj[key] / sum;
+
+    return normalizedObj;
+  }
+
+  function getRandomInt(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
+}
+//# sourceURL=pen.js
+</script>
+</body>
+</html>
