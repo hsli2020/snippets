@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+</head>
+ <body>
+  <h1>Traverse the cursor through text box with navigation(arrow) keys</h1>
+  <p><a href="http://www.knowlbase.in/2012/01/traverse-cursor-through-text-box-with.html" title="">Source</a></p>
+ 
+  <table>
+   <tr>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+   </tr>
+   <tr>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+   </tr>
+  </table>
+ 
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+ 
+      $('input').keyup(function (e) {
+        if (e.which == 39) { // right arrow
+          $(this).closest('td').next().find('input').focus();
+ 
+        } else if (e.which == 37) { // left arrow
+          $(this).closest('td').prev().find('input').focus();
+ 
+        } else if (e.which == 40) { // down arrow
+          $(this).closest('tr').next().find('td:eq(' + $(this).closest('td').index() + ')').find('input').focus();
+ 
+        } else if (e.which == 38) { // up arrow
+          $(this).closest('tr').prev().find('td:eq(' + $(this).closest('td').index() + ')').find('input').focus();
+        }
+      });
+ 
+    // un-comment to display key code
+    // $("input").keydown(function (e) {
+    //   console.log(e.which);
+    // });
+    });
+  </script>
+</body>
+</html>

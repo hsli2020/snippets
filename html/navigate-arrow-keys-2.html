@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>FormNavigation</title>
+</head>
+<body>
+
+<table class="gridexample">
+    <thead>
+        <tr>
+            <th></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>1</th>
+            <td><input type="text" style="width:150px" /></td>
+            <td><input type="text" style="width:150px" /></td>
+            <td><input type="text" style="width:150px" /></td>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td><input type="text" style="width:150px" /></td>
+            <td><input type="text" style="width:150px" /></td>
+            <td><input type="text" style="width:150px" /></td>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td><input type="text" style="width:150px" /></td>
+            <td><input type="text" style="width:150px" /></td>
+            <td><input type="text" style="width:150px" /></td>
+        </tr>
+    </tbody>
+</table>
+
+<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    /*!
+    * formNavigation
+    * Copyright 2013 Ole Bjrn Michelsen <http://ole.michelsen.dk/>
+    * MIT license
+    */
+    (function ($) {
+        $.fn.formNavigation = function () {
+            $(this).each(function () {
+                $(this).find('input').on('keyup', function(e) {
+                    var curpos = $(this).getCursorPosition();
+                    var text = $(this).val();
+                    switch (e.which) {
+                        case 39:
+                            if (curpos == 0 || curpos == text.length) {
+                                $(this).closest('td').next().find('input').focus();
+                            }
+                            break;
+                        case 37:
+                            if (curpos == 0 || curpos == text.length) {
+                                $(this).closest('td').prev().find('input').focus();
+                            }
+                            break;
+                        case 40:
+                            $(this).closest('tr').next().children().eq($(this).closest('td').index()).find('input').focus();
+                            break;
+                        case 38:
+                            $(this).closest('tr').prev().children().eq($(this).closest('td').index()).find('input').focus();
+                            break;
+                    }
+                });
+            });
+        };
+    })(jQuery);
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('.gridexample').formNavigation();
+	});
+</script>
+
+<script>
+(function($) {
+    $.fn.getCursorPosition = function() {
+        var input = this.get(0);
+        if (!input) return; // No (input) element found
+        if ('selectionStart' in input) {
+            // Standard-compliant browsers
+            return input.selectionStart;
+        } else if (document.selection) {
+            // IE
+            input.focus();
+            var sel = document.selection.createRange();
+            var selLen = document.selection.createRange().text.length;
+            sel.moveStart('character', -input.value.length);
+            return sel.text.length - selLen;
+        }
+    }
+})(jQuery);	
+</script>
+</body>
+</html>

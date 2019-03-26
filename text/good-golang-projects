@@ -1,0 +1,42 @@
+golang 好项目
+
+https://www.jianshu.com/p/a94a68f331c3
+
+1.moby/moby docker的新马甲
+2.kubernetes/kubernetes 分布式容器管理
+3.grafana/grafana 一个可视化面板，有漂亮的仪表盘，多种数据来源，适合做系统监控
+4.coreos/etcd 集群共享信息，服务与发现
+5.astaxie/beego 一个快速开发Go应用的http框架
+6.gin-gonic/gin 同上
+7.prometheus/prometheus 系统监控和报警工具
+8.drone/drone 用于CD(Continuous Delivery)
+9.mattermost/mattermost-server 类似slack或者钉钉
+10.nsqio/nsq 类似rabbitmq，首选kafka?
+11.containous/traefik http反向代理
+12.go-martini/martini web框架
+13.revel/revel web框架
+14.joewalnes/websocketd 程序和web的适配模块
+15.labstack/echo mini的web框架
+16.yudai/gotty web的终端
+17.go-kit/kit go kit 是一个分布式的开发工具集，在大型的组织（业务）中可以用来构建微服务
+18.urfave/cli 命令行工具
+19.derekparker/delve 调试工具，对协程支持良好
+20.gizak/termui terminal dashboard
+21.sirupsen/logrus log模块，支持各种数据库
+22.urfave/negroni web框架，类似beego
+23.kelseyhightower/confd 统一配置管理工具，支持etcd,consul等
+24.elastic/beats 监控和调优golang程序的模块，使用了Elasticsearch和Logstash
+25.gorilla/websocket websocket实现
+26.hashicorp/serf 类似etcd,consul，特点是去中心化
+27.grpc/grpc-go grpc
+28.garyburd/redigo Go client for Redis
+29.robertkrimen/otto 反射
+30.jaegertracing/jaeger 分布式状态跟踪
+31.uber-go/zap 分布式log
+32.micro/go-micro
+emicklei/go-restful
+goadesign/goa
+docker/libchan
+golang/protobuf
+yuin/gopher-lua
+
