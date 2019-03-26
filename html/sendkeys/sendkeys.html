@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Javascript SendKeys</title>
+  <style>html, body { height: 100%; }</style>
+</head>
+<body>
+<h2>
+<a href="http://bililite.com/blog/2008/08/20/the-fnsendkeys-plugin/">sendkeys</a>
+<a href="http://bililite.com/blog/2011/01/23/improved-sendkeys/">improved</a>
+<a href="http://jsfiddle.net/DxER9/">demo</a>
+</h2>
+
+<label>Test input:<input type="text" value="" id="eventTarg"></label>
+
+<p>Type in the input or press one of the buttons. Note the event log, below</p>
+
+<button id="simA_plain">Simulate "A", no plugin</button>
+<button id="simB_plugin">Simulate "B", using the plugin</button>
+
+<hr>
+<div id="eventLog"></div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://bililite.com/inc/jquery.sendkeys.js"></script>
+<script src="http://bililite.com/inc/bililiteRange.js"></script>
+<script>
+$(function(){
+  $("#eventTarg").bind("keydown keypress keyup change", function(evt) {
+    console.log("Input event:", evt.type, evt);
+    $("#eventLog").append(evt.type + ': ' + evt.which + '<br>');
+  });
+
+  $("button").click(function(evt) {
+    if (evt.target.id == "simA_plain") {
+      console.log("Plain");
+
+      var keyVal = 65;
+      $("#eventTarg").trigger({
+        type: 'keypress', keyCode: keyVal, which: keyVal, charCode: keyVal
+      });
+    }
+    else {
+      console.log("Plugin");
+      $("#eventTarg").sendkeys("B") ;
+    }
+  });
+});
+</script>
+</html>
