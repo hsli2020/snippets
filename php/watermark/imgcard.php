@@ -1,10 +1,10 @@
 <?php
 
-$image = 'sunset.jpg';
 $image = 'kenshin.jpg';
+$image = 'sunset.jpg';
 $fontface = 'msyhl.ttc';
 $fontface = 'msjhbd.ttc';
-$fontface = 'msyh.ttc';
+$fontface = 'c:/windows/fonts/msyh.ttc';
 $fontsize = 12;
 $text = "怎样来阻止皮肤的这种反弹式的油脂分泌呢？就是在洗脸后赶快抹上保湿霜，主要是保湿的，而不是油性的。这样，皮肤觉得舒服湿润，就不会大量分泌油脂了。同样的道理，洗脸时别用去油污太强的香皂或洗脸液，不是把皮肤的油脂去的越彻底越好。温和的香皂一次洗不干净就多洗一两次。";
 
@@ -12,7 +12,7 @@ saveImageWithText($image, $text, $fontface, $fontsize);
 
 function saveImageWithText($imgfile, $text, $fontface, $fontsize)
 {
-    $border = 3;
+    $border = 1;
     $padding = 10;
 
     $image  = imagecreatefromjpeg($imgfile);
@@ -29,13 +29,18 @@ function saveImageWithText($imgfile, $text, $fontface, $fontsize)
     $newheight = $height + $border*2 + $padding*2 + $textheight;
     $newimg    = imagecreatetruecolor($newwidth, $newheight);
 
-    $bgcolor   = imagecolorallocate($newimg, 0, 127, 127);
-    $textcolor = imagecolorallocate($newimg, 255, 255, 255);
+    // Colors
+    $textbkcolor = imagecolorallocate($newimg, 255, 255, 255);
+    $textColor   = imagecolorallocate($newimg,   0,   0,   0);
+    $borderColor = imagecolorallocate($newimg, 127, 127, 127);
 
-    imagefilledrectangle($newimg, 0, 0, $newwidth, $newheight, $bgcolor);
+    // Draw Border & Image
+    imagefilledrectangle($newimg, 0, 0, $newwidth, $newheight, $borderColor);
     imagecopyresampled($newimg, $image, $border, $border, 0, 0, $width, $height, $width, $height);
 
-    imagettftext($newimg, $fontsize, 0, $border+$padding, $newheight-$textheight, $textcolor, $fontface, $wraptext);
+    // Draw Text
+    imagefilledrectangle($newimg, $border, $height+$border, $newwidth-$border*2, $newheight-$border*2, $textbkcolor);
+    imagettftext($newimg, $fontsize, 0, $border+$padding, $newheight-$textheight, $textColor, $fontface, $wraptext);
 
     imagejpeg($newimg, "o-$imgfile", 80);
 
