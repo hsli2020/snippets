@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Todo</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; width: 400px; margin: 20px auto; }
+    h1 { text-align: center; }
+    .addTodo { display: flex; }
+    .textfield { flex-grow: 1; margin-right: 10px; }
+    .submit { border: none; padding: 5px 10px; }
+    .filter { margin: 10px 0 0; }
+    .filter button { background: transparent; border: none; }
+    .filter .selected { border-bottom: 2px solid blue; }
+    .todos { list-style: none; padding: 0; }
+    footer { display: flex; }
+    footer span { flex-grow: 1; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>todos</h1>
+    <div class="addTodo">
+      <input class="textfield" placeholder="add todo" />
+      <button onclick="addTodo()" class="submit">Add</button>
+    </div>
+    <nav class="filter">
+      <button onclick="filter(this)" class="selected">all</button>
+      <button onclick="filter(this)">active</button>
+      <button onclick="filter(this)">completed</button>
+    </nav>
+  </header>
+
+  <ul class="todos">
+    <li class="todo"><label><input type="checkbox" /><span class="title"> Todo 1 </span></label></li>
+    <li class="todo"><label><input type="checkbox" /><span class="title"> Todo 2 </span></label></li>
+    <li class="todo"><label><input type="checkbox" /><span class="title"> Todo 3 </span></label></li>
+    <li class="todo"><label><input type="checkbox" /><span class="title"> Todo 4 </span></label></li>
+  </ul>
+  <footer>
+    <span><i class="remaining">4</i> items left</span>
+    <button onclick="clearCompleted()" class="submit">Clear Completed</button>
+  </footer>
+
+  <div style="margin-top: 4em;">
+    <button type="button" onclick="demo1()">Demo 1</button>
+    <button type="button" onclick="demo2()">Demo 2</button>
+    <button type="button" onclick="demo3()">Demo 3</button>
+  </div>
+</body>
+
+<script type="text/javascript">
+function clearInput(selector) {
+    document.querySelector(selector).value = '';
+}
+
+function getTodoText() {
+    return document.querySelector('.textfield').value;
+}
+
+function updateRemaining() {
+    const remaining = document.querySelector('.remaining');
+    const todos = document.querySelectorAll('.todo').length;
+    remaining.innerText = todos;
+}
+
+function addTodo(ev) {
+    const todo = document.querySelector('.todo');
+    const newTodo = todo.cloneNode(true);
+    newTodo.querySelector('.title').innerText = getTodoText();
+    todo.parentElement.insertBefore(newTodo, todo);
+
+    clearInput('.textfield');
+    updateRemaining();
+}
+
+function clearCompleted() {
+    const todos = document.querySelectorAll('.todo');
+    for (let todo of todos) {
+        if (todo.querySelector('input').checked === true) {
+            todo.remove();
+        }
+    }
+    updateRemaining();
+}
+
+function filter(button) {
+    document.querySelector('.selected').classList.remove('selected');
+    button.classList.add('selected');
+
+    const filterName = button.innerText;
+    for (let todo of document.querySelectorAll('.todo')) {
+        const checked = todo.querySelector('input').checked === true;
+        if (filterName === 'all') {
+            todo.hidden = false;
+        } else if (filterName === 'active') {
+            todo.hidden = checked;
+        } else if (filterName === 'completed') {
+            todo.hidden = !checked;
+        }
+    }
+}
+</script>
+
+<script>
+var eventMatchers = {
+    'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
+    'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
+}
+
+var defaultOptions = {
+    pointerX: 0,
+    pointerY: 0,
+    button: 0,
+    ctrlKey: false,
+    altKey: false,
+    shiftKey: false,
+    metaKey: false,
+    bubbles: true,
+    cancelable: true
+}
+
+function extend(destination, source) {
+    for (var property in source)
+      destination[property] = source[property];
+    return destination;
+}
+
+function simulate(element, eventName) {
+    var options = extend(defaultOptions, arguments[2] || {});
+    var oEvent, eventType = null;
+
+    for (var name in eventMatchers) {
+        if (eventMatchers[name].test(eventName)) { eventType = name; break; }
+    }
+
+    if (!eventType)
+        throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
+
+    if (document.createEvent) {
+        oEvent = document.createEvent(eventType);
+        if (eventType == 'HTMLEvents') {
+            oEvent.initEvent(eventName, options.bubbles, options.cancelable);
+        }
+        else {
+            oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
+            options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
+            options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
+        }
+        element.dispatchEvent(oEvent);
+    }
+    else {
+        options.clientX = options.pointerX;
+        options.clientY = options.pointerY;
+        var evt = document.createEventObject();
+        oEvent = extend(evt, options);
+        element.fireEvent('on' + eventName, oEvent);
+    }
+    return element;
+}
+// You can use it like this:
+// simulate(document.getElementById("btn"), "click");
+
+function simulatedClick(target, options) {
+  var event = target.ownerDocument.createEvent('MouseEvents'),
+      options = options || {},
+      opts = { // These are the default values, set up for un-modified left clicks
+        type: 'click',
+        canBubble: true,
+        cancelable: true,
+        view: target.ownerDocument.defaultView,
+        detail: 1,
+        screenX: 0, //The coordinates within the entire page
+        screenY: 0,
+        clientX: 0, //The coordinates within the viewport
+        clientY: 0,
+        ctrlKey: false,
+        altKey: false,
+        shiftKey: false,
+        metaKey: false, //I *think* 'meta' is 'Cmd/Apple' on Mac, and 'Windows key' on Win. Not sure, though!
+        button: 0, //0 = left, 1 = middle, 2 = right
+        relatedTarget: null,
+      };
+
+  //Merge the options with the defaults
+  for (var key in options) {
+    if (options.hasOwnProperty(key)) {
+      opts[key] = options[key];
+    }
+  }
+
+  //Pass in the options
+  event.initMouseEvent(
+      opts.type,
+      opts.canBubble,
+      opts.cancelable,
+      opts.view,
+      opts.detail,
+      opts.screenX,
+      opts.screenY,
+      opts.clientX,
+      opts.clientY,
+      opts.ctrlKey,
+      opts.altKey,
+      opts.shiftKey,
+      opts.metaKey,
+      opts.button,
+      opts.relatedTarget
+  );
+
+  //Fire the event
+  target.dispatchEvent(event);
+}
+
+function clickIt(element) {
+    var evt = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+        clientX: 5,
+        /* whatever properties you want to give it */
+    });
+    element.dispatchEvent(evt);
+}
+</script>
+
+<script>
+function demo1() {
+    var txt = document.querySelector('.textfield');
+    var btn = document.querySelector('.addTodo button');
+    for (var i=1; i<10; i++) {
+        txt.value = "Auto Text " + i;
+        simulate(btn, "click");
+    }
+}
+
+function demo2() {
+    var txt = document.querySelector('.textfield');
+    var btn = document.querySelector('.addTodo button');
+    for (var i=1; i<10; i++) {
+        txt.value = "Auto Text " + i;
+        simulatedClick(btn);
+    }
+}
+
+function demo3() {
+    var txt = document.querySelector('.textfield');
+    var btn = document.querySelector('.addTodo button');
+    for (var i=1; i<10; i++) {
+        txt.value = "Auto Text " + i;
+        clickIt(btn);
+    }
+}
+</script>
+</html>
