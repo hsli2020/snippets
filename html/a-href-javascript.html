@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Playground</title>
+  <style>
+    body { max-width: 60rem; padding: 2rem; margin: auto; }
+    input, button { padding: 4px 8px; }
+    input { width: 20em; }
+  </style>
+</head>
+<!--
+    https://stackoverflow.com/questions/134845/which-href-value-should-i-use-for-javascript-links-or-javascriptvoid0
+-->
+<body>
+    <!-- This is wrong way, If myJsFunc() has a return value, your page will break. -->
+    <a href="javascript:myJsFunc()">Do Something Wrong Way</a><br>
+
+    <!-- This is correct way -->
+    <a href="javascript:;" onclick="myJsFunc()">Do Something Correct Way</a><br>
+
+    <!-- This is also correct way, but longer code -->
+    <a href="javascript:void(0)" onclick="myJsFunc()">Do Something Another Correct Way</a><br>
+</body>
+<script>
+function myJsFunc() {
+    console.log('do something');
+    return false;
+}
+</script>
+</html>
