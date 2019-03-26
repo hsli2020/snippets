@@ -1,0 +1,97 @@
+CREATE TABLE IF NOT EXISTS `amazon_report_request` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`store` VARCHAR(20) NOT NULL,
+	`report_type` VARCHAR(80) NOT NULL,
+	`filename` VARCHAR(80) NOT NULL,
+	`start_date` VARCHAR(20) NOT NULL,
+	`ttl` VARCHAR(20) NOT NULL,
+	`request_id` VARCHAR(20) NOT NULL,
+	`request_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) COLLATE='utf8_general_ci' ENGINE=InnoDB ;
+
+INSERT INTO amazon_report_request (store,report_type,filename,start_date,ttl,request_id) VALUES
+('CA','_GET_MERCHANT_LISTINGS_DATA_LITER_','MerchantListingsDataLiter_ca.txt','','2 hours',''),
+('US','_GET_MERCHANT_LISTINGS_DATA_LITER_','MerchantListingsDataLiter_us.txt','','2 hours',''),
+('CN','_GET_MERCHANT_LISTINGS_DATA_LITER_','MerchantListingsDataLiter_cn.txt','','2 hours',''),
+('MX','_GET_MERCHANT_LISTINGS_DATA_LITER_','MerchantListingsDataLiter_mx.txt','','2 hours',''),
+('UK','_GET_MERCHANT_LISTINGS_DATA_LITER_','MerchantListingsDataLiter_uk.txt','','2 hours',''),
+('AU','_GET_MERCHANT_LISTINGS_DATA_LITER_','MerchantListingsDataLiter_au.txt','','2 hours',''),
+
+('CA','_GET_AFN_INVENTORY_DATA_','FBACAD.txt','','2 hours',''),
+('US','_GET_AFN_INVENTORY_DATA_','FBAUSA.txt','','2 hours',''),
+('CN','_GET_AFN_INVENTORY_DATA_','*FBACNY.txt','','2 hours',''),
+('MX','_GET_AFN_INVENTORY_DATA_','FBAMXN.txt','','2 hours',''),
+('UK','_GET_AFN_INVENTORY_DATA_','FBAGBP.txt','','2 hours',''),
+('AU','_GET_AFN_INVENTORY_DATA_','FBAAUD.txt','','2 hours',''),
+
+('CA','_GET_ORDERS_DATA_','OrdersData_ca.txt','','2 hours',''),
+('US','_GET_ORDERS_DATA_','OrdersData_us.txt','','2 hours',''),
+('CN','_GET_ORDERS_DATA_','OrdersData_cn.txt','','2 hours',''),
+('MX','_GET_ORDERS_DATA_','OrdersData_mx.txt','','2 hours',''),
+('UK','_GET_ORDERS_DATA_','OrdersData_uk.txt','','2 hours',''),
+('AU','_GET_ORDERS_DATA_','OrdersData_au.txt','','2 hours',''),
+
+('CA','_GET_MERCHANT_LISTINGS_DATA_','amazon_ca_listings.txt','','2 hours',''),
+('US','_GET_MERCHANT_LISTINGS_DATA_','amazon_us_listings.txt','','2 hours',''),
+('CN','_GET_MERCHANT_LISTINGS_DATA_','amazon_cn_listings.txt','','2 hours',''),
+('MX','_GET_MERCHANT_LISTINGS_DATA_','amazon_mx_listings.txt','','2 hours',''),
+('UK','_GET_MERCHANT_LISTINGS_DATA_','amazon_uk_listings.txt','','2 hours',''),
+('AU','_GET_MERCHANT_LISTINGS_DATA_','amazon_au_listings.txt','','2 hours',''),
+
+('CA','_GET_FLAT_FILE_ORDERS_DATA_','amazon_ca_order_report.txt','-15 days','10 minutes',''),
+('US','_GET_FLAT_FILE_ORDERS_DATA_','amazon_us_order_report.txt','-15 days','10 minutes',''),
+('CN','_GET_FLAT_FILE_ORDERS_DATA_','amazon_cn_order_report.txt','-15 days','10 minutes',''),
+('MX','_GET_FLAT_FILE_ORDERS_DATA_','amazon_mx_order_report.txt','-15 days','10 minutes',''),
+('UK','_GET_FLAT_FILE_ORDERS_DATA_','amazon_uk_order_report.txt','-15 days','10 minutes',''),
+('AU','_GET_FLAT_FILE_ORDERS_DATA_','amazon_au_order_report.txt','-15 days','10 minutes',''),
+
+('CA','_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_','amazon_ca_FBA.txt', '-60 days','2 hours',''),
+('US','_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_','amazon_us_FBA.txt', '-60 days','2 hours',''),
+('CN','_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_','*amazon_cn_FBA.txt','-60 days','2 hours',''),
+('MX','_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_','amazon_mx_FBA.txt', '-60 days','2 hours',''),
+('UK','_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_','amazon_uk_FBA.txt', '-60 days','2 hours',''),
+('AU','_GET_AMAZON_FULFILLED_SHIPMENTS_DATA_','amazon_au_FBA.txt', '-60 days','2 hours',''),
+
+('CA','_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_','amazon_ca_unshipped.txt','-7 days','2 hours',''),
+('US','_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_','amazon_us_unshipped.txt','-7 days','2 hours',''),
+('CN','_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_','amazon_cn_unshipped.txt','-7 days','2 hours',''),
+('MX','_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_','amazon_mx_unshipped.txt','-7 days','2 hours',''),
+('UK','_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_','amazon_uk_unshipped.txt','-7 days','2 hours',''),
+('AU','_GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_','amazon_au_unshipped.txt','-7 days','2 hours',''),
+
+('CA','_GET_REFERRAL_FEE_PREVIEW_REPORT_','amazon_ca_referral_report.txt','-7 days','2 hours',''),
+('US','_GET_REFERRAL_FEE_PREVIEW_REPORT_','amazon_us_referral_report.txt','-7 days','2 hours',''),
+('CN','_GET_REFERRAL_FEE_PREVIEW_REPORT_','amazon_cn_referral_report.txt','-7 days','2 hours',''),
+('MX','_GET_REFERRAL_FEE_PREVIEW_REPORT_','amazon_mx_referral_report.txt','-7 days','2 hours',''),
+('UK','_GET_REFERRAL_FEE_PREVIEW_REPORT_','amazon_uk_referral_report.txt','-7 days','2 hours',''),
+('AU','_GET_REFERRAL_FEE_PREVIEW_REPORT_','amazon_au_referral_report.txt','-7 days','2 hours',''),
+
+('CA','_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_','amazon-ca-payment.txt','-7 days','2 hours',''),
+('US','_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_','amazon-us-payment.txt','-7 days','2 hours',''),
+('CN','_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_','amazon-cn-payment.txt','-7 days','2 hours',''),
+('MX','_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_','amazon-mx-payment.txt','-7 days','2 hours',''),
+('UK','_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_','amazon-uk-payment.txt','-7 days','2 hours',''),
+('AU','_GET_FLAT_FILE_PAYMENT_SETTLEMENT_DATA_','amazon-au-payment.txt','-7 days','2 hours',''),
+
+('CA','_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_','amazon-ca-fba-fee.txt', '-30 days','2 hours',''),
+('US','_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_','amazon-us-fba-fee.txt', '-30 days','2 hours',''),
+('CN','_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_','*amazon-cn-fba-fee.txt','-30 days','2 hours',''),
+('MX','_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_','amazon-mx-fba-fee.txt', '-30 days','2 hours',''),
+('UK','_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_','amazon-uk-fba-fee.txt', '-30 days','2 hours',''),
+('AU','_GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_','amazon-au-fba-fee.txt', '-30 days','2 hours',''),
+
+('CA','_GET_MERCHANT_LISTINGS_ALL_DATA_','amazon_ca_listings_full.txt','','2 hours',''),
+('US','_GET_MERCHANT_LISTINGS_ALL_DATA_','amazon_us_listings_full.txt','','2 hours',''),
+('CN','_GET_MERCHANT_LISTINGS_ALL_DATA_','amazon_cn_listings_full.txt','','2 hours',''),
+('MX','_GET_MERCHANT_LISTINGS_ALL_DATA_','amazon_mx_listings_full.txt','','2 hours',''),
+('UK','_GET_MERCHANT_LISTINGS_ALL_DATA_','amazon_uk_listings_full.txt','','2 hours',''),
+('AU','_GET_MERCHANT_LISTINGS_ALL_DATA_','amazon_au_listings_full.txt','','2 hours',''),
+
+('CA','_GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_','amazon_ca_fba_return.txt', '-7 days','2 hours',''),
+('US','_GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_','amazon_us_fba_return.txt', '-7 days','2 hours',''),
+('CN','_GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_','*amazon_cn_fba_return.txt','-7 days','2 hours',''),
+('MX','_GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_','*amazon_mx_fba_return.txt','-7 days','2 hours',''),
+('UK','_GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_','*amazon_uk_fba_return.txt','-7 days','2 hours',''),
+('AU','_GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_','*amazon_au_fba_return.txt','-7 days','2 hours', '');
+
