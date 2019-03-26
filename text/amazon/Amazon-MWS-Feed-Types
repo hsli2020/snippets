@@ -1,0 +1,135 @@
+The following feed categories are supported:
+
+  - Product and inventory feeds
+  - Order feeds
+  - Fulfillment by Amazon (FBA) feeds
+
+Product and inventory feeds
+===========================
+
+_POST_PRODUCT_DATA_
+	Product Feed
+    Product.xsd
+
+_POST_INVENTORY_AVAILABILITY_DATA_
+	Inventory Feed
+    Inventory.xsd
+
+_POST_PRODUCT_OVERRIDES_DATA_
+	Overrides Feed
+    Override.xsd
+
+_POST_PRODUCT_PRICING_DATA_
+	Pricing Feed
+    Price.xsd
+
+_POST_PRODUCT_IMAGE_DATA_
+	Product Images Feed
+    ProductImage.xsd
+
+_POST_PRODUCT_RELATIONSHIP_DATA_
+	Relationships Feed
+    Relationship.xsd
+
+_POST_FLAT_FILE_INVLOADER_DATA_
+	Flat File Inventory Loader Feed
+	Flat.File.InventoryLoader.it.xls
+
+_POST_FLAT_FILE_LISTINGS_DATA_
+	Flat File Listings Feed
+	Flat.File.Listingloader.it.xls
+
+_POST_FLAT_FILE_BOOKLOADER_DATA_
+	Flat File Book Loader Feed
+	Flat.File.BookLoader.it.xls
+
+_POST_FLAT_FILE_CONVERGENCE_LISTINGS_DATA_
+	Flat File Music Loader Feed
+	Flat.File.Music.it.xls
+
+_POST_FLAT_FILE_LISTINGS_DATA_
+	Flat File Video Loader Feed
+	Flat.File.Video.it.xls
+
+_POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA_
+	Flat File Price and Quantity Update Feed
+	Flat.File.PriceInventory.it.xls
+
+_POST_UIEE_BOOKLOADER_DATA_UIEE 
+	Inventory Feed
+	standard-book-template.xls
+
+_POST_STD_ACES_DATA_ACES 
+	3.0 Data (Automotive Part Finder) Feed
+	AutoAccessory.xsd
+
+Order feeds
+===========
+
+_POST_ORDER_ACKNOWLEDGEMENT_DATA_
+	Order Acknowledgement Feed
+	OrderAcknowledgement.xsd
+
+_POST_PAYMENT_ADJUSTMENT_DATA_
+	Order Adjustments Feed
+	OrderAdjustment.xsd
+
+_POST_ORDER_FULFILLMENT_DATA_
+	Order Fulfillment Feed
+	OrderFulfillment.xsd
+
+_POST_INVOICE_CONFIRMATION_DATA_
+	Invoice Confirmation Feed (China only)
+	InvoiceConfirmation.xsd
+
+_POST_FLAT_FILE_ORDER_ACKNOWLEDGEMENT_DATA_
+	Flat File Order Acknowledgement Feed
+	https://s3.amazonaws.com/seller-templates/ff/eu/it/Flat.File.OrderCancellation.it.xls
+
+_POST_FLAT_FILE_PAYMENT_ADJUSTMENT_DATA_
+	Flat File Order Adjustments Feed
+	Flat.File.Adjustment.it.xls
+
+_POST_FLAT_FILE_FULFILLMENT_DATA_
+	Flat File Order Fulfillment Feed
+	Flat.File.ShippingConfirm.it.xls
+
+_POST_FLAT_FILE_INVOICE_CONFIRMATION_DATA_
+	Flat File Invoice Confirmation Feed (China only)
+	Flat.File.InvoiceConfirm.cn._TTH_.xls
+
+Fulfillment by Amazon (FBA) feeds
+=================================
+
+_POST_FULFILLMENT_ORDER_REQUEST_DATA_
+	FBA Fulfillment Order Feed
+	FulfillmentOrderRequest.xsd
+
+_POST_FULFILLMENT_ORDER_CANCELLATION_REQUEST_DATA_FBA 
+	Fulfillment Order Cancellation Feed
+	FulfillmentOrderCancellationRequest.xsd
+
+_POST_FBA_INBOUND_CARTON_CONTENTS_FBA 
+	Inbound Shipment Carton Information Feed
+	CartonContentsRequest.xsd
+
+_POST_FLAT_FILE_FULFILLMENT_ORDER_REQUEST_DATA_
+	Flat File FBA Fulfillment Order Feed
+	Flat.File.FulfillmentOrderRequest.xls
+
+_POST_FLAT_FILE_FULFILLMENT_ORDER_CANCELLATION_REQUEST_DATA_
+	Flat File FBA Fulfillment Order Cancellation Feed
+	Flat.File.FulfillmentOrderCancellationRequest.xls
+
+_POST_FLAT_FILE_FBA_CREATE_INBOUND_PLAN_
+	Flat File FBA Create Inbound Shipment Plan Feed
+	Flat.File.CreateInboundPlanRequest.xls
+
+_POST_FLAT_FILE_FBA_UPDATE_INBOUND_PLAN_
+	Flat File FBA Update Inbound Shipment Plan Feed
+	Flat.File.UpdateInboundPlanRequest.xls
+
+_POST_FLAT_FILE_FBA_CREATE_REMOVAL_
+	Flat File FBA Create Removal Feed
+	Flat.File.RemovalOrderRequest.xls
+

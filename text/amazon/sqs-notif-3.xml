@@ -1,0 +1,92 @@
+<Notification>
+<NotificationMetaData>
+	<NotificationType>AnyOfferChanged</NotificationType>
+	<PayloadVersion>1.0</PayloadVersion>
+	<UniqueId>a6309464-2255-4d37-a7e7-22655bac627c</UniqueId>
+	<PublishTime>2016-12-04T15:09:02.036Z</PublishTime>
+	<SellerId>A19N3NI8X4F24J</SellerId>
+	<MarketplaceId>A2EUQ1WTGCTBG2</MarketplaceId>
+</NotificationMetaData>
+<NotificationPayload>
+	<AnyOfferChangedNotification>
+		<OfferChangeTrigger>
+			<MarketplaceId>A2EUQ1WTGCTBG2</MarketplaceId>
+			<ASIN>B00I00MWM6</ASIN>
+			<ItemCondition>new</ItemCondition>
+			<TimeOfOfferChange>2016-12-04T15:08:41.679Z</TimeOfOfferChange>
+		</OfferChangeTrigger>
+		<Summary>
+			<NumberOfOffers>
+				<OfferCount condition="new" fulfillmentChannel="Merchant">1</OfferCount>
+			</NumberOfOffers>
+			<LowestPrices>
+				<LowestPrice condition="new" fulfillmentChannel="Merchant">
+					<LandedPrice>
+						<Amount>881.73</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</LandedPrice>
+					<ListingPrice>
+						<Amount>881.73</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</ListingPrice>
+					<Shipping>
+						<Amount>0.00</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</Shipping>
+				</LowestPrice>
+			</LowestPrices>
+			<BuyBoxPrices>
+				<BuyBoxPrice condition="new">
+					<LandedPrice>
+						<Amount>881.73</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</LandedPrice>
+					<ListingPrice>
+						<Amount>881.73</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</ListingPrice>
+					<Shipping>
+						<Amount>0.00</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</Shipping>
+				</BuyBoxPrice>
+			</BuyBoxPrices>
+			<ListPrice>
+				<Amount>1599.00</Amount>
+				<CurrencyCode>USD</CurrencyCode>
+			</ListPrice>
+			<BuyBoxEligibleOffers>
+				<OfferCount condition="new" fulfillmentChannel="Merchant">1</OfferCount>
+			</BuyBoxEligibleOffers>
+		</Summary>
+		<Offers>
+			<Offer>
+				<SellerId>A19N3NI8X4F24J</SellerId>
+				<SubCondition>new</SubCondition>
+				<SellerFeedbackRating>
+					<SellerPositiveFeedbackRating>97</SellerPositiveFeedbackRating>
+					<FeedbackCount>5919</FeedbackCount>
+				</SellerFeedbackRating>
+				<ShippingTime minimumHours="24" maximumHours="48" availabilityType="NOW"/>
+				<ListingPrice>
+					<Amount>881.73</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</ListingPrice>
+				<Shipping>
+					<Amount>0.00</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</Shipping>
+				<ShipsFrom>
+					<Country>CA</Country>
+					<State>ON</State>
+				</ShipsFrom>
+				<IsFulfilledByAmazon>false</IsFulfilledByAmazon>
+				<IsBuyBoxWinner>true</IsBuyBoxWinner>
+				<ConditionNotes>GST/HST Only--- No PST. Part Number: 400104</ConditionNotes>
+				<IsFeaturedMerchant>true</IsFeaturedMerchant>
+				<ShipsDomestically>true</ShipsDomestically>
+			</Offer>
+		</Offers>
+	</AnyOfferChangedNotification>
+</NotificationPayload>
+</Notification>

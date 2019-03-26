@@ -1,0 +1,152 @@
+<Notification>
+<NotificationMetaData>
+	<NotificationType>AnyOfferChanged</NotificationType>
+	<PayloadVersion>1.0</PayloadVersion>
+	<UniqueId>58f7706a-bf0c-4fca-9422-957ac426db7e</UniqueId>
+	<PublishTime>2016-12-04T15:09:01.420Z</PublishTime>
+	<SellerId>A19N3NI8X4F24J</SellerId>
+	<MarketplaceId>A2EUQ1WTGCTBG2</MarketplaceId>
+</NotificationMetaData>
+<NotificationPayload>
+	<AnyOfferChangedNotification>
+		<OfferChangeTrigger>
+			<MarketplaceId>A2EUQ1WTGCTBG2</MarketplaceId>
+			<ASIN>B008CQO3W0</ASIN>
+			<ItemCondition>new</ItemCondition>
+			<TimeOfOfferChange>2016-12-04T15:08:41.084Z</TimeOfOfferChange>
+		</OfferChangeTrigger>
+		<Summary>
+			<NumberOfOffers>
+				<OfferCount condition="new" fulfillmentChannel="Merchant">3</OfferCount>
+			</NumberOfOffers>
+			<LowestPrices>
+				<LowestPrice condition="new" fulfillmentChannel="Merchant">
+					<LandedPrice>
+						<Amount>104.29</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</LandedPrice>
+					<ListingPrice>
+						<Amount>104.29</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</ListingPrice>
+					<Shipping>
+						<Amount>0.00</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</Shipping>
+				</LowestPrice>
+			</LowestPrices>
+			<BuyBoxPrices>
+				<BuyBoxPrice condition="new">
+					<LandedPrice>
+						<Amount>105.81</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</LandedPrice>
+					<ListingPrice>
+						<Amount>105.81</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</ListingPrice>
+					<Shipping>
+						<Amount>0.00</Amount>
+						<CurrencyCode>CAD</CurrencyCode>
+					</Shipping>
+				</BuyBoxPrice>
+			</BuyBoxPrices>
+			<ListPrice>
+				<Amount>119.00</Amount>
+				<CurrencyCode>CAD</CurrencyCode>
+			</ListPrice>
+			<SalesRankings>
+				<SalesRank>
+					<ProductCategoryId>ce_display_on_website</ProductCategoryId>
+					<Rank>715435</Rank>
+				</SalesRank>
+				<SalesRank>
+					<ProductCategoryId>677244011</ProductCategoryId>
+					<Rank>5563</Rank>
+				</SalesRank>
+			</SalesRankings>
+			<BuyBoxEligibleOffers>
+				<OfferCount condition="new" fulfillmentChannel="Merchant">1</OfferCount>
+			</BuyBoxEligibleOffers>
+		</Summary>
+		<Offers>
+			<Offer>
+				<SellerId>A3OYQOJUG8AMPS</SellerId>
+				<SubCondition>new</SubCondition>
+				<SellerFeedbackRating>
+					<SellerPositiveFeedbackRating>94</SellerPositiveFeedbackRating>
+					<FeedbackCount>342</FeedbackCount>
+				</SellerFeedbackRating>
+				<ShippingTime minimumHours="24" maximumHours="48" availabilityType="NOW"/>
+				<ListingPrice>
+					<Amount>104.29</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</ListingPrice>
+				<Shipping>
+					<Amount>0.00</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</Shipping>
+				<ShipsFrom>
+					<Country>US</Country>
+					<State>NV</State>
+				</ShipsFrom>
+				<IsFulfilledByAmazon>false</IsFulfilledByAmazon>
+				<IsBuyBoxWinner>false</IsBuyBoxWinner>
+				<IsFeaturedMerchant>false</IsFeaturedMerchant>
+				<ShipsDomestically>true</ShipsDomestically>
+			</Offer>
+			<Offer>
+				<SellerId>A19N3NI8X4F24J</SellerId>
+				<SubCondition>new</SubCondition>
+				<SellerFeedbackRating>
+					<SellerPositiveFeedbackRating>97</SellerPositiveFeedbackRating>
+					<FeedbackCount>5919</FeedbackCount>
+				</SellerFeedbackRating>
+				<ShippingTime minimumHours="24" maximumHours="48" availabilityType="NOW"/>
+				<ListingPrice>
+					<Amount>105.81</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</ListingPrice>
+				<Shipping>
+					<Amount>0.00</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</Shipping>
+				<ShipsFrom>
+					<Country>CA</Country>
+					<State>ON</State>
+				</ShipsFrom>
+				<IsFulfilledByAmazon>false</IsFulfilledByAmazon>
+				<IsBuyBoxWinner>true</IsBuyBoxWinner>
+				<ConditionNotes>GST/HST Only--- No PST. Fast shipping in Canada.</ConditionNotes>
+				<IsFeaturedMerchant>true</IsFeaturedMerchant>
+				<ShipsDomestically>true</ShipsDomestically>
+			</Offer>
+			<Offer>
+				<SellerId>A1JSFZSH7PHE2W</SellerId>
+				<SubCondition>new</SubCondition>
+				<SellerFeedbackRating>
+					<SellerPositiveFeedbackRating>90</SellerPositiveFeedbackRating>
+					<FeedbackCount>1395</FeedbackCount>
+				</SellerFeedbackRating>
+				<ShippingTime minimumHours="24" maximumHours="48" availabilityType="NOW"/>
+				<ListingPrice>
+					<Amount>153.28</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</ListingPrice>
+				<Shipping>
+					<Amount>0.00</Amount>
+					<CurrencyCode>CAD</CurrencyCode>
+				</Shipping>
+				<ShipsFrom>
+					<Country>CA</Country>
+					<State>ON</State>
+				</ShipsFrom>
+				<IsFulfilledByAmazon>false</IsFulfilledByAmazon>
+				<IsBuyBoxWinner>false</IsBuyBoxWinner>
+				<IsFeaturedMerchant>false</IsFeaturedMerchant>
+				<ShipsDomestically>true</ShipsDomestically>
+			</Offer>
+		</Offers>
+	</AnyOfferChangedNotification>
+</NotificationPayload>
+</Notification>
