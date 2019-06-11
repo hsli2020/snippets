@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ys-vue-modal-component</title>
+  <style>
+    p,h4{
+      margin:0;
+    }
+    .modal{
+      width: 480px;
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, .3);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
+      margin: 50px;
+    }
+    .modal-header {
+      color: #fff;
+      background: cadetblue;
+      border-radius: 6px 6px 0 0;
+      padding: 15px;
+      border-bottom: 1px solid #5e9fa1;
+    }
+    .modal-content div {
+      padding: 15px 10px;
+    }
+    .modal-footer {
+      padding: 15px;
+      text-align: right;
+      border-top: 1px solid #e5e5e5;
+    }
+    .btn {
+      border: 1px solid #d1d1d1;
+      border-radius: 3px;
+      background-color: #f7f7f7;
+      background: -webkit-gradient(linear, 0 0, 0 100%, from(#f7f7f7),
+     to(#f2f2f2));
+      background: -moz-gradient(linear, 0 0, 0 100%, from(#f7f7f7),
+     to(#f2f2f2));
+      background: -o-gradient(linear, 0 0, 0 100%, from(#f7f7f7), to(#f2f2f2));
+      background: -ms-gradient(linear, 0 0, 0 100%, from(#f7f7f7), to(#f2f2f2));
+      height: 28px;
+      padding: 0 20px;
+      cursor: pointer;
+      line-height: 28px;
+      display: inline-block;
+      color: #666666;
+      margin-right: 5px;
+      outline: none;
+    }
+    .blue {
+       border: 1px solid #5e9fa1;
+      background-color: #5e9fa1;
+      background: -webkit-gradient(linear, 0 0, 0 100%, from(#74c4c6),
+     to(#5e9fa1));
+      background: -moz-gradient(linear, 0 0, 0 100%, from(#74c4c6),
+     to(#5e9fa1));
+      background: -o-gradient(linear, 0 0, 0 100%, from(#74c4c6), to(#5e9fa1));
+      background: -ms-gradient(linear, 0 0, 0 100%, from(#74c4c6), to(#5e9fa1));
+      color: #FFFFFF;
+    }    
+  </style>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app"> 
+    <input type="button" class="btn blue" value="点击我，呼唤弹窗，再来一遍" v-if="isHide" @click="isHide=!isHide">
+    <ys-modal-component
+       v-if="!isHide"
+       modal-title="温馨提示"
+       ok-btn="确认购买"
+       cancel-btn="去意已决"
+       @on-ok="ok"
+       @on-cancel="cancel"
+     >
+      <div slot="modal-content">
+        尊敬的用户，您购买的商品将于支付成功后3-7个工作日内发货，敬请周知。祝您购物愉快！
+      </div>
+    </ys-modal-component>
+  </div>
+  <script>
+    /*
+      props：
+        modalTitle: 弹窗标题
+        okBtn: 确认按钮
+        cancelBtn: 取消按钮
+        注意事项：传参时候使用烤串的书写方式xx-xxx
+      slot:
+        modal-content: 内容区域
+        modal-footer： 页脚按钮区域
+      methods: 
+        okHandle: 触发确认on-ok自定义事件
+        cancelHandle： 触发取消on-cancel自定义事件
+     */
+    Vue.component('ys-modal-component', {
+      props: {
+        modalTitle: {
+          type: String,
+          default: '标题区域'
+        },
+        okBtn: {
+          type: String,
+          default: '确认'
+        },
+        cancelBtn: {
+          type: String,
+          default: '取消'
+        }
+      },
+      template: `
+        <div class="modal">
+          <div class="modal-header">
+            <h4>{{ modalTitle }}</h4>
+          </div>
+          <div class="modal-content">
+            <div>
+              <slot name="modal-content">内容区域</slot>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <input class="btn blue" type="button" v-model="okBtn" @click="okHandle" />
+              <input class="btn" type="button" v-model="cancelBtn" @click="cancelHandle" />
+          </div>
+        </div>
+      `,
+      methods: {
+        okHandle () {
+          console.log("点击确定");
+          this.$emit("on-ok"); 
+        },
+        cancelHandle () {
+          console.log("点击取消");
+          this.$emit("on-cancel");
+        }
+      }
+    })
+ 
+ 
+    new Vue({
+      el: "#app",
+      data: {
+        isHide: false
+      },
+      methods: {
+        ok () {
+          alert("欢迎您购买本产品");
+        },
+        cancel () {
+          this.isHide = !this.isHide;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
