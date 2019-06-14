@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html,
+body {
+  height: 100%;
+  margin: 0
+}
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.box .row {
+  border: 1px dotted grey;
+}
+
+.box .row.header {
+  flex: 0 1 auto;
+  /* The above is shorthand for:
+  flex-grow: 0,
+  flex-shrink: 1,
+  flex-basis: auto
+  */
+  background-color: lightgreen;
+}
+
+.box .row.content {
+  flex: 1 1 auto;
+  background-color: lightpink;
+}
+
+.box .row.footer {
+  flex: 0 1 40px;
+  background-color: lightblue;
+}
+    </style>
+</head>
+<body>
+    <!-- Obviously, you could use HTML5 tags like `header`, `footer` and `section` -->
+
+<div class="box">
+  <div class="row header">
+    <p><b>header</b>
+      <br>
+      <br>
+      <br>
+      <br>(sized to content)</p>
+  </div>
+
+  <div class="row footer">
+    <p><b>footer</b> (fixed height)</p>
+  </div>
+
+  <div class="row content">
+    <p>
+      <b>content</b>
+      (fills remaining space)
+    </p>
+  </div>
+</div>
+</body></html>

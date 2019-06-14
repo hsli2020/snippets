@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font-family: Verdana, sans-serif; margin: 0; }
+
+* { box-sizing: border-box; }
+
+.row > .column { padding: 0 8px; }
+.row:after { content: ""; display: table; clear: both; }
+.column { float: left; width: 25%; }
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mySlides { display: none; }
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: #888;
+}
+
+/* Position the "next button" to the right */
+.next { right: 0; border-radius: 3px 0 0 3px; }
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover { background-color: rgba(0, 0, 0, 0.8); }
+
+img { margin-bottom: -4px; }
+
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+</style>
+<body>
+
+<h2 style="text-align:center">Lightbox</h2>
+
+<div class="row">
+  <div class="column">
+    <img src="https://www.w3schools.com/howto/img_nature.jpg" style="width:100%" onclick="openModal();currentSlide(1)">
+  </div>
+  <div class="column">
+    <img src="https://www.w3schools.com/howto/img_snow.jpg" style="width:100%" onclick="openModal();currentSlide(2)">
+  </div>
+  <div class="column">
+    <img src="https://www.w3schools.com/howto/img_mountains.jpg" style="width:100%" onclick="openModal();currentSlide(3)">
+  </div>
+  <div class="column">
+    <img src="https://www.w3schools.com/howto/img_lights.jpg" style="width:100%" onclick="openModal();currentSlide(4)">
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <div id="mySlide">
+      <img src="" style="width:100%">
+    </div>
+    
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal() {
+  document.getElementById('myModal').style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = "none";
+}
+
+var pictures = [
+  "https://www.w3schools.com/howto/img_nature_wide.jpg",
+  "https://www.w3schools.com/howto/img_snow_wide.jpg",
+  "https://www.w3schools.com/howto/img_mountains_wide.jpg",
+  "https://www.w3schools.com/howto/img_lights_wide.jpg",
+  "http://lion2008.github.com/images/10.jpg",
+];
+
+var slideIndex = 1;
+var project = 9;
+var camera = 'Camera1';
+var picture = 132;
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var slide = document.querySelector("#mySlide img");
+  var caption = document.getElementById("caption");
+
+  if (n > pictures.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = pictures.length }
+
+  // getPrevPicture(prj, cam, pic);
+  // getNextPicture(prj, cam, pic);
+  slide.src = pictures[slideIndex - 1];
+  caption.innerText = "2018-12-11 13:15:00";
+}
+</script>
+</body></html>
