@@ -1,0 +1,96 @@
+Using Resources
+===============
+
+type Resource interface {
+  List(Context) error
+  Show(Context) error
+  New(Context) error
+  Create(Context) error
+  Edit(Context) error
+  Update(Context) error
+  Destroy(Context) error
+}
+
+type UsersResource struct{ }
+
+func (u UsersResource) List(c buffalo.Context) error {
+  // do work
+}
+
+func (u UsersResource) Show(c buffalo.Context) error {
+  // do work
+}
+
+func (u UsersResource) Create(c buffalo.Context) error {
+  // do work
+}
+
+func (u UsersResource) Update(c buffalo.Context) error {
+  // do work
+}
+
+func (u UsersResource) Destroy(c buffalo.Context) error {
+  // do work
+}
+
+a.Resource("/users", UsersResource{})
+
+/*
+ # ur := UsersResource{}
+ # a.GET("/users", ur.List)
+ # a.GET("/users/{user_id}", ur.Show)
+ # a.POST("/users", ur.Create)
+ # a.PUT("/users/{user_id}", ur.Update)
+ # a.DELETE("/users/{user_id}", ur.Destroy)
+ */
+
+Nesting resources
+=================
+
+To simplify creating resource hierarchies, Buffalo supports nesting resources.
+
+type UsersResource struct {
+  buffalo.Resource
+}
+
+type ImagesResource struct {
+  buffalo.Resource
+}
+
+u := a.Resource("/users", UsersResource{})
+u.Resource("/images", ImagesResource{})
+
+This results in the following routes:
+
+METHOD | PATH
+------ | ----
+GET    | /users
+POST   | /users
+GET    | /users/new
+GET    | /users/{user_id}
+PUT    | /users/{user_id}
+DELETE | /users/{user_id}
+GET    | /users/{user_id}/edit
+GET    | /users/{user_id}/images
+POST   | /users/{user_id}/images
+GET    | /users/{user_id}/images/new
+GET    | /users/{user_id}/images/{image_id}
+PUT    | /users/{user_id}/images/{image_id}
+DELETE | /users/{user_id}/images/{image_id}
+GET    | /users/{user_id}/images/{image_id}/edit
+
+buffalo.BaseResource
+
+When a resource is generated it has buffalo.BaseResource embedded into it.
+
+type Widget struct {
+  buffalo.BaseResource
+}
+
+The buffalo.BaseResource has basic implementations for all of the methods required by buffalo.Resource.
+These methods all 404.
+
+// Edit default implementation. Returns a 404
+func (v BaseResource) Edit(c Context) error {
+  return c.Error(404, errors.New("resource not implemented"))
+}
