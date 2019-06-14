@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Iframe inlining trick as a Web Component</title>
+  <style>
+body {
+  font-family: sans-serif;
+  padding: 2rem;
+  max-width: 75ch;
+  line-height: 1.4;
+}
+
+hr {
+  border-top: 1px solid #ccc;
+  border-bottom: none;
+  margin: 2rem 0;
+}
+
+iframe {
+  border: none;
+}
+  </style>
+</head>
+<body>
+  <h1>Import content Web Component</h1>
+  <p>This file located at <a href="https://codepen.io/andybelldesign/project/editor/DyVyPG">HERE</a></p>
+  <p>Expanding on <a href="https://twitter.com/scottjehl">Scott Jehl's</a> <a href="https://codepen.io/scottjehl/project/editor/XrzdYk">excellent trick</a>, I thought it would be handy to be package it up into a little Web Component.</p>
+  <hr />
+  <import-content path="hai.html" loading="eager"></import-content>
+  <import-content path="signal.svg" loading="lazy"></import-content>
+  <script>
+class ImportContent extends HTMLElement {
+  
+  get path() {
+    return this.getAttribute('path') || '';
+  }
+  
+  get loading() {
+    return this.getAttribute('loading') || 'auto';
+  }
+  
+  connectedCallback() {
+    this.innerHTML = `
+      <iframe src="${this.path}" loading="${this.loading}"></iframe>
+    `;
+    
+    const frame = this.querySelector('iframe');
+    
+    frame.addEventListener('load', evt => {
+      const children = [...frame.contentDocument.body.children];
+
+      children.forEach(child => frame.before(child)); 
+      
+      frame.remove();
+    });
+  }
+}
+
+if ('customElements' in window) {
+  customElements.define('import-content', ImportContent);
+}
+  </script>
+</body>
+</html>

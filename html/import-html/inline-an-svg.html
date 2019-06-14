@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Inline an SVG file in HTML, declaratively & asynchronously!</title>
+  <style>
+    body {font-family: sans-serif; margin: 50px 10vw; max-width: 60em;}
+    pre { border: 1px solid #aaa; background: #eee; padding: 1em; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;}
+    iframe { border: 0; }
+  </style>
+</head>
+<body>
+  <h1>Inline an SVG file in HTML, declaratively & asynchronously!</h1>
+  <p>An experiment by <a href="https://scottjehl.com">Scott Jehl</a> of <a href="https://www.filamentgroup.com">Filament Group</a></p>
+  
+  <p>Here is an inline (embedded) SVG graphic. It was loaded from an external file called signal.svg.</p>
+   
+
+  <iframe src="signal.svg" onload="this.before(this.contentDocument.children[0]); this.remove();"></iframe>
+  <p>To load and embed the SVG file, this page includes the following markup:</p>
+  
+  <pre><code>&lt;iframe src=&quot;signal.svg&quot; onload=&quot;this.before(this.contentDocument.children[0]); this.remove();&quot;&gt;&lt;/iframe&gt;</code></pre>
+  
+  
+  <p>However, if you inspect the graphic above using developer tools, you'll see the SVG markup for the icon, inlined right in the HTML DOM, with no iframe element to be found. This is because the code uses an iframe to load the SVG file, and an onload event to inject the iframe's document just before the iframe in the HTML, before deleting the iframe itself.</p>
+  
+  <h2>Why would we want to do this?</h2>
+  <p>Well, inlining (or "embedding") SVG makes it possible to manipulate its elements with CSS and JavaScript most flexibly. Unfortunately, there's no simple way to just inline an SVG file. I think it'd be particularly nice to be able to declaratively inline an external SVG file using HTML alone. This approach essentially does that. What's also nice about this is that it allows for browser caching of the SVG, so many pages can use the same inline SVG without downloading it each time.</p>
+  
+</body>
+</html>
