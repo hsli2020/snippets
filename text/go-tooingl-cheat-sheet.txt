@@ -1,0 +1,120 @@
+# Go's Tooling Cheat Sheet
+
+# Installing Tooling 
+
+= Easiest way 
+$ go get -u golang.org/x/tools/.. 
+
+= Alternative way 
+$ cd /tmp           # To avoid to install into a local project as a module 
+$ GO111MODULE=on go get golang.org/x/tools/cmd/stress 
+
+= Viewing Environment Information 
+$ go env 
+$ go env GOPATH GOOS GOARH 
+$ go help environment 
+
+# Development 
+
+= Running Code 
+$ go run  .          # Run the package in the current directory 
+$ go run  ./cmd/foo  # Run the package in the  ./cmd/foo directory 
+
+= Fetching Dependencies 
+$ go get github.com/foo/bar@v1.2.3 
+$ go get github.com/foo/bar@8e1b8d3 
+
+$ go list -m all                  # Show all the dependencies 
+$ go mod why -m golang.org/x/sys  # Why is that a dependency? 
+$ go clean -modcache              # clear module cache 
+
+# Refactoring Code 
+
+$ gofmt -d -w -r  'foo -> Foo '  .   # Replace foo by Foo 
+$ gofmt -w -r  'strings.Replace(a, b, -1) -> strings.ReplaceAll(a, b)'  . 
+
+# Viewing Go Documentation 
+
+$ go doc strings                # View simplified documentation for the strings package 
+$ go doc -all strings           # View full documentation for the strings package 
+$ go doc strings.Replace        # View documentation for the strings.Replace function 
+$ go doc sql.DB                 # View documentation for the database/sql.DB type 
+$ go doc sql.DB.Query           # View documentation for the database/sql.DB.Query method 
+$ go doc -src strings.Replace   # View the source code for the strings.Replace function 
+
+# Testing 
+
+= Running Tests 
+$ go test  .                            # Run all tests in the current directory 
+$ go test  ./...                        # Run all tests in the current directory and sub-dirs 
+$ go test  ./foo/bar                    # Run all tests in the  ./foo/bar directory 
+$ go test -race  ./...                  # Testing with race detector 
+$ go test -count=1  ./...               # Bypass the test cache when running tests 
+
+$ go clean -testcache                  # Delete all cached test results 
+
+$ go test -v -run=^TestFooBar$  .       # Run the test with the exact name TestFooBar 
+$ go test -v -run=^TestFoo  .           # Run tests whose names start with TestFoo 
+$ go test -v -run=^TestFooBar$/^Baz$  . # Run the Baz subtest of the TestFooBar test only 
+$ go test -short  ./...                 # handy flag - skip long running tests 
+$ go test -failfast  ./...              # handy flag - don't run further tests after a failure.
+
+= Profiling Test Coverage 
+$ go test -cover  ./... 
+$ go test -coverprofile=/tmp/profile.out  ./...   # coverage profile for browser 
+$ go tool cover -html=/tmp/profile.out 
+$ go test -covermode=count -coverprofile=/tmp/profile.out  ./... # coverage with frequency shown 
+$ go tool cover -html=/tmp/profile.out 
+$ go test -coverprofile=/tmp/profile.out  ./...   # coverage in  LI without any browser 
+$ go tool cover -func=/tmp/profile.out 
+
+= Stress Testing 
+$ go test -run=^TestFooBar$ -count=500 . 
+$ go test -c -o=/tmp/foo.test .                   # using stress tool 
+
+$ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$ 
+
+= Testing all dependencies 
+$ go test all
+
+# Pre-Commit Checks 
+
+= Formatting code 
+$ gofmt -w -s -d foo.go   # Format the foo.go file 
+$ gofmt -w -s -d  .       # Recursively format everything 
+$ go fmt  ./...           # alternative formatting tool 
+
+= Performing Static Analysis with vet 
+$ go vet foo.go                   # Vet the foo.go file 
+$ go vet  .                       # Vet all files in the current directory 
+$ go vet  ./...                   # Vet all files in the current directory and sub-dirs 
+$ go vet  ./foo/bar               # Vet all files in the  ./foo/bar directory 
+$ go vet -composites=false ./... # Disable some analyzers 
+
+# Experimental analyzers 
+
+$ cd /tmp 
+$ GO111MODULE=on go get golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness 
+$ GO111MODULE=on go get golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow 
+$ go vet -vettool=$(which nilness) ./... 
+
+# Disable vet checks before running any tests 
+
+$ go test -vet=off ./... 
+
+# Linting Code 
+
+$ cd /tmp            # installing the linter 
+$ GO111MODULE=on go get golang.org/x/lint/golint 
+
+$ golint foo.go      # Lint the foo.go file 
+$ golint  .          # Lint all files in the current directory 
+$ golint  ./...      # Lint all files in the current directory and sub-dirs 
+$ golint  ./foo/bar  # Lint all files in the ./foo/bar directory 
+
+# Tidying and verifying Your dependencies 
+
+$ go mod tidy       # prune any unused dependencies 
+$ go mod verify     # check the dependencies' hashes
+
+Go's Tooling Cheat Sheet - v.1.0.2 - 2019-04-18  2019 Alex Edwards

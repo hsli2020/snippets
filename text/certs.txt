@@ -1,0 +1,75 @@
+根证书（root certificate）是属于根证书颁发机构（CA）的公钥证书。我们可以通过验证 CA 的签名
+从而信任 CA ，任何人都可以得到 CA 的证书（含公钥），用以验证它所签发的证书（客户端、服务端）
+
+生成 Key
+    openssl genrsa -out ca.key 2048
+
+生成密钥
+    openssl req -new -x509 -days 7200 -key ca.key -out ca.pem
+
+填写信息
+    Country Name (2 letter code) []:
+    State or Province Name (full name) []:
+    Locality Name (eg, city) []:
+    Organization Name (eg, company) []:
+    Organizational Unit Name (eg, section) []:
+    Common Name (eg, fully qualified host name) []:go-grpc-example
+    Email Address []:
+
+Server
+======
+
+生成 Key
+    openssl ecparam -genkey -name secp384r1 -out server.key
+
+生成 CSR
+    openssl req -new -key server.key -out server.csr
+
+填写信息
+    Country Name (2 letter code) []:
+    State or Province Name (full name) []:
+    Locality Name (eg, city) []:
+    Organization Name (eg, company) []:
+    Organizational Unit Name (eg, section) []:
+    Common Name (eg, fully qualified host name) []:go-grpc-example
+    Email Address []:
+
+    Please enter the following 'extra' attributes
+    to be sent with your certificate request
+    A challenge password []:
+
+CSR 是 Cerificate Signing Request 的英文缩写，为证书请求文件。主要作用是 CA 会利用 CSR 文件
+进行签名使得攻击者无法伪装或篡改原有证书
+
+基于 CA 签发
+    openssl x509 -req -sha256 -CA ca.pem -CAkey ca.key -CAcreateserial -days 3650 -in server.csr -out server.pem
+
+Client
+======
+
+生成 Key
+    openssl ecparam -genkey -name secp384r1 -out client.key
+
+生成 CSR
+    openssl req -new -key client.key -out client.csr
+
+基于 CA 签发
+    openssl x509 -req -sha256 -CA ca.pem -CAkey ca.key -CAcreateserial -days 3650 -in client.csr -out client.pem
+
+至此我们生成了一堆文件，请按照以下目录结构存放：
+
+$ tree conf 
+conf
+├── ca.key
+├── ca.pem
+├── ca.srl
+├── client
+│   ├── client.csr
+│   ├── client.key
+│   └── client.pem
+└── server
+    ├── server.csr
+    ├── server.key
+    └── server.pem
+
+另外有一些文件是不应该出现在仓库内，应当保密或删除的。但为了真实演示所以保留着（敲黑板）
