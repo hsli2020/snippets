@@ -108,6 +108,15 @@ $scanned = array_reverse($scanned);
     addbtn.click();
   }
 
+  document.addEventListener('keydown', function (event) {
+    if (event.keyCode === 13 && event.target.nodeName === 'INPUT') {
+      var form = event.target.form;
+      var index = Array.prototype.indexOf.call(form, event.target);
+      form.elements[index + 1].focus();
+      event.preventDefault();
+    }
+  });
+
   var saved = <?= $saved ?>;
   if (saved) {
     var audio = new Audio('http://192.168.0.12/assets/sound/sound4.mp3');
