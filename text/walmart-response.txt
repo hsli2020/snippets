@@ -1,0 +1,606 @@
+POST,/v3/orders/2795594980180/acknowledge,,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns3:purchaseOrderId>2795594980180</ns3:purchaseOrderId>
+  <ns3:customerOrderId>4601953354354</ns3:customerOrderId>
+  <ns3:customerEmailId>045DB5663C2D403C999A90215916E1F8@relay.walmart.com</ns3:customerEmailId>
+  <ns3:orderDate>2019-07-08T19:22:57.000Z</ns3:orderDate>
+  <ns3:shippingInfo>
+    <ns3:phone>7185179900</ns3:phone>
+    <ns3:estimatedDeliveryDate>2019-07-19T19:00:00.000Z</ns3:estimatedDeliveryDate>
+    <ns3:estimatedShipDate>2019-07-11T03:00:00.000Z</ns3:estimatedShipDate>
+    <ns3:methodCode>Value</ns3:methodCode>
+    <ns3:postalAddress>
+      <ns3:name>Levi Liberow</ns3:name>
+      <ns3:address1>3611 14 avenue</ns3:address1>
+      <ns3:address2>Suite 540</ns3:address2>
+      <ns3:city>Brooklyn</ns3:city>
+      <ns3:state>NY</ns3:state>
+      <ns3:postalCode>11218</ns3:postalCode>
+      <ns3:country>USA</ns3:country>
+      <ns3:addressType>RESIDENTIAL</ns3:addressType>
+    </ns3:postalAddress>
+  </ns3:shippingInfo>
+  <ns3:orderLines>
+    <ns3:orderLine>
+      <ns3:lineNumber>1</ns3:lineNumber>
+      <ns3:item>
+        <ns3:productName>HP Duplex Module Assembly CN598-67004</ns3:productName>
+        <ns3:sku>SYN-5908638</ns3:sku>
+      </ns3:item>
+      <ns3:charges>
+        <ns3:charge>
+          <ns3:chargeType>PRODUCT</ns3:chargeType>
+          <ns3:chargeName>ItemPrice</ns3:chargeName>
+          <ns3:chargeAmount>
+            <ns3:currency>USD</ns3:currency>
+            <ns3:amount>58.58</ns3:amount>
+          </ns3:chargeAmount>
+        </ns3:charge>
+      </ns3:charges>
+      <ns3:orderLineQuantity>
+        <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+        <ns3:amount>1</ns3:amount>
+      </ns3:orderLineQuantity>
+      <ns3:statusDate>2019-07-08T19:24:16.000Z</ns3:statusDate>
+      <ns3:orderLineStatuses>
+        <ns3:orderLineStatus>
+          <ns3:status>Created</ns3:status>
+          <ns3:statusQuantity>
+            <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+            <ns3:amount>1</ns3:amount>
+          </ns3:statusQuantity>
+        </ns3:orderLineStatus>
+      </ns3:orderLineStatuses>
+      <ns3:fulfillment>
+        <ns3:fulfillmentOption>S2H</ns3:fulfillmentOption>
+        <ns3:shipMethod>VALUE</ns3:shipMethod>
+        <ns3:pickUpDateTime>2019-07-15T19:00:00.000Z</ns3:pickUpDateTime>
+      </ns3:fulfillment>
+    </ns3:orderLine>
+  </ns3:orderLines>
+</ns3:order>
+
+POST,/v3/orders/2795594985857/acknowledge,,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns3:purchaseOrderId>2795594985857</ns3:purchaseOrderId>
+  <ns3:customerOrderId>4601953549006</ns3:customerOrderId>
+  <ns3:customerEmailId>A44C3201D51C463A98978FE371E5CCE2@relay.walmart.com</ns3:customerEmailId>
+  <ns3:orderDate>2019-07-08T19:41:25.000Z</ns3:orderDate>
+  <ns3:shippingInfo>
+    <ns3:phone>3054776064</ns3:phone>
+    <ns3:estimatedDeliveryDate>2019-07-19T19:00:00.000Z</ns3:estimatedDeliveryDate>
+    <ns3:estimatedShipDate>2019-07-11T03:00:00.000Z</ns3:estimatedShipDate>
+    <ns3:methodCode>Value</ns3:methodCode>
+    <ns3:postalAddress>
+      <ns3:name>Alain Nigon</ns3:name>
+      <ns3:address1>7320 NW 12th Street</ns3:address1>
+      <ns3:address2>Ste 104 (ALN International Inc)</ns3:address2>
+      <ns3:city>Miami</ns3:city>
+      <ns3:state>FL</ns3:state>
+      <ns3:postalCode>33126</ns3:postalCode>
+      <ns3:country>USA</ns3:country>
+      <ns3:addressType>RESIDENTIAL</ns3:addressType>
+    </ns3:postalAddress>
+  </ns3:shippingInfo>
+  <ns3:orderLines>
+    <ns3:orderLine>
+      <ns3:lineNumber>7</ns3:lineNumber>
+      <ns3:item>
+        <ns3:productName>Fellowes Letter-Size Clear Binding Covers, 25pk</ns3:productName>
+        <ns3:sku>ING-08695P</ns3:sku>
+      </ns3:item>
+      <ns3:charges>
+        <ns3:charge>
+          <ns3:chargeType>PRODUCT</ns3:chargeType>
+          <ns3:chargeName>ItemPrice</ns3:chargeName>
+          <ns3:chargeAmount>
+            <ns3:currency>USD</ns3:currency>
+            <ns3:amount>16.16</ns3:amount>
+          </ns3:chargeAmount>
+        </ns3:charge>
+      </ns3:charges>
+      <ns3:orderLineQuantity>
+        <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+        <ns3:amount>1</ns3:amount>
+      </ns3:orderLineQuantity>
+      <ns3:statusDate>2019-07-08T19:42:53.000Z</ns3:statusDate>
+      <ns3:orderLineStatuses>
+        <ns3:orderLineStatus>
+          <ns3:status>Created</ns3:status>
+          <ns3:statusQuantity>
+            <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+            <ns3:amount>1</ns3:amount>
+          </ns3:statusQuantity>
+        </ns3:orderLineStatus>
+      </ns3:orderLineStatuses>
+      <ns3:fulfillment>
+        <ns3:fulfillmentOption>S2H</ns3:fulfillmentOption>
+        <ns3:shipMethod>VALUE</ns3:shipMethod>
+        <ns3:pickUpDateTime>2019-07-15T19:00:00.000Z</ns3:pickUpDateTime>
+      </ns3:fulfillment>
+    </ns3:orderLine>
+  </ns3:orderLines>
+</ns3:order>
+
+POST,/v3/orders/2791894628045/shipping,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:orderShipment
+  xmlns:ns2="http://walmart.com/mp/v3/orders"
+  xmlns:ns3="http://walmart.com/">
+<ns2:orderLines>
+<ns2:orderLine>
+<ns2:lineNumber>1</ns2:lineNumber>
+<ns2:orderLineStatuses>
+<ns2:orderLineStatus>
+<ns2:status>Shipped</ns2:status>
+<ns2:statusQuantity>
+<ns2:unitOfMeasurement>Each</ns2:unitOfMeasurement>
+<ns2:amount>1</ns2:amount>
+</ns2:statusQuantity>
+<ns2:trackingInfo>
+<ns2:shipDateTime>2019-07-08</ns2:shipDateTime>
+<ns2:carrierName>
+<ns2:carrier>DHL</ns2:carrier>
+</ns2:carrierName>
+<ns2:methodCode>Standard</ns2:methodCode>
+<ns2:trackingNumber>2791894628045</ns2:trackingNumber>
+<ns2:trackingURL></ns2:trackingURL>
+</ns2:trackingInfo>
+</ns2:orderLineStatus>
+</ns2:orderLineStatuses>
+</ns2:orderLine>
+</ns2:orderLines>
+</ns2:orderShipment>,
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns3:purchaseOrderId>2791894628045</ns3:purchaseOrderId>
+  <ns3:customerOrderId>4591952682307</ns3:customerOrderId>
+  <ns3:customerEmailId>9FEC95BBC340412DA78E392B3D7BED0A@relay.walmart.com</ns3:customerEmailId>
+  <ns3:orderDate>2019-07-07T12:19:03.000Z</ns3:orderDate>
+  <ns3:shippingInfo>
+    <ns3:phone>7735016998</ns3:phone>
+    <ns3:estimatedDeliveryDate>2019-07-18T19:00:00.000Z</ns3:estimatedDeliveryDate>
+    <ns3:estimatedShipDate>2019-07-10T03:00:00.000Z</ns3:estimatedShipDate>
+    <ns3:methodCode>Value</ns3:methodCode>
+    <ns3:postalAddress>
+      <ns3:name>James Jeffries</ns3:name>
+      <ns3:address1>14854 Princewood Ln</ns3:address1>
+      <ns3:city>Land O Lakes</ns3:city>
+      <ns3:state>FL</ns3:state>
+      <ns3:postalCode>34638</ns3:postalCode>
+      <ns3:country>USA</ns3:country>
+      <ns3:addressType>RESIDENTIAL</ns3:addressType>
+    </ns3:postalAddress>
+  </ns3:shippingInfo>
+  <ns3:orderLines>
+    <ns3:orderLine>
+      <ns3:lineNumber>1</ns3:lineNumber>
+      <ns3:item>
+        <ns3:productName>Digital2 DP 7800F Portable Battery PRO Power Bank</ns3:productName>
+        <ns3:sku>BTE-ST-D2-CEPB-DP7800FPU</ns3:sku>
+      </ns3:item>
+      <ns3:charges>
+        <ns3:charge>
+          <ns3:chargeType>PRODUCT</ns3:chargeType>
+          <ns3:chargeName>ItemPrice</ns3:chargeName>
+          <ns3:chargeAmount>
+            <ns3:currency>USD</ns3:currency>
+            <ns3:amount>21.83</ns3:amount>
+          </ns3:chargeAmount>
+        </ns3:charge>
+      </ns3:charges>
+      <ns3:orderLineQuantity>
+        <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+        <ns3:amount>1</ns3:amount>
+      </ns3:orderLineQuantity>
+      <ns3:statusDate>2019-07-07T13:10:01.000Z</ns3:statusDate>
+      <ns3:orderLineStatuses>
+        <ns3:orderLineStatus>
+          <ns3:status>Acknowledged</ns3:status>
+          <ns3:statusQuantity>
+            <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+            <ns3:amount>1</ns3:amount>
+          </ns3:statusQuantity>
+        </ns3:orderLineStatus>
+      </ns3:orderLineStatuses>
+      <ns3:fulfillment>
+        <ns3:fulfillmentOption>S2H</ns3:fulfillmentOption>
+        <ns3:shipMethod>VALUE</ns3:shipMethod>
+        <ns3:pickUpDateTime>2019-07-12T19:00:00.000Z</ns3:pickUpDateTime>
+      </ns3:fulfillment>
+    </ns3:orderLine>
+  </ns3:orderLines>
+</ns3:order>
+
+POST,/v3/orders/3791884450703/shipping,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:orderShipment
+  xmlns:ns2="http://walmart.com/mp/v3/orders"
+  xmlns:ns3="http://walmart.com/">
+<ns2:orderLines>
+<ns2:orderLine>
+<ns2:lineNumber>1</ns2:lineNumber>
+<ns2:orderLineStatuses>
+<ns2:orderLineStatus>
+<ns2:status>Shipped</ns2:status>
+<ns2:statusQuantity>
+<ns2:unitOfMeasurement>Each</ns2:unitOfMeasurement>
+<ns2:amount>1</ns2:amount>
+</ns2:statusQuantity>
+<ns2:trackingInfo>
+<ns2:shipDateTime>2019-07-08</ns2:shipDateTime>
+<ns2:carrierName>
+<ns2:carrier>DHL</ns2:carrier>
+</ns2:carrierName>
+<ns2:methodCode>Standard</ns2:methodCode>
+<ns2:trackingNumber>3791884450703</ns2:trackingNumber>
+<ns2:trackingURL></ns2:trackingURL>
+</ns2:trackingInfo>
+</ns2:orderLineStatus>
+</ns2:orderLineStatuses>
+</ns2:orderLine>
+</ns2:orderLines>
+</ns2:orderShipment>,
+   
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns3:purchaseOrderId>3791884450703</ns3:purchaseOrderId>
+  <ns3:customerOrderId>4581952729787</ns3:customerOrderId>
+  <ns3:customerEmailId>8BF8E3DB070A40C79D142FF47F27D246@relay.walmart.com</ns3:customerEmailId>
+  <ns3:orderDate>2019-07-06T16:53:19.000Z</ns3:orderDate>
+  <ns3:shippingInfo>
+    <ns3:phone>7152840749</ns3:phone>
+    <ns3:estimatedDeliveryDate>2019-07-18T19:00:00.000Z</ns3:estimatedDeliveryDate>
+    <ns3:estimatedShipDate>2019-07-10T03:00:00.000Z</ns3:estimatedShipDate>
+    <ns3:methodCode>Value</ns3:methodCode>
+    <ns3:postalAddress>
+      <ns3:name>LARRY WENDLANDT</ns3:name>
+      <ns3:address1>n4382 tuckerway dr</ns3:address1>
+      <ns3:city>black river falls</ns3:city>
+      <ns3:state>WI</ns3:state>
+      <ns3:postalCode>54615</ns3:postalCode>
+      <ns3:country>USA</ns3:country>
+      <ns3:addressType>RESIDENTIAL</ns3:addressType>
+    </ns3:postalAddress>
+  </ns3:shippingInfo>
+  <ns3:orderLines>
+    <ns3:orderLine>
+      <ns3:lineNumber>1</ns3:lineNumber>
+      <ns3:item>
+        <ns3:productName>Centon 4GB Class 4 SD Card</ns3:productName>
+        <ns3:sku>ING-61082T</ns3:sku>
+      </ns3:item>
+      <ns3:charges>
+        <ns3:charge>
+          <ns3:chargeType>PRODUCT</ns3:chargeType>
+          <ns3:chargeName>ItemPrice</ns3:chargeName>
+          <ns3:chargeAmount>
+            <ns3:currency>USD</ns3:currency>
+            <ns3:amount>16.29</ns3:amount>
+          </ns3:chargeAmount>
+        </ns3:charge>
+      </ns3:charges>
+      <ns3:orderLineQuantity>
+        <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+        <ns3:amount>1</ns3:amount>
+      </ns3:orderLineQuantity>
+      <ns3:statusDate>2019-07-06T17:10:01.000Z</ns3:statusDate>
+      <ns3:orderLineStatuses>
+        <ns3:orderLineStatus>
+          <ns3:status>Acknowledged</ns3:status>
+          <ns3:statusQuantity>
+            <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+            <ns3:amount>1</ns3:amount>
+          </ns3:statusQuantity>
+        </ns3:orderLineStatus>
+      </ns3:orderLineStatuses>
+      <ns3:fulfillment>
+        <ns3:fulfillmentOption>S2H</ns3:fulfillmentOption>
+        <ns3:shipMethod>VALUE</ns3:shipMethod>
+        <ns3:pickUpDateTime>2019-07-12T19:00:00.000Z</ns3:pickUpDateTime>
+      </ns3:fulfillment>
+    </ns3:orderLine>
+  </ns3:orderLines>
+</ns3:order>
+
+POST,/v3/orders/3795554034993/shipping,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:orderShipment
+  xmlns:ns2="http://walmart.com/mp/v3/orders"
+  xmlns:ns3="http://walmart.com/">
+<ns2:orderLines>
+<ns2:orderLine>
+<ns2:lineNumber>1</ns2:lineNumber>
+<ns2:orderLineStatuses>
+<ns2:orderLineStatus>
+<ns2:status>Shipped</ns2:status>
+<ns2:statusQuantity>
+<ns2:unitOfMeasurement>Each</ns2:unitOfMeasurement>
+<ns2:amount>1</ns2:amount>
+</ns2:statusQuantity>
+<ns2:trackingInfo>
+<ns2:shipDateTime>2019-07-08</ns2:shipDateTime>
+<ns2:carrierName>
+<ns2:carrier>DHL</ns2:carrier>
+</ns2:carrierName>
+<ns2:methodCode>Standard</ns2:methodCode>
+<ns2:trackingNumber>3795554034993</ns2:trackingNumber>
+<ns2:trackingURL></ns2:trackingURL>
+</ns2:trackingInfo>
+</ns2:orderLineStatus>
+</ns2:orderLineStatuses>
+</ns2:orderLine>
+</ns2:orderLines>
+</ns2:orderShipment>,
+   
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns8:errors
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns8:error>
+    <ns8:code>INVALID_REQUEST_CONTENT.GMP_ORDER_API</ns8:code>
+    <ns8:field>data</ns8:field>
+    <ns8:description>Unable to process this request. The Line: 1 of PO: 3795554034993 does not exist</ns8:description>
+    <ns8:info>Request content is invalid.</ns8:info>
+    <ns8:severity>ERROR</ns8:severity>
+    <ns8:category>DATA</ns8:category>
+    <ns8:causes/>
+    <ns8:errorIdentifiers/>
+  </ns8:error>
+</ns8:errors>
+
+POST,/v3/orders/3795584664191/shipping,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:orderShipment
+  xmlns:ns2="http://walmart.com/mp/v3/orders"
+  xmlns:ns3="http://walmart.com/">
+<ns2:orderLines>
+<ns2:orderLine>
+<ns2:lineNumber>1</ns2:lineNumber>
+<ns2:orderLineStatuses>
+<ns2:orderLineStatus>
+<ns2:status>Shipped</ns2:status>
+<ns2:statusQuantity>
+<ns2:unitOfMeasurement>Each</ns2:unitOfMeasurement>
+<ns2:amount>1</ns2:amount>
+</ns2:statusQuantity>
+<ns2:trackingInfo>
+<ns2:shipDateTime>2019-07-08</ns2:shipDateTime>
+<ns2:carrierName>
+<ns2:carrier>DHL</ns2:carrier>
+</ns2:carrierName>
+<ns2:methodCode>Standard</ns2:methodCode>
+<ns2:trackingNumber>3795584664191</ns2:trackingNumber>
+<ns2:trackingURL></ns2:trackingURL>
+</ns2:trackingInfo>
+</ns2:orderLineStatus>
+</ns2:orderLineStatuses>
+</ns2:orderLine>
+</ns2:orderLines>
+</ns2:orderShipment>,
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns3:purchaseOrderId>3795584664191</ns3:purchaseOrderId>
+  <ns3:customerOrderId>4591952195486</ns3:customerOrderId>
+  <ns3:customerEmailId>79D70BFEEABA47A0B8DF8E2C24B33400@relay.walmart.com</ns3:customerEmailId>
+  <ns3:orderDate>2019-07-07T17:57:01.000Z</ns3:orderDate>
+  <ns3:shippingInfo>
+    <ns3:phone>9724397405</ns3:phone>
+    <ns3:estimatedDeliveryDate>2019-07-18T19:00:00.000Z</ns3:estimatedDeliveryDate>
+    <ns3:estimatedShipDate>2019-07-10T03:00:00.000Z</ns3:estimatedShipDate>
+    <ns3:methodCode>Value</ns3:methodCode>
+    <ns3:postalAddress>
+      <ns3:name>James Hibdon</ns3:name>
+      <ns3:address1>4990 fm 982</ns3:address1>
+      <ns3:city>Princeton</ns3:city>
+      <ns3:state>TX</ns3:state>
+      <ns3:postalCode>75407</ns3:postalCode>
+      <ns3:country>USA</ns3:country>
+      <ns3:addressType>RESIDENTIAL</ns3:addressType>
+    </ns3:postalAddress>
+  </ns3:shippingInfo>
+  <ns3:orderLines>
+    <ns3:orderLine>
+      <ns3:lineNumber>1</ns3:lineNumber>
+      <ns3:item>
+        <ns3:productName>Asus PN40 Desktop Computer - Intel Celeron N4000 1.1GHz DDR4 SDRAM - Windows 10 Pro - Mini PC - Black</ns3:productName>
+        <ns3:sku>SYN-6077162</ns3:sku>
+      </ns3:item>
+      <ns3:charges>
+        <ns3:charge>
+          <ns3:chargeType>PRODUCT</ns3:chargeType>
+          <ns3:chargeName>ItemPrice</ns3:chargeName>
+          <ns3:chargeAmount>
+            <ns3:currency>USD</ns3:currency>
+            <ns3:amount>185.99</ns3:amount>
+          </ns3:chargeAmount>
+        </ns3:charge>
+      </ns3:charges>
+      <ns3:orderLineQuantity>
+        <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+        <ns3:amount>1</ns3:amount>
+      </ns3:orderLineQuantity>
+      <ns3:statusDate>2019-07-07T18:10:01.000Z</ns3:statusDate>
+      <ns3:orderLineStatuses>
+        <ns3:orderLineStatus>
+          <ns3:status>Acknowledged</ns3:status>
+          <ns3:statusQuantity>
+            <ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement>
+            <ns3:amount>1</ns3:amount>
+          </ns3:statusQuantity>
+        </ns3:orderLineStatus>
+      </ns3:orderLineStatuses>
+      <ns3:fulfillment>
+        <ns3:fulfillmentOption>S2H</ns3:fulfillmentOption>
+        <ns3:shipMethod>VALUE</ns3:shipMethod>
+        <ns3:pickUpDateTime>2019-07-12T19:00:00.000Z</ns3:pickUpDateTime>
+      </ns3:fulfillment>
+    </ns3:orderLine>
+  </ns3:orderLines>
+</ns3:order>
+
+POST,/v3/orders/3795522996260/shipping,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:orderShipment
+  xmlns:ns2="http://walmart.com/mp/v3/orders"
+  xmlns:ns3="http://walmart.com/">
+<ns2:orderLines>
+<ns2:orderLine>
+<ns2:lineNumber>1</ns2:lineNumber>
+<ns2:orderLineStatuses>
+<ns2:orderLineStatus>
+<ns2:status>Shipped</ns2:status>
+<ns2:statusQuantity>
+<ns2:unitOfMeasurement>Each</ns2:unitOfMeasurement>
+<ns2:amount>1</ns2:amount>
+</ns2:statusQuantity>
+<ns2:trackingInfo>
+<ns2:shipDateTime>2019-07-08</ns2:shipDateTime>
+<ns2:carrierName>
+<ns2:carrier>UPS</ns2:carrier>
+</ns2:carrierName>
+<ns2:methodCode>Standard</ns2:methodCode>
+<ns2:trackingNumber>1Z37Y0596869023074</ns2:trackingNumber>
+<ns2:trackingURL>https://wwwapps.ups.com/tracking/tracking.cgi?tracknum=1Z37Y0596869023074</ns2:trackingURL>
+</ns2:trackingInfo>
+</ns2:orderLineStatus>
+</ns2:orderLineStatuses>
+</ns2:orderLine>
+</ns2:orderLines>
+</ns2:orderShipment>,
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns8:errors
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns8:error>
+    <ns8:code>INVALID_REQUEST_CONTENT.GMP_ORDER_API</ns8:code>
+    <ns8:field>data</ns8:field>
+    <ns8:description>Unable to process this request. Trying to Ship shipped Line(s) or The Line: 1  of PO: 3795522996260  doesn't have enough quantity to ship requested quantity :: 1 qtyAvailableToShip :: 0</ns8:description>
+    <ns8:info>Request content is invalid.</ns8:info>
+    <ns8:severity>ERROR</ns8:severity>
+    <ns8:category>DATA</ns8:category>
+    <ns8:causes/>
+    <ns8:errorIdentifiers/>
+  </ns8:error>
+</ns8:errors>
+
+14,2019-07-08 17:56:33,POST,/v3/orders/2795574488327/shipping,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:orderShipment
+  xmlns:ns2="http://walmart.com/mp/v3/orders"
+  xmlns:ns3="http://walmart.com/">
+<ns2:orderLines>
+<ns2:orderLine>
+<ns2:lineNumber>1</ns2:lineNumber>
+<ns2:orderLineStatuses>
+<ns2:orderLineStatus>
+<ns2:status>Shipped</ns2:status>
+<ns2:statusQuantity>
+<ns2:unitOfMeasurement>Each</ns2:unitOfMeasurement>
+<ns2:amount>1</ns2:amount>
+</ns2:statusQuantity>
+<ns2:trackingInfo>
+<ns2:shipDateTime>2019-07-08</ns2:shipDateTime>
+<ns2:carrierName>
+<ns2:carrier>UPS</ns2:carrier>
+</ns2:carrierName>
+<ns2:methodCode>Standard</ns2:methodCode>
+<ns2:trackingNumber>1Z37Y0596868580885</ns2:trackingNumber>
+<ns2:trackingURL>https://wwwapps.ups.com/tracking/tracking.cgi?tracknum=1Z37Y0596868580885</ns2:trackingURL>
+</ns2:trackingInfo>
+</ns2:orderLineStatus>
+</ns2:orderLineStatuses>
+</ns2:orderLine>
+</ns2:orderLines>
+</ns2:orderShipment>,
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns8:errors
+    xmlns:ns2="http://walmart.com/mp/orders"
+    xmlns:ns3="http://walmart.com/mp/v3/orders"
+    xmlns:ns4="com.walmart.services.common.model.money"
+    xmlns:ns5="com.walmart.services.common.model.name"
+    xmlns:ns6="com.walmart.services.common.model.address"
+    xmlns:ns7="com.walmart.services.common.model.address.validation"
+    xmlns:ns8="http://walmart.com/">
+  <ns8:error>
+    <ns8:code>INVALID_REQUEST_CONTENT.GMP_ORDER_API</ns8:code>
+    <ns8:field>data</ns8:field>
+    <ns8:description>Unable to process this request. The Line: 1 of PO: 2795574488327 does not exist</ns8:description>
+    <ns8:info>Request content is invalid.</ns8:info>
+    <ns8:severity>ERROR</ns8:severity>
+    <ns8:category>DATA</ns8:category>
+    <ns8:causes/>
+    <ns8:errorIdentifiers/>
+  </ns8:error>
+</ns8:errors>
+
+23,2019-07-09 09:10:04,POST,/v3/orders/2791915407228/acknowledge,,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order xmlns:ns2="http://walmart.com/mp/orders" xmlns:ns3="http://walmart.com/mp/v3/orders" xmlns:ns4="com.walmart.services.common.model.money" xmlns:ns5="com.walmart.services.common.model.name" xmlns:ns6="com.walmart.services.common.model.address" xmlns:ns7="com.walmart.services.common.model.address.validation" xmlns:ns8="http://walmart.com/"><ns3:purchaseOrderId>2791915407228</ns3:purchaseOrderId><ns3:customerOrderId>4611954046981</ns3:customerOrderId><ns3:customerEmailId>B7C69BAC6E77410091800794C079BCCE@relay.walmart.com</ns3:customerEmailId><ns3:orderDate>2019-07-09T11:46:20.000Z</ns3:orderDate><ns3:shippingInfo><ns3:phone>7705429413</ns3:phone><ns3:estimatedDeliveryDate>2019-07-19T19:00:00.000Z</ns3:estimatedDeliveryDate><ns3:estimatedShipDate>2019-07-11T03:00:00.000Z</ns3:estimatedShipDate><ns3:methodCode>Value</ns3:methodCode><ns3:postalAddress><ns3:name>Charles Wooton</ns3:name><ns3:address1>1187 Composer Lane</ns3:address1><ns3:city>Alpharetta</ns3:city><ns3:state>GA</ns3:state><ns3:postalCode>30022</ns3:postalCode><ns3:country>USA</ns3:country><ns3:addressType>RESIDENTIAL</ns3:addressType></ns3:postalAddress></ns3:shippingInfo><ns3:orderLines><ns3:orderLine><ns3:lineNumber>2</ns3:lineNumber><ns3:item><ns3:productName>Hasbro Jenga Classic</ns3:productName><ns3:sku>ING-5668DH</ns3:sku></ns3:item><ns3:charges><ns3:charge><ns3:chargeType>PRODUCT</ns3:chargeType><ns3:chargeName>ItemPrice</ns3:chargeName><ns3:chargeAmount><ns3:currency>USD</ns3:currency><ns3:amount>24.24</ns3:amount></ns3:chargeAmount></ns3:charge></ns3:charges><ns3:orderLineQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:orderLineQuantity><ns3:statusDate>2019-07-09T11:47:45.000Z</ns3:statusDate><ns3:orderLineStatuses><ns3:orderLineStatus><ns3:status>Created</ns3:status><ns3:statusQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:statusQuantity></ns3:orderLineStatus></ns3:orderLineStatuses><ns3:fulfillment><ns3:fulfillmentOption>S2H</ns3:fulfillmentOption><ns3:shipMethod>VALUE</ns3:shipMethod><ns3:pickUpDateTime>2019-07-15T19:00:00.000Z</ns3:pickUpDateTime></ns3:fulfillment></ns3:orderLine></ns3:orderLines></ns3:order>
+
+24,2019-07-09 09:10:05,POST,/v3/orders/2791915172283/acknowledge,,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order xmlns:ns2="http://walmart.com/mp/orders" xmlns:ns3="http://walmart.com/mp/v3/orders" xmlns:ns4="com.walmart.services.common.model.money" xmlns:ns5="com.walmart.services.common.model.name" xmlns:ns6="com.walmart.services.common.model.address" xmlns:ns7="com.walmart.services.common.model.address.validation" xmlns:ns8="http://walmart.com/"><ns3:purchaseOrderId>2791915172283</ns3:purchaseOrderId><ns3:customerOrderId>4611953494015</ns3:customerOrderId><ns3:customerEmailId>77E57BD9D8A845938F511243684F668F@relay.walmart.com</ns3:customerEmailId><ns3:orderDate>2019-07-09T06:13:08.000Z</ns3:orderDate><ns3:shippingInfo><ns3:phone>2035058209</ns3:phone><ns3:estimatedDeliveryDate>2019-07-19T19:00:00.000Z</ns3:estimatedDeliveryDate><ns3:estimatedShipDate>2019-07-11T03:00:00.000Z</ns3:estimatedShipDate><ns3:methodCode>Value</ns3:methodCode><ns3:postalAddress><ns3:name>Bridget Higgins</ns3:name><ns3:address1>440 Stevens Ave</ns3:address1><ns3:address2>Suite 260</ns3:address2><ns3:city>Solana Beach</ns3:city><ns3:state>CA</ns3:state><ns3:postalCode>92075</ns3:postalCode><ns3:country>USA</ns3:country><ns3:addressType>OFFICE</ns3:addressType></ns3:postalAddress></ns3:shippingInfo><ns3:orderLines><ns3:orderLine><ns3:lineNumber>1</ns3:lineNumber><ns3:item><ns3:productName>Monopoly Game Star Wars 40th Anniversary Edition</ns3:productName><ns3:sku>ING-5764DH</ns3:sku></ns3:item><ns3:charges><ns3:charge><ns3:chargeType>PRODUCT</ns3:chargeType><ns3:chargeName>ItemPrice</ns3:chargeName><ns3:chargeAmount><ns3:currency>USD</ns3:currency><ns3:amount>57.53</ns3:amount></ns3:chargeAmount></ns3:charge></ns3:charges><ns3:orderLineQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:orderLineQuantity><ns3:statusDate>2019-07-09T06:14:32.000Z</ns3:statusDate><ns3:orderLineStatuses><ns3:orderLineStatus><ns3:status>Created</ns3:status><ns3:statusQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:statusQuantity></ns3:orderLineStatus></ns3:orderLineStatuses><ns3:fulfillment><ns3:fulfillmentOption>S2H</ns3:fulfillmentOption><ns3:shipMethod>VALUE</ns3:shipMethod><ns3:pickUpDateTime>2019-07-15T19:00:00.000Z</ns3:pickUpDateTime></ns3:fulfillment></ns3:orderLine></ns3:orderLines></ns3:order>
+
+25,2019-07-09 09:10:06,POST,/v3/orders/3795605141707/acknowledge,,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order xmlns:ns2="http://walmart.com/mp/orders" xmlns:ns3="http://walmart.com/mp/v3/orders" xmlns:ns4="com.walmart.services.common.model.money" xmlns:ns5="com.walmart.services.common.model.name" xmlns:ns6="com.walmart.services.common.model.address" xmlns:ns7="com.walmart.services.common.model.address.validation" xmlns:ns8="http://walmart.com/"><ns3:purchaseOrderId>3795605141707</ns3:purchaseOrderId><ns3:customerOrderId>4611953185400</ns3:customerOrderId><ns3:customerEmailId>0811BF317CDB43BDB00D58A6FF33CFC4@relay.walmart.com</ns3:customerEmailId><ns3:orderDate>2019-07-09T06:06:17.000Z</ns3:orderDate><ns3:shippingInfo><ns3:phone>9792567784</ns3:phone><ns3:estimatedDeliveryDate>2019-07-19T19:00:00.000Z</ns3:estimatedDeliveryDate><ns3:estimatedShipDate>2019-07-11T03:00:00.000Z</ns3:estimatedShipDate><ns3:methodCode>Value</ns3:methodCode><ns3:postalAddress><ns3:name>Erica Sanchez</ns3:name><ns3:address1>6542 odom dr</ns3:address1><ns3:city>Sealy</ns3:city><ns3:state>TX</ns3:state><ns3:postalCode>77474</ns3:postalCode><ns3:country>USA</ns3:country><ns3:addressType>RESIDENTIAL</ns3:addressType></ns3:postalAddress></ns3:shippingInfo><ns3:orderLines><ns3:orderLine><ns3:lineNumber>1</ns3:lineNumber><ns3:item><ns3:productName>MOTO STYLE SHELL WASHED OAK WOOD FOR MOTO MOD DEVICES</ns3:productName><ns3:sku>ING-4239CK</ns3:sku></ns3:item><ns3:charges><ns3:charge><ns3:chargeType>PRODUCT</ns3:chargeType><ns3:chargeName>ItemPrice</ns3:chargeName><ns3:chargeAmount><ns3:currency>USD</ns3:currency><ns3:amount>43.43</ns3:amount></ns3:chargeAmount></ns3:charge></ns3:charges><ns3:orderLineQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:orderLineQuantity><ns3:statusDate>2019-07-09T06:07:39.000Z</ns3:statusDate><ns3:orderLineStatuses><ns3:orderLineStatus><ns3:status>Created</ns3:status><ns3:statusQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:statusQuantity></ns3:orderLineStatus></ns3:orderLineStatuses><ns3:fulfillment><ns3:fulfillmentOption>S2H</ns3:fulfillmentOption><ns3:shipMethod>VALUE</ns3:shipMethod><ns3:pickUpDateTime>2019-07-15T19:00:00.000Z</ns3:pickUpDateTime></ns3:fulfillment></ns3:orderLine></ns3:orderLines></ns3:order>
+
+26,2019-07-09 09:10:07,POST,/v3/orders/3791915140889/acknowledge,,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:order xmlns:ns2="http://walmart.com/mp/orders" xmlns:ns3="http://walmart.com/mp/v3/orders" xmlns:ns4="com.walmart.services.common.model.money" xmlns:ns5="com.walmart.services.common.model.name" xmlns:ns6="com.walmart.services.common.model.address" xmlns:ns7="com.walmart.services.common.model.address.validation" xmlns:ns8="http://walmart.com/"><ns3:purchaseOrderId>3791915140889</ns3:purchaseOrderId><ns3:customerOrderId>4611953788553</ns3:customerOrderId><ns3:customerEmailId>254A78CC13FC4DB3A8878477CCDE5575@relay.walmart.com</ns3:customerEmailId><ns3:orderDate>2019-07-09T02:53:35.000Z</ns3:orderDate><ns3:shippingInfo><ns3:phone>4407737733</ns3:phone><ns3:estimatedDeliveryDate>2019-07-19T19:00:00.000Z</ns3:estimatedDeliveryDate><ns3:estimatedShipDate>2019-07-11T03:00:00.000Z</ns3:estimatedShipDate><ns3:methodCode>Value</ns3:methodCode><ns3:postalAddress><ns3:name>Don Jones</ns3:name><ns3:address1>6860 Amherst Dr</ns3:address1><ns3:address2>Apt 2006</ns3:address2><ns3:city>Northfield</ns3:city><ns3:state>OH</ns3:state><ns3:postalCode>44067</ns3:postalCode><ns3:country>USA</ns3:country><ns3:addressType>RESIDENTIAL</ns3:addressType></ns3:postalAddress></ns3:shippingInfo><ns3:orderLines><ns3:orderLine><ns3:lineNumber>1</ns3:lineNumber><ns3:item><ns3:productName>Microsoft Surface Adapter HVU-00001 Surface USB-C Adapter</ns3:productName><ns3:sku>TD-0U2387</ns3:sku></ns3:item><ns3:charges><ns3:charge><ns3:chargeType>PRODUCT</ns3:chargeType><ns3:chargeName>ItemPrice</ns3:chargeName><ns3:chargeAmount><ns3:currency>USD</ns3:currency><ns3:amount>77.77</ns3:amount></ns3:chargeAmount></ns3:charge></ns3:charges><ns3:orderLineQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:orderLineQuantity><ns3:statusDate>2019-07-09T02:55:00.000Z</ns3:statusDate><ns3:orderLineStatuses><ns3:orderLineStatus><ns3:status>Created</ns3:status><ns3:statusQuantity><ns3:unitOfMeasurement>EACH</ns3:unitOfMeasurement><ns3:amount>1</ns3:amount></ns3:statusQuantity></ns3:orderLineStatus></ns3:orderLineStatuses><ns3:fulfillment><ns3:fulfillmentOption>S2H</ns3:fulfillmentOption><ns3:shipMethod>VALUE</ns3:shipMethod><ns3:pickUpDateTime>2019-07-15T19:00:00.000Z</ns3:pickUpDateTime></ns3:fulfillment></ns3:orderLine></ns3:orderLines></ns3:order>
+
+14:10:05 [ERROR] POST https://marketplace.walmartapis.com/v3/orders/1795667470786/acknowledge
+14:10:05 [ERROR] 520 Unknown
+14:10:05 [ERROR] <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns8:errors xmlns:ns2="http://walmart.com/mp/orders" xmlns:ns3="http://walmart.com/mp/v3/orders" xmlns:ns4="com.walmart.services.common.model.money" xmlns:ns5="com.walmart.services.common.model.name" xmlns:ns6="com.walmart.services.common.model.address" xmlns:ns7="com.walmart.services.common.model.address.validation" xmlns:ns8="http://walmart.com/"><ns8:error><ns8:code>SYSTEM_ERROR.GMP_ORDER_API</ns8:code><ns8:field>system</ns8:field><ns8:description>Internal System Error</ns8:description><ns8:info>System encountered some internal error.</ns8:info><ns8:severity>ERROR</ns8:severity><ns8:category>SYSTEM</ns8:category><ns8:causes/><ns8:errorIdentifiers/></ns8:error></ns8:errors>
+

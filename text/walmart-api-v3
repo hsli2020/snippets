@@ -1,0 +1,58 @@
+Walmart API v3
+==============
+
+## Feeds
+GET /v3/feeds/{feedId}?includeDetails={includeDetails}&limit={limit}&offset={offset}
+GET /v3/feeds?feedId={feedId}&limit={limit}&offset={offset}
+GET /v3/feeds/{feedId}?includeDetails={includeDetails}&limit={limit}&offset={offset}
+
+## Items
+POST /v3/feeds?feedType=item
+POST /v3/feeds?feedType=item&setupType=byMatch
+GET  /v3/items?nextCursor=*&sku={SKU}&offset=2000&limit=20
+GET  /v3/items/{SKU}
+DELETE /v3/items/{SKU}
+
+## Prices
+PUT  /v3/price
+POST /v3/feeds?feedType=price
+POST /v3/feeds?feedType=CPT_SELLER_ELIGIBILITY
+POST /v3/cppreference
+
+## Promotions
+GET  /v3/promo/sku/{sku}
+PUT  /v3/price?promo=true
+POST /v3/feeds?feedType=promo
+
+## Orders
+GET  /v3/orders/released?createdStartDate={createdStartDate}&limit={limit}
+GET  /v3/orders?sku={sku}&customerOrderId={customerOrderId}&purchaseOrderId={purchaseOrderId}
+               &status={status}&createdStartDate={createdStartDate}&createdEndDate={createdEndDate}
+               &fromExpectedShipDate={fromExpectedShipDate}&toExpectedShipDate={toExpectedShipDate}
+               &limit={limit}
+GET  /v3/orders/{purchaseOrderId}
+POST /v3/orders/{purchaseOrderId}/acknowledge
+POST /v3/orders/{purchaseOrderId}/cancel
+POST /v3/orders/{purchaseOrderId}/refund
+POST /v3/orders/{purchaseOrderId}/shipping
+
+## Returns/Refunds
+GET  /v3/returns
+POST /v3/feeds?feedType=RETURNS_OVERRIDES
+POST /v3/returns/{returnOrderId}/refund
+
+## Inventory
+GET  /v3/inventory?sku={sku}
+PUT  /v3/inventory?sku={sku}
+POST /v3/feeds?feedType=inventory
+
+## Lag Time
+GET  /v3/lagtime?sku={SKU}
+POST /v3/feeds?feedType=lagtime
+
+## Reports
+GET /v3/getReport?type={type}
+GET /v3/getReport?type=buybox
+GET /v3/getReport?type=cpa
+GET /v3/report/reconreport/availableReconFiles
+GET /v3/report/reconreport/reconFile?reportDate={reportDate}
