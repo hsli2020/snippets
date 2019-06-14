@@ -1,0 +1,1268 @@
+package article
+
+import (
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+)
+
+type Store interface {
+	GetBySlug(string) (*model.Article, error)
+	GetUserArticleBySlug(userID uint, slug string) (*model.Article, error)
+	CreateArticle(*model.Article) error
+	UpdateArticle(*model.Article, []string) error
+	DeleteArticle(*model.Article) error
+	List(offset, limit int) ([]model.Article, int, error)
+	ListByTag(tag string, offset, limit int) ([]model.Article, int, error)
+	ListByAuthor(username string, offset, limit int) ([]model.Article, int, error)
+	ListByWhoFavorited(username string, offset, limit int) ([]model.Article, int, error)
+	ListFeed(userID uint, offset, limit int) ([]model.Article, int, error)
+
+	AddComment(*model.Article, *model.Comment) error
+	GetCommentsBySlug(string) ([]model.Comment, error)
+	GetCommentByID(uint) (*model.Comment, error)
+	DeleteComment(*model.Comment) error
+
+	AddFavorite(*model.Article, uint) error
+	RemoveFavorite(*model.Article, uint) error
+	ListTags() ([]model.Tag, error)
+}
+
+package user
+
+import (
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+)
+
+type Store interface {
+	GetByID(uint) (*model.User, error)
+	GetByEmail(string) (*model.User, error)
+	GetByUsername(string) (*model.User, error)
+	Create(*model.User) error
+	Update(*model.User) error
+	AddFollower(user *model.User, followerID uint) error
+	RemoveFollower(user *model.User, followerID uint) error
+	IsFollower(userID, followerID uint) (bool, error)
+}
+
+package db
+
+import (
+	"fmt"
+	"os"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+)
+
+func New() *gorm.DB {
+	db, err := gorm.Open("sqlite3", "./realworld.db")
+	if err != nil {
+		fmt.Println("storage err: ", err)
+	}
+	db.DB().SetMaxIdleConns(3)
+	db.LogMode(true)
+	return db
+}
+
+func TestDB() *gorm.DB {
+	db, err := gorm.Open("sqlite3", "./../realworld_test.db")
+	if err != nil {
+		fmt.Println("storage err: ", err)
+	}
+	db.DB().SetMaxIdleConns(3)
+	db.LogMode(false)
+	return db
+}
+
+func DropTestDB() error {
+	if err := os.Remove("./../realworld_test.db"); err != nil {
+		return err
+	}
+	return nil
+}
+
+//TODO: err check
+func AutoMigrate(db *gorm.DB) {
+	db.AutoMigrate(
+		&model.User{},
+		&model.Follow{},
+		&model.Article{},
+		&model.Comment{},
+		&model.Tag{},
+	)
+}
+
+package model
+
+import (
+	"github.com/jinzhu/gorm"
+)
+
+type Article struct {
+	gorm.Model
+	Slug        string `gorm:"unique_index;not null"`
+	Title       string `gorm:"not null"`
+	Description string
+	Body        string
+	Author      User
+	AuthorID    uint
+	Comments    []Comment
+	Favorites   []User `gorm:"many2many:favorites;"`
+	Tags        []Tag  `gorm:"many2many:article_tags;association_autocreate:false"`
+}
+
+type Comment struct {
+	gorm.Model
+	Article   Article
+	ArticleID uint
+	User      User
+	UserID    uint
+	Body      string
+}
+
+type Tag struct {
+	gorm.Model
+	Tag      string    `gorm:"unique_index"`
+	Articles []Article `gorm:"many2many:article_tags;"`
+}
+
+package model
+
+import (
+	"errors"
+	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
+)
+
+type User struct {
+	gorm.Model
+	Username   string `gorm:"unique_index;not null"`
+	Email      string `gorm:"unique_index;not null"`
+	Password   string `gorm:"not null"`
+	Bio        *string
+	Image      *string
+	Followers  []Follow  `gorm:"foreignkey:FollowingID"`
+	Followings []Follow  `gorm:"foreignkey:FollowerID"`
+	Favorites  []Article `gorm:"many2many:favorites;"`
+}
+
+type Follow struct {
+	Follower    User
+	FollowerID  uint `gorm:"primary_key" sql:"type:int not null"`
+	Following   User
+	FollowingID uint `gorm:"primary_key" sql:"type:int not null"`
+}
+
+func (u *User) HashPassword(plain string) (string, error) {
+	if len(plain) == 0 {
+		return "", errors.New("password should not be empty")
+	}
+	h, err := bcrypt.GenerateFromPassword([]byte(plain), bcrypt.DefaultCost)
+	return string(h), err
+}
+
+func (u *User) CheckPassword(plain string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(plain))
+	return err == nil
+}
+
+// FollowedBy Followings should be pre loaded
+func (u *User) FollowedBy(id uint) bool {
+	if u.Followers == nil {
+		return false
+	}
+	for _, f := range u.Followers {
+		if f.FollowerID == id {
+			return true
+		}
+	}
+	return false
+}
+
+package store
+
+import (
+	"github.com/jinzhu/gorm"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+)
+
+type ArticleStore struct {
+	db *gorm.DB
+}
+
+func NewArticleStore(db *gorm.DB) *ArticleStore {
+	return &ArticleStore{
+		db: db,
+	}
+}
+
+func (as *ArticleStore) GetBySlug(s string) (*model.Article, error) {
+	var m model.Article
+	err := as.db.Where(&model.Article{Slug: s}).Preload("Favorites").Preload("Tags").Preload("Author").Find(&m).Error
+	if err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &m, err
+}
+
+func (as *ArticleStore) GetUserArticleBySlug(userID uint, slug string) (*model.Article, error) {
+	var m model.Article
+	err := as.db.Where(&model.Article{Slug: slug, AuthorID: userID}).Find(&m).Error
+	if err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &m, err
+}
+
+func (as *ArticleStore) CreateArticle(a *model.Article) error {
+	tags := a.Tags
+	tx := as.db.Begin()
+	if err := tx.Create(&a).Error; err != nil {
+		return err
+	}
+	for _, t := range a.Tags {
+		err := tx.Where(&model.Tag{Tag: t.Tag}).First(&t).Error
+		if err != nil && !gorm.IsRecordNotFoundError(err) {
+			tx.Rollback()
+			return err
+		}
+		if err := tx.Model(&a).Association("Tags").Append(t).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+	if err := tx.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(&a).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	a.Tags = tags
+	return tx.Commit().Error
+}
+
+func (as *ArticleStore) UpdateArticle(a *model.Article, tagList []string) error {
+	tx := as.db.Begin()
+	if err := tx.Model(a).Update(a).Error; err != nil {
+		return err
+	}
+	tags := make([]model.Tag, 0)
+	for _, t := range tagList {
+		tag := model.Tag{Tag: t}
+		err := tx.Where(&tag).First(&tag).Error
+		if err != nil && !gorm.IsRecordNotFoundError(err) {
+			tx.Rollback()
+			return err
+		}
+		tags = append(tags, tag)
+	}
+	if err := tx.Model(a).Association("Tags").Replace(tags).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	if err := tx.Where(a.ID).Preload("Favorites").Preload("Tags").Preload("Author").Find(a).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (as *ArticleStore) DeleteArticle(a *model.Article) error {
+	return as.db.Delete(a).Error
+}
+
+func (as *ArticleStore) List(offset, limit int) ([]model.Article, int, error) {
+	var (
+		articles []model.Article
+		count    int
+	)
+	as.db.Model(&articles).Count(&count)
+	as.db.Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Order("created_at desc").Find(&articles)
+	return articles, count, nil
+}
+
+func (as *ArticleStore) ListByTag(tag string, offset, limit int) ([]model.Article, int, error) {
+	var (
+		t        model.Tag
+		articles []model.Article
+		count    int
+	)
+	err := as.db.Where(&model.Tag{Tag: tag}).First(&t).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	as.db.Model(&t).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Order("created_at desc").Association("Articles").Find(&articles)
+	count = as.db.Model(&t).Association("Articles").Count()
+	return articles, count, nil
+}
+
+func (as *ArticleStore) ListByAuthor(username string, offset, limit int) ([]model.Article, int, error) {
+	var (
+		u        model.User
+		articles []model.Article
+		count    int
+	)
+	err := as.db.Where(&model.User{Username: username}).First(&u).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	as.db.Where(&model.Article{AuthorID: u.ID}).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Order("created_at desc").Find(&articles)
+	as.db.Where(&model.Article{AuthorID: u.ID}).Model(&model.Article{}).Count(&count)
+
+	return articles, count, nil
+}
+
+func (as *ArticleStore) ListByWhoFavorited(username string, offset, limit int) ([]model.Article, int, error) {
+	var (
+		u        model.User
+		articles []model.Article
+		count    int
+	)
+	err := as.db.Where(&model.User{Username: username}).First(&u).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	as.db.Model(&u).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Order("created_at desc").Association("Favorites").Find(&articles)
+	count = as.db.Model(&u).Association("Favorites").Count()
+	return articles, count, nil
+}
+
+func (as *ArticleStore) ListFeed(userID uint, offset, limit int) ([]model.Article, int, error) {
+	var (
+		u        model.User
+		articles []model.Article
+		count    int
+	)
+	err := as.db.First(&u, userID).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	var followings []model.Follow
+	as.db.Model(&u).Preload("Following").Preload("Follower").Association("Followings").Find(&followings)
+	var ids []uint
+	for _, i := range followings {
+		ids = append(ids, i.FollowingID)
+	}
+	as.db.Where("author_id in (?)", ids).Preload("Favorites").Preload("Tags").Preload("Author").Offset(offset).Limit(limit).Order("created_at desc").Find(&articles)
+	as.db.Where(&model.Article{AuthorID: u.ID}).Model(&model.Article{}).Count(&count)
+	return articles, count, nil
+}
+
+func (as *ArticleStore) AddComment(a *model.Article, c *model.Comment) error {
+	err := as.db.Model(a).Association("Comments").Append(c).Error
+	if err != nil {
+		return err
+	}
+	return as.db.Where(c.ID).Preload("User").First(c).Error
+}
+
+func (as *ArticleStore) GetCommentsBySlug(slug string) ([]model.Comment, error) {
+	var m model.Article
+	if err := as.db.Where(&model.Article{Slug: slug}).Preload("Comments").Preload("Comments.User").First(&m).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return m.Comments, nil
+}
+
+func (as *ArticleStore) GetCommentByID(id uint) (*model.Comment, error) {
+	var m model.Comment
+	if err := as.db.Where(id).First(&m).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &m, nil
+}
+
+func (as *ArticleStore) DeleteComment(c *model.Comment) error {
+	return as.db.Delete(c).Error
+}
+
+func (as *ArticleStore) AddFavorite(a *model.Article, userID uint) error {
+	usr := model.User{}
+	usr.ID = userID
+	return as.db.Model(a).Association("Favorites").Append(&usr).Error
+}
+
+func (as *ArticleStore) RemoveFavorite(a *model.Article, userID uint) error {
+	usr := model.User{}
+	usr.ID = userID
+	return as.db.Model(a).Association("Favorites").Delete(&usr).Error
+}
+
+func (as *ArticleStore) ListTags() ([]model.Tag, error) {
+	var tags []model.Tag
+	if err := as.db.Find(&tags).Error; err != nil {
+		return nil, err
+	}
+	return tags, nil
+}
+
+package store
+
+import (
+	"github.com/jinzhu/gorm"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+)
+
+type UserStore struct {
+	db *gorm.DB
+}
+
+func NewUserStore(db *gorm.DB) *UserStore {
+	return &UserStore{
+		db: db,
+	}
+}
+
+func (us *UserStore) GetByID(id uint) (*model.User, error) {
+	var m model.User
+	if err := us.db.First(&m, id).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &m, nil
+}
+
+func (us *UserStore) GetByEmail(e string) (*model.User, error) {
+	var m model.User
+	if err := us.db.Where(&model.User{Email: e}).First(&m).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &m, nil
+}
+
+func (us *UserStore) GetByUsername(username string) (*model.User, error) {
+	var m model.User
+	if err := us.db.Where(&model.User{Username: username}).Preload("Followers").First(&m).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &m, nil
+}
+
+func (us *UserStore) Create(u *model.User) (err error) {
+	return us.db.Create(u).Error
+}
+
+func (us *UserStore) Update(u *model.User) error {
+	return us.db.Model(u).Update(u).Error
+}
+
+func (us *UserStore) AddFollower(u *model.User, followerID uint) error {
+	return us.db.Model(u).Association("Followers").Append(&model.Follow{FollowerID: followerID, FollowingID: u.ID}).Error
+}
+
+func (us *UserStore) RemoveFollower(u *model.User, followerID uint) error {
+	f := model.Follow{
+		FollowerID:  followerID,
+		FollowingID: u.ID,
+	}
+	if err := us.db.Model(u).Association("Followers").Find(&f).Error; err != nil {
+		return err
+	}
+	if err := us.db.Delete(f).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (us *UserStore) IsFollower(userID, followerID uint) (bool, error) {
+	var f model.Follow
+	if err := us.db.Where("following_id = ? AND follower_id = ?", userID, followerID).Find(&f).Error; err != nil {
+		if gorm.IsRecordNotFoundError(err) {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
+package handler
+
+import (
+	"github.com/xesina/golang-echo-realworld-example-app/article"
+	"github.com/xesina/golang-echo-realworld-example-app/user"
+)
+
+type Handler struct {
+	userStore    user.Store
+	articleStore article.Store
+}
+
+func NewHandler(us user.Store, as article.Store) *Handler {
+	return &Handler{
+		userStore:    us,
+		articleStore: as,
+	}
+}
+
+package handler
+
+import (
+	"errors"
+	"net/http"
+	"strconv"
+	"github.com/labstack/echo/v4"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
+)
+
+func (h *Handler) GetArticle(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetBySlug(slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
+}
+
+func (h *Handler) Articles(c echo.Context) error {
+	tag := c.QueryParam("tag")
+	author := c.QueryParam("author")
+	favoritedBy := c.QueryParam("favorited")
+	offset, err := strconv.Atoi(c.QueryParam("offset"))
+	if err != nil {
+		offset = 0
+	}
+	limit, err := strconv.Atoi(c.QueryParam("limit"))
+	if err != nil {
+		limit = 20
+	}
+	var articles []model.Article
+	var count int
+	if tag != "" {
+		articles, count, err = h.articleStore.ListByTag(tag, offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+	} else if author != "" {
+		articles, count, err = h.articleStore.ListByAuthor(author, offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+	} else if favoritedBy != "" {
+		articles, count, err = h.articleStore.ListByWhoFavorited(favoritedBy, offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+	} else {
+		articles, count, err = h.articleStore.List(offset, limit)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+	}
+	return c.JSON(http.StatusOK, newArticleListResponse(h.userStore, userIDFromToken(c), articles, count))
+}
+
+func (h *Handler) Feed(c echo.Context) error {
+	var articles []model.Article
+	var count int
+	offset, err := strconv.Atoi(c.QueryParam("offset"))
+	if err != nil {
+		offset = 0
+	}
+	limit, err := strconv.Atoi(c.QueryParam("limit"))
+	if err != nil {
+		limit = 20
+	}
+	articles, count, err = h.articleStore.ListFeed(userIDFromToken(c), offset, limit)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+	return c.JSON(http.StatusOK, newArticleListResponse(h.userStore, userIDFromToken(c), articles, count))
+}
+
+func (h *Handler) CreateArticle(c echo.Context) error {
+	var a model.Article
+	req := &articleCreateRequest{}
+	if err := req.bind(c, &a); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	a.AuthorID = userIDFromToken(c)
+	err := h.articleStore.CreateArticle(&a)
+	if err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+
+	return c.JSON(http.StatusCreated, newArticleResponse(c, &a))
+}
+
+func (h *Handler) UpdateArticle(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetUserArticleBySlug(userIDFromToken(c), slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	req := &articleUpdateRequest{}
+	req.populate(a)
+	if err := req.bind(c, a); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	if err = h.articleStore.UpdateArticle(a, req.Article.Tags); err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
+}
+
+func (h *Handler) DeleteArticle(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetUserArticleBySlug(userIDFromToken(c), slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	err = h.articleStore.DeleteArticle(a)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
+}
+
+func (h *Handler) AddComment(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetBySlug(slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	var cm model.Comment
+	req := &createCommentRequest{}
+	if err := req.bind(c, &cm); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	if err = h.articleStore.AddComment(a, &cm); err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	return c.JSON(http.StatusCreated, newCommentResponse(c, &cm))
+}
+
+func (h *Handler) GetComments(c echo.Context) error {
+	slug := c.Param("slug")
+	cm, err := h.articleStore.GetCommentsBySlug(slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newCommentListResponse(c, cm))
+}
+
+func (h *Handler) DeleteComment(c echo.Context) error {
+	id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	id := uint(id64)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, utils.NewError(err))
+	}
+	cm, err := h.articleStore.GetCommentByID(id)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if cm == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if cm.UserID != userIDFromToken(c) {
+		return c.JSON(http.StatusUnauthorized, utils.NewError(errors.New("unauthorized action")))
+	}
+	if err := h.articleStore.DeleteComment(cm); err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{"result": "ok"})
+}
+
+func (h *Handler) Favorite(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetBySlug(slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.articleStore.AddFavorite(a, userIDFromToken(c)); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
+}
+
+func (h *Handler) Unfavorite(c echo.Context) error {
+	slug := c.Param("slug")
+	a, err := h.articleStore.GetBySlug(slug)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if a == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.articleStore.RemoveFavorite(a, userIDFromToken(c)); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newArticleResponse(c, a))
+}
+
+func (h *Handler) Tags(c echo.Context) error {
+	tags, err := h.articleStore.ListTags()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	return c.JSON(http.StatusOK, newTagListResponse(tags))
+}
+
+package handler
+
+import (
+	"net/http"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
+	"github.com/labstack/echo/v4"
+)
+
+func (h *Handler) SignUp(c echo.Context) error {
+	var u model.User
+	req := &userRegisterRequest{}
+	if err := req.bind(c, &u); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	if err := h.userStore.Create(&u); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	return c.JSON(http.StatusCreated, newUserResponse(&u))
+}
+
+func (h *Handler) Login(c echo.Context) error {
+	req := &userLoginRequest{}
+	if err := req.bind(c); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	u, err := h.userStore.GetByEmail(req.User.Email)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
+	}
+	if !u.CheckPassword(req.User.Password) {
+		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
+	}
+	return c.JSON(http.StatusOK, newUserResponse(u))
+}
+
+func (h *Handler) CurrentUser(c echo.Context) error {
+	u, err := h.userStore.GetByID(userIDFromToken(c))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	return c.JSON(http.StatusOK, newUserResponse(u))
+}
+
+func (h *Handler) UpdateUser(c echo.Context) error {
+	u, err := h.userStore.GetByID(userIDFromToken(c))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	req := newUserUpdateRequest()
+	req.populate(u)
+	if err := req.bind(c, u); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	if err := h.userStore.Update(u); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newUserResponse(u))
+}
+
+func (h *Handler) GetProfile(c echo.Context) error {
+	username := c.Param("username")
+	u, err := h.userStore.GetByUsername(username)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	return c.JSON(http.StatusOK, newProfileResponse(h.userStore, userIDFromToken(c), u))
+}
+
+func (h *Handler) Follow(c echo.Context) error {
+	followerID := userIDFromToken(c)
+	username := c.Param("username")
+	u, err := h.userStore.GetByUsername(username)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.userStore.AddFollower(u, followerID); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newProfileResponse(h.userStore, userIDFromToken(c), u))
+}
+func (h *Handler) Unfollow(c echo.Context) error {
+	followerID := userIDFromToken(c)
+	username := c.Param("username")
+	u, err := h.userStore.GetByUsername(username)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusNotFound, utils.NotFound())
+	}
+	if err := h.userStore.RemoveFollower(u, followerID); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	return c.JSON(http.StatusOK, newProfileResponse(h.userStore, userIDFromToken(c), u))
+}
+func userIDFromToken(c echo.Context) uint {
+	id, ok := c.Get("user").(uint)
+	if !ok {
+		return 0
+	}
+	return id
+}
+
+package handler
+
+import (
+	"github.com/labstack/echo/v4"
+	"github.com/xesina/golang-echo-realworld-example-app/router/middleware"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
+)
+
+func (h *Handler) Register(v1 *echo.Group) {
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	guestUsers := v1.Group("/users")
+	guestUsers.POST("", h.SignUp)
+	guestUsers.POST("/login", h.Login)
+
+	user := v1.Group("/user", jwtMiddleware)
+	user.GET("", h.CurrentUser)
+	user.PUT("", h.UpdateUser)
+
+	profiles := v1.Group("/profiles", jwtMiddleware)
+	profiles.GET("/:username", h.GetProfile)
+	profiles.POST("/:username/follow", h.Follow)
+	profiles.DELETE("/:username/follow", h.Unfollow)
+
+	articles := v1.Group("/articles", middleware.JWTWithConfig(
+		middleware.JWTConfig{
+			Skipper: func(c echo.Context) bool {
+				if c.Request().Method == "GET" && c.Path() != "/api/articles/feed" {
+					return true
+				}
+				return false
+			},
+			SigningKey: utils.JWTSecret,
+		},
+	))
+	articles.POST("", h.CreateArticle)
+	articles.GET("/feed", h.Feed)
+	articles.PUT("/:slug", h.UpdateArticle)
+	articles.DELETE("/:slug", h.DeleteArticle)
+	articles.POST("/:slug/comments", h.AddComment)
+	articles.DELETE("/:slug/comments/:id", h.DeleteComment)
+	articles.POST("/:slug/favorite", h.Favorite)
+	articles.DELETE("/:slug/favorite", h.Unfavorite)
+	articles.GET("", h.Articles)
+	articles.GET("/:slug", h.GetArticle)
+	articles.GET("/:slug/comments", h.GetComments)
+
+	tags := v1.Group("/tags")
+	tags.GET("", h.Tags)
+}
+
+package handler
+
+import (
+	"time"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+	"github.com/xesina/golang-echo-realworld-example-app/user"
+	"github.com/xesina/golang-echo-realworld-example-app/utils"
+	"github.com/labstack/echo/v4"
+)
+
+type userResponse struct {
+	User struct {
+		Username string  `json:"username"`
+		Email    string  `json:"email"`
+		Bio      *string `json:"bio"`
+		Image    *string `json:"image"`
+		Token    string  `json:"token"`
+	} `json:"user"`
+}
+
+func newUserResponse(u *model.User) *userResponse {
+	r := new(userResponse)
+	r.User.Username = u.Username
+	r.User.Email = u.Email
+	r.User.Bio = u.Bio
+	r.User.Image = u.Image
+	r.User.Token = utils.GenerateJWT(u.ID)
+	return r
+}
+
+type profileResponse struct {
+	Profile struct {
+		Username  string  `json:"username"`
+		Bio       *string `json:"bio"`
+		Image     *string `json:"image"`
+		Following bool    `json:"following"`
+	} `json:"profile"`
+}
+
+func newProfileResponse(us user.Store, userID uint, u *model.User) *profileResponse {
+	r := new(profileResponse)
+	r.Profile.Username = u.Username
+	r.Profile.Bio = u.Bio
+	r.Profile.Image = u.Image
+	r.Profile.Following, _ = us.IsFollower(u.ID, userID)
+	return r
+}
+
+type articleResponse struct {
+	Slug           string    `json:"slug"`
+	Title          string    `json:"title"`
+	Description    string    `json:"description"`
+	Body           string    `json:"body"`
+	TagList        []string  `json:"tagList"`
+	CreatedAt      time.Time `json:"createdAt"`
+	UpdatedAt      time.Time `json:"updatedAt"`
+	Favorited      bool      `json:"favorited"`
+	FavoritesCount int       `json:"favoritesCount"`
+	Author         struct {
+		Username  string  `json:"username"`
+		Bio       *string `json:"bio"`
+		Image     *string `json:"image"`
+		Following bool    `json:"following"`
+	} `json:"author"`
+}
+
+type singleArticleResponse struct {
+	Article *articleResponse `json:"article"`
+}
+
+type articleListResponse struct {
+	Articles      []*articleResponse `json:"articles"`
+	ArticlesCount int                `json:"articlesCount"`
+}
+
+func newArticleResponse(c echo.Context, a *model.Article) *singleArticleResponse {
+	ar := new(articleResponse)
+	ar.TagList = make([]string, 0)
+	ar.Slug = a.Slug
+	ar.Title = a.Title
+	ar.Description = a.Description
+	ar.Body = a.Body
+	ar.CreatedAt = a.CreatedAt
+	ar.UpdatedAt = a.UpdatedAt
+	for _, t := range a.Tags {
+		ar.TagList = append(ar.TagList, t.Tag)
+	}
+	for _, u := range a.Favorites {
+		if u.ID == userIDFromToken(c) {
+			ar.Favorited = true
+		}
+	}
+	ar.FavoritesCount = len(a.Favorites)
+	ar.Author.Username = a.Author.Username
+	ar.Author.Image = a.Author.Image
+	ar.Author.Bio = a.Author.Bio
+	ar.Author.Following = a.Author.FollowedBy(userIDFromToken(c))
+	return &singleArticleResponse{ar}
+}
+
+func newArticleListResponse(us user.Store, userID uint, articles []model.Article, count int) *articleListResponse {
+	r := new(articleListResponse)
+	r.Articles = make([]*articleResponse, 0)
+	for _, a := range articles {
+		ar := new(articleResponse)
+		ar.TagList = make([]string, 0)
+		ar.Slug = a.Slug
+		ar.Title = a.Title
+		ar.Description = a.Description
+		ar.Body = a.Body
+		ar.CreatedAt = a.CreatedAt
+		ar.UpdatedAt = a.UpdatedAt
+		for _, t := range a.Tags {
+			ar.TagList = append(ar.TagList, t.Tag)
+		}
+		for _, u := range a.Favorites {
+			if u.ID == userID {
+				ar.Favorited = true
+			}
+		}
+		ar.FavoritesCount = len(a.Favorites)
+		ar.Author.Username = a.Author.Username
+		ar.Author.Image = a.Author.Image
+		ar.Author.Bio = a.Author.Bio
+		ar.Author.Following, _ = us.IsFollower(a.AuthorID, userID)
+		r.Articles = append(r.Articles, ar)
+	}
+	r.ArticlesCount = count
+	return r
+}
+
+type commentResponse struct {
+	ID        uint      `json:"id"`
+	Body      string    `json:"body"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	Author    struct {
+		Username  string  `json:"username"`
+		Bio       *string `json:"bio"`
+		Image     *string `json:"image"`
+		Following bool    `json:"following"`
+	} `json:"author"`
+}
+
+type singleCommentResponse struct {
+	Comment *commentResponse `json:"comment"`
+}
+
+type commentListResponse struct {
+	Comments []commentResponse `json:"comments"`
+}
+
+func newCommentResponse(c echo.Context, cm *model.Comment) *singleCommentResponse {
+	comment := new(commentResponse)
+	comment.ID = cm.ID
+	comment.Body = cm.Body
+	comment.CreatedAt = cm.CreatedAt
+	comment.UpdatedAt = cm.UpdatedAt
+	comment.Author.Username = cm.User.Username
+	comment.Author.Image = cm.User.Image
+	comment.Author.Bio = cm.User.Bio
+	comment.Author.Following = cm.User.FollowedBy(userIDFromToken(c))
+	return &singleCommentResponse{comment}
+}
+
+func newCommentListResponse(c echo.Context, comments []model.Comment) *commentListResponse {
+	r := new(commentListResponse)
+	cr := commentResponse{}
+	r.Comments = make([]commentResponse, 0)
+	for _, i := range comments {
+		cr.ID = i.ID
+		cr.Body = i.Body
+		cr.CreatedAt = i.CreatedAt
+		cr.UpdatedAt = i.UpdatedAt
+		cr.Author.Username = i.User.Username
+		cr.Author.Image = i.User.Image
+		cr.Author.Bio = i.User.Bio
+		cr.Author.Following = i.User.FollowedBy(userIDFromToken(c))
+
+		r.Comments = append(r.Comments, cr)
+	}
+	return r
+}
+
+type tagListResponse struct {
+	Tags []string `json:"tags"`
+}
+
+func newTagListResponse(tags []model.Tag) *tagListResponse {
+	r := new(tagListResponse)
+	for _, t := range tags {
+		r.Tags = append(r.Tags, t.Tag)
+	}
+	return r
+}
+
+package handler
+
+import (
+	"github.com/gosimple/slug"
+	"github.com/labstack/echo/v4"
+	"github.com/xesina/golang-echo-realworld-example-app/model"
+)
+
+type userUpdateRequest struct {
+	User struct {
+		Username string `json:"username"`
+		Email    string `json:"email" validate:"email"`
+		Password string `json:"password"`
+		Bio      string `json:"bio"`
+		Image    string `json:"image"`
+	} `json:"user"`
+}
+
+func newUserUpdateRequest() *userUpdateRequest {
+	return new(userUpdateRequest)
+}
+
+func (r *userUpdateRequest) populate(u *model.User) {
+	r.User.Username = u.Username
+	r.User.Email = u.Email
+	r.User.Password = u.Password
+	if u.Bio != nil {
+		r.User.Bio = *u.Bio
+	}
+	if u.Image != nil {
+		r.User.Image = *u.Image
+	}
+}
+
+func (r *userUpdateRequest) bind(c echo.Context, u *model.User) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	u.Username = r.User.Username
+	u.Email = r.User.Email
+	if r.User.Password != u.Password {
+		h, err := u.HashPassword(r.User.Password)
+		if err != nil {
+			return err
+		}
+		u.Password = h
+	}
+	u.Bio = &r.User.Bio
+	u.Image = &r.User.Image
+	return nil
+}
+
+type userRegisterRequest struct {
+	User struct {
+		Username string `json:"username" validate:"required"`
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required"`
+	} `json:"user"`
+}
+
+func (r *userRegisterRequest) bind(c echo.Context, u *model.User) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	u.Username = r.User.Username
+	u.Email = r.User.Email
+	h, err := u.HashPassword(r.User.Password)
+	if err != nil {
+		return err
+	}
+	u.Password = h
+	return nil
+}
+
+type userLoginRequest struct {
+	User struct {
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required"`
+	} `json:"user"`
+}
+
+func (r *userLoginRequest) bind(c echo.Context) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	return nil
+}
+
+type articleCreateRequest struct {
+	Article struct {
+		Title       string   `json:"title" validate:"required"`
+		Description string   `json:"description" validate:"required"`
+		Body        string   `json:"body" validate:"required"`
+		Tags        []string `json:"tagList, omitempty"`
+	} `json:"article"`
+}
+
+func (r *articleCreateRequest) bind(c echo.Context, a *model.Article) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	a.Title = r.Article.Title
+	a.Slug = slug.Make(r.Article.Title)
+	a.Description = r.Article.Description
+	a.Body = r.Article.Body
+	if r.Article.Tags != nil {
+		for _, t := range r.Article.Tags {
+			a.Tags = append(a.Tags, model.Tag{Tag: t})
+		}
+	}
+	return nil
+}
+
+type articleUpdateRequest struct {
+	Article struct {
+		Title       string   `json:"title"`
+		Description string   `json:"description"`
+		Body        string   `json:"body"`
+		Tags        []string `json:"tagList"`
+	} `json:"article"`
+}
+
+func (r *articleUpdateRequest) populate(a *model.Article) {
+	r.Article.Title = a.Title
+	r.Article.Description = a.Description
+	r.Article.Body = a.Body
+}
+
+func (r *articleUpdateRequest) bind(c echo.Context, a *model.Article) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	a.Title = r.Article.Title
+	a.Slug = slug.Make(a.Title)
+	a.Description = r.Article.Description
+	a.Body = r.Article.Body
+	return nil
+}
+
+type createCommentRequest struct {
+	Comment struct {
+		Body string `json:"body" validate:"required"`
+	} `json:"comment"`
+}
+
+func (r *createCommentRequest) bind(c echo.Context, cm *model.Comment) error {
+	if err := c.Bind(r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	cm.Body = r.Comment.Body
+	cm.UserID = userIDFromToken(c)
+	return nil
+}
