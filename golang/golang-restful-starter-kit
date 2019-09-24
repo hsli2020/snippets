@@ -1,0 +1,754 @@
+// https://github.com/qiangxue/golang-restful-starter-kit
+package main
+
+import (
+	"fmt"
+	"net/http"
+	_ "github.com/lib/pq"
+	"github.com/Sirupsen/logrus"
+	"github.com/go-ozzo/ozzo-dbx"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/go-ozzo/ozzo-routing/auth"
+	"github.com/go-ozzo/ozzo-routing/content"
+	"github.com/go-ozzo/ozzo-routing/cors"
+	"github.com/qiangxue/golang-restful-starter-kit/apis"
+	"github.com/qiangxue/golang-restful-starter-kit/app"
+	"github.com/qiangxue/golang-restful-starter-kit/daos"
+	"github.com/qiangxue/golang-restful-starter-kit/errors"
+	"github.com/qiangxue/golang-restful-starter-kit/services"
+)
+
+func main() {
+	// load application configurations
+	if err := app.LoadConfig("./config"); err != nil {
+		panic(fmt.Errorf("Invalid application configuration: %s", err))
+	}
+
+	// load error messages
+	if err := errors.LoadMessages(app.Config.ErrorFile); err != nil {
+		panic(fmt.Errorf("Failed to read the error message file: %s", err))
+	}
+
+	// create the logger
+	logger := logrus.New()
+
+	// connect to the database
+	db, err := dbx.MustOpen("postgres", app.Config.DSN)
+	if err != nil {
+		panic(err)
+	}
+	db.LogFunc = logger.Infof
+
+	// wire up API routing
+	http.Handle("/", buildRouter(logger, db))
+
+	// start the server
+	address := fmt.Sprintf(":%v", app.Config.ServerPort)
+	logger.Infof("server %v is started at %v\n", app.Version, address)
+	panic(http.ListenAndServe(address, nil))
+}
+
+func buildRouter(logger *logrus.Logger, db *dbx.DB) *routing.Router {
+	router := routing.New()
+
+	router.To("GET,HEAD", "/ping", func(c *routing.Context) error {
+		c.Abort()  // skip all other middlewares/handlers
+		return c.Write("OK " + app.Version)
+	})
+
+	router.Use(
+		app.Init(logger),
+		content.TypeNegotiator(content.JSON),
+		cors.Handler(cors.Options{
+			AllowOrigins: "*",
+			AllowHeaders: "*",
+			AllowMethods: "*",
+		}),
+		app.Transactional(db),
+	)
+
+	rg := router.Group("/v1")
+
+	rg.Post("/auth", apis.Auth(app.Config.JWTSigningKey))
+	rg.Use(auth.JWT(app.Config.JWTVerificationKey, auth.JWTOptions{
+		SigningMethod: app.Config.JWTSigningMethod,
+		TokenHandler:  apis.JWTHandler,
+	}))
+
+// Controller依赖于Service (Resource相当于Controller)
+// Service依赖于Dao (Dao相当于Repository)
+// Dao依赖于DB (这里不是这样, Dao的每个方法都有一个app.RequestScope参数)
+
+	artistDAO := daos.NewArtistDAO()
+	apis.ServeArtistResource(rg, services.NewArtistService(artistDAO))
+
+	// wire up more resource APIs here
+
+	return router
+}
+
+////////////////////////////////////////// app/config.go
+package app
+
+import (
+	"fmt"
+	"github.com/spf13/viper"
+	"github.com/go-ozzo/ozzo-validation"
+)
+
+// Config stores the application-wide configurations
+var Config appConfig
+
+type appConfig struct {
+	// the path to the error message file. Defaults to "config/errors.yaml"
+	ErrorFile          string `mapstructure:"error_file"`
+	// the server port. Defaults to 8080
+	ServerPort         int    `mapstructure:"server_port"`
+	// the data source name (DSN) for connecting to the database. required.
+	DSN                string `mapstructure:"dsn"`
+	// the signing method for JWT. Defaults to "HS256"
+	JWTSigningMethod   string `mapstructure:"jwt_signing_method"`
+	// JWT signing key. required.
+	JWTSigningKey      string `mapstructure:"jwt_signing_key"`
+	// JWT verification key. required.
+	JWTVerificationKey string `mapstructure:"jwt_verification_key"`
+}
+
+func (config appConfig) Validate() error {
+	return validation.ValidateStruct(&config,
+		validation.Field(&config.DSN, validation.Required),
+		validation.Field(&config.JWTSigningKey, validation.Required),
+		validation.Field(&config.JWTVerificationKey, validation.Required),
+	)
+}
+
+// LoadConfig loads configuration from the given list of paths and populates it into the Config variable.
+// The configuration file(s) should be named as app.yaml.
+// Environment variables with the prefix "RESTFUL_" in their names are also read automatically.
+func LoadConfig(configPaths ...string) error {
+	v := viper.New()
+	v.SetConfigName("app")
+	v.SetConfigType("yaml")
+	v.SetEnvPrefix("restful")
+	v.AutomaticEnv()
+	v.SetDefault("error_file", "config/errors.yaml")
+	v.SetDefault("server_port", 8080)
+	v.SetDefault("jwt_signing_method", "HS256")
+	for _, path := range configPaths {
+		v.AddConfigPath(path)
+	}
+	if err := v.ReadInConfig(); err != nil {
+		return fmt.Errorf("Failed to read the configuration file: %s", err)
+	}
+	if err := v.Unmarshal(&Config); err != nil {
+		return err
+	}
+	return Config.Validate()
+}
+
+////////////////////////////////////////// app/init.go
+package app
+
+import (
+	"database/sql"
+	"fmt"
+	"net/http"
+	"time"
+	"github.com/Sirupsen/logrus"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/go-ozzo/ozzo-routing/access"
+	"github.com/go-ozzo/ozzo-routing/fault"
+	"github.com/go-ozzo/ozzo-validation"
+	"github.com/qiangxue/golang-restful-starter-kit/errors"
+)
+
+// Init returns a middleware that prepares the request context and processing environment.
+// The middleware will populate RequestContext, handle possible panics and errors from the processing
+// handlers, and add an access log entry.
+func Init(logger *logrus.Logger) routing.Handler {
+	return func(rc *routing.Context) error {
+		now := time.Now()
+
+		rc.Response = &access.LogResponseWriter{rc.Response, http.StatusOK, 0}
+
+		ac := newRequestScope(now, logger, rc.Request)
+		rc.Set("Context", ac)
+
+		fault.Recovery(ac.Errorf, convertError)(rc)
+		logAccess(rc, ac.Infof, ac.Now())
+
+		return nil
+	}
+}
+
+// GetRequestScope returns the RequestScope of the current request.
+func GetRequestScope(c *routing.Context) RequestScope {
+	return c.Get("Context").(RequestScope)
+}
+
+// logAccess logs a message describing the current request.
+func logAccess(c *routing.Context, logFunc access.LogFunc, start time.Time) {
+	rw := c.Response.(*access.LogResponseWriter)
+	elapsed := float64(time.Now().Sub(start).Nanoseconds()) / 1e6
+	requestLine := fmt.Sprintf("%s %s %s", c.Request.Method, c.Request.URL.Path, c.Request.Proto)
+	logFunc(`[%.3fms] %s %d %d`, elapsed, requestLine, rw.Status, rw.BytesWritten)
+}
+
+// convertError converts an error into an APIError so that it can be properly sent to the response.
+// You may need to customize this method by adding conversion logic for more error types.
+func convertError(c *routing.Context, err error) error {
+	if err == sql.ErrNoRows {
+		return errors.NotFound("the requested resource")
+	}
+	switch err.(type) {
+	case *errors.APIError:
+		return err
+	case validation.Errors:
+		return errors.InvalidData(err.(validation.Errors))
+	case routing.HTTPError:
+		switch err.(routing.HTTPError).StatusCode() {
+		case http.StatusUnauthorized:
+			return errors.Unauthorized(err.Error())
+		case http.StatusNotFound:
+			return errors.NotFound("the requested resource")
+		}
+	}
+	return errors.InternalServerError(err)
+}
+
+////////////////////////////////////////// app/scope.go
+package app
+
+import (
+	"net/http"
+	"time"
+	"github.com/Sirupsen/logrus"
+	"github.com/go-ozzo/ozzo-dbx"
+)
+
+// RequestScope contains the application-specific information that are carried around in a request.
+type RequestScope interface {
+	Logger
+	// UserID returns the ID of the user for the current request
+	UserID() string
+	// SetUserID sets the ID of the currently authenticated user
+	SetUserID(id string)
+	// RequestID returns the ID of the current request
+	RequestID() string
+	// Tx returns the currently active database transaction that can be used for DB query purpose
+	Tx() *dbx.Tx
+	// SetTx sets the database transaction
+	SetTx(tx *dbx.Tx)
+	// Rollback returns a value indicating whether the current database transaction should be rolled back
+	Rollback() bool
+	// SetRollback sets a value indicating whether the current database transaction should be rolled back
+	SetRollback(bool)
+	// Now returns the timestamp representing the time when the request is being processed
+	Now() time.Time
+}
+
+type requestScope struct {
+	Logger              // the logger tagged with the current request information
+	now       time.Time // the time when the request is being processed
+	requestID string    // an ID identifying one or multiple correlated HTTP requests
+	userID    string    // an ID identifying the current user
+	rollback  bool      // whether to roll back the current transaction
+	tx        *dbx.Tx   // the currently active transaction
+}
+
+func (rs *requestScope) UserID() string { return rs.userID }
+
+func (rs *requestScope) SetUserID(id string) {
+	rs.Logger.SetField("UserID", id)
+	rs.userID = id
+}
+
+func (rs *requestScope) RequestID() string { return rs.requestID }
+
+func (rs *requestScope) Tx() *dbx.Tx { return rs.tx }
+func (rs *requestScope) SetTx(tx *dbx.Tx) { rs.tx = tx }
+
+func (rs *requestScope) Rollback() bool { return rs.rollback }
+func (rs *requestScope) SetRollback(v bool) { rs.rollback = v }
+
+func (rs *requestScope) Now() time.Time { return rs.now }
+
+// newRequestScope creates a new RequestScope with the current request information.
+func newRequestScope(now time.Time, logger *logrus.Logger, request *http.Request) RequestScope {
+	l := NewLogger(logger, logrus.Fields{})
+	requestID := request.Header.Get("X-Request-Id")
+	if requestID != "" {
+		l.SetField("RequestID", requestID)
+	}
+	return &requestScope{
+		Logger:    l,
+		now:       now,
+		requestID: requestID,
+	}
+}
+
+////////////////////////////////////////// app/transactional.go
+package app
+
+import (
+	"github.com/go-ozzo/ozzo-dbx"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/go-ozzo/ozzo-routing/fault"
+)
+
+// Transactional returns a handler that encloses the nested handlers with a DB transaction.
+// If a nested handler returns an error or a panic happens, it will rollback the transaction.
+// Otherwise it will commit the transaction after the nested handlers finish execution.
+// By calling app.Context.SetRollback(true), you may also explicitly request to rollback the transaction.
+func Transactional(db *dbx.DB) routing.Handler {
+	return func(c *routing.Context) error {
+		tx, err := db.Begin()
+		if err != nil {
+			return err
+		}
+
+		rs := GetRequestScope(c)
+		rs.SetTx(tx)
+
+		err = fault.PanicHandler(rs.Errorf)(c)
+
+		var e error
+		if err != nil || rs.Rollback() {
+			// rollback if a handler returns an error or rollback is explicitly requested
+			e = tx.Rollback()
+		} else {
+			e = tx.Commit()
+		}
+
+		if e != nil {
+			if err == nil {
+				// the error will be logged by an error handler
+				return e
+			}
+			// log the tx error only
+			rs.Error(e)
+		}
+
+		return err
+	}
+}
+
+////////////////////////////////////////// app/logger.go
+package app
+
+import "github.com/Sirupsen/logrus"
+
+// Logger defines the logger interface that is exposed via RequestScope.
+type Logger interface {
+	// adds a field that should be added to every message being logged
+	SetField(name, value string)
+
+	Debugf(format string, args ...interface{})
+	Infof(format string, args ...interface{})
+	Warnf(format string, args ...interface{})
+	Errorf(format string, args ...interface{})
+	Debug(args ...interface{})
+	Info(args ...interface{})
+	Warn(args ...interface{})
+	Error(args ...interface{})
+}
+
+// logger wraps logrus.Logger so that it can log messages sharing a common set of fields.
+type logger struct {
+	logger *logrus.Logger
+	fields logrus.Fields
+}
+
+// NewLogger creates a logger object with the specified logrus.Logger and the fields
+// that should be added to every message.
+func NewLogger(l *logrus.Logger, fields logrus.Fields) Logger {
+	return &logger{ logger: l, fields: fields }
+}
+
+func (l *logger) SetField(name, value string) { l.fields[name] = value }
+
+func (l *logger) Debugf(format string, args ...interface{}) { l.tagged().Debugf(format, args...) }
+func (l *logger) Infof(format string,  args ...interface{}) { l.tagged().Infof(format, args...) }
+func (l *logger) Warnf(format string,  args ...interface{}) { l.tagged().Warnf(format, args...) }
+func (l *logger) Errorf(format string, args ...interface{}) { l.tagged().Errorf(format, args...) }
+
+func (l *logger) Debug(args ...interface{}) { l.tagged().Debug(args...) }
+func (l *logger) Info(args ...interface{})  { l.tagged().Info(args...) }
+func (l *logger) Warn(args ...interface{})  { l.tagged().Warn(args...) }
+func (l *logger) Error(args ...interface{}) { l.tagged().Error(args...) }
+
+func (l *logger) tagged() *logrus.Entry { return l.logger.WithFields(l.fields) }
+
+////////////////////////////////////////// models/artist.go
+package models
+
+import "github.com/go-ozzo/ozzo-validation"
+
+// Artist represents an artist record.
+type Artist struct {
+	Id   int    `json:"id" db:"id"`
+	Name string `json:"name" db:"name"`
+}
+
+// Validate validates the Artist fields.
+func (m Artist) Validate() error {
+	return validation.ValidateStruct(&m,
+		validation.Field(&m.Name, validation.Required, validation.Length(0, 120)),
+	)
+}
+
+////////////////////////////////////////// services/artist.go
+package services
+
+import (
+	"github.com/qiangxue/golang-restful-starter-kit/app"
+	"github.com/qiangxue/golang-restful-starter-kit/models"
+)
+
+// artistDAO specifies the interface of the artist DAO needed by ArtistService.
+type artistDAO interface {
+	// Get returns the artist with the specified artist ID.
+	Get(rs app.RequestScope, id int) (*models.Artist, error)
+	// Count returns the number of artists.
+	Count(rs app.RequestScope) (int, error)
+	// Query returns the list of artists with the given offset and limit.
+	Query(rs app.RequestScope, offset, limit int) ([]models.Artist, error)
+	// Create saves a new artist in the storage.
+	Create(rs app.RequestScope, artist *models.Artist) error
+	// Update updates the artist with given ID in the storage.
+	Update(rs app.RequestScope, id int, artist *models.Artist) error
+	// Delete removes the artist with given ID from the storage.
+	Delete(rs app.RequestScope, id int) error
+}
+
+// ArtistService provides services related with artists.
+type ArtistService struct {
+	dao artistDAO
+}
+
+// NewArtistService creates a new ArtistService with the given artist DAO.
+func NewArtistService(dao artistDAO) *ArtistService {
+	return &ArtistService{dao}
+}
+
+// Get returns the artist with the specified the artist ID.
+func (s *ArtistService) Get(rs app.RequestScope, id int) (*models.Artist, error) {
+	return s.dao.Get(rs, id)
+}
+
+// Create creates a new artist.
+func (s *ArtistService) Create(rs app.RequestScope, model *models.Artist) (*models.Artist, error) {
+	if err := model.Validate(); err != nil {
+		return nil, err
+	}
+	if err := s.dao.Create(rs, model); err != nil {
+		return nil, err
+	}
+	return s.dao.Get(rs, model.Id)
+}
+
+// Update updates the artist with the specified ID.
+func (s *ArtistService) Update(rs app.RequestScope, id int, model *models.Artist) (*models.Artist, error) {
+	if err := model.Validate(); err != nil {
+		return nil, err
+	}
+	if err := s.dao.Update(rs, id, model); err != nil {
+		return nil, err
+	}
+	return s.dao.Get(rs, id)
+}
+
+// Delete deletes the artist with the specified ID.
+func (s *ArtistService) Delete(rs app.RequestScope, id int) (*models.Artist, error) {
+	artist, err := s.dao.Get(rs, id)
+	if err != nil {
+		return nil, err
+	}
+	err = s.dao.Delete(rs, id)
+	return artist, err
+}
+
+// Count returns the number of artists.
+func (s *ArtistService) Count(rs app.RequestScope) (int, error) {
+	return s.dao.Count(rs)
+}
+
+// Query returns the artists with the specified offset and limit.
+func (s *ArtistService) Query(rs app.RequestScope, offset, limit int) ([]models.Artist, error) {
+	return s.dao.Query(rs, offset, limit)
+}
+
+////////////////////////////////////////// daos/artist.go
+package daos
+
+import (
+	"github.com/qiangxue/golang-restful-starter-kit/app"
+	"github.com/qiangxue/golang-restful-starter-kit/models"
+)
+
+// ArtistDAO persists artist data in database
+type ArtistDAO struct{}
+
+// NewArtistDAO creates a new ArtistDAO
+func NewArtistDAO() *ArtistDAO {
+	return &ArtistDAO{}
+}
+
+// Get reads the artist with the specified ID from the database.
+func (dao *ArtistDAO) Get(rs app.RequestScope, id int) (*models.Artist, error) {
+	var artist models.Artist
+	err := rs.Tx().Select().Model(id, &artist)
+	return &artist, err
+}
+
+// Create saves a new artist record in the database.
+// The Artist.Id field will be populated with an automatically generated ID upon successful saving.
+func (dao *ArtistDAO) Create(rs app.RequestScope, artist *models.Artist) error {
+	artist.Id = 0
+	return rs.Tx().Model(artist).Insert()
+}
+
+// Update saves the changes to an artist in the database.
+func (dao *ArtistDAO) Update(rs app.RequestScope, id int, artist *models.Artist) error {
+	if _, err := dao.Get(rs, id); err != nil {
+		return err
+	}
+	artist.Id = id
+	return rs.Tx().Model(artist).Exclude("Id").Update()
+}
+
+// Delete deletes an artist with the specified ID from the database.
+func (dao *ArtistDAO) Delete(rs app.RequestScope, id int) error {
+	artist, err := dao.Get(rs, id)
+	if err != nil {
+		return err
+	}
+	return rs.Tx().Model(artist).Delete()
+}
+
+// Count returns the number of the artist records in the database.
+func (dao *ArtistDAO) Count(rs app.RequestScope) (int, error) {
+	var count int
+	err := rs.Tx().Select("COUNT(*)").From("artist").Row(&count)
+	return count, err
+}
+
+// Query retrieves the artist records with the specified offset and limit from the database.
+func (dao *ArtistDAO) Query(rs app.RequestScope, offset, limit int) ([]models.Artist, error) {
+	artists := []models.Artist{}
+	err := rs.Tx().Select().OrderBy("id").Offset(int64(offset)).Limit(int64(limit)).All(&artists)
+	return artists, err
+}
+
+////////////////////////////////////////// apis/artist.go
+package apis
+
+import (
+	"strconv"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/qiangxue/golang-restful-starter-kit/app"
+	"github.com/qiangxue/golang-restful-starter-kit/models"
+)
+
+type (
+	// artistService specifies the interface for the artist service needed by artistResource.
+	artistService interface {
+		Get(rs app.RequestScope, id int) (*models.Artist, error)
+		Query(rs app.RequestScope, offset, limit int) ([]models.Artist, error)
+		Count(rs app.RequestScope) (int, error)
+		Create(rs app.RequestScope, model *models.Artist) (*models.Artist, error)
+		Update(rs app.RequestScope, id int, model *models.Artist) (*models.Artist, error)
+		Delete(rs app.RequestScope, id int) (*models.Artist, error)
+	}
+
+	// artistResource defines the handlers for the CRUD APIs.
+	artistResource struct {
+		service artistService
+	}
+)
+
+// ServeArtist sets up the routing of artist endpoints and the corresponding handlers.
+func ServeArtistResource(rg *routing.RouteGroup, service artistService) {
+	r := &artistResource{service}
+	rg.Get("/artists/<id>", r.get)
+	rg.Get("/artists", r.query)
+	rg.Post("/artists", r.create)
+	rg.Put("/artists/<id>", r.update)
+	rg.Delete("/artists/<id>", r.delete)
+}
+
+func (r *artistResource) get(c *routing.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+
+	response, err := r.service.Get(app.GetRequestScope(c), id)
+	if err != nil {
+		return err
+	}
+
+	return c.Write(response)
+}
+
+func (r *artistResource) query(c *routing.Context) error {
+	rs := app.GetRequestScope(c)
+	count, err := r.service.Count(rs)
+	if err != nil {
+		return err
+	}
+	paginatedList := getPaginatedListFromRequest(c, count)
+	items, err := r.service.Query(app.GetRequestScope(c), paginatedList.Offset(), paginatedList.Limit())
+	if err != nil {
+		return err
+	}
+	paginatedList.Items = items
+	return c.Write(paginatedList)
+}
+
+func (r *artistResource) create(c *routing.Context) error {
+	var model models.Artist
+	if err := c.Read(&model); err != nil {
+		return err
+	}
+	response, err := r.service.Create(app.GetRequestScope(c), &model)
+	if err != nil {
+		return err
+	}
+
+	return c.Write(response)
+}
+
+func (r *artistResource) update(c *routing.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+
+	rs := app.GetRequestScope(c)
+
+	model, err := r.service.Get(rs, id)
+	if err != nil {
+		return err
+	}
+
+	if err := c.Read(model); err != nil {
+		return err
+	}
+
+	response, err := r.service.Update(rs, id, model)
+	if err != nil {
+		return err
+	}
+
+	return c.Write(response)
+}
+
+func (r *artistResource) delete(c *routing.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+
+	response, err := r.service.Delete(app.GetRequestScope(c), id)
+	if err != nil {
+		return err
+	}
+
+	return c.Write(response)
+}
+
+////////////////////////////////////////// apis/auth.go
+package apis
+
+import (
+	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/go-ozzo/ozzo-routing/auth"
+	"github.com/qiangxue/golang-restful-starter-kit/app"
+	"github.com/qiangxue/golang-restful-starter-kit/errors"
+	"github.com/qiangxue/golang-restful-starter-kit/models"
+)
+
+type Credential struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+func Auth(signingKey string) routing.Handler {
+	return func(c *routing.Context) error {
+		var credential Credential
+		if err := c.Read(&credential); err != nil {
+			return errors.Unauthorized(err.Error())
+		}
+
+		identity := authenticate(credential)
+		if identity == nil {
+			return errors.Unauthorized("invalid credential")
+		}
+
+		token, err := auth.NewJWT(jwt.MapClaims{
+			"id":   identity.GetID(),
+			"name": identity.GetName(),
+			"exp":  time.Now().Add(time.Hour * 72).Unix(),
+		}, signingKey)
+		if err != nil {
+			return errors.Unauthorized(err.Error())
+		}
+
+		return c.Write(map[string]string{
+			"token": token,
+		})
+	}
+}
+
+func authenticate(c Credential) models.Identity {
+	if c.Username == "demo" && c.Password == "pass" {
+		return &models.User{ID: "100", Name: "demo"}
+	}
+	return nil
+}
+
+func JWTHandler(c *routing.Context, j *jwt.Token) error {
+	userID := j.Claims.(jwt.MapClaims)["id"].(string)
+	app.GetRequestScope(c).SetUserID(userID)
+	return nil
+}
+
+////////////////////////////////////////// apis/util.go
+package apis
+
+import (
+	"strconv"
+	"github.com/go-ozzo/ozzo-routing"
+	"github.com/qiangxue/golang-restful-starter-kit/util"
+)
+
+const (
+	DEFAULT_PAGE_SIZE int = 100
+	MAX_PAGE_SIZE     int = 1000
+)
+
+func getPaginatedListFromRequest(c *routing.Context, count int) *util.PaginatedList {
+	page := parseInt(c.Query("page"), 1)
+	perPage := parseInt(c.Query("per_page"), DEFAULT_PAGE_SIZE)
+	if perPage <= 0 {
+		perPage = DEFAULT_PAGE_SIZE
+	}
+	if perPage > MAX_PAGE_SIZE {
+		perPage = MAX_PAGE_SIZE
+	}
+	return util.NewPaginatedList(page, perPage, count)
+}
+
+func parseInt(value string, defaultValue int) int {
+	if value == "" {
+		return defaultValue
+	}
+	if result, err := strconv.Atoi(value); err == nil {
+		return result
+	}
+	return defaultValue
+}
