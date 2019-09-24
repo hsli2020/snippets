@@ -1,0 +1,16 @@
+{{template "html-start" .}}
+<style type="text/css">
+  .index {color:blue;}
+</style>
+{{template "body-start" .}}
+
+{{.Data.Message}}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    console.log('Document Ready');
+  });
+</script>
+
+{{template "body-end" .}}
+{{template "html-end" .}}
