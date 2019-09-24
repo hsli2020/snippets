@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodePen - CSS image slider</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<!-- https://css-tricks.com/can-get-pretty-far-making-slider-just-html-css/ -->
+<style>
+/**
+ * Designed by Upperquad [https://upperquad.com] developed by Aranja [https://aranja.com] for Facebook.
+ * See it live on https://nonprofits.fb.com/learn-the-basics
+ */
+html {
+  font-size: calc(16px + (22 - 16) * (100vw - 320px)/ (1350 - 320));
+}
+
+body {
+  overflow: hidden;
+  margin-top: rem(50px);
+}
+
+img {
+  width: 100%;
+}
+
+.PagesSlider {
+  position: relative;
+  width: 21.8125em;
+  height: 25.5625em;
+  margin: 2.1875em auto 0 auto;
+}
+@media (min-width: 165em) {
+  .PagesSlider::before, .PagesSlider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 20em;
+    height: 100%;
+  }
+  .PagesSlider::before {
+    right: calc(-50vw + 50%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(#FFF), to(#FFF));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFF, #FFF);
+  }
+  .PagesSlider::after {
+    left: calc(-50vw + 50%);
+    background: -webkit-gradient(linear, right top, left top, from(rgba(255, 255, 255, 0)), color-stop(#FFF), to(#FFF));
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), #FFF, #FFF);
+  }
+}
+
+.PagesSlider-phone {
+  position: absolute;
+  z-index: 1;
+}
+.PagesSlider-phone::after, .PagesSlider-phone::before {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  width: 50vw;
+  height: 5.625em;
+  background: #FFF;
+  z-index: -1;
+}
+.PagesSlider-phone::before {
+  left: calc(100% - 0.625em);
+}
+.PagesSlider-phone::after {
+  right: calc(100% - 0.625em);
+}
+.PagesSlider-phone img {
+  display: block;
+  width: 21.8125em;
+  height: 25.5625em;
+}
+
+.PagesSlider-slides {
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  top: 5em;
+  padding-left: 0.3125em;
+}
+
+.PagesSlider-slide {
+  position: absolute;
+  padding-left: 0.625em;
+  top: 3.5625em;
+  width: 20em;
+  height: 16.9375em;
+}
+.PagesSlider-slide:nth-child(1) {
+  -webkit-animation: PagesSlider-animation 20s -2.5s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -2.5s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(2) {
+  -webkit-animation: PagesSlider-animation 20s -5s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -5s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(3) {
+  -webkit-animation: PagesSlider-animation 20s -7.5s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -7.5s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(4) {
+  -webkit-animation: PagesSlider-animation 20s -10s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -10s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(5) {
+  -webkit-animation: PagesSlider-animation 20s -12.5s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -12.5s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(6) {
+  -webkit-animation: PagesSlider-animation 20s -15s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -15s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(7) {
+  -webkit-animation: PagesSlider-animation 20s -17.5s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -17.5s ease-in-out infinite;
+}
+.PagesSlider-slide:nth-child(8) {
+  -webkit-animation: PagesSlider-animation 20s -20s ease-in-out infinite;
+          animation: PagesSlider-animation 20s -20s ease-in-out infinite;
+}
+
+@-webkit-keyframes PagesSlider-animation {
+  0%,
+		10% {
+    -webkit-transform: translateX(500%);
+            transform: translateX(500%);
+  }
+  12.5%,
+		22.5% {
+    -webkit-transform: translateX(400%);
+            transform: translateX(400%);
+  }
+  25%,
+		35% {
+    -webkit-transform: translateX(300%);
+            transform: translateX(300%);
+  }
+  37.5%,
+		47.5% {
+    -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+  }
+  50%,
+		60% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  62.5%,
+		72.5% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  75%,
+		85% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  87.5%,
+		97.5% {
+    -webkit-transform: translateX(-200%);
+            transform: translateX(-200%);
+  }
+  100%,
+		100% {
+    -webkit-transform: translateX(-300%);
+            transform: translateX(-300%);
+  }
+}
+
+@keyframes PagesSlider-animation {
+  0%,
+		10% {
+    -webkit-transform: translateX(500%);
+            transform: translateX(500%);
+  }
+  12.5%,
+		22.5% {
+    -webkit-transform: translateX(400%);
+            transform: translateX(400%);
+  }
+  25%,
+		35% {
+    -webkit-transform: translateX(300%);
+            transform: translateX(300%);
+  }
+  37.5%,
+		47.5% {
+    -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+  }
+  50%,
+		60% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  62.5%,
+		72.5% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  75%,
+		85% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  87.5%,
+		97.5% {
+    -webkit-transform: translateX(-200%);
+            transform: translateX(-200%);
+  }
+  100%,
+		100% {
+    -webkit-transform: translateX(-300%);
+            transform: translateX(-300%);
+  }
+}
+</style>
+</head>
+<body translate="no">
+<div class="PagesSlider">
+<div class="PagesSlider-phone"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/iPhone-crop-min.png" /></div>
+<div class="PagesSlider-slides">
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/mdn-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/csstricks-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/codepen-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/upperquad-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/aranja-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/obama-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/who-min.jpg" /></div>
+<div class="PagesSlider-slide"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/138822/projectsabroad-min.jpg" /></div>
+</div>
+</div>
+</body>
+</html>

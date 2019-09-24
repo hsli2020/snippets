@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodePen - Flexbox Responsive Form</title>
+<style>
+  body {
+    min-height: 100vh;
+    display: grid;
+    -webkit-box-align: center;
+            align-items: center;
+  }
+
+  form {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap
+  }
+
+  form > input {
+    -webkit-box-flex: 1;
+            flex: 1 1 10ch;
+    margin: .5rem
+  }
+
+  form > input[type="email"] {
+    -webkit-box-flex: 3;
+              flex: 3 1 30ch;
+  }
+
+  input {
+    border: none;
+    background: hsl(0, 0%, 93%);
+    border-radius: .25rem;
+    padding: .75rem 1rem
+  }
+  
+  input[type="submit"] {
+    background: hotpink;
+    color: white;
+    box-shadow: 0 .75rem .5rem -.5rem hsl(0, 50%, 80%);
+  }
+</style>
+</head>
+<body>
+<p align="center">Change window size to see the effect</p>
+<form>
+  <input type="text" placeholder="Name">
+  <input type="email" placeholder="Email Address">
+  <input type="submit" value="Subscribe">
+</form>
+</body>
+</html>
