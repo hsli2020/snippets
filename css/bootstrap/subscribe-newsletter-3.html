@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Elegant Subscribe Newsletter Modal Form</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Lato:900" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+    body {
+		font-family: 'Open Sans', sans-serif;
+	}	
+	.modal-newsletter {	
+		color: #999;
+		width: 480px;
+		font-size: 15px;
+	}
+	.modal-newsletter .modal-content {
+		padding: 40px 50px;
+		border-radius: 1px;		
+		border: none;
+	}
+	.modal-newsletter .modal-header {
+		border-bottom: none;   
+        position: relative;
+		text-align: center;
+		border-radius: 5px 5px 0 0;
+	}
+	.modal-newsletter h4 {
+		color: #000;
+		text-align: center;
+		font-family: 'Lato', sans-serif;
+		font-weight: 900;
+		font-size: 30px;
+		margin: 0 0 25px;		
+		text-transform: uppercase;
+	}
+	.modal-newsletter .close {
+		position: absolute;
+		top: -15px;
+		right: -25px;
+		color: #c0c3c8;
+		text-shadow: none;
+		opacity: 0.5;
+		width: 22px;
+		height: 22px;
+		border-radius: 20px;
+		font-size: 16px;
+		border: 2px solid;
+	}
+	.modal-newsletter .close:hover {
+		opacity: 0.8;
+	}
+	.modal-newsletter .icon-box {
+		color: #49c5c1;		
+		display: inline-block;
+		z-index: 9;
+		text-align: center;
+		position: relative;
+	}
+	.modal-newsletter .icon-box i {
+		font-size: 110px;
+	}
+	.modal-newsletter .form-control, .modal-newsletter .btn {
+		min-height: 46px;
+		text-align: center;
+		border-radius: 1px; 
+	}
+	.modal-newsletter .form-control {
+		box-shadow: none;
+		border-color: #dbdbdb;
+	}
+	.modal-newsletter .form-control:focus {
+		border-color: #49c5c1;
+		box-shadow: 0 0 8px rgba(73, 197, 193, 0.5);
+	}
+    .modal-newsletter .btn {
+        color: #fff;
+		background: #49c5c1;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+		padding: 6px 20px;
+		min-width: 180px;
+        border: none;
+		margin-top: 20px;
+		font-family: 'Airal', sans-serif;
+		font-size: 14px;
+		font-weight: bold;
+		text-transform: uppercase;
+    }
+	.modal-newsletter .btn:hover, .modal-newsletter .btn:focus {
+		background: #39b3af;
+		outline: none;
+	}
+	.modal-newsletter .form-group {
+		margin-top: 30px;
+	}
+	.hint-text {
+		margin: 100px auto;
+		text-align: center;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+</script>
+</head>
+<body>
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-newsletter">
+		<div class="modal-content">
+			<form action="/examples/actions/confirmation.php" method="post">
+				<div class="modal-header">
+					<div class="icon-box">
+						<i class="material-icons">&#xE151;</i>
+					</div>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span>&times;</span></button>
+				</div>
+				<div class="modal-body text-center">
+					<h4>Subscribe</h4>	
+					<p>Subscriber our newsletter to receive the latest updates and promostions.</p>
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="Enter your email" required>
+						<input type="submit" class="btn btn-primary" value="Subscribe">
+					</div>
+				</div>
+			</form>			
+		</div>
+	</div>
+</div>
+<p class="hint-text"><strong>Note:</strong> Please refresh the page or run the code to reload the modal.</p>
+</body>
+</html>
