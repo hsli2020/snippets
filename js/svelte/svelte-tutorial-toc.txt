@@ -2,69 +2,69 @@ Svelte Tutorial Content
 =======================
 
 1. Introduction
-    a. Basics
-    b. Adding data
-    c. Dynamic attributes
-    d. Styling
-    e. Nested components
-    f. HTML tags
+v   a. Basics
+v   b. Adding data
+v   c. Dynamic attributes
+v   d. Styling
+v   e. Nested components
+v   f. HTML tags
     g. Making an app
 
 2. Reactivity
-    a. Assignments
-    b. Declarations
-    c. Statements
-    d. Updating arrays and objects
+v   a. Assignments
+v   b. Declarations
+v   c. Statements
+v   d. Updating arrays and objects
 
 3. Props
-    a. Declaring props
-    b. Default values
-    c. Spread props
+v   a. Declaring props   export let name;
+v   b. Default values    export let name="Default";
+v   c. Spread props      <Info {...pkg}/>
 
 4. Logic
-    a. If blocks
-    b. Else blocks
-    c. Else-if blocks
-    d. Each blocks
+v   a. If blocks             {#if user.loggedIn} {/if}
+v   b. Else blocks           {#if user.loggedIn} {:else} {/if}
+v   c. Else-if blocks
+v   d. Each blocks           {#each cats as cat, i} {/each}
     e. Keyed each blocks
     f. Await blocks
 
 5. Events
-    a. DOM events
-    b. Inline handlers
-    c. Event modifiers
-    d. Component events
-    e. Event forwarding
-    f. DOM event forwarding
+v   a. DOM events            <div on:mousemove={handleMousemove}></div>
+v   b. Inline handlers       <div on:mousemove="{e => m = { x: e.clientX, y: e.clientY }}"></div>
+v   c. Event modifiers       <button on:click|once={handleClick}></button>
+v   d. Component events
+v   e. Event forwarding
+v   f. DOM event forwarding
 
 6. Bindings
-    a. Text inputs
-    b. Numeric inputs
-    c. Checkbox inputs
-    d. Group inputs
-    e. Textarea inputs
-    f. Select bindings
-    g. Select multiple
-    h. Contenteditable bindings
-    i. Each block bindings
-    j. Media elements
-    k. Dimensions
-    l. This
-    m. Component bindings
+v   a. Text inputs           <input bind:value={name}>
+v   b. Numeric inputs
+v   c. Checkbox inputs       <input type=checkbox bind:checked={yes}>
+v   d. Group inputs          <input type=radio bind:group={scoops} value={1}>
+v   e. Textarea inputs       <textarea bind:value={value}></textarea>
+v   f. Select bindings
+v   g. Select multiple
+v   h. Contenteditable bindings <div contenteditable="true" bind:innerHTML={html}></div>
+v   i. Each block bindings
+v   j. Media elements
+v   k. Dimensions            <div bind:clientWidth={w} bind:clientHeight={h}></div>
+v   l. This                  <canvas bind:this={canvas} width={32} height={32}></canvas>
+v   m. Component bindings    <Keypad bind:value={pin} on:submit={handleSubmit}/>
 
 7. Lifecycle
-    a. onMount
-    b. onDestroy
-    c. beforeUpdate and afterUpdate
+v   a. onMount
+v   b. onDestroy
+v   c. beforeUpdate and afterUpdate
     d. tick
 
 8. Stores
-    a. Writable stores
-    b. Auto-subscriptions
-    c. Readable stores
+v   a. Writable stores
+v   b. Auto-subscriptions    <h1>The count is {$count}</h1>
+v   c. Readable stores
     d. Derived stores
     e. Custom stores
-    f. Store bindings
+    f. Store bindings        <input bind:value={$name}>
 
 9. Motion
     a. Tweened
@@ -88,33 +88,35 @@ Svelte Tutorial Content
     b. Adding parameters
 
 13. Classes
-    a. The class directive
-    b. Shorthand class directive
+    a. The class directive        <button class:active="{current === 'foo'}" 
+										  on:click="{() => current = 'foo'}">foo</button>
+    b. Shorthand class directive  <div class:big></div>
 
 14. Component composition
-    a. Slots
-    b. Slot fallbacks
-    c. Named slots
+v   a. Slots
+v   b. Slot fallbacks
+v   c. Named slots
     d. Slot props
 
 15. Context API
-    a. setContext and getContext
+v   a. setContext and getContext
 
 16. Special elements
-    a. <svelte:self>
-    b. <svelte:component>
-    c. <svelte:window>
-    d. <svelte:window> bindings
-    e. <svelte:body>
-    f. <svelte:head>
-    g. <svelte:options>
+v   a. <svelte:self>
+v   b. <svelte:component>       <svelte:component this={selected.component}/>
+v   c. <svelte:window>          <svelte:window on:keydown={handleKeydown}/>
+v   d. <svelte:window> bindings <svelte:window bind:scrollY={y}/>
+v   e. <svelte:body>            <svelte:body on:mouseenter={handleMouseenter} 
+											 on:mouseleave={handleMouseleave}/>
+v   f. <svelte:head>            <svelte:head><link rel="stylesheet" href="theme.css"></svelte:head>
+    g. <svelte:options>         <svelte:options immutable={true}/>
 
 17. Module context
-    a. Sharing code
+    a. Sharing code             <script context="module">let current;</script>
     b. Exports
 
 18. Debugging
-    a. The @debug tag
+v   a. The @debug tag
 
 19. Next steps
-    a. Congratulations!
+v   a. Congratulations!

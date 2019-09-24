@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Thumbnail Carousel</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	background: #ebebeb;
+}
+h2 {
+	color: #696969;
+	font-size: 26px;
+	font-weight: 300;
+	text-align: center;
+	position: relative;
+	margin: 40px 70px;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+}
+h2::after {
+	content: "";
+    width: 100%;
+    position: absolute;
+    margin: 0 auto;
+    height: 1px;
+    border-radius: 1px;
+    background: #d4d4d4;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+}
+h2 span {
+	display: inline-block;
+	padding: 0 25px;
+	background:#ebebeb;
+	position:relative;
+	z-index:2;
+}
+.col-center {
+	margin: 0 auto;
+	float: none !important;
+}
+.carousel {	
+	margin: 30px auto 50px;
+	padding: 0 68px;
+}
+.carousel .item {
+    text-align: center;
+	overflow: hidden;
+    height: 160px;
+}
+.carousel .item .img-box {
+	background: #fff;
+	padding: 9px;
+	box-shadow: 0 6px 20px -6px rgba(0,0,0,0.4);
+}
+.carousel .item img {
+    margin: 0 auto;
+}
+.carousel .carousel-control {
+	width: 68px;
+	background: none;
+}
+.carousel .carousel-control i {
+    font-size: 28px;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    margin-top: -15px;
+    z-index: 5;
+    left: 0;
+    right: 0;
+	color: rgba(0, 0, 0, 0.8);
+    text-shadow: 0 3px 3px #e6e6e6, 0 0 0 #000;
+}
+.carousel .carousel-indicators {
+	bottom: -40px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 1px 4px;
+	box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
+}
+.carousel-indicators li {	
+	background: #999;
+	border-color: transparent;
+}
+.carousel-indicators li.active {
+	background: #555;
+}
+</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-9 col-center m-auto">
+			<h2><span>Thumbnail <b>Carousel</b></span></h2>
+			<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+				<!-- Carousel indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				</ol>   
+				<!-- Wrapper for carousel items -->
+				<div class="carousel-inner">
+					<div class="item carousel-item active">
+						<div class="row">
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/1.jpg" class="img-responsive img-fluid" alt=""></div></div>
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/2.jpg" class="img-responsive img-fluid" alt=""></div></div>
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/3.jpg" class="img-responsive img-fluid" alt=""></div></div>
+						</div>
+					</div>
+					<div class="item carousel-item">
+						<div class="row">
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/4.jpg" class="img-responsive img-fluid" alt=""></div></div>
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/5.jpg" class="img-responsive img-fluid" alt=""></div></div>
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/6.jpg" class="img-responsive img-fluid" alt=""></div></div>
+						</div>
+					</div>
+					<div class="item carousel-item">
+						<div class="row">
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/7.jpg" class="img-responsive img-fluid" alt=""></div></div>
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/8.jpg" class="img-responsive img-fluid" alt=""></div></div>
+							<div class="col-sm-4"><div class="img-box"><img src="https://www.tutorialrepublic.com/examples/images/thumbs/9.jpg" class="img-responsive img-fluid" alt=""></div></div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel controls -->
+				<a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+					<i class="fa fa-chevron-left"></i>
+				</a>
+				<a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+					<i class="fa fa-chevron-right"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
