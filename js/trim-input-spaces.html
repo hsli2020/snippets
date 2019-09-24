@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trim Spaces - Pure JS</title>
+</head>
+<body>
+    <p>Search1: <input type="text"/></p>
+    <p>Search2: <input type="text"/></p>
+    <p>Search3: <input type="text"/></p>
+    <p>Search4: <input type="text"/></p>
+    <p>Search5: <input type="text"/></p>
+    <script type="text/javascript">
+      window.onload = function() {
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+          if (inputs[i].type == 'text') {
+            inputs[i].onchange = function() {
+              this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
+            };
+          }
+        }
+      }
+    </script>
+</body>
+</html>

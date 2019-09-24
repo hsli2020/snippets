@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trim Spaces - jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <p>Search1: <input type="text"/></p>
+    <p>Search2: <input type="text"/></p>
+    <p>Search3: <input type="text"/></p>
+    <p>Search4: <input type="text"/></p>
+    <p>Search5: <input type="text"/></p>
+    <script type="text/javascript">
+    $(function(){
+        $('input[type="text"]').change(function(){
+            this.value = $.trim(this.value);
+        });
+    });
+    </script>
+</body>
+</html>
