@@ -1,0 +1,85 @@
+      <div id="" class="articalContent">
+                  <br>
+<table border="6" bordercolor="#EED498" bgcolor="#E4DAC4" cellspacing="14" cellpadding="15" width="600" height="100">
+<tr><td>
+<div style="width:600px; height:70px; POSITION: relative; LEFT: 20px; TOP: 0px">
+<!-- bofangqi -->
+<div id="audioBox">
+<script type="text/javascript">
+window.onload = function(){
+var arr = [
+"http://cdn.wenxuecity.com/upload/media/9c/8b/3c/OgKjj6dE8889.mp3", //常安-漂洋過海來看你
+"http://cdn.wenxuecity.com/upload/media/0d/4f/99/6BUHNoG92217.mp3", //楊蔓-藍眼淚
+"http://cdn.wenxuecity.com/upload/media/c3/9b/01/GfpFPKdJ2130.mp3", //陈瑞-紫藤花开
+"http://cdn.wenxuecity.com/upload/media/02/a0/8d/gl0ehpJh2039.mp3", //龚玥-电话情思
+"http://cdn.wenxuecity.com/upload/media/bb/80/61/EsGJk57O1952.mp3", //孫露-珍惜
+"http://cdn.wenxuecity.com/upload/media/7d/c9/e5/kVnXEIHK6032.mp3"  //谭艳-往事
+];               //需要播放的歌曲从后往前排
+var myAudio = new Audio();
+myAudio.preload = true;
+myAudio.controls = true;
+myAudio.src = arr.pop();         //每次读数组最后一个元素
+myAudio.addEventListener('ended', playEndedHandler, false);
+myAudio.play();
+document.getElementById("audioBox").appendChild(myAudio);
+myAudio.loop = false;//禁止循环，否则无法触发ended事件
+function playEndedHandler(){
+myAudio.src = arr.pop();
+myAudio.play();
+console.log(arr.length);
+!arr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定
+}
+}
+</script>
+</div>
+<!-- bofangqi -->
+</div>
+</td></tr>
+<!-- 文字 -->
+<tr><td align="left" style="line-height: 230%; padding-left:70px; padding-right:30px;">
+<font color="#0F3F67" size="+1">
+&nbsp;&nbsp;&nbsp;&nbsp;01. 谭艳-往事
+<br>&nbsp;&nbsp;&nbsp;&nbsp;02. 孫露-珍惜
+<br>&nbsp;&nbsp;&nbsp;&nbsp;03. 龚玥-电话情思
+<br>&nbsp;&nbsp;&nbsp;&nbsp;04. 陈瑞-紫藤花开
+<br>&nbsp;&nbsp;&nbsp;&nbsp;05. 楊蔓-藍眼淚
+<br>&nbsp;&nbsp;&nbsp;&nbsp;06. 常安-漂洋過海來看你
+
+<br><br>
+这是用html5的audio制成的歌曲联播播放器。
+<br><br>
+鉴于目前各种浏览器会逐渐放弃对flash player的支持，使用html5的code制作歌曲播放器已见诸于网页。
+此处只是个简单的应用。
+<br><br>
+优点：
+<br><br>
+1）code特别简单，无需调用目前通用的jQuery. 
+<br>
+2）歌曲列表以数组定义，直接在html语句中嵌入，列表容易。
+<br><br>
+缺点：
+<br><br>
+1）没有歌曲选择按钮，只能一首一首顺序听。
+<br>
+2）没有audio播放器的外观形式及颜色高度宽度参数设定，外观显现取决于不同的浏览器。
+<br><br>
+这只是一个简单的h5联播播放器，在有些场合下还是可用的。
+<br>
+~仅供参考~:)
+</font><br>
+<!-- 文字 end -->
+</td></tr></table>
+<br><br>
+<!-- END -->
+
+              </div>
+              <script type="text/javascript">
+	function forumSelected() {
+		var forumId = $("#forumId").val();
+		if(forumId == null || '' == forumId) {
+		  alert('请选择论坛.');
+		} else {
+		  
+		}
+	}
+</script>
