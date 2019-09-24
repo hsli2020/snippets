@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="File To Go">
+	<meta name="keywords" content="file,go,golang">
+	<title>File To Go</title>
+	<style>
+        body { font-family: monospace; }
+        table { margin: 4vh auto; }
+        tr { margin: 4px }
+        td { padding: 4px; }
+        input { padding: 4px; font-family: inherit; }
+        button { font-family: inherit; }
+        #last { text-align: center; }	
+	</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>Source File</td>
+			<td><input id="source_file" type="file"></td>
+		</tr>
+		<tr>
+			<td>Package Name</td>
+			<td><input id="package_name" type="text" value="main"></td>
+		</tr>
+		<tr>
+			<td>Variable Name</td>
+			<td><input id="variable_name" type="text" value="data"></td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="type" checked=> Slice</td>
+			<td><input id="array" type="radio" name="type"> Array</td>
+		</tr>
+		<tr>
+			<td>File Name</td>
+			<td><input id="file_name" type="text" value="data">.go</td>
+		</tr>
+		<tr>
+			<td id="last" colspan="2"><button id="convert_button">Convert</button></td>
+		</tr>
+	</table>
+	<script>
+        let sourceFile = document.getElementById("source_file");
+        let packageName = document.getElementById("package_name");
+        let variableName = document.getElementById("variable_name");
+        let array = document.getElementById("array");
+        let fileName = document.getElementById("file_name");
+        let convertButton = document.getElementById("convert_button");
+
+        convertButton.addEventListener("click", () => {
+            if(sourceFile.files.length === 0) {
+                alert("Add A Source File");
+                return;
+            }
+            let pack = packageName.value;
+            if(pack.length === 0) {
+                alert("Enter A Package Name");
+                return;
+            }
+            let variable = variableName.value;
+            if(variable.length === 0) {
+                alert("Enter A Variable Name");
+                return;
+            }
+            let file = fileName.value;
+            if(file.length === 0) {
+                alert("Enter A File Name");
+                return;
+            }
+            sourceFile.files[0].arrayBuffer().then(buffer => {
+                let bytes = new Uint8Array(buffer);
+                let go = "package " + pack + "\n\nvar " + 
+                    variable + " = [" + (array.checked ? "..." : "") + "]byte{" + 
+                    bytes.join(",") + "}\n";
+                let data = new Blob([go], {type: 'text/plain'});
+                let downloadLink = document.createElement("a");
+                downloadLink.href = window.URL.createObjectURL(data);
+                downloadLink.download = file + ".go";
+                downloadLink.click();
+                window.URL.revokeObjectURL(downloadLink.href);
+                downloadLink.remove();
+            });
+        });
+	</script>
+</body>
+</html>
