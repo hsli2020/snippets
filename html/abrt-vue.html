@@ -2,48 +2,49 @@
 <html>
 <head>
 <meta charset=utf-8>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ABRT</title>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!--
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src *; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+change ./assets to /assets after debugging
+-->
+<link rel="icon" href="./assets/icon-48.png" sizes="32x32" >
+<link rel="stylesheet" type="text/css" href="./assets/w3.css">
+<link rel="stylesheet" type="text/css" href="./assets/flatpickr/flatpickr.css">
+<link rel="stylesheet" type="text/css" href="./assets/flatpickr/themes/material_blue.css">
+
+<script src="./assets/flatpickr/flatpickr.js"></script>
+<script src="./assets/vue.min.js"></script>
+
 <style>
-  html,body { height:100%; }
-  .w3-modal { display: block; }
+  html, body, #app { height:100%; }
   p { margin-bottom: 0; }
-  #mytable td, #mytable th { padding: 2px 8px; vertical-align: middle;}
+
+  .w3-modal { display: block; }
+  .w3-table td, .w3-table th { padding: 4px 8px; }
   .w3-select { padding: 4px; }
   .w3-input { padding: 3px; }
+
+  #mytable td, #mytable th { padding: 2px 8px; vertical-align: middle;}
+
+  #calendar td, #calendar th { padding: 8px; border: 1px solid #ccc; text-align: center; }
+  .prevmonth { color: lightgray; }
+  .nextmonth { color: lightgray; }
+  .full { background-color: #eee; }
+  .unavailable { background-color: #ddd; }
+  .most { background-color: lightyellow; }
+  .some { background-color: lightcyan; }
+  .open { background-color: lightgreen; }
+
+  [required] { box-shadow: none; }
 </style>
 </head>
 <body class="w3-content">
-
-<div id="app">
-  <Sidebar></Sidebar> 
-  <MainPanel></MainPanel> 
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<!-- script src="abrt.js"></script -->
-
-<script>
-var allLicenses = [
-    { name: "Dai Yibing",   licnum: "D0175-79008-25604", expiry: "2021/11/05", level: "G2" },
-    { name: "Li Yi",        licnum: "L4001-79009-35107", expiry: "2018/08/15", level: "G" },
-    { name: "Wong Bryan",   licnum: "W6401-10299-60512", expiry: "2018/08/27", level: "G" },
-    { name: "Zheng Huihui", licnum: "Z3351-34709-15805", expiry: "2020/11/17", level: "G" },
-/*
-    { name: "Li Yin",       licnum: "L4001-79009-86028", expiry: "2020/09/03", level: "G" },
-    { name: "Nie FangChen", licnum: "N4142-25909-70403", expiry: "2018/08/28", level: "G2" },
-    { name: "Kong Jiewen",  licnum: "K6401-40109-55826", expiry: "2018/08/22", level: "G" },
-    { name: "Mo Yongwen",   licnum: "M6001-79009-55126", expiry: "2023/04/10", level: "G2" },
-    { name: "Guo Yujie",    licnum: "G9314-79009-55709", expiry: "2023/05/03", level: "G2" },
-    { name: "Liu Yingdi",   licnum: "L4741-79009-65218", expiry: "2021/12/19", level: "G2" },
-    { name: "Niu Qinli",    licnum: "N4741-63708-10415", expiry: "2023/03/06", level: "G2" },
-    { name: "Zhang Wang",   licnum: "Z3187-79009-50709", expiry: "2020/11/09", level: "G" },
-    { name: "Yu LingHao",   licnum: "Y9001-47409-31206", expiry: "2022/01/06", level: "G2" },
-    { name: "He YanNan",    licnum: "H2001-78909-46223", expiry: "2022/01/06", level: "G2" }
-*/
-];
-</script>
+  <div id="app">
+    <Sidebar></Sidebar>
+    <MainPanel></MainPanel>
+  </div>
+</body>
 
 <!-- ---------------------------------------------------------{
     Sidebar
@@ -51,23 +52,23 @@ var allLicenses = [
 <template id="sidebar-template">
   <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="width:260px">
     <div class="w3-container _w3-padding-16">
-      <h3><img src="/assets/icon-48.png" width="32"> ABRT</h3>
-      <form id="paneform">
-        <p><label>Driver: {{ selected.name }}</label></p>
-        <input class="w3-input w3-border" type="text" v-model="selected.licnum" @click="showSelectModal=true">
-        <p><label>Expiry: {{ selected.expiry }}</label></p>
-  
+      <h3><img src="./assets/icon-48.png" width="32"> ABRT</h3>
+      <form>
+        <p><label>Driver: <span class="w3-text-blue">{{ selected.name }}</span></label></p>
+        <input class="w3-input w3-border" type="text" readonly v-model="selected.licnum" @click="showSelectModal=true">
+        <p><label>Expiry: <span class="w3-text-blue">{{ selected.expiry }}</span></label></p>
+
         <p>
-          <label><input type="radio" name="testclass" value="G2" v-model="selected.level"> G2 License</label><br>
-          <label><input type="radio" name="testclass" value="G"  v-model="selected.level"> G License</label>
+          <label><input type="radio" value="G2" v-model="selected.level"> G2 License</label><br>
+          <label><input type="radio" value="G"  v-model="selected.level"> G License</label>
         </p>
-  
+
         <p><label>Start Date</label></p>
-        <input class="w3-input w3-border" type="text" v-model="startdate">
-  
+        <input class="w3-input w3-border" type="text" readonly v-model="startdate" ref="date1">
+
         <p><label>End Date</label></p>
-        <input class="w3-input w3-border" type="text" v-model="enddate">
-  
+        <input class="w3-input w3-border" type="text" readonly v-model="enddate" ref="date2">
+
         <p class="w3-center">
           <button class="w3-button w3-blue w3-margin-right" type="button" @click="start()">&#10148; Start</button>
           <button class="w3-button w3-blue w3-margin-left"  type="button" @click="stop()">&#9646; Stop</button>
@@ -78,61 +79,64 @@ var allLicenses = [
         </div>
 
         <p><button class="w3-button w3-block w3-blue" type="button" @click="showInputModal=true">&#10010; Add New Driver</button></p>
-        <p><button class="w3-button w3-block w3-blue" type="button" @click="showDataModal=true">&#10070; Backup/Restore</button></p>
+        <p><button class="w3-button w3-block w3-blue" type="button" @click="showEditorModal=true">&#10070; Manage Licenses</button></p>
       </form>
     </div>
 
-    <!--
-    <button @click="showInputModal=true">Show Input Modal</button>
-    <button @click="showSelectModal=true">Show Select Modal</button>
-    <button @click="showDataModal=true">Show Data Modal</button>
-    -->
-
     <InputModal  v-if="showInputModal"  @close="showInputModal=false"></InputModal>
     <SelectModal v-if="showSelectModal" @close="showSelectModal=false" @select="onSelect"></SelectModal>
-    <DataModal   v-if="showDataModal"   @close="showDataModal=false"></DataModal>
+    <EditorModal v-if="showEditorModal" @close="showEditorModal=false"></DataModal>
   </nav>
 </template>
 
 <script>
 Vue.component('sidebar', {
     template: '#sidebar-template',
-    props: [ "driver" ],
     data() {
         return {
             showInputModal: false,
             showSelectModal: false,
-            showDataModal: false,
-            selected: {
-                name: "",
-                licnum: "",
-                expiry: "",
-                level:  "",
-            },
+            showEditorModal: false,
+            selected: { name: "", licnum: "", expiry: "", level:  "", },
             startdate: "",
             enddate: ""
         }
     },
     methods: {
         start: function() {
-            console.log("start()");
+            //console.log(this.startdate, this.enddate);
+            if (this.startdate.length == 0 || this.enddate.length == 0) {
+                return;
+            }
+            if (typeof(browser) != "undefined") {
+                var backgroundPage = browser.extension.getBackgroundPage();
+                // console.log(backgroundPage);
+                backgroundPage.start();
+            }
         },
         stop: function() {
-            console.log("stop()");
+            if (typeof(browser) != "undefined") {
+                var backgroundPage = browser.extension.getBackgroundPage();
+                backgroundPage.stop();
+            }
         },
         onSelect: function (driver) {
             this.selected = Object.assign({}, driver);
+            this.$root.driver = Object.assign({}, driver);
             this.showSelectModal = false;
         }
+    },
+    mounted() {
+        flatpickr(this.$refs["date1"], {});
+        flatpickr(this.$refs["date2"], {});
     },
     computed: { }
 })
 </script>
 <!-- } -->
 
-
 <!-- ---------------------------------------------------------{
-    Pannel
+    Main Pannel
 ------------------------------------------------------------ -->
 <template id="main-panel-template">
 <div class="w3-main w3-white" style="margin-left:260px;height:100%">
@@ -142,9 +146,6 @@ Vue.component('sidebar', {
       <div class="w3-rest w3-light-grey">
         <div class="w3-blue w3-center" style="width:0%" id="progressbar">0</div>
       </div>
-      <!--
-      <div class="w3-bar-item w3-button w3-right w3-blue" id="clear">Clear</div>
-      -->
     </div>
     <div id="output" class="w3-border" style="width:100%;height:350px;padding:5px;overflow-y:hidden;"></div>
   </div>
@@ -158,18 +159,18 @@ Vue.component('sidebar', {
       <div class="w3-dropdown-hover">
         <button class="w3-bar-item w3-button w3-blue w3-tiny">&#10020; Speed</button>
         <div class="w3-dropdown-content w3-bar-block w3-border">
-          <a href="#" class="w3-bar-item w3-button speed">5 Seconds</a>
-          <a href="#" class="w3-bar-item w3-button speed">10 Seconds</a>
-          <a href="#" class="w3-bar-item w3-button speed">20 Seconds</a>
-          <a href="#" class="w3-bar-item w3-button speed">30 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button" @click="speed(5)">5 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button" @click="speed(10)">10 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button" @click="speed(20)">20 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button" @click="speed(30)">30 Seconds</a>
         </div>
       </div>
-      <span id="empty" class="w3-button w3-right w3-blue w3-tiny">&#10008; Clear</span>
+      <span class="w3-button w3-right w3-blue w3-tiny" @click="clear">&#10008; Clear</span>
     </div>
   </div>
 
   <div class="w3-container" style="height:calc(100% - 450px)">
-    <div id="messages" class="w3-border" style="width:100%;height:100%;padding:5px;overflow-y:scroll;"></div>
+    <div class="w3-border" style="width:100%;height:100%;padding:5px;overflow-y:scroll;" v-html="text"></div>
   </div>
 </div>
 </template>
@@ -181,8 +182,23 @@ Vue.component('mainpanel', {
         return {
         }
     },
-    methods: { },
-    computed: { }
+    methods: {
+        speed: function(s) {
+            this.$root.speed = s;
+            this.$root.messages.push("Speed: " + s);
+
+            var backgroundPage = browser.extension.getBackgroundPage();
+            backgroundPage.setSpeed(s);
+        },
+        clear: function() {
+            this.$root.messages = [];
+        }
+    },
+    computed: {
+        text() {
+            return this.$root.messages.join("<br>")
+        }
+    }
 })
 </script>
 <!-- } -->
@@ -197,22 +213,22 @@ Vue.component('mainpanel', {
         <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
         <h3 style="margin:0">New Driver License</h3>
       </header>
-  
+
       <div class="w3-container">
         <h3>Input Driver License</h3>
         <div class="w3-section">
           <label>Driver Name</label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="name" autocomplete="off" required>
-  
+          <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="name">
+
           <label>Driver License#</label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="licnum" autocomplete="off" required>
-  
+          <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="licnum">
+
           <label>Expiry Date</label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="YYYY/MM/DD" v-model="expiry" autocomplete="off" required>
-  
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="YYYY/MM/DD" v-model="expiry">
+
           <label><input type="radio" v-model="level" value="G2"> G2 License</label><br>
           <label><input type="radio" v-model="level" value="G"> G License</label><br>
-  
+
           <div class="w3-right">
             <button class="w3-btn w3-blue" @click="save()">Save</button>
             <button class="w3-btn w3-blue" @click="$emit('close')">Close</button>
@@ -235,13 +251,13 @@ Vue.component('inputmodal', {
         }
     },
     methods: {
-        save: function () {
+        save: function() {
             var name = this.name,
             licnum = this.licnum,
             expiry = this.expiry,
             level = this.level;
             if (name.length > 4 && licnum.length == 17 && expiry.length == 10) {
-                allLicenses.unshift({name, licnum, expiry, level});
+                this.$root.licenses.unshift({name, licnum, expiry, level});
                 this.$emit('close')
             }
         }
@@ -255,16 +271,16 @@ Vue.component('inputmodal', {
 ------------------------------------------------------------ -->
 <template id="select-modal-template">
   <div class="w3-modal">
-    <div class="w3-modal-content w3-card-4" style="width:640px; height:600px;">
+    <div class="w3-modal-content w3-card-4" style="width:640px; height:480px;">
       <header class="w3-container w3-blue">
         <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
         <h3 style="margin:0">Select Driver</h3>
       </header>
-  
+
       <div class="w3-container">
         <br>
         <input class="w3-input w3-border w3-padding" v-model="search" type="text" placeholder="Search drivers...">
-        <div class="w3-margin-top w3-border" style="height: 450px;overflow-y: scroll">
+        <div class="w3-margin-top w3-border" style="height: 350px;overflow-y: scroll">
           <table class="w3-table w3-bordered w3-hoverable" id="mytable">
             <thead>
               <tr>
@@ -297,7 +313,7 @@ Vue.component('selectmodal', {
     data() {
         return {
             search: "",
-            licenses: allLicenses
+            licenses: this.$root.licenses
         }
     },
     methods: { },
@@ -313,19 +329,19 @@ Vue.component('selectmodal', {
 <!-- } -->
 
 <!-- ---------------------------------------------------------{
-    Data Modal
+    Editor Modal
 ------------------------------------------------------------ -->
-<template id="data-modal-template">
+<template id="editor-modal-template">
   <div class="w3-modal">
-    <div class="w3-modal-content w3-card-4" style="width:640px; height:550px; font-family:consolas;">
+    <div class="w3-modal-content w3-card-4" style="width:640px; height:500px; font-family:consolas;">
       <header class="w3-container w3-blue">
         <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
-        <h3 style="margin:0">Data Backup/Restore</h3>
+        <h3 style="margin:0">Manage Licenses</h3>
       </header>
-  
+
       <div class="w3-container">
         <br>
-        <textarea cols="60" rows="18" v-model="text" style="resize:none; width:100%; margin-bottom:10px; padding:0 10px;"></textarea>
+        <textarea cols="60" rows="16" v-model="text" style="resize:none; width:100%; margin-bottom:10px; padding:0 10px;"></textarea>
         <div class="w3-right">
           <button class="w3-btn w3-blue" @click="save()">Save</button>
           <button class="w3-btn w3-blue" @click="$emit('close')">Close</button>
@@ -336,8 +352,8 @@ Vue.component('selectmodal', {
 </template>
 
 <script>
-Vue.component('datamodal', {
-    template: '#data-modal-template',
+Vue.component('editormodal', {
+    template: '#editor-modal-template',
     data() {
         return {
             text: this.csvtext()
@@ -345,10 +361,10 @@ Vue.component('datamodal', {
     },
     methods: {
         csvtext() {
-            var arr = allLicenses.map((lic) => {
+            var arr = this.$root.licenses.map((lic) => {
                 return lic.licnum + ",  " + lic.expiry + ",  " + (lic.level+ ",").padEnd(5, ' ') + lic.name;
             })
-            //arr.unshift(email);
+            if (this.$root.email) arr.unshift(this.$root.email);
             return arr.join("\n");
         },
         save() {
@@ -356,9 +372,8 @@ Vue.component('datamodal', {
             if (this.text.trim().length == 0) return;
 
             if (lines[0].includes('@')) {
-                var email = lines[0];
+                this.$root.email = lines[0];
                 lines = lines.slice(1);
-                // global.email = email;
             }
 
             var licenses = [];
@@ -374,7 +389,7 @@ Vue.component('datamodal', {
                 licenses.push({name, licnum, expiry, level});
             }
 
-            if (licenses.length > 0) allLicenses = licenses;
+            if (licenses.length > 0) this.$root.licenses = licenses;
 
             this.$emit('close')
         }
@@ -386,17 +401,76 @@ Vue.component('datamodal', {
 
 <script>
 function camelize(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-    return word.toUpperCase();
-  });
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+        return word.toUpperCase();
+    });
 }
 
-new Vue({
-  el: '#app',
-  data: { },
-  methods: { }
+var vm = new Vue({
+    el: '#app',
+    data: {
+        email: "",
+        speed: "",
+        messages: [],
+        driver: { name: "", licnum: "", expiry: "", level: "" },
+        licenses: [
+            /*
+            { name: "Dai Yibing",   licnum: "D0175-79008-25604", expiry: "2021/11/05", level: "G2" },
+            { name: "Li Yi",        licnum: "L4001-79009-35107", expiry: "2018/08/15", level: "G" },
+            { name: "Wong Bryan",   licnum: "W6401-10299-60512", expiry: "2018/08/27", level: "G" },
+            { name: "Zheng Huihui", licnum: "Z3351-34709-15805", expiry: "2020/11/17", level: "G" },
+            */
+        ]
+    },
+    methods: {
+        loadData: function () {
+            //console.log("load data");
+            if (typeof(browser) != "undefined") {
+                browser.storage.local.get().then(
+                    function(data) {
+                        if (!data.licenses) {
+                            data.email = "";
+                            data.licenses = [];
+                        }
+                        this.licenses = data.licenses;
+                        this.email = data.email;
+                    },
+                    function() { }
+                );
+            } else {
+                var data = JSON.parse(localStorage.getItem("abrt"));
+                this.licenses = data.licenses;
+                this.email = data.email;
+            }
+        },
+        saveData: function() {
+            //console.log("save data");
+            if (typeof(browser) != "undefined") {
+                var data = {};
+                data.licenses = this.licenses;
+                data.email = this.email;
+                browser.storage.local.set(data);
+            } else {
+                localStorage.setItem("abrt", JSON.stringify({ email: this.email, licenses: this.licenses }));
+            }
+        }
+    },
+    mounted() {
+        this.loadData();
+        if (typeof(browser) != "undefined") {
+            var backgroundPage = browser.extension.getBackgroundPage();
+            backgroundPage.attach(document);
+        }
+    },
+    watch: {
+        licenses: function (val) {
+            this.saveData();
+        },
+        email: function (val) {
+            this.saveData();
+        }
+    }
 })
 </script>
 
-</body>
 </html>
