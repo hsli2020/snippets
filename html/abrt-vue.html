@@ -3,18 +3,9 @@
 <head>
 <meta charset=utf-8>
 <title>ABRT</title>
-<!--
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src *; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-change ./assets to /assets after debugging
--->
-<link rel="icon" href="./assets/icon-48.png" sizes="32x32" >
-<link rel="stylesheet" type="text/css" href="./assets/w3.css">
-<link rel="stylesheet" type="text/css" href="./assets/flatpickr/flatpickr.css">
-<link rel="stylesheet" type="text/css" href="./assets/flatpickr/themes/material_blue.css">
-
-<script src="./assets/flatpickr/flatpickr.js"></script>
-<script src="./assets/vue.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <style>
   html, body, #app { height:100%; }
@@ -46,13 +37,11 @@ change ./assets to /assets after debugging
   </div>
 </body>
 
-<!-- ---------------------------------------------------------{
-    Sidebar
------------------------------------------------------------- -->
+<!-- Sidebar { -->
 <template id="sidebar-template">
   <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="width:260px">
     <div class="w3-container _w3-padding-16">
-      <h3><img src="./assets/icon-48.png" width="32"> ABRT</h3>
+      <h3><img src="/assets/icon-48.png" width="32"> ABRT</h3>
       <form>
         <p><label>Driver: <span class="w3-text-blue">{{ selected.name }}</span></label></p>
         <input class="w3-input w3-border" type="text" readonly v-model="selected.licnum" @click="showSelectModal=true">
@@ -128,17 +117,15 @@ Vue.component('sidebar', {
         }
     },
     mounted() {
-        flatpickr(this.$refs["date1"], {});
-        flatpickr(this.$refs["date2"], {});
+        //flatpickr(this.$refs["date1"], {});
+        //flatpickr(this.$refs["date2"], {});
     },
     computed: { }
 })
 </script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Main Pannel
------------------------------------------------------------- -->
+<!-- Main Pannel { -->
 <template id="main-panel-template">
 <div class="w3-main w3-white" style="margin-left:260px;height:100%">
   <div class="w3-container">
@@ -204,9 +191,7 @@ Vue.component('mainpanel', {
 </script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Input Modal
------------------------------------------------------------- -->
+<!-- Input Modal { -->
 <template id="input-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:400px; height:420px;">
@@ -267,9 +252,7 @@ Vue.component('inputmodal', {
 </script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Select Modal
------------------------------------------------------------- -->
+<!-- Select Modal { -->
 <template id="select-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:640px; height:480px;">
@@ -329,9 +312,7 @@ Vue.component('selectmodal', {
 </script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Editor Modal
------------------------------------------------------------- -->
+<!-- Editor Modal { -->
 <template id="editor-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:640px; height:500px; font-family:consolas;">
@@ -415,12 +396,12 @@ var vm = new Vue({
         messages: [],
         driver: { name: "", licnum: "", expiry: "", level: "" },
         licenses: [
-            /*
+            //*
             { name: "Dai Yibing",   licnum: "D0175-79008-25604", expiry: "2021/11/05", level: "G2" },
-            { name: "Li Yi",        licnum: "L4001-79009-35107", expiry: "2018/08/15", level: "G" },
-            { name: "Wong Bryan",   licnum: "W6401-10299-60512", expiry: "2018/08/27", level: "G" },
-            { name: "Zheng Huihui", licnum: "Z3351-34709-15805", expiry: "2020/11/17", level: "G" },
-            */
+            { name: "Li Yi",        licnum: "L4001-79008-35107", expiry: "2018/08/15", level: "G" },
+            { name: "Wong Bryan",   licnum: "W6401-10298-60512", expiry: "2018/08/27", level: "G" },
+            { name: "Zheng Huihui", licnum: "Z3351-34708-15805", expiry: "2020/11/17", level: "G" },
+            //*/
         ]
     },
     methods: {
