@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Detecting Inactivity in JavaScript</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div id="app">
+</div>
+
+<script type="text/javascript">
+var inactivityTime = function () {
+    var time;
+
+    window.onload = resetTimer;
+
+    document.onmousemove = resetTimer;
+    document.onkeypress = resetTimer;
+
+    function idle() {
+        console.log(new Date() + " You are not so busy.")
+        //location.href = 'logout.html'
+        resetTimer();
+    }
+
+    function resetTimer() {
+        clearTimeout(time);
+        time = setTimeout(idle, 3000)
+    }
+};
+
+window.onload = function() {
+  inactivityTime(); 
+}
+</script>
+
+</body>
+</html>
