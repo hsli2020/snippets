@@ -1,0 +1,684 @@
+# GraphQL Admin API
+
+# REST Admin API
+
+##  Access APIs
+### AccessScope 	View the access scopes approved by merchants during installation of your app.
+        GET /admin/oauth/access_scopes.json
+            Retrieves a list of access scopes associated to the access token.
+
+### StorefrontAccessToken 	Generate a storefront access token to access the Storefront API.
+        POST /admin/api/2019-10/storefront_access_tokens.json
+            Creates a new StorefrontAccessToken
+        DELETE /admin/api/2019-10/storefront_access_tokens/#{storefront_access_token_id}.json
+            Deletes an existing storefront access token
+        GET /admin/api/2019-10/storefront_access_tokens.json
+            Retrieves a list of storefront access tokens that have been issued
+##  Analytics APIs
+		GET /admin/api/2019-10/reports.json
+            Retrieves a list of reports
+		GET /admin/api/2019-10/reports/#{report_id}.json
+            Retrieves a single report
+		POST /admin/api/2019-10/reports.json
+            Creates a new report
+		PUT /admin/api/2019-10/reports/#{report_id}.json
+            Updates a report
+		DELETE /admin/api/2019-10/reports/#{report_id}.json
+            Deletes a report
+##  Billing APIs
+		POST /admin/api/2019-10/recurring_application_charges.json
+            Creates a recurring application charge
+		GET /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}.json
+            Retrieves a single charge
+		GET /admin/api/2019-10/recurring_application_charges.json?since_id=455696195
+            Retrieves a list of recurring application charges
+		POST /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}/activate.json
+            Activates a recurring application charge
+		DELETE /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}.json
+            Cancels a recurring application charge
+		PUT /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}/customize.json?recurring_application_charge[capped_amount]=200
+            Updates the capped amount of a recurring application charge
+
+		POST /admin/api/2019-10/application_charges.json
+            Creates an application charge
+		GET /admin/api/2019-10/application_charges/#{application_charge_id}.json
+            Retrieves an application charge
+		GET /admin/api/2019-10/application_charges.json
+            Retrieves a list of application charges
+		POST /admin/api/2019-10/application_charges/#{application_charge_id}/activate.json
+            Activates an application charge
+
+		POST /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}/usage_charges.json
+            Creates a usage charge
+		GET /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}/usage_charges/#{usage_charge_id}.json
+            Retrieves a single charge
+		GET /admin/api/2019-10/recurring_application_charges/#{recurring_application_charge_id}/usage_charges.json
+            Retrieves a list of usage charges
+
+		POST /admin/api/2019-10/application_credits.json
+            Creates an application credit
+		GET /admin/api/2019-10/application_credits/#{application_credit_id}.json
+            Retrieves a single application credit
+		GET /admin/api/2019-10/application_credits.json
+            Retrieves all application credits
+##  Customer APIs
+		GET /admin/api/2019-10/customers/#{customer_id}/addresses.json
+            Retrieves a list of addresses for a customer
+		GET /admin/api/2019-10/customers/#{customer_id}/addresses/#{address_id}.json
+            Retrieves details for a single customer address
+		POST /admin/api/2019-10/customers/#{customer_id}/addresses.json
+            Creates a new address for a customer
+		PUT /admin/api/2019-10/customers/#{customer_id}/addresses/#{address_id}.json
+            Updates an existing customer address
+		DELETE /admin/api/2019-10/customers/#{customer_id}/addresses/#{address_id}.json
+            Removes an address from a customer’s address list
+		PUT /admin/api/2019-10/customers/#{customer_id}/addresses/set.json?address_ids[]=1053317338&operation=destroy
+            Performs bulk operations for multiple customer addresses
+		PUT /admin/api/2019-10/customers/#{customer_id}/addresses/#{address_id}/default.json
+            Sets the default address for a customer
+
+		GET /admin/api/2019-10/customers.json
+            Retrieves a list of customers
+		GET /admin/api/2019-10/customers/search.json?query=Bob country:United States
+            Searches for customers that match a supplied query
+		GET /admin/api/2019-10/customers/#{customer_id}.json
+            Retrieves a single customer
+		POST /admin/api/2019-10/customers.json
+            Creates a customer
+		PUT /admin/api/2019-10/customers/#{customer_id}.json
+            Updates a customer
+		POST /admin/api/2019-10/customers/#{customer_id}/account_activation_url.json
+            Creates an account activation URL for a customer
+		POST /admin/api/2019-10/customers/#{customer_id}/send_invite.json
+            Sends an account invite to a customer
+		DELETE /admin/api/2019-10/customers/#{customer_id}.json
+            Deletes a customer.
+		GET /admin/api/2019-10/customers/count.json
+            Retrieves a count of customers
+		GET /admin/api/2019-10/customers/#{customer_id}/orders.json
+            Retrieves all orders belonging to a customer
+
+		GET /admin/api/2019-10/customer_saved_searches.json
+            Retrieves a list of customer saved searches
+		GET /admin/api/2019-10/customer_saved_searches/count.json
+            Retrieves a count of all customer saved searches
+		GET /admin/api/2019-10/customer_saved_searches/#{customer_saved_search_id}.json
+            Retrieves a single customer saved search
+		GET /admin/api/2019-10/customer_saved_searches/#{customer_saved_search_id}/customers.json
+            Retrieves all customers returned by a customer saved search
+		POST /admin/api/2019-10/customer_saved_searches.json
+            Creates a customer saved search
+		PUT /admin/api/2019-10/customer_saved_searches/#{customer_saved_search_id}.json
+            Updates a customer saved search
+		DELETE /admin/api/2019-10/customer_saved_searches/#{customer_saved_search_id}.json
+            Deletes a customer saved search
+##  Discount APIs
+		POST /admin/api/2019-10/price_rules.json
+            Creates a price rule
+		PUT /admin/api/2019-10/price_rules/#{price_rule_id}.json
+            Updates an existing a price rule
+		GET /admin/api/2019-10/price_rules.json
+            Retrieves a list of price rules
+		GET /admin/api/2019-10/price_rules/#{price_rule_id}.json
+            Retrieves a single price rule
+		GET /admin/api/2019-10/price_rules/count.json
+            Retrieves a count of all price rules
+		DELETE /admin/api/2019-10/price_rules/#{price_rule_id}.json
+            Remove an existing PriceRule
+
+		POST /admin/api/2019-10/price_rules/#{price_rule_id}/discount_codes.json
+            Creates a discount code
+		PUT /admin/api/2019-10/price_rules/#{price_rule_id}/discount_codes/#{discount_code_id}.json
+            Updates an existing discount code
+		GET /admin/api/2019-10/price_rules/#{price_rule_id}/discount_codes.json
+            Retrieves a list of discount codes
+		GET /admin/api/2019-10/price_rules/#{price_rule_id}/discount_codes/#{discount_code_id}.json
+            Retrieves a single discount code
+		GET /admin/api/2019-10/discount_codes/lookup.json?code=SUMMERSALE10OFF
+            Retrieves the location of a discount code
+		DELETE /admin/api/2019-10/price_rules/#{price_rule_id}/discount_codes/#{discount_code_id}.json
+            Deletes a discount code
+		POST /admin/api/2019-10/price_rules/#{price_rule_id}/batch.json
+            Creates a discount code creation job
+		GET /admin/api/2019-10/price_rules/#{price_rule_id}/batch/#{batch_id}.json
+            Retrieves a discount code creation job
+		GET /admin/api/2019-10/price_rules/#{price_rule_id}/batch/#{batch_id}/discount_codes.json
+            Retrieves a list of discount codes for a discount code creation job
+##  Event APIs
+		GET /admin/api/2019-10/events.json
+            Retrieves a list of events
+		GET /admin/api/2019-10/events/#{event_id}.json
+            Retrieves a single event
+		GET /admin/api/2019-10/events/count.json
+            Retrieves a count of events
+
+		GET /admin/api/2019-10/webhooks.json
+            Retrieves a list of webhooks
+		GET /admin/api/2019-10/webhooks/count.json
+            Receive a count of all Webhooks
+		GET /admin/api/2019-10/webhooks/#{webhook_id}.json
+            Receive a single Webhook
+		POST /admin/api/2019-10/webhooks.json
+            Create a new Webhook
+		PUT /admin/api/2019-10/webhooks/#{webhook_id}.json
+            Modify an existing Webhook
+		DELETE /admin/api/2019-10/webhooks/#{webhook_id}.json
+            Remove an existing Webhook
+##  Inventory APIs
+		GET /admin/api/2019-10/inventory_levels.json
+            Retrieves a list of inventory levels
+		POST /admin/api/2019-10/inventory_levels/adjust.json
+            Adjusts the inventory level of an inventory item at a location
+		DELETE /admin/api/2019-10/inventory_levels.json?inventory_item_id=808950810&location_id=905684977
+            Deletes an inventory level from a location
+		POST /admin/api/2019-10/inventory_levels/connect.json
+            Connects an inventory item to a location
+		POST /admin/api/2019-10/inventory_levels/set.json
+            Sets the inventory level for an inventory item at a location
+
+		GET /admin/api/2019-10/locations.json
+            Retrieves a list of locations
+		GET /admin/api/2019-10/locations/#{location_id}.json
+            Retrieves a single location by its ID
+		GET /admin/api/2019-10/locations/count.json
+            Retrieves a count of locations
+		GET /admin/api/2019-10/locations/#{location_id}/inventory_levels.json
+            Retrieves a list of inventory levels for a location.
+
+		GET /admin/api/2019-10/inventory_items.json?ids=808950810,39072856,457924702
+            Retrieves a list of inventory items
+		GET /admin/api/2019-10/inventory_items/#{inventory_item_id}.json
+            Retrieves a single inventory item by ID
+		PUT /admin/api/2019-10/inventory_items/#{inventory_item_id}.json
+            Updates an existing inventory item
+##  MarketingEvent
+		GET /admin/api/2019-10/marketing_events.json
+            Retrieves a list of all marketing events
+		GET /admin/api/2019-10/marketing_events/count.json
+            Retrieves a count of all marketing events
+		GET /admin/api/2019-10/marketing_events/#{marketing_event_id}.json
+            Retrieves a single marketing event
+		POST /admin/api/2019-10/marketing_events.json
+            Creates a marketing event
+		PUT /admin/api/2019-10/marketing_events/#{marketing_event_id}.json
+            Updates a marketing event
+		DELETE /admin/api/2019-10/marketing_events/#{marketing_event_id}.json
+            Deletes a marketing event
+		POST /admin/api/2019-10/marketing_events/#{marketing_event_id}/engagements.json
+            Creates marketing engagements on a marketing event
+##  Metafield
+		GET /admin/api/2019-10/metafields.json
+            Retrieves a list of metafields that belong to a resource
+		GET /admin/api/2019-10/metafields.json?metafield[owner_id]=850703190&metafield[owner_resource]=product_image
+            Retrieves a list of metafields that belong to a Product Image resource
+		GET /admin/api/2019-10/metafields/count.json
+            Retrieves a count of a resource's metafields
+		GET /admin/api/2019-10/metafields/#{metafield_id}.json
+            Retrieves a single metafield from a resource by its ID
+		POST /admin/api/2019-10/metafields.json
+            Creates a new metafield for a resource
+		PUT /admin/api/2019-10/metafields/#{metafield_id}.json
+            Updates a metafield
+		DELETE /admin/api/2019-10/metafields/#{metafield_id}.json
+            Deletes a metafield by its ID
+##  Online store APIs
+		GET /admin/api/2019-10/comments.json?since_id=118373535
+            Retrieves a list of comments
+		GET /admin/api/2019-10/comments/count.json?article_id=134645308&blog_id=241253187
+            Retrieves a count of comments
+		GET /admin/api/2019-10/comments/#{comment_id}.json
+            Retrieves a single comment by its ID
+		POST /admin/api/2019-10/comments.json
+            Creates a comment for an article
+		PUT /admin/api/2019-10/comments/#{comment_id}.json
+            Updates a comment of an article
+		POST /admin/api/2019-10/comments/#{comment_id}/spam.json
+            Marks a comment as spam
+		POST /admin/api/2019-10/comments/#{comment_id}/not_spam.json
+            Marks a comment as not spam
+		POST /admin/api/2019-10/comments/#{comment_id}/approve.json
+            Approves a comment
+		POST /admin/api/2019-10/comments/#{comment_id}/remove.json
+            Removes a comment
+		POST /admin/api/2019-10/comments/#{comment_id}/restore.json
+            Restores a previously removed comment
+
+		GET /admin/api/2019-10/pages.json
+            Retrieves a list of pages
+		GET /admin/api/2019-10/pages/count.json
+            Retrieves a page count
+		GET /admin/api/2019-10/pages/#{page_id}.json
+            Retrieves a single page by its ID
+		POST /admin/api/2019-10/pages.json
+            Create a new Page
+		PUT /admin/api/2019-10/pages/#{page_id}.json
+            Updates a page
+		DELETE /admin/api/2019-10/pages/#{page_id}.json
+            Deletes a page
+
+		GET /admin/api/2019-10/script_tags.json
+            Retrieves a list of all script tags
+		GET /admin/api/2019-10/script_tags/count.json
+            Retrieves a count of all script tags
+		GET /admin/api/2019-10/script_tags/#{script_tag_id}.json
+            Retrieves a single script tag
+		POST /admin/api/2019-10/script_tags.json
+            Creates a new script tag
+		PUT /admin/api/2019-10/script_tags/#{script_tag_id}.json
+            Updates a script tag
+		DELETE /admin/api/2019-10/script_tags/#{script_tag_id}.json
+            Deletes a script tag
+
+		GET /admin/api/2019-10/redirects.json
+            Retrieves a list of URL redirects
+		GET /admin/api/2019-10/redirects/count.json
+            Retrieves a count of URL redirects
+		GET /admin/api/2019-10/redirects/#{redirect_id}.json
+            Retrieves a single redirect
+		POST /admin/api/2019-10/redirects.json
+            Creates a redirect
+		PUT /admin/api/2019-10/redirects/#{redirect_id}.json
+            Updates an existing redirect
+		DELETE /admin/api/2019-10/redirects/#{redirect_id}.json
+            Deletes a redirect
+
+		GET /admin/api/2019-10/blogs.json
+            Retrieve a list of all blogs
+		GET /admin/api/2019-10/blogs/count.json
+            Receive a count of all Blogs
+		GET /admin/api/2019-10/blogs/#{blog_id}.json
+            Receive a single Blog
+		POST /admin/api/2019-10/blogs.json
+            Create a new Blog
+		PUT /admin/api/2019-10/blogs/#{blog_id}.json
+            Modify an existing Blog
+		DELETE /admin/api/2019-10/blogs/#{blog_id}.json
+            Remove an existing Blog
+
+		GET /admin/api/2019-10/themes/#{theme_id}/assets.json
+            Retrieves a list of assets for a theme
+		GET /admin/api/2019-10/themes/#{theme_id}/assets.json?asset[key]=templates/index.liquid&theme_id=828155753
+            Retrieves a single asset for a theme
+		PUT /admin/api/2019-10/themes/#{theme_id}/assets.json
+            Creates or updates an asset for a theme
+		DELETE /admin/api/2019-10/themes/#{theme_id}/assets.json?asset[key]=assets/bg-body.gif
+            Deletes an asset from a theme
+
+		GET /admin/api/2019-10/themes.json
+            Retrieves a list of themes
+		GET /admin/api/2019-10/themes/#{theme_id}.json
+            Retrieves a single theme
+		POST /admin/api/2019-10/themes.json
+            Creates a theme
+		PUT /admin/api/2019-10/themes/#{theme_id}.json
+            Modify an existing Theme
+		DELETE /admin/api/2019-10/themes/#{theme_id}.json
+            Remove an existing Theme
+
+		GET /admin/api/2019-10/blogs/#{blog_id}/articles.json
+            Retrieves a list of all articles from a blog
+		GET /admin/api/2019-10/blogs/#{blog_id}/articles/count.json
+            Retrieves a count of all articles from a blog
+		GET /admin/api/2019-10/blogs/#{blog_id}/articles/#{article_id}.json
+            Receive a single Article
+		POST /admin/api/2019-10/blogs/#{blog_id}/articles.json
+            Creates an article for a blog
+		PUT /admin/api/2019-10/blogs/#{blog_id}/articles/#{article_id}.json
+            Updates an article
+		GET /admin/api/2019-10/articles/authors.json
+            Retrieves a list of all article authors
+		GET /admin/api/2019-10/articles/tags.json
+            Retrieves a list of all article tags
+		DELETE /admin/api/2019-10/blogs/#{blog_id}/articles/#{article_id}.json
+            Deletes an article
+##  Order APIs
+		GET /admin/api/2019-10/checkouts/count.json
+            Retrieves a count of checkouts
+		GET /admin/api/2019-10/checkouts.json
+            Retrieves a list of abandoned checkouts
+
+		POST /admin/api/2019-10/orders/#{order_id}/risks.json
+            Creates an order risk for an order
+		GET /admin/api/2019-10/orders/#{order_id}/risks.json
+            Retrieves a list of all order risks for an order
+		GET /admin/api/2019-10/orders/#{order_id}/risks/#{risk_id}.json
+            Retrieves a single order risk by its ID
+		PUT /admin/api/2019-10/orders/#{order_id}/risks/#{risk_id}.json
+            Updates an order risk
+		DELETE /admin/api/2019-10/orders/#{order_id}/risks/#{risk_id}.json
+            Deletes an order risk for an order
+
+		POST /admin/api/2019-10/draft_orders.json
+            Create a new DraftOrder
+		PUT /admin/api/2019-10/draft_orders/#{draft_order_id}.json
+            Modify an existing DraftOrder
+		GET /admin/api/2019-10/draft_orders.json
+            Retrieves a list of draft orders
+		GET /admin/api/2019-10/draft_orders/#{draft_order_id}.json
+            Receive a single DraftOrder
+		GET /admin/api/2019-10/draft_orders/count.json
+            Receive a count of all DraftOrders
+		POST /admin/api/2019-10/draft_orders/#{draft_order_id}/send_invoice.json
+            Send an invoice
+		DELETE /admin/api/2019-10/draft_orders/#{draft_order_id}.json
+            Remove an existing DraftOrder
+		PUT /admin/api/2019-10/draft_orders/#{draft_order_id}/complete.json
+            Complete a draft order
+
+		GET /admin/api/2019-10/orders.json
+            Retrieves a list of orders
+		GET /admin/api/2019-10/orders/#{order_id}.json
+            Retrieves a specific order
+		GET /admin/api/2019-10/orders/count.json
+            Retrieves an order count
+		POST /admin/api/2019-10/orders/#{order_id}/close.json
+            Closes an order
+		POST /admin/api/2019-10/orders/#{order_id}/open.json
+            Re-opens a closed order
+		POST /admin/api/2019-10/orders/#{order_id}/cancel.json
+            Cancels an order
+		POST /admin/api/2019-10/orders.json
+            Creates an order
+		PUT /admin/api/2019-10/orders/#{order_id}.json
+            Updates an order
+		DELETE /admin/api/2019-10/orders/#{order_id}.json
+            Deletes an order
+
+		GET /admin/api/2019-10/orders/#{order_id}/transactions.json?since_id=801038806
+            Retrieves a list of transactions
+		GET /admin/api/2019-10/orders/#{order_id}/transactions/count.json
+            Retrieves a count of an order's transactions
+		GET /admin/api/2019-10/orders/#{order_id}/transactions/#{transaction_id}.json
+            Retrieves a specific transaction
+		POST /admin/api/2019-10/orders/#{order_id}/transactions.json
+            Creates a transaction for an order
+
+		GET /admin/api/2019-10/orders/#{order_id}/refunds.json
+            Retrieves a list of refunds for an order
+		GET /admin/api/2019-10/orders/#{order_id}/refunds/#{refund_id}.json
+            Retrieves a specific refund
+		POST /admin/api/2019-10/orders/#{order_id}/refunds/calculate.json
+            Calculates a refund
+		POST /admin/api/2019-10/orders/#{order_id}/refunds.json
+            Creates a refund
+##  Plus APIs
+		GET /admin/api/2019-10/gift_cards.json
+            Retrieves a list of gift cards
+		GET /admin/api/2019-10/gift_cards/#{gift_card_id}.json
+            Retrieves a single gift card
+		GET /admin/api/2019-10/gift_cards/count.json
+            Retrieves a count of gift cards
+		POST /admin/api/2019-10/gift_cards.json
+            Creates a gift card
+		PUT /admin/api/2019-10/gift_cards/#{gift_card_id}.json
+            Updates an existing gift card
+		POST /admin/api/2019-10/gift_cards/#{gift_card_id}/disable.json
+            Disables a gift card
+		GET /admin/api/2019-10/gift_cards/search.json?query=mnop
+            Searches for gift cards
+
+		GET /admin/api/2019-10/users.json
+            Retrieves a list of all users
+		GET /admin/api/2019-10/users/#{user_id}.json
+            Retrieves a single user
+		GET /admin/api/2019-10/users/current.json
+            Retrieves the currently logged-in user
+
+		GET /account/login/multipass/insert_token_here
+##  Product APIs
+		GET /admin/api/2019-10/products/#{product_id}/images.json
+            Receive a list of all Product Images
+		GET /admin/api/2019-10/products/#{product_id}/images/count.json
+            Receive a count of all Product Images
+		GET /admin/api/2019-10/products/#{product_id}/images/#{image_id}.json
+            Receive a single Product Image
+		POST /admin/api/2019-10/products/#{product_id}/images.json
+            Create a new Product Image
+		PUT /admin/api/2019-10/products/#{product_id}/images/#{image_id}.json
+            Modify an existing Product Image
+		DELETE /admin/api/2019-10/products/#{product_id}/images/#{image_id}.json
+            Remove an existing Product Image
+
+		GET /admin/api/2019-10/custom_collections.json
+            Retrieves a list of custom collections
+		GET /admin/api/2019-10/custom_collections/count.json
+            Retrieves a count of custom collections
+		GET /admin/api/2019-10/custom_collections/#{custom_collection_id}.json
+            Retrieves a single custom collection
+		POST /admin/api/2019-10/custom_collections.json
+            Creates a custom collection
+		PUT /admin/api/2019-10/custom_collections/#{custom_collection_id}.json
+            Updates an existing custom collection
+		DELETE /admin/api/2019-10/custom_collections/#{custom_collection_id}.json
+            Deletes a custom collection
+
+		GET /admin/api/2019-10/products/#{product_id}/variants.json
+            Retrieves a list of product variants
+		GET /admin/api/2019-10/products/#{product_id}/variants/count.json
+            Receive a count of all Product Variants
+		GET /admin/api/2019-10/variants/#{variant_id}.json
+            Receive a single Product Variant
+		POST /admin/api/2019-10/products/#{product_id}/variants.json
+            Create a new Product Variant
+		PUT /admin/api/2019-10/variants/#{variant_id}.json
+            Modify an existing Product Variant
+		DELETE /admin/api/2019-10/products/#{product_id}/variants/#{variant_id}.json
+            Remove an existing Product Variant
+
+		GET /admin/api/2019-10/products.json?since_id=632910392
+            Retrieves a list of products
+		GET /admin/api/2019-10/products/count.json
+            Retrieves a count of products
+		GET /admin/api/2019-10/products/#{product_id}.json
+            Retrieves a single product
+		POST /admin/api/2019-10/products.json
+            Creates a new product
+		PUT /admin/api/2019-10/products/#{product_id}.json
+            Updates a product
+		DELETE /admin/api/2019-10/products/#{product_id}.json
+            Deletes a product
+
+		POST /admin/api/2019-10/collects.json
+            Adds a product to a custom collection
+		DELETE /admin/api/2019-10/collects/#{collect_id}.json
+            Removes a product from a collection
+		GET /admin/api/2019-10/collects/count.json
+            Retrieves a count of collects
+		GET /admin/api/2019-10/collects.json
+            Retrieves a list of collects
+		GET /admin/api/2019-10/collects/count.json
+            Retrieves a count of collects
+		GET /admin/api/2019-10/collects/#{collect_id}.json
+            Retrieves a specific collect by its ID
+
+		GET /admin/api/2019-10/smart_collections.json
+            Retrieves a list of smart collections
+		GET /admin/api/2019-10/smart_collections/count.json
+            Retrieves a count of smart collections
+		GET /admin/api/2019-10/smart_collections/#{smart_collection_id}.json
+            Retrieves a single smart collection
+		POST /admin/api/2019-10/smart_collections.json
+            Creates a smart collection
+		PUT /admin/api/2019-10/smart_collections/#{smart_collection_id}.json
+            Updates an existing smart collection
+		PUT /admin/api/2019-10/smart_collections/#{smart_collection_id}/order.json?products[]=921728736&products[]=632910392
+            Updates the ordering type of products in a smart collection
+		DELETE /admin/api/2019-10/smart_collections/#{smart_collection_id}.json
+            Removes a smart collection
+##  Sales channel APIs
+		GET /admin/api/2019-10/collection_listings.json
+            Retrieve collection listings that are published to your app
+		GET /admin/api/2019-10/collection_listings/#{collection_listing_id}/product_ids.json
+            Retrieve product_ids that are published to a collection_id
+		GET /admin/api/2019-10/collection_listings/#{collection_listing_id}.json
+            Retrieve a specific collection listing that is published to your app
+		PUT /admin/api/2019-10/collection_listings/#{collection_listing_id}.json
+            Create a collection listing to publish a collection to your app
+		DELETE /admin/api/2019-10/collection_listings/#{collection_listing_id}.json
+            Delete a collection listing to unpublish a collection from your app
+
+		POST https://elb.deposit.shopifycs.com/sessions
+            Stores a credit card in the card vault
+		POST /admin/api/2019-10/checkouts/#{token}/payments.json
+            Creates a new payment
+		GET /admin/api/2019-10/checkouts/#{token}/payments.json
+            Retrieves a list of payments on a particular checkout
+		GET /admin/api/2019-10/checkouts/#{token}/payments/#{payment_id}.json
+            Retrieves a single payment
+		GET /admin/api/2019-10/checkouts/#{token}/payments/count.json
+            Counts the number of payments attempted on a checkout
+
+		POST /admin/api/2019-10/checkouts.json
+            Creates a checkout
+		POST /admin/api/2019-10/checkouts/#{token}/complete.json
+            Completes a checkout
+		GET /admin/api/2019-10/checkouts/#{token}.json
+            Retrieves a checkout
+		PUT /admin/api/2019-10/checkouts/#{token}.json
+            Modifies an existing checkout
+		GET /admin/api/2019-10/checkouts/#{token}/shipping_rates.json
+            Retrieves a list of shipping rates
+
+		POST /admin/api/2019-10/resource_feedback.json
+            Create a new ResourceFeedback
+		GET /admin/api/2019-10/resource_feedback.json
+            Receive a list of all ResourceFeedbacks
+
+		GET /admin/api/2019-10/product_listings.json
+            Retrieve product listings that are published to your app
+		GET /admin/api/2019-10/product_listings/product_ids.json
+            Retrieve product_ids that are published to your app
+		GET /admin/api/2019-10/product_listings/count.json
+            Retrieve a count of products that are published to your app
+		GET /admin/api/2019-10/product_listings/#{product_listing_id}.json
+            Retrieve a specific product listing that is published to your app
+		PUT /admin/api/2019-10/product_listings/#{product_listing_id}.json
+            Create a product listing to publish a product to your app
+		DELETE /admin/api/2019-10/product_listings/#{product_listing_id}.json
+            Delete a product listing to unpublish a product from your app
+##  Shipping and fulfillment APIs
+		POST /admin/api/2019-10/carrier_services.json
+            Creates a carrier service
+		PUT /admin/api/2019-10/carrier_services/#{carrier_service_id}.json
+            Updates a carrier service
+		GET /admin/api/2019-10/carrier_services.json
+            Retrieves a list of carrier services
+		GET /admin/api/2019-10/carrier_services/#{carrier_service_id}.json
+            Retrieves a single carrier service
+		DELETE /admin/api/2019-10/carrier_services/#{carrier_service_id}.json
+            Deletes a carrier service
+
+		GET /admin/api/2019-10/orders/#{order_id}/fulfillments.json?since_id=255858046
+            Retrieves fulfillments associated with an order
+		GET /admin/api/2019-10/orders/#{order_id}/fulfillments/count.json
+            Retrieves a count of fulfillments associated with a specific order
+		GET /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}.json
+            Receive a single Fulfillment
+		POST /admin/api/2019-10/orders/#{order_id}/fulfillments.json
+            Create a new Fulfillment
+		PUT /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}.json
+            Modify an existing Fulfillment
+		POST /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/complete.json
+            Complete a fulfillment
+		POST /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/open.json
+            Transition a fulfillment from pending to open.
+		POST /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/cancel.json
+            Cancel a fulfillment
+
+		GET /admin/api/2019-10/fulfillment_services.json
+            Receive a list of all FulfillmentServices
+		POST /admin/api/2019-10/fulfillment_services.json
+            Create a new FulfillmentService
+		GET /admin/api/2019-10/fulfillment_services/#{fulfillment_service_id}.json
+            Receive a single FulfillmentService
+		PUT /admin/api/2019-10/fulfillment_services/#{fulfillment_service_id}.json
+            Modify an existing FulfillmentService
+		DELETE /admin/api/2019-10/fulfillment_services/#{fulfillment_service_id}.json
+            Remove an existing FulfillmentService
+
+		GET /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/events.json
+            Retrieves a list of fulfillment events for a specific fulfillment
+		GET /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/events/#{event_id}.json
+            Retrieves a specific fulfillment event
+		POST /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/events.json
+            Creates a fulfillment event
+		DELETE /admin/api/2019-10/orders/#{order_id}/fulfillments/#{fulfillment_id}/events/#{event_id}.json
+            Deletes a fulfillment event
+##  Shopify Payments APIs
+		GET /admin/api/2019-10/shopify_payments/payouts.json
+            Return a list of all payouts
+		GET /admin/api/2019-10/shopify_payments/payouts/#{payout_id}.json
+            Return a single payout
+
+		GET /admin/api/2019-10/shopify_payments/disputes.json
+            Return a list of all disputes
+		GET /admin/api/2019-10/shopify_payments/disputes/#{dispute_id}.json
+            Return a single dispute
+
+		GET /admin/api/2019-10/shopify_payments/balance.json
+            Return the current balance
+
+		GET /admin/api/2019-10/shopify_payments/balance/transactions.json?payout_id=623721858
+            Return a list of all balance transactions
+##  Store property APIs
+		GET /admin/api/2019-10/countries.json
+            Receive a list of all Countries
+		GET /admin/api/2019-10/countries/count.json
+            Retrieves a count of countries
+		GET /admin/api/2019-10/countries/#{country_id}.json
+            Retrieves a specific county
+		POST /admin/api/2019-10/countries.json
+            Creates a country
+		PUT /admin/api/2019-10/countries/#{country_id}.json
+            Updates an existing country
+		DELETE /admin/api/2019-10/countries/#{country_id}.json
+            Remove an existing Country
+
+		GET /admin/api/2019-10/countries/#{country_id}/provinces.json?since_id=536137098
+            Retrieves a list of provinces for a country
+		GET /admin/api/2019-10/countries/#{country_id}/provinces/count.json
+            Retrieves a count of provinces for a country
+		GET /admin/api/2019-10/countries/#{country_id}/provinces/#{province_id}.json
+            Retrieves a single province for a country
+		PUT /admin/api/2019-10/countries/#{country_id}/provinces/#{province_id}.json
+            Updates an existing province for a country
+
+		GET /admin/api/2019-10/shop.json
+            Retrieves the shop's configuration
+
+		GET /admin/api/2019-10/currencies.json
+            Retrieves a list of currencies enabled on a shop
+
+		GET /admin/api/2019-10/policies.json
+            Retrieves a list of the shop's policies
+##  TenderTransaction
+		GET /admin/api/2019-10/tender_transactions.json
+            Retrieves a list of tender transactions
+
+# Storefront API
+
+What you can do with Order
+
+The Shopify API lets you do the following with the Order resource. More detailed
+versions of these general actions may be available:
+
+    GET /admin/api/2019-10/orders.json
+        Retrieves a list of orders
+    GET /admin/api/2019-10/orders/#{order_id}.json
+        Retrieves a specific order
+    GET /admin/api/2019-10/orders/count.json
+        Retrieves an order count
+    POST /admin/api/2019-10/orders/#{order_id}/close.json
+        Closes an order
+    POST /admin/api/2019-10/orders/#{order_id}/open.json
+        Re-opens a closed order
+    POST /admin/api/2019-10/orders/#{order_id}/cancel.json
+        Cancels an order
+    POST /admin/api/2019-10/orders.json
+        Creates an order
+    PUT /admin/api/2019-10/orders/#{order_id}.json
+        Updates an order
+    DELETE /admin/api/2019-10/orders/#{order_id}.json
+        Deletes an order
+
+Order properties
