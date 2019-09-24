@@ -1,0 +1,109 @@
+<script type="text/javascript" src="http://cdn.wenxuecity.com/upload/media/d7/4a/10/hUeGO1wJ8597.xml"></script>
+<style type="text/css" />
+*, body, button, input, textarea, select {
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img {
+  border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol,ul {
+  list-style:none;
+}
+ul li {
+    border-bottom: 1px solid 
+    #f8f8f8;
+    padding: 4px 0;
+}
+caption,th {
+  text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+q:before,q:after {
+  content:'';
+}
+abbr,acronym { border:0;}
+</style>
+
+<style type="text/css">#playlist,audio{ background-image: linear-gradient(95deg, white, #be1d22);width:600px;padding:20px;border-radius:5px;border-color: #000000; border-width:2px; border-style: solid;}
+.active a{color:#151515;text-decoration:overline; font-weight: 500;font-style: italic;background:#fdd9d4;}
+li a{color:#1B2146;background-color:#fcfcfc;padding:5px;display:block;text-decoration:none;text-align:left;}
+li a:hover{text-decoration:none;}
+</style>
+
+<script type="text/javascript">
+$(window).load(function(){
+    var audio;
+    var playlist;
+    var tracks;
+    var current;
+
+    init();
+
+    function init(){
+        current = 0;
+        audio = $('audio');
+        playlist = $('#playlist');
+        tracks = playlist.find('li a');
+        len = tracks.length - 1;
+        audio[0].volume = .90;
+        playlist.find('a').click(function(e){
+            e.preventDefault();
+            link = $(this);
+            current = link.parent().index();
+            run(link, audio[0]);
+        });
+        audio[0].addEventListener('ended',function(e){
+            current++;
+            if(current == len){
+                current = 0;
+                link = playlist.find('a')[0];
+            }else{
+                link = playlist.find('a')[current];    
+            }
+            run($(link),audio[0]);
+        });
+    }
+    function run(link, player){
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+        audio[0].play();
+    }
+});
+
+</script>
+<br /><center>
+<audio controls="" id="audio" preload="auto" autoplay="true" tabindex="0" type="audio/mpeg"><source src="http://cdn.wenxuecity.com/upload/media/3b/68/6d/BknNgvtw8413.mp3" type="audio/mp3" /> Sorry, your browser does not support HTML5 audio.</audio>
+
+<ul id="playlist">
+	<li class="active"><a href="http://cdn.wenxuecity.com/upload/media/3b/68/6d/BknNgvtw8413.mp3">01 - Luna y Mar</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/c5/e2/e7/xjPjtv908456.mp3">02 - Mi Corazon y Alma</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/85/90/8c/TiEpx5lD8107.mp3">03 - Consegueme Otra Bebida</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/8c/c8/97/ARBUduQM8156.mp3">04 - Descanza un Momento</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/ff/a4/10/PJYU4hI78319.mp3">05 - Lana</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/3c/9b/b6/hudeRXYP8501.mp3">06 - No Trabajo, Solamente Diversión</a></li>	
+    <li><a href="http://cdn.wenxuecity.com/upload/media/d6/2c/03/1c1feaov8258.mp3">07 - Isla Santa Margarita</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/d7/ae/84/b8PZEQSQ8354.mp3">08 - Las Flores De Primavera</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/83/6c/1b/VFME6ik88868.mp3">09 - En La Playa</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/04/f2/45/IJ3E8uOV8547.mp3">10 - Quemadura Del Sol</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/fb/1f/fb/fXGQ1kEi8640.mp3">11 - Romance Y Pasión</a></li>
+</ul>
+<br />
+<br /><center>

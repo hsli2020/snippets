@@ -1,0 +1,112 @@
+<script type="text/javascript" src="http://cdn.wenxuecity.com/upload/media/d7/4a/10/hUeGO1wJ8597.xml"></script>
+<style type="text/css" />
+*, body, button, input, textarea, select {
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img {
+  border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol,ul {
+  list-style:none;
+}
+ul li {
+    border-bottom: 1px solid 
+    #f8f8f8;
+    padding: 4px 0;
+}
+caption,th {
+  text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+q:before,q:after {
+  content:'';
+}
+abbr,acronym { border:0;}
+</style>
+
+<style type="text/css">#playlist,audio{ background-image: linear-gradient(95deg, white, #ccc);width:500px;padding:20px;border-radius:5px;border-color: #000000; border-width:2px; border-style: solid;}
+.active a{color:#151515;text-decoration:none; font-weight: bold;background:#eee;}
+li a{color:#1B2146;background-color:#fcfcfc;padding:5px;display:block;text-decoration:none;text-align:left;}
+li a:hover{text-decoration:none;}
+</style>
+<title></title>
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+var audio;
+var playlist;
+var tracks;
+var current;
+
+init();
+function init(){
+    current = 0;
+    audio = $('audio');
+    playlist = $('#playlist');
+    tracks = playlist.find('li a');
+    len = tracks.length - 1;
+    audio[0].volume = .90;
+    playlist.find('a').click(function(e){
+        e.preventDefault();
+        link = $(this);
+        current = link.parent().index();
+        run(link, audio[0]);
+    });
+    audio[0].addEventListener('ended',function(e){
+        current++;
+        if(current == len){
+            current = 0;
+            link = playlist.find('a')[0];
+        }else{
+            link = playlist.find('a')[current];    
+        }
+        run($(link),audio[0]);
+    });
+}
+function run(link, player){
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+        audio[0].play();
+}
+});//]]> 
+
+</script>
+<br /><center>
+<audio controls="" id="audio" preload="auto" autoplay="true" tabindex="0" type="audio/mpeg"><source src="http://cdn.wenxuecity.com/upload/media/47/c2/d3/Vb8w5K795530.mp3" type="audio/mp3" /> Sorry, your browser does not support HTML5 audio.</audio>
+
+
+
+<ul id="playlist">
+	<li class="active"><a href="http://cdn.wenxuecity.com/upload/media/47/c2/d3/Vb8w5K795530.mp3">01.Shallow</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/ca/cc/18/2ijS3cZD5867.mp3">02.Someone You Loved</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/5d/40/21/jtnEkFze5949.mp3">03.My Heart Will Go On</a></li>
+        <li><a href="http://cdn.wenxuecity.com/upload/media/fc/e4/60/0f87MDjA5985.mp3">04.Fix You</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/a1/9a/65/IoVtZdkM6018.mp3">05.A Million Dreams</a></li>
+        <li><a href="http://cdn.wenxuecity.com/upload/media/88/58/99/5kWtj8F16061.mp3">06.Perfect</a></li>
+    	<li><a href="http://cdn.wenxuecity.com/upload/media/7a/a0/fc/Vp0qa3V46120.mp3">07.Only Love Can Hurt Like This</a></li>
+    	<li><a href="http://cdn.wenxuecity.com/upload/media/e2/59/69/qJp8jwLT6158.mp3">08.I Can’t Help Falling in Love with You</a></li>
+        <li><a href="http://cdn.wenxuecity.com/upload/media/fd/95/ec/LG2h4GFH6195.mp3">09.Love Me Like You Do</a></li>
+        <li><a href="http://cdn.wenxuecity.com/upload/media/3f/d8/3d/Ol4qLHgx6233.mp3">10.Somewhere Only We Know</a></li>
+        <li><a href="http://cdn.wenxuecity.com/upload/media/00/1f/eb/nB0U2oAV6269.mp3">11.Hero</a></li>
+</ul>
+
+
+<br />
+<br /><center>

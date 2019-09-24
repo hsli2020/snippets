@@ -1,0 +1,111 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script>
+<style type="text/css">*, body, button, input, textarea, select {
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img {
+  border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol,ul {
+  list-style:none;
+}
+ul li {
+    border-bottom: 1px solid 
+    #f8f8f8;
+    padding: 4px 0;
+}
+caption,th {
+  text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+q:before,q:after {
+  content:'';
+}
+abbr,acronym { border:0;}
+</style>
+
+<style type="text/css">#playlist,audio{ background-image: linear-gradient(95deg, white, #1e4824);width:500px;padding:20px;border-radius:5px;border-color: #000000; border-width:2px; border-style: solid;}
+.active a{color:#151515;text-decoration:none; font-weight: bold; font-style: italic; background:#e9fbec;}
+li a{color:#1B2146;background-color:#fcfcfc;padding:5px;display:block;text-decoration:none;text-align:left;}
+li a:hover{text-decoration:none;}
+</style>
+
+<title></title>
+<script type="text/javascript">//<![CDATA[
+$(window).load(function(){
+var audio;
+var playlist;
+var tracks;
+var current;
+
+init();
+function init(){
+    current = 0;
+    audio = $('audio');
+    playlist = $('#playlist');
+    tracks = playlist.find('li a');
+    len = tracks.length - 1;
+    audio[0].volume = .90;
+    playlist.find('a').click(function(e){
+        e.preventDefault();
+        link = $(this);
+        current = link.parent().index();
+        run(link, audio[0]);
+    });
+    audio[0].addEventListener('ended',function(e){
+        current++;
+        if(current == len){
+            current = 0;
+            link = playlist.find('a')[0];
+        }else{
+            link = playlist.find('a')[current];    
+        }
+        run($(link),audio[0]);
+    });
+}
+function run(link, player){
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+        audio[0].play();
+}
+});//]]> 
+
+</script>
+<br /><center>
+<audio controls="" id="audio" preload="auto" autoplay="true" tabindex="0" type="audio/mpeg"><source src="http://cdn.wenxuecity.com/upload/media/ad/27/12/qrNI0aC26208.mp3" type="audio/mp3" /> Sorry, your browser does not support HTML5 audio.</audio>
+</p>
+
+<ul id="playlist">
+	<li class="active"><a href="http://cdn.wenxuecity.com/upload/media/ad/27/12/qrNI0aC26208.mp3">(01) The Pilot</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/ee/02/32/8ZF8yi5F6264.mp3">(02) Beyond The Blue</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/6d/25/70/tyOxQjfX6302.mp3">(03) Beautiful (feat. Brian Kennedy)</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/bc/96/0e/1Av0uafh6341.mp3">(04) Flow</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/67/36/2c/VfRyqdaM6386.mp3">(05) Song To A Child</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/60/81/43/SDxI6OPE6429.mp3">(06) Nostalgia</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/db/04/58/JiYZcfVZ6467.mp3">(07) Open Doors</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/06/ba/b1/AzuscQfd6535.mp3">(08) Sunshine (feat. Cathrine Iversen)</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/a1/7b/33/tlsKuBch6580.mp3">(09) One More Chance</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/40/01/3c/gj9tG8Ia6637.mp3">(10) Fantasia</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/b3/47/82/oso0l4wM6675.mp3">(11) The Voyage</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/54/ef/97/vBW2JFiV6718.mp3">(12) Strength (feat. Espen Grjotheim)</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/8a/55/12/v4ao3tp96765.mp3">(13) End Of A Journey</a></li>
+</ul>
+<br />
+<br /><center>

@@ -1,0 +1,117 @@
+<script type="text/javascript" src="http://cdn.wenxuecity.com/upload/media/d7/4a/10/hUeGO1wJ8597.xml"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script>
+<style type="text/css">*, body, button, input, textarea, select {
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  padding:0;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+fieldset,img {
+  border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+  font-style:normal;
+  font-weight:normal;
+}
+ol,ul {
+  list-style:none;
+}
+ul li {
+    border-bottom: 1px solid 
+    #f8f8f8;
+    padding: 4px 0;
+}
+caption,th {
+  text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:normal;
+}
+q:before,q:after {
+  content:'';
+}
+abbr,acronym { border:0;}
+</style>
+
+<style type="text/css">
+  ol,ul { list-style:none; }
+  #playlist,audio{ background-image: linear-gradient(95deg, white, #111);width:450px;padding:20px;border-radius:5px;border-color: #000000; border-width:2px; border-style: solid;}
+  .active a{color:#151515;text-decoration:overline; font-weight: bold; font-style: italic; background:#eee;}
+  li a{color:#1B2146;background-color:#fcfcfc;padding:5px;display:block;text-decoration:none;text-align:left;}
+  li a:hover{text-decoration:none;}
+</style>
+
+<script type="text/javascript">
+  $(window).load(function(){
+    var audio;
+    var playlist;
+    var tracks;
+    var current;
+    
+    init();
+    
+    function init(){
+      current = 0;
+      audio = $('audio');
+      playlist = $('#playlist');
+      tracks = playlist.find('li a');
+      len = tracks.length - 1;
+      audio[0].volume = .90;
+      playlist.find('a').click(function(e){
+          e.preventDefault();
+          link = $(this);
+          current = link.parent().index();
+          run(link, audio[0]);
+      });
+      audio[0].addEventListener('ended',function(e){
+          current++;
+          if(current == len){
+              current = 0;
+              link = playlist.find('a')[0];
+          }else{
+              link = playlist.find('a')[current];    
+          }
+          run($(link),audio[0]);
+      });
+    }
+    function run(link, player){
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+        audio[0].play();
+    }
+  });
+</script>
+
+<center>
+  <audio controls="" id="audio" preload="auto" autoplay="true" tabindex="0" type="audio/mpeg">
+  <source src="http://cdn.wenxuecity.com/upload/media/a9/d1/94/Kw6MZ4UK2842.mp3" type="audio/mp3" />
+  Sorry, your browser does not support HTML5 audio.
+  </audio>
+  
+  <ul id="playlist">
+	<li class="active"><a href="http://cdn.wenxuecity.com/upload/media/a9/d1/94/Kw6MZ4UK2842.mp3">01 - 600 Years</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/2c/e4/18/7YOkLN6S2905.mp3">02 - Naked Love</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/9c/19/5f/PYATg7I02948.mp3">03 - The Journey</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/e0/d2/43/h06iKPVF2988.mp3">04 - Earthbound</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/43/fe/6b/MujIPDHp3034.mp3">05 - Gliding</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/ac/6a/4e/pJuJZhVm3077.mp3">06 - Tango On Wednesday</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/63/a7/38/HblZ3pSZ3119.mp3">07 - Running On Joy</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/d6/c3/9e/KULVr4cv3169.mp3">08 - Ancient Albatross</a></li>
+	<li><a href="http://cdn.wenxuecity.com/upload/media/4d/b1/b4/Dd02xLyt3215.mp3">09 - The Lost Ballerina</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/fe/e5/f7/lzosAvQ73257.mp3">10 - Antarctica</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/c3/e5/d3/99773Tpz3310.mp3">11 - Captured Freedom</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/83/18/38/gUEnIik43351.mp3">12 - Forgiveness</a></li>		
+  </ul>
+<br />
+<br />
+<center>
