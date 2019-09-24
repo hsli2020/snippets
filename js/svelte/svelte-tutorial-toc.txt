@@ -1,0 +1,120 @@
+Svelte Tutorial Content
+=======================
+
+1. Introduction
+    a. Basics
+    b. Adding data
+    c. Dynamic attributes
+    d. Styling
+    e. Nested components
+    f. HTML tags
+    g. Making an app
+
+2. Reactivity
+    a. Assignments
+    b. Declarations
+    c. Statements
+    d. Updating arrays and objects
+
+3. Props
+    a. Declaring props
+    b. Default values
+    c. Spread props
+
+4. Logic
+    a. If blocks
+    b. Else blocks
+    c. Else-if blocks
+    d. Each blocks
+    e. Keyed each blocks
+    f. Await blocks
+
+5. Events
+    a. DOM events
+    b. Inline handlers
+    c. Event modifiers
+    d. Component events
+    e. Event forwarding
+    f. DOM event forwarding
+
+6. Bindings
+    a. Text inputs
+    b. Numeric inputs
+    c. Checkbox inputs
+    d. Group inputs
+    e. Textarea inputs
+    f. Select bindings
+    g. Select multiple
+    h. Contenteditable bindings
+    i. Each block bindings
+    j. Media elements
+    k. Dimensions
+    l. This
+    m. Component bindings
+
+7. Lifecycle
+    a. onMount
+    b. onDestroy
+    c. beforeUpdate and afterUpdate
+    d. tick
+
+8. Stores
+    a. Writable stores
+    b. Auto-subscriptions
+    c. Readable stores
+    d. Derived stores
+    e. Custom stores
+    f. Store bindings
+
+9. Motion
+    a. Tweened
+    b. Spring
+
+10. Transitions
+    a. The transition directive
+    b. Adding parameters
+    c. In and out
+    d. Custom CSS transitions
+    e. Custom JS transitions
+    f. Transition events
+    g. Local transitions
+    h. Deferred transitions
+
+11. Animations
+    a. The animate directive
+
+12. Actions
+    a. The use directive
+    b. Adding parameters
+
+13. Classes
+    a. The class directive
+    b. Shorthand class directive
+
+14. Component composition
+    a. Slots
+    b. Slot fallbacks
+    c. Named slots
+    d. Slot props
+
+15. Context API
+    a. setContext and getContext
+
+16. Special elements
+    a. <svelte:self>
+    b. <svelte:component>
+    c. <svelte:window>
+    d. <svelte:window> bindings
+    e. <svelte:body>
+    f. <svelte:head>
+    g. <svelte:options>
+
+17. Module context
+    a. Sharing code
+    b. Exports
+
+18. Debugging
+    a. The @debug tag
+
+19. Next steps
+    a. Congratulations!
