@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>Vue Event Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+  html, body, #app { height:100%; }
+  p { margin-bottom: 0; }
+</style>
+</head>
+
+<body class="w3-content">
+  <div id="profile">
+    <h2>Profile</h2>
+    <div>
+      <p>Name: {{name}}</p>
+      <p>Email: {{ email }}</p>
+    </div>
+  </div>
+  
+  <div id="edit__profile">
+    <h2>Enter your details below:</h2>
+    <form class="w3-content" @submit.prevent="handleSubmit">
+      <p>
+        <label>Name:</label>
+        <input class="w3-input w3-border" type="text" v-model="user.name" />
+      </p>
+      <p>
+        <label>Email:</label>
+        <input class="w3-input w3-border" type="text" v-model="user.email" />
+      </p>
+      <p>
+        <button class="w3-btn w3-blue">Submit</button>
+      </p>
+    </form>
+  </div>
+</body>
+
+<script>
+const eventHub = new Vue();
+
+new Vue({
+  el: '#profile',
+  data() {
+    return {
+      name: '',
+      email: ''
+    }
+  },
+  created() {
+    eventHub.$on('form-submitted', ({name, email}) => {
+      this.name = name;
+      this.email = email
+    })
+  }
+})
+
+new Vue({
+  el: "#edit__profile",
+  data() {
+    return {
+      user: {
+        name: '',
+        email: ''
+      }
+    }
+  },
+  methods: {
+    handleSubmit() {
+      eventHub.$emit('form-submitted', this.user)
+      this.user = {}
+    }
+  }
+})
+</script>
+
+</html>

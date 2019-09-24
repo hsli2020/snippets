@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>Vue Event Bus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+  html, body, #app { height:100%; }
+  p { margin-bottom: 0; }
+  [v-cloak] { display: none; }
+</style>
+</head>
+
+<body class="w3-content">
+  <div id="app">
+    <h2>Counter</h2>
+    <h2>{{ count }}</h2>
+    <input class="w3-input w3-border" type="text" v-model="entry" /><br>
+    <div>
+      <button class="w3-btn w3-blue" @click.prevent="handleIncrement">Increment By Input</button>
+      <button class="w3-btn w3-blue" @click.prevent="handleDecrement">Decrement By Input</button>
+    </div>
+    <p>{{ text }}</p>
+  </div>
+</body>
+
+<script>
+const eventBus = new Vue();
+
+new Vue({
+    el: '#app',
+    data() {
+        return { count: 0, text: '', entry: 3 }
+    },
+    created() {
+        eventBus.$on('count-incremented', () => {
+            this.text = `Count was increased`
+            setTimeout(() => { this.text = ''; }, 3000);
+        })
+        eventBus.$on('count-decremented', () => {
+            this.text = `Count was decreased`
+            setTimeout(() => { this.text = ''; }, 3000);
+        })
+    },
+    methods: {
+        handleIncrement() {
+            this.count += parseInt(this.entry, 10);
+            eventBus.$emit('count-incremented')
+            this.entry = 0;
+        },
+        handleDecrement() {
+            this.count -= parseInt(this.entry, 10);
+            eventBus.$emit('count-decremented')
+            this.entry = 0;
+        }
+    }
+})
+</script>
+</html>
