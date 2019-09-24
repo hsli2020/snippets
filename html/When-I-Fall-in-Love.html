@@ -1,0 +1,72 @@
+<script type="text/javascript" src="http://cdn.wenxuecity.com/upload/media/d7/4a/10/hUeGO1wJ8597.xml"></script>
+
+<style type="text/css">
+  #playlist, audio {
+    background-image: linear-gradient(95deg, white, #ccc); width:500px; padding:20px;
+    border-radius:5px; border-color: #000000; border-width:2px; border-style: solid;
+  }
+  #playlist li { border-bottom: 1px solid #f8f8f8; padding: 4px 0; list-style: none;}
+  #playlist li a { color:#1B2146;background-color:#fcfcfc;padding:5px;display:block;text-decoration:none;text-align:left; }
+  #playlist li a:hover { text-decoration:none; }
+  .active a { color:#151515; text-decoration:none; font-weight: bold; background:#eee; }
+</style>
+
+<script type="text/javascript">
+  $(window).load(function(){
+    var audio;
+    var playlist;
+    var tracks;
+    var current;
+    
+    init();
+
+    function init(){
+      current = 0;
+      audio = $('audio');
+      playlist = $('#playlist');
+      tracks = playlist.find('li a');
+      len = tracks.length - 1;
+      audio[0].volume = .90;
+      playlist.find('a').click(function(e){
+        e.preventDefault();
+        link = $(this);
+        current = link.parent().index();
+        run(link, audio[0]);
+      });
+      audio[0].addEventListener('ended',function(e){
+        current++;
+        if (current == len){
+          current = 0;
+          link = playlist.find('a')[0];
+        }else{
+          link = playlist.find('a')[current];    
+        }
+        run($(link),audio[0]);
+      });
+    }
+    function run(link, player){
+      player.src = link.attr('href');
+      par = link.parent();
+      par.addClass('active').siblings().removeClass('active');
+      audio[0].load();
+      audio[0].play();
+    }
+  });
+</script>
+
+<center>
+  <h1>When I fall in love</h1>
+  <audio autoplay="true" controls="" id="audio" preload="auto" tabindex="0" type="audio/mpeg">
+    <source src="http://space.wenxuecity.com/media/201209/20/1348197305.mp3" type="audio/mp3" />
+  </audio>
+  
+  <ul id="playlist">
+    <li class="active"><a href="http://space.wenxuecity.com/media/201209/20/1348197305.mp3">01 When I Fall In Love</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/80/92/06/wDYloqvQ1885.mp3">02 When I Fall In Love - Andrea Bocelli</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/b2/4b/41/TKIHdlWE7271.mp3">03 When I Fall In Love - Carpenters</a></li>
+    <li><a href="http://cdn.wenxuecity.com/upload/media/75/81/1f/IhdzW1rw0235.mp3">04 When I Fall In Love - Celine Dion</a></li>
+    <li><a href="http://hwzhiyin.com/uploadfile/1316451444.mp3">05 When I Fall In Love - Piano</a></li>
+    <li><a href="http://space.wenxuecity.com/media/201307/19/1374263309.mp3">06 When I Fall In Love</a></li>
+  </ul>
+</center>
+<p>&nbsp;</p>
