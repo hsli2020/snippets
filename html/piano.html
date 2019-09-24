@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Piano</title>
+<style type="text/css">
+  #piano{display:flex;margin:0 auto;max-width:80%}
+  #piano>div{flex:1;position:relative;height:240px;margin:0 1px;border:1px solid #999;border-radius:1px 1px 5px 5px;box-shadow:2px 2px 5px rgba(0,0,0,.4);cursor:pointer}
+  #piano>div::after{position:absolute;bottom:1em;width:100%;text-align:center;content:attr(data-note);font-size:1.5em}
+  #piano>div>div{position:absolute;top:-1px;left:70%;height:160px;width: calc(60% + 2px);background:#000;border-radius:1px 1px 5px 5px;box-shadow:2px 2px 5px rgba(0,0,0,.4);cursor:pointer;z-index:10}
+</style>
+</head>
+<body style="width: 960px;margin: 10em auto;">
+<!--
+https://www.the-art-of-web.com/javascript/creating-sounds/
+-->
+<div id="piano">
+  <div data-frequency="261.626" data-note="C">
+    <div data-frequency="277.18" data-note="C#"></div>
+  </div>
+  <div data-frequency="293.665" data-note="D">
+    <div data-frequency="311.127"></div>
+  </div>
+  <div data-frequency="329.628" data-note="E"></div>
+  <div data-frequency="349.228" data-note="F">
+    <div data-frequency="369.994"></div>
+  </div>
+  <div data-frequency="391.995" data-note="G">
+    <div data-frequency="415.305"></div>
+  </div>
+  <div data-frequency="440.000" data-note="A">
+    <div data-frequency="466.164"></div>
+  </div>
+  <div data-frequency="493.883" data-note="B"></div>
+  <div data-frequency="523.251" data-note="C">
+    <div data-frequency="554.365"></div>
+  </div>
+  <div data-frequency="587.330" data-note="D">
+    <div data-frequency="622.254"></div>
+  </div>
+  <div data-frequency="659.255" data-note="E"></div>
+  <div data-frequency="698.457" data-note="F">
+    <div data-frequency="739.989"></div>
+  </div>
+  <div data-frequency="783.991" data-note="G">
+    <div data-frequency="830.609"></div>
+  </div>
+  <div data-frequency="880.000" data-note="A">
+    <div data-frequency="932.328"></div>
+  </div>
+  <div data-frequency="987.767" data-note="B"></div>
+  <div data-frequency="1046.50" data-note="C"></div>
+</div>
+
+<p style="text-align: center;">
+<label style="cursor: pointer;">
+<input type="checkbox" onclick="changePianoMode(this.checked);"> play notes on mouseover</label> (initial click needed)
+</p>
+
+<script>
+// Original JavaScript code by Chirp Internet: www.chirp.com.au
+// Please acknowledge use of this code by including this header.
+
+function SoundPlayer(audioContext, filterNode) {
+  this.audioCtx = audioContext;
+  this.gainNode = this.audioCtx.createGain();
+  if(filterNode) {
+    // run output through extra filter (already connected to audioContext)
+    this.gainNode.connect(filterNode);
+  } else {
+    this.gainNode.connect(this.audioCtx.destination);
+  }
+  this.oscillator = null;
+}
+
+SoundPlayer.prototype.setFrequency = function(val, when) {
+  if(when) {
+    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime + when);
+  } else {
+    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.setVolume = function(val, when) {
+  if(when) {
+    this.gainNode.gain.exponentialRampToValueAtTime(val, this.audioCtx.currentTime + when);
+  } else {
+    this.gainNode.gain.setValueAtTime(val, this.audioCtx.currentTime);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.setWaveType = function(waveType) {
+  this.oscillator.type = waveType;
+  return this;
+};
+
+SoundPlayer.prototype.play = function(freq, vol, wave, when) {
+  this.oscillator = this.audioCtx.createOscillator();
+  this.oscillator.connect(this.gainNode);
+  this.setFrequency(freq);
+  if(wave) {
+    this.setWaveType(wave);
+  }
+  this.setVolume(1/1000);
+  if(when) {
+    this.setVolume(1/1000, when - 0.02);
+    this.oscillator.start(when - 0.02);
+    this.setVolume(vol, when);
+  } else {
+    this.oscillator.start();
+    this.setVolume(vol, 0.02);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.stop = function(when) {
+  if(when) {
+    this.gainNode.gain.setTargetAtTime(1/1000, this.audioCtx.currentTime + when - 0.05, 0.02);
+    this.oscillator.stop(this.audioCtx.currentTime + when);
+  } else {
+    this.gainNode.gain.setTargetAtTime(1/1000, this.audioCtx.currentTime, 0.02);
+    this.oscillator.stop(this.audioCtx.currentTime + 0.05);
+  }
+  return this;
+};
+</script>
+
+<script>
+  const changePianoMode = (active) => {
+    for(let el of piano.getElementsByTagName("DIV")) {
+      if(active) {
+        el.addEventListener("mouseover", playNote, false);
+      } else {
+        el.removeEventListener("mouseover", playNote, false);
+      }
+    }
+  };
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audio = new AudioContext();
+
+  const compressor = audio.createDynamicsCompressor();
+  compressor.connect(audio.destination);
+
+  const playNote = (e) => {
+    (new SoundPlayer(audio, compressor)).play(e.target.dataset.frequency, 0.8, "sine").setVolume(1/1000, 0.55).stop(0.6);
+    e.cancelBubble = true;
+  };
+
+  let piano = document.getElementById("piano");
+  for(let el of piano.getElementsByTagName("DIV")) {
+    el.addEventListener("click", playNote, false);
+  }
+</script>
+
+</body>
+</html>

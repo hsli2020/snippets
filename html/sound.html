@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Creating Sounds with AudioContext &lt; JavaScript | The Art of Web</title>
+<style type="text/css">
+#analyser{display:flex;align-items:flex-end;margin:1em 0;height:100px;border:1px solid #ccc}
+#analyser>div{flex:1;border-top:2px solid green;transition:.1s}
+#piano{display:flex;margin:0 auto;max-width:80%}
+#piano>div{flex:1;position:relative;height:240px;margin:0 1px;border:1px solid #999;border-radius:1px 1px 5px 5px;box-shadow:2px 2px 5px rgba(0,0,0,.4);cursor:pointer}
+#piano>div::after{position:absolute;bottom:1em;width:100%;text-align:center;content:attr(data-note);font-size:1.5em}
+#piano>div>div{position:absolute;top:-1px;left:70%;height:160px;width: calc(60% + 2px);background:#000;border-radius:1px 1px 5px 5px;box-shadow:2px 2px 5px rgba(0,0,0,.4);cursor:pointer;z-index:10}
+</style>
+</head>
+<body style="width: 960px;margin: 4em auto;">
+
+<div style="display: flex; justify-content: space-between;">
+<form id="soundForm" style="width: 48%">
+<fieldset>
+<legend>Sound Player 1</legend>
+<label>Frequency</label><span><input type="range" name="freq" value="261" min="220" max="880" oninput="myPlayer.setFrequency(this.value);"></span>
+<label>Volume</label><span><input type="range" name="vol" value="50" min="0" max="200" oninput="myPlayer.setVolume(this.value/100);"></span>
+<label>Wave Type</label><span>
+<label><input type="radio" name="wave" value="sine" checked onclick="myPlayer.setWaveType(this.value);"> sine</label><br>
+<label><input type="radio" name="wave" value="square" onclick="myPlayer.setWaveType(this.value);"> square</label><br>
+<label><input type="radio" name="wave" value="sawtooth" onclick="myPlayer.setWaveType(this.value);"> sawtooth</label><br>
+<label><input type="radio" name="wave" value="triangle" onclick="myPlayer.setWaveType(this.value);"> triangle</label>
+</span>
+<span>
+<input name="play" type="button" onclick="
+  myPlayer.play(form.freq.value, form.vol.value/100, checkRadio(form.wave));
+  this.style.display = 'none';
+  form.stop.style.display = 'inline';
+" value="Play &#9658;">
+<input name="stop" style="display: none;" type="button" onclick="
+  myPlayer.stop();
+  form.play.style = 'inline';
+  this.style.display = 'none';
+" value="Stop &#10073;&#10073;"></span>
+</fieldset>
+</form>
+
+<form id="soundForm2" style="width: 48%;">
+<fieldset>
+<legend>Sound Player 2</legend>
+<label>Frequency</label><span><input type="range" name="freq" value="392" min="220" max="880" oninput="myPlayer2.setFrequency(this.value);"></span>
+<label>Volume</label><span><input type="range" name="vol" value="25" min="0" max="200" oninput="myPlayer2.setVolume(this.value/100);"></span>
+<label>Wave Type</label><span>
+<label><input type="radio" name="wave" value="sine" onclick="myPlayer2.setWaveType(this.value);"> sine</label><br>
+<label><input type="radio" name="wave" value="square" checked onclick="myPlayer2.setWaveType(this.value);"> square</label><br>
+<label><input type="radio" name="wave" value="sawtooth" onclick="myPlayer2.setWaveType(this.value);"> sawtooth</label><br>
+<label><input type="radio" name="wave" value="triangle" onclick="myPlayer2.setWaveType(this.value);"> triangle</label>
+</span>
+<span>
+<input name="play" type="button" onclick="
+  myPlayer2.play(form.freq.value, form.vol.value/100, checkRadio(form.wave));
+  this.style.display = 'none';
+  form.stop.style.display = 'inline';
+" value="Play &#9658;">
+<input name="stop" style="display: none;" type="button" onclick="
+  myPlayer2.stop();
+  form.play.style = 'inline';
+  this.style.display = 'none';
+" value="Stop &#10073;&#10073;"></span>
+</fieldset>
+</form>
+</div>
+
+<br>
+<div id="analyser">
+</div>
+
+<br>
+<button onclick='(new SoundPlayer(audio)).play(440.0, 0.8, "sine").stop(0.5);'>Run Example &#x266A;</button>
+<button onclick='(new SoundPlayer(audio)).play(440, 0.5, "square").setFrequency(880, 0.1).stop(0.2);'>Run Example &#x266b;</button>
+
+<br><br>
+
+<p>
+<button onclick='(new SoundPlayer(audio)).play(587.3, 0.5, "sine").stop(0.25);
+(new SoundPlayer(audio)).play(587.3, 0.5, "sine", 0.3).stop(0.35);
+(new SoundPlayer(audio)).play(659.3, 0.5, "sine", 0.4).stop(0.55);
+(new SoundPlayer(audio)).play(587.3, 0.5, "sine", 0.6).stop(0.75);
+(new SoundPlayer(audio)).play(784.0, 0.5, "sine", 0.8).stop(0.95);
+(new SoundPlayer(audio)).play(740.0, 0.5, "sine", 1.0).stop(1.40); return false;'>Happy Birthday To You &#x266b;</button>
+</p>
+
+<script>
+// Original JavaScript code by Chirp Internet: www.chirp.com.au
+// Please acknowledge use of this code by including this header.
+
+function SoundPlayer(audioContext, filterNode) {
+  this.audioCtx = audioContext;
+  this.gainNode = this.audioCtx.createGain();
+  if(filterNode) {
+    // run output through extra filter (already connected to audioContext)
+    this.gainNode.connect(filterNode);
+  } else {
+    this.gainNode.connect(this.audioCtx.destination);
+  }
+  this.oscillator = null;
+}
+
+SoundPlayer.prototype.setFrequency = function(val, when) {
+  if(when) {
+    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime + when);
+  } else {
+    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.setVolume = function(val, when) {
+  if(when) {
+    this.gainNode.gain.exponentialRampToValueAtTime(val, this.audioCtx.currentTime + when);
+  } else {
+    this.gainNode.gain.setValueAtTime(val, this.audioCtx.currentTime);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.setWaveType = function(waveType) {
+  this.oscillator.type = waveType;
+  return this;
+};
+
+SoundPlayer.prototype.play = function(freq, vol, wave, when) {
+  this.oscillator = this.audioCtx.createOscillator();
+  this.oscillator.connect(this.gainNode);
+  this.setFrequency(freq);
+  if(wave) {
+    this.setWaveType(wave);
+  }
+  this.setVolume(1/1000);
+  if(when) {
+    this.setVolume(1/1000, when - 0.02);
+    this.oscillator.start(when - 0.02);
+    this.setVolume(vol, when);
+  } else {
+    this.oscillator.start();
+    this.setVolume(vol, 0.02);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.stop = function(when) {
+  if(when) {
+    this.gainNode.gain.setTargetAtTime(1/1000, this.audioCtx.currentTime + when - 0.05, 0.02);
+    this.oscillator.stop(this.audioCtx.currentTime + when);
+  } else {
+    this.gainNode.gain.setTargetAtTime(1/1000, this.audioCtx.currentTime, 0.02);
+    this.oscillator.stop(this.audioCtx.currentTime + 0.05);
+  }
+  return this;
+};
+</script>
+
+<script>
+  const checkRadio = (field) => {
+    if((typeof field.length == "undefined") && (field.type == "radio")) {
+      if(field.checked) return field.value;
+    } else {
+      for(let i=0; i < field.length; i++) {
+        if(field[i].checked) return field[i].value;
+      }
+    }
+    return false;
+  };
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audio = new AudioContext();
+
+  const analyser = audio.createAnalyser();
+
+  let analyserDisplay = document.getElementById("analyser");
+  let myPlayer, myPlayer2;
+  if(analyser.getFloatTimeDomainData) {
+    analyser.fftSize = 512;
+    analyser.connect(audio.destination);
+    myPlayer = new SoundPlayer(audio, analyser);
+    myPlayer2 = new SoundPlayer(audio, analyser);
+    for(let i=0; i < analyser.fftSize; i++) {
+      analyserDisplay.appendChild(document.createElement("DIV"));
+    }
+    let dataArray = new Float32Array(analyser.fftSize);
+    setInterval(function() {
+      analyser.getFloatTimeDomainData(dataArray);
+      for(let i=0; i < dataArray.length; i++) {
+        analyserDisplay.children[i].style.height = (50 + (10 * dataArray[i])) + "px";
+      }
+    }, 500);
+  } else {
+    // getFloatTimeDomainData not supported
+    myPlayer = new SoundPlayer(audio);
+    myPlayer2 = new SoundPlayer(audio);
+    analyserDisplay.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
