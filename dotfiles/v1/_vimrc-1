@@ -1,0 +1,694 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ set nocompatible
+ set history=200
+ set number
+ set showcmd
+ set showmode
+ set visualbell
+ set autoread
+ set nowrap
+ set nowrapscan
+ set hlsearch
+ set incsearch
+ set tabstop=4
+ set shiftwidth=4
+ set softtabstop=4
+ set expandtab
+ set cindent
+ set noignorecase
+ set magic
+ set noerrorbells
+ set novisualbell
+ set vb t_vb=
+ set smarttab
+ set smartindent
+ set autoindent
+ set noswapfile
+ set nobackup
+ set nowb
+ set undodir=~/.vim/backups
+ set undofile
+ set clipboard=unnamed
+ set clipboard+=unnamed
+ set fileformat=unix
+ set fileformats=unix,dos,mac
+ set printoptions=left:10mm,right:10mm,top:15mm,bottom:10mm
+ set printfont=courier_new:h10
+"set printheader=%<%f%h%m%=Page\ %N
+ set encoding=utf-8
+ set fileencoding=utf-8
+ set fileencodings=utf-8
+"set textwidth=88 " this will reformat long line when typing
+ set colorcolumn=120
+ set virtualedit=block
+ set synmaxcol=256
+ set linebreak
+
+"dosen't work here, have to put it in colorscheme file
+"sudo vi /usr/share/vim/vim73/colors/pablo.vim
+"
+"hi clear ColorColumn
+"hi link ColorColumn LineTooLong
+"hi ColorColumn cterm=NONE ctermbg=grey guibg=#2d2d2d
+"hi ColorColumn ctermbg=darkgrey guibg=darkgrey
+"match ErrorMsg '\%>88v.\+'
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength '\%>88v.\+'
+
+"set path=~/Projects/devbox/ashley
+"set tags+=tags
+
+ let mapleader = ","
+ let g:mapleader = ","
+
+"'r': use as root directory the nearest ancestor having .git
+ let g:ctrlp_working_path_mode = 'r'
+ let g:ctrlp_user_command=['.git', 'cd %s && git ls-files . -co --exclude-standard | grep -v -E "(png$|jpg$|gif$|node_modules|vendor|amadmin_v1|lib|chat|_pinf_lib|phantomjs)"', 'find %s -type f']
+
+ syntax on
+"colorscheme pablo
+ colorscheme monokai
+"colorscheme molokai
+"colorscheme ir_black
+"colorscheme wombat
+"colorscheme wombat256
+"colorscheme wombat256mod
+"colorscheme xoria256
+"colorscheme obsidian2
+
+"colorscheme blue
+"colorscheme darkblue
+"colorscheme default
+"colorscheme delek
+"colorscheme desert
+"colorscheme elflord
+"colorscheme evening
+"colorscheme koehler
+"colorscheme morning
+"colorscheme murphy
+"colorscheme pablo
+"colorscheme peachpuff
+"colorscheme ron
+"colorscheme shine
+"colorscheme slate
+"colorscheme torte
+"colorscheme zellner
+
+ if has("gui_running")
+"  colorscheme slate " desert
+"  set gfn=monaco:h13
+"  set gfn=menlo:h14
+   set gfn=consolas:h13
+   set guioptions-=T
+   set lines=50 columns=140
+   winpos 300 100
+   set linespace=-1
+   hi ColorColumn guibg=NONE
+ end
+
+ filetype plugin on
+ filetype indent on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key maps
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ inoremap jk            <esc>
+"    imap zz            <esc>
+ nnoremap ;;            :CtrlP<cr>
+"    imap <esc>         <nop>
+
+"    nmap =             }  " reformat
+"    nmap -             {
+ nnoremap (             gT
+ nnoremap )             gt
+"nnoremap <c-h>         gT
+"nnoremap <c-l>         gt
+"nnoremap <tab>         :tabn<cr>
+"nnoremap <s-tab>       :tabp<cr>
+ nnoremap <tab>         <c-w>w
+ nnoremap <s-tab>       <c-w>W
+ nnoremap _             [[
+ nnoremap +             ]]
+
+ nnoremap a             A
+ nnoremap j             gj
+ nnoremap k             gk
+
+ nnoremap gf            <c-w>gF
+"nnoremap gw            <Esc>:sp %<CR> gF
+ nnoremap ;gf           :tabe <cfile><cr>
+"nnoremap H             g^
+"nnoremap L             g$
+ nnoremap H             0
+ nnoremap L             $
+ nnoremap K             <c-w><c-]><c-w>T
+ nnoremap K             <c-]>
+ nnoremap M             %
+"    nmap L             g_
+ nnoremap Y             y$
+"nnoremap Q             100@q
+"nnoremap S             :w<cr>
+"    nmap B             %
+ nmap F                 <Plug>(easymotion-s)
+ nmap S                 <Plug>(easymotion-f)
+ nnoremap z/            [*zf]*
+ nnoremap z;            0f{zf%0
+ nnoremap z;            zf%
+ nnoremap d/             [*ma]*d'a
+ nnoremap d;            dt;
+ nnoremap d;            d%
+
+"nnoremap <bs>          :nohl<cr>
+ nnoremap <bs>          <c-t>
+ nnoremap <cr>          i<cr><esc>
+ nnoremap <space>       i<space><esc>l
+
+"nnoremap ;;            %
+"nnoremap ;,            :nohl<cr>
+
+ nnoremap ;a            :%s///g<cr>
+ nnoremap ;b            [{
+ vnoremap ;c            :w !pbcopy<cr><cr>
+ nnoremap ;d            :t.<cr>
+ nnoremap ;e            :.cc<cr>
+ nnoremap ;f            0f{zf%0
+ nnoremap ;g            :%s/$/.mp3"/g<cr>
+ nnoremap ;h            :nohl<cr>
+ nnoremap ;i            :set ignorecase!<cr>
+ nnoremap ;j            0wyeA `json:""`<esc>hhpbguiw
+ nnoremap ;k            {
+ nnoremap ;l            0f{%
+ nnoremap ;ms           [m
+ nnoremap ;me           ]M
+ nnoremap ;mn           [m
+ nnoremap ;mm           ]m
+ nnoremap ;n            :n<cr>
+ nnoremap ;N            :N<cr>
+"nnoremap ;o            <c-o>
+ nnoremap ;p            :r !pbpaste<cr>
+ nnoremap ;q            :confirm q<cr>
+"nnoremap ;r            :!php %<cr>
+"nnoremap ;r            :w !php<cr>
+"    nmap ;s            :w<cr>
+ nnoremap ;t            :%s/\s\+$//e<cr>
+ nnoremap ;u            guiw
+ nnoremap ;U            gUiw
+"    nmap ;v
+ nnoremap ;w            :w<cr>
+ nnoremap ;x             ]*ma[*d'a
+"    nmap ;y
+ nnoremap ;z            $zf%0
+ nnoremap z<space>      zf}
+
+"nnoremap ;1            100@1
+"nnoremap ;2            100@2
+"nnoremap ;3            100@3
+"nnoremap ;4            100@4
+"nnoremap ;5            100@5
+"nnoremap ;6            100@6
+"nnoremap ;7            100@7
+"nnoremap ;8            100@8
+"nnoremap ;9            100@9
+"nnoremap ;0            100@0
+
+"nnoremap ,1            <nop>
+"nnoremap ,2            <nop>
+"nnoremap ,3            <nop>
+"nnoremap ,4            <nop>
+"nnoremap ,5            <nop>
+"nnoremap ,6            <nop>
+"nnoremap ,7            <nop>
+"nnoremap ,8            <nop>
+"nnoremap ,9            <nop>
+"nnoremap ,0            <nop>
+
+"nnoremap -0            <nop>
+"nnoremap -1            <nop>
+ nnoremap -2            :set ts=2<cr>
+"nnoremap -3            <nop>
+ nnoremap -4            :set ts=4<cr>
+"nnoremap -5            <nop>
+"nnoremap -6            <nop>
+"nnoremap -7            <nop>
+"nnoremap -8            <nop>
+"nnoremap -9            <nop>
+
+"nnoremap ,a            <nop>
+"nnoremap ,b            <nop>
+"nnoremap ,c            <nop>
+"nnoremap ,d            <nop>
+"nnoremap ,e            <nop>
+"nnoremap ,f            <nop>
+"nnoremap ,g            <nop>
+"nnoremap ,h            <nop>
+"nnoremap ,i            <nop>
+"nnoremap ,j            <nop>
+"nnoremap ,k            <nop>
+"nnoremap ,l            <nop>
+"nnoremap ,m            <nop>
+"nnoremap ,n            <nop>
+"nnoremap ,o            <nop>
+"nnoremap ,p            <nop>
+"nnoremap ,q            <nop>
+"nnoremap ,s            <nop>
+"nnoremap ,t            <nop>
+"nnoremap ,v            <nop>
+ nnoremap ,w            :set wrap!<cr>
+"nnoremap ,x            <nop>
+"nnoremap ,y            <nop>
+ nnoremap ,z            :set fdm=indent<cr>zC:set fdm=manual<cr>
+
+ nnoremap d<space>      d}
+ nnoremap g<space>      }
+"    nmap ;<space>      {
+ nnoremap ;gb           :Gblame<cr>
+ nnoremap ;gl           :Glog<cr>
+ nnoremap ;gs           :Gstatus<cr>
+ nnoremap ;gd           :Gdiff<cr>
+
+ nnoremap <c-h>         <c-w>h
+ nnoremap <c-j>         <c-w>j
+ nnoremap <c-k>         <c-w>k
+ nnoremap <c-l>         <c-w>l
+"    nmap <c-h>         :tabp<cr>
+"    nmap <c-l>         :tabn<cr>
+ inoremap <c-u>         <esc>g~awa
+"nnoremap <c-u>         g~aw
+ inoremap <c-s>         <esc>:w<cr>a
+ nnoremap <c-s>         :w<cr>
+
+"nnoremap gd            <c-w><c-]>
+"nnoremap gd            <c-w><c-]><c-w>T
+"nnoremap gd            <c-]>
+"nnoremap go            <c-t>
+"nnoremap go            <c-o>
+ nnoremap gl            :tselect<cr>
+ nnoremap gn            :tnext<cr>
+
+" $array(...)
+ nnoremap -a            /\$\w\+(<cr>
+"nnoremap -b            <nop>
+ nnoremap -c            :set cursorcolumn!<cr>
+ nnoremap -d            ]*mb[*mad'b
+"white spaces at end of lines
+ nnoremap -e            /\s\+$<cr>
+"nnoremap -f            <nop>
+"nnoremap -g            <nop>
+ nnoremap -h            /<<<<<<< HEAD<cr>d/=======<cr>ddk/>>>>>>><cr>dd
+ nnoremap -i            :set ignorecase!<cr>
+"nnoremap -j            <nop>
+"nnoremap -k            <nop>
+"nnoremap -l            <nop>
+"{: mismatch :}
+"nnoremap -m            /{:\(\(:}\)\@!.\)*$<cr>
+"hide ^M
+ nnoremap -m            :ed ++ff=dos %<cr>
+ nnoremap -n            /^.*[^\(php\)]$<cr>
+"nnoremap -o            <nop>
+"nnoremap -p            <nop>
+"nnoremap -q            <nop>
+"nnoremap -r            <nop>
+ nnoremap -s            :match error /\s\+$/<cr>
+"<tag>...</tag>
+"nnoremap -t            /<\(\w\+\)>.*<\/\1><cr>
+ nnoremap -t            :match error /\t/<cr>
+"nnoremap -u            <nop>
+"nnoremap -v            <nop>
+"resolve conflict: remove HEAD part
+ nnoremap -w            :set wrapscan!<cr>
+"nnoremap -y            <nop>
+ nnoremap ;zm           :set foldmethod=manual<cr>
+ nnoremap ;zi           :set foldmethod=indent<cr>zC
+ nnoremap ;zs           :set foldmethod=syntax<cr>
+
+"nnoremap --            yypVr-<Esc>
+"nnoremap -=            yypVr=<Esc>
+ nnoremap --            :t.<CR>Vr-<Esc>
+ nnoremap -=            :t.<CR>Vr=<Esc>
+
+"open new tab
+ nnoremap \\            :tabe<cr>
+ nnoremap \f            :tabe %<cr>
+
+ vnoremap //            y/<C-R>"<CR>
+ vnoremap <silent> //   y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+"vnoremap <             <gv
+"vnoremap >             >gv
+
+"Start interactive EasyAlign in visual mode (e.g. vipga)
+ xmap ga <Plug>(EasyAlign)
+
+"Start interactive EasyAlign for a motion/text object (e.g. gaip)
+ nmap ga <Plug>(EasyAlign)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Statusline & Cursorline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ set laststatus=2
+ set cursorline
+
+ set statusline=\ %F%m%r%h\ %w\ \ x%B\ Line:\ %l/%L:%c
+ set statusline+=\ [%{&ff}:%{strlen(&enc)?&enc:'none'}] "file encoding
+
+ hi CursorLine   cterm=NONE ctermbg=236 guibg=grey20
+ hi CursorColumn cterm=NONE ctermbg=238
+ hi ColorColumn  cterm=NONE ctermbg=236
+"hi StatusLine   cterm=NONE ctermbg=8 ctermfg=15
+ hi StatusLine   term=bold,reverse cterm=bold,reverse ctermfg=238 ctermbg=253 gui=bold,reverse guifg=#455354 guibg=fg
+"hi LineNr       ctermfg=242 guifg=grey40
+ hi LineNr       ctermfg=245 ctermbg=234 guifg=grey40
+ hi MatchParen   ctermbg=234 ctermfg=red
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Code Fold
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set foldmethod=indent
+"set foldmethod=syntax
+ set foldmethod=manual
+ set foldnestmax=2
+ set foldlevel=0
+ set foldlevelstart=1
+"set foldclose=all
+ set nofoldenable
+ set foldtext=MyFoldText()
+ set fillchars=fold:\ ,vert:\|
+"function! MyFoldText()
+"  let txt = foldtext()
+"  let len = strlen(txt)
+"  return txt[0:len-2]." { ... }"
+"endfunction
+
+"hi Folded       ctermbg=234 ctermfg=8 guibg=grey15
+ hi Folded       ctermfg=8 guibg=grey15
+
+"hi FoldColumn  gui=bold    guifg=grey65     guibg=Grey90
+"hi Folded      gui=italic  guifg=Black      guibg=Grey90
+"hi LineNr      gui=NONE    guifg=grey60     guibg=Grey90
+
+ function! MyFoldText()
+   let line = getline(v:foldstart)
+   let line = substitute(line, '\t', '    ', 'g')
+   if match(line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$') == 0
+     let initial = substitute(line, '^\([ \t]*\)\(\/\*\|\/\/\)\(.*\)', '\1\2', '')
+     let linenum = v:foldstart + 1
+     while linenum < v:foldend
+       let line = getline(linenum)
+       let comment_content = substitute(line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g')
+       if comment_content != ''
+         break
+       endif
+       let linenum = linenum + 1
+     endwhile
+     let sub = initial . ' ' . comment_content
+   else
+     let sub = line
+     let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+     if startbrace == '{'
+       let line = getline(v:foldend)
+       let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+       if endbrace == '}'
+         let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+       endif
+     endif
+   endif
+   let n = v:foldend - v:foldstart + 1
+   let info = " ++" . n . " lines "
+   if sub =~ '{...}'
+     return substitute(sub, '\.\.\.', info, '')
+   endif
+"  let sub = sub . "  "
+"  let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+"  let fold_w = getwinvar( 0, '&foldcolumn' )
+"  let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+   return sub . info
+ endfunction
+
+ augroup vimrc
+"  au BufReadPre * setlocal foldmethod=indent
+"  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+
+"  au BufReadPre *.php setlocal foldmethod=marker foldmarker={,}
+"  au BufWinEnter *.php if &fdm == 'marker' | setlocal foldmethod=manual | endif
+
+   au BufReadPre *.php setlocal foldexpr=GetFoldExpr(v:lnum) foldmethod=expr
+   au BufWinEnter *.php if &fdm == 'expr' | setlocal foldmethod=manual | endif
+ augroup END
+
+ function! GetFoldExpr(lnum)
+   let first = get(split(getline(a:lnum)), 0, '')
+   let last  = get(split(getline(a:lnum)), -1, '')
+"  let last  = get(split(getline(a:lnum), '\zs'), -1, '')
+   if (first == '/**' && last == '*/') || (first == '}' && last == '{')
+     return '='
+   elseif first == '/**' || first == '{' || last == '{'
+     return 'a1'
+"    if foldlevel(a:lnum) < 2
+"    endif
+   elseif first == '*/' || first == '}' || first == '};' || first == '});'
+     return 's1'
+"    if foldlevel(a:lnum) >= 2
+"    endif
+   endif
+   return '='
+ endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Abbr
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ iab dttm <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+ iab cl console.log
+ iab gid document.getElementById
+ iab jqready $(document).ready(function() { });<ESC>ko
+ iab jqclick $("p").click(function() {});<ESC>ko
+ iab jsmod (function() {})()
+ iab fu function
+ iab fun function() {
+ iab syso System.out.println("
+ iab sop System.out.println("
+ iab pf public function
+ iab pfc public function __construct
+ iab psf public static function
+ iab pof protected function
+ iab posf protected static function
+ iab ut \PHPUnit_Framework_TestCase
+ iab imp implements
+ iab ns namespace
+ iab exut extends \PHPUnit_Framework_TestCase
+ iab exdbut extends \PHPUnit_Extensions_Database_TestCase
+ iab tis testItShould
+ iab pft public function testItShould
+ iab vd var_dump
+ iab ve var_export
+ iab gicon <span class="glyphicon glyphicon-x"></span>
+ iab jqcdn <script src="https://code.jquery.com/jquery-1.12.4.min.js"/>
+ iab ngcdn <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+ iab vwport <meta name="viewport" content="width=device-width, initial-scale=1">
+ iab cssinc <link rel="stylesheet" href=""><ESC>hi
+ iab jsinc <script type="text/javascript" src=""></script><ESC>10hi
+ iab chset <meta charset="utf-8">
+ iab favico <link rel="icon" href="/favicon.ico" type="image/x-icon">
+ iab keywd <meta name="Keywords" content=""><ESC>hi
+ iab descr <meta name="Description" content=""><ESC>hi
+ iab wr w http.ResponseWriter, r *http.Request
+ iab idoc /*** {@inheritDoc}*/
+
+ iab fm fpr(__METHOD__)
+ iab ff fpr(__FILE__)
+"iab p1 fpr('== 1 ==')
+"iab p2 fpr('== 2 ==')
+"iab p3 fpr('== 3 ==')
+"iab p4 fpr('== 4 ==')
+"iab p5 fpr('== 5 ==')
+"iab p6 fpr('== 6 ==')
+"iab p7 fpr('== 7 ==')
+"iab p8 fpr('== 8 ==')
+"iab p9 fpr('== 9 ==')
+ iab vd var_dump(
+ iab pr print_r(
+ iab ar @return
+ iab av @var
+ iab ap @param
+
+ iab ncc --no-check-certificate -O
+
+ iab ife if err != nil {log.Fatal(err)}
+ iab tt func Test_Something(t *testing.T)
+
+ iab prvd e.preventDefault()
+ iab ctor constructor(
+ iab months var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+ iab weeks var week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+ iab nums var nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+ cab SH w !bash
+ iab addel addEventListener
+
+ let @r="0wr'elr'bywf=lr>l lPlDa,"
+ let @m="0wdwr'wywwr'a => 'pa',"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"autocmd BufWritePost *.php !zca <afile>
+"autocmd BufWritePost *.php !php -l <afile>
+"autocmd BufWritePost *.rb  !ruby -c <afile>
+
+ autocmd BufReadPre,BufEnter *.php nnoremap ;r :w !php<cr>
+ autocmd BufReadPre,BufEnter *.js  nnoremap ;r :w !node<cr>
+ autocmd BufReadPre,BufEnter *.rb  nnoremap ;r :w !ruby<cr>
+ autocmd BufReadPre,BufEnter *.py  nnoremap ;r :w !python<cr>
+"autocmd BufReadPre,BufEnter *.go  nnoremap ;r !go run <afile><cr>
+
+ autocmd BufRead,BufNewFile *.less :set syntax=css
+
+"move cursor to last position when open a file
+ autocmd BufReadPost *
+       \ if line("'\"") > 0 && line("'\"") <= line("$") |
+       \ exe "normal g`\"" |
+       \ endif
+
+"delete trailing space
+"autocmd BufWritePre * :%s/\s\+$//e
+
+ autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+"autocmd BufNewFile *.xml  0r ~/.vim/xml.skel  | let IndentStyle = "xml"
+"autocmd BufNewFile *.html 0r ~/.vim/html.skel | let IndentStyle = "html"
+"autocmd BufNewFile *.php  0r ~/.vim/php.skel  | let IndentStyle = "php"
+"autocmd BufNewFile *.java 0r ~/.vim/java.skel | let IndentStyle = "java"
+"autocmd BufNewFile *.go   0r ~/.vim/go.skel   | let IndentStyle = "go"
+
+ autocmd BufReadPost *.volt set syntax=html
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Self-defined commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ command! -nargs=1 FF    :r! find . -type f | grep <args>
+ command! -nargs=1 AG    :r! ag <args>
+
+"command! -nargs=0 CL    :! sudo service syslog restart
+"command! -nargs=0 CM    :! sudo /etc/init.d/memcached restart
+
+ command! -nargs=0 TODO  :tabe ~/tmp/todo.rst
+ command! -nargs=0 VIMRC :tabe $MYVIMRC
+ command! -nargs=0 TT    :tabe ~/tmp/tt.php
+ command! -nargs=0 SNIPP :tabe e:\LHS\Tools\Vim\vimfiles\pack\snippets\start\vim-snippets\snippets\_.snippets
+"command! -nargs=1 JIRA  :!open https://jira.avidlifemedia.com/browse/AM-<args>
+"command! -nargs=1 LNK   :call append(line('.'), "<a href=<args>><args></a>")
+"command! -nargs=1 L     :normal i<a href=<args>><args></a><CR><ESC>
+
+ command! -nargs=0 DEL   :%s///g
+ command! -nargs=0 CNT   :%s///gn
+ command! -nargs=0 TS    :%s/\s\+$//e
+ command! -nargs=0 TRIM  :%s/\s\+$//e
+ command! -nargs=0 NOPHP /^.*\(php\)\@<!$
+ command! -nargs=1 NC    /^\(\(<args>\)\@!.\)*$
+ command! -nargs=1 NOEND /^.*\(<args>\)\@<!$
+"command! -nargs=1 RPAD  :g/^/exe "norm! 100A " | call cursor(getline('.'), <args>) | norm d$
+"command! -nargs=1 PAD   :%s/\v^.*$/\= submatch(0) . repeat(" ", <args> - len(submatch(0)))
+ command! -nargs=1 PAD   :%s/$/\= repeat(" ", <args> - len(getline('.')))
+
+ command! -nargs=0 XMLFMT   :%!xmllint --format -
+
+"command! -nargs=0 BK    :! cp <cfile> ~
+"command! -nargs=0 BK    :call system('cp <cfile> ~')
+"command! -nargs=0 CP    :! cp ~/<cfile>:t <cfile>
+ command! -nargs=0 RUN   :.w !bash
+ command! -nargs=0 MKDIR :! mkdir -p <cfile>
+ command! -nargs=* SEQ   :r !seq <args>
+ command! -nargs=* LN    :%s/^/\=printf('%02d ', line('.'))
+ command! -nargs=0 DD    :g/\.git\/\|\/vendor\/\|\/tests\//d
+ command! -nargs=0 EOS   :match ErrorMsg /\s\+$/
+
+"command! -nargs=1 CNT   :%s/<args>//gn
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  1 = DARK BLUE
+"  2 = DARK GREEN
+"  3 = DARK CYGN
+"  4 = DARK RED
+"  5 = DARK PURPLE
+"  6 = DARK YELLOW
+"  7 = GREY
+"  8 = DARKGREY
+"
+"  9 = BLUE
+" 10 = GREEN
+" 11 = CYGN
+" 12 = RED
+" 13 = PURPLE
+" 14 = YELLOW
+" 15 = WHITE
+" 16 = BLACK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :g/^/m0           Reverse a file
+" :g/pattern/m$     move lines that contain pattern to end of file
+" :g/^$/            Delete empty lines$
+" :g/^\s*$/d        Delete empty and blank lines
+" :g/^$/,/./-j      Multiple blank lines into single blank line
+" :reg              Show all register
+" :%s/^/\=line(".") . ". "/g    Add Line Number to each line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap ,a  :call TrimA()<cr>
+function! TrimA()
+"   execute ":%s/<\W\?\w\+\W\?>\|blank\|\s+$//g"
+    execute ":%s/^$//g"
+    execute ":%s/http/wget http/g"
+    execute ':%s/mp3 /mp3 --no-check-certificate -O "/g'
+    execute ':%s/$/.mp3"/g'
+endfunc
+
+nnoremap -l     :call GenAnchor()<cr>
+function! GenAnchor()
+    let line = getline('.')
+    let words = split(line, '\W\+')
+    if (words[0] == 'http' || words[0] == 'https')
+        call setline(line("."), '<a href="'.line.'">'.line.'</a>')
+       "call append(line("."), "")
+    endif
+endfunc
+
+nnoremap -g     :call GenSetterGetter()<cr>
+function! GenSetterGetter()
+    let words = split(getline('.'), '\W\+')
+
+    if (words[0] == 'public' || words[0] == 'protected' || words[0] == 'private')
+        call append(line("$"), "")
+        call append(line("$"), "    /**")
+        call append(line("$"), "     * @return string")
+        call append(line("$"), "     */")
+        call append(line("$"), "    public function get" . Ucfirst(words[1]) . "()")
+        call append(line("$"), "    {")
+        call append(line("$"), "        return $this->" . words[1] . ";")
+        call append(line("$"), "    }")
+        call append(line("$"), "")
+
+        call append(line("$"), "    /**")
+        call append(line("$"), "     * @param string " . "$" . words[1])
+        call append(line("$"), "     */")
+        call append(line("$"), "    public function set" . Ucfirst(words[1]) . "($". words[1] . ")")
+        call append(line("$"), "    {")
+        call append(line("$"), "        $this->" . words[1] . " = " . "$" . words[1] . ";")
+        call append(line("$"), "    }")
+    endif
+endfunc
+
+function! Ucfirst(str)
+    return toupper(strpart(a:str, 0, 1)) . strpart(a:str, 1)
+endfunc
+function! Lcfirst(str)
+    return tolower(strpart(a:str, 0, 1)) . strpart(a:str, 1)
+endfunc
+function! Snake(str)
+    return tolower(substitute(a:str, '\(.\)\([A-Z]\)', '\1-\2', 'g'))
+endfunc
+
+nnoremap gf :call OpenFileUnderCursor()<cr>
+function! OpenFileUnderCursor()
+    " two cases: ~ and file:line
+    if filereadable(expand("<cfile>"))  || filereadable(expand(getline('.')))
+        execute "normal! \<c-w>gF"
+        return
+    endif
+endfunc
