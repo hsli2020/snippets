@@ -1,0 +1,61 @@
+apachelogs.web_access_log
+
++------------------+----------------------+------+-----+---------+-------+
+| Field            | Type                 | Null | Key | Default | Extra |
++------------------+----------------------+------+-----+---------+-------+
+| id               | char(19)             | YES  |     | NULL    |       |
+| agent            | varchar(255)         | YES  |     | NULL    |       |
+| bytes_sent       | int(10) unsigned     | YES  |     | NULL    |       |
+| child_pid        | smallint(5) unsigned | YES  |     | NULL    |       |
+| cookie           | varchar(255)         | YES  |     | NULL    |       |
+| machine_id       | varchar(25)          | YES  |     | NULL    |       |
+| request_file     | varchar(255)         | YES  |     | NULL    |       |
+| referer          | varchar(255)         | YES  |     | NULL    |       |
+| remote_host      | varchar(50)          | YES  |     | NULL    |       |
+| remote_logname   | varchar(50)          | YES  |     | NULL    |       |
+| remote_user      | varchar(50)          | YES  |     | NULL    |       |
+| request_duration | smallint(5) unsigned | YES  |     | NULL    |       |
+| request_line     | varchar(255)         | YES  |     | NULL    |       |
+| request_method   | varchar(10)          | YES  |     | NULL    |       |
+| request_protocol | varchar(10)          | YES  |     | NULL    |       |
+| request_time     | char(28)             | YES  |     | NULL    |       |
+| request_uri      | varchar(255)         | YES  |     | NULL    |       |
+| request_args     | varchar(255)         | YES  |     | NULL    |       |
+| server_port      | smallint(5) unsigned | YES  |     | NULL    |       |
+| ssl_cipher       | varchar(25)          | YES  |     | NULL    |       |
+| ssl_keysize      | smallint(5) unsigned | YES  |     | NULL    |       |
+| ssl_maxkeysize   | smallint(5) unsigned | YES  |     | NULL    |       |
+| status           | smallint(5) unsigned | YES  |     | NULL    |       |
+| time_stamp       | int(10) unsigned     | YES  |     | NULL    |       |
+| virtual_host     | varchar(255)         | YES  |     | NULL    |       |
++------------------+----------------------+------+-----+---------+-------+
+
+# mysql -u root -p
+ 
+create database apachelogs;
+ 
+grant insert,create on apachelogs.* to loguser@localhost identified by 'loguser_password';
+grant insert,create on apachelogs.* to loguser@localhost.localdomain identified by 'loguser_password';
+FLUSH PRIVILEGES;
+ 
+use apachelogs;
+ 
+CREATE TABLE IF NOT EXISTS `scoreboard` (
+`id` int(14) NOT NULL auto_increment,
+`vhost` varchar(50) NOT NULL default '',
+`bytes_sent` int(14) NOT NULL default '0',
+`count_hosts` int(12) NOT NULL default '0',
+`count_visits` int(12) NOT NULL default '0',
+`count_status_200` int(12) NOT NULL default '0',
+`count_status_404` int(12) NOT NULL default '0',
+`count_impressions` int(18) NOT NULL default '0',
+`last_run` int(14) NOT NULL default '0',
+`month` int(4) NOT NULL default '0',
+`year` int(4) NOT NULL default '0',
+`domain` varchar(50) NOT NULL default '',
+`bytes_receive` int(14) NOT NULL default '0',
+PRIMARY KEY (`id`),
+UNIQUE KEY `vhost` (`vhost`,`month`,`year`,`domain`)
+) TYPE=MyISAM;
+ 
+quit;
