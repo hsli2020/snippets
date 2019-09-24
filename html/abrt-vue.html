@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABRT</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+.w3-modal { display: block; }
+#mytable td, #mytable th { padding: 2px 8px; vertical-align: middle;}
+</style>
+</head>
+<body class="w3-content">
+
+<div id="app">
+  <button @click="showInputModal=true">Show Input Modal</button>
+  <button @click="showSelectModal=true">Show Select Modal</button>
+  <button @click="showDataModal=true">Show Data Modal</button>
+
+  <InputModal  v-if="showInputModal"  @close="showInputModal=false"></InputModal>
+  <SelectModal v-if="showSelectModal" @close="showSelectModal=false" @select="onSelect"></SelectModal>
+  <DataModal   v-if="showDataModal"   @close="showDataModal=false"></DataModal>
+
+  <p>{{ selected.name }}</p>
+  <p>{{ selected.licnum }}</p>
+  <p>{{ selected.expiry }}</p>
+  <p>{{ selected.level }}</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- script src="abrt.js"></script -->
+
+<script>
+var allLicenses = [
+    { name: "Dai Yibing",   licnum: "D0175-79008-25604", expiry: "2021/11/05", level: "G2" },
+    { name: "Li Yi",        licnum: "L4001-79009-35107", expiry: "2018/08/15", level: "G" },
+    { name: "Wong Bryan",   licnum: "W6401-10299-60512", expiry: "2018/08/27", level: "G" },
+    { name: "Zheng Huihui", licnum: "Z3351-34709-15805", expiry: "2020/11/17", level: "G" },
+/*
+    { name: "Li Yin",       licnum: "L4001-79009-86028", expiry: "2020/09/03", level: "G" },
+    { name: "Nie FangChen", licnum: "N4142-25909-70403", expiry: "2018/08/28", level: "G2" },
+    { name: "Kong Jiewen",  licnum: "K6401-40109-55826", expiry: "2018/08/22", level: "G" },
+    { name: "Mo Yongwen",   licnum: "M6001-79009-55126", expiry: "2023/04/10", level: "G2" },
+    { name: "Guo Yujie",    licnum: "G9314-79009-55709", expiry: "2023/05/03", level: "G2" },
+    { name: "Liu Yingdi",   licnum: "L4741-79009-65218", expiry: "2021/12/19", level: "G2" },
+    { name: "Niu Qinli",    licnum: "N4741-63708-10415", expiry: "2023/03/06", level: "G2" },
+    { name: "Zhang Wang",   licnum: "Z3187-79009-50709", expiry: "2020/11/09", level: "G" },
+    { name: "Yu LingHao",   licnum: "Y9001-47409-31206", expiry: "2022/01/06", level: "G2" },
+    { name: "He YanNan",    licnum: "H2001-78909-46223", expiry: "2022/01/06", level: "G2" }
+*/
+];
+</script>
+
+<!-- ----------------------------------------------------------
+    Input Modal
+------------------------------------------------------------ -->
+<template id="input-modal-template">
+  <div class="w3-modal">
+    <div class="w3-modal-content w3-card-4" style="width:400px; height:450px;">
+      <header class="w3-container w3-blue">
+        <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
+        <h3 style="margin:0">New Driver License</h3>
+      </header>
+  
+      <div class="w3-container">
+        <h3>Input Driver License</h3>
+        <div class="w3-section">
+          <label>Driver Name</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="name" autocomplete="off" required>
+  
+          <label>Driver License#</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="licnum" autocomplete="off" required>
+  
+          <label>Expiry Date</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="YYYY/MM/DD" v-model="expiry" autocomplete="off" required>
+  
+          <label><input type="radio" v-model="level" value="G2"> G2 License</label><br>
+          <label><input type="radio" v-model="level" value="G"> G License</label><br>
+  
+          <button class="w3-btn w3-blue w3-right" @click="save()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+Vue.component('inputmodal', {
+    template: '#input-modal-template',
+    data() {
+        return {
+            name: "",
+            licnum: "",
+            expiry: "",
+            level: "G2"
+        }
+    },
+    methods: {
+        save: function () {
+            var name = this.name,
+            licnum = this.licnum,
+            expiry = this.expiry,
+            level = this.level;
+            if (name.length > 4 && licnum.length == 17 && expiry.length == 10) {
+                allLicenses.unshift({name, licnum, expiry, level});
+                this.$emit('close')
+            }
+        }
+    },
+})
+</script>
+
+<!-- ----------------------------------------------------------
+    Select Modal
+------------------------------------------------------------ -->
+<template id="select-modal-template">
+  <div class="w3-modal">
+    <div class="w3-modal-content w3-card-4" style="width:800px; height:600px;">
+      <header class="w3-container w3-blue">
+        <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
+        <h3 style="margin:0">Select Driver</h3>
+      </header>
+  
+      <div class="w3-container">
+        <br>
+        <input class="w3-input w3-border w3-padding" v-model="search" type="text" placeholder="Search drivers...">
+        <div class="w3-margin-top w3-border" style="height: 450px;overflow-y: scroll">
+          <table class="w3-table w3-bordered w3-hoverable" id="mytable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>License#</th>
+                <th>G2/G</th>
+                <th>Expiry</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="lic in filteredList" class="w3-hover-light-grey">
+                <td>{{ lic.name }}</td>
+                <td>{{ lic.licnum }}</td>
+                <td>{{ lic.level }}</td>
+                <td>{{ lic.expiry }}</td>
+                <td><span class="w3-btn w3-tiny w3-blue" @click="$emit('select', lic)">Copy</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+Vue.component('selectmodal', {
+    template: '#select-modal-template',
+    data() {
+        return {
+            search: "",
+            licenses: allLicenses
+        }
+    },
+    methods: { },
+    computed: {
+        filteredList() {
+            return this.licenses.filter(lic => {
+                return lic.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
+    }
+})
+</script>
+
+<!-- ----------------------------------------------------------
+    Data Modal
+------------------------------------------------------------ -->
+<template id="data-modal-template">
+  <div class="w3-modal">
+    <div class="w3-modal-content w3-card-4" style="width:640px; height:550px; font-family:consolas;">
+      <header class="w3-container w3-blue">
+        <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
+        <h3 style="margin:0">Data Backup/Restore</h3>
+      </header>
+  
+      <div class="w3-container">
+        <br>
+        <textarea cols="60" rows="18" v-model="text" style="resize:none; width:100%; margin-bottom:10px; padding:0 10px;"></textarea>
+        <div class="w3-right">
+          <button class="w3-btn w3-blue" @click="save()">Save</button>
+          <button class="w3-btn w3-blue" @click="$emit('close')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+Vue.component('datamodal', {
+    template: '#data-modal-template',
+    data() {
+        return {
+            text: this.csvtext()
+        }
+    },
+    methods: {
+        csvtext() {
+            var arr = [];
+            //arr.push(email);
+            for (var lic of allLicenses) {
+                arr.push(lic.licnum + ",  " + lic.expiry + ",  " + (lic.level+ ",").padEnd(5, ' ') + lic.name);
+            }
+            return arr.join("\n");
+        },
+        save() {
+            var lines = this.text.split("\n");
+            var email = lines[0];
+            var licenses = [];
+
+            //lines = lines.slice(1);
+
+            for (var line of lines) {
+                var parts = line.split(",");
+                if (parts.length != 4) continue;
+
+                var licnum = parts[0].trim().toUpperCase();
+                var expiry = parts[1].trim().toUpperCase();
+                var level = parts[2].trim().toUpperCase();
+                var name = camelize(parts[3].trim().toLowerCase());
+
+                licenses.push({name, licnum, expiry, level});
+            }
+            allLicenses = licenses;
+            this.$emit('close')
+        }
+    },
+    computed: { }
+})
+</script>
+
+<script>
+function camelize(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+    return word.toUpperCase();
+  });
+}
+
+// start app
+new Vue({
+  el: '#app',
+  data: {
+    showInputModal: false,
+    showSelectModal: false,
+    showDataModal: false,
+    selected: {
+      name: "",
+      licnum: "",
+      expiry: "",
+      level:  "",
+    }
+  },
+  methods: {
+    onSelect: function (driver) {
+      this.selected = driver;
+      this.showSelectModal = false;
+    }
+  }
+})
+</script>
+
+</body>
+</html>
