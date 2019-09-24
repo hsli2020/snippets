@@ -1,0 +1,442 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+set history=200
+set number
+set showcmd
+set showmode
+set autoread
+set nowrap
+set nowrapscan
+set hlsearch
+set incsearch
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+" set cindent
+set ignorecase
+set magic
+set noeb vb t_vb=
+"et noerrorbells
+"et novisualbell
+set smarttab
+set smartindent
+set autoindent
+set noswapfile
+set nobackup
+set nowb
+set undodir=~/.vim/backups
+set undofile
+set clipboard=unnamed
+"set clipboard+=unnamed
+set fileformat=unix
+set fileformats=unix,dos,mac
+set printoptions=left:10mm,right:10mm,top:15mm,bottom:15mm
+set printfont=courier_new:h10
+" set printheader=%<%f%h%m%=Page\ %N
+" set foldmethod=indent
+set nofoldenable
+" set colorcolumn=100
+set guioptions-=T
+set showtabline=2
+set guitablabel=%t
+set encoding=utf8
+set shiftround
+
+let mapleader = ","
+let g:mapleader = ","
+
+let g:go_fmt_command = "goimports"
+
+syntax on
+" colorscheme pablo
+
+if has("gui_running")
+" colorscheme monokai " desert
+  colorscheme slate " desert
+" set gfn=Menlo\ Regular:h10
+" set gfn=monaco:h9
+  set gfn=consolas:h11
+" set gfn=courier_new:h9
+  set lines=64 columns=145
+  winpos 400 5
+  set linespace=0
+end
+
+filetype plugin on
+filetype indent on
+
+let g:go_version_warning = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key maps
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    imap jk            <esc>
+    nmap \\            :tabe<cr>
+nnoremap \f            :tabe %<cr>
+nnoremap --            :t.<CR>Vr-<Esc>
+nnoremap -=            :t.<CR>Vr=<Esc>
+nnoremap -2            :set ts=2<cr>
+nnoremap -4            :set ts=4<cr>
+nnoremap -8            :set ts=8<cr>
+vnoremap //            y/<C-R>"<CR>
+vnoremap <silent> //   y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+
+    nmap a             A
+
+    nmap gf            <c-w>gF
+nnoremap ;gf           :tabe <cfile><cr>
+"   nmap gF           :tabe <cfile><cr>
+    nmap H             ^
+    nmap L             $
+    nmap Y             y$
+    nmap K             <c-]>
+    nmap M             %
+    nmap S             :w<cr>
+
+nnoremap <cr>          i<cr><esc>
+nnoremap <space>       i<space><esc>l
+    nmap <bs>          <c-t>
+    nmap <tab>         gt
+"   nmap d;            [*d]*dd
+
+nnoremap ;;            :CtrlP<cr>
+"   nmap ;,            :nohl<cr>
+
+"   nmap ;a
+    nmap ;b            [{
+"   vmap ;c            :w !pbcopy<cr><cr>
+"   nmap ;d            d}
+    nmap ;d            :t.<cr>
+    nmap ;e            /\s\+$<cr>
+    nmap ;f            0f{zf%0
+"   nmap ;g
+nnoremap ;h            :nohl<cr>
+nnoremap ;i            :set ignorecase!<cr>
+"   nmap ;j
+"   nmap ;k
+    nmap ;l            0f{%
+"   nmap ;m
+    nmap ;n            :n<cr>
+"   nmap ;o
+"   nmap ;p            :r !pbpaste<cr>
+    nmap ;q            :confirm q<cr>
+"   nmap ;r
+nnoremap ;s            :%s/
+    nmap ;t            :%s/\s\+$//e<cr>
+    nmap ;u            guiw
+    nmap ;U            gUiw
+"   nmap ;v
+    nmap ;w            :w<cr>
+    nmap ;x            [*d]*dd
+"   nmap ;y
+    nmap ;z            zf%0
+nnoremap z<space>      zf}
+
+nnoremap d<space>      d}
+    nmap g<space>      }
+    nmap ;<space>      {
+    nmap ;gb           :GitBlame<cr><c-w>w
+
+nnoremap <c-j>         }
+nnoremap <c-k>         {
+
+nnoremap -d            :call delete(expand("<cfile>"))<cr>
+
+nnoremap z/            [*zf]*
+nnoremap z;            0f{zf%0
+nnoremap d/            [*d]*dd
+nnoremap d;            d%
+
+"   nmap ,a
+"   nmap ,b
+"   nmap ,c
+"   nmap ,d
+"   nmap ,e            " defined, goto next error
+"   nmap ,f
+"   nmap ,g
+"   nmap ,h
+"   nmap ,i
+"   nmap ,j
+"   nmap ,k
+"   nmap ,l
+"   nmap ,m
+"   nmap ,n
+"   nmap ,o
+"   nmap ,p
+    nmap ,q            @q
+"   nmap ,s            :source ~/.vimrc<cr>
+"   nmap ,t
+"   nmap ,v            :tabe ~/.vimrc<cr>
+    nmap ,w            :set wrap!<cr>
+"   nmap ,x
+"   nmap ,y
+    nmap ,z            :set fdm=indent<cr>zC:set fdm=manual<cr>
+
+    nmap <c-h>         gT
+    nmap <c-l>         gt
+nnoremap (             gT
+nnoremap )             gt
+"   nmap (             :tabp<cr>
+"   nmap )             :tabn<cr>
+    nmap _             [[
+    nmap +             ]]
+nnoremap -c            :set cursorcolumn!<cr>
+nnoremap -e            /\s\+$<cr>
+nnoremap -0            :let g:seq=0<cr>
+inoremap \fn           <C-R>=expand("%:p")<CR>
+
+"Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+"Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Statusline & Cursorline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+set statusline=\ %F%m%r%h\ %w\ \ x%B\ Line:\ %l/%L:%c
+
+set cursorline
+hi CursorLine cterm=NONE ctermbg=236 guibg=grey25
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Abbr
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+iab date_ <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iab dttm <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iab syso System.out.println(
+iab sop System.out.println(
+iab imp implements
+iab clg console.log(
+iab ov @Override
+iab pf public function
+iab pfc public function __construct()
+iab fu function
+iab fun function() {
+iab psf public static function
+iab ut \PHPUnit_Framework_TestCase
+iab exut extends \PHPUnit_Framework_TestCase
+iab tis testItShould
+iab pft public function testItShould
+iab as. $this->assert
+iab asf. $this->assertFalse(
+iab ast. $this->assertTrue(
+iab ase. $this->assertEqual(
+iab ass. $this->assertSame(
+iab G. $_GET['']
+iab P. $_POST['']
+iab R. $_REQUEST['']
+iab t. $this->
+iab p. .prototype.
+iab ns namespace
+iab gid document.getElementById
+iab jqready $(document).ready(function() {});
+iab jqclick $("p").click(function() {});
+iab jsmod (function() {})()
+iab jmain public static void main(String [] args){}
+iab puv public void
+iab vwport <meta name="viewport" content="width=device-width, initial-scale=1">
+iab cssinc <link rel="stylesheet" href=""><ESC>hi
+iab jsinc <script type="text/javascript" src=""></script><ESC>10hi
+iab chset <meta charset="utf-8">
+iab favico <link rel="icon" href="/favicon.ico" type="image/x-icon">
+iab keywd <meta name="Keywords" content=""><ESC>hi
+iab descr <meta name="Description" content=""><ESC>hi
+iab wr w http.ResponseWriter, r *http.Request) {
+iab ldv $this->load->view('');<ESC>2hi
+iab ldl $this->load->library('');<ESC>2hi
+iab ldf $this->load->helper('form');
+iab ldm $this->load->model('');<ESC>2hi
+iab ldfv $this->load->library('form_validation');
+iab fvr $status = $this->form_validation->run('');<ESC>2hi
+iab fe <?php foreach($array as $key => $val): ?><?php endforeach ?>
+iab endf <?php endforeach ?>
+iab endi <?php endif ?>
+iab pp <?= ?><ESC>hhi
+iab idoc /** * {@inheritDoc}*/
+iab pa. @param  TYPE $<ESC>b
+iab re. @return TYPE<ESC>b
+iab va. @var TYPE<ESC>b
+iab fm fpr(__METHOD__)
+iab ff fpr(__FILE__)
+iab p1 fpr('== 1 ==')
+iab p2 fpr('== 2 ==')
+iab p3 fpr('== 3 ==')
+iab p4 fpr('== 4 ==')
+iab p5 fpr('== 5 ==')
+iab p6 fpr('== 6 ==')
+iab p7 fpr('== 7 ==')
+iab p8 fpr('== 8 ==')
+iab p9 fpr('== 9 ==')
+iab vd var_dump(
+iab pr print_r(
+iab tt func Test_Something(t *testing.T)
+iab te t.Error
+iab tef t.Errorf
+iab tf t.Fail
+iab prvd e.preventDefault()
+iab ctor constructor(
+iab months var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+iab weeks var week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+iab nums var nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+cab SH w !bash
+iab addel addEventListener
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autocmd BufWritePost *.php !zca <afile>
+" autocmd BufWritePost *.php !php -l <afile>
+" autocmd BufWritePost *.rb !ruby -c <afile>
+
+ autocmd BufReadPre,BufEnter *.php nnoremap ;r :w !php<cr>
+ autocmd BufReadPre,BufEnter *.js  nnoremap ;r :w !node<cr>
+ autocmd BufReadPre,BufEnter *.rb  nnoremap ;r :w !ruby<cr>
+ autocmd BufReadPre,BufEnter *.py  nnoremap ;r :w !python<cr>
+ autocmd BufReadPre,BufEnter *.go  nnoremap ;r :w !go run %<cr>
+
+" move cursor to last position when open a file
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \ exe "normal g`\"" |
+      \ endif
+
+" delete trailing space
+" autocmd BufWritePre * :%s/\s\+$//e
+
+" set path=~/Projects
+"
+autocmd BufNewFile *.html 0r $VIM/vimfiles/html.skel | let IndentStyle = "html"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Self-defined commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! -nargs=1 FF        :r! find . -type f | grep <args>
+command! -nargs=0 VIMRC     :tabe ~/.vimrc
+command! -nargs=0 NOPHP     /^.*\(php\)\@<!$
+command! -nargs=1 NC        /^.*\(<args>\)\@<!$
+command! -nargs=0 TRIM      :%s/\s\+$//g
+command! -nargs=1 NUM       :put=range(1,<args>)
+command! -nargs=1 L         :normal i<a href=<args>><args></a><CR><ESC>
+command! -nargs=0 DEL       :%s///g
+command! -nargs=0 CNT       :%s///gn
+command! -nargs=0 SNIPP     :tabe $VIM/vimfiles/snippets/
+command! -nargs=0 PG        :echo line('$')/62.0
+command! -nargs=0 FAST      :call Faster()
+command! -nargs=0 PHP       :call InitPHP()
+command! -nargs=1 REP       :%s/<args>/\="<args>".Incr()/g
+
+command! -nargs=0 XMLFMT    :%!xmllint --format -
+command! -nargs=0 JSONFMT   :%!python -m json.tool
+command! -nargs=0 JQ        :%!jq
+command! -nargs=0 PHPLINT   :w !php -l
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fold
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" nnoremap z;  [*zf]*
+hi Folded  ctermbg=234 guifg=grey25 guibg=grey15
+set foldmethod=manual
+set foldnestmax=2
+set foldlevel=0
+set foldlevelstart=1
+set foldtext=MyFoldText()
+let php_folding=2
+set fillchars=fold:\ ,vert:\|
+function! MyFoldText0()
+    let txt = foldtext()
+    let len = strlen(txt)
+    return txt[0:len-2]." { ... }"
+endfunction
+
+function! MyFoldText()
+  let line = getline(v:foldstart)
+  let line = substitute(line, '\t', '    ', 'g')
+  if match(line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$') == 0
+    let initial = substitute(line, '^\([ \t]*\)\(\/\*\|\/\/\)\(.*\)', '\1\2', '')
+    let linenum = v:foldstart + 1
+    while linenum < v:foldend
+      let line = getline(linenum)
+      let comment_content = substitute(line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g')
+      if comment_content != ''
+        break
+      endif
+      let linenum = linenum + 1
+    endwhile
+    let sub = initial . ' ' . comment_content
+  else
+    let sub = line
+    let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+    if startbrace == '{'
+      let line = getline(v:foldend)
+      let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+      if endbrace == '}'
+        let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+      endif
+    endif
+  endif
+  let n = v:foldend - v:foldstart + 1
+  let info = " ++" . n . " lines "
+  if sub =~ '{...}'
+    return substitute(sub, '\.\.\.', info, '')
+  endif
+  return sub . info
+endfunction
+
+function! Faster()
+  set nocursorline
+  set norelativenumber
+  set foldmethod=manual
+  set synmaxcol=200
+  set cc=0
+  syntax off
+  NoMatchParen
+endfunction
+
+function! InitPHP()
+  set syntax=php
+  call append(0, '<?php')
+  exec "read" "C:/Software/Vim/vimfiles/php.skel"
+endfunction
+
+let g:seq = 0
+func! Incr()
+  let g:seq = g:seq + 1
+  return g:seq
+endfunc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  1 = DARK BLUE
+"  2 = DARK GREEN
+"  3 = DARK CYGN
+"  4 = DARK RED
+"  5 = DARK PURPLE
+"  6 = DARK YELLOW
+"  7 = GREY
+"  8 = DARKGREY
+"
+"  9 = BLUE
+" 10 = GREEN
+" 11 = CYGN
+" 12 = RED
+" 13 = PURPLE
+" 14 = YELLOW
+" 15 = WHITE
+" 16 = BLACK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :g/^/m0           Reverse a file
+" :g/pattern/m$     move lines that contain pattern to end of file
+" :g/^$/            Delete empty lines$
+" :g/^\s*$/d        Delete empty and blank lines
+" :g/^$/,/./-j      Multiple blank lines into single blank line
+" :reg              Show all register
+" :%s/^/\=line(".") . ". "/g    Add Line Number to each line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Editing huge files
+"
+" $ tail hugefile | vim -
+"
+" run vim without syntax, settings and plugins, not to use swapfiles and viminfo files
+" $ vim -n -u NONE -i NONE -N
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
