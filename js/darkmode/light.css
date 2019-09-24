@@ -1,0 +1,28 @@
+body {
+	color: #152121;
+	background-color: #fff;
+}
+
+#mode-toggler {
+	color: #fff;
+	background-color: #252526;
+}
+
+header,
+footer {
+	background-color: #f8f8f8;
+}
+
+.header-description {
+	color: #aaa;
+}
+
+pre {
+	background-color: #f8f8f8;
+	-webkit-box-shadow: 9999px 0 0 0 #f8f8f8;
+	box-shadow: 9999px 0 0 0 #f8f8f8;
+}
+
+code {
+	color: #333;
+}

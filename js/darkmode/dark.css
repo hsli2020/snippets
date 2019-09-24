@@ -1,0 +1,32 @@
+body {
+	color: #f1f1f1;
+	background-color: #152121;
+}
+
+#mode-toggler {
+	color: #252526;
+	background-color: #fff;
+}
+
+header,
+footer {
+	background-color: #252526;
+}
+
+.header-description {
+	color: #aaa;
+}
+
+.btn:hover {
+	color: #152121;
+}
+
+pre {
+	background-color:#252526;
+	-webkit-box-shadow: 9999px 0 0 0 #252526;
+	box-shadow: 9999px 0 0 0 #252526;
+}
+
+code {
+	color: #ddd;
+}

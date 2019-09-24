@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css?family=Merienda+One|Montserrat:400,500,500i,600,700');
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-size: 18px;
+	width: 100vw;
+	line-height: 1.55;
+	font-family: 'Montserrat', sans-serif;
+}
+
+header {
+	padding-top: 60px;
+	padding-bottom: 30px;
+}
+
+h1 {
+	margin: 0;
+	font-size: 64px;
+	line-height: 1;
+	font-family: 'Merienda One', cursive;
+}
+
+h2 {
+	display: inline-block;
+	position: relative;
+	margin: 0 0 20px 0;
+	font-size: 32px;
+	line-height: 1;
+}
+
+h2:before {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 6px;
+	width: 72px;
+	background-color: #3bc4fb;
+	z-index: -1;
+}
+
+h3 {
+	margin: 0;
+	font-size: 20px;
+}
+
+main p {
+	margin: 0 0 15px 0;
+	max-width: 640px;
+}
+
+.header-description {
+	margin: 20px 0 0 0;
+	font-weight: 500;
+	font-size: 16px;
+	letter-spacing: .5px;
+	font-style: italic;
+}
+
+main {
+	padding-top: 100px;
+}
+
+section {
+	padding-bottom: 100px;
+	margin-bottom: -30px;
+}
+
+footer {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.footer-copyright {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.footer-copyright a {
+	color: inherit;
+}
+
+#mode-toggler {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	font-size: 22px;
+	padding: 15px 30px;
+	border-radius: 50px;
+	letter-spacing: .5px;
+	font-weight: 700;
+	border: 0;
+}
+
+.btn {
+	display: inline-block;
+	cursor: pointer;
+	padding: 8px 16px;
+	border: 2px solid #3bc4fb;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 18px;
+	line-height: 1;
+	color: inherit;
+	background-color: transparent;
+	text-decoration: none;
+	white-space: nowrap;
+	user-select: none;
+	background-color: #3bc4fb;
+	transition: all .15s ease;
+}
+
+.btn:hover {
+	background-color: #3bc4fb;
+}
+
+.btn:focus {
+	outline: none;
+}
+
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	max-width: 830px;
+}
+
+pre {
+	margin: 0 0 30px -9999px;
+	padding: 30px 0 30px 9999px;
+	-ms-overflow-style: scrollbar;
+}
+
+code {
+	font-size: 14px;
+	line-height: 1.8;
+	display: block;
+	overflow-x: auto;
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.contacts-btns {
+	padding: 0 0 30px 0;
+	margin: -10px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+}
+
+.contacts-btns > li {
+	list-style: none;
+	padding: 10px;
+}
+
+.contacts-reddit {
+	font-style: italic;
+	font-weight: 500;
+	font-size: 14px;
+}
+
+.contacts-reddit > a {
+	color: inherit;
+}
+
+@media(max-width: 767px) {
+	body {
+		font-size: 16px;
+	}
+
+	h1 {
+		font-size: 36px;
+	}
+
+	h2 {
+		font-size: 28px;
+	}
+
+	h3 {
+		font-size: 18px;
+	}
+
+	#mode-toggler {
+		font-size: 20px;
+		padding: 10px 20px;
+	}
+
+	main {
+		padding-top: 50px;
+	}
+
+	section {
+		padding-bottom: 50px;
+	}
+}

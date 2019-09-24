@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>DarkModeJS – nickdeny</title>
+  <meta name="description" content="Pure Javascript, without any plugins and jQuery">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DarkModeJS – nickdeny">
+  <meta property="og:url" content="https://nickdeny.com">
+  <meta property="og:description" content="Pure Javascript, without any plugins and jQuery">
+  <meta property="product:brand" content="nickdeny">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<noscript>
+		<link rel="stylesheet" type="text/css" href="light.css">
+	</noscript>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA--108356992--4"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA--108356992--4');
+	</script>
+</head>
+<body>
+	<header>
+    <div class="container">
+      <h1>
+        DarkModeJS
+      </h1>
+      <p class="header-description">
+        Pure Javascript, without any plugins and jQuery
+      </p>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <section id="example">
+        <h2>Light & Simple</h2>
+        <p>DarkModeJS helps you to auto detect user's time or system scheme and switch to right mode.</p>
+        <p>
+          Just copy-paste this code to end of body tag:
+        </p>
+<pre><code>&lt;script src="darkmode.js"&gt;&lt;/script&gt;
+&lt;script&gt;var DarkMode = new DarkMode();&lt;/script&gt;</code></pre>
+				<p>Or use it with options:</p>
+<pre><code>&lt;script src="darkmode.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var options = {
+    light: "light.css",
+    dark: "dark.css",
+    startAt: "23:00",
+    endAt: "06:00",
+    checkSystemScheme: true,
+    saveOnToggle: true
+  };
+  var DarkMode = new DarkMode(options);
+&lt;/script&gt;</code></pre>
+        <h3>If you use separate theme-files...</h3>
+        <p>
+          To display light theme for non-javascript user copy-paste it to head:
+        </p>
+<pre><code>&lt;noscript&gt;
+  &lt;link rel="stylesheet" type="text/css" href="light.css"&gt;
+&lt;/noscript&gt;</code></pre>
+      </section>
+      <section id="contacts">
+        <h2>About & Contact</h2>
+        <p>
+          Follow and star project on GitHub repository, suggest new features and report bugs. Make Open Source great again!
+        </p>
+        <ul class="contacts-btns">
+          <li>
+            <a class="btn btn" href="https://github.com/nickdeny/darkmode-js" target="_blank">
+              Code on GitHub
+            </a>
+          </li>
+          <li>
+            <a class="btn" href="https://nickdeny.com/?utm_source=darkmodejs&utm_medium=contacts&utm_campaign=landing" target="_blank">
+              Author on Web
+            </a>
+          </li>
+          <li>
+            <a class="btn" href="mailto:hello@nickdeny.com">
+              Contact me
+            </a>
+          </li>
+        </ul>
+        <ul class="contacts-btns">
+          <li>
+            <a class="github-button" href="https://github.com/nickdeny/darkmode-js" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star nickdeny/darkmode-js on GitHub">
+              Star
+            </a>
+          </li>
+          <li>
+            <a class="github-button" href="https://github.com/nickdeny" data-size="large" aria-label="Follow @nickdeny on GitHub">
+              Follow @nickdeny
+            </a>
+          </li>
+        </ul>
+        <p class="contacts-reddit">
+          <a href="https://www.reddit.com/r/javascript/comments/ezhkea/darkmodejs_move_your_website_to_the_dark_side/" target="_blank">
+            p.s. Thanks, Reddit! You're awesome!
+          </a>
+        </p>
+      </section>
+    </div>
+  </main>
+	<footer>
+    <div class="container">
+      <p class="col footer-copyright">
+        By <a href="https://nickdeny.com/?utm_source=darkmodejs&utm_medium=footer&utm_campaign=landing" target="_blank">
+          nickdeny
+        </a>
+      </p>
+    </div>
+  </footer>
+  <button id="mode-toggler" class="btn">
+    Turn on Javascript 🌓
+  </button>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	<script src="darkmode.min.js"></script>
+	<script>
+		var DarkMode = new DarkMode({
+			light: 'light.css',
+			dark: 'dark.css',
+    })
+    
+    var ModeToggler = document.getElementById('mode-toggler')
+    changeTogglerText()
+
+	  ModeToggler.onclick = function() {
+      DarkMode.toggleMode()
+      changeTogglerText()
+    }
+    
+    function changeTogglerText() {
+      var currentMode = DarkMode.getMode()
+      ModeToggler.textContent = currentMode === 'light'  ? 'To dark 🌝' : 'To light 🌚'
+    }
+	</script>
+</body>
+</html>
