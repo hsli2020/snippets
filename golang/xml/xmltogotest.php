@@ -8,12 +8,20 @@ if (count($argv) != 2) {
 $text = file_get_contents($argv[1]);
 $xml = simplexml_load_string($text);
 
-echo "var x ", makeVarname($xml->getName()), "\n\n";
+echo "func Test_Response(t *testing.T) {\n";
+echo "\tassert := assert.New(t)\n\n";
 
-echo "err := xml.Unmarshal(data, &x)\n";
-echo "assert.Nil(err)\n\n";
+echo "\tfilename := \"fixtures/Response.xml\"\n";
+echo "\tdata := getXML(filename)\n\n";
+
+echo "\tvar x ", makeVarname($xml->getName()), "\n\n";
+
+echo "\terr := xml.Unmarshal(data, &x)\n";
+echo "\tassert.Nil(err)\n\n";
 
 walkxml($xml, 'x');
+
+echo "}\n";
 
 function walkxml($xml, $label)
 {
@@ -49,5 +57,5 @@ function makeVarname($name)
 
 function codeln($name, $value)
 {
-    echo 'assert.Equal(', $name, ', "', $value, '")', PHP_EOL;
+    echo "\tassert.Equal(", $name, ', "', $value, '")', "\n";
 }
