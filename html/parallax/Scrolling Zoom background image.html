@@ -1,0 +1,130 @@
+<div class="BLK_containerBody">
+    <div class="article_blk">
+      <div class="articalTitle">
+          <div class="titleinfo"><h2 id="" class="titleName BLK_txta">Scrolling Zoom background image</h2></div>
+      </div>
+      
+      <div id="" class="articalContent">
+                  <style> table{ background-color:transparent; margin-left: 0px !important; } td { background-color:transparent; } body {
+  margin: 0;
+  background-color: #161616;
+  color: #fff;
+  font-family: Helvetica, Calibri, sans-serif;
+}
+#postbody {width: 1024px !important; overflow: visible; padding: 0px; background: transparent !important; } .transp { filter:alpha(opacity=50); -moz-opacity:0.8; opacity:0.8; } 
+.banner-container {
+  position: relative;
+  height: 600px;
+  background-image: url("https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg");
+  background-size: 100%;
+  background-position: center 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.banner-container h1 {
+  position: fixed;
+  z-index: 0;
+  font-size: 120px;
+  right: 50px;
+  opacity: 0.6;
+}
+
+.page {
+  position: relative;
+  z-index: 200;
+  padding: 50px 20%;
+  background-color: #161616;
+}
+.page p {
+  font-family: Helvetica, Calibri, sans-serif;
+  line-height: 30px;
+  font-size: 20px;
+}
+</style>
+<header class="banner-container" style="background-size: 100%;">
+<h1>scroll down</h1>
+</header>
+<section class="page">
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+<p>Batnae municipium in Anthemusia conditum Macedonum manu priscorum ab Euphrate flumine brevi spatio disparatur, refertum mercatoribus opulentis, ubi annua sollemnitate prope Septembris initium mensis ad nundinas magna promiscuae fortunae convenit multitudo ad commercanda quae Indi mittunt et Seres aliaque plurima vehi terra marique consueta.</p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script id="rendered-js">
+$ban = $('.banner-container');
+
+var ref = 100;
+var scroll, zoom;
+
+$(window).scroll(function (event) {
+  scroll = $(window).scrollTop();
+
+  zoom = ref + scroll / 30;
+
+  $ban.css('background-size', zoom + '%');
+
+});
+//# sourceURL=pen.js
+    </script>
+
+              </div>
+              <script type="text/javascript">
+	function forumSelected() {
+		var forumId = $("#forumId").val();
+		if(forumId == null || '' == forumId) {
+		  alert('请选择论坛.');
+		} else {
+		  
+		}
+	}
+</script>
+<div id="postManageBar" class="post_manage_bar">
+  <div class="manage_option">
+    [ <a href="/blog/frontend.php?act=articlePrint&amp;blogId=48977&amp;date=202004&amp;postId=33233" target="_blank">打印</a> ]
+  </div>
+  <div class="manage_option">
+    [ <a href="//www.wenxuecity.com/bookmark/script/add.php?title=%5B%E5%8D%9A%E5%AE%A2%5D%E8%82%AF%E8%80%81%E7%9A%84%3AScrolling%20Zoom%20background%20image&amp;link=http%3A%2F%2Fblog.wenxuecity.com%2Fblog%2Ffrontend.php%3Fact%3Darticle%26blogId%3D48977%26date%3D202004%26postId%3D33233&amp;category=blog&amp;itemType=202004&amp;itemID=33233" target="_blank">加入书签</a> ]
+  </div>
+    <style>
+    #wechatshare{background:#000;position:fixed;z-index:0;width:100%;height:100%;left:0;top:0;filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6}
+    #panelbox{position:relative;text-align:center;background:#fff;width:580px;height:320px;padding-top:40px;left:35%;top:25%;position:fixed;z-index:2;border-radius:15px}
+    #panelbox h3{font-size:15px;color:#44753c}
+    #panelbox h3 img{width:21px;vertical-align:middle;padding:0 3px}
+    #panelbox center{padding-top:10px}
+    #panelbox center img{width:200px}
+  </style>
+  <script type="text/javascript">
+    function showQRCode(imgurl){
+      if(!document.getElementById('qrbox')){
+        var layer = document.createElement("DIV");
+        layer.id="qrbox";
+        
+        var html="";
+        html+='<div id="wechatshare" onclick="hideQRCode();">';
+        html+='</div>';
+        html+='<div id="panelbox">';
+        html+='    <h3>打开微信<img src="/news/images/icon_qrcode.gif" />扫一扫[Scan QR Code]，打开网页后点击屏幕右上角分享按钮</h3>';
+        html+='    <center><img alt="右键另存为下载到本地" src="'+imgurl+'"></center>';
+        html+='</div>';
+        
+        layer.innerHTML = html;
+        var body = document.getElementById("wxc_blog").parentNode;
+        body.appendChild(layer);
+      }else{
+        $("#qrbox").css("display","inline");
+      }
+    }
+    
+    function hideQRCode(){
+    	$("#qrbox").css("display","none");
+    }
+  </script>
+  </div>

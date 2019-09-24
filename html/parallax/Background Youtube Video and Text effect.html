@@ -1,0 +1,202 @@
+<div class="BLK_containerBody">
+    <div class="article_blk">
+      <div class="articalTitle">
+          <div class="titleinfo"><h2 id="" class="titleName BLK_txta">Background Youtube Video and Text effect</h2></div>
+      </div>
+      
+      <div id="" class="articalContent">
+      <style> table{ background-color:transparent; margin-left: 0px !important; } td { background-color:transparent; } 
+body {  
+	background-color:#e1ebbd;
+	font-family: 'Montserrat', sans-serif;
+} 
+* { margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1, h2 {
+	font-family: 'Zilla Slab Highlight', cursive;
+	text-transform: uppercase;
+	text-align: center;
+}
+h2 {
+	font-size: 3rem;
+	line-height: 4rem;
+}
+p {
+	line-height: 1.8;
+	font-size: 1.2rem;
+}
+a {
+	color: #d900d9;
+	text-decoration: none;
+	padding: 5px 10px;
+	margin: 0 10px;
+	position: relative;
+	transition: all 0.3s ease-in-out;
+}
+a:before {
+	content: '';
+	width: 2px;
+	position: absolute;
+	height: 100%;
+	background-color: #fff;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	transition: all 0.3s ease-in-out;
+}
+a:hover {
+	color: #fff;
+}
+a:hover:before {
+	width: 100%;
+	background-color: #d900d9;
+}
+.background-wrapper {
+	width: 100%;
+	background-color: #000;
+	height: 100vh;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+}
+.background-wrapper:before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.3);
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.background-wrapper > iframe {
+	box-sizing: border-box;
+	height: 56.25vw;
+	left: 50%;
+	min-height: 100%;
+	min-width: 100%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	width: 177.77777778vh;
+	z-index: 0;
+}
+.background-wrapper h1,
+.background-wrapper h3 {
+	z-index: 100;
+	position: relative;
+	margin: 10px 20px;
+}
+.background-wrapper h1 {
+	font-size: 4rem;
+	line-height: 1.3;
+}
+.background-wrapper h3 {
+	font-size: 1.3rem;
+}
+.content-wrapper {
+	padding: 70px 10%;
+	max-width: 750px;
+	margin: 0 auto;
+}
+
+#postbody {width: 1024px !important; overflow: visible; padding: 0px; background: transparent !important; } .transp { filter:alpha(opacity=50); -moz-opacity:0.8; opacity:0.8; } 
+</style>
+
+<div class="background-wrapper">
+<iframe id="ytplayer" type="text/html" src="https://www.youtube.com/embed/jGQT3YyE-n4?VQ=HD720?rel=0&amp;enablejsapi=1&amp;controls=0&amp;autoplay=1&amp;loop=1&amp;playlist=jGQT3YyE-n4&amp;showinfo=0" allowfullscreen="" frameborder="0"></iframe>
+<h1>WHO Global Citizen</h1>
+<h3>Video Credit<a href="https://www.youtube.com/results?search_query=%23TogetherAtHome" target="_blank">One world</a></h3>
+</div>
+<div class="content-wrapper">
+<h2>Green juice letterpress cornhole</h2>
+<p>Fingerstache twee knausgaard, fanny pack 3 wolf moon kickstarter mustache la croix slow-carb. Brunch cold-pressed actually offal synth chia plaid austin VHS cornhole. Retro thundercats man bun lo-fi gluten-free iPhone. Retro offal gochujang deep v.</p>
+<p>Thundercats kale chips slow-carb letterpress activated charcoal banh mi. Hell of live-edge activated charcoal godard, truffaut ethical fashion axe four loko. Woke raw denim drinking vinegar, cloud bread street art meggings jianbing polaroid la croix vexillologist try-hard affogato wolf. Chambray shoreditch waistcoat yr. Squid bicycle rights af man braid lo-fi.</p>
+<p>Brooklyn twee lomo taiyaki, pabst polaroid pitchfork PBR&amp;B. Seitan prism cardigan, iPhone iceland meditation cliche cred kogi. Photo booth coloring book kitsch palo santo fixie taiyaki cred, seitan normcore cardigan crucifix. Poke actually +1 air plant chillwave butcher fingerstache blue bottle. Selvage cornhole pork belly unicorn pinterest. Polaroid helvetica salvia, hammock man braid kale chips iPhone af shaman chillwave 3 wolf moon cred prism air plant tacos. Intelligentsia yuccie helvetica meh hella, hot chicken seitan shoreditch woke.</p>
+<p>Shaman craft beer glossier, green juice skateboard venmo ramps retro salvia polaroid pickled. Flexitarian prism cred direct trade edison bulb. Pug swag man bun flexitarian, etsy sustainable kinfolk small batch church-key semiotics. Unicorn pok pok wayfarers food truck, af flexitarian portland succulents. Hoodie gluten-free organic, portland blue bottle letterpress next level 3 wolf moon pitchfork. Gochujang live-edge activated charcoal mustache 8-bit chartreuse flexitarian tbh copper mug pickled pitchfork venmo lomo master cleanse letterpress. Readymade poke godard sartorial seitan squid gentrify microdosing enamel pin food truck XOXO bespoke normcore.</p>
+</div>
+
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script id="rendered-js">
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('ytplayer', {
+    events: {
+      'onReady': onPlayerReady } });
+
+
+}
+
+function onPlayerReady() {
+  player.playVideo();
+  // Mute!
+  player.mute();
+}
+//# sourceURL=pen.js
+    </script>
+              </div>
+              <script type="text/javascript">
+	function forumSelected() {
+		var forumId = $("#forumId").val();
+		if(forumId == null || '' == forumId) {
+		  alert('请选择论坛.');
+		} else {
+		  
+		}
+	}
+</script>
+<div id="postManageBar" class="post_manage_bar">
+  <div class="manage_option">
+    [ <a href="/blog/frontend.php?act=articlePrint&amp;blogId=48977&amp;date=202004&amp;postId=35179" target="_blank">打印</a> ]
+  </div>
+  <div class="manage_option">
+    [ <a href="//www.wenxuecity.com/bookmark/script/add.php?title=%5B%E5%8D%9A%E5%AE%A2%5D%E8%82%AF%E8%80%81%E7%9A%84%3ABackground%20Youtube%20Video%20and%20Text%20effect&amp;link=http%3A%2F%2Fblog.wenxuecity.com%2Fblog%2Ffrontend.php%3Fact%3Darticle%26blogId%3D48977%26date%3D202004%26postId%3D35179&amp;category=blog&amp;itemType=202004&amp;itemID=35179" target="_blank">加入书签</a> ]
+  </div>
+    <style>
+    #wechatshare{background:#000;position:fixed;z-index:0;width:100%;height:100%;left:0;top:0;filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6}
+    #panelbox{position:relative;text-align:center;background:#fff;width:580px;height:320px;padding-top:40px;left:35%;top:25%;position:fixed;z-index:2;border-radius:15px}
+    #panelbox h3{font-size:15px;color:#44753c}
+    #panelbox h3 img{width:21px;vertical-align:middle;padding:0 3px}
+    #panelbox center{padding-top:10px}
+    #panelbox center img{width:200px}
+  </style>
+  <script type="text/javascript">
+    function showQRCode(imgurl){
+      if(!document.getElementById('qrbox')){
+        var layer = document.createElement("DIV");
+        layer.id="qrbox";
+        
+        var html="";
+        html+='<div id="wechatshare" onclick="hideQRCode();">';
+        html+='</div>';
+        html+='<div id="panelbox">';
+        html+='    <h3>打开微信<img src="/news/images/icon_qrcode.gif" />扫一扫[Scan QR Code]，打开网页后点击屏幕右上角分享按钮</h3>';
+        html+='    <center><img alt="右键另存为下载到本地" src="'+imgurl+'"></center>';
+        html+='</div>';
+        
+        layer.innerHTML = html;
+        var body = document.getElementById("wxc_blog").parentNode;
+        body.appendChild(layer);
+      }else{
+        $("#qrbox").css("display","inline");
+      }
+    }
+    
+    function hideQRCode(){
+    	$("#qrbox").css("display","none");
+    }
+  </script>
+  </div>

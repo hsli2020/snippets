@@ -1,0 +1,61 @@
+<div class="BLK_containerBody">
+    <div class="article_blk">
+      <div class="articalTitle">
+          <div class="titleinfo"><h2 id="" class="titleName BLK_txta">Scrolling Noise Background Animation</h2></div>
+      </div>
+      
+      <div id="" class="articalContent">
+                  <style>@keyframes animate {  0% {    background-position: 0 0;  }  100% {    background-position: 100% 100%;  }}table{ background-color:transparent; margin-left: 0px !important; } td { background-color:transparent; } body { background-color:#e1ebbd;} * { margin: 0;    padding: 0;    box-sizing: border-box;}#postbody {width: 1024px !important; overflow: visible; padding: 0px; background: transparent !important; } .transp { filter:alpha(opacity=50); -moz-opacity:0.8; opacity:0.8; } .box-noise {  background: url("https://i.ibb.co/jf42cqR/noise.jpg");  animation: animate 0.5s steps(10) infinite;  z-index: -2;  width: 100%;  height: 80vh;  min-height: 250px;}.box-black {  z-index: -1;  width: 100%;  height: 100%;  opacity: 0.9;}.box-black:nth-child(1) {  background: url("https://avatars.mds.yandex.net/get-pdb/470516/606cfd5a-1ccf-4d05-89d8-d5cbc94a53f7/s1200?webp=false") fixed;  background-size: cover;}.box {  display: inline;  width: 100%;  height: 100vh;}.box .container {  width: 40%;  padding: 10%;}.box .container h1 {  font-size: 30px;}.box img {  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);  margin: 20px 0;  width: 200px;  height: 200px;}.header-text {  font-size: 60px;  color: white;  padding: 10% 30px 30px 10%;}</style><div class="box-noise"><div class="box-black"><h1 class="header-text">Never give up</h1></div></div><div class="box"><div class="container"><h1>Sport with you</h1><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, fugiat.</p><p>Adipisicing elit. Quae, fugiat. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla, laborum.</p><img src="https://ae01.alicdn.com/kf/HTB1JMRHQbvpK1RjSZPiq6zmwXXab.jpg_q50.jpg" alt=""></div></div><div class="box-noise"><div class="box-black"></div></div>
+              </div>
+              <script type="text/javascript">
+	function forumSelected() {
+		var forumId = $("#forumId").val();
+		if(forumId == null || '' == forumId) {
+		  alert('请选择论坛.');
+		} else {
+		  
+		}
+	}
+</script>
+<div id="postManageBar" class="post_manage_bar">
+  <div class="manage_option">
+    [ <a href="/blog/frontend.php?act=articlePrint&amp;blogId=48977&amp;date=202004&amp;postId=33302" target="_blank">打印</a> ]
+  </div>
+  <div class="manage_option">
+    [ <a href="//www.wenxuecity.com/bookmark/script/add.php?title=%5B%E5%8D%9A%E5%AE%A2%5D%E8%82%AF%E8%80%81%E7%9A%84%3AScrolling%20Noise%20Background%20Animation&amp;link=http%3A%2F%2Fblog.wenxuecity.com%2Fblog%2Ffrontend.php%3Fact%3Darticle%26blogId%3D48977%26date%3D202004%26postId%3D33302&amp;category=blog&amp;itemType=202004&amp;itemID=33302" target="_blank">加入书签</a> ]
+  </div>
+    <style>
+    #wechatshare{background:#000;position:fixed;z-index:0;width:100%;height:100%;left:0;top:0;filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6}
+    #panelbox{position:relative;text-align:center;background:#fff;width:580px;height:320px;padding-top:40px;left:35%;top:25%;position:fixed;z-index:2;border-radius:15px}
+    #panelbox h3{font-size:15px;color:#44753c}
+    #panelbox h3 img{width:21px;vertical-align:middle;padding:0 3px}
+    #panelbox center{padding-top:10px}
+    #panelbox center img{width:200px}
+  </style>
+  <script type="text/javascript">
+    function showQRCode(imgurl){
+      if(!document.getElementById('qrbox')){
+        var layer = document.createElement("DIV");
+        layer.id="qrbox";
+        
+        var html="";
+        html+='<div id="wechatshare" onclick="hideQRCode();">';
+        html+='</div>';
+        html+='<div id="panelbox">';
+        html+='    <h3>打开微信<img src="/news/images/icon_qrcode.gif" />扫一扫[Scan QR Code]，打开网页后点击屏幕右上角分享按钮</h3>';
+        html+='    <center><img alt="右键另存为下载到本地" src="'+imgurl+'"></center>';
+        html+='</div>';
+        
+        layer.innerHTML = html;
+        var body = document.getElementById("wxc_blog").parentNode;
+        body.appendChild(layer);
+      }else{
+        $("#qrbox").css("display","inline");
+      }
+    }
+    
+    function hideQRCode(){
+    	$("#qrbox").css("display","none");
+    }
+  </script>
+  </div>
