@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Embed Static Files into Binary</title>
+<style>
+  body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    background-color: #ccc;
+  }
+  main { width: 960px; margin:0 auto; background-color:white; padding: 20px; }
+  pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #eee;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+<main>
+<h1>proposal: cmd/go: support embedding static assets (files) in binaries #35950</h1>
+<p><a href="https://github.com/golang/go/issues/35950">https://github.com/golang/go/issues/35950</a></p>
+<p>There are many tools to embed static asset files into binaries:</p>
+<ul>
+<li><a href="https://godoc.org/perkeep.org/pkg/fileembed" rel="nofollow">https://godoc.org/perkeep.org/pkg/fileembed</a> / perkeep.org/pkg/fileembed/genfileembed</li>
+<li><a href="https://godoc.org/github.com/gobuffalo/packr" rel="nofollow">https://godoc.org/github.com/gobuffalo/packr</a></li>
+<li><a href="https://godoc.org/github.com/knadh/stuffbin" rel="nofollow">https://godoc.org/github.com/knadh/stuffbin</a></li>
+<li><a href="https://github.com/rakyll/statik">https://github.com/rakyll/statik</a></li>
+<li>Bazel <a href="https://github.com/bazelbuild/rules_go/blob/master/go/extras.rst#go-embed-data">go_embed_data</a></li>
+</ul>
+<p>Actually, <a rel="nofollow" href="https://tech.townsourced.com/post/embedding-static-files-in-go/">https://tech.townsourced.com/post/embedding-static-files-in-go/</a> lists more:</p>
+<ul>
+<li>vfsgen - <a href="https://github.com/shurcooL/vfsgen">https://github.com/shurcooL/vfsgen</a></li>
+<li>go.rice - <a href="https://github.com/GeertJohan/go.rice">https://github.com/GeertJohan/go.rice</a></li>
+<li>statik - <a href="https://github.com/rakyll/statik">https://github.com/rakyll/statik</a></li>
+<li>esc - <a href="https://github.com/mjibson/esc">https://github.com/mjibson/esc</a></li>
+<li>go-embed - <a href="https://github.com/pyros2097/go-embed">https://github.com/pyros2097/go-embed</a></li>
+<li>go-resources - <a href="https://github.com/omeid/go-resources">https://github.com/omeid/go-resources</a></li>
+<li>statics - <a href="https://github.com/go-playground/statics">https://github.com/go-playground/statics</a></li>
+<li>templify - <a href="https://github.com/wlbr/templify">https://github.com/wlbr/templify</a></li>
+<li>gnoso/go-bindata - <a href="https://github.com/gnoso/go-bindata">https://github.com/gnoso/go-bindata</a></li>
+<li>shuLhan/go-bindata - <a href="https://github.com/shuLhan/go-bindata">https://github.com/shuLhan/go-bindata</a></li>
+<li>fileb0x - <a href="https://github.com/UnnoTed/fileb0x">https://github.com/UnnoTed/fileb0x</a></li>
+<li>gobundle - <a href="https://github.com/alecthomas/gobundle">https://github.com/alecthomas/gobundle</a></li>
+<li>parcello - <a href="https://github.com/phogolabs/parcello">https://github.com/phogolabs/parcello</a></li>
+</ul>
+<h2>Proposal</h2>
+<p>I think it's time to do this well once &amp; reduce duplication, adding official support for embedding file resources into the cmd/go tool.</p>
+<h2>Problems with the current situation:</h2>
+<ul>
+<li>There are too many tools</li>
+<li>Using a go:generate-based solution bloats the git history with a second (and slightly larger) copy of each file.</li>
+<li>Not using go:generate means not being <code>go install</code>-able or making people write their own Makefiles, etc.</li>
+</ul>
+<h2>Goals:</h2>
+<ul>
+<li>don't check in generated files</li>
+<li>don't generate *.go files at all (at least not in user's workspace)</li>
+<li>make <code>go install</code> / <code>go build</code> do the embedding automatically</li>
+<li>let user choose per file/glob which type of access is needed (e.g. []byte, <code>func() io.Reader</code>, <code>io.ReaderAt</code>, etc)</li>
+<li>Maybe store assets compressed in the binary where appropriate (e.g. if user only needs an <code>io.Reader</code>)? (<strong>edit</strong>: but probably not; see comments below)</li>
+<li><strong>No code execution at compilation time</strong>; that is a long-standing Go policy. <code>go build</code> or <code>go install</code> can not run arbitrary code, just like <code>go:generate</code> doesn't run automatically at install time.</li>
+</ul>
+<p>The two main implementation approaches are <code>//go:embed Logo logo.jpg</code> or a well-known package (<code>var Logo = embed.File("logo.jpg")</code>).</p>
+<h2>go:embed approach</h2>
+<p>For a <code>go:embed</code> approach, one might say that any <code>go/build</code>-selected <code>*.go</code> file can contain something like:</p>
+<pre><code>//go:embed Logo logo.jpg
+</code></pre>
+<p>Which, say, compiles to:</p>
+<div class="highlight highlight-source-go"><pre><span class="pl-k">func</span> <span class="pl-en">Logo</span>() *<span class="pl-v">io</span>.<span class="pl-v">SectionReader</span></pre></div>
+<p>(adding a dependency to the <code>io</code> package)</p>
+<p>Or:</p>
+<pre><code>//go:embedglob Assets assets/*.css assets/*.js
+</code></pre>
+<p>compiling to, say:</p>
+<pre><code>var Assets interface{
+     Files() []string
+     Open func(name string) *io.SectionReader
+} = runtime.EmbedAsset(123)
+</code></pre>
+<p>Obviously this isn't fully fleshed out. There'd need to be something for compressed files too that yield only an <code>io.Reader</code>.</p>
+<h2>embed package approach</h2>
+<p>The other high-level approach is to not have a magic <code>//go:embed</code> syntax and instead just let users write Go code in some new <code>"embed"</code> or <code>"golang.org/x/foo/embed"</code> package:</p>
+<pre><code>var Static = embed.Dir("static")
+var Logo = embed.File("images/logo.jpg")
+var Words = embed.CompressedReader("dict/words")
+</code></pre>
+<p>Then have cmd/go recognize the calls to embed.Foo("foo/*.js") etc and glob do the work in cmd/go, rather than at runtime. Or maybe certain build tags or flags could make it fall back to doing things at runtime instead. Perkeep (linked above) has such a mode, which is nice to speed up incremental development where you don't care about linking one big binary.</p>
+<h2>Concerns</h2>
+<ul>
+<li>Pick a style (//go:embed* vs a magic package).</li>
+<li>Block certain files?
+<ul>
+<li>Probably block embedding <code>../../../../../../../../../../etc/shadow</code></li>
+<li>Maybe block reaching into <code>.git</code> too</li>
+</ul>
+</li>
+</ul>
+</main>
+</body>
+</html>
