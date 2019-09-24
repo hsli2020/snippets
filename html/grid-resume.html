@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - grid resume  dividing columns</title>
+  
+<style>
+.resume {
+    display: grid;
+    width  : 50%; /* hardcoded purely for codepen example */
+    height: 205mm; /* hardcoded purely for codepen example */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows   : 1fr 1fr 1fr 1fr;
+    box-shadow           : 0 5px 9px 0 rgba(0, 0, 0, 0.35);
+    grid-template-areas:
+        "name           name       photo"
+        "work           work       about"
+        "work           work       education"
+        "community      references skills";
+    grid-gap: 5px;
+}
+
+.grid-area {
+    padding: 1em 1em 1em 1em;
+    border : 1px black solid;
+}
+
+.name {
+    grid-area: name;
+}
+
+.photo {
+    grid-area: photo;
+}
+
+.about {
+    grid-area: about;
+}
+
+.references {
+    grid-area: references;
+}
+
+.work {
+    grid-area: work;
+}
+
+.skills {
+    grid-area: skills;
+}
+
+.education {
+    grid-area: education;
+}
+
+.community {
+    grid-area: community;
+}
+
+.circle {
+    border       : 1px solid black;
+    height       : 30px;
+    width        : 30px;
+    border-radius: 50%;
+}
+
+/* align cv to center of page */
+.wrapper {
+    padding       : 0;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+</style>
+
+<script>
+  window.console = window.console || function(t) {};
+</script>
+  
+</head>
+
+<body translate="no" >
+  <a href="https://css-tricks.com/new-year-new-job-lets-make-a-grid-powered-resume/">CodePen.io</a>
+  <main class="wrapper">
+    <article class="resume">
+        <section class="grid-area name">
+            <hr>
+        </section>
+        <section class="grid-area photo">
+            <div class="circle"></div>
+        </section>
+        <section class="grid-area about">
+            <hr>
+            <hr>
+        </section>
+        <section class="grid-area work">
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+        </section>
+        <section class="grid-area education">
+            <hr>
+            <hr>
+        </section>
+        <section class="grid-area skills">
+            <hr>
+            <hr>
+        </section>
+        <section class="grid-area community">
+            <hr>
+            <hr>
+        </section>
+        <section class="grid-area references">
+            <hr>
+            <hr>
+        </section>
+    </article>
+</main>
+
+</body>
+</html>
