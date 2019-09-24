@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Beep</title>
+</head>
+<body style="width: 960px;margin: 4em auto;">
+
+<button onclick='beep1()'>Beep 1 &#x266A;</button>
+<button onclick='beep2()'>Beep 2 &#x266b;</button>
+<button onclick='beep3()'>Beep 3 &#x266b;</button>
+<button onclick='beep4()'>Beep 4 &#x266b;</button>
+
+<script>
+function beep1() { play(440, 200, 80, "sine") }
+function beep2() { play(440, 200, 80, "square") }
+function beep3() { play(500, 250, 50, "sine") }
+function beep4() { play(800, 100, 50, "square") }
+
+var audioCtx = new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
+
+function play(freq, duration, vol, type) {
+    freq = freq || 400
+    duration = duration || 200
+    vol = vol || 100
+    type = type || "square"
+    v = audioCtx.createOscillator()
+    u = audioCtx.createGain()
+    v.connect(u)
+    v.frequency.value = freq
+    v.type = type
+    u.connect(audioCtx.destination)
+    u.gain.value = vol*0.01
+    v.start(audioCtx.currentTime)
+    v.stop(audioCtx.currentTime + duration*0.001)
+}
+</script>
+
+</body>
+</html>
