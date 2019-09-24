@@ -11,7 +11,18 @@ func generateToken() string {
 	return fmt.Sprintf("%x", b)
 }
 
+func getToken(length int) string {
+    randomBytes := make([]byte, 32) // length*2
+    _, err := rand.Read(randomBytes)
+    if err != nil {
+        panic(err)
+    }
+    return base32.StdEncoding.EncodeToString(randomBytes)[:length]
+}
+
 func main() {
-    // generate an access token
-    fmt.Println("Your access token is:", generateToken())
+	for i := 0; i < 10; i++ {
+		fmt.Println(generateToken())
+		fmt.Println(getToken(24))
+	}
 }
