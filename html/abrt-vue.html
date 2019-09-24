@@ -105,13 +105,14 @@ Vue.component('sidebar', {
     methods: {
         start: function() {
             //console.log(this.startdate, this.enddate);
+            console.log(this.$root.$data);
             if (this.startdate.length == 0 || this.enddate.length == 0) {
                 return;
             }
             if (typeof(browser) != "undefined") {
                 var backgroundPage = browser.extension.getBackgroundPage();
                 // console.log(backgroundPage);
-                backgroundPage.start();
+                backgroundPage.start(this.$root.$data);
             }
         },
         stop: function() {
