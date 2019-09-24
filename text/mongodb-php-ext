@@ -1,0 +1,79 @@
+MongoDB\Driver — MongoDB driver classes
+    MongoDB\Driver\Manager — 
+    MongoDB\Driver\Command — 
+    MongoDB\Driver\Query — 
+    MongoDB\Driver\BulkWrite — 
+    MongoDB\Driver\Session — 
+    MongoDB\Driver\WriteConcern — 
+    MongoDB\Driver\ReadPreference — 
+    MongoDB\Driver\ReadConcern — 
+    MongoDB\Driver\Cursor — 
+    MongoDB\Driver\CursorId — 
+    MongoDB\Driver\CursorInterface — 
+    MongoDB\Driver\Server — 
+    MongoDB\Driver\WriteConcernError — 
+    MongoDB\Driver\WriteError — 
+    MongoDB\Driver\WriteResult — 
+
+MongoDB\BSON — BSON type classes and serialization functions
+    Functions
+    - MongoDB\BSON\fromJSON — 
+    - MongoDB\BSON\fromPHP — 
+    - MongoDB\BSON\toCanonicalExtendedJSON — 
+    - MongoDB\BSON\toJSON — 
+    - MongoDB\BSON\toPHP — 
+    - MongoDB\BSON\toRelaxedExtendedJSON — 
+
+    MongoDB\BSON\Binary — 
+    MongoDB\BSON\Decimal128 — 
+    MongoDB\BSON\Javascript — 
+    MongoDB\BSON\MaxKey — 
+    MongoDB\BSON\MinKey — 
+    MongoDB\BSON\ObjectId — 
+    MongoDB\BSON\Regex — 
+    MongoDB\BSON\Timestamp — 
+    MongoDB\BSON\UTCDateTime — 
+    MongoDB\BSON\Type — 
+    MongoDB\BSON\Persistable — 
+    MongoDB\BSON\Serializable — 
+    MongoDB\BSON\Unserializable — 
+    MongoDB\BSON\BinaryInterface — 
+    MongoDB\BSON\Decimal128Interface — 
+    MongoDB\BSON\JavascriptInterface — 
+    MongoDB\BSON\MaxKeyInterface — 
+    MongoDB\BSON\MinKeyInterface — 
+    MongoDB\BSON\ObjectIdInterface — 
+    MongoDB\BSON\RegexInterface — 
+    MongoDB\BSON\TimestampInterface — 
+    MongoDB\BSON\UTCDateTimeInterface — 
+    MongoDB\BSON\DBPointer — 
+    MongoDB\BSON\Int64 — 
+    MongoDB\BSON\Symbol — 
+    MongoDB\BSON\Undefined — 
+
+MongoDB\Driver\Monitoring — Monitoring classes and subscriber functions
+    Functions
+    - MongoDB\Driver\Monitoring\addSubscriber — 
+    - MongoDB\Driver\Monitoring\removeSubscriber — 
+
+    MongoDB\Driver\Monitoring\CommandFailedEvent — 
+    MongoDB\Driver\Monitoring\CommandStartedEvent — 
+    MongoDB\Driver\Monitoring\CommandSucceededEvent — 
+    MongoDB\Driver\Monitoring\CommandSubscriber — 
+    MongoDB\Driver\Monitoring\Subscriber — 
+
+MongoDB\Driver\Exception — Exception classes
+    MongoDB\Driver\Exception\AuthenticationException — 
+    MongoDB\Driver\Exception\BulkWriteException — 
+    MongoDB\Driver\Exception\CommandException — 
+    MongoDB\Driver\Exception\ConnectionException — 
+    MongoDB\Driver\Exception\ConnectionTimeoutException — 
+    MongoDB\Driver\Exception\Exception — 
+    MongoDB\Driver\Exception\ExecutionTimeoutException — 
+    MongoDB\Driver\Exception\InvalidArgumentException — 
+    MongoDB\Driver\Exception\LogicException — 
+    MongoDB\Driver\Exception\RuntimeException — 
+    MongoDB\Driver\Exception\ServerException — 
+    MongoDB\Driver\Exception\SSLConnectionException — 
+    MongoDB\Driver\Exception\UnexpectedValueException — 
+    MongoDB\Driver\Exception\WriteException — 
