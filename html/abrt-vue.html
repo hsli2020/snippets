@@ -6,25 +6,19 @@
 <title>ABRT</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
-.w3-modal { display: block; }
-#mytable td, #mytable th { padding: 2px 8px; vertical-align: middle;}
+  html,body { height:100%; }
+  .w3-modal { display: block; }
+  p { margin-bottom: 0; }
+  #mytable td, #mytable th { padding: 2px 8px; vertical-align: middle;}
+  .w3-select { padding: 4px; }
+  .w3-input { padding: 3px; }
 </style>
 </head>
 <body class="w3-content">
 
 <div id="app">
-  <button @click="showInputModal=true">Show Input Modal</button>
-  <button @click="showSelectModal=true">Show Select Modal</button>
-  <button @click="showDataModal=true">Show Data Modal</button>
-
-  <InputModal  v-if="showInputModal"  @close="showInputModal=false"></InputModal>
-  <SelectModal v-if="showSelectModal" @close="showSelectModal=false" @select="onSelect"></SelectModal>
-  <DataModal   v-if="showDataModal"   @close="showDataModal=false"></DataModal>
-
-  <p>{{ selected.name }}</p>
-  <p>{{ selected.licnum }}</p>
-  <p>{{ selected.expiry }}</p>
-  <p>{{ selected.level }}</p>
+  <Sidebar></Sidebar> 
+  <MainPanel></MainPanel> 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -51,12 +45,154 @@ var allLicenses = [
 ];
 </script>
 
-<!-- ----------------------------------------------------------
+<!-- ---------------------------------------------------------{
+    Sidebar
+------------------------------------------------------------ -->
+<template id="sidebar-template">
+  <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="width:260px">
+    <div class="w3-container _w3-padding-16">
+      <h3><img src="/assets/icon-48.png" width="32"> ABRT</h3>
+      <form id="paneform">
+        <p><label>Driver: {{ selected.name }}</label></p>
+        <input class="w3-input w3-border" type="text" v-model="selected.licnum" @click="showSelectModal=true">
+        <p><label>Expiry: {{ selected.expiry }}</label></p>
+  
+        <p>
+          <label><input type="radio" name="testclass" value="G2" v-model="selected.level"> G2 License</label><br>
+          <label><input type="radio" name="testclass" value="G"  v-model="selected.level"> G License</label>
+        </p>
+  
+        <p><label>Start Date</label></p>
+        <input class="w3-input w3-border" type="text" v-model="startdate">
+  
+        <p><label>End Date</label></p>
+        <input class="w3-input w3-border" type="text" v-model="enddate">
+  
+        <p class="w3-center">
+          <button class="w3-button w3-blue w3-margin-right" type="button" @click="start()">&#10148; Start</button>
+          <button class="w3-button w3-blue w3-margin-left"  type="button" @click="stop()">&#9646; Stop</button>
+        </p>
+
+        <div class="w3-container w3-padding-16 w3-center">
+          <br><a href="https://drivetest.ca" target="_blank">https://drivetest.ca</a><br>
+        </div>
+
+        <p><button class="w3-button w3-block w3-blue" type="button" @click="showInputModal=true">&#10010; Add New Driver</button></p>
+        <p><button class="w3-button w3-block w3-blue" type="button" @click="showDataModal=true">&#10070; Backup/Restore</button></p>
+      </form>
+    </div>
+
+    <!--
+    <button @click="showInputModal=true">Show Input Modal</button>
+    <button @click="showSelectModal=true">Show Select Modal</button>
+    <button @click="showDataModal=true">Show Data Modal</button>
+    -->
+
+    <InputModal  v-if="showInputModal"  @close="showInputModal=false"></InputModal>
+    <SelectModal v-if="showSelectModal" @close="showSelectModal=false" @select="onSelect"></SelectModal>
+    <DataModal   v-if="showDataModal"   @close="showDataModal=false"></DataModal>
+  </nav>
+</template>
+
+<script>
+Vue.component('sidebar', {
+    template: '#sidebar-template',
+    props: [ "driver" ],
+    data() {
+        return {
+            showInputModal: false,
+            showSelectModal: false,
+            showDataModal: false,
+            selected: {
+                name: "",
+                licnum: "",
+                expiry: "",
+                level:  "",
+            },
+            startdate: "",
+            enddate: ""
+        }
+    },
+    methods: {
+        start: function() {
+            console.log("start()");
+        },
+        stop: function() {
+            console.log("stop()");
+        },
+        onSelect: function (driver) {
+            this.selected = Object.assign({}, driver);
+            this.showSelectModal = false;
+        }
+    },
+    computed: { }
+})
+</script>
+<!-- } -->
+
+
+<!-- ---------------------------------------------------------{
+    Pannel
+------------------------------------------------------------ -->
+<template id="main-panel-template">
+<div class="w3-main w3-white" style="margin-left:260px;height:100%">
+  <div class="w3-container">
+    <div class="w3-row" style="padding: 5px 0;">
+      <div class="w3-col w3-text-blue" style="width:80px">&#9989; Dates</div>
+      <div class="w3-rest w3-light-grey">
+        <div class="w3-blue w3-center" style="width:0%" id="progressbar">0</div>
+      </div>
+      <!--
+      <div class="w3-bar-item w3-button w3-right w3-blue" id="clear">Clear</div>
+      -->
+    </div>
+    <div id="output" class="w3-border" style="width:100%;height:350px;padding:5px;overflow-y:hidden;"></div>
+  </div>
+
+  <div class="w3-container" style="margin:10px 0;">
+    <div class="w3-row">
+      <span class="w3-text-blue">&#9993; Messages</span>
+      <!--
+      <span id="test" class="w3-button w3-blue w3-tiny w3-margin-left">Test</span>
+      -->
+      <div class="w3-dropdown-hover">
+        <button class="w3-bar-item w3-button w3-blue w3-tiny">&#10020; Speed</button>
+        <div class="w3-dropdown-content w3-bar-block w3-border">
+          <a href="#" class="w3-bar-item w3-button speed">5 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button speed">10 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button speed">20 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button speed">30 Seconds</a>
+        </div>
+      </div>
+      <span id="empty" class="w3-button w3-right w3-blue w3-tiny">&#10008; Clear</span>
+    </div>
+  </div>
+
+  <div class="w3-container" style="height:calc(100% - 450px)">
+    <div id="messages" class="w3-border" style="width:100%;height:100%;padding:5px;overflow-y:scroll;"></div>
+  </div>
+</div>
+</template>
+
+<script>
+Vue.component('mainpanel', {
+    template: '#main-panel-template',
+    data() {
+        return {
+        }
+    },
+    methods: { },
+    computed: { }
+})
+</script>
+<!-- } -->
+
+<!-- ---------------------------------------------------------{
     Input Modal
 ------------------------------------------------------------ -->
 <template id="input-modal-template">
   <div class="w3-modal">
-    <div class="w3-modal-content w3-card-4" style="width:400px; height:450px;">
+    <div class="w3-modal-content w3-card-4" style="width:400px; height:420px;">
       <header class="w3-container w3-blue">
         <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
         <h3 style="margin:0">New Driver License</h3>
@@ -77,7 +213,10 @@ var allLicenses = [
           <label><input type="radio" v-model="level" value="G2"> G2 License</label><br>
           <label><input type="radio" v-model="level" value="G"> G License</label><br>
   
-          <button class="w3-btn w3-blue w3-right" @click="save()">Save</button>
+          <div class="w3-right">
+            <button class="w3-btn w3-blue" @click="save()">Save</button>
+            <button class="w3-btn w3-blue" @click="$emit('close')">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -109,13 +248,14 @@ Vue.component('inputmodal', {
     },
 })
 </script>
+<!-- } -->
 
-<!-- ----------------------------------------------------------
+<!-- ---------------------------------------------------------{
     Select Modal
 ------------------------------------------------------------ -->
 <template id="select-modal-template">
   <div class="w3-modal">
-    <div class="w3-modal-content w3-card-4" style="width:800px; height:600px;">
+    <div class="w3-modal-content w3-card-4" style="width:640px; height:600px;">
       <header class="w3-container w3-blue">
         <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
         <h3 style="margin:0">Select Driver</h3>
@@ -170,8 +310,9 @@ Vue.component('selectmodal', {
     }
 })
 </script>
+<!-- } -->
 
-<!-- ----------------------------------------------------------
+<!-- ---------------------------------------------------------{
     Data Modal
 ------------------------------------------------------------ -->
 <template id="data-modal-template">
@@ -204,20 +345,23 @@ Vue.component('datamodal', {
     },
     methods: {
         csvtext() {
-            var arr = [];
-            //arr.push(email);
-            for (var lic of allLicenses) {
-                arr.push(lic.licnum + ",  " + lic.expiry + ",  " + (lic.level+ ",").padEnd(5, ' ') + lic.name);
-            }
+            var arr = allLicenses.map((lic) => {
+                return lic.licnum + ",  " + lic.expiry + ",  " + (lic.level+ ",").padEnd(5, ' ') + lic.name;
+            })
+            //arr.unshift(email);
             return arr.join("\n");
         },
         save() {
             var lines = this.text.split("\n");
-            var email = lines[0];
+            if (this.text.trim().length == 0) return;
+
+            if (lines[0].includes('@')) {
+                var email = lines[0];
+                lines = lines.slice(1);
+                // global.email = email;
+            }
+
             var licenses = [];
-
-            //lines = lines.slice(1);
-
             for (var line of lines) {
                 var parts = line.split(",");
                 if (parts.length != 4) continue;
@@ -229,13 +373,16 @@ Vue.component('datamodal', {
 
                 licenses.push({name, licnum, expiry, level});
             }
-            allLicenses = licenses;
+
+            if (licenses.length > 0) allLicenses = licenses;
+
             this.$emit('close')
         }
     },
     computed: { }
 })
 </script>
+<!-- } -->
 
 <script>
 function camelize(str) {
@@ -244,26 +391,10 @@ function camelize(str) {
   });
 }
 
-// start app
 new Vue({
   el: '#app',
-  data: {
-    showInputModal: false,
-    showSelectModal: false,
-    showDataModal: false,
-    selected: {
-      name: "",
-      licnum: "",
-      expiry: "",
-      level:  "",
-    }
-  },
-  methods: {
-    onSelect: function (driver) {
-      this.selected = driver;
-      this.showSelectModal = false;
-    }
-  }
+  data: { },
+  methods: { }
 })
 </script>
 
