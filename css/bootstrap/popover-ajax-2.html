@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap 3 Template</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-compat-git.js"></script>
+  <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+  <script type="text/javascript">//<![CDATA[
+
+    $(window).on('load', function() {
+      
+        // On first hover event we will make popover and then AJAX content into it.
+        $('[data-poload]').hover(
+            function (event) {
+                var el = $(this);
+
+                // disable this event after first binding 
+                el.off(event);
+
+                // add initial popovers with LOADING text
+                el.popover({
+                    content: "loading…", // maybe some loading animation like <img src='loading.gif />
+                    html: true,
+                    placement: "auto",
+                    container: 'body',
+                    trigger: 'hover'
+                });
+
+                // show this LOADING popover
+                el.popover('show');
+
+                // requesting data from unsing url from data-poload attribute
+                $.get(el.data('poload'), function (d) {
+                    // set new content to popover
+                    el.data('bs.popover').options.content = d;
+
+                    // reshow popover with new content
+                    el.popover('show');
+                });
+            },
+            // Without this handler popover flashes on first mouseout
+            function() { }
+        );
+
+    });
+  //]]></script>
+</head>
+
+<body>
+    <a href="#" data-poload="https://fiddle.jshell.net/echo/js/?js=Response_<b>content</b>&delay=1">HOVER HERE</a>
+</body>
+
+</html>
