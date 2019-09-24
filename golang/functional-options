@@ -1,0 +1,78 @@
+Functional Options
+==================
+
+Functional options is a pattern in which you declare an opaque Option type that records
+information in some internal struct. You accept a variadic number of these options and
+act upon the full information recorded by the options on the internal struct.
+
+Use this pattern for optional arguments in constructors and other public APIs that you
+foresee needing to expand, especially if you already have three or more arguments on
+those functions.
+
+Bad
+------------------------
+
+// package db
+
+func Connect(addr string, timeout time.Duration, caching bool) (*Connection, error) {
+  // ...
+}
+
+// Timeout and caching must always be provided,
+// even if the user wants to use the default.
+
+db.Connect(addr, db.DefaultTimeout, db.DefaultCaching)
+db.Connect(addr, newTimeout, db.DefaultCaching)
+db.Connect(addr, db.DefaultTimeout, false /* caching */)
+db.Connect(addr, newTimeout, false /* caching */)
+
+Good
+------------------------
+
+type options struct {
+  timeout time.Duration
+  caching bool
+}
+
+// Option overrides behavior of Connect.
+type Option interface {
+  apply(*options)
+}
+
+type optionFunc func(*options)
+
+func (f optionFunc) apply(o *options) {
+  f(o)
+}
+
+func WithTimeout(t time.Duration) Option {
+  return optionFunc(func(o *options) {
+    o.timeout = t
+  })
+}
+
+func WithCaching(cache bool) Option {
+  return optionFunc(func(o *options) {
+    o.caching = cache
+  })
+}
+
+// Connect creates a connection.
+func Connect(addr string, opts ...Option) (*Connection, error) {
+  options := options{
+    timeout: defaultTimeout,
+    caching: defaultCaching,
+  }
+
+  for _, o := range opts {
+    o.apply(&options)
+  }
+  // ...
+}
+
+// Options must be provided only if needed.
+
+db.Connect(addr)
+db.Connect(addr, db.WithTimeout(newTimeout))
+db.Connect(addr, db.WithCaching(false))
+db.Connect(addr, db.WithCaching(false), db.WithTimeout(newTimeout))
