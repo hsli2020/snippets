@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <style>
+  .btn-primary {
+    background-color: #4285f4 !important;
+	color:    #fff !important;
+  }
+  .btn-indigo {
+    background-color: #3f51b5 !important;
+	color: #fff !important;
+  }
+  .btn-dark-green {
+    background-color: #388e3c !important;
+	color: #fff !important;
+  }
+  .btn-purple {
+    background-color: #8e24aa !important;
+	color: #fff !important;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container my-4">
+
+    <p class="font-weight-bold">This simple example shows how to place an image within a bootstrap popover. You can
+      define if you want to launch the popover on hover or on click.</p>
+
+    <p><strong>Detailed documentation and more examples of Bootstrap grid you can find in our <a href="https://mdbootstrap.com/docs/jquery/javascript/popovers/"
+          target="_blank">Bootstrap Popovers Docs</a>.</p>
+
+    <a class="btn btn-primary" data-toggle="popover-hover" data-img="https://mdbootstrap.com/img/logo/mdb192x192.jpg">Hover
+      over me</a>
+    <a class="btn btn-indigo" data-toggle="popover-click" data-img="https://mdbootstrap.com/img/Others/documentation/img%20(30)-mini.jpg">Click
+      me</a>
+    <a class="btn btn-dark-green" data-toggle="popover-hover" data-img="https://placehold.it/100x50">Hover over me</a>
+    <a class="btn btn-purple" data-toggle="popover-click" data-img="https://placehold.it/50x50">Click me</a>
+  </div>
+
+  <script>
+    // popovers initialization - on hover
+    $('[data-toggle="popover-hover"]').popover({
+      html: true,
+      trigger: 'hover',
+      placement: 'bottom',
+      content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+    });
+
+    // popovers initialization - on click
+    $('[data-toggle="popover-click"]').popover({
+      html: true,
+      trigger: 'click',
+      placement: 'bottom',
+      content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Example of Bootstrap Popover with Close Button</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+        placement : 'top',
+        html : true,
+        title : 'User Info <a href="#" class="close" data-dismiss="alert">&times;</a>',
+        content : '<div class="media"><a href="#" class="pull-left"><img src="https://www.tutorialrepublic.com/examples/images/avatar-tiny.jpg" class="media-object" alt="Sample Image"></a><div class="media-body"><h4 class="media-heading">Jhon Carter</h4><p>Excellent Bootstrap popover! I really love it.</p></div></div>'
+    });
+    $(document).on("click", ".popover .close" , function(){
+        $(this).parents(".popover").popover('hide');
+    });
+});
+</script>
+<style>
+	.bs-example{
+    	margin: 200px 150px 0;
+    }
+    .popover-title .close{
+        position: relative;
+        bottom: 3px;
+    }
+</style>
+</head>
+<body>
+<div class="bs-example">
+    <button type="button" class="btn btn-primary" data-toggle="popover">Click Me</button>
+</div>
+</body>
+</html>

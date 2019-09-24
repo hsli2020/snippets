@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Example of Bootstrap Popover with Images</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+        placement : 'top',
+		trigger : 'hover',
+        html : true,
+        content : '<div class="media"><a href="#" class="pull-left"><img src="https://www.tutorialrepublic.com/examples/images/avatar-tiny.jpg" class="media-object" alt="Sample Image"></a><div class="media-body"><h4 class="media-heading">Jhon Carter</h4><p>Excellent Bootstrap popover! I really love it.</p></div></div>'
+    });
+});
+</script>
+<style>
+	.bs-example{
+    	margin: 200px 150px 0;
+    }
+	.bs-example button{
+		margin: 10px;
+</style>
+</head>
+<body>
+<div class="bs-example">
+    <button type="button" class="btn btn-primary" data-toggle="popover">Popover without Title</button>
+    <button type="button" class="btn btn-primary" data-toggle="popover" title="User Info">Popover with Title</button>
+</div>
+</body>
+</html>

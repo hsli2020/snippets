@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Skeleton</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.0/bootstrap.min.js"></script>
+
+  <style id="compiled-css" type="text/css">
+	@import url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css');
+	.container {
+		margin: 40px;
+	}
+  </style>
+
+  <script type="text/javascript">//<![CDATA[
+    $(window).load(function(){
+		$('#popoverData').popover();
+		$('#popoverOption').popover({ trigger: "hover" });
+		$('#popoverDemo').popover();
+    });
+  </script>
+
+</head>
+<body>
+    <div class="container">
+
+    <a id="popoverData" 
+		class="btn" 
+		href="#" 
+		data-content="Popover with data-trigger" 
+		rel="popover" 
+		data-placement="bottom" 
+		data-original-title="Title" 
+		data-trigger="hover">Popover with data-trigger</a>
+
+    <a id="popoverOption" 
+		class="btn" 
+		href="#" 
+		data-content="Popup with option trigger" 
+		rel="popover" 
+		data-placement="right" 
+		data-original-title="Title">Popup with option trigger</a>
+
+	<a href="#"  id="popoverDemo"
+		role="button" 
+		class="btn btn-default popover-test" 
+		title="" 
+		data-placement="left" 
+		data-content="And here's some amazing content. It's very engaging. right?" 
+		data-original-title="A Title" 
+		aria-describedby="popover38984">button</a>
+
+</div>
+</body>
+</html>
