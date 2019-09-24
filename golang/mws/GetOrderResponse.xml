@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<GetOrderResponse xmlns="https://mws.amazonservices.com/Orders/2013-09-01">
+  <GetOrderResult>
+    <Orders>
+      <Order>
+        <LatestShipDate>2020-03-05T07:59:59Z</LatestShipDate>
+        <OrderType>StandardOrder</OrderType>
+        <PurchaseDate>2020-03-03T06:12:05.467Z</PurchaseDate>
+        <BuyerEmail>lt0pdf88hjb1rfh@marketplace.amazon.ca</BuyerEmail>
+        <AmazonOrderId>702-9321876-0817829</AmazonOrderId>
+        <LastUpdateDate>2020-03-03T06:40:05.370Z</LastUpdateDate>
+        <IsReplacementOrder>false</IsReplacementOrder>
+        <NumberOfItemsShipped>0</NumberOfItemsShipped>
+        <ShipServiceLevel>Std CA D2D Dom</ShipServiceLevel>
+        <OrderStatus>Unshipped</OrderStatus>
+        <SalesChannel>Amazon.ca</SalesChannel>
+        <ShippedByAmazonTFM>false</ShippedByAmazonTFM>
+        <IsBusinessOrder>false</IsBusinessOrder>
+        <NumberOfItemsUnshipped>2</NumberOfItemsUnshipped>
+        <LatestDeliveryDate>2020-03-17T06:59:59Z</LatestDeliveryDate>
+        <PaymentMethodDetails>
+          <PaymentMethodDetail>Standard</PaymentMethodDetail>
+        </PaymentMethodDetails>
+        <IsGlobalExpressEnabled>false</IsGlobalExpressEnabled>
+        <IsSoldByAB>false</IsSoldByAB>
+        <BuyerName>Kurtis Ruban</BuyerName>
+        <EarliestDeliveryDate>2020-03-09T07:00:00Z</EarliestDeliveryDate>
+        <OrderTotal>
+          <Amount>46.96</Amount>
+          <CurrencyCode>CAD</CurrencyCode>
+        </OrderTotal>
+        <IsPremiumOrder>false</IsPremiumOrder>
+        <EarliestShipDate>2020-03-03T08:00:00Z</EarliestShipDate>
+        <MarketplaceId>A2EUQ1WTGCTBG2</MarketplaceId>
+        <FulfillmentChannel>MFN</FulfillmentChannel>
+        <PaymentMethod>Other</PaymentMethod>
+        <ShippingAddress>
+          <City>North Vancouver</City>
+          <AddressType>Residential</AddressType>
+          <PostalCode>V8H 2J7</PostalCode>
+          <isAddressSharingConfidential>false</isAddressSharingConfidential>
+          <StateOrRegion>British Columbia</StateOrRegion>
+          <Phone>647-970-1248</Phone>
+          <CountryCode>CA</CountryCode>
+          <Name>Kurtis Ruban</Name>
+          <AddressLine1>2738 Trillium Place</AddressLine1>
+        </ShippingAddress>
+        <IsPrime>false</IsPrime>
+        <ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>
+      </Order>
+    </Orders>
+  </GetOrderResult>
+  <ResponseMetadata>
+    <RequestId>e3f0d570-9273-4476-ba54-325737d3adae</RequestId>
+  </ResponseMetadata>
+</GetOrderResponse>
