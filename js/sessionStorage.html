@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var orderId='111111-222222-333333';
+
+Storage.prototype.setObject = function(key, value) {
+    this.setItem(key, JSON.stringify(value));
+}
+
+Storage.prototype.getObject = function(key) {
+    return JSON.parse(this.getItem(key));
+}
+
+function setItem() {
+    var orderInfo = {
+        sku: 'TD-123456',
+        qty: 12,
+        branch: 'Toronto',
+        code: 'A1',
+    };
+
+    sessionStorage.setItem(orderId, JSON.stringify(orderInfo));
+}
+
+function getItem() {
+    var order = sessionStorage.getItem(orderId);
+    document.getElementById("result").innerHTML = order;
+    console.log(JSON.parse(order));
+}
+
+function removeItem() {
+    var order = sessionStorage.removeItem(orderId);
+    document.getElementById("result").innerHTML = '';
+}
+</script>
+</head><body>
+
+<p><button onclick="setItem()" type="button">sessionStorage - setItem</button></p>
+<p><button onclick="getItem()" type="button">sessionStorage - getItem</button></p>
+<p><button onclick="removeItem()" type="button">sessionStorage - removeItem</button></p>
+
+<div id="result"></div>
+
+</body></html>

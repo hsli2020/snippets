@@ -1,0 +1,748 @@
+INPUT
+=====
+
+<?xml version="1.0" encoding="utf-8"?>
+<GetOrdersRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+  <!-- Call-specific Input Fields -->
+  <CreateTimeFrom> dateTime </CreateTimeFrom>
+  <CreateTimeTo> dateTime </CreateTimeTo>
+  <IncludeFinalValueFee> boolean </IncludeFinalValueFee>
+  <ListingType> ListingTypeCodeType </ListingType>
+  <ModTimeFrom> dateTime </ModTimeFrom>
+  <ModTimeTo> dateTime </ModTimeTo>
+  <NumberOfDays> int </NumberOfDays>
+  <OrderIDArray> OrderIDArrayType
+    <OrderID> OrderIDType (string) </OrderID>
+    <!-- ... more OrderID values allowed here ... -->
+  </OrderIDArray>
+  <OrderRole> TradingRoleCodeType </OrderRole>
+  <OrderStatus> OrderStatusCodeType </OrderStatus>
+  <Pagination> PaginationType
+    <EntriesPerPage> int </EntriesPerPage>
+    <PageNumber> int </PageNumber>
+  </Pagination>
+  <SortingOrder> SortOrderCodeType </SortingOrder>
+  <!-- Standard Input Fields -->
+  <DetailLevel> DetailLevelCodeType </DetailLevel>
+  <!-- ... more DetailLevel values allowed here ... -->
+  <ErrorLanguage> string </ErrorLanguage>
+  <MessageID> string </MessageID>
+  <OutputSelector> string </OutputSelector>
+  <!-- ... more OutputSelector values allowed here ... -->
+  <Version> string </Version>
+  <WarningLevel> WarningLevelCodeType </WarningLevel>
+</GetOrdersRequest>
+
+OUTPUT
+======
+
+<?xml version="1.0" encoding="utf-8"?>
+<GetOrdersResponse xmlns="urn:ebay:apis:eBLBaseComponents">
+  <!-- Call-specific Output Fields -->
+  <HasMoreOrders> boolean </HasMoreOrders>
+  <OrderArray> OrderArrayType
+    <Order> OrderType
+      <AdjustmentAmount currencyID="CurrencyCodeType"> AmountType (double) </AdjustmentAmount>
+      <AmountPaid currencyID="CurrencyCodeType"> AmountType (double) </AmountPaid>
+      <AmountSaved currencyID="CurrencyCodeType"> AmountType (double) </AmountSaved>
+      <BuyerCheckoutMessage> string </BuyerCheckoutMessage>
+      <BuyerPackageEnclosures> BuyerPackageEnclosuresType
+        <BuyerPackageEnclosure type="PaymentInstructionCodeType"> BuyerPackageEnclosureType (string) </BuyerPackageEnclosure>
+        <!-- ... more BuyerPackageEnclosure nodes allowed here ... -->
+      </BuyerPackageEnclosures>
+      <BuyerTaxIdentifier> TaxIdentifierType
+        <Attribute name="TaxIdentifierAttributeCodeType"> TaxIdentifierAttributeType (string) </Attribute>
+        <!-- ... more Attribute nodes allowed here ... -->
+        <ID> string </ID>
+        <Type> ValueTypeCodeType </Type>
+      </BuyerTaxIdentifier>
+      <!-- ... more BuyerTaxIdentifier nodes allowed here ... -->
+      <BuyerUserID> UserIDType (string) </BuyerUserID>
+      <CancelDetail> CancelDetailType
+        <CancelCompleteDate> dateTime </CancelCompleteDate>
+        <CancelIntiationDate> dateTime </CancelIntiationDate>
+        <CancelIntiator> token </CancelIntiator>
+        <CancelReason> token </CancelReason>
+        <CancelReasonDetails> string </CancelReasonDetails>
+      </CancelDetail>
+      <!-- ... more CancelDetail nodes allowed here ... -->
+      <CancelReason> token </CancelReason>
+      <CancelReasonDetails> string </CancelReasonDetails>
+      <CancelStatus> CancelStatusCodeType </CancelStatus>
+      <CheckoutStatus> CheckoutStatusType
+        <eBayPaymentStatus> PaymentStatusCodeType </eBayPaymentStatus>
+        <IntegratedMerchantCreditCardEnabled> boolean </IntegratedMerchantCreditCardEnabled>
+        <LastModifiedTime> dateTime </LastModifiedTime>
+        <PaymentInstrument> BuyerPaymentInstrumentCodeType </PaymentInstrument>
+        <PaymentMethod> BuyerPaymentMethodCodeType </PaymentMethod>
+        <Status> CompleteStatusCodeType </Status>
+      </CheckoutStatus>
+      <ContainseBayPlusTransaction> boolean </ContainseBayPlusTransaction>
+      <CreatedTime> dateTime </CreatedTime>
+      <CreatingUserRole> TradingRoleCodeType </CreatingUserRole>
+      <EIASToken> string </EIASToken>
+      <ExtendedOrderID> string </ExtendedOrderID>
+      <ExternalTransaction> ExternalTransactionType
+        <ExternalTransactionID> string </ExternalTransactionID>
+        <ExternalTransactionStatus> PaymentTransactionStatusCodeType </ExternalTransactionStatus>
+        <ExternalTransactionTime> dateTime </ExternalTransactionTime>
+        <FeeOrCreditAmount currencyID="CurrencyCodeType"> AmountType (double) </FeeOrCreditAmount>
+        <PaymentOrRefundAmount currencyID="CurrencyCodeType"> AmountType (double) </PaymentOrRefundAmount>
+      </ExternalTransaction>
+      <!-- ... more ExternalTransaction nodes allowed here ... -->
+      <IntegratedMerchantCreditCardEnabled> boolean </IntegratedMerchantCreditCardEnabled>
+      <IsMultiLegShipping> boolean </IsMultiLegShipping>
+      <LogisticsPlanType> token </LogisticsPlanType>
+      <MonetaryDetails> PaymentsInformationType
+        <Payments> PaymentInformationType
+          <Payment> PaymentTransactionType
+            <FeeOrCreditAmount currencyID="CurrencyCodeType"> AmountType (double) </FeeOrCreditAmount>
+            <Payee type="UserIdentityCodeType"> UserIdentityType (string) </Payee>
+            <Payer type="UserIdentityCodeType"> UserIdentityType (string) </Payer>
+            <PaymentAmount currencyID="CurrencyCodeType"> AmountType (double) </PaymentAmount>
+            <PaymentReferenceID type="TransactionReferenceCodeType"> TransactionReferenceType (string) </PaymentReferenceID>
+            <!-- ... more PaymentReferenceID nodes allowed here ... -->
+            <PaymentStatus> PaymentTransactionStatusCodeType </PaymentStatus>
+            <PaymentTime> dateTime </PaymentTime>
+            <ReferenceID type="TransactionReferenceCodeType"> TransactionReferenceType (string) </ReferenceID>
+          </Payment>
+          <!-- ... more Payment nodes allowed here ... -->
+        </Payments>
+        <Refunds> RefundInformationType
+          <Refund> RefundTransactionInfoType
+            <FeeOrCreditAmount currencyID="CurrencyCodeType"> AmountType (double) </FeeOrCreditAmount>
+            <ReferenceID type="TransactionReferenceCodeType"> TransactionReferenceType (string) </ReferenceID>
+            <RefundAmount currencyID="CurrencyCodeType"> AmountType (double) </RefundAmount>
+            <RefundStatus> PaymentTransactionStatusCodeType </RefundStatus>
+            <RefundTime> dateTime </RefundTime>
+            <RefundTo type="UserIdentityCodeType"> UserIdentityType (string) </RefundTo>
+            <RefundType> RefundSourceTypeCodeType </RefundType>
+          </Refund>
+          <!-- ... more Refund nodes allowed here ... -->
+        </Refunds>
+      </MonetaryDetails>
+      <MultiLegShippingDetails> MultiLegShippingDetailsType
+        <SellerShipmentToLogisticsProvider> MultiLegShipmentType
+          <ShippingServiceDetails> MultiLegShippingServiceType
+            <ShippingService> token </ShippingService>
+            <TotalShippingCost currencyID="CurrencyCodeType"> AmountType (double) </TotalShippingCost>
+          </ShippingServiceDetails>
+          <ShippingTimeMax> int </ShippingTimeMax>
+          <ShippingTimeMin> int </ShippingTimeMin>
+          <ShipToAddress> AddressType
+            <AddressAttribute type="AddressAttributeCodeType"> AddressAttributeType (string) </AddressAttribute>
+            <!-- ... more AddressAttribute nodes allowed here ... -->
+            <AddressID> string </AddressID>
+            <AddressOwner> AddressOwnerCodeType </AddressOwner>
+            <AddressUsage> AddressUsageCodeType </AddressUsage>
+            <CityName> string </CityName>
+            <Country> CountryCodeType </Country>
+            <CountryName> string </CountryName>
+            <ExternalAddressID> string </ExternalAddressID>
+            <Name> string </Name>
+            <Phone> string </Phone>
+            <PostalCode> string </PostalCode>
+            <ReferenceID> string </ReferenceID>
+            <StateOrProvince> string </StateOrProvince>
+            <Street1> string </Street1>
+            <Street2> string </Street2>
+          </ShipToAddress>
+        </SellerShipmentToLogisticsProvider>
+      </MultiLegShippingDetails>
+      <OrderID> OrderIDType (string) </OrderID>
+      <OrderStatus> OrderStatusCodeType </OrderStatus>
+      <PaidTime> dateTime </PaidTime>
+      <PaymentHoldDetails> PaymentHoldDetailType
+        <ExpectedReleaseDate> dateTime </ExpectedReleaseDate>
+        <NumOfReqSellerActions> int </NumOfReqSellerActions>
+        <PaymentHoldReason> PaymentHoldReasonCodeType </PaymentHoldReason>
+        <RequiredSellerActionArray> RequiredSellerActionArrayType
+          <RequiredSellerAction> RequiredSellerActionCodeType </RequiredSellerAction>
+          <!-- ... more RequiredSellerAction values allowed here ... -->
+        </RequiredSellerActionArray>
+      </PaymentHoldDetails>
+      <PaymentHoldStatus> PaymentHoldStatusCodeType </PaymentHoldStatus>
+      <PaymentMethods> BuyerPaymentMethodCodeType </PaymentMethods>
+      <!-- ... more PaymentMethods values allowed here ... -->
+      <PickupDetails> PickupDetailsType
+        <PickupOptions> PickupOptionsType
+          <PickupMethod> token </PickupMethod>
+          <PickupPriority> int </PickupPriority>
+        </PickupOptions>
+        <!-- ... more PickupOptions nodes allowed here ... -->
+      </PickupDetails>
+      <PickupMethodSelected> PickupMethodSelectedType
+        <MerchantPickupCode> string </MerchantPickupCode>
+        <PickupFulfillmentTime> dateTime </PickupFulfillmentTime>
+        <PickupLocationUUID> string </PickupLocationUUID>
+        <PickupMethod> token </PickupMethod>
+        <PickupStatus> PickupStatusCodeType </PickupStatus>
+        <PickupStoreID> string </PickupStoreID>
+      </PickupMethodSelected>
+      <RefundArray> RefundArrayType
+        <Refund> RefundType
+          <RefundAmount currencyID="CurrencyCodeType"> AmountType (double) </RefundAmount>
+          <RefundFromSeller currencyID="CurrencyCodeType"> AmountType (double) </RefundFromSeller>
+          <RefundID> string </RefundID>
+          <RefundTime> dateTime </RefundTime>
+          <TotalRefundToBuyer currencyID="CurrencyCodeType"> AmountType (double) </TotalRefundToBuyer>
+        </Refund>
+        <!-- ... more Refund nodes allowed here ... -->
+      </RefundArray>
+      <SellerEIASToken> string </SellerEIASToken>
+      <SellerEmail> string </SellerEmail>
+      <SellerUserID> UserIDType (string) </SellerUserID>
+      <ShippedTime> dateTime </ShippedTime>
+      <ShippingAddress> AddressType
+        <AddressAttribute type="AddressAttributeCodeType"> AddressAttributeType (string) </AddressAttribute>
+        <!-- ... more AddressAttribute nodes allowed here ... -->
+        <AddressID> string </AddressID>
+        <AddressOwner> AddressOwnerCodeType </AddressOwner>
+        <AddressUsage> AddressUsageCodeType </AddressUsage>
+        <CityName> string </CityName>
+        <Country> CountryCodeType </Country>
+        <CountryName> string </CountryName>
+        <ExternalAddressID> string </ExternalAddressID>
+        <Name> string </Name>
+        <Phone> string </Phone>
+        <PostalCode> string </PostalCode>
+        <StateOrProvince> string </StateOrProvince>
+        <Street1> string </Street1>
+        <Street2> string </Street2>
+      </ShippingAddress>
+      <ShippingConvenienceCharge currencyID="CurrencyCodeType"> AmountType (double) </ShippingConvenienceCharge>
+      <ShippingDetails> ShippingDetailsType
+        <CalculatedShippingRate> CalculatedShippingRateType
+          <InternationalPackagingHandlingCosts currencyID="CurrencyCodeType"> AmountType (double) </InternationalPackagingHandlingCosts>
+          <OriginatingPostalCode> string </OriginatingPostalCode>
+          <PackageDepth> MeasureType (decimal) </PackageDepth>
+          <PackageLength> MeasureType (decimal) </PackageLength>
+          <PackageWidth> MeasureType (decimal) </PackageWidth>
+          <PackagingHandlingCosts currencyID="CurrencyCodeType"> AmountType (double) </PackagingHandlingCosts>
+          <ShippingIrregular> boolean </ShippingIrregular>
+          <ShippingPackage> ShippingPackageCodeType </ShippingPackage>
+          <WeightMajor> MeasureType (decimal) </WeightMajor>
+          <WeightMinor> MeasureType (decimal) </WeightMinor>
+        </CalculatedShippingRate>
+        <CODCost currencyID="CurrencyCodeType"> AmountType (double) </CODCost>
+        <InsuranceFee currencyID="CurrencyCodeType"> AmountType (double) </InsuranceFee>
+        <InsuranceOption> InsuranceOptionCodeType </InsuranceOption>
+        <InsuranceWanted> boolean </InsuranceWanted>
+        <InternationalShippingServiceOption> InternationalShippingServiceOptionsType
+          <ImportCharge currencyID="CurrencyCodeType"> AmountType (double) </ImportCharge>
+          <ShippingInsuranceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingInsuranceCost>
+          <ShippingService> token </ShippingService>
+          <ShippingServiceAdditionalCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceAdditionalCost>
+          <ShippingServiceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceCost>
+          <ShippingServicePriority> int </ShippingServicePriority>
+          <ShipToLocation> string </ShipToLocation>
+          <!-- ... more ShipToLocation values allowed here ... -->
+        </InternationalShippingServiceOption>
+        <!-- ... more InternationalShippingServiceOption nodes allowed here ... -->
+        <SalesTax> SalesTaxType
+          <SalesTaxAmount currencyID="CurrencyCodeType"> AmountType (double) </SalesTaxAmount>
+          <SalesTaxPercent> float </SalesTaxPercent>
+          <SalesTaxState> string </SalesTaxState>
+          <ShippingIncludedInTax> boolean </ShippingIncludedInTax>
+        </SalesTax>
+        <SellingManagerSalesRecordNumber> int </SellingManagerSalesRecordNumber>
+        <ShipmentTrackingDetails> ShipmentTrackingDetailsType
+          <ShipmentTrackingNumber> string </ShipmentTrackingNumber>
+          <ShippingCarrierUsed> string </ShippingCarrierUsed>
+        </ShipmentTrackingDetails>
+        <!-- ... more ShipmentTrackingDetails nodes allowed here ... -->
+        <ShippingServiceOptions> ShippingServiceOptionsType
+          <ExpeditedService> boolean </ExpeditedService>
+          <ImportCharge currencyID="CurrencyCodeType"> AmountType (double) </ImportCharge>
+          <LogisticPlanType> string </LogisticPlanType>
+          <ShippingInsuranceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingInsuranceCost>
+          <ShippingPackageInfo> ShippingPackageInfoType
+            <ActualDeliveryTime> dateTime </ActualDeliveryTime>
+            <ScheduledDeliveryTimeMax> dateTime </ScheduledDeliveryTimeMax>
+            <ScheduledDeliveryTimeMin> dateTime </ScheduledDeliveryTimeMin>
+            <ShippingTrackingEvent> token </ShippingTrackingEvent>
+            <StoreID> string </StoreID>
+          </ShippingPackageInfo>
+          <!-- ... more ShippingPackageInfo nodes allowed here ... -->
+          <ShippingService> token </ShippingService>
+          <ShippingServiceAdditionalCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceAdditionalCost>
+          <ShippingServiceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceCost>
+          <ShippingServicePriority> int </ShippingServicePriority>
+        </ShippingServiceOptions>
+        <!-- ... more ShippingServiceOptions nodes allowed here ... -->
+        <TaxTable> TaxTableType
+          <TaxJurisdiction> TaxJurisdictionType
+            <JurisdictionID> string </JurisdictionID>
+            <SalesTaxPercent> float </SalesTaxPercent>
+            <ShippingIncludedInTax> boolean </ShippingIncludedInTax>
+          </TaxJurisdiction>
+          <!-- ... more TaxJurisdiction nodes allowed here ... -->
+        </TaxTable>
+      </ShippingDetails>
+      <ShippingServiceSelected> ShippingServiceOptionsType
+        <ExpeditedService> boolean </ExpeditedService>
+        <ImportCharge currencyID="CurrencyCodeType"> AmountType (double) </ImportCharge>
+        <LogisticPlanType> string </LogisticPlanType>
+        <ShippingInsuranceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingInsuranceCost>
+        <ShippingPackageInfo> ShippingPackageInfoType
+          <ActualDeliveryTime> dateTime </ActualDeliveryTime>
+          <EstimatedDeliveryTimeMax> dateTime </EstimatedDeliveryTimeMax>
+          <EstimatedDeliveryTimeMin> dateTime </EstimatedDeliveryTimeMin>
+          <ScheduledDeliveryTimeMax> dateTime </ScheduledDeliveryTimeMax>
+          <ScheduledDeliveryTimeMin> dateTime </ScheduledDeliveryTimeMin>
+          <ShippingTrackingEvent> token </ShippingTrackingEvent>
+          <StoreID> string </StoreID>
+        </ShippingPackageInfo>
+        <!-- ... more ShippingPackageInfo nodes allowed here ... -->
+        <ShippingService> token </ShippingService>
+        <ShippingServiceAdditionalCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceAdditionalCost>
+        <ShippingServiceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceCost>
+        <ShippingServicePriority> int </ShippingServicePriority>
+      </ShippingServiceSelected>
+      <Subtotal currencyID="CurrencyCodeType"> AmountType (double) </Subtotal>
+      <Total currencyID="CurrencyCodeType"> AmountType (double) </Total>
+      <TransactionArray> TransactionArrayType
+        <Transaction> TransactionType
+          <ActualHandlingCost currencyID="CurrencyCodeType"> AmountType (double) </ActualHandlingCost>
+          <ActualShippingCost currencyID="CurrencyCodeType"> AmountType (double) </ActualShippingCost>
+          <Buyer> UserType
+            <BuyerInfo> BuyerType
+              <BuyerTaxIdentifier> TaxIdentifierType
+                <Attribute name="TaxIdentifierAttributeCodeType"> TaxIdentifierAttributeType (string) </Attribute>
+                <!-- ... more Attribute nodes allowed here ... -->
+                <ID> string </ID>
+                <Type> ValueTypeCodeType </Type>
+              </BuyerTaxIdentifier>
+              <!-- ... more BuyerTaxIdentifier nodes allowed here ... -->
+            </BuyerInfo>
+            <Email> string </Email>
+            <StaticAlias> string </StaticAlias>
+            <UserFirstName> string </UserFirstName>
+            <UserLastName> string </UserLastName>
+          </Buyer>
+          <BuyerPackageEnclosures> BuyerPackageEnclosuresType
+            <BuyerPackageEnclosure type="PaymentInstructionCodeType"> BuyerPackageEnclosureType (string) </BuyerPackageEnclosure>
+            <!-- ... more BuyerPackageEnclosure nodes allowed here ... -->
+          </BuyerPackageEnclosures>
+          <CreatedDate> dateTime </CreatedDate>
+          <DigitalDeliverySelected> DigitalDeliverySelectedType
+            <DeliveryDetails> DeliveryDetailsType
+              <Recipient> DigitalDeliveryUserType
+                <Email> string </Email>
+                <Name> string </Name>
+              </Recipient>
+              <Sender> DigitalDeliveryUserType
+                <Email> string </Email>
+                <Name> string </Name>
+              </Sender>
+            </DeliveryDetails>
+            <DeliveryMethod> token </DeliveryMethod>
+            <DeliveryStatus> DeliveryStatusType
+              <Email> token </Email>
+            </DeliveryStatus>
+          </DigitalDeliverySelected>
+          <eBayPlusTransaction> boolean </eBayPlusTransaction>
+          <ExtendedOrderID> string </ExtendedOrderID>
+          <ExternalTransaction> ExternalTransactionType
+            <ExternalTransactionID> string </ExternalTransactionID>
+            <ExternalTransactionStatus> PaymentTransactionStatusCodeType </ExternalTransactionStatus>
+            <ExternalTransactionTime> dateTime </ExternalTransactionTime>
+            <FeeOrCreditAmount currencyID="CurrencyCodeType"> AmountType (double) </FeeOrCreditAmount>
+            <PaymentOrRefundAmount currencyID="CurrencyCodeType"> AmountType (double) </PaymentOrRefundAmount>
+          </ExternalTransaction>
+          <!-- ... more ExternalTransaction nodes allowed here ... -->
+          <FinalValueFee currencyID="CurrencyCodeType"> AmountType (double) </FinalValueFee>
+          <Gift> boolean </Gift>
+          <GiftSummary> GiftSummaryType
+            <Message> string </Message>
+          </GiftSummary>
+          <GuaranteedShipping> boolean </GuaranteedShipping>
+          <InventoryReservationID> string </InventoryReservationID>
+          <InvoiceSentTime> dateTime </InvoiceSentTime>
+          <Item> ItemType
+            <AttributeArray> AttributeArrayType
+              <Attribute attributeLabel="string"> AttributeType
+                <Value> ValType
+                  <ValueID> int </ValueID>
+                  <ValueLiteral> string </ValueLiteral>
+                </Value>
+                <!-- ... more Value nodes allowed here ... -->
+              </Attribute>
+              <!-- ... more Attribute nodes allowed here ... -->
+            </AttributeArray>
+            <IntegratedMerchantCreditCardEnabled> boolean </IntegratedMerchantCreditCardEnabled>
+            <ItemID> ItemIDType (string) </ItemID>
+            <PrivateNotes> string </PrivateNotes>
+            <SellerInventoryID> string </SellerInventoryID>
+            <Site> SiteCodeType </Site>
+            <SKU> SKUType (string) </SKU>
+            <Title> string </Title>
+          </Item>
+          <ListingCheckoutRedirectPreference> ListingCheckoutRedirectPreferenceType
+            <SellerThirdPartyUsername> string </SellerThirdPartyUsername>
+          </ListingCheckoutRedirectPreference>
+          <LogisticsPlanType> token </LogisticsPlanType>
+          <MonetaryDetails> PaymentsInformationType
+            <Payments> PaymentInformationType
+              <Payment> PaymentTransactionType
+                <FeeOrCreditAmount currencyID="CurrencyCodeType"> AmountType (double) </FeeOrCreditAmount>
+                <Payee type="UserIdentityCodeType"> UserIdentityType (string) </Payee>
+                <Payer type="UserIdentityCodeType"> UserIdentityType (string) </Payer>
+                <PaymentAmount currencyID="CurrencyCodeType"> AmountType (double) </PaymentAmount>
+                <PaymentReferenceID type="TransactionReferenceCodeType"> TransactionReferenceType (string) </PaymentReferenceID>
+                <!-- ... more PaymentReferenceID nodes allowed here ... -->
+                <PaymentStatus> PaymentTransactionStatusCodeType </PaymentStatus>
+                <PaymentTime> dateTime </PaymentTime>
+                <ReferenceID type="TransactionReferenceCodeType"> TransactionReferenceType (string) </ReferenceID>
+              </Payment>
+              <!-- ... more Payment nodes allowed here ... -->
+            </Payments>
+            <Refunds> RefundInformationType
+              <Refund> RefundTransactionInfoType
+                <FeeOrCreditAmount currencyID="CurrencyCodeType"> AmountType (double) </FeeOrCreditAmount>
+                <ReferenceID type="TransactionReferenceCodeType"> TransactionReferenceType (string) </ReferenceID>
+                <RefundAmount currencyID="CurrencyCodeType"> AmountType (double) </RefundAmount>
+                <RefundStatus> PaymentTransactionStatusCodeType </RefundStatus>
+                <RefundTime> dateTime </RefundTime>
+                <RefundTo type="UserIdentityCodeType"> UserIdentityType (string) </RefundTo>
+                <RefundType> RefundSourceTypeCodeType </RefundType>
+              </Refund>
+              <!-- ... more Refund nodes allowed here ... -->
+            </Refunds>
+          </MonetaryDetails>
+          <MultiLegShippingDetails> MultiLegShippingDetailsType
+            <SellerShipmentToLogisticsProvider> MultiLegShipmentType
+              <ShippingServiceDetails> MultiLegShippingServiceType
+                <ShippingService> token </ShippingService>
+                <TotalShippingCost currencyID="CurrencyCodeType"> AmountType (double) </TotalShippingCost>
+              </ShippingServiceDetails>
+              <ShippingTimeMax> int </ShippingTimeMax>
+              <ShippingTimeMin> int </ShippingTimeMin>
+              <ShipToAddress> AddressType
+                <AddressAttribute type="AddressAttributeCodeType"> AddressAttributeType (string) </AddressAttribute>
+                <!-- ... more AddressAttribute nodes allowed here ... -->
+                <AddressID> string </AddressID>
+                <AddressOwner> AddressOwnerCodeType </AddressOwner>
+                <AddressUsage> AddressUsageCodeType </AddressUsage>
+                <CityName> string </CityName>
+                <Country> CountryCodeType </Country>
+                <CountryName> string </CountryName>
+                <ExternalAddressID> string </ExternalAddressID>
+                <Name> string </Name>
+                <Phone> string </Phone>
+                <PostalCode> string </PostalCode>
+                <ReferenceID> string </ReferenceID>
+                <StateOrProvince> string </StateOrProvince>
+                <Street1> string </Street1>
+                <Street2> string </Street2>
+              </ShipToAddress>
+            </SellerShipmentToLogisticsProvider>
+          </MultiLegShippingDetails>
+          <OrderLineItemID> string </OrderLineItemID>
+          <PaidTime> dateTime </PaidTime>
+          <PaymentHoldDetails> PaymentHoldDetailType
+            <ExpectedReleaseDate> dateTime </ExpectedReleaseDate>
+            <NumOfReqSellerActions> int </NumOfReqSellerActions>
+            <PaymentHoldReason> PaymentHoldReasonCodeType </PaymentHoldReason>
+            <RequiredSellerActionArray> RequiredSellerActionArrayType
+              <RequiredSellerAction> RequiredSellerActionCodeType </RequiredSellerAction>
+              <!-- ... more RequiredSellerAction values allowed here ... -->
+            </RequiredSellerActionArray>
+          </PaymentHoldDetails>
+          <PickupMethodSelected> PickupMethodSelectedType
+            <MerchantPickupCode> string </MerchantPickupCode>
+            <PickupFulfillmentTime> dateTime </PickupFulfillmentTime>
+            <PickupLocationUUID> string </PickupLocationUUID>
+            <PickupMethod> token </PickupMethod>
+            <PickupStatus> PickupStatusCodeType </PickupStatus>
+            <PickupStoreID> string </PickupStoreID>
+          </PickupMethodSelected>
+          <QuantityPurchased> int </QuantityPurchased>
+          <RefundArray> RefundArrayType
+            <Refund> RefundType
+              <RefundAmount currencyID="CurrencyCodeType"> AmountType (double) </RefundAmount>
+              <RefundFromSeller currencyID="CurrencyCodeType"> AmountType (double) </RefundFromSeller>
+              <RefundID> string </RefundID>
+              <RefundTime> dateTime </RefundTime>
+              <TotalRefundToBuyer currencyID="CurrencyCodeType"> AmountType (double) </TotalRefundToBuyer>
+            </Refund>
+            <!-- ... more Refund nodes allowed here ... -->
+          </RefundArray>
+          <SellerDiscounts> SellerDiscountsType
+            <OriginalItemPrice currencyID="CurrencyCodeType"> AmountType (double) </OriginalItemPrice>
+            <OriginalItemShippingCost currencyID="CurrencyCodeType"> AmountType (double) </OriginalItemShippingCost>
+            <OriginalShippingService> token </OriginalShippingService>
+            <SellerDiscount> SellerDiscountType
+              <CampaignDisplayName> string </CampaignDisplayName>
+              <CampaignID> long </CampaignID>
+              <ItemDiscountAmount currencyID="CurrencyCodeType"> AmountType (double) </ItemDiscountAmount>
+              <ShippingDiscountAmount currencyID="CurrencyCodeType"> AmountType (double) </ShippingDiscountAmount>
+            </SellerDiscount>
+            <!-- ... more SellerDiscount nodes allowed here ... -->
+          </SellerDiscounts>
+          <ShippedTime> dateTime </ShippedTime>
+          <ShippingConvenienceCharge currencyID="CurrencyCodeType"> AmountType (double) </ShippingConvenienceCharge>
+          <ShippingDetails> ShippingDetailsType
+            <CalculatedShippingRate> CalculatedShippingRateType
+              <InternationalPackagingHandlingCosts currencyID="CurrencyCodeType"> AmountType (double) </InternationalPackagingHandlingCosts>
+              <OriginatingPostalCode> string </OriginatingPostalCode>
+              <PackageDepth> MeasureType (decimal) </PackageDepth>
+              <PackageLength> MeasureType (decimal) </PackageLength>
+              <PackageWidth> MeasureType (decimal) </PackageWidth>
+              <PackagingHandlingCosts currencyID="CurrencyCodeType"> AmountType (double) </PackagingHandlingCosts>
+              <ShippingIrregular> boolean </ShippingIrregular>
+              <ShippingPackage> ShippingPackageCodeType </ShippingPackage>
+              <WeightMajor> MeasureType (decimal) </WeightMajor>
+              <WeightMinor> MeasureType (decimal) </WeightMinor>
+            </CalculatedShippingRate>
+            <CODCost currencyID="CurrencyCodeType"> AmountType (double) </CODCost>
+            <InsuranceFee currencyID="CurrencyCodeType"> AmountType (double) </InsuranceFee>
+            <InsuranceOption> InsuranceOptionCodeType </InsuranceOption>
+            <InsuranceWanted> boolean </InsuranceWanted>
+            <InternationalShippingServiceOption> InternationalShippingServiceOptionsType
+              <ImportCharge currencyID="CurrencyCodeType"> AmountType (double) </ImportCharge>
+              <ShippingInsuranceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingInsuranceCost>
+              <ShippingService> token </ShippingService>
+              <ShippingServiceAdditionalCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceAdditionalCost>
+              <ShippingServiceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceCost>
+              <ShippingServicePriority> int </ShippingServicePriority>
+              <ShipToLocation> string </ShipToLocation>
+              <!-- ... more ShipToLocation values allowed here ... -->
+            </InternationalShippingServiceOption>
+            <!-- ... more InternationalShippingServiceOption nodes allowed here ... -->
+            <SalesTax> SalesTaxType
+              <SalesTaxAmount currencyID="CurrencyCodeType"> AmountType (double) </SalesTaxAmount>
+              <SalesTaxPercent> float </SalesTaxPercent>
+              <SalesTaxState> string </SalesTaxState>
+              <ShippingIncludedInTax> boolean </ShippingIncludedInTax>
+            </SalesTax>
+            <SellingManagerSalesRecordNumber> int </SellingManagerSalesRecordNumber>
+            <ShipmentTrackingDetails> ShipmentTrackingDetailsType
+              <ShipmentTrackingNumber> string </ShipmentTrackingNumber>
+              <ShippingCarrierUsed> string </ShippingCarrierUsed>
+            </ShipmentTrackingDetails>
+            <!-- ... more ShipmentTrackingDetails nodes allowed here ... -->
+            <ShippingServiceOptions> ShippingServiceOptionsType
+              <ExpeditedService> boolean </ExpeditedService>
+              <ImportCharge currencyID="CurrencyCodeType"> AmountType (double) </ImportCharge>
+              <LogisticPlanType> string </LogisticPlanType>
+              <ShippingInsuranceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingInsuranceCost>
+              <ShippingPackageInfo> ShippingPackageInfoType
+                <ActualDeliveryTime> dateTime </ActualDeliveryTime>
+                <ScheduledDeliveryTimeMax> dateTime </ScheduledDeliveryTimeMax>
+                <ScheduledDeliveryTimeMin> dateTime </ScheduledDeliveryTimeMin>
+                <ShippingTrackingEvent> token </ShippingTrackingEvent>
+                <StoreID> string </StoreID>
+              </ShippingPackageInfo>
+              <!-- ... more ShippingPackageInfo nodes allowed here ... -->
+              <ShippingService> token </ShippingService>
+              <ShippingServiceAdditionalCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceAdditionalCost>
+              <ShippingServiceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceCost>
+              <ShippingServicePriority> int </ShippingServicePriority>
+            </ShippingServiceOptions>
+            <!-- ... more ShippingServiceOptions nodes allowed here ... -->
+            <TaxTable> TaxTableType
+              <TaxJurisdiction> TaxJurisdictionType
+                <JurisdictionID> string </JurisdictionID>
+                <SalesTaxPercent> float </SalesTaxPercent>
+                <ShippingIncludedInTax> boolean </ShippingIncludedInTax>
+              </TaxJurisdiction>
+              <!-- ... more TaxJurisdiction nodes allowed here ... -->
+            </TaxTable>
+          </ShippingDetails>
+          <ShippingServiceSelected> ShippingServiceOptionsType
+            <ExpeditedService> boolean </ExpeditedService>
+            <ImportCharge currencyID="CurrencyCodeType"> AmountType (double) </ImportCharge>
+            <LogisticPlanType> string </LogisticPlanType>
+            <ShippingInsuranceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingInsuranceCost>
+            <ShippingPackageInfo> ShippingPackageInfoType
+              <ActualDeliveryTime> dateTime </ActualDeliveryTime>
+              <EstimatedDeliveryTimeMax> dateTime </EstimatedDeliveryTimeMax>
+              <EstimatedDeliveryTimeMin> dateTime </EstimatedDeliveryTimeMin>
+              <ScheduledDeliveryTimeMax> dateTime </ScheduledDeliveryTimeMax>
+              <ScheduledDeliveryTimeMin> dateTime </ScheduledDeliveryTimeMin>
+              <ShippingTrackingEvent> token </ShippingTrackingEvent>
+              <StoreID> string </StoreID>
+            </ShippingPackageInfo>
+            <!-- ... more ShippingPackageInfo nodes allowed here ... -->
+            <ShippingService> token </ShippingService>
+            <ShippingServiceAdditionalCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceAdditionalCost>
+            <ShippingServiceCost currencyID="CurrencyCodeType"> AmountType (double) </ShippingServiceCost>
+            <ShippingServicePriority> int </ShippingServicePriority>
+          </ShippingServiceSelected>
+          <Status> TransactionStatusType
+            <DigitalStatus> DigitalStatusCodeType </DigitalStatus>
+            <InquiryStatus> InquiryStatusCodeType </InquiryStatus>
+            <IntegratedMerchantCreditCardEnabled> boolean </IntegratedMerchantCreditCardEnabled>
+            <PaymentHoldStatus> PaymentHoldStatusCodeType </PaymentHoldStatus>
+            <PaymentInstrument> BuyerPaymentInstrumentCodeType </PaymentInstrument>
+            <ReturnStatus> ReturnStatusCodeType </ReturnStatus>
+          </Status>
+          <Taxes> TaxesType
+            <TaxDetails> TaxDetailsType
+              <Imposition> TaxTypeCodeType </Imposition>
+              <TaxAmount currencyID="CurrencyCodeType"> AmountType (double) </TaxAmount>
+              <TaxCode> string </TaxCode>
+              <TaxDescription> TaxDescriptionCodeType </TaxDescription>
+              <TaxOnHandlingAmount currencyID="CurrencyCodeType"> AmountType (double) </TaxOnHandlingAmount>
+              <TaxOnShippingAmount currencyID="CurrencyCodeType"> AmountType (double) </TaxOnShippingAmount>
+              <TaxOnSubtotalAmount currencyID="CurrencyCodeType"> AmountType (double) </TaxOnSubtotalAmount>
+            </TaxDetails>
+            <!-- ... more TaxDetails nodes allowed here ... -->
+            <TotalTaxAmount currencyID="CurrencyCodeType"> AmountType (double) </TotalTaxAmount>
+          </Taxes>
+          <TransactionID> string </TransactionID>
+          <TransactionPrice currencyID="CurrencyCodeType"> AmountType (double) </TransactionPrice>
+          <TransactionSiteID> SiteCodeType </TransactionSiteID>
+          <UnpaidItem> UnpaidItemType
+            <Status> UnpaidItemCaseStatusTypeCodeType </Status>
+            <Type> UnpaidItemCaseOpenTypeCodeType </Type>
+          </UnpaidItem>
+          <Variation> VariationType
+            <SKU> SKUType (string) </SKU>
+            <VariationSpecifics> NameValueListArrayType
+              <NameValueList> NameValueListType
+                <Name> string </Name>
+                <Value> string </Value>
+                <!-- ... more Value values allowed here ... -->
+              </NameValueList>
+              <!-- ... more NameValueList nodes allowed here ... -->
+            </VariationSpecifics>
+            <!-- ... more VariationSpecifics nodes allowed here ... -->
+            <VariationTitle> string </VariationTitle>
+            <VariationViewItemURL> anyURI </VariationViewItemURL>
+          </Variation>
+        </Transaction>
+        <!-- ... more Transaction nodes allowed here ... -->
+      </TransactionArray>
+    </Order>
+    <!-- ... more Order nodes allowed here ... -->
+  </OrderArray>
+  <OrdersPerPage> int </OrdersPerPage>
+  <PageNumber> int </PageNumber>
+  <PaginationResult> PaginationResultType
+    <TotalNumberOfEntries> int </TotalNumberOfEntries>
+    <TotalNumberOfPages> int </TotalNumberOfPages>
+  </PaginationResult>
+  <ReturnedOrderCountActual> int </ReturnedOrderCountActual>
+  <!-- Standard Output Fields -->
+  <Ack> AckCodeType </Ack>
+  <Build> string </Build>
+  <CorrelationID> string </CorrelationID>
+  <Errors> ErrorType
+    <ErrorClassification> ErrorClassificationCodeType </ErrorClassification>
+    <ErrorCode> token </ErrorCode>
+    <ErrorParameters ParamID="string"> ErrorParameterType
+      <Value> string </Value>
+    </ErrorParameters>
+    <!-- ... more ErrorParameters nodes allowed here ... -->
+    <LongMessage> string </LongMessage>
+    <SeverityCode> SeverityCodeType </SeverityCode>
+    <ShortMessage> string </ShortMessage>
+  </Errors>
+  <!-- ... more Errors nodes allowed here ... -->
+  <HardExpirationWarning> string </HardExpirationWarning>
+  <Timestamp> dateTime </Timestamp>
+  <Version> string </Version>
+</GetOrdersResponse>
+
+SAMPLE
+======
+
+<?xml version="1.0" encoding="utf-8"?>
+<GetOrdersRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+  <RequesterCredentials>
+    <eBayAuthToken>ABC...123</eBayAuthToken>
+  </RequesterCredentials>
+  <CreateTimeFrom>2015-12-01T20:34:44.000Z</CreateTimeFrom>
+  <CreateTimeTo>2015-12-10T20:34:44.000Z</CreateTimeTo>
+  <OrderRole>Seller</OrderRole>
+  <OrderStatus>Active</OrderStatus>
+</GetOrdersRequest>
+
+<?xml version="1.0" encoding="utf-8"?>
+<GetOrdersResponse xmlns="urn:ebay:apis:eBLBaseComponents">
+  <Timestamp>2015-12-10T16:12:55.184Z</Timestamp>
+  <Ack>Success</Ack>
+  <Version>967</Version>
+  <Build>e967_core_Bundled_5642307_R1</Build>
+  <OrderArray>
+    <Order>
+      <OrderID>865826</OrderID>
+      <OrderStatus>Active</OrderStatus>
+      <AdjustmentAmount currencyID="USD">0.0</AdjustmentAmount>
+      <AmountSaved currencyID="USD">0.0</AmountSaved>
+      <CheckoutStatus>
+        <eBayPaymentStatus>NoPaymentFailure</eBayPaymentStatus>
+        <LastModifiedTime>2015-12-10T16:09:47.000Z</LastModifiedTime>
+        <PaymentMethod>None</PaymentMethod>
+        <Status>Incomplete</Status>
+      </CheckoutStatus>
+      <ShippingDetails>
+        <SalesTax>
+          <SalesTaxPercent>0.0</SalesTaxPercent>
+          <SalesTaxState/>
+          <ShippingIncludedInTax>false</ShippingIncludedInTax>
+          <SalesTaxAmount currencyID="USD">0.0</SalesTaxAmount>
+        </SalesTax>
+        <ShippingServiceOptions>
+          <ShippingService>ShippingMethodStandard</ShippingService>
+          <ShippingServicePriority>1</ShippingServicePriority>
+          <ExpeditedService>false</ExpeditedService>
+        </ShippingServiceOptions>
+        <SellingManagerSalesRecordNumber>111</SellingManagerSalesRecordNumber>
+      </ShippingDetails>
+      <CreatingUserRole>Seller</CreatingUserRole>
+      <CreatedTime>2015-12-10T16:09:47.000Z</CreatedTime>
+      <PaymentMethods>PayPal</PaymentMethods>
+      <ShippingAddress>
+        <Name>Test User</Name>
+        <Street1>address</Street1>
+        <Street2/>
+        <CityName>city</CityName>
+        <StateOrProvince>WA</StateOrProvince>
+        <Country>CustomCode</Country>
+        <CountryName/>
+        <Phone>1-800-111-1111</Phone>
+        <PostalCode>98102</PostalCode>
+        <AddressID>3839387</AddressID>
+        <AddressOwner>eBay</AddressOwner>
+        <ExternalAddressID/>
+      </ShippingAddress>
+      <Subtotal currencyID="USD">36.0</Subtotal>
+      <Total currencyID="USD">36.0</Total>
+      <DigitalDelivery>false</DigitalDelivery>
+      <TransactionArray>
+        <Transaction>
+          <Buyer>
+            <Email>magicalbookseller@yahoo.com</Email>
+          </Buyer>
+          <ShippingDetails>
+            <SellingManagerSalesRecordNumber>104</SellingManagerSalesRecordNumber>
+          </ShippingDetails>
+          <Item>
+            <ItemID>110025788368</ItemID>
+          </Item>
+          <QuantityPurchased>1</QuantityPurchased>
+          <TransactionID>0</TransactionID>
+          <TransactionPrice currencyID="USD">18.0</TransactionPrice>
+        </Transaction>
+        <Transaction>
+          <Buyer>
+            <Email>magicalbookseller@yahoo.com</Email>
+          </Buyer>
+          <ShippingDetails>
+            <SellingManagerSalesRecordNumber>103</SellingManagerSalesRecordNumber>
+          </ShippingDetails>
+          <Item>
+            <ItemID>110025788765</ItemID>
+          </Item>
+          <QuantityPurchased>1</QuantityPurchased>
+          <TransactionID>0</TransactionID>
+          <TransactionPrice currencyID="USD">18.0</TransactionPrice>
+        </Transaction>
+      </TransactionArray>
+      <BuyerUserID>magicalbookseller</BuyerUserID>
+    </Order>
+  </OrderArray>
+</GetOrdersResponse>

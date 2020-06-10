@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASIInventory request="08/17/2018 08:51" excute="507">
+  <Inventory SKU="197491">
+    <ItemId>11266-09-20G</ItemId>
+    <Description><![CDATA[Sapphire Video Card 11266-09-20G NITRO+ RX 570 8GB GDDR5 PCI Express HDMI/DisplayPort/DL-DVI-D with Backplate Retail]]></Description>
+    <Vendor>Sapphire</Vendor>
+    <Category>VC</Category>
+    <SubCategory>141</SubCategory>
+    <UPC>840777077481</UPC>
+    <Price>441.31</Price>
+    <Rebate><![CDATA[Cn$19.79 rebate from 8/13/2018 to 8/31/2018 Cn$65.95 rebate from 8/16/2018 to 8/31/2018]]></Rebate>
+    <Term>none</Term>
+    <Weight>4</Weight>
+    <Status>ACTIVE</Status>
+    <Qty>
+      <Branch Code="2216" Name="Toronto">10</Branch>
+      <Branch Code="3116" Name="Vancouver">0</Branch>
+    </Qty>
+  </Inventory>
+</ASIInventory>
+
+<?xml version="1.0" encoding="utf-8"?>
+<ASIInventory request="08/17/2018 08:45" excute="512">
+  <Inventory SKU="197494">
+    <ItemId>11266-04-20G</ItemId>
+    <Description><![CDATA[Sapphire Video Card 11266-04-20G PULSE RX 570 4GB GDDR5 PCI Express HDMI/DisplayPort/DVI-D with Backplate Retail]]></Description>
+    <Vendor>Sapphire</Vendor>
+    <Category>VC</Category>
+    <SubCategory>141</SubCategory>
+    <UPC>840777077337</UPC>
+    <Price>397.17</Price>
+    <Rebate><![CDATA[Cn$19.79 rebate from 8/13/2018 to 8/31/2018 Cn$65.95 rebate from 8/16/2018 to 8/31/2018]]></Rebate>
+    <Term>none</Term>
+    <Weight>3</Weight>
+    <Status>ACTIVE</Status>
+    <Qty>
+      <Branch Code="2216" Name="Toronto">11</Branch>
+      <Branch Code="3116" Name="Vancouver">2</Branch>
+    </Qty>
+  </Inventory>
+</ASIInventory>
+
+<?xml version="1.0" encoding="utf-8"?>
+<ASIInventory request="08/17/2018 08:54" excute="475">
+  <Inventory SKU="197492">
+    <ItemId>11266-14-20G</ItemId>
+    <Description><![CDATA[Sapphire Video Card 11266-14-20G NITRO+ RX 570 4GB GDDR5 PCI Express HDMI/DisplayPort/DL-DVI-D with Backplate Retail]]></Description>
+    <Vendor>Sapphire</Vendor>
+    <Category>VC</Category>
+    <SubCategory>141</SubCategory>
+    <UPC>840777077979</UPC>
+    <Price>412.29</Price>
+    <Rebate><![CDATA[Cn$19.79 rebate from 8/13/2018 to 8/31/2018 Cn$65.95 rebate from 8/16/2018 to 8/31/2018]]></Rebate>
+    <Term>none</Term>
+    <Weight>4</Weight>
+    <Status>ACTIVE</Status>
+    <Qty>
+      <Branch Code="2216" Name="Toronto">38</Branch>
+      <Branch Code="3116" Name="Vancouver">17</Branch>
+    </Qty>
+  </Inventory>
+</ASIInventory>

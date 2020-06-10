@@ -1,0 +1,56 @@
+abstract class AmazonCore
+    ---- class AmazonServiceStatus extends AmazonCore
+    abstract class AmazonFeedsCore extends AmazonCore
+        class AmazonFeed extends AmazonFeedsCore
+        class AmazonFeedList extends AmazonFeedsCore
+        class AmazonFeedResult extends AmazonFeedsCore
+    abstract class AmazonFinanceCore extends AmazonCore
+        class AmazonFinancialEventList extends AmazonFinanceCore
+        class AmazonFinancialGroupList extends AmazonFinanceCore
+    abstract class AmazonInboundCore extends AmazonCore
+        class AmazonPreorder extends AmazonInboundCore
+        class AmazonPrepInfo extends AmazonInboundCore
+        class AmazonShipment extends AmazonInboundCore
+        class AmazonShipmentItemList extends AmazonInboundCore
+        class AmazonShipmentList extends AmazonInboundCore
+        class AmazonShipmentPlanner extends AmazonInboundCore
+        class AmazonTransport extends AmazonInboundCore
+        class AmazonTransportDocument extends AmazonInboundCore
+    abstract class AmazonInventoryCore extends AmazonCore
+        class AmazonInventoryList extends AmazonInventoryCore
+    abstract class AmazonMerchantCore extends AmazonCore
+        class AmazonMerchantServiceList extends AmazonMerchantCore
+        class AmazonMerchantShipment extends AmazonMerchantCore
+        class AmazonMerchantShipmentCreator extends AmazonMerchantCore
+    abstract class AmazonOrderCore extends AmazonCore
+        class AmazonOrder extends AmazonOrderCore
+        class AmazonOrderItemList extends AmazonOrderCore
+        class AmazonOrderList extends AmazonOrderCore
+        class AmazonOrderSet extends AmazonOrderCore
+    abstract class AmazonOutboundCore extends AmazonCore
+        class AmazonFulfillmentOrder extends AmazonOutboundCore
+        class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
+        class AmazonFulfillmentOrderList extends AmazonOutboundCore
+        class AmazonFulfillmentPreview extends AmazonOutboundCore
+        class AmazonPackageTracker extends AmazonOutboundCore
+    abstract class AmazonProductsCore extends AmazonCore
+        class AmazonProduct extends AmazonProductsCore
+        class AmazonProductList extends AmazonProductsCore
+        class AmazonProductInfo extends AmazonProductsCore
+        class AmazonProductSearch extends AmazonProductsCore
+    abstract class AmazonRecommendationCore extends AmazonCore
+        class AmazonRecommendationList extends AmazonRecommendationCore
+    abstract class AmazonReportsCore extends AmazonCore
+        class AmazonReport extends AmazonReportsCore
+        class AmazonReportAcknowledger extends AmazonReportsCore
+        class AmazonReportList extends AmazonReportsCore
+        class AmazonReportRequest extends AmazonReportsCore
+        class AmazonReportScheduleList extends AmazonReportsCore
+        class AmazonReportRequestList extends AmazonReportsCore
+        class AmazonReportScheduleManager extends AmazonReportsCore
+    abstract class AmazonSellersCore extends AmazonCore
+        class AmazonParticipationList extends AmazonSellersCore
+    abstract class AmazonSubscriptionCore extends AmazonCore
+        class AmazonSubscription extends AmazonSubscriptionCore
+        class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore
+        class AmazonSubscriptionList extends AmazonSubscriptionCore

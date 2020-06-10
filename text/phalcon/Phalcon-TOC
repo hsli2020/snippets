@@ -1,0 +1,601 @@
+Table of Contents
+
+Installation
+    Phalcon Developer Tools
+
+Tutorials
+    Tutorial 1: Let’s learn by example
+        File structure
+        Bootstrap
+            Autoloaders
+            Dependency Management
+            Handling the application request
+            Putting everything together
+        Creating a Controller
+        Sending output to a view
+        Designing a sign up form
+        Creating a Model
+        Setting a Database Connection
+        Storing data using models
+        Conclusion
+    Tutorial 2: Introducing INVO
+        Project Structure
+        Routing
+        Configuration
+        Autoloaders
+        Registering services
+        Handling the Request
+        Dependency Injection
+    Tutorial 3: Securing INVO
+        Log into the Application
+        Securing the Backend
+            Events Management
+            Providing an ACL list
+    Tutorial 4: Working with the CRUD
+        The Search Form
+        Performing a Search
+        Creating and Updating Records
+    Tutorial 5: Customizing INVO
+        User Components
+        Changing the Title Dynamically
+    Tutorial 6: Vökuró
+        Project Structure
+        Load Classes and Dependencies
+        Sign Up
+    Tutorial 7: Creating a Simple REST API
+        Defining the API
+        Creating the Application
+        Creating a Model
+        Retrieving Data
+        Inserting Data
+        Updating Data
+        Deleting Data
+        Testing our Application
+        Conclusion
+
+Components
+
+    Dependency Injection/Service Location
+        Registering services in the Container
+            Simple Registration
+            Complex Registration
+            Array Syntax
+        Resolving Services
+            Events
+        Shared services
+        Manipulating services individually
+        Instantiating classes via the Service Container
+        Automatic Injecting of the DI itself
+        Organizing services in files
+        Accessing the DI in a static way
+        Factory Default DI
+        Service Name Conventions
+        Implementing your own DI
+    The MVC Architecture
+        Models
+        Views
+        Controllers
+    Using Controllers
+        Dispatch Loop
+        Initializing Controllers
+        Injecting Services
+        Request and Response
+        Session Data
+        Using Services as Controllers
+        Events in Controllers
+    Working with Models
+        Creating Models
+            Public properties vs. Setters/Getters
+        Understanding Records To Objects
+        Finding Records
+            Model Resultsets
+            Filtering Resultsets
+            Binding Parameters
+        Initializing/Preparing fetched records
+        Generating Calculations
+        Creating/Updating Records
+            Create/Update with Confidence
+        Deleting Records
+    Model Relationships
+        Relationships between Models
+            Unidirectional relationships
+            Bidirectional relations
+            Defining relationships
+            Taking advantage of relationships
+            Aliasing Relationships
+            Magic Getters vs. Explicit methods
+        Virtual Foreign Keys
+            Cascade/Restrict actions
+        Storing Related Records
+        Operations over Resultsets
+            Updating related records
+            Deleting related records
+    Model Events
+        Events and Events Manager
+            Implementing Events in the Model’s class
+            Using a custom Events Manager
+        Logging Low-Level SQL Statements
+        Profiling SQL Statements
+    Model Behaviors
+        Timestampable
+        SoftDelete
+        Creating your own behaviors
+        Using Traits as behaviors
+    Models Metadata
+        Caching Metadata
+        Metadata Strategies
+            Database Introspection Strategy
+            Annotations Strategy
+        Manual Metadata
+    Model Transactions
+        Manual Transactions
+        Implicit Transactions
+        Isolated Transactions
+    Validating Models
+        Validating Data Integrity
+        Validation Messages
+        Validation Failed Events
+    Working with Models (Advanced)
+        Hydration Modes
+        Auto-generated identity columns
+        Skipping Columns
+            Dynamic Update
+        Independent Column Mapping
+        Record Snapshots
+        Pointing to a different schema
+        Setting multiple databases
+        Injecting services into Models
+        Disabling/Enabling Features
+        Stand-Alone component
+    Phalcon Query Language (PHQL)
+        Usage Example
+        Creating PHQL Queries
+        Selecting Records
+            Result Types
+            Joins
+            Aggregations
+            Conditions
+        Inserting Data
+        Updating Data
+        Deleting Data
+        Creating queries using the Query Builder
+            Bound Parameters
+        Disallow literals in PHQL
+        Escaping Reserved Words
+        PHQL Lifecycle
+        Using Raw SQL
+        Troubleshooting
+    Caching in the ORM
+        Caching Resultsets
+        Forcing Cache
+        Caching PHQL Queries
+        Reusable Related Records
+        Caching Related Records
+        Caching Related Records Recursively
+        Caching based on Conditions
+        Caching of PHQL planning
+    ODM (Object-Document Mapper)
+        Creating Models
+        Understanding Documents To Objects
+        Models in Namespaces
+        Setting a Connection
+        Finding Documents
+        Aggregations
+        Creating Updating/Records
+            Validation Messages
+            Validation Events and Events Manager
+            Implementing a Business Rule
+            Validating Data Integrity
+        Deleting Records
+        Validation Failed Events
+        Implicit Ids vs. User Primary Keys
+        Setting multiple databases
+        Injecting services into Models
+    Using Views
+        Integrating Views with Controllers
+        Hierarchical Rendering
+            Using Templates
+            Control Rendering Levels
+            Disabling render levels
+            Picking Views
+            Disabling the view
+        Simple Rendering
+        Using Partials
+        Transfer values from the controller to views
+        Caching View Fragments
+        Template Engines
+            Creating your own Template Engine Adapter
+            Changing the Template Engine
+        Injecting services in View
+        Stand-Alone Component
+            Hierarchical Rendering
+            Simple Rendering
+        View Events
+    View Helpers (Tags)
+        Document Type of Content
+        Generating Links
+        Creating Forms
+        Helpers to Generate Form Elements
+        Making Select Boxes
+        Assigning HTML attributes
+        Setting Helper Values
+            From Controllers
+            From the Request
+            Specifying values directly
+        Changing dynamically the Document Title
+        Static Content Helpers
+            Images
+            Stylesheets
+            Javascript
+            HTML5 elements - generic HTML helper
+        Tag Service
+        Creating your own helpers
+    Assets Management
+        Adding Resources
+        Local/Remote resources
+        Collections
+        URL Prefixes
+        Minification/Filtering
+            Built-In Filters
+            Custom Filters
+        Custom Output
+    Volt: Template Engine
+        Introduction
+        Activating Volt
+        Basic Usage
+        Variables
+        Filters
+        Comments
+        List of Control Structures
+            For
+            Loop Controls
+            If
+            Loop Context
+        Assignments
+        Expressions
+            Literals
+            Arrays
+            Math
+            Comparisons
+            Logic
+            Other Operators
+        Tests
+        Macros
+        Using Tag Helpers
+        Functions
+        View Integration
+            Include
+            Partial vs Include
+        Template Inheritance
+            Multiple Inheritance
+        Autoescape mode
+        Extending Volt
+            Functions
+            Filters
+            Extensions
+        Caching view fragments
+        Inject Services into a Template
+        Stand-alone component
+        External Resources
+    MVC Applications
+        Single or Multi Module Applications
+            Single Module
+            Multi Module
+        Application Events
+        External Resources
+    Routing
+        Defining Routes
+            Parameters with Names
+            Short Syntax
+            Mixing Array and Short Syntax
+            Routing to Modules
+            HTTP Method Restrictions
+            Using conversors
+            Groups of Routes
+        Matching Routes
+        Naming Routes
+        Usage Examples
+        Default Behavior
+        Setting the default route
+        Not Found Paths
+        Setting default paths
+        Dealing with extra/trailing slashes
+        Match Callbacks
+        Hostname Constraints
+        URI Sources
+        Testing your routes
+        Annotations Router
+        Registering Router instance
+        Implementing your own Router
+    Dispatching Controllers
+        The Dispatch Loop
+            Dispatch Loop Events
+        Forwarding to other actions
+        Preparing Parameters
+        Getting Parameters
+        Preparing actions
+            Camelize action names
+            Remove legacy extensions
+            Inject model instances
+        Handling Not-Found Exceptions
+        Implementing your own Dispatcher
+    Micro Applications
+        Creating a Micro Application
+        Defining routes
+            Routes with Parameters
+            Starting Route
+            Rewrite Rules
+        Working with Responses
+        Making redirections
+        Generating URLs for Routes
+        Interacting with the Dependency Injector
+        Not-Found Handler
+        Models in Micro Applications
+        Micro Application Events
+        Middleware events
+        Using Controllers as Handlers
+        Returning Responses
+        Rendering Views
+        Error Handling
+        Related Sources
+    Working with Namespaces
+        Setting up the framework
+        Controllers in Namespaces
+        Models in Namespaces
+    Events Manager
+        Naming Convention
+        Usage Example
+        Creating components that trigger Events
+        Using Services From The DI
+        Event Propagation/Cancellation
+        Listener Priorities
+        Collecting Responses
+        Implementing your own EventsManager
+    Request Environment
+        Getting Values
+        Accessing the Request from Controllers
+        Uploading Files
+        Working with Headers
+    Returning Responses
+        Working with Headers
+        Making Redirections
+        HTTP Cache
+            Setting an Expiration Time
+            Cache-Control
+            E-Tag
+    Cookies Management
+        Basic Usage
+        Encryption/Decryption of Cookies
+    Generating URLs and Paths
+        Setting a base URI
+        Generating URIs
+        Producing URLs without mod_rewrite
+        Producing URLs from Volt
+        Static vs. Dynamic URIs
+        Implementing your own URL Generator
+    Flashing Messages
+        Adapters
+        Usage
+        Printing Messages
+        Implicit Flush vs. Session
+    Storing data in Session
+        Starting the Session
+        Storing/Retrieving data in Session
+        Removing/Destroying Sessions
+        Isolating Session Data between Applications
+        Session Bags
+        Persistent Data in Components
+        Implementing your own adapters
+    Filtering and Sanitizing
+        Types of Built-in Filters
+        Sanitizing data
+        Sanitizing from Controllers
+        Filtering Action Parameters
+        Filtering data
+        Combining Filters
+        Creating your own Filters
+        Complex Sanitizing and Filtering
+        Implementing your own Filter
+    Contextual Escaping
+        Escaping HTML
+        Escaping HTML Attributes
+        Escaping URLs
+        Escaping CSS
+        Escaping JavaScript
+    Validation
+        Initializing Validation
+        Validators
+        Validation Messages
+        Filtering of Data
+        Validation Events
+        Cancelling Validations
+        Avoid validate empty values
+        Recursive Validation
+    Forms
+        Initializing forms
+        Validation
+        Filtering
+        Forms + Entities
+        Form Elements
+        Event Callbacks
+        Rendering Forms
+        Creating Form Elements
+        Forms Manager
+        External Resources
+    Reading Configurations
+        Native Arrays
+        File Adapters
+        Reading INI Files
+        Merging Configurations
+        Injecting Configuration Dependency
+    Pagination
+        Data Adapters
+        Examples
+        Adapters Usage
+        Page Attributes
+        Implementing your own adapters
+    Improving Performance with Cache
+        When to implement cache?
+        Caching Behavior
+        Caching Output Fragments
+        Caching Arbitrary Data
+            File Backend Example
+            Memcached Backend Example
+        Querying the cache
+        Deleting data from the cache
+        Checking cache existence
+        Lifetime
+        Multi-Level Cache
+        Frontend Adapters
+            Implementing your own Frontend adapters
+        Backend Adapters
+            Implementing your own Backend adapters
+            File Backend Options
+            Memcached Backend Options
+            APC Backend Options
+            Mongo Backend Options
+            XCache Backend Options
+            Redis Backend Options
+    Security
+        Password Hashing
+        Cross-Site Request Forgery (CSRF) protection
+        Setting up the component
+        Random
+        External Resources
+    Encryption/Decryption
+        Basic Usage
+        Encryption Options
+        Base64 Support
+        Setting up an Encryption service
+    Access Control Lists (ACL)
+        Creating an ACL
+        Adding Roles to the ACL
+        Adding Resources
+        Defining Access Controls
+        Querying an ACL
+        Function based access
+        Objects as role name and resource name
+        Roles Inheritance
+        Serializing ACL lists
+        ACL Events
+        Implementing your own adapters
+    Multi-lingual Support
+        Adapters
+        Component Usage
+        Implementing your own adapters
+    Class Autoloader
+        Security Layer
+        Registering Namespaces
+        Registering Directories
+        Registering Classes
+        Registering Files
+        Additional file extensions
+        Modifying current strategies
+        Autoloading Events
+        Troubleshooting
+    Logging
+        Adapters
+        Creating a Log
+        Transactions
+        Logging to Multiple Handlers
+        Message Formatting
+            Line Formatter
+            Implementing your own formatters
+        Adapters
+            Stream Logger
+            File Logger
+            Syslog Logger
+            FirePHP Logger
+            Implementing your own adapters
+    Annotations Parser
+        Reading Annotations
+        Types of Annotations
+        Practical Usage
+            Cache Enabler with Annotations
+            Private/Public areas with Annotations
+        Annotations Adapters
+            Implementing your own adapters
+        External Resources
+    Command Line Applications
+        Structure
+        Creating a Bootstrap
+        Tasks
+        Processing action parameters
+        Running tasks in a chain
+    Images
+        Adapters
+            Implementing your own adapters
+        Saving and rendering images
+        Resizing images
+        Cropping images
+        Rotating images
+        Flipping images
+        Sharpening images
+        Adding watermarks to images
+        Blurring images
+        Pixelating images
+    Queueing
+        Putting Jobs into the Queue
+        Retrieving Messages
+    Database Abstraction Layer
+        Database Adapters
+            Implementing your own adapters
+        Database Dialects
+            Implementing your own dialects
+        Connecting to Databases
+        Setting up additional PDO options
+        Finding Rows
+        Binding Parameters
+        Inserting/Updating/Deleting Rows
+        Transactions and Nested Transactions
+        Database Events
+        Profiling SQL Statements
+        Logging SQL Statements
+            Implementing your own Logger
+        Describing Tables/Views
+        Creating/Altering/Dropping Tables
+            Creating Tables
+            Altering Tables
+            Dropping Tables
+    Internationalization
+        Find out best available Locale
+        Formatting messages based on Locale
+        Locale-Sensitive comparison
+        Transliteration
+    Database Migrations
+        Schema Dumping
+        Migration Class Anatomy
+            Defining Columns
+            Defining Indexes
+            Defining References
+        Writing Migrations
+        Running Migrations
+    Debugging Applications
+        Catching Exceptions
+        Debug component
+        Reflection and Introspection
+        Using XDebug
+    Unit testing
+        Integrating PHPunit with phalcon
+        The PHPunit helper file
+        PHPunit.xml file
+        Sample unit test
+
+In Depth Explanations / Further Reading
+
+    Increasing Performance: What’s next?
+        Profile on the Server
+            Profiling with XDebug
+            Profiling with Xhprof
+            Profiling SQL Statements
+        Profile on the Client
+            Profile with Chrome/Firefox
+        Yahoo! YSlow
+            Profile with Speed Tracer
+        Use a recent PHP version
+        Use a PHP Bytecode Cache
+        Do blocking work in the background
+        Google Page Speed
+    Dependency Injection Explained
+    Understanding How Phalcon Applications Work
+        Manual bootstrapping
