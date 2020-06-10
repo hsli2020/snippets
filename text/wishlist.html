@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Wishlist</title>
+  <base target="_blank">
+  <style>
+    body { width: 960px; margin: 0 auto; }
+    table { border-collapse: collapse; width: 100%; }
+    table, td, th { border: 1px solid gray; padding: 8px 10px; }
+    a { text-decoration: none; }
+    .hdr { background-color: #eee; }
+  </style>
+</head>
+<body>
+  <h3>Wish List / Watch List</h3>
+  <div id="container"></div>
+
+  <script type="text/javascript">
+    function render(items, el) {
+      var html = '';
+
+      var subtitle = function(str) {
+        str = str.substring(1);
+        return '<tr class=""><td colspan="5"><b>' + str + '</b></td></tr>';
+      };
+
+      var addRow = function(item) {
+        var url = "https://www.amazon.ca/dp/" + item.asin;
+        var link = '<a href="' + url + '">' + url + '</a>';
+
+        var html = '<tr>';
+
+        html += '<td>' + link + '</td>';
+        html += '<td>' + item.name + '</td>';
+        html += '<td>' + item.price + '</td>';
+        html += '<td>' + item.date + '</td>';
+        html += '<td>' + item.note + '</td>';
+        html += '</tr>';
+
+        return  html;
+      };
+
+      html += '<table>';
+      html += '<tr class="hdr">';
+      html += '<th>Item</th>';
+      html += '<th>Name</th>';
+      html += '<th>Price</th>';
+      html += '<th>Date</th>';
+      html += '<th>Note</th>';
+      html += '</tr>';
+
+      for (var i = 0; i < items.length; i++) {
+        if (typeof items[i] === 'string') {
+          var text = items[i];
+          if (text.charAt(0) == '#') {
+            html += subtitle(text);
+          } else if (text.charAt(0) == '-') {
+            html += '<tr><td colspan="5">&nbsp;</td></tr>';
+          }
+        } else {
+          html += addRow(items[i]);
+        }
+      }
+
+      html += "</table>";
+
+      el.innerHTML = html;
+    }
+  </script>
+
+  <script type="text/javascript">
+    var wishlist = [
+      "#SSD Portable",
+      { asin: "B073GZBT36", name: "Samsung T5 SSD",                price: "$105",    date: "", note: "500GB" },
+      { asin: "B07C5BG857", name: "WD 512G SSD",                   price: "$119.99", date: "", note: "" },
+      { asin: "B078SWJ3CF", name: "SanDisk 500GB SSD",             price: "$129.99", date: "", note: "" },
+
+      "#SSD 1TB",
+      { asin: "B07B3QKCZB", name: "Samsung T5 Portable SSD - 1TB", price: "$249.98", date: "", note: "Portable" },
+      { asin: "B078DPCY3T", name: "Samsung 860 EVO 1TB",           price: "$169.99", date: "", note: "Black" },
+      { asin: "B073SBQMCX", name: "WD Blue 3D NAND 1TB PC SSD",    price: "$144.99", date: "", note: "" },
+      { asin: "B078211KBB", name: "Crucial MX500 1TB 3D NAND",     price: "$142.94", date: "", note: "" },
+      { asin: "B079XC5PVV", name: "Kingston 960GB A400 SSD",       price: "$125.46", date: "", note: "Black" },
+
+      "#USB",
+      { asin: "B00C5K8E1A", name: "Kingston 32G USB",              price: "$6.99",   date: "", note: "Black" },
+      { asin: "B00C5K8CQ2", name: "Kingston 64G USB",              price: "$13.99",  date: "", note: "Black" },
+      { asin: "B00G9WHMYK", name: "Kingston 64G USB",              price: "$13.5",   date: "", note: "Plastic" },
+      { asin: "B00SOL9Z1M", name: "Kingston 64G USB",              price: "$15.5",   date: "", note: "Metal" },
+
+      "#RM Radio",
+      { asin: "B071NMCVM5", name: "Retekess V115",                 price: "$36.99",  date: "", note: "+MP3" },
+      { asin: "B07C86172R", name: "Retekess PR12",                 price: "$28.99",  date: "", note: "no MP3" },
+      { asin: "B07TJ7PTJJ", name: "J-725C Radio",                  price: "$27.99",  date: "", note: "+MP3" },
+
+      "#Cordless Phone",
+      { asin: "B008UZDT6O", name: "Vtech Dect 6.0",                price: "$29.99",  date: "", note: "+MP3" },
+    ];
+
+    var container = document.getElementById("container");
+    render(wishlist, container);
+  </script>
+</body>
+</html>

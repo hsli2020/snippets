@@ -1,0 +1,122 @@
+Svelte Tutorial Content
+=======================
+
+1. Introduction
+v   a. Basics
+v   b. Adding data
+v   c. Dynamic attributes
+v   d. Styling
+v   e. Nested components
+v   f. HTML tags
+    g. Making an app
+
+2. Reactivity
+v   a. Assignments
+v   b. Declarations
+v   c. Statements
+v   d. Updating arrays and objects
+
+3. Props
+v   a. Declaring props   export let name;
+v   b. Default values    export let name="Default";
+v   c. Spread props      <Info {...pkg}/>
+
+4. Logic
+v   a. If blocks             {#if user.loggedIn} {/if}
+v   b. Else blocks           {#if user.loggedIn} {:else} {/if}
+v   c. Else-if blocks
+v   d. Each blocks           {#each cats as cat, i} {/each}
+    e. Keyed each blocks
+    f. Await blocks
+
+5. Events
+v   a. DOM events            <div on:mousemove={handleMousemove}></div>
+v   b. Inline handlers       <div on:mousemove="{e => m = { x: e.clientX, y: e.clientY }}"></div>
+v   c. Event modifiers       <button on:click|once={handleClick}></button>
+v   d. Component events
+v   e. Event forwarding
+v   f. DOM event forwarding
+
+6. Bindings
+v   a. Text inputs           <input bind:value={name}>
+v   b. Numeric inputs
+v   c. Checkbox inputs       <input type=checkbox bind:checked={yes}>
+v   d. Group inputs          <input type=radio bind:group={scoops} value={1}>
+v   e. Textarea inputs       <textarea bind:value={value}></textarea>
+v   f. Select bindings
+v   g. Select multiple
+v   h. Contenteditable bindings <div contenteditable="true" bind:innerHTML={html}></div>
+v   i. Each block bindings
+v   j. Media elements
+v   k. Dimensions            <div bind:clientWidth={w} bind:clientHeight={h}></div>
+v   l. This                  <canvas bind:this={canvas} width={32} height={32}></canvas>
+v   m. Component bindings    <Keypad bind:value={pin} on:submit={handleSubmit}/>
+
+7. Lifecycle
+v   a. onMount
+v   b. onDestroy
+v   c. beforeUpdate and afterUpdate
+    d. tick
+
+8. Stores
+v   a. Writable stores
+v   b. Auto-subscriptions    <h1>The count is {$count}</h1>
+v   c. Readable stores
+    d. Derived stores
+    e. Custom stores
+    f. Store bindings        <input bind:value={$name}>
+
+9. Motion
+    a. Tweened
+    b. Spring
+
+10. Transitions
+    a. The transition directive
+    b. Adding parameters
+    c. In and out
+    d. Custom CSS transitions
+    e. Custom JS transitions
+    f. Transition events
+    g. Local transitions
+    h. Deferred transitions
+
+11. Animations
+    a. The animate directive
+
+12. Actions
+    a. The use directive
+    b. Adding parameters
+
+13. Classes
+    a. The class directive        <button class:active="{current === 'foo'}" 
+										  on:click="{() => current = 'foo'}">foo</button>
+    b. Shorthand class directive  <div class:big></div>
+
+14. Component composition
+v   a. Slots
+v   b. Slot fallbacks
+v   c. Named slots
+    d. Slot props
+
+15. Context API
+v   a. setContext and getContext
+
+16. Special elements
+v   a. <svelte:self>
+v   b. <svelte:component>       <svelte:component this={selected.component}/>
+v   c. <svelte:window>          <svelte:window on:keydown={handleKeydown}/>
+v   d. <svelte:window> bindings <svelte:window bind:scrollY={y}/>
+v   e. <svelte:body>            <svelte:body on:mouseenter={handleMouseenter} 
+											 on:mouseleave={handleMouseleave}/>
+v   f. <svelte:head>            <svelte:head><link rel="stylesheet" href="theme.css"></svelte:head>
+    g. <svelte:options>         <svelte:options immutable={true}/>
+
+17. Module context
+    a. Sharing code             <script context="module">let current;</script>
+    b. Exports
+
+18. Debugging
+v   a. The @debug tag
+
+19. Next steps
+v   a. Congratulations!

@@ -1,0 +1,597 @@
+	ctx.JSON(iris.Map{"success": true})
+    ctx.JSON(messageNumber{Number: ints[i]})
+    ctx.JSON(map[string]interface{}{
+    ctx.JSON(files.items)
+	ctx.HTML(contents)
+	ctx.HTML(recaptcha.GetFormHTML(recaptchaPublic, path))
+    ctx.HTML("<b>Hello!</b>")
+    ctx.Text("Hello World!")
+    ctx.Text("success!\n")
+    ctx.Text("Plain text here")
+    ctx.XML(myXML{Result: "Hello World!"})
+    ctx.XML(ExampleXML{One: "hello", Two: "xml"}) // or iris.Map{"One":"hello"...}
+
+    ctx.StatusCode(iris.StatusOK)
+    ctx.StatusCode(iris.StatusBadRequest)
+    ctx.StatusCode(iris.StatusInternalServerError)
+    ctx.StatusCode(iris.StatusRequestEntityTooLarge)
+    ctx.StatusCode(iris.StatusForbidden)
+	ctx.StatusCode(iris.StatusNotFound).
+    ctx.StatusCode(iris.StatusLengthRequired)
+
+	ctx.Header("X-Custom", "my custom header")
+    ctx.Header("Transfer-Encoding", "chunked")
+    ctx.Header("App-Name", b.AppName)
+    ctx.Header("App-Owner", b.AppOwner)
+    ctx.Header("App-Since", time.Since(b.AppSpawnDate).String())
+    ctx.Header("Server", "Iris: https://iris-go.com")
+
+    ctx.Writef("%v", err)
+	ctx.Writef("Hello World! %s", time.Now())
+    ctx.Writef("cookie added: %s = %s", name, value)
+    ctx.Writef("Hello %s", cm.Username(ctx.Request()))
+    ctx.Writef("Hello %s", cm.Username(ctx.Request()))
+	ctx.Writef("%s %s:%s", ctx.Path(), username, password)
+    ctx.Writef("Hello from %s", ctx.Path())
+	ctx.Writef("Received: %#+v\n", c)
+    ctx.Writef("Hello %s", ctx.Params().Get("username"))
+    ctx.Writef(err.Error())
+	ctx.Writef("from "+ctx.GetCurrentRoute().Path()+" with ID: %d", id)
+    ctx.Writef("subdomain is: " + ctx.Subdomain())
+	ctx.Markdown(markdownContents)
+
+    ctx.Application().Logger().Warn(err.Error())
+    ctx.Application().Logger().Infof(err.Error())
+    ctx.Application().Logger().Warnf("Error while uploading: %v", err.Error())
+	ctx.Application().Logger().Infof("donate_url value was: " + donateURL)
+    ctx.Application().Logger().Infof("response sent to " + ctx.Path())
+    ctx.Application().Logger().Infof("Path: %s", ctx.Path())
+    ctx.Application().Logger().Warnf("Inside /custom_path")
+    ctx.Application().Logger().Info("Request path: " + ctx.Path())
+	ctx.Application().Logger().Infof("Executing .HTML function from MyContext")
+	ctx.Application().Logger().Infof("(%s) Handler is executing from: '%s'", ctx.Path(), reflect.TypeOf(ctx).Elem().Name())
+    ctx.Application().Logger().Warnf("Error while preparing the new file: %v", err.Error())
+    ctx.Application().Logger().Infof(err.Error())
+
+    if err := ctx.View("user.html"); err != nil {
+    if err := ctx.View("form.html"); err != nil {
+    if err := ctx.View("index.html"); err != nil {
+    if err := ctx.View("page1.html"); err != nil {
+    if err := ctx.View("page.html"); err != nil {
+
+    ctx.View("index.html")
+    ctx.View("user/signup.html")
+    ctx.View("upload_form.html", token)
+    ctx.View("index.pug", person)
+    ctx.View("index.pug")
+
+    ctx.ViewLayout(iris.NoLayout)
+    ctx.ViewLayout(DefaultLayout)
+
+    ctx.ViewData(csrf.TemplateTag, csrf.TemplateField(ctx))
+    ctx.ViewData("Page", page)
+    ctx.ViewData("message", "Hello World!")
+    ctx.ViewData("name", ctx.Params().Get("name"))
+    ctx.ViewData("Message", ctx.Values().
+    ctx.ViewData("firstname", firstname)
+    ctx.ViewData("Err", err)
+    ctx.ViewData("AppName", b.AppName)
+    ctx.ViewData("AppOwner", b.AppOwner)
+    ctx.ViewData("Title", "Index Page")
+    ctx.ViewData("URL_COUNT", db.Len())
+    ctx.ViewData("FORM_RESULT", "You need to a enter a URL")
+    ctx.ViewData("FORM_RESULT", "Invalid URL")
+    ctx.ViewData("FORM_RESULT", "Internal error while saving the URL")
+    ctx.ViewData("FORM_RESULT",
+    ctx.ViewData("CurrentTime", now)
+    ctx.ViewData("BodyMessage", "a sample text here... setted by the route handler")
+    ctx.ViewData("BodyMessage", "about text here... setted by the route handler")
+    ctx.ViewData("ParamsAsArray", paramsAsArray)
+    ctx.ViewData("youAreUsingJade", true)
+    ctx.ViewData("", token)
+    ctx.ViewData("", user)
+    ctx.ViewData("", gothUser)
+    ctx.ViewData("", providerIndex)
+    ctx.ViewData("", myCcustomStruct{})
+    ctx.ViewData("", mypage{"My Page title", "Hello world!"})
+    ctx.ViewData("", clientPage{"Client Page", "localhost:8080"})
+    ctx.ViewData("", clientPage{"Client Page", "localhost:8080"})
+    ctx.ViewData("", clientPage{"Client Page", ctx.Host()})
+    ctx.ViewData("", page{PageID: "index page"})
+    ctx.ViewData("", page{PageID: "other page"})
+
+    name := ctx.Params().Get("name")
+    value := ctx.Params().Get("value")
+    value := ctx.URLParam("key")
+	if p := ctx.Params().Get("provider"); p != "" {
+    userID, err := ctx.Params().GetInt("userid")
+    friendid, _ := ctx.Params().GetInt("friendid")
+	param := ctx.Params().Get("p")
+	ctx.Params().Visit(func(name string, value string) {
+    id, _ := ctx.Params().GetInt("id")
+	paramsLen := ctx.Params().Len()
+    paramValue := ctx.Params().Get("anythingparameter")
+    name := sess.Start(ctx).GetString(ctx.Params().Get("key"))
+    key, value := ctx.Params().Get("key"), ctx.Params().Get("value")
+    key := ctx.Params().Get("key")
+    value, _ := ctx.Params().GetInt("value")
+    key := ctx.Params().Get("key")
+	id, _ := ctx.Params().GetInt64("id")
+    routeName := ctx.Params().Get("namedRoute")
+
+	username, password, _ := ctx.Request().BasicAuth()
+	if p := ctx.URLParam("provider"); p != "" {
+	if p := ctx.Values().GetString("provider"); p != "" {
+	state := ctx.URLParam("state")
+	return ctx.URLParam("state")
+	_, err = sess.Authorize(provider, ctx.Request().URL.Query())
+	// 	if modified, err := ctx.CheckIfModifiedSince(now.Add(-refresh)); !modified && err == nil {
+	// 		ctx.WriteNotModified()
+	// 	ctx.SetLastModified(now)
+	// 	ctx.Next()
+// because of the `ctx.ResponseWriter()` and `ctx.Request()` are the original
+	w, r := ctx.ResponseWriter(), ctx.Request()
+		ctx.SetCookieKV(name, value) // <--
+		// Alternatively: ctx.SetCookie(&http.Cookie{...})
+		// ctx.SetCookieKV(name, value, iris.CookiePath("/custom/path/cookie/will/be/stored"))
+		// ctx.SetCookieKV(name, value, iris.CookieCleanPath /* or iris.CookiePath("") */)
+		value := ctx.GetCookie(name) // <--
+		// cookie, err := ctx.Request().Cookie(name)
+		ctx.RemoveCookie(name) // <--
+		// ctx.SetCookieKV(name, value, iris.CookiePath("/custom/path/cookie/will/be/stored"))
+		ctx.SetCookieKV(name, value, iris.CookieEncode(sc.Encode)) // <--
+		value := ctx.GetCookie(name, iris.CookieDecode(sc.Decode)) // <--
+		ctx.RemoveCookie(name) // <--
+
+    ctx.WriteString(value)
+    ctx.WriteString(value)
+    ctx.WriteString("Hello from /home")
+    ctx.WriteString("Hello from /about")
+    ctx.WriteString("sent")
+    ctx.WriteString("updated")
+    ctx.WriteString("deleted")
+    ctx.WriteString("pong")
+    ctx.WriteString(err.Error())
+    ctx.WriteString(err.Error())
+
+    ctx.Redirect("/")
+    ctx.Redirect(r.Path)
+	ctx.Redirect(url, iris.StatusTemporaryRedirect)
+
+	// set it in the request header - ctx.GetHeader("X-CSRF-Token", token)
+	user := ctx.Values().Get("jwt").(*jwt.Token)
+		ctx.SendFile(file, "c.zip")
+	// 	ctx.ServeFile("index.html", false)
+		ctx.ReadForm(&form)
+	file, info, err := ctx.FormFile("poster")
+	genre := ctx.FormValue("genre")
+	if err := ctx.UnmarshalBody(&c, nil); err != nil {
+// Can be used as: ctx.UnmarshalBody(&c, DefaultBodyDecoder)
+	// so we can use it directly, like the json.Unmarshal(ctx.ReadJSON), xml.Unmarshal(ctx.ReadXML)
+	if err := ctx.UnmarshalBody(&c, iris.UnmarshalerFunc(yaml.Unmarshal)); err != nil {
+		err := ctx.ReadForm(&visitor)
+		username := ctx.PostValueDefault("Username", "iris")
+
+	if err := ctx.ReadJSON(&c); err != nil {
+	err := ctx.ReadJSON(&persons)
+    ctx.ReadJSON(&user)
+    ctx.ReadJSON(&items)
+
+	if err := ctx.ReadXML(&p); err != nil {
+
+		// if !empty then its contents derives from `ctx.Values().Get("logger_message")
+		// if !empty then its contents derives from `ctx.GetHeader("User-Agent")
+		ctx.Values().Set("logger_message",
+		path := ctx.Path()
+	1. The faster way to check the size is using the `ctx.GetContentLength()` which returns the whole request's size
+		if ctx.GetContentLength() > maxSize { // + 2 << 20 {
+	or the `ctx.SetMaxRequestBodySize(maxSize)` to limit the request based on a customized logic inside a particular handler, they're the same,
+	2. You can force-limit the request body size inside a handler using the `ctx.SetMaxRequestBodySize(maxSize)`,
+		ctx.SetMaxRequestBodySize(maxSize)
+	3. Another way is to receive the data and check the second return value's `Size` value of the `ctx.FormFile`, i.e `info.Size`, this will give you
+		file, info, err := ctx.FormFile("uploadfile")
+		file, info, err := ctx.FormFile("uploadfile")
+		ctx.UploadFormFiles("./uploads", beforeSave)
+	ip := ctx.RemoteAddr()
+		// ctx.Write(buffer.Bytes())
+		// _, err := template.UserListToWriter(userList, ctx.GzipResponseWriter())
+		_, err := ctx.Write(buffer.Bytes())
+
+	ctx.Gzip(true)
+
+    ctx.ContentType("text/html")
+    ctx.ContentType("application/json")
+    ctx.ContentType("application/javascript")
+
+	templates.WriteTemplate(ctx.ResponseWriter(), tmpl)
+		Vars: ctx.GetViewData(),
+		ctx.StreamWriter(func(w io.Writer) bool {
+			ctx.ResponseWriter().Flush()
+		ctx.BeginTransaction(func(t *context.Transaction) {
+				// NOTE: if empty reason then the default or the custom http error will be fired (like ctx.FireStatusCode)
+		ctx.BeginTransaction(func(t *context.Transaction) {
+		ctx.WriteGzip([]byte("Hello World!"))
+		ctx.GzipResponseWriter().WriteString("Hello World!")
+		ctx.Binary([]byte("Some binary data here."))
+		ctx.JSONP(map[string]string{"hello": "jsonp"}, context.JSONP{Callback: "callbackName"})
+		ctx.Markdown([]byte("# Hello Dynamic Markdown -- iris"))
+		// ctx.Values().GetString("language")
+		// hi := ctx.Translate("hi", "iris")
+		language := ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey())
+		if ctx.Method() == iris.MethodGet {
+    // ctx.Proceed checks if myMiddleware called `ctx.Next()`
+    nextCalled := ctx.Proceed(myMiddleware)
+normally we need the `ctx.Next()` to call the next handler in a route's handler chain,
+even if no `ctx.Next()` is called in the previous handlers, including the begin(`Use`),
+Note that if `true` then the only remained way to "break" the handler chain is by `ctx.StopExecution()` now that `ctx.Next()` does not matter.
+to be executed but we don't want to add `ctx.Next()` on the `exampleController#EndRequest`*/
+		// Begin:  <- from `Use[all]` to `Handle[last]` future route handlers, execute all, execute all even if `ctx.Next()` is missing.
+	file, info, err := ctx.FormFile("poster")
+	genre := ctx.FormValue("genre")
+	adminRoutes.Done(func(ctx iris.Context) { // executes always last if ctx.Next()
+	ctx.Values().Set("donate_url", "https://github.com/kataras/iris#-people")
+	donateURL := ctx.Values().GetString("donate_url")
+		firstname := ctx.Values().GetString("firstname")
+		ctx.Gzip(true)
+// to the client's Session with a trivial `ctx.Session()` call.
+	if ctx.session == nil {
+		ctx.session = owner.sessionsManager.Start(ctx.Context)
+	return ctx.session
+	ctx.Context = original // set the context to the original one in order to have access to iris's implementation.
+	ctx.session = nil      // reset the session
+		ctx.Bold("Hello from our *Context")
+		nameFieldValue := ctx.FormValue("name")
+		ctx.Session().Set("name", nameFieldValue)
+		name := ctx.Session().GetString("name")
+		ctx.ServeFile("./public/index.html", false)
+	// Last, do not confuse `ctx.Params()` with `ctx.Values()`.
+	// Path parameter's values goes to `ctx.Params()` and context's local storage
+	// `ctx.Values()`.
+		ctx.Values().Set("message", "this is the error message")
+		username, password := ctx.PostValue("username"), ctx.PostValue("password")
+		username := ctx.PostValue("username")
+		name := ctx.URLParam("name")
+	method := ctx.Method()       // the http method requested a server's resource.
+	subdomain := ctx.Subdomain() // the subdomain, if any.
+	path := ctx.Path()
+		ctx.Exec("GET", "/anything/any/path") // like it was called by the client.
+		if from := ctx.Values().GetString("from"); from != "" {
+		ctx.Values().Set("from", "/execute") // values and session can be shared when calling Exec from a "foreign" context.
+		ctx.Exec("GET", "/invisible/iris")
+	requestPath := ctx.Path()
+	ctx.Values().Set("info", shareInformation)
+	info := ctx.Values().GetString("info")
+		println("this is executed always last, if the previous handler calls the `ctx.Next()`, it's the reverse of `.Use`")
+		message := ctx.Values().GetString("message")
+		ctx.Values().Set("message", "this is the home message, ip: "+ctx.RemoteAddr())
+	requestPath := ctx.Path()
+	ctx.Values().Set("info", shareInformation)
+	info := ctx.Values().GetString("info")
+		name := sess.Start(ctx).GetString(ctx.Params().Get("key"))
+		name := sess.Start(ctx).GetString(ctx.Params().Get("key"))
+			"status":  ctx.GetStatusCode(),
+			"message": ctx.Values().GetString("message"),
+		if jsonOutput := ctx.URLParamExists("json"); jsonOutput {
+	b.Dependencies().Add(func(ctx iris.Context) formValue { return ctx.FormValue })
+	username := ctx.Subdomain()
+	username := ctx.Subdomain()
+	method := ctx.Method()
+	subdomain := ctx.Subdomain()
+	path := ctx.Path()
+	username, password, _ := ctx.Request().BasicAuth()
+			return ctx.PostValue
+		file, info, err := ctx.FormFile("file")
+		execShortURL(ctx, ctx.Params().Get("shortkey"))
+		formValue := ctx.FormValue("url")
+		now := time.Now().Format(ctx.Application().ConfigurationReadOnly().GetTimeFormat())
+// To clear the binding data: ctx.Set(ctx.Application().ConfigurationReadOnly().GetViewDataContextKey(), nil)
+		ctx.Gzip(true)
+		ctx.ServeFile("websockets.html", false) // second parameter: enable gzip?
+		ctx.Write(websocket.ClientSource)
+		ctx.Write(websocket.ClientSource)
+		ctx.Write(websocket.ClientSource)
+		if err := ctx.ResponseWriter().Push("/js/chat.js", nil); err != nil {
+
+	app.Post("/", func(ctx iris.Context){}) -> for POST http method.
+	app.Put("/", func(ctx iris.Context){})-> for "PUT" http method.
+	app.Delete("/", func(ctx iris.Context){})-> for "DELETE" http method.
+	app.Options("/", func(ctx iris.Context){})-> for "OPTIONS" http method.
+	app.Trace("/", func(ctx iris.Context){})-> for "TRACE" http method.
+	app.Head("/", func(ctx iris.Context){})-> for "HEAD" http method.
+	app.Connect("/", func(ctx iris.Context){})-> for "CONNECT" http method.
+	app.Patch("/", func(ctx iris.Context){})-> for "PATCH" http method.
+	app.Any("/", func(ctx iris.Context){}) for all http methods.
+
+	app.Get("/", func(ctx iris.Context) { ctx.Redirect("/admin") })
+	app.Get("/", func(ctx iris.Context) { ctx.Redirect("/example") })
+	app.Get("/", func(ctx iris.Context) { ctx.Redirect("/admin") })
+	app.Get("/", before, mainHandler, after)
+
+	app.Post("/dataset1/resource1", hi)
+	app.Post("/dataset2/folder1/{p:path}", hi)
+	app.Post("/login", loginHandler)
+	app.Post("/", handler)
+	app.Post("/form_action", func(ctx iris.Context) {
+	app.Post("/post_value", func(ctx iris.Context) {
+	app.Post("/", MyHandler)
+	app.Post("/slice", MyHandler2)
+	app.Post("/", handler)
+	app.Post("/upload", myLimiter, myUploadHandler)
+	app.Post("/upload", iris.LimitRequestBodySize(maxSize), myUploadHandler)
+	app.Post("/upload", func(ctx iris.Context){
+	app.Post("/", func(ctx iris.Context){
+	app.Post("/upload", iris.LimitRequestBodySize(maxSize+1<<20), func(ctx iris.Context) {
+	app.Post("/upload", func(ctx iris.Context) {
+	app.Post("/decode", func(ctx iris.Context) {
+	app.Post("/comment", r, postComment)
+	app.Post("/set", Handler(func(ctx *Context) {
+	app.Post("/upload", iris.LimitRequestBodySize(10<<20), func(ctx iris.Context) {
+	app.Post("/shorten", func(ctx iris.Context) {
+	app.Post("/clear_cache", func(ctx iris.Context) {
+
+	app.Any("/iris-ws.js", websocket.ClientHandler())
+	app.Any("/events", iris.FromStd(s.HTTPHandler))
+	app.Any("/debug/pprof/{action:path}", pprof.New())
+	app.Any("/dataset1/{p:path}", hi) // p, dataset1_admin, /dataset1/*, * && p, alice, /dataset1/*, GET
+	app.Any("/dataset2/resource1", hi)
+	app.Any("/iris-ws.js", func(ctx iris.Context) {
+	app.Any("/socket.io/{p:path}", iris.FromStd(server))
+
+	app.Handle(new(basicController))
+	app.Handle(new(controllers.MovieController))
+	app.Handle("GET", "/", func(ctx iris.Context) {
+	app.Handle("GET", "/", recordWhichContextJustForProofOfConcept, func(ctx context.Context) {
+	app.Handle("GET", "/hi/{firstname:alphabetical}", recordWhichContextJustForProofOfConcept, func(ctx context.Context) {
+	mypath5Route := app.Handle("GET", "/mypath5/{paramfirst}/statichere/{paramsecond}/{otherparam}/anything/{something:path}", writePathHandler)
+
+    app.Shutdown(ctx)
+
+	app.Favicon("./assets/favicon.ico")
+	app.Favicon("./static/favicons/favicon.ico")
+	app.Favicon("./static/favicons/favicon.\\.ico", "/favicon_16_16.ico")
+	app.Favicon("./public/images/favicon.ico")
+
+	needAuth := app.Party("/admin", authentication)
+
+	app.Configure(iris.WithConfiguration(iris.Configuration{...}))
+	app.Configure(iris.WithConfiguration(iris.TOML("./configs/iris.tml")))
+	app.Configure(iris.WithConfiguration(iris.YAML("./configs/iris.yml")))
+	app.Configure(iris.WithGlobalConfiguration)
+	app.Configure(iris.WithoutStartupLog, iris.WithCharset("UTF-8"))
+	app.Configure(counter.Configurator)
+	app.Configure(iris.WithoutStartupLog)
+	mvc.Configure(app.Party("/basic"), basicMVC)
+
+	app.WrapRouter(func(w http.ResponseWriter, r *http.Request, irisRouter http.HandlerFunc) {
+	app.WrapRouter(casbinMiddleware.Wrapper())
+	v1 := app.Party("/api/v1", crs).AllowMethods(iris.MethodOptions) // <- important for the preflight.
+	users := app.Party("/user", protect)
+			ContentType(u.contentType(), app.ConfigurationReadOnly().GetCharset()).
+		response.ContentType(u.contentType(), app.ConfigurationReadOnly().GetCharset())
+	assetHandler := app.StaticHandler("./public", false, false)
+	app.SPA(assetHandler)
+	// app.StaticEmbedded if you don't want to redirect on index.html and simple serve your SPA app (recommended).
+	// the return value of `app.SPA` to modify the `IndexNames` by;
+	app.SPA(assetHandler).AddIndexName("index.html")
+// Note that app.Use/UseGlobal/Done will be executed
+
+	app.StaticEmbedded("/static", "./assets", Asset, AssetNames)
+	app.StaticEmbeddedGzip("/static", "./assets", GzipAsset, GzipAssetNames)
+	app.StaticEmbedded("/", "./public", Asset, AssetNames)
+
+	app.PartyFunc("/hello", func(r iris.Party) {
+	app.PartyFunc("/movies", func(r iris.Party) {
+    app.PartyFunc("/user", func(r iris.Party){
+	app.PartyFunc("/api/users", func(r iris.Party) {
+
+// you can define a standard error in order to re-use anywhere in your app.
+    app.ConfigureHost(func(h *host.Supervisor) { // <- HERE: IMPORTANT
+	err := app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
+	// we disable the ErrServerClosed, so the error should be nil when server is closed by `app.Shutdown`.
+	err := app.Run(iris.Addr(":9827"), iris.WithoutServerError(iris.ErrServerClosed))
+	// app.ConfigureHost(configureHost) -> or pass "configureHost" as `app.Addr` argument, same result.
+	// inside the `app.Run` function or `NewHost`.
+	// you should disable the body consumption via `app.Run(..., iris.WithoutBodyConsumptionOnUnmarshal)`.
+	// you should disable the body consumption via `app.Run(..., iris.WithoutBodyConsumptionOnUnmarshal)`.
+
+	app.HandleMany("GET POST", "/", func(ctx iris.Context) {
+	app.Router.Use(func(ctx iris.Context) {
+	app.Register(
+	app.Party("/sub").
+
+	app.Use(customLogger)
+	app.Use(r)
+	app.Use(globalLocale)
+	app.Use(recover.New())
+	app.Use(recover.New())
+	app.Use(logger.New())
+	app.Use(func(ctx iris.Context) {
+	app.Use(iris.Cache304(refreshEvery))
+	app.Use(irisMiddleware)
+	app.Use(casbinMiddleware.ServeHTTP)
+	app.Use(cw.New("us-east-1", "test").ServeHTTP)
+	app.Use(jwtHandler.Serve)
+	app.Use(m.ServeHTTP)
+	app.Use(s.Serve)
+	app.Use(iris.Gzip)
+	app.Use(LimitRequestBodySize(maxSize))
+
+	app.Logger().SetLevel("debug")
+	app.Logger().SetOutput(buf)
+	app.Logger().SetOutput(newLogFile())
+	app.Logger().Info("Wait 10 seconds and check your terminal again")
+    app.Logger().Infof("while saving URL: " + err.Error())
+    app.Logger().Warn("Shutdown with error: " + err.Error())
+    app.Logger().Fatal(err)
+    app.Logger().Fatalf("error while loading the users: %v", err)
+    app.Logger().Fatalf("orm failed to initialized: %v", err)
+    app.Logger().Fatalf("orm failed to initialized User table: %v", err)
+    app.Logger().Infof("on connection")
+    app.Logger().Infof("emit: %v", so.Emit("chat message", msg))
+    app.Logger().Infof("on disconnect")
+    app.Logger().Errorf("error from app.View: %v", err)
+    app.Logger().Errorf("error: %v", err)
+
+	app.RegisterView(tmpl)
+	app.RegisterView(iris.HTML("./templates", ".html"))
+	app.RegisterView(iris.HTML("./templates", ".html"))
+	app.RegisterView(iris.HTML("./templates", ".html").Reload(true))
+	app.RegisterView(iris.HTML("./public", ".html"))
+	app.RegisterView(iris.HTML("./views", ".html"))
+	app.RegisterView(iris.HTML("./templates", ".html"))
+	app.RegisterView(iris.HTML("./public", ".html").Binary(Asset, AssetNames))
+	app.RegisterView(iris.HTML("./web/views", ".html"))
+	app.RegisterView(iris.HTML("./web/views", ".html"))
+	app.RegisterView(iris.HTML("./views", ".html"))
+	app.RegisterView(iris.HTML("./view", ".html"))
+	app.RegisterView(iris.HTML("./views", ".html").Layout("shared/layout.html"))
+	app.RegisterView(templates)
+	app.RegisterView(iris.HTML("./views", ".html"))
+	app.RegisterView(iris.HTML("./templates", ".html").Reload(true))
+	app.RegisterView(tmpl)
+	app.RegisterView(iris.HTML("./templates", ".html").Reload(true))
+	app.RegisterView(tmpl)
+	app.RegisterView(iris.HTML("./templates", ".html"))
+	app.RegisterView(tmpl)
+	app.RegisterView(iris.HTML("./templates", ".html").Layout("layout.html"))
+	app.RegisterView(tmpl)
+	app.RegisterView(iris.HTML("./templates", ".html").Reload(true))
+	app.RegisterView(templates)
+	app.RegisterView(tmpl)
+	app.RegisterView(iris.HTML("./views", ".html"))
+	app.RegisterView(iris.HTML("./templates", ".html")) // select the html engine to serve templates
+	app.RegisterView(iris.HTML("./templates", ".html")) // select the html engine to serve templates
+	app.RegisterView(iris.HTML("./templates", ".html")) // select the html engine to serve templates
+
+	app.StaticWeb("/", "./public")
+	app.StaticWeb("/static", "./resources")
+	app.StaticWeb("/public", "./web/public")
+	app.StaticWeb("/public", "./public")
+	app.StaticWeb("/assets", "./public/assets")
+	app.StaticWeb("/js", "./public/assets/js")
+	app.StaticWeb("/js", "./static/js")
+	app.StaticWeb("/js", "./static/assets/js")
+	app.StaticWeb("/css", "./public/assets/css")
+	app.StaticWeb("/css", "./assets/css")
+	app.StaticWeb("/js", "./assets/js")
+	app.StaticWeb("/static", "./assets")
+
+	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
+	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed), iris.WithOptimizations)
+	app.Run(iris.Addr(":8080"), iris.WithoutVersionChecker)
+	app.Run(iris.Addr(":8080"), iris.WithCharset("UTF-8"))
+	app.Run(iris.Addr(":8080"), iris.WithoutBanner)
+	app.Run(iris.Addr(":8080"), iris.WithPostMaxMemory(maxSize))
+	app.Run(iris.Addr(":8080"), iris.WithPostMaxMemory(32<<20))
+	app.Run(iris.Addr(":8080"), configure)
+	app.Run(iris.Addr(":8080", configureHost), iris.WithoutServerError(iris.ErrServerClosed))
+	app.Run(iris.Addr("mydomain.com:8080"))
+	app.Run(iris.Addr(":9091"))
+	app.Run(iris.Addr(addr))
+	app.Run(iris.Addr(host))
+	app.Run(iris.Addr("localhost:8080"))
+	app.Run(iris.Addr("domain.local:80"))
+	app.Run(iris.TLS("localhost:443", certFile.Name(), keyFile.Name()))
+	app.Run(iris.Addr(":8080"))
+	app.Run(iris.Addr("localhost:3000"))
+	app.Run(iris.Addr(":8080"), iris.WithConfiguration(iris.Configuration{ // default configuration:
+	app.Run(iris.Addr(":8080"), iris.WithConfiguration(iris.TOML("./configs/iris.tml")))
+	app.Run(iris.Addr(":8080"), iris.WithConfiguration(iris.YAML("./configs/iris.yml")))
+	app.Run(iris.Addr(":8080"), iris.WithGlobalConfiguration)
+	app.Run(iris.Addr(":8080"), iris.WithoutStartupLog, iris.WithCharset("UTF-8"))
+	app.Run(iris.Server(srv)) // same as app.Run(iris.Addr(":8080"))
+	app.Run(iris.Addr(":8080"), iris.WithoutInterruptHandler)
+	app.Run(iris.AutoTLS(":443", "example.com", "mail@example.com"))
+	app.Run(iris.TLS("127.0.0.1:443", "mycert.cert", "mykey.key"))
+	app.Run(iris.Listener(l))
+
+	app.OnErrorCode(iris.StatusNotFound, func(ctx iris.Context) {
+	app.OnErrorCode(404, func(ctx iris.Context) {
+	app.OnErrorCode(404 ,customLogger, func(ctx iris.Context) {
+	app.OnErrorCode(iris.StatusNotFound, notFoundHandler)
+	app.OnErrorCode(iris.StatusNotFound, func(ctx iris.Context) {
+	app.OnErrorCode(iris.StatusInternalServerError, func(ctx iris.Context) {
+
+	app.OnAnyErrorCode(func(ctx iris.Context) {
+	app.OnAnyErrorCode(customLogger, func(ctx iris.Context) {
+	app.OnAnyErrorCode(r, func(ctx iris.Context) {
+
+	users := mvc.New(app.Party("/users"))
+	user := mvc.New(app.Party("/user"))
+    mvc.Configure(app.Party("/user"), func(m *mvc.Application) {
+	m := mvc.New(app.Party("/example"))
+	mvc.New(app.Party("/hello")).Handle(new(controllers.HelloController))
+	mvc.Configure(app.Party("/movies"), movies)
+	app.Router.Use(middleware.BasicAuth)
+	app.Register(movieService)
+// you can define a standard error in order to re-use anywhere in your app.
+	visitApp := mvc.New(app.Party("/"))
+	mvc.New(app.Party("/")).Handle(&globalVisitorsController{visits: 0})
+	mvc.Configure(app.Party("/websocket"), configureMVC)
+	// Or mvc.New(app.Party(...)).Configure(configureMVC)
+	app.ContextPool.Attach(func() context.Context {
+	fileServer := app.StaticHandler("./public", false, false)
+	app.WrapRouter(func(w http.ResponseWriter, r *http.Request, router http.HandlerFunc) {
+		ctx := app.ContextPool.Acquire(w, r)
+		app.ContextPool.Release(ctx)
+
+	app.Macros().Int.RegisterFunc("min", func(argument int) func(paramValue string) bool {
+	app.Macros().String.RegisterFunc("equal", func(argument string) func(paramValue string) bool {
+	app.Macros().Int.RegisterFunc("min", func(minValue int) func(string) bool {
+	app.Macros().String.RegisterFunc("coordinate", func() func(paramName string) (ok bool) {
+
+	// http://localhost:8080/single_file/app.js
+	none := app.None("/invisible/{username}", func(ctx iris.Context) {
+    app.RefreshRouter()
+	// app.Use(before)
+	// app.Done(after)
+	// so if we used the `app.Use/Don`e before the routes registration
+	// See `app.Party/PartyFunc` for more.
+	app.UseGlobal(before)
+	app.DoneGlobal(after)
+	// or app.Use(before) and app.Done(after).
+	app.Done(func(ctx iris.Context) {
+	app.Bootstrap()
+	app.Configure(identity.Configure, routes.Configure)
+	app.Listen(":8080")
+	app.Application)
+	app.AppName,
+	www := app.Subdomain("www") // <- same as app.Party("www.")
+	app.SubdomainRedirect(app, www)
+	// app.SubdomainRedirect(subsub, www)
+	// app.SubdomainRedirect(app.WildcardSubdomain(), www)
+	// app.SubdomainRedirect(app.Subdomain("mysubdomain"), app)
+	// Note that app.Party("mysubdomain.") and app.Subdomain("mysubdomain")
+
+	userApp := app.Party("/user")
+	system := app.Party("system.")
+	child := app.Party("/child")
+	dashboard := app.Party("dashboard.")
+	admin := app.Party("admin.")
+	admin := app.Party("admin.")
+	dynamicSubdomains := app.Party("*.")
+    userRouter := app.Party("/user")
+    userRouter := app.Party("/user", cache.Handler(10*time.Second))
+	usersAPI := app.Party("/api/users")
+	www := app.Party("www.")
+	adminRoutes := app.Party("/admin", adminMiddleware)
+	v1 := app.Party("v1.")
+	wildcardSubdomain := app.Party("*.")
+	usersRoutes := app.Party("/users")
+	adminRoutes := app.Party("admin.")
+	dynamicSubdomainRoutes := app.Party("*.")
+	needAuth := app.Party("/admin", authentication)
+	todosRouter := app.Party("/todos")
+	my := app.Party("/my").Layout("layouts/mylayout.html")
+	my := app.Party("/my").Layout("layouts/mylayout.html")
+
+	mvc.New(app.Party("/user")).Register(
+    shortenURL := "http://" + app.ConfigurationReadOnly().GetVHost() + "/u/" + key
+    app.todos = items
+  //       if (app.hasChanges) {
+  //         app.hasChanges = false;
+    app.visibility = visibility
+    app.visibility = 'all'
+	subdomain := app.Party("*.")
+	app.Build()
+	err := app.View(writer, "email/simple.html", "shared/email.html", mailData{

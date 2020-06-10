@@ -1,0 +1,1174 @@
+实战：使用 Go 打造另一款简单实用的 ORM
+原创 Go语言中文网 2019-11-29 17:03:49 作者：nopsky
+
+初衷
+
+市面上优秀的ORM已经很多了，例如gorm，xorm，sqlx等，已经足够满足我们日常使用的各种场景了。
+但对于像我这样喜欢简单好用的人来说gorm,xorm就像一个庞然大物，里面很多功能我都用不上。再
+加上由于工作的原因，我经常在PHP和Golang之间切换，PHP用的Laravel框架，已经习惯了Laravel的
+DB操作方式，故此有了自己写一个类似Laravel DB操作的ORM，希望能通过本文抛砖引玉，大家都能
+打造一款符合自己业务场景，简单好用的ORM
+
+目标
+
+在动手编写代码之前，我们先畅想一下实现完以后，最终的使用方式是什么样子，有目标才知道要
+怎么做。下面是我想实现的效果
+
+//注册数据库
+kdb.RegisterDatabase(cfg)
+
+通过手写SQL操作数据库
+
+//查询操作
+kdb.Select("select * from user where id = ?", ?)
+
+//插入操作
+kdb.Insert("insert into user(uid,username) values(?, ?)", 1, "nopsky")
+
+//更新操作
+kdb.Insert("update user set username = ? where uid = ?", "nopsky", 1)
+
+//删除操作
+kdb.Delete("delete from user where uid = ?", 1)
+
+通过链式操作数据库
+
+//查询
+kdb.Table("user").Where("uid",1)
+
+//通过map或者struct插入数据
+kdb.Table("user").Insert(user)
+
+//批量插入
+kdb.Table("user").MultiInsert(users)
+
+//通过map更新数据
+kdb.Table("user").Where("uid",1).update(map[string]interface{}{"username":"nopsky"})
+
+//删除
+kdb.Table("user").Where("uid",1).Delete()
+
+操作数据库目标已经有了，我们还需要考虑返回值的操作，我们希望返回值能有以下的映射方式
+
+1.返回Slice
+    .ToArray()
+
+2.返回Map
+    .ToMap()
+
+3.返回Struct
+    .ToStruct(&Users)
+
+例如:
+
+//返回单条数据, 并按照map[string][string]格式返回
+kdb.Table("user").where("uid", 1).First().ToMap()
+
+//返回单条数据, 并按照[]string的格式返回
+kdb.Table("user").where("uid", 1).First().ToArray()
+
+//返回单挑数据，并按照struct的格式返回
+kdb.Table("user").where("uid", 1).First().ToStruct()
+
+//返回多条数据, 并按照[]map[string]string格式返回
+kdb.Table("user").where("sex", 1).Get().ToMap()
+
+//返回多条数据, 并按照[]string的格式返回
+kdb.Table("user").where("sex", 1).Get().ToArray()
+
+//返回多条数据，并按照[]struct的格式返回
+kdb.Table("user").where("sex", 1).Get().ToStruct(&Users)
+
+//也可以指定字段返回
+kdb.Table("user").where("sex",1).Get("uid", "name").ToStruct(&Users)
+
+还有对应的事务操作
+
+tx := kdb.BeginTransaction()
+tx.Select(....)
+tx.Table("user")...
+tx.Update(...)
+tx.Commit()
+tx.Rollback()
+
+OK，我们有了最终实现的ORM需要提供的功能，接下来就是逐步来实现了
+
+第一步: 注册数据库
+
+在实际业务场景当中，我们连接数据库的情况一般分为
+
+1.单个数据库 2.主从数据库 3.根据功能业务模块不一样，连接不同的数据库
+
+所以我们第一步要做的事就先把数据库注册并管理起来，以便我们再使用的时候可以方便的使用指定的数据库。
+
+我们先创建一个config.go文件，用来存储我们的数据配置
+
+package kdb
+
+import "time"
+
+type DBConfig struct {
+    Name string //数据库连接别名
+    IsMaster bool //是否是主库
+    Driver string
+    Dsn string
+    MaxLifetime time.Duration
+    MaxIdleConns int
+    MaxOpenConns int
+}
+
+type KConfig struct {
+    DBConfigList []DBConfig
+}
+
+创建一个manager.go，用于管理我们的数据库
+
+package kdb
+
+import (
+    "database/sql"
+    "fmt"
+    "math/rand"
+    "strings"
+    "time"
+)
+
+const defaultGroupName = "mysql"
+
+var m = newManager()
+
+type manager struct {
+    dbs map[string]map[string][]*sql.DB
+}
+
+func newManager() *manager {
+    m := new(manager)
+    m.dbs = make(map[string]map[string][]*sql.DB)
+    return m
+}
+
+//添加数据库
+func (m *manager) addDB(groupName string, isMaster bool, db *sql.DB) {
+    dc := "master"
+    if !isMaster {
+       dc = "slave"
+    }
+
+    group, ok := m.dbs[groupName]
+
+    if !ok {
+        group = make(map[string][]*sql.DB)
+    }
+
+    if _, ok := group[dc]; ok {
+        group[dc] = append(group[dc], db)
+    } else {
+        group[dc] = []*sql.DB{db}
+    }
+
+    m.dbs[groupName] = group
+}
+
+//获取数据库
+func (m *manager) getDB(names ...string) (*sql.DB, error) {
+    groupName := defaultGroupName
+    dc := "master"
+
+    if len(names) > 0 {
+        name := names[0]
+        segment := strings.Split(name, "::")
+        groupName = segment[0]
+        if len(segment) > 1 {
+            dc = segment[1]
+        }
+    }
+
+    if dbs, ok := m.dbs[groupName][dc]; ok {
+        max := len(dbs)
+        rand.Seed(time.Now().UnixNano())
+        i := rand.Intn(max)
+        return dbs[i], nil
+    }
+
+    return nil, fmt.Errorf("DataBase `%s::%s` not found", groupName, dc)
+}
+
+//获取从库
+func (m *manager) getReadDB(names ...string) (*sql.DB, error) {
+    groupName := defaultGroupName
+    if len(names) > 0 {
+       groupName = names[0]
+    }
+    name := fmt.Sprintf("%s::%s", groupName, "slave")
+    return m.getDB(name)
+}
+
+创建一个kdb.go文件，实现RegisterDataBase功能
+
+package kdb
+
+import "database/sql"
+
+func RegisterDataBase(kConf KConfig) {
+    for _, dbConf := range kConf.DBConfigList {
+        db, err := sql.Open(dbConf.Driver, dbConf.Dsn)
+        if err != nil {
+            panic(err)
+        }
+        if dbConf.MaxLifetime > 0 {
+            db.SetConnMaxLifetime(dbConf.MaxLifetime)
+        }
+
+        if dbConf.MaxIdleConns > 0 {
+            db.SetMaxIdleConns(dbConf.MaxIdleConns)
+        }
+
+        if dbConf.MaxOpenConns > 0 {
+            db.SetMaxOpenConns(dbConf.MaxOpenConns)
+        }
+
+        if dbConf.Name == "" {
+            dbConf.Name = defaultGroupName
+        }
+        m.addDB(dbConf.Name, dbConf.IsMaster, db)
+    }
+}
+
+第二步: 实现原生SQL查询
+
+在实现原生SQL查询之前，我们先增加一个result.go文件，用来出来查询结果处理，后面将会在这个
+文件中实现toArrray(), toMap(), toStruct()等功能
+
+type Rows struct {
+}
+
+func (rs *Rows) ToArray() { }
+func (rs *Rows) ToMap() { }
+func (rs *Rows) ToStruct(sts interface{}) { }
+
+具体的实现我们后面再进行补充 我们再增加一个connection.go用于管理DB的connection
+
+package kdb
+
+import (
+    "context"
+    "database/sql"
+    "errors"
+    "log"
+)
+
+type Connection struct {
+    ctx context.Context
+    conn *sql.Conn
+    tx *sql.Tx
+    name string
+}
+
+func newConnection() *Connection {
+    c := new(Connection)
+    c.ctx = context.Background()
+    return c
+}
+
+func (c *Connection) WithDB(name string) *Connection {
+    c.name = name
+    return c
+}
+
+func (c *Connection) WithContext(ctx context.Context) *Connection {
+    c.ctx = ctx
+    return c
+}
+
+func (c *Connection) Select(query string, bindings []interface{}) *Rows {
+    rows, err := c.queryRows(query, bindings)
+    if err != nil {
+        return &Rows{rs: nil, lastError: err}
+    }
+
+    return &Rows{rs: rows, lastError: err}
+}
+
+func (c *Connection) Insert(query string, bindings []interface{}) (int64, error) {
+    rs, err := c.exec(query, bindings)
+    if err != nil {
+        return 0, err
+    }
+
+    return rs.LastInsertId()
+}
+
+func (c *Connection) MultiInsert(query string, bindingsArr [][]interface{}) ([]int64, error) {
+    var stmt *sql.Stmt
+    var err error
+
+    if c.tx != nil {
+        stmt, err = c.tx.PrepareContext(c.ctx, query)
+    } else {
+        var conn *sql.Conn
+        conn, err = c.getConn()
+        if err != nil {
+            return nil, err
+        }
+        stmt, err = conn.PrepareContext(c.ctx, query)
+    }
+
+    if err != nil {
+        return nil, err
+    }
+
+    defer stmt.Close()
+
+    lastInsertIds := make([]int64, 0)
+
+    for _, bindings := range bindingsArr {
+        rs, err := stmt.ExecContext(c.ctx, bindings...)
+        if err != nil {
+            return nil, err
+        }
+
+        lastInsertId, err := rs.LastInsertId()
+        if err != nil {
+            return nil, err
+        }
+
+        lastInsertIds = append(lastInsertIds, lastInsertId)
+    }
+
+    return lastInsertIds, nil
+}
+
+func (c *Connection) Update(query string, bindings []interface{}) (int64, error) {
+    rs, err := c.exec(query, bindings)
+    if err != nil {
+        return 0, err
+    }
+
+    return rs.RowsAffected()
+}
+
+func (c *Connection) Delete(query string, bindings []interface{}) (int64, error) {
+    rs, err := c.exec(query, bindings)
+    if err != nil {
+        return 0, err
+    }
+
+    return rs.RowsAffected()
+}
+
+func (c *Connection) BeginTransaction() error {
+    if c.tx == nil {
+        conn, err := c.getConn()
+        if err != nil {
+            return err
+        }
+
+        tx, err := conn.BeginTx(c.ctx, &sql.TxOptions{Isolation: sql.LevelSerializable})
+        if err != nil {
+            return err
+        }
+
+        c.tx = tx
+    }
+
+    return nil
+}
+
+func (c *Connection) Commit() error {
+    if c.tx == nil {
+        return errors.New("no beginTx")
+    }
+    return c.tx.Commit()
+}
+
+func (c *Connection) RollBack() error {
+    if c.tx == nil {
+        return errors.New("no beginTx")
+    }
+
+    return c.tx.Rollback()
+}
+
+func (c *Connection) queryRows(query string, bindings []interface{}) (rows *sql.Rows, err error) {
+    log.Println("query:", query, "| bindings:", bindings)
+
+    if c.tx != nil {
+        rows, err = c.tx.QueryContext(c.ctx, query, bindings...)
+        return
+    }
+
+    var conn *sql.Conn
+
+    conn, err = c.getConn()
+    if err != nil {
+        return nil, err
+    }
+
+    rows, err = conn.QueryContext(c.ctx, query, bindings...)
+    return
+}
+
+func (c *Connection) exec(query string, bindings []interface{}) (rs sql.Result, err error) {
+    log.Println("exec:", query, "| bindings:", bindings)
+
+    if c.tx != nil {
+        rs, err = c.tx.ExecContext(c.ctx, query, bindings...)
+        return
+    }
+
+    var conn *sql.Conn
+
+    conn, err = c.getConn()
+    if err != nil {
+        return nil, err
+    }
+
+    rs, err = conn.ExecContext(c.ctx, query, bindings...)
+    return
+}
+
+func (c *Connection) getConn() (*sql.Conn, error) {
+    var err error
+
+    var db *sql.DB
+
+    if c.conn != nil {
+        return c.conn, nil
+    }
+
+    if c.name != "" {
+        db, err = m.getDB(c.name)
+    } else {
+        db, err = m.getDB()
+    }
+
+    if err != nil {
+        return nil, err
+    }
+
+    conn, err := db.Conn(c.ctx)
+    if err != nil {
+        return nil, err
+    }
+
+    c.conn = conn
+    return c.conn, nil
+}
+
+根据我们期望实现的原生SQL查询的目标，我们需要在kdb.go里增加Select, Insert, Update, Delete,
+BeginTransaction等方法
+
+package kdb
+
+import (
+    "context"
+    "database/sql"
+)
+
+func RegisterDataBase(kConf KConfig) {
+    for _, dbConf := range kConf.DBConfigList {
+        db, err := sql.Open(dbConf.Driver, dbConf.Dsn)
+        if err != nil {
+            panic(err)
+        }
+        if dbConf.MaxLifetime > 0 {
+            db.SetConnMaxLifetime(dbConf.MaxLifetime)
+        }
+
+        if dbConf.MaxIdleConns > 0 {
+            db.SetMaxIdleConns(dbConf.MaxIdleConns)
+        }
+
+        if dbConf.MaxOpenConns > 0 {
+            db.SetMaxOpenConns(dbConf.MaxOpenConns)
+        }
+
+        if dbConf.Name == "" {
+            dbConf.Name = defaultGroupName
+        }
+        m.addDB(dbConf.Name, dbConf.IsMaster, db)
+    }
+}
+
+func Select(query string, bindings ...interface{}) *Rows {
+    return newConnection().Select(query, bindings)
+}
+
+func Insert(query string, bindings ...interface{}) (LastInsertId int64, err error) {
+    return newConnection().Insert(query, bindings)
+}
+
+func MultiInsert(query string, bindingsArr [][]interface{}) (LastInsertId []int64, err error) {
+    return newConnection().MultiInsert(query, bindingsArr)
+}
+
+func Update(query string, bindings ...interface{}) (RowsAffected int64, err error) {
+    return newConnection().Update(query, bindings)
+}
+
+func Delete(query string, bindings ...interface{}) (RowsAffected int64, err error) {
+    return newConnection().Delete(query, bindings)
+}
+
+func WithDB(name string) *Connection {
+    return newConnection().WithDB(name)
+}
+
+func WithContext(ctx context.Context) *Connection {
+    return newConnection().WithContext(ctx)
+}
+
+func BeginTransaction() (conn *Connection, err error) {
+    conn = newConnection()
+
+    err = conn.BeginTransaction()
+    if err != nil {
+        return nil, err
+    }
+
+    return conn, nil
+}
+
+至此，原生SQL的操作方式就已经完成了，并且可以通过kdb.WithDB("mysql::master")这样的方式来选择
+指定的DB。接下来我们来实现查询结果转换。
+
+第三步: 实现三种返回结果
+
+查询结果并转换成我们想要的结构，从本质上来说，首先，我们通过rows.Columns得到查询语句中会返回
+的字段都有哪些，知道有哪些字段以后，我们就可以知道需要 传入到rows.Scan中需要几个参数，我们先
+来看看ToArray()的实现
+
+func (r *Rows) ToArray() (data [][]string, err error) {
+
+    if r.rs == nil {
+        return nil, r.lastError
+    }
+
+    defer r.rs.Close()
+
+    //获取查询的字段
+    fields, err := r.rs.Columns()
+    if err != nil {
+        r.lastError = err
+        return nil, err
+    }
+
+    data = make([][]string, 0)
+
+    num := len(fields)
+
+    //根据查询字段的数量，生成[num]interface{}用于存储Scan的结果
+    refs := make([]interface{}, num)
+    for i := 0; i < num; i++ {
+        var ref interface{}
+        refs[i] = &ref
+    }
+
+    for r.rs.Next() {
+
+        result := make([]string, len(fields))
+
+        if err := r.rs.Scan(refs...); err != nil {
+            return nil, err
+        }
+
+        for i := range fields {
+            //把*interface{}转换成strings返回
+            if val, err := toString(refs[i]); err == nil {
+                result[i] = val
+            } else {
+                return nil, err
+            }
+        }
+
+        if err != nil {
+            r.lastError = err
+            return nil, err
+        }
+
+        data = append(data, result)
+    }
+
+    return data, nil
+}
+
+我们再增加一个convert.go文件，实现toString()的方法
+
+package kdb
+
+import (
+    "fmt"
+    "reflect"
+    "strconv"
+    "time"
+)
+
+
+//转换成string
+func toString(src interface{}) (dst string, err error) {
+    inf := reflect.Indirect(reflect.ValueOf(src)).Interface()
+    if inf == nil {
+        return "", nil
+    }
+
+    switch v := inf.(type) {
+        case string:
+            dst = v
+            return
+        case []byte:
+            dst = string(v)
+            return
+    }
+
+    val := reflect.ValueOf(inf)
+    typ := reflect.TypeOf(inf)
+
+    switch typ.Kind() {
+        case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+            dst = strconv.FormatInt(val.Int(), 10)
+        case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+            dst = strconv.FormatUint(val.Uint(), 10)
+        case reflect.Float32, reflect.Float64:
+            dst = strconv.FormatFloat(val.Float(), 'f', -1, 64)
+        case reflect.Bool:
+            dst = strconv.FormatBool(val.Bool())
+        case reflect.Complex64, reflect.Complex128:
+            dst = fmt.Sprintf("%v", val.Complex())
+        case reflect.Struct:
+            //time.Time
+            var timeType time.Time
+            if typ.ConvertibleTo(reflect.TypeOf(timeType)) {
+                dst = val.Convert(reflect.TypeOf(timeType)).Interface().(time.Time).Format(time.RFC3339Nano)
+            } else {
+                err = fmt.Errorf("unsupported struct type %v", val.Type())
+            }
+        default:
+            err = fmt.Errorf("unsupported struct type %v", val.Type())
+    }
+    return
+}
+
+再增加toMap的实现，原理跟toArray的一样的，
+
+func (r *Rows) ToMap() (data []map[string]string, err error) {
+    if r.rs == nil {
+        return nil, r.lastError
+    }
+
+    defer r.rs.Close()
+
+    fields, err := r.rs.Columns()
+    if err != nil {
+        r.lastError = err
+        return nil, err
+    }
+
+    data = make([]map[string]string, 0)
+    num := len(fields)
+
+    result := make(map[string]string)
+
+    refs := make([]interface{}, num)
+
+    for i := 0; i < num; i++ {
+        var ref interface{}
+        refs[i] = &ref
+    }
+
+    for r.rs.Next() {
+        if err := r.rs.Scan(refs...); err != nil {
+            return nil, err
+        }
+
+        for i, field := range fields {
+            if val, err := toString(refs[i]); err == nil {
+                result[field] = val
+            } else {
+                return nil, err
+            }
+        }
+
+        data = append(data, result)
+    }
+    return data, nil
+}
+
+接下来我们要实现toStruct方法，再实现toStruct之前，我们先来梳理一下逻辑。1.传入参数必须是指针 
+2.传入的类型必须是slice 3.传入的slice类型必须的struct 4.提取struct中tag，并过滤出指定的tag，
+假设我们定义的tag名为db,则只提取tag为db的内容，例如
+
+type user struct {
+    Id int `db:"id"`
+    Name string `db:"name"`
+    Sex int
+}
+
+我们提取的内容为id,name 5.遍历查询的字段，再tag中查找是否存在，如果存在则使用结构体成员的变量
+地址进行Scan。
+
+func (r *Rows) ToStruct(st interface{}) error {
+    //st->&[]user
+    //获取变量的类型,类型为指针
+    stType := reflect.TypeOf(st)
+
+    //获取变量的值
+    stVal := reflect.ValueOf(st)
+    stValInd := reflect.Indirect(stVal)
+
+    //1.参数必须是指针
+    if stType.Kind() != reflect.Ptr {
+        return fmt.Errorf("the variable type is %v, not a pointer", stType.Kind())
+    }
+
+    //指针指向的类型:slice
+    stTypeInd := stType.Elem()
+    //2.传入的类型必须是slice,slice的成员类型必须是struct
+    if stTypeInd.Kind() != reflect.Slice || stTypeInd.Elem().Kind() != reflect.Struct {
+       return fmt.Errorf("the variable type is %v, not a slice struct", stType.Elem().Kind())
+    }
+
+    if r.Rs == nil {
+       return r.LastError
+    }
+
+    defer r.Rs.Close()
+
+    //初始化struct
+    v := reflect.New(stTypeInd.Elem())
+
+    //提取结构体中的tag
+    tagList, err := extractTagInfo(v)
+    if err != nil {
+        return err
+    }
+
+    fields, err := r.Rs.Columns()
+    if err != nil {
+        r.LastError = err
+        return err
+    }
+
+    refs := make([]interface{}, len(fields))
+
+    for i, field := range fields {
+        //如果对应的字段在结构体中有映射，则使用结构体成员变量的地址
+        if f, ok := tagList[field]; ok {
+            refs[i] = f.Addr().Interface()
+        } else {
+            refs[i] = new(interface{})
+        }
+    }
+
+    for r.Rs.Next() {
+        if err := r.Rs.Scan(refs...); err != nil {
+            return err
+        }
+        stValInd = reflect.Append(stValInd, v.Elem())
+    }
+
+    stVal.Elem().Set(stValInd)
+    return nil
+}
+
+我们再convert.go里增加extractTagInfo的实现
+
+//提取tag信息
+func extractTagInfo(st reflect.Value) (tagList map[string]reflect.Value, err error) {
+
+    stVal := reflect.Indirect(st)
+
+     if stVal.Kind() != reflect.Struct {
+        return nil, fmt.Errorf("the variable type is %v, not a struct", stVal.Kind())
+     }
+
+     tagList = make(map[string]reflect.Value)
+
+     for i := 0; i < stVal.NumField(); i++ {
+
+        //获取结构体成员
+        v := stVal.Field(i)
+
+        if v.Kind() == reflect.Ptr {
+           //如果没有初始化，则需要先初始化
+           if v.IsNil() {
+               var typ reflect.Type
+               if v.Type().Kind() == reflect.Ptr {
+                   typ = v.Type().Elem()
+               } else {
+                   typ = v.Type()
+               }
+               vv := reflect.New(typ)
+               v.Set(vv)
+           }
+           //如果是结构体指针，则在进行提取
+           if v.Elem().Kind() == reflect.Struct {
+               t, err := extractTagInfo(v.Elem())
+               if err != nil {
+                   return nil, err
+               }
+
+               for k, ptr := range t {
+                   if _, ok := tagList[k]; ok {
+                       return nil, fmt.Errorf("%s:%s is exists", "db", k)
+                   }
+
+                   tagList[k] = ptr
+               }
+           }
+       } else if v.Kind() == reflect.Map && v.IsNil() {
+           //如果是map类型，并且没有初始化，则需要初始化一下
+           v.Set(reflect.MakeMap(v.Type()))
+       } else if v.Kind() == reflect.Struct {
+           var ignore bool
+           //以下的类型，会再scan的执行转换，所以不需要二次处理
+           switch v.Interface().(type) {
+               case time.Time:
+                   ignore = true
+               case sql.NullTime:
+                   ignore = true
+               case sql.NullString:
+                   ignore = true
+               case sql.NullBool:
+                   ignore = true
+               case sql.NullInt64:
+                   ignore = true
+               case sql.NullInt32:
+                   ignore = true
+               case sql.NullFloat64:
+                   ignore = true
+           }
+
+           if !ignore {
+               t, err := extractTagInfo(v)
+               if err != nil {
+                   return nil, err
+               }
+
+               for k, ptr := range t {
+                   if _, ok := tagList[k]; ok {
+                       return nil, fmt.Errorf("%s:%s is exists", "db", k)
+                   }
+                   tagList[k] = ptr
+               }
+           }
+       }
+
+       tagName := stVal.Type().Field(i).Tag.Get("db")
+       if tagName != "" {
+          //tag内容通过";"进行分割
+          attr := strings.Split(tagName, ";")
+          column := attr[0]
+          if _, ok := tagList[column]; ok {
+              return nil, fmt.Errorf("%s:%s is exists", "db", tagName)
+          }
+          //字段对应结构体成员地址
+          tagList[column] = v
+       }
+   }
+
+   return
+}
+
+至此，我们支持了ToArray(),ToMap(),ToStruct()，我们还支持结构体以下方式
+
+type user struct {
+    Id int `db:"id"`
+    Name string `db:"name"`
+    Area areaInfo
+}
+
+type areaInfo struct {
+    province string `db:"province"`
+    city string `db:"city"`
+}
+
+如果你不需要链式操作，那么到这里就已经够了。
+
+第四步: 打造SQL构造器和解析器
+
+我们先创建builder.go,grammar.go用于实现构造器和解析器 builder.go
+
+type Builder struct {
+    table string
+    conn *Connection
+    grammar *Grammar
+}
+
+func newBuilder(conn *Connection, grammar *Grammar) *Builder {
+    b := new(Builder)
+    b.conn = conn
+    b.grammar = grammar
+    return b
+}
+
+func (b *Builder) Table(table string) *Builder {
+    b.table = table
+    return b
+}
+
+grammar.go
+
+type Grammar struct {
+}
+
+func NewGrammar() *Grammar {
+    return new(Grammar)
+}
+
+链式操作的起始都是以Table开始，所以我们再connection.go和kdb.go增加Table的操作
+
+connection.go
+
+func (c *Connection) Table(table string) *Builder {
+    return c.query().Table(table)
+}
+
+func (c *Connection) query() *Builder {
+    g := NewGrammar()
+    b := newBuilder(c, g)
+    return b
+}
+
+kdb.go
+
+func Table(table string) *Builder {
+    return newConnection().Table(table)
+}
+
+Ok，现在我们可以通过kdb.Table("user")进行操作了。在实现Builder和Grammar之前，我们先来分析
+一下简单的SQL语句
+
+Select * From User Where id = 1;
+
+我们可以把上面的语句拆分成
+
+1.SQL类型:Select/Insert/Update/Delete 2.字段："*"3.表:"FROM User" 4.条件:"Where id = 1"
+
+所以需要在builder.go中增加Select/Insert/Update/Delete的方法，并且需要存储table，字段，和where条件,
+我们原生的SQL是采用参数绑定的方式，所以我们还需要增加addBindings和getBingding是方法builder.go的实现
+
+type Builder struct {
+    table string
+    conn *Connection
+    grammar *Grammar
+    bindings map[string][]interface{}
+    columns []string
+    wheres []where
+}
+
+type where struct {
+    typ string //类型，用来表示where的种类
+    column interface{} //字段
+    operator string //操作符
+    value interface{} //值
+    glue string //连接符
+}
+
+func newBuilder(conn *Connection, grammar *Grammar) *Builder {
+    b := new(Builder)
+    b.conn = conn
+    b.grammar = grammar
+    b.bindings = make(map[string][]interface{})
+    return b
+}
+
+func (b *Builder) Table(table string) *Builder {
+    b.table = table
+    return b
+}
+
+func (b *Builder) Select(columns ...string) *Builder {
+    if len(columns) == 0 {
+        columns = append(columns, "*")
+    }
+
+    b.columns = columns
+    return b
+}
+
+func (b *Builder) Where(column interface{}, args ...interface{}) *Builder {
+
+    if len(args) == 0 {
+        return b.WhereIsNull(column)
+    }
+
+    w := new(where)
+    w.column = column
+    w.glue = "and"
+    w.typ = "basic"
+
+    switch len(args) {
+        case 1:
+            w.operator = "="
+            w.value = args[0]
+        case 2:
+            w.operator = args[0].(string)
+            w.value = args[1]
+        case 3:
+            w.operator = args[0].(string)
+            w.value = args[1]
+            w.glue = args[2].(string)
+        case 4:
+            w.operator = args[0].(string)
+            w.value = args[1]
+            w.glue = args[2].(string)
+            w.typ = args[3].(string)
+    }
+
+    b.addBinding("where", []interface{}{w.value})
+    b.wheres = append(b.wheres, *w)
+    return b
+}
+
+func (b *Builder) WhereIsNull(column interface{}) *Builder {
+    w := new(where)
+    w.column = column
+    w.glue = "and"
+    w.typ = "null"
+    w.operator = "is"
+    w.value = "null"
+    b.wheres = append(b.wheres, *w)
+    return b
+}
+
+func (b *Builder) Get(columns ...string) *Rows {
+    if len(columns) > 0 {
+        b.Select(columns...)
+    }
+    return b.runSelect()
+}
+
+func (b *Builder) addBinding(typ string, value []interface{}) {
+    if _, ok := b.bindings[typ]; ok {
+        b.bindings[typ] = append(b.bindings[typ], value...)
+    } else {
+        b.bindings[typ] = value
+    }
+}
+
+func (b *Builder) getBindings() (bindings []interface{}) {
+    bindings = make([]interface{}, 0)
+    if v, ok := b.bindings["where"]; ok {
+        bindings = append(bindings, v...)
+    }
+    return
+}
+
+func (b *Builder) toSQL() string {
+    return b.grammar.compileSelect(b)
+}
+
+func (b *Builder) runSelect() *Rows {
+    return b.conn.Select(b.toSQL(), b.getBindings())
+}
+
+实现grammer用来分析构造器中的select，columns，from，wheres grammer.go
+
+package kdb
+
+import (
+    "fmt"
+    "strings"
+)
+
+type Grammar struct {
+}
+
+func NewGrammar() *Grammar {
+    return new(Grammar)
+}
+
+func (g *Grammar) compileSelect(b *Builder) string {
+    if len(b.columns) == 0 {
+        b.columns = []string{"*"}
+    }
+    return fmt.Sprintf("select %s", strings.TrimSpace(strings.Join(g.compileComponents(b), " ")))
+}
+
+func (g *Grammar) compileComponents(b *Builder) []string {
+    sql := make([]string, 0)
+
+     if len(b.columns) > 0 {
+         sql = append(sql, g.compileColumns(b))
+     }
+
+     if b.table != "" {
+         sql = append(sql, g.compileFrom(b))
+     }
+
+     if len(b.wheres) > 0 {
+        whereSql := g.compileWheres(b)
+        if whereSql != "" {
+           sql = append(sql, whereSql)
+        }
+     }
+
+     return sql
+}
+
+func (g *Grammar) compileColumns(b *Builder) string {
+    return g.wrapColumn(b.columns...)
+}
+
+func (g *Grammar) compileFrom(b *Builder) string {
+    return fmt.Sprintf("from %s", g.wrapTable(b.table))
+}
+
+func (g *Grammar) compileWheres(b *Builder) string {
+    var sql string
+
+    for k, w := range b.wheres {
+        if k == 0 {
+            w.glue = ""
+        }
+
+        switch w.typ {
+            case "basic":
+                sql = fmt.Sprintf("%s %s %s %s %s", 
+                        strings.TrimSpace(sql), 
+                        w.glue, 
+                        g.wrapColumn(w.column.(string)), 
+                        w.operator, 
+                        "?")
+            case "null":
+                sql = fmt.Sprintf("%s %s %s %s %s", 
+                        strings.TrimSpace(sql), 
+                        w.glue, 
+                        g.wrapColumn(w.column.(string)), 
+                        w.operator, 
+                        w.value)
+        }
+    }
+
+    return fmt.Sprintf("where %s", strings.TrimSpace(sql))
+}
+
+func (g *Grammar) wrapTable(table string) string {
+    return fmt.Sprintf("%s%s", "", table)
+}
+
+func (g *Grammar) wrapColumn(columns ...string) string {
+    for i, column := range columns {
+        segments := strings.Split(column, ".")
+        if len(segments) > 1 {
+            segments[0] = g.wrapTable(segments[0])
+            if segments[1] != "*" && !strings.Contains(segments[0], "->") {
+                segments[1] = fmt.Sprintf("`%s`", segments[1])
+            }
+        } else {
+            if segments[0] != "*" && !strings.Contains(segments[0], "->") {
+                segments[0] = fmt.Sprintf("`%s`", segments[0])
+            }
+        }
+        column = strings.Join(segments, ".")
+        columns[i] = column
+    }
+    return fmt.Sprintf("%s", strings.Join(columns, ", "))
+}
+
+现在我们简单SQL的构造器和解析器就已经实现了。剩下的就是去实现update,insert,delete,join操作,
+union操作，whereIn等内容了，
+
+如果大家感兴趣，可以到 https://github.com/nopsky/kdb 查看完整版。
+
+希望本文对你所有帮助，由于本人才疏学浅，如果有什么不对的地方，欢迎大家指出。

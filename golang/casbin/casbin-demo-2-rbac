@@ -1,0 +1,66 @@
+package main
+
+import (
+    "fmt"
+    "log"
+
+    "github.com/casbin/casbin/v2"
+)
+
+func check(e *casbin.Enforcer, sub, obj, act string) {
+    ok, _ := e.Enforce(sub, obj, act)
+    if ok {
+        fmt.Printf("%s CAN %s %s\n", sub, act, obj)
+    } else {
+        fmt.Printf("%s CANNOT %s %s\n", sub, act, obj)
+    }
+}
+
+func main() {
+    e, err := casbin.NewEnforcer("./model.conf", "./policy.csv")
+    if err != nil {
+        log.Fatalf("NewEnforecer failed:%v\n", err)
+    }
+
+    check(e, "dajun", "data", "read")
+    check(e, "dajun", "data", "write")
+    check(e, "lizi", "data", "read")
+    check(e, "lizi", "data", "write")
+}
+
+//----------------------------------------------------------
+// model.conf
+//----------------------------------------------------------
+
+[request_definition]
+r = sub, obj, act
+
+[policy_definition]
+p = sub, obj, act
+
+[policy_effect]
+e = some(where (p.eft == allow))
+
+[role_definition]
+g = _, _
+#g2=_,_
+
+[matchers]
+m = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act
+#m = g(r.sub, p.sub) && g2(r.obj, p.obj) && r.act == p.act
+
+//----------------------------------------------------------
+// policy.csv
+//----------------------------------------------------------
+
+p, admin, prod, read
+p, admin, prod, write
+p, admin, dev, read
+p, admin, dev, write
+p, developer, dev, read
+p, developer, dev, write
+p, developer, prod, read
+g, dajun, admin
+g, lizi, developer
+g2, prod.data, prod
+g2, dev.data, dev

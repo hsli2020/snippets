@@ -1,0 +1,178 @@
+Middleware is just a concept of ordered chain of handlers.
+Middleware can be registered globally, per-party, per-subdomain and per-route.
+
+
+Iris supports 5 template engines out-of-the-box, developers can still use any external golang template engine,
+as `context/context#ResponseWriter()` is an `io.Writer`.
+
+All of these five template engines have common features with common API,
+like Layout, Template Funcs, Party-specific layout, partial rendering and more.
+
+      The standard html,
+      its template parser is the golang.org/pkg/html/template/
+
+      Django,
+      its template parser is the github.com/flosch/pongo2
+
+      Pug(Jade),
+      its template parser is the github.com/Joker/jade
+
+      Handlebars,
+      its template parser is the github.com/aymerick/raymond
+
+      Amber,
+      its template parser is the github.com/eknkc/amber
+
+
+    pugEngine := iris.Pug("./templates", ".jade")
+    pugEngine.Reload(true) // <--- set to true to re-build the templates on each request.
+    app.RegisterView(pugEngine)
+
+
+    iris.HTML(...) is a shortcut of view.HTML(...)
+    iris.Django(...)     >> >>      view.Django(...)
+    iris.Pug(...)        >> >>      view.Pug(...)
+    iris.Handlebars(...) >> >>      view.Handlebars(...)
+    iris.Amber(...)      >> >>      view.Amber(...)
+
+
+    func (c *ExampleController) Post() {}
+    func (c *ExampleController) Put() {}
+    func (c *ExampleController) Delete() {}
+    func (c *ExampleController) Connect() {}
+    func (c *ExampleController) Head() {}
+    func (c *ExampleController) Patch() {}
+    func (c *ExampleController) Options() {}
+    func (c *ExampleController) Trace() {}
+
+    func (c *ExampleController) All() {}
+    //        OR
+    func (c *ExampleController) Any() {}
+
+    func (c *ExampleController) BeforeActivation(b mvc.BeforeActivation) {
+        // 1 -> the HTTP Method
+        // 2 -> the route's path
+        // 3 -> this controller's method name that should be handler for that route.
+        b.Handle("GET", "/mypath/{param}", "DoIt", optionalMiddlewareHere...)
+    }
+
+    // After activation, all dependencies are set-ed - so read only access on them
+    // but still possible to add custom controller or simple standard handlers.
+    func (c *ExampleController) AfterActivation(a mvc.AfterActivation) {}
+
+
+        // - standard html  | iris.HTML(...)
+        // - django         | iris.Django(...)
+        // - pug(jade)      | iris.Pug(...)
+        // - handlebars     | iris.Handlebars(...)
+        // - amber          | iris.Amber(...)
+
+        tmpl := iris.HTML("./templates", ".html")
+        tmpl.Reload(true) // reload templates on each request (development mode)
+        // default template funcs are:
+        //
+        // - {{ urlpath "mynamedroute" "pathParameter_ifneeded" }}
+        // - {{ render "header.html" }}
+        // - {{ render_r "header.html" }} // partial relative path to current page
+        // - {{ yield }}
+        // - {{ current }}
+
+        // register a custom template func.
+        tmpl.AddFunc("greet", func(s string) string {
+            return "Greetings " + s + "!"
+        })
+
+        // register the view engine to the views, this will load the templates.
+        app.RegisterView(tmpl)
+
+
+Access to the dynamic path parameters via the controller's methods' input arguments, no binding is needed.
+When you use the Iris' default syntax to parse handlers from a controller, you need to suffix the methods
+with the `By` word, uppercase is a new sub path. Example:
+
+Register one or more relative paths and able to get path parameters, i.e
+
+    If `mvc.New(app.Party("/user")).Handle(new(user.Controller))`
+
+    - `func(*Controller) Get()` - `GET:/user` , as usual.
+    - `func(*Controller) Post()` - `POST:/user`, as usual.
+    - `func(*Controller) GetLogin()` - `GET:/user/login`
+    - `func(*Controller) PostLogin()` - `POST:/user/login`
+    - `func(*Controller) GetProfileFollowers()` - `GET:/user/profile/followers`
+    - `func(*Controller) PostProfileFollowers()` - `POST:/user/profile/followers`
+    - `func(*Controller) GetBy(id int64)` - `GET:/user/{param:long}`
+    - `func(*Controller) PostBy(id int64)` - `POST:/user/{param:long}`
+
+    If `mvc.New(app.Party("/profile")).Handle(new(profile.Controller))`
+
+    - `func(*Controller) GetBy(username string)` - `GET:/profile/{param:string}`
+
+    If `mvc.New(app.Party("/assets")).Handle(new(file.Controller))`
+
+    - `func(*Controller) GetByWildard(path string)` - `GET:/assets/{param:path}`
+
+    If `mvc.New(app.Party("/equality")).Handle(new(profile.Equality))`
+
+    - `func(*Controller) GetBy(is bool)` - `GET:/equality/{param:boolean}`
+    - `func(*Controller) GetByOtherBy(is bool, otherID int64)` - `GET:/equality/{paramfirst:boolean}/other/{paramsecond:long}`
+
+    Supported types for method functions receivers: int, int64, bool and string.
+
+Response via output arguments, optionally, i.e
+
+    func(c *ExampleController) Get() string |
+    (string, string) |
+    (string, int) |
+    (string, error) |
+    int |
+    (int, string) |
+    (any, int) |
+    error |
+    (int, error) |
+    (customStruct, error) |
+    (any, error) |
+    bool |
+    (any, bool)
+    customStruct |
+    (customStruct, int) |
+    (customStruct, string) |
+    `Result` or (`Result`, error)
+
+Where `any` means everything, from custom structs to standard language's types-.
+`Result` is an interface which contains only that function: Dispatch(ctx iris.Context)
+and Get where HTTP Method function(Post, Put, Delete...).
+
+
+Iris MVC Method Result
+
+Iris has a very powerful and blazing fast MVC support, you can return any value of any type from a method function
+and it will be sent to the client as expected.
+
+* if `string` then it's the body.
+* if `string` is the second output argument then it's the content type.
+* if `int` then it's the status code.
+* if `bool` is false then it throws 404 not found http error by skipping everything else.
+* if `error` and not nil then (any type) response will be omitted and error's text with a 400 bad request will be rendered instead.
+* if `(int, error)` and error is not nil then the response result will be the error's text with the status code as `int`.
+* if  `custom struct` or `interface{}` or `slice` or `map` then it will be rendered as json, unless a `string` content type is following.
+* if `mvc.Result` then it executes its `Dispatch` function, so good design patters can be used to split the model's logic where needed.
+
+
+
+	app.Get("/json", func(ctx iris.Context) {
+		ctx.JSON(iris.Map{"result": "Hello World!"})
+	})
+
+	app.Get("/plain", func(ctx iris.Context) {
+		ctx.Text("Hello World!")
+	})
+
+	app.Get("/xml", func(ctx iris.Context) {
+		ctx.XML(myXML{Result: "Hello World!"})
+	})
+
+	app.Get("/complex", func(ctx iris.Context) {
+		value := ctx.URLParam("key")
+		ctx.JSON(iris.Map{"value": value})
+	})
+
