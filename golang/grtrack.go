@@ -1,3 +1,9 @@
+// golang-优秀代码赏析-检测goroutine溢出
+
+// 在latern中看到了这段代码，防止协程溢出。
+// 原理是利用了pprof.lookup() 此会将存在的goroutine的stacktrace打印出来。
+// 通过对比代码前与代码后的goroutine number。 即可得知是否有新的goroutine创建出来。
+
 // Package grtrack provides a utility that helps check for goroutine leaks.
 package grtrack
 
