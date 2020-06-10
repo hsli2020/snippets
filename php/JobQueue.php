@@ -26,6 +26,8 @@ class JobQueue
 
     public function pop($timeout = 5)
     {
+        $this->checkDelayJob();
+
         $info = $this->redis->BLPop(self::JOBQUEUE, $timeout);
 
         /**
