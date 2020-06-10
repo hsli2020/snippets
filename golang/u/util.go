@@ -5,27 +5,47 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"os/user"
+	"os/exec"
+	"os/signal"
 	"runtime"
 	"strings"
+	"syscall"
 	"time"
 )
 
 var (
-	errInvalidBase64 = errors.New("Invalid base64 value")
+	errInvalidBase64 = errors.New("invalid base64 value")
 )
 
-// FmtArgs formats args as a string. First argument should be format string
-// and the rest are arguments to the format
-func FmtArgs(args ...interface{}) string {
+func Must(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func Assert(ok bool, format string, args ...interface{}) {
+	if ok {
+		return
+	}
 	if len(args) == 0 {
-		return ""
+		panic(format)
+	}
+	panic(fmt.Sprintf(format, args...))
+}
+
+// PanicIf panics if cond is true
+func PanicIf(cond bool, args ...interface{}) {
+	if !cond {
+		return
+	}
+	if len(args) == 0 {
+		panic("condition failed")
 	}
 	format := args[0].(string)
 	if len(args) == 1 {
-		return format
+		panic(format)
 	}
-	return fmt.Sprintf(format, args[1:]...)
+	panic(fmt.Sprintf(format, args[1:]...))
 }
 
 func panicWithMsg(defaultMsg string, args ...interface{}) {
@@ -35,14 +55,6 @@ func panicWithMsg(defaultMsg string, args ...interface{}) {
 	}
 	fmt.Printf("%s\n", s)
 	panic(s)
-}
-
-// PanicIf panics if cond is true
-func PanicIf(cond bool, args ...interface{}) {
-	if !cond {
-		return
-	}
-	panicWithMsg("PanicIf: condition failed", args...)
 }
 
 // PanicIfErr panics if err is not nil
@@ -64,18 +76,16 @@ func IsMac() bool {
 }
 
 // UserHomeDir returns $HOME diretory of the user
-func UserHomeDir() string {
-	// user.Current() returns nil if cross-compiled e.g. on mac for linux
-	if usr, _ := user.Current(); usr != nil {
-		return usr.HomeDir
-	}
-	return os.Getenv("HOME")
+func UserHomeDirMust() string {
+	s, err := os.UserHomeDir()
+	Must(err)
+	return s
 }
 
 // ExpandTildeInPath converts ~ to $HOME
 func ExpandTildeInPath(s string) string {
 	if strings.HasPrefix(s, "~") {
-		return UserHomeDir() + s[1:]
+		return UserHomeDirMust() + s[1:]
 	}
 	return s
 }
@@ -109,7 +119,7 @@ func DurationToString(d time.Duration) string {
 
 // TimeSinceNowAsString returns string version of time since a ginve timestamp
 func TimeSinceNowAsString(t time.Time) string {
-	return DurationToString(time.Now().Sub(t))
+	return DurationToString(time.Since(t))
 }
 
 // UtcNow returns current time in UTC
@@ -153,4 +163,28 @@ func DecodeBase64(s string) (int, error) {
 		n += i
 	}
 	return n, nil
+}
+
+// OpenBrowsers open web browser with a given url
+// (can be http:// or file://)
+func OpenBrowser(url string) error {
+	var err error
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	return err
+}
+
+// WaitForCtrlC waits until a user presses Ctrl-C
+func WaitForCtrlC() {
+	c := make(chan os.Signal, 2)
+	signal.Notify(c, os.Interrupt /* SIGINT */, syscall.SIGTERM)
+	<-c
 }
