@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <!-- link rel="stylesheet" href="style.css" / -->
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #2d2013;
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+}
+
+.container {
+  margin: auto;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+input,
+button {
+  border: 1px solid #dedede;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-size: 14px;
+  padding: 8px 10px;
+  margin: 0;
+}
+
+input[type='text'] {
+  width: 300px;
+}
+
+.search-btn {
+  cursor: pointer;
+  border-left: 0;
+  border-radius: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.random-btn {
+  cursor: pointer;
+  margin-left: 10px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+.meal {
+  cursor: pointer;
+  position: relative;
+  height: 180px;
+  width: 180px;
+  text-align: center;
+}
+
+.meal img {
+  width: 100%;
+  height: 100%;
+  border: 4px #fff solid;
+  border-radius: 2px;
+}
+
+.meal-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease-in;
+  opacity: 0;
+}
+
+.meal:hover .meal-info {
+  opacity: 1;
+}
+
+.single-meal {
+  margin: 30px auto;
+  width: 70%;
+}
+
+.single-meal img {
+  width: 300px;
+  margin: 15px;
+  border: 4px #fff solid;
+  border-radius: 2px;
+}
+
+.single-meal-info {
+  margin: 20px;
+  padding: 10px;
+  border: 2px #e09850 dashed;
+  border-radius: 5px;
+}
+
+.single-meal p {
+  margin: o;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+.single-meal ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.single-meal ul li {
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  background-color: #fff;
+  display: inline-block;
+  color: #2d2013;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px;
+  margin: 0 5px 5px 0;
+}
+
+@media (max-width: 800px) {
+  .meals {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .meals {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .meal {
+    height: 200px;
+    width: 200px;
+  }
+}
+@media (max-width: 500px) {
+  input[type='text'] {
+    width: 100%;
+  }
+
+  .meals {
+    grid-template-columns: 1fr;
+  }
+
+  .meal {
+    height: 300px;
+    width: 300px;
+  }
+}
+    </style>
+    <title>Meal Finder</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Meal Finder</h1>
+      <div class="flex">
+        <form class="flex" id="submit">
+          <input
+            type="text"
+            id="search"
+            placeholder="Search for meals or keywords"
+          />
+          <button class="search-btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        <button class="random-btn" id="random">
+          <i class="fas fa-random"></i>
+        </button>
+      </div>
+
+      <div id="result-heading"></div>
+      <div id="meals" class="meals"></div>
+      <div id="single-meal"></div>
+    </div>
+
+    <!-- script src="script.js"></script -->
+    <script>
+const search = document.getElementById('search'),
+  submit = document.getElementById('submit'),
+  random = document.getElementById('random'),
+  mealsEl = document.getElementById('meals'),
+  resultHeading = document.getElementById('result-heading'),
+  single_mealEl = document.getElementById('single-meal');
+
+// Search meal and fetch from API
+function searchMeal(e) {
+  e.preventDefault();
+
+  // Clear single meal
+  single_mealEl.innerHTML = '';
+
+  // Get search term
+  const term = search.value;
+
+  // Check for empty
+  if (term.trim()) {
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        resultHeading.innerHTML = `<h2>Search results for '${term}':</h2>`;
+
+        if (data.meals === null) {
+          resultHeading.innerHTML = `<p>There are no search results. Try again!<p>`;
+        } else {
+          mealsEl.innerHTML = data.meals
+            .map(
+              meal => `
+            <div class="meal">
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+              <div class="meal-info" data-mealID="${meal.idMeal}">
+                <h3>${meal.strMeal}</h3>
+              </div>
+            </div>
+          `
+            )
+            .join('');
+        }
+      });
+    // Clear search text
+    search.value = '';
+  } else {
+    alert('Please enter a search term');
+  }
+}
+
+// Fetch meal by ID
+function getMealById(mealID) {
+  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`)
+    .then(res => res.json())
+    .then(data => {
+      const meal = data.meals[0];
+
+      addMealToDOM(meal);
+    });
+}
+
+// Fetch random meal from API
+function getRandomMeal() {
+  // Clear meals and heading
+  mealsEl.innerHTML = '';
+  resultHeading.innerHTML = '';
+
+  fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+    .then(res => res.json())
+    .then(data => {
+      const meal = data.meals[0];
+
+      addMealToDOM(meal);
+    });
+}
+
+// Add meal to DOM
+function addMealToDOM(meal) {
+  const ingredients = [];
+
+  for (let i = 1; i <= 20; i++) {
+    if (meal[`strIngredient${i}`]) {
+      ingredients.push(
+        `${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`
+      );
+    } else {
+      break;
+    }
+  }
+
+  single_mealEl.innerHTML = `
+    <div class="single-meal">
+      <h1>${meal.strMeal}</h1>
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+      <div class="single-meal-info">
+        ${meal.strCategory ? `<p>${meal.strCategory}</p>` : ''}
+        ${meal.strArea ? `<p>${meal.strArea}</p>` : ''}
+      </div>
+      <div class="main">
+        <p>${meal.strInstructions}</p>
+        <h2>Ingredients</h2>
+        <ul>
+          ${ingredients.map(ing => `<li>${ing}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+// Event listeners
+submit.addEventListener('submit', searchMeal);
+random.addEventListener('click', getRandomMeal);
+
+mealsEl.addEventListener('click', e => {
+  const mealInfo = e.path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('meal-info');
+    } else {
+      return false;
+    }
+  });
+
+  if (mealInfo) {
+    const mealID = mealInfo.getAttribute('data-mealid');
+    getMealById(mealID);
+  }
+});
+    </script>
+  </body>
+</html>

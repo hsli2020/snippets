@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+      integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
+      crossorigin="anonymous"
+    />
+    <!-- link rel="stylesheet" href="style.css" / -->
+    <style>
+@import url('https://fonts.googleapis.com/css?family=Lato:300,500,700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  position: relative;
+}
+
+h1 button {
+  position: absolute;
+  right: 0;
+  transform: translate(120%, -50%);
+  z-index: 2;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  font-size: 14px;
+  margin-top: 20px;
+  padding: 10px 15px;
+}
+
+.btn-small {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.btn-ghost {
+  border: 0;
+  background-color: transparent;
+}
+
+.clear {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+
+.cards {
+  perspective: 1000px;
+  position: relative;
+  height: 300px;
+  width: 500px;
+  max-width: 100%;
+}
+
+.card {
+  position: absolute;
+  opacity: 0;
+  font-size: 1.5em;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateX(50%) rotateY(-10deg);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.card.active {
+  cursor: pointer;
+  opacity: 1;
+  z-index: 10;
+  transform: translateX(0) rotateY(0deg);
+}
+
+.card.left {
+  transform: translateX(-50%) rotateY(10deg);
+}
+
+.inner-card {
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.card.show-answer .inner-card {
+  transform: rotateX(180deg);
+}
+
+.inner-card-front,
+.inner-card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+
+.inner-card-front {
+  transform: rotateX(0deg);
+  z-index: 2;
+}
+
+.inner-card-back {
+  transform: rotateX(180deg);
+}
+
+.inner-card-front::after,
+.inner-card-back::after {
+  content: '\f021  Flip';
+  font-family: 'Font Awesome 5 Free', Lato, sans-serif;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #ddd;
+}
+
+.navigation {
+  display: flex;
+  margin: 20px 0;
+}
+
+.navigation .nav-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.navigation p {
+  margin: 0 25px;
+}
+
+.add-container {
+  opacity: 0;
+  z-index: -1;
+  background-color: #f0f0f0;
+  border-top: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  transition: 0.3s ease;
+}
+
+.add-container.show {
+  opacity: 1;
+  z-index: 2;
+}
+
+.add-container h3 {
+  margin: 10px 0;
+}
+
+.form-group label {
+  display: block;
+  margin: 20px 0 10px;
+}
+
+.form-group textarea {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 12px;
+  min-width: 500px;
+  max-width: 100%;
+}
+    </style>
+    <title>Memory Cards</title>
+  </head>
+  <body>
+    <button id="clear" class="clear btn">
+      <i class="fas fa-trash"></i> Clear Cards
+    </button>
+
+    <h1>
+      Memory Cards
+      <button id="show" class="btn btn-small">
+        <i class="fas fa-plus"></i> Add New Card
+      </button>
+    </h1>
+
+    <div id="cards-container" class="cards">
+      <!-- <div class="card active">
+        <div class="inner-card">
+          <div class="inner-card-front">
+            <p>
+              What is PHP?
+            </p>
+          </div>
+          <div class="inner-card-back">
+            <p>
+              A programming language
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="inner-card">
+          <div class="inner-card-front">
+            <p>
+              What is PHP?
+            </p>
+          </div>
+          <div class="inner-card-back">
+            <p>
+              A programming language
+            </p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="navigation">
+      <button id="prev" class="nav-button">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+
+      <p id="current"></p>
+
+      <button id="next" class="nav-button">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div id="add-container" class="add-container">
+      <h1>
+        Add New Card
+        <button id="hide" class="btn btn-small btn-ghost">
+          <i class="fas fa-times"></i>
+        </button>
+      </h1>
+
+      <div class="form-group">
+        <label for="question">Question</label>
+        <textarea id="question" placeholder="Enter question..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="answer">Answer</label>
+        <textarea id="answer" placeholder="Enter Answer..."></textarea>
+      </div>
+
+      <button id="add-card" class="btn">
+        <i class="fas fa-plus"></i> Add Card
+      </button>
+    </div>
+
+    <!-- script src="script.js"></script -->
+    <script>
+const cardsContainer = document.getElementById('cards-container');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+const currentEl = document.getElementById('current');
+const showBtn = document.getElementById('show');
+const hideBtn = document.getElementById('hide');
+const questionEl = document.getElementById('question');
+const answerEl = document.getElementById('answer');
+const addCardBtn = document.getElementById('add-card');
+const clearBtn = document.getElementById('clear');
+const addContainer = document.getElementById('add-container');
+
+// Keep track of current card
+let currentActiveCard = 0;
+
+// Store DOM cards
+const cardsEl = [];
+
+// Store card data
+const cardsData = getCardsData();
+
+// const cardsData = [
+//   {
+//     question: 'What must a variable begin with?',
+//     answer: 'A letter, $ or _'
+//   },
+//   {
+//     question: 'What is a variable?',
+//     answer: 'Container for a piece of data'
+//   },
+//   {
+//     question: 'Example of Case Sensitive Variable',
+//     answer: 'thisIsAVariable'
+//   }
+// ];
+
+// Create all cards
+function createCards() {
+  cardsData.forEach((data, index) => createCard(data, index));
+}
+
+// Create a single card in DOM
+function createCard(data, index) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  if (index === 0) {
+    card.classList.add('active');
+  }
+
+  card.innerHTML = `
+  <div class="inner-card">
+  <div class="inner-card-front">
+    <p>
+      ${data.question}
+    </p>
+  </div>
+  <div class="inner-card-back">
+    <p>
+      ${data.answer}
+    </p>
+  </div>
+</div>
+  `;
+
+  card.addEventListener('click', () => card.classList.toggle('show-answer'));
+
+  // Add to DOM cards
+  cardsEl.push(card);
+
+  cardsContainer.appendChild(card);
+
+  updateCurrentText();
+}
+
+// Show number of cards
+function updateCurrentText() {
+  currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
+}
+
+// Get cards from local storage
+function getCardsData() {
+  const cards = JSON.parse(localStorage.getItem('cards'));
+  return cards === null ? [] : cards;
+}
+
+// Add card to local storage
+function setCardsData(cards) {
+  localStorage.setItem('cards', JSON.stringify(cards));
+  window.location.reload();
+}
+
+createCards();
+
+// Event listeners
+
+// Next button
+nextBtn.addEventListener('click', () => {
+  cardsEl[currentActiveCard].className = 'card left';
+
+  currentActiveCard = currentActiveCard + 1;
+
+  if (currentActiveCard > cardsEl.length - 1) {
+    currentActiveCard = cardsEl.length - 1;
+  }
+
+  cardsEl[currentActiveCard].className = 'card active';
+
+  updateCurrentText();
+});
+
+// Prev button
+prevBtn.addEventListener('click', () => {
+  cardsEl[currentActiveCard].className = 'card right';
+
+  currentActiveCard = currentActiveCard - 1;
+
+  if (currentActiveCard < 0) {
+    currentActiveCard = 0;
+  }
+
+  cardsEl[currentActiveCard].className = 'card active';
+
+  updateCurrentText();
+});
+
+// Show add container
+showBtn.addEventListener('click', () => addContainer.classList.add('show'));
+// Hide add container
+hideBtn.addEventListener('click', () => addContainer.classList.remove('show'));
+
+// Add new card
+addCardBtn.addEventListener('click', () => {
+  const question = questionEl.value;
+  const answer = answerEl.value;
+
+  if (question.trim() && answer.trim()) {
+    const newCard = { question, answer };
+
+    createCard(newCard);
+
+    questionEl.value = '';
+    answerEl.value = '';
+
+    addContainer.classList.remove('show');
+
+    cardsData.push(newCard);
+    setCardsData(cardsData);
+  }
+});
+
+// Clear cards button
+clearBtn.addEventListener('click', () => {
+  localStorage.clear();
+  cardsContainer.innerHTML = '';
+  window.location.reload();
+});
+    </script>
+  </body>
+</html>

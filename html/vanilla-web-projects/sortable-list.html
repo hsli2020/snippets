@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Top 10 Richest People</title>
+    <!-- link rel="stylesheet" href="style.css" / -->
+    <style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+:root {
+  --border-color: #e3e5e4;
+  --background-color: #c3c7ca;
+  --text-color: #34444f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.draggable-list {
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 0;
+  list-style-type: none;
+}
+
+.draggable-list li {
+  background-color: #fff;
+  display: flex;
+  flex: 1;
+}
+
+.draggable-list li:not(:last-of-type) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.draggable-list .number {
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  height: 60px;
+  width: 60px;
+}
+
+.draggable-list li.over .draggable {
+  background-color: #eaeaea;
+}
+
+.draggable-list .person-name {
+  margin: 0 20px 0 0;
+}
+
+.draggable-list li.right .person-name {
+  color: #3ae374;
+}
+
+.draggable-list li.wrong .person-name {
+  color: #ff3838;
+}
+
+.draggable {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  flex: 1;
+}
+
+.check-btn {
+  background-color: var(--background-color);
+  border: none;
+  color: var(--text-color);
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.check-btn:active {
+  transform: scale(0.98);
+}
+
+.check-btn:focus {
+  outline: none;
+}
+    </style>
+    <script
+      src="https://kit.fontawesome.com/3da1a747b2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>10 Richest People</h1>
+    <p>Drag and drop the items into their corresponding spots</p>
+    <ul class="draggable-list" id="draggable-list"></ul>
+    <button class="check-btn" id="check">
+      Check Order
+      <i class="fas fa-paper-plane"></i>
+    </button>
+
+    <!-- script src="script.js"></script -->
+    <script>
+const draggable_list = document.getElementById('draggable-list');
+const check = document.getElementById('check');
+
+const richestPeople = [
+  'Jeff Bezos',
+  'Bill Gates',
+  'Warren Buffett',
+  'Bernard Arnault',
+  'Carlos Slim Helu',
+  'Amancio Ortega',
+  'Larry Ellison',
+  'Mark Zuckerberg',
+  'Michael Bloomberg',
+  'Larry Page'
+];
+
+// Store listitems
+const listItems = [];
+
+let dragStartIndex;
+
+createList();
+
+// Insert list items into DOM
+function createList() {
+  [...richestPeople]
+    .map(a => ({ value: a, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(a => a.value)
+    .forEach((person, index) => {
+      const listItem = document.createElement('li');
+
+      listItem.setAttribute('data-index', index);
+
+      listItem.innerHTML = `
+        <span class="number">${index + 1}</span>
+        <div class="draggable" draggable="true">
+          <p class="person-name">${person}</p>
+          <i class="fas fa-grip-lines"></i>
+        </div>
+      `;
+
+      listItems.push(listItem);
+
+      draggable_list.appendChild(listItem);
+    });
+
+  addEventListeners();
+}
+
+function dragStart() {
+  // console.log('Event: ', 'dragstart');
+  dragStartIndex = +this.closest('li').getAttribute('data-index');
+}
+
+function dragEnter() {
+  // console.log('Event: ', 'dragenter');
+  this.classList.add('over');
+}
+
+function dragLeave() {
+  // console.log('Event: ', 'dragleave');
+  this.classList.remove('over');
+}
+
+function dragOver(e) {
+  // console.log('Event: ', 'dragover');
+  e.preventDefault();
+}
+
+function dragDrop() {
+  // console.log('Event: ', 'drop');
+  const dragEndIndex = +this.getAttribute('data-index');
+  swapItems(dragStartIndex, dragEndIndex);
+
+  this.classList.remove('over');
+}
+
+// Swap list items that are drag and drop
+function swapItems(fromIndex, toIndex) {
+  const itemOne = listItems[fromIndex].querySelector('.draggable');
+  const itemTwo = listItems[toIndex].querySelector('.draggable');
+
+  listItems[fromIndex].appendChild(itemTwo);
+  listItems[toIndex].appendChild(itemOne);
+}
+
+// Check the order of list items
+function checkOrder() {
+  listItems.forEach((listItem, index) => {
+    const personName = listItem.querySelector('.draggable').innerText.trim();
+
+    if (personName !== richestPeople[index]) {
+      listItem.classList.add('wrong');
+    } else {
+      listItem.classList.remove('wrong');
+      listItem.classList.add('right');
+    }
+  });
+}
+
+function addEventListeners() {
+  const draggables = document.querySelectorAll('.draggable');
+  const dragListItems = document.querySelectorAll('.draggable-list li');
+
+  draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', dragStart);
+  });
+
+  dragListItems.forEach(item => {
+    item.addEventListener('dragover', dragOver);
+    item.addEventListener('drop', dragDrop);
+    item.addEventListener('dragenter', dragEnter);
+    item.addEventListener('dragleave', dragLeave);
+  });
+}
+
+check.addEventListener('click', checkOrder);
+    </script>
+  </body>
+</html>
