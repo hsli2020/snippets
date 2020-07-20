@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Graphing Game &lt; JavaScript | The Art of Web</title>
+  <meta name="description" content="A recreation of an ancient game where you type equations to pop balloons.">
+  <meta name="author" content="Chirp Internet">
+  <link rel="stylesheet" type="text/css" href="res/A.css">
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS: New and updated articles" href="https://www.the-art-of-web.com/rss.xml">
+</head>
+
+<body>
+
+<!--htdig_noindex-->
+<a class="chirplink" accesskey="S" href="#content">skip to content</a>
+<!--/htdig_noindex-->
+
+<header id="header">
+<a href="https://www.the-art-of-web.com/"><img src="res/banner-taow.png" alt="The Art of Web" width="737" height="87"></a>
+<!--htdig_noindex-->
+<nav id="menu" itemscope="" itemtype="http://schema.org/WebSite">
+<meta itemprop="url" content="https://www.the-art-of-web.com/">
+<form id="searchbox" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="POST" action="/searchresult.html" accept-charset="UTF-8" onsubmit="return (words.value != '');">
+<meta itemprop="target" content="https://www.the-art-of-web.com/searchresult.html?words={words}">
+<input id="sitesearch" itemprop="query-input" type="search" results="10" autosave="searches" name="words" placeholder="Search">
+<ul id="suggest"><li></li></ul>
+</form>
+<ul>
+  <li id="menu_trigger"><a href="#">≡</a></li>
+  <li><a accesskey="1" href="https://www.the-art-of-web.com/">Home</a></li>
+  <li><a accesskey="2" href="https://www.the-art-of-web.com/html/">HTML</a></li>
+  <li><a accesskey="3" href="https://www.the-art-of-web.com/css/">CSS</a></li>
+  <li><a accesskey="4" href="https://www.the-art-of-web.com/javascript/">JavaScript</a></li>
+  <li><a accesskey="5" href="https://www.the-art-of-web.com/php/">PHP</a></li>
+  <li><a accesskey="6" href="https://www.the-art-of-web.com/sql/">SQL</a></li>
+  <li><a accesskey="7" href="https://www.the-art-of-web.com/system/">System</a></li>
+  <li><a accesskey="8" href="https://www.the-art-of-web.com/links/">Links</a></li>
+</ul>
+</nav>
+<!--/htdig_noindex-->
+</header>
+
+<aside id="rhs">
+<!-- The Art of Web - RWD Top -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9789897350102210" data-ad-slot="8956648230" data-ad-format="auto"></ins>
+</aside>
+
+<main id="content">
+<!--htdig_noindex-->
+<aside id="ad_content" class="noprint">
+<script async="" src="res/adsbygoogle.js"></script>
+<!-- The Art of Web - RWD Content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-9789897350102210" data-ad-slot="1433381437" data-ad-format="auto"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</aside>
+
+<div id="submenu"><ol><li id="submenu_trigger" class="mobileonly"><a href="#">☰ Submenu</a></li><li><a href="#section_0">Let's Play</a></li><li><a href="#section_1">Example Equations</a></li><li><a href="#section_2">Screenshots</a></li><li><a href="#related">Related Articles - Games</a></li><li><a href="#section_4">References</a></li></ol></div>
+<!--/htdig_noindex-->
+
+<h1><span class="nomobile">JavaScript: </span>Graphing Game</h1>
+
+<p class="social_counters"><a class="tweets" title="Share on Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Graphing+Game:&amp;url=https%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fgraph-game%2F&amp;via=theartofweb"><span>&nbsp;<span>Tweet</span></span></a><a class="likes" title="Share on Facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fgraph-game%2F"><span>0<span> Shares</span></span></a><a class="reddit" title="Post to Reddit" target="_blank" href="http://www.reddit.com/submit?title=Graphing+Game&amp;url=https%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fgraph-game%2F"><span>0<span> Tweets</span></span></a><a class="feedback" title="User Commentc" href="#user_comments"><span>0<span> Comments</span></span></a></p>
+
+
+
+
+<p>This is a pure JavaScript recreation of an old Apple II game from the 
+1980's used to teach cartesian equations.  Each equation you enter plots 
+a line on the grid and you have five tries to hit all five targets in 
+order to win.</p>
+
+<p>In the original you could also draw circles, but we're not that 
+sophisticated.  In this version bonus points are awarded for hitting 
+multiple targets with a single line.</p>
+
+
+<h2 id="section_0">1. Let's Play</h2>
+
+<p>The game generates sound effects in browsers with <a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext" target="_blank">AudioContext</a> support, which includes most modern 
+browsers.  You can learn about AudioContext interface in our article 
+<a href="https://www.the-art-of-web.com/javascript/creating-sounds/">Creating Sounds with 
+AudioContext</a>.</p>
+
+<table id="graph_table">
+<thead>
+<tr>
+<td colspan="2">
+<canvas id="graph_canvas" height="788" width="788"></canvas>
+<div id="graph_status">
+<div>Score: 0</div>
+<div>⦿⦿⦿⦿⦿</div>
+</div>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr id="graph_playing">
+<td><input id="graph_eq" type="text" size="32" autofocus="" placeholder="Enter equation: y = ƒ(x); or x = ƒ(y)">
+<div id="graph_error"></div></td>
+<td style="text-align: center;"><button id="graph_run" style="display: inline-block;">Plot Graph</button> <button id="graph_reset" style="display: none;">Play Again</button></td>
+</tr>
+<tr>
+<td id="graph_output" colspan="2">plotted equations appear here</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2 id="section_1">2. Example Equations</h2>
+
+<p>In case your math is a bit rusty, here are some example to help you 
+get started.  Equations can be a function either of <i>y</i> or of 
+<i>x</i>:</p>
+
+<ul>
+  <li>y = 2</li>
+  <li>y = x</li>
+  <li>x = -3y + 3</li>
+  <li>y = x(x+3)(x+1) + 1</li>
+  <li>y = 2x2 - 2x/3 + 4</li>
+</ul>
+
+
+<h2 id="section_2">3. Screenshots</h2>
+
+<div style="display: flex; text-align: center;">
+<div style="flex: 1;"><a href="https://www.the-art-of-web.com/images/graph-game-1.png" data-lightbox="gallery" data-lightbox-enabled="true"><img src="res/graph-game-1.png" style="width: 90%; height: auto;"></a></div>
+<div style="flex: 1;"><a href="https://www.the-art-of-web.com/images/graph-game-2.png" data-lightbox="gallery" data-lightbox-enabled="true"><img src="res/graph-game-2.png" style="width: 90%; height: auto;"></a></div>
+<div style="flex: 1;"><a href="https://www.the-art-of-web.com/images/graph-game-3.png" data-lightbox="gallery" data-lightbox-enabled="true"><img src="res/graph-game-3.png" style="width: 90%; height: auto;"></a></div>
+</div>
+
+<p>Have fun, and if you make some cool lines, send us a screenshot.</p>
+
+
+<h2 id="related">4. Related Articles - Games</h2>
+
+<ul>
+  <li> <a href="https://www.the-art-of-web.com/javascript/maze-game/">Amazing Maze Game</a> <small style="font-size: 9px; color: #ccc;">[JAVASCRIPT]</small></li>
+  <li> <a href="https://www.the-art-of-web.com/javascript/css-animation-demo/">CSS-animated Card Game</a> <small style="font-size: 9px; color: #ccc;">[JAVASCRIPT]</small></li>
+  <li><b>Graphing Game</b> <small style="font-size: 9px; color: #ccc;">[JAVASCRIPT]</small></li>
+</ul>
+
+
+
+<h2 id="section_4">5. References</h2>
+
+<ul>
+  <li><a href="http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/" target="_blank">Watch Out for Zero-Length Matches</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace" target="_blank">String.prototype.replace()</a></li>
+</ul>
+
+<p class="noprint"><a href="https://www.the-art-of-web.com/javascript/">&lt; JavaScript</a></p>
+
+<script src="res/soundplayer.js"></script><script>eval(mod_pagespeed_OE3YvSrRKm);</script>
+<script>eval(mod_pagespeed_KE3QzKVeqN);</script>
+<script>var myGraph=new GraphGame();</script>
+
+<div class="clear"></div>
+
+<ul id="share">
+  <li class="fbook"><a title="Share on Facebook" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fgraph-game%2F"><!-- --></a></li>
+  <li class="tweet"><a title="Tweet This" target="_blank" href="https://twitter.com/intent/tweet?text=JavaScript%3A+Graphing+Game&amp;url=http%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fgraph-game%2F&amp;via=theartofweb"></a></li>
+</ul>
+
+<script>document.getElementById("share").addEventListener("touchstart",function(e){e.target.className="hover";},{passive:true});</script>
+<!-- start feedback form -->
+<div id="feedback">
+<h4>Send a message to The Art of Web:</h4>
+
+<form id="feedback_form" method="POST" action="/feedback.html" accept-charset="UTF-8">
+<input type="hidden" name="chirp\securetoken" value="c1e2dfe8ef9e2d48f5f283855b2ce150">
+<input type="hidden" name="crypted" value="0fd493dc91703f9d9507463205694cd9l90Brvo=">
+<input type="hidden" name="timestamp" value="Tue, 01 Oct 2019 01:21:27 +1000">
+<p><label>Your Name<strong>*</strong><br>
+<input id="field_name" required="" type="text" size="48" name="name"></label></p>
+<p><label>Email Address<strong>*</strong><br>
+<input id="field_email" type="email" required="" size="48" name="email"></label><br>
+<small>used only for us to reply, and to display your <a tabindex="-1" href="https://en.gravatar.com/" target="_blank">gravatar</a>.</small></p>
+<p><label>Website<br>
+<input type="url" pattern="^https?://.+" size="48" name="website" placeholder="http://"></label></p>
+<p><label>Message<strong>*</strong><br>
+<textarea id="field_message" name="message" required="" cols="48" rows="8"></textarea></label></p>
+<p><img class="captcha" style="background:url(data:image/png;base64,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) bottom" src="data:image/png;base64,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3foM09cv4+iLnwrEbP4uxbBSuvcEpZ4muDvNNid38Q7yp6v5xgmdsde5oPqnZT3mXuCmmPfUnnEpZJlESqCHL+P9o5gZOoHJA+TbbYYut+fMvkKo0aLbsJCcWTOoO1fG/tWboOhb8JLj+8xKl111lRqCEiK5771fcPbdvfx97ZssfnvDiL8mHFMxn30nj9rCUha+uY7A+AhMBiNNl6oIT0m02ThLGfLlXfDkHOY1m/hi3RZmPfewg9DsyVGpOP3Wbi70GW1t6ooq1HabzaDEKBovVgo7SyQEJwlLd11NrWjUV24eiFgstF1vJDD+RgVAKnNSAttZQIrFk6wNDw44V3t8QhQ2MUukN6sUruq5lZ2NRPvcCAp6Qzen7cppcomMB2KmMi1kHMGe/m7P43p3i8trgk27yQwtelh7D09lZHDs5e2U5h2/aZwSN+BG79hLnyKRybj7laeYvu6HFPl68eXTf+T+D54bUR49ZmJuLrtOR4OOBz78FVK5jMojRRS+u5dFW9Y7tXcm6sNhMlg7n4LNOzH29JE0f+Bod/WrQmFDVZPAZ45KxfT1y8hf/5ag3pv26N0Or8TWqnoALu85TsQUJcp5GegqNDcPMxSeTudwaddRKg6qmbB0JrHTJuEfFYLFbKG3vZNurR6JTIpyboagj09oIHDj883+hyWuovuFtmvcGXZj01qmr3PY6j2ecBczQwfOu+1pM3RR3lHvnrHZDKuywXQj2GjUdrXp9ESXXbt1ehpKKsFiIW/lKyz987Nk/GQx+roWCjbvYtavHh7SvEVERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERuGf8PJBCs/a8SQ3wAAAAASUVORK5CYII=" alt=""></p>
+<p><label><a tabindex="-1" href="https://www.the-art-of-web.com/php/captcha/">CAPTCHA</a><strong>*</strong>: <input id="captcha_code" type="text" required="" pattern="\d{5}" name="captcha" size="8" maxlength="5"></label>
+ <small>&lt;- copy the digits from the image into this box</small></p>
+<p><input type="submit" name="submit" value="Send Feedback"></p>
+</form>
+
+<p class="instruction">press &lt;Esc&gt; or click outside this box to close</p>
+
+</div> <!-- #feedback -->
+<a class="post_comment show_feedback">Post your comment or question</a>
+
+<div class="clear"></div>
+</main>
+
+<footer id="copyright">
+<a href="https://www.the-art-of-web.com/copyright.html">© Copyright 2019</a> <a href="https://www.chirp.com.au/" target="_blank">Chirp Internet</a> 
+- Page Last Modified: 19 February 2019 
+- <a href="https://www.the-art-of-web.com/cookies.html">Privacy &amp; Cookies</a>
+</footer>
+
+<a class="totop" href="#content" onclick="document.getElementById('content').scrollIntoView(true); return false;">top</a>
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-3458555-1','auto');ga('send','pageview');</script>
+<script src="res/chirp_lightbox.js"></script><script>eval(mod_pagespeed_VhbgGels_h);</script><div id="lightbox_viewer"><div id="lightbox_image_container"><img id="lightbox_image"><div id="lightbox_loading"></div><a id="lightbox_prev"></a><a id="lightbox_next"></a></div><div id="lightbox_details"><a id="lightbox_close" href="#">Close</a><span id="lightbox_caption"></span><span id="lightbox_counter"></span></div></div>
+<script>eval(mod_pagespeed_pRKjWkw7ND);</script>
+<script>var mySuggest=new Suggestor("sitesearch","suggest","/scripts/autosuggest.xml",{regex:/^.{3,12}$/});window.onerror=function(msg,url,line){if(encodeURIComponent){var AjaxTarget="/scripts/logerror.xml";var params={"msg":msg,"url":url,"line":line};if(typeof AjaxRequestXML=="undefined"){var script=document.createElement("script");script.onload=function(){(new AjaxRequestXML()).post(AjaxTarget,params);}
+script.src="/scripts/AjaxRequestXML.js";document.head.appendChild(script);return true;}else{return(new AjaxRequestXML()).post(AjaxTarget,params);}}return false;}</script>
+
+<!-- web development by chirp internet -->
+
+
+<!----></body></html>

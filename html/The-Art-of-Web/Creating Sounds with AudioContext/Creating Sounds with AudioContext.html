@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Creating Sounds with AudioContext &lt; JavaScript | The Art of Web</title>
+  <meta name="description" content="An introduction to creating sounds with the built-in AudioContext interface which is now supported in all modern browsers.">
+  <meta name="keywords" content="audiocontext, piano">
+  <meta name="author" content="Chirp Internet">
+  <link rel="stylesheet" type="text/css" href="res/A.css">
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS: New and updated articles" href="https://www.the-art-of-web.com/rss.xml">
+<style type="text/css">#analyser{display:flex;align-items:flex-end;margin:1em 0;height:100px;border:1px solid #ccc}#analyser>div{flex:1;border-top:2px solid green;transition:.1s}#piano{display:flex;margin:0 auto;max-width:80%}#piano>div{flex:1;position:relative;height:240px;margin:0 1px;border:1px solid #999;border-radius:1px 1px 5px 5px;box-shadow:2px 2px 5px rgba(0,0,0,.4);cursor:pointer}#piano>div::after{position:absolute;bottom:1em;width:100%;text-align:center;content:attr(data-note);font-size:1.5em}#piano>div>div{position:absolute;top:-1px;left:70%;height:160px;width: calc(60% + 2px);background:#000;border-radius:1px 1px 5px 5px;box-shadow:2px 2px 5px rgba(0,0,0,.4);cursor:pointer;z-index:10}</style></head>
+
+<body>
+
+<!--htdig_noindex-->
+<a class="chirplink" accesskey="S" href="#content">skip to content</a>
+<!--/htdig_noindex-->
+
+<header id="header">
+<a href="https://www.the-art-of-web.com/"><img src="res/banner-taow.png" alt="The Art of Web" width="737" height="87"></a>
+<!--htdig_noindex-->
+<nav id="menu" itemscope="" itemtype="http://schema.org/WebSite" class="menu">
+<meta itemprop="url" content="https://www.the-art-of-web.com/">
+<form id="searchbox" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="POST" action="/searchresult.html" accept-charset="UTF-8" onsubmit="return (words.value != '');">
+<meta itemprop="target" content="https://www.the-art-of-web.com/searchresult.html?words={words}">
+<input id="sitesearch" itemprop="query-input" type="search" results="10" autosave="searches" name="words" placeholder="Search">
+<ul id="suggest"><li></li></ul>
+</form>
+<ul>
+  <li id="menu_trigger"><a href="#">≡</a></li>
+  <li><a accesskey="1" href="https://www.the-art-of-web.com/">Home</a></li>
+  <li><a accesskey="2" href="https://www.the-art-of-web.com/html/">HTML</a></li>
+  <li><a accesskey="3" href="https://www.the-art-of-web.com/css/">CSS</a></li>
+  <li><a accesskey="4" href="https://www.the-art-of-web.com/javascript/">JavaScript</a></li>
+  <li><a accesskey="5" href="https://www.the-art-of-web.com/php/">PHP</a></li>
+  <li><a accesskey="6" href="https://www.the-art-of-web.com/sql/">SQL</a></li>
+  <li><a accesskey="7" href="https://www.the-art-of-web.com/system/">System</a></li>
+  <li><a accesskey="8" href="https://www.the-art-of-web.com/links/">Links</a></li>
+</ul>
+</nav>
+<!--/htdig_noindex-->
+</header>
+
+<aside id="rhs">
+<script async="" src="res/analytics.js"></script><script async="" src="res/adsbygoogle.js"></script>
+<!-- The Art of Web - RWD Top -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9789897350102210" data-ad-slot="8956648230" data-ad-format="auto"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</aside>
+
+<main id="content">
+<!--htdig_noindex-->
+<aside id="ad_content" class="noprint">
+<script async="" src="res/adsbygoogle.js"></script>
+<!-- The Art of Web - RWD Content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-9789897350102210" data-ad-slot="1433381437" data-ad-format="auto"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</aside>
+
+<div id="submenu" class=""><ol><li id="submenu_trigger" class="mobileonly"><a href="#">☰ Submenu</a></li><li><a href="#section_0">Creating an oscillating soundwave</a></li><li><a href="#section_1">AudioContext Mechanics</a></li><li><a href="#section_2">SoundPlayer.js class</a></li><li><a href="#section_3">Piano Keyboard</a></li><li><a href="#section_4">Playing a series of notes</a></li><li><a href="#related">Related Articles - Audio</a></li><li><a href="#section_6">References</a></li></ol></div>
+<!--/htdig_noindex-->
+
+<h1><span class="nomobile">JavaScript: </span>Creating Sounds with AudioContext</h1>
+
+<p class="social_counters"><a class="tweets" title="Share on Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Creating+Sounds+with+AudioContext:&amp;url=https%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fcreating-sounds%2F&amp;via=theartofweb"><span>&nbsp;<span>Tweet</span></span></a><a class="likes" title="Share on Facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fcreating-sounds%2F"><span>0<span> Shares</span></span></a><a class="reddit" title="Post to Reddit" target="_blank" href="http://www.reddit.com/submit?title=Creating+Sounds+with+AudioContext&amp;url=https%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fcreating-sounds%2F"><span>0<span> Tweets</span></span></a><a class="feedback" title="User Commentc" href="#user_comments"><span>0<span> Comments</span></span></a></p>
+
+
+
+
+<p>Did you know that it's now possible to generate sounds from scratch 
+using only JavaScript.  Previously this required Flash/Shockwave or 
+loading an audio file.</p>
+
+<p>Playing audio files became much easier in HTML5, but can now be done 
+away with entirely if you only want to play simple harmonics.</p>
+
+
+<h2 id="section_0">1. Creating an oscillating soundwave</h2>
+
+<p>The AudioContext interface is extremely powerful letting you chain 
+together various effects.  For our purposes we are using only the 
+OscillatorNode (represents a periodic waveform) and gainNode (a change 
+in volume) to create our sounds.</p>
+
+<p>Here we've set up two control forms, each controlling a separate 
+OscialltorNode (frequency, wave type) and GainNode (volume) to create a 
+constant tone which can then be manipulated.  The code for each form is 
+otherwise identical.</p>
+
+<div style="display: flex; justify-content: space-between;">
+<form id="soundForm" style="width: 48%">
+<fieldset>
+<legend>Sound Player 1</legend>
+<label>Frequency</label><span><input type="range" name="freq" value="261" min="220" max="880" oninput="myPlayer.setFrequency(this.value);"></span>
+<label>Volume</label><span><input type="range" name="vol" value="50" min="0" max="200" oninput="myPlayer.setVolume(this.value/100);"></span>
+<label>Wave Type</label><span>
+<label><input type="radio" name="wave" value="sine" checked="checked" onclick="myPlayer.setWaveType(this.value);"> sine</label><br>
+<label><input type="radio" name="wave" value="square" onclick="myPlayer.setWaveType(this.value);"> square</label><br>
+<label><input type="radio" name="wave" value="sawtooth" onclick="myPlayer.setWaveType(this.value);"> sawtooth</label><br>
+<label><input type="radio" name="wave" value="triangle" onclick="myPlayer.setWaveType(this.value);"> triangle</label>
+</span>
+<span>
+<input name="play" type="button" onclick="
+  myPlayer.play(form.freq.value, form.vol.value/100, checkRadio(form.wave));
+  this.style.display = 'none';
+  form.stop.style.display = 'inline';
+" value="Play ►">
+<input name="stop" style="display: none;" type="button" onclick="
+  myPlayer.stop();
+  form.play.style = 'inline';
+  this.style.display = 'none';
+" value="Stop ❙❙"></span>
+</fieldset>
+</form>
+
+<form id="soundForm2" style="width: 48%;">
+<fieldset>
+<legend>Sound Player 2</legend>
+<label>Frequency</label><span><input type="range" name="freq" value="392" min="220" max="880" oninput="myPlayer2.setFrequency(this.value);"></span>
+<label>Volume</label><span><input type="range" name="vol" value="25" min="0" max="200" oninput="myPlayer2.setVolume(this.value/100);"></span>
+<label>Wave Type</label><span>
+<label><input type="radio" name="wave" value="sine" onclick="myPlayer2.setWaveType(this.value);"> sine</label><br>
+<label><input type="radio" name="wave" value="square" checked="checked" onclick="myPlayer2.setWaveType(this.value);"> square</label><br>
+<label><input type="radio" name="wave" value="sawtooth" onclick="myPlayer2.setWaveType(this.value);"> sawtooth</label><br>
+<label><input type="radio" name="wave" value="triangle" onclick="myPlayer2.setWaveType(this.value);"> triangle</label>
+</span>
+<span>
+<input name="play" type="button" onclick="
+  myPlayer2.play(form.freq.value, form.vol.value/100, checkRadio(form.wave));
+  this.style.display = 'none';
+  form.stop.style.display = 'inline';
+" value="Play ►">
+<input name="stop" style="display: none;" type="button" onclick="
+  myPlayer2.stop();
+  form.play.style = 'inline';
+  this.style.display = 'none';
+" value="Stop ❙❙"></span>
+</fieldset>
+</form>
+</div>
+
+<div id="analyser">
+<div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div><div style="height: 50px;"></div></div>
+
+<p>If you're feeling masochistic, try playing some sounds with adjacent 
+frequencies.</p>
+
+
+<h2 id="section_1">2. AudioContext Mechanics</h2>
+
+<p>For the effects demonstrated on this page we're using the following 
+interfaces:</p>
+
+<p style="text-align: center;"><img src="res/soundplayer.png" alt="SoundPlayer Node configuration diagram" width="477" height="150"></p>
+
+<p>Rather than operating on them directly, we've created a 
+<tt>SoundPlayer</tt> class which does most of the work, including 
+ramping the volume up and down to avoid that annoying clicking 
+sound as the wave is truncated at the start and finish.</p>
+
+<p>Complications arise when trying to play sounds in series, because 
+commands are processed relative to the current time 
+(baseAudioContext.currentTime) which represents a hardware timestamp 
+starting from zero once the system is activated.</p>
+
+
+<h2 id="section_2">3. SoundPlayer.js class</h2>
+
+<p>Our SoundPlayer class enables all the example on this page, plus the 
+sound effects in our new <a href="https://www.the-art-of-web.com/javascript/graph-game/">JavaScript 
+Graphing Game</a>.</p>
+
+<p>The constructor accepts an AudioContext object, after which a single 
+sound/note can be started and have it's properties controlled.  A single 
+AudioContext is sufficient for all sounds on the page.</p>
+
+<code id="box1" class="final" style="height: auto;"><i>// Original JavaScript code by Chirp Internet: www.chirp.com.au</i>
+<i>// Please acknowledge use of this code by including this header.</i>
+
+function SoundPlayer(audioContext, filterNode) {
+  this.audioCtx = audioContext;
+  this.gainNode = this.audioCtx.createGain();
+  if(filterNode) {
+    <i>// run output through extra filter (already connected to audioContext)</i>
+    this.gainNode.connect(filterNode);
+  } else {
+    this.gainNode.connect(this.audioCtx.destination);
+  }
+  this.oscillator = null;
+}
+
+SoundPlayer.prototype.setFrequency = function(val, when) {
+  if(when) {
+    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime + when);
+  } else {
+    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.setVolume = function(val, when) {
+  if(when) {
+    this.gainNode.gain.exponentialRampToValueAtTime(val, this.audioCtx.currentTime + when);
+  } else {
+    this.gainNode.gain.setValueAtTime(val, this.audioCtx.currentTime);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.setWaveType = function(waveType) {
+  this.oscillator.type = waveType;
+  return this;
+};
+
+SoundPlayer.prototype.play = function(freq, vol, wave, when) {
+  this.oscillator = this.audioCtx.createOscillator();
+  this.oscillator.connect(this.gainNode);
+  this.setFrequency(freq);
+  if(wave) {
+    this.setWaveType(wave);
+  }
+  this.setVolume(1/1000);
+  if(when) {
+    this.setVolume(1/1000, when - 0.02);
+    this.oscillator.start(when - 0.02);
+    this.setVolume(vol, when);
+  } else {
+    this.oscillator.start();
+    this.setVolume(vol, 0.02);
+  }
+  return this;
+};
+
+SoundPlayer.prototype.stop = function(when) {
+  if(when) {
+    this.gainNode.gain.setTargetAtTime(1/1000, this.audioCtx.currentTime + when - 0.05, 0.02);
+    this.oscillator.stop(this.audioCtx.currentTime + when);
+  } else {
+    this.gainNode.gain.setTargetAtTime(1/1000, this.audioCtx.currentTime, 0.02);
+    this.oscillator.stop(this.audioCtx.currentTime + 0.05);
+  }
+  return this;
+};
+</code>
+<p style="margin-top: 0; text-align: right;"><small style="display: none;"><a href="#box1" onclick="document.getElementById('box1').style['height'] = 'auto'; this.parentNode.style['display'] = 'none'; return true;">expand code box</a></small></p>
+
+
+<h4>Public methods</h4>
+
+<p>The SoundPlayer class has the following public methods:</p>
+
+<dl>
+  <dt>__construct(<span><i>AudioContext</i></span>)</dt>
+  <dd>creates a GainNode and connects it to the destination.</dd>
+  <dt>play(<span><i>frequency, gain, waveType[, when]</i></span>)</dt>
+  <dd>creates an OscillatorNode to play the specified sound and starts playing, now or in the future.</dd>
+  <dt>stop(<span><i>[when]</i></span>)</dt>
+  <dd>stops playing, now or in the future.</dd>
+  <dt>setFrequency(<span><i>frequency[, when]</i></span>)</dt>
+  <dd>changes the frequency in Hz, now or in the future.</dd>
+  <dt>setVolume(<span><i>gain[, when]</i></span>)</dt>
+  <dd>changes the volume multiplier, now or in the future.</dd>
+  <dt>setWaveType(<span><i>type</i></span>)</dt>
+  <dd>changes the wave type (sine, square, sawtooth or triangle).</dd>
+</dl>
+
+<p>Notably, these functions can all be chained. For example, to play a 
+particular sound for a half second:</p>
+
+<code>&lt;script src="<a href="https://www.the-art-of-web.com/soundplayer.js">/soundplayer.js</a>"&gt;&lt;/script&gt;
+&lt;script&gt;
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audio = new AudioContext();
+
+  (new SoundPlayer(audio)).play(440.0, 0.8, "sine").stop(0.5);
+
+&lt;/script&gt;</code>
+
+<button onclick='(new SoundPlayer(audio)).play(440.0, 0.8, "sine").stop(0.5);'>Run Example ♪</button>
+
+<p>And to play a sound with a frequency transition:</p>
+
+<code>(new SoundPlayer(audio)).play(440, 0.5, "square").setFrequency(880, 0.1).stop(0.2);</code>
+
+<button onclick='(new SoundPlayer(audio)).play(440, 0.5, "square").setFrequency(880, 0.1).stop(0.2);'>Run Example ♫</button>
+
+
+<p>This approach is used in the piano keyboard demonstration below and, 
+in most browsers, the commands can even be pasted directly into the 
+Browser Console.</p>
+
+
+<h2 id="section_3">4. Piano Keyboard</h2>
+
+<p>Using our new SoundPlayer class we can easily attach it using event 
+listeners to elements on the page to play different notes.  For example, 
+here we've set up a piano keyboard where each key plays the respective 
+note:</p>
+
+<div id="piano">
+<div data-frequency="261.626" data-note="C">
+  <div data-frequency="277.18" data-note="C#"></div>
+</div>
+<div data-frequency="293.665" data-note="D">
+  <div data-frequency="311.127"></div>
+</div>
+<div data-frequency="329.628" data-note="E"></div>
+<div data-frequency="349.228" data-note="F">
+  <div data-frequency="369.994"></div>
+</div>
+<div data-frequency="391.995" data-note="G">
+  <div data-frequency="415.305"></div>
+</div>
+<div data-frequency="440.000" data-note="A">
+  <div data-frequency="466.164"></div>
+</div>
+<div data-frequency="493.883" data-note="B"></div>
+<div data-frequency="523.251" data-note="C">
+  <div data-frequency="554.365"></div>
+</div>
+<div data-frequency="587.330" data-note="D">
+  <div data-frequency="622.254"></div>
+</div>
+<div data-frequency="659.255" data-note="E"></div>
+<div data-frequency="698.457" data-note="F">
+  <div data-frequency="739.989"></div>
+</div>
+<div data-frequency="783.991" data-note="G">
+  <div data-frequency="830.609"></div>
+</div>
+<div data-frequency="880.000" data-note="A">
+  <div data-frequency="932.328"></div>
+</div>
+<div data-frequency="987.767" data-note="B"></div>
+<div data-frequency="1046.50" data-note="C"></div>
+</div>
+
+<p style="text-align: center;"><small><label style="cursor: pointer;"><input type="checkbox" onclick="changePianoMode(this.checked);" checked="checked"> play notes on mouseover</label> (initial click needed)</small></p>
+
+<p>Using HTML to mark up the keys as follows:</p>
+
+<code>&lt;div id="<i>piano</i>"&gt;
+  &lt;div data-frequency="261.626" data-note="C"&gt;
+    &lt;div data-frequency="277.18" data-note="C#"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div data-frequency="293.665" data-note="D"&gt;
+    &lt;div data-frequency="311.127" data-note="D#"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div data-frequency="329.628" data-note="E"&gt;&lt;/div&gt;
+  &lt;div data-frequency="349.228" data-note="F"&gt;
+    &lt;div data-frequency="369.994" data-note="F#"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  <i>...</i>
+&lt;/div&gt;</code>
+
+<p>The data attributes are used to determine which note (frequency in 
+Hz) to play when the key is clicked, and to display the key labels.</p>
+
+<p>The source code is simplicity itself:</p>
+
+<code>&lt;script src="<a href="https://www.the-art-of-web.com/soundplayer.js">/soundplayer.js</a>"&gt;&lt;/script&gt;
+&lt;script&gt;
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audio = new AudioContext();
+
+  const playNote = (e) =&gt; {
+    <i>// play note according to data-frequency attribute</i>
+    (new SoundPlayer(audio)).play(e.target.dataset.frequency, 0.8, "sine").stop(0.5);
+    e.cancelBubble = true;
+  };
+
+  for(let el of document.getElementById("<i>piano</i>").getElementsByTagName("DIV")) {
+    el.addEventListener("click", playNote, false);
+  }
+
+&lt;/script&gt;</code>
+
+<p>For those not familar with the new <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank">arrow functions</a> syntax, <tt>(e) =&gt;</tt> in the 
+above code snippets is equivalent to <tt>function(e)</tt>.</p>
+
+<p>Depending on your system capabilities there may be some distortion 
+when playing overlapping notes.  To reduce that we can add a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode" target="_blank">DynamicsCompressorNode</a> to the mix:</p>
+
+<code class="final">&lt;script src="<a href="https://www.the-art-of-web.com/soundplayer.js">/soundplayer.js</a>"&gt;&lt;/script&gt;
+&lt;script&gt;
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audio = new AudioContext();
+<span>  const compressor = audio.createDynamicsCompressor();
+  compressor.connect(audio.destination);</span>
+
+  const playNote = (e) =&gt; {
+    <i>// play note according to data-frequency attribute</i>
+    (new SoundPlayer(audio<span>, compressor</span>)).play(e.target.dataset.frequency, 0.8, "sine").setVolume(1/1000, 0.55).stop(0.6);
+    e.cancelBubble = true;
+  };
+
+  for(let el of document.getElementById("<i>piano</i>").getElementsByTagName("DIV")) {
+    el.addEventListener("click", playNote, false);
+  }
+
+&lt;/script&gt;</code>
+
+<p>Now all the notes should be clean even if you jam your hands down on 
+the keyboard.  We've also tweaked the note decay profile.</p>
+
+<p>What's actually happening behing the scenes is illustrated below:</p>
+
+<p style="text-align: center;"><img src="res/soundplayer2.png" alt="SoundPlayer Node configuration diagram" width="640" height="150"></p>
+
+<p>So our Soundplayer class is handling the frequency, wave type and 
+volume, while the output (AudioContext.destination) and any intervening 
+filter nodes are supplied from outside code.</p>
+
+
+<h2 id="section_4">5. Playing a series of notes</h2>
+
+<p>To play notes in series (without using a buffer or 
+<tt>requestAnimationFrame</tt> for timing) we just need to specifiy a 
+start and end time in seconds.</p>
+
+<p>You might recognise this tune, for example:</p>
+
+<code>(new SoundPlayer(audio)).play(587.3, 0.5, "sine").stop(0.25);
+(new SoundPlayer(audio)).play(587.3, 0.5, "sine", 0.3).stop(0.35);
+(new SoundPlayer(audio)).play(659.3, 0.5, "sine", 0.4).stop(0.55);
+(new SoundPlayer(audio)).play(587.3, 0.5, "sine", 0.6).stop(0.75);
+(new SoundPlayer(audio)).play(784.0, 0.5, "sine", 0.8).stop(0.95);
+(new SoundPlayer(audio)).play(740.0, 0.5, "sine", 1.0).stop(1.40);</code>
+
+<p><button onclick='(new SoundPlayer(audio)).play(587.3, 0.5, "sine").stop(0.25);
+(new SoundPlayer(audio)).play(587.3, 0.5, "sine", 0.3).stop(0.35);
+(new SoundPlayer(audio)).play(659.3, 0.5, "sine", 0.4).stop(0.55);
+(new SoundPlayer(audio)).play(587.3, 0.5, "sine", 0.6).stop(0.75);
+(new SoundPlayer(audio)).play(784.0, 0.5, "sine", 0.8).stop(0.95);
+(new SoundPlayer(audio)).play(740.0, 0.5, "sine", 1.0).stop(1.40); return false;'>Happy Birthday To You ♫</button></p>
+
+<p>Note that Safari (12.0.3) will not play sounds automatically on page 
+load.  Instead they are queued until a user action invokes the 
+AudioContext interface.</p>
+
+
+<h2 id="related">6. Related Articles - Audio</h2>
+
+<ul>
+  <li><b>Creating Sounds with AudioContext</b> <small style="font-size: 9px; color: #ccc;">[JAVASCRIPT]</small></li>
+</ul>
+
+
+
+<h2 id="section_6">7. References</h2>
+
+<ul>
+  <li><a href="http://marcgg.com/blog/2016/11/01/javascript-audio/" target="_blank">Generate Sounds Programmatically With Javascript</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">MDN: Web Audio API</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode" target="_blank">MDN: OscillatorNode</a></li>
+  <li><a href="https://www.doctormix.com/blog/note-to-frequency-chart" target="_blank">Note to Frequency Chart</a></li>
+</ul>
+
+<p class="noprint"><a href="https://www.the-art-of-web.com/javascript/">&lt; JavaScript</a></p>
+
+<script src="res/soundplayer.js"></script>
+<script>
+
+  const checkRadio = (field) => {
+    if((typeof field.length == "undefined") && (field.type == "radio")) {
+      if(field.checked) return field.value;
+    } else {
+      for(let i=0; i < field.length; i++) {
+        if(field[i].checked) return field[i].value;
+      }
+    }
+    return false;
+  };
+
+  const changePianoMode = (active) => {
+    for(let el of piano.getElementsByTagName("DIV")) {
+      if(active) {
+        el.addEventListener("mouseover", playNote, false);
+      } else {
+        el.removeEventListener("mouseover", playNote, false);
+      }
+    }
+  };
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audio = new AudioContext();
+
+  const analyser = audio.createAnalyser();
+
+  let analyserDisplay = document.getElementById("analyser");
+  let myPlayer, myPlayer2;
+  if(analyser.getFloatTimeDomainData) {
+    analyser.fftSize = 512;
+    analyser.connect(audio.destination);
+    myPlayer = new SoundPlayer(audio, analyser);
+    myPlayer2 = new SoundPlayer(audio, analyser);
+    for(let i=0; i < analyser.fftSize; i++) {
+      analyserDisplay.appendChild(document.createElement("DIV"));
+    }
+    let dataArray = new Float32Array(analyser.fftSize);
+    setInterval(function() {
+      analyser.getFloatTimeDomainData(dataArray);
+      for(let i=0; i < dataArray.length; i++) {
+        analyserDisplay.children[i].style.height = (50 + (10 * dataArray[i])) + "px";
+      }
+    }, 500);
+  } else {
+    // getFloatTimeDomainData not supported
+    myPlayer = new SoundPlayer(audio);
+    myPlayer2 = new SoundPlayer(audio);
+    analyserDisplay.style.display = "none";
+  }
+
+  const compressor = audio.createDynamicsCompressor();
+  compressor.connect(audio.destination);
+
+  const playNote = (e) => {
+    (new SoundPlayer(audio, compressor)).play(e.target.dataset.frequency, 0.8, "sine").setVolume(1/1000, 0.55).stop(0.6);
+    e.cancelBubble = true;
+  };
+
+  let piano = document.getElementById("piano");
+  for(let el of piano.getElementsByTagName("DIV")) {
+    el.addEventListener("click", playNote, false);
+  }
+
+</script>
+
+<div class="clear"></div>
+
+<ul id="share">
+  <li class="fbook"><a title="Share on Facebook" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fcreating-sounds%2F"><!-- --></a></li>
+  <li class="tweet"><a title="Tweet This" target="_blank" href="https://twitter.com/intent/tweet?text=JavaScript%3A+Creating+Sounds+with+AudioContext&amp;url=http%3A%2F%2Fwww.the-art-of-web.com%2Fjavascript%2Fcreating-sounds%2F&amp;via=theartofweb"></a></li>
+</ul>
+
+<script>document.getElementById("share").addEventListener("touchstart",function(e){e.target.className="hover";},{passive:true});</script>
+<!-- start feedback form -->
+<div id="feedback">
+<h4>Send a message to The Art of Web:</h4>
+
+<form id="feedback_form" method="POST" action="/feedback.html" accept-charset="UTF-8">
+<input type="hidden" name="chirp\securetoken" value="cb72262fd304938f720093e00bdfa392">
+<input type="hidden" name="crypted" value="d88378b0521f700715a03a3c01bbcb55rqEPdRA=">
+<input type="hidden" name="timestamp" value="Tue, 01 Oct 2019 01:10:22 +1000">
+<p><label>Your Name<strong>*</strong><br>
+<input id="field_name" required="" type="text" size="48" name="name"></label></p>
+<p><label>Email Address<strong>*</strong><br>
+<input id="field_email" type="email" required="" size="48" name="email"></label><br>
+<small>used only for us to reply, and to display your <a tabindex="-1" href="https://en.gravatar.com/" target="_blank">gravatar</a>.</small></p>
+<p><label>Website<br>
+<input type="url" pattern="^https?://.+" size="48" name="website" placeholder="http://"></label></p>
+<p><label>Message<strong>*</strong><br>
+<textarea id="field_message" name="message" required="" cols="48" rows="8"></textarea></label></p>
+<p><img class="captcha" style="background:url(data:image/png;base64,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) bottom" src="data:image/png;base64,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" alt=""></p>
+<p><label><a tabindex="-1" href="https://www.the-art-of-web.com/php/captcha/">CAPTCHA</a><strong>*</strong>: <input id="captcha_code" type="text" required="" pattern="\d{5}" name="captcha" size="8" maxlength="5"></label>
+ <small>&lt;- copy the digits from the image into this box</small></p>
+<p><input type="submit" name="submit" value="Send Feedback"></p>
+</form>
+
+<p class="instruction">press &lt;Esc&gt; or click outside this box to close</p>
+
+</div> <!-- #feedback -->
+<a class="post_comment show_feedback">Post your comment or question</a>
+
+<div class="clear"></div>
+</main>
+
+<footer id="copyright">
+<a href="https://www.the-art-of-web.com/copyright.html">© Copyright 2019</a> <a href="https://www.chirp.com.au/" target="_blank">Chirp Internet</a> 
+- Page Last Modified: 1 March 2019 
+- <a href="https://www.the-art-of-web.com/cookies.html">Privacy &amp; Cookies</a>
+</footer>
+
+<a class="totop" href="#content" onclick="document.getElementById('content').scrollIntoView(true); return false;">top</a>
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-3458555-1','auto');ga('send','pageview');</script>
+<script src="res/combined.js"></script>
+<script>var mySuggest=new Suggestor("sitesearch","suggest","/scripts/autosuggest.xml",{regex:/^.{3,12}$/});window.onerror=function(msg,url,line){if(encodeURIComponent){var AjaxTarget="/scripts/logerror.xml";var params={"msg":msg,"url":url,"line":line};if(typeof AjaxRequestXML=="undefined"){var script=document.createElement("script");script.onload=function(){(new AjaxRequestXML()).post(AjaxTarget,params);}
+script.src="/scripts/AjaxRequestXML.js";document.head.appendChild(script);return true;}else{return(new AjaxRequestXML()).post(AjaxTarget,params);}}return false;}</script>
+
+<!-- web development by chirp internet -->
+
+
+<!----></body></html>
