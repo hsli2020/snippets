@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>CodePen - 06: 12-Span Grid</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+body {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+div {
+  display: grid;
+  place-items: center;
+}
+
+.span-12 {
+  background: lightpink;
+  grid-column: 1 / 13;
+}
+
+.span-6 {
+  background: lightblue;
+  grid-column: 1 / 7;
+}
+
+.span-4 {
+  background: coral;
+  grid-column: 4 / 9;
+}
+
+.span-2 {
+  background: yellow;
+  grid-column: 3 / 5;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+</style>
+</head>
+<body>
+
+  <div class="span-12">Span 12</div>
+  <div class="span-6">Span 6</div>
+  <div class="span-4">Span 4</div>
+  <div class="span-2">Span 2</div>
+
+</body>
+</html>

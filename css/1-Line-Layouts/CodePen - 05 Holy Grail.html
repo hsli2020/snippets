@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>CodePen - 05: Holy Grail</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+body {
+  display: grid;
+  height: 100vh;
+  grid-template: auto 1fr auto/auto 1fr auto;
+}
+
+header {
+  background: lightpink;
+  padding: 2rem;
+  grid-column: 1 / 4;
+}
+
+.left-sidebar {
+  background: lightblue;
+  grid-column: 1 / 2;
+}
+
+main {
+  background: coral;
+  grid-column: 2 / 3;
+}
+
+.right-sidebar {
+  background: yellow;
+  grid-column: 3 / 4;
+}
+
+footer {
+  background: wheat;
+  padding: 2rem;
+  text-align: center;
+  grid-column: 1 / 4;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+.left-sidebar,
+.right-sidebar {
+  padding: 1rem;
+}
+</style>
+</head>
+<body>
+
+  <header><h1>Header.com</h1></header>
+  <div class="left-sidebar">Left Sidebar</div>
+  <main></main>
+  <div class="right-sidebar">Right Sidebar</div>
+  <footer>Footer Content — Header.com 2020</footer>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>CodePen - 08: Line It Up!</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+body {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.visual {
+  height: 100px;
+  width: 100%;
+  background: wheat;
+  margin: 0.5rem 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: lightpink;
+  padding: 1rem;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Title - Card 1</h1>
+    <p>Medium length description. Let's add a few more words here.</p>
+    <div class="visual"></div>
+  </div>
+  
+  <div class="card">
+    <h1>Title - Card 2</h1>
+    <p>Long Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed est error repellat veritatis.</p>
+    <div class="visual"></div>
+  </div>
+  
+  <div class="card">
+    <h1>Title - Card 3</h1>
+    <p>Short Description.</p>
+    <div class="visual"></div>
+  </div>
+
+</body>
+</html>
