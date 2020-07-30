@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>CodePen - Marshmallow Comet Effect</title>
+<style>
+body{
+background-color:black; /*black is chosen to make our comet glow*/
+padding:0;
+margin:0;
+width:100vw;
+height:100vh;
+}
+
+#container{
+width:100%;
+height:100%;
+position:absolute;
+left:0px;
+top:0px;
+overflow:hidden; /*prevent overflow of comets and showing the vertical scrollbar*/
+}
+
+#container .particle{
+position:absolute;
+transform:translate(0%,0%) scale(0) rotate(0deg);
+animation:ff linear 0.7s var(--i) forwards;
+opacity:0.85;
+box-shadow:0 0 0 2px rgba(0,0,0,0);
+}
+
+@keyframes ff{
+10%{transform:translate(0%,0%) scale(1) rotate(0deg)}
+100%{transform:translate(var(--shiftX), var(--shiftY)) scale(0) rotate(360deg)}
+}
+</style>
+</head>
+
+<body onmousemove="comet()">
+<div id="container"></div>
+
+<script id="rendered-js">
+var colors = [
+'rgb(0,190,255)', // relaxing blue
+'rgb(255,255,255)', // white
+'rgb(0,160,255)', // another relaxing blue
+'orange', // favorite fruit ;P
+'rgb(240,245,250)', // bluish grey
+'rgb(230,60,0)' // sauce red
+];
+
+// rather not to mention it
+var cont = document.querySelector("#container");
+
+function random(min, max, round)
+{
+  var p = min + Math.random() * (max - min);
+  return round ? Math.round(p) : p;
+}
+
+function comet()
+{
+  // capturing mouse x and y
+  var e = window.event,
+  x = e.pageX || e.clientX, // x-coordinates,
+  y = e.pageY || e.clientY; // y-coordinates of the cursor
+
+  // number of divs created at a time
+  rnd = random(1, 9, true);
+
+  for (var i = 0; i < rnd; i++)
+  {
+    var pp = document.createElement("div");
+    pp.className = 'particle';
+
+    // size
+    var d = random(10, 60); // 10-60 is d = diamiter?!?
+    pp.style.width = d + "px";
+    pp.style.height = d + "px";
+
+    // setting coordinates of the div
+    pp.style.left = x + random(-15, 15) - d / 2 + "px";
+    pp.style.top = y + random(-15, 15) - d / 2 + "px";
+
+    // colors-variations-randomness
+    which_color = random(0, colors.length - 1, true);
+    pp.style.backgroundColor = colors[which_color];
+    pp.style.borderRadius = random(10, 50) + "%";
+
+    // shift it away to make the animation live
+    shiftX = random(-200, 200);
+    shiftY = random(-200, 200);
+
+    // adding a little delay before each animation
+    delay = random(10, 40) / 1000 + 's'; // diving by 1000 to convert ms to seconds
+
+    // js variables --> [data injecting] --> css variables
+    pp.style.setProperty('--i', delay); //delay
+    pp.style.setProperty('--shiftX', shiftX + 'px'); //shift x coords
+    pp.style.setProperty('--shiftY', shiftY + 'px'); //shift y coords
+
+    // the KILL function
+    pp.addEventListener('animationend', function () {
+      this.outerHTML = "";
+    });
+
+    // may be Chrome needs a -webkit prefix?
+    pp.addEventListener('webkitAnimationEnd', function () {
+      this.outerHTML = "";
+    });
+
+    // finally append the div
+    cont.appendChild(pp);
+  }
+}
+
+/*find out more @ https://github.com/Shadow-Scientist/marshmallow-comet*/
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>
