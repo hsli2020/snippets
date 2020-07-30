@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Graphing Game &lt; JavaScript | The Art of Web</title>
+  <meta name="description" content="A recreation of an ancient game where you type equations to pop balloons.">
+  <meta name="author" content="Chirp Internet">
+  <link rel="stylesheet" type="text/css" href="res/A-New.css">
+  <link rel="alternate" type="application/rss+xml" title="RSS: New and updated articles" href="https://www.the-art-of-web.com/rss.xml">
+</head>
+<body>
+
+<main id="content">
+
+<div style="float:left;width:60%;">
+<canvas id="graph_canvas" height="788" width="788"></canvas>
+<div id="graph_status">
+<div>Score: 0</div>
+<div>⦿⦿⦿⦿⦿</div>
+</div>
+</div>
+
+<div style="float:right;width:35%;">
+<style> input { padding: 5px; }</style>
+<input id="graph_eq" type="text" size="32" autofocus="" placeholder="Enter equation: y = ƒ(x); or x = ƒ(y)">
+<div id="graph_error"></div>
+<button id="graph_run" style="display: inline-block;">Plot Graph</button> 
+<button id="graph_reset" style="display: inline-block;">Play Again</button>
+<div id="graph_output">plotted equations appear here</divd>
+</div>
+
+<h2 id="section_1">Example Equations</h2>
+<p>Here are some example to help you get started. Equations can be a function either of <i>y</i> or of <i>x</i>:</p>
+
+<ul>
+  <li>y = 2</li>
+  <li>y = x</li>
+  <li>y = x^2</li>
+  <li>y = Math.sin(x)</li>
+  <li>x = -3y + 3</li>
+  <li>y = x(x+3)(x+1) + 1</li>
+  <li>y = 2x2 - 2x/3 + 4</li>
+</ul>
+
+<script src="res/soundplayer.js"></script>
+<script>eval(mod_pagespeed_OE3YvSrRKm);</script>
+<script>eval(mod_pagespeed_KE3QzKVeqN);</script>
+<script>var myGraph=new GraphGame();</script>
+
+<div class="clear"></div>
+</main>
+
+<!--
+<a class="totop" href="#content" onclick="document.getElementById('content').scrollIntoView(true); return false;">top</a>
+-->
+
+<script src="res/chirp_lightbox.js"></script>
+<script>eval(mod_pagespeed_VhbgGels_h);</script>
+<div id="lightbox_viewer"><div id="lightbox_image_container"><img id="lightbox_image"><div id="lightbox_loading"></div><a id="lightbox_prev"></a><a id="lightbox_next"></a></div><div id="lightbox_details"><a id="lightbox_close" href="#">Close</a><span id="lightbox_caption"></span><span id="lightbox_counter"></span></div></div>
+<script>eval(mod_pagespeed_pRKjWkw7ND);</script>
+<script>var mySuggest=new Suggestor("sitesearch","suggest","/scripts/autosuggest.xml",{regex:/^.{3,12}$/});window.onerror=function(msg,url,line){if(encodeURIComponent){var AjaxTarget="/scripts/logerror.xml";var params={"msg":msg,"url":url,"line":line};if(typeof AjaxRequestXML=="undefined"){var script=document.createElement("script");script.onload=function(){(new AjaxRequestXML()).post(AjaxTarget,params);}
+script.src="/scripts/AjaxRequestXML.js";document.head.appendChild(script);return true;}else{return(new AjaxRequestXML()).post(AjaxTarget,params);}}return false;}</script>
+
+</body></html>
