@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>CodePen - Bar Chart</title>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<div id="app">
+<graph-bar :width="600" :height="400" :axis-min="0" :axis-max="50" :labels="[ '1Q', '2Q', '3Q', '4Q' ]" :values="values">
+<note :text="'Bar Chart'"></note>
+<tooltip :names="names" :position="'left'"></tooltip>
+<legends :names="names" :filter="true"></legends>
+</graph-bar>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js'></script>
+<script src='https://cdn.rawgit.com/juijs/vue-graph/2216ae2f/dist/vue-graph.js'></script>
+<script id="rendered-js">
+var vm = new Vue({
+  el: "#app",
+  data: {
+    names: ["MS", "Apple", "Google"],
+    values: [
+    [10, 5, 5, 5],
+    [40, 10, 10, 10],
+    [30, 30, 30, 30]] } });
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>

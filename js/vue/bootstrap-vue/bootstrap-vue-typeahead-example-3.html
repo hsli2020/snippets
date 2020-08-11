@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<title>CodePen - Prepending &amp; Appending</title>
+<link rel='stylesheet' href='https://unpkg.com/bootstrap@4.1.3/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://unpkg.com/vue-bootstrap-typeahead/dist/VueBootstrapTypeahead.css'>
+<style>#wrapper { margin: 25px; }</style>
+</head>
+<body>
+<div id="wrapper">
+<div id="app">
+</div>
+</div>
+<script src='https://unpkg.com/vue'></script>
+<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+<script src='https://unpkg.com/underscore'></script>
+<script src='https://unpkg.com/vue-bootstrap-typeahead'></script>
+<script>
+// Note the "prepend" prop, and the "append" slot
+const template = `
+<div>
+  <vue-bootstrap-typeahead
+    class="mb-4"
+    v-model="query"
+    :data="users"
+    @keydown.enter="search"
+    :serializer="item => item.login"
+    placeholder="Search GitHub Users"
+    prepend="Username:"
+  >
+<template slot="append">
+<button @click="searchRepositories" class="btn btn-primary">
+Search
+</button>
+</template>
+</vue-bootstrap-typeahead>
+
+ <h3>Search Github Users Repositories</h3>
+ <pre>{{ userRepositories | stringify }}</pre>
+</div>
+`;
+
+new Vue({
+  template,
+  components: {
+    VueBootstrapTypeahead
+  },
+  data() {
+    return {
+      query: '',
+      userRepositories: {},
+      users: []
+    };
+  },
+  methods: {
+    searchUsers(newQuery) {
+      axios.get(`https://api.github.com/search/users?q=${newQuery}`).
+      then(res => {
+        this.users = res.data.items;
+      });
+    },
+    searchRepositories() {
+      axios.get(`https://api.github.com/search/repositories?q=user:${this.query}`).
+      then(res => {
+        this.userRepositories = res.data;
+      });
+    }
+  },
+  watch: {
+    // When the query value changes, fetch new results from
+    // the API - debounce the search to avoid hitting the API limits
+    query: _.debounce(function (newQuery) {this.searchUsers(newQuery);}, 250)
+  },
+  filters: {
+    stringify(value) {
+      return JSON.stringify(value, null, 2);
+    }
+  }
+}).$mount('#app');
+</script>
+</body>
+</html>
