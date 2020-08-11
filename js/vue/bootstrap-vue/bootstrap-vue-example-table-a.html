@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Vue Example</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.css">
+  <style>[v-cloak] {display: none}</style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    <h2>Row select support</h2>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
+    </b-form-group>
+
+    <b-table
+      ref="selectableTable"
+      selectable
+      :select-mode="selectMode"
+      :items="items"
+      :fields="fields"
+      @row-selected="onRowSelected"
+      responsive="sm"
+    >
+      <!-- Example scoped slot for select state illustrative purposes -->
+      <template v-slot:cell(selected)="{ rowSelected }">
+        <template v-if="rowSelected">
+          <span aria-hidden="true">&check;</span>
+          <span class="sr-only">Selected</span>
+        </template>
+        <template v-else>
+          <span aria-hidden="true">&nbsp;</span>
+          <span class="sr-only">Not selected</span>
+        </template>
+      </template>
+    </b-table>
+    <p>
+      <b-button size="sm" @click="selectAllRows">Select all</b-button>
+      <b-button size="sm" @click="clearSelected">Clear selected</b-button>
+      <b-button size="sm" @click="selectThirdRow">Select 3rd row</b-button>
+      <b-button size="sm" @click="unselectThirdRow">Unselect 3rd row</b-button>
+    </p>
+    <p>
+      Selected Rows:<br>
+      {{ selected }}
+    </p>
+  </div>
+
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue-icons.min.js"></script>
+  
+  <script>
+    window.onload = () => {
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            modes: ['multi', 'single', 'range'],
+            fields: ['selected', 'isActive', 'age', 'first_name', 'last_name'],
+            items: [
+              { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+              { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+              { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+              { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+            ],
+            selectMode: 'multi',
+            selected: []
+          }
+        },
+        methods: {
+          onRowSelected(items) {
+            this.selected = items
+          },
+          selectAllRows() {
+            this.$refs.selectableTable.selectAllRows()
+          },
+          clearSelected() {
+            this.$refs.selectableTable.clearSelected()
+          },
+          selectThirdRow() {
+            // Rows are indexed from 0, so the third row is index 2
+            this.$refs.selectableTable.selectRow(2)
+          },
+          unselectThirdRow() {
+            // Rows are indexed from 0, so the third row is index 2
+            this.$refs.selectableTable.unselectRow(2)
+          }
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>
