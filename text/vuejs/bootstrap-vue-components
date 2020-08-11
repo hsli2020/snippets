@@ -1,0 +1,49 @@
+# Alert — Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
+# Aspect — NEW The `<b-aspect>` component can be used to maintain a minimum responsive aspect ratio for content. v2.9.0
+# Avatar — NEW Avatars are typically used to display a user profile as a picture, an icon, or short text. v2.8.0
+# Badge — Small and adaptive tag for adding context to just about any content.
+# Breadcrumb — Indicate the current page's location within a navigational hierarchy. Separators are automatically added in CSS through ::before and content.
+# Button — Use BootstrapVue's <b-button> component for actions in forms, dialogs, and more. Includes support for a handful of contextual variations, sizes, states, and more.
+# Button Group — Group a series of buttons together on a single line with <b-button-group>.
+# Button Toolbar — Group a series of <b-button-group> and/or <b-input-group> together on a single line, with optional keyboard navigation.
+# Calendar — BootstrapVue custom calendar widget for selecting dates and controlling other components, fully WAI-ARIA accessible (a11y) and supports internationalization (i18n) v2.5.0
+# Card — A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.
+# Carousel — The <b-carousel> component is a slideshow for cycling through a series of content, built with CSS 3D transforms. It works with a series of images, text, or custom markup.
+# Collapse — Easily toggle content visibility on your pages. Includes support for making accordions.
+# Dropdown — Dropdowns are toggleable, contextual overlays for displaying lists of links and actions in a dropdown menu format.
+# Embed — Create responsive video or slideshow embeds based on the width of the parent by creating an intrinsic ratio that scales on any device.
+# Form — Form component and form helper components that optionally supports inline form styles and validation states
+# Form Checkbox — Custom checkbox input and checkbox group to replace the browser default checkbox input, built on top of semantic and accessible markup. Optionally supports switch styling.
+# Form Datepicker — BootstrapVue custom date picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n) v2.5.0
+# Form File — Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload.
+# Form Group — Easily add some structure to forms. Its purpose is to pair form controls with a legend or label, and to provide help text and invalid/valid feedback text, as well as visual (color) contextual state feedback.
+# Form Input — Create various type inputs such as: text, password, number, url, email, search, range, date and more.
+# Form Radio — Cross browser consistent radio inputs and radio groups, using Bootstrap's custom radio input to replace the browser default radio input.
+# Form Rating — NEW BootstrapVue custom star rating form control for ratings entry or aggregated display v2.12.0
+# Form Select — Custom <select> component using cross-browser custom styles. Optionally generate <option> entries based on an array, array of objects.
+# Form Spinbutton — BootstrapVue custom numerical spinbutton form input component, featuring WAI-ARIA accessibility (a11y) and internationalization (i18n) v2.5.0
+# Form Tags — Lightweight custom tagged input form control, with options for customized interface rendering, duplicate tag detection and optional tag validation v2.2.0
+# Form Textarea — Create multi-line text inputs with support for auto height sizing, minimum and maximum number of rows, and contextual validation states.
+# Form Timepicker — BootstrapVue custom time picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n) v2.6.0
+# Image — Create responsive images, optionally adding lightweight styles to them — all via props. Support for rounded images, thumbnail styling, alignment, and even the ability to create blank images with an optional solid background color, and lazy loaded images.
+# Input Group — Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs.
+# Jumbotron — A lightweight, flexible component that can optionally extend the entire viewport to showcase key marketing messages on your site.
+  Layout and Grid System — Use the powerful mobile-first flexbox grid (via the <b-container>, <b-row>, <b-form-row> and <b-col> components) to build layouts of all shapes and sizes thanks to a twelve column system, five default responsive tiers, CSS Sass variables and mixins, and dozens of predefined classes.
+# Link — Use BootstrapVue's custom <b-link> component for generating a standard <a> link or <router-link>. <b-link> supports the disabled state and click event propagation.
+# List group — List groups are a flexible and powerful component for displaying a series of content. List group items can be modified to support just about any content within. They can also be used as navigation via various props.
+# Media — The media object helps build complex and repetitive components where some media is positioned alongside content that doesn't wrap around said media.
+  Modal — Modals are streamlined, but flexible dialog prompts powered by JavaScript and CSS. They support a number of use cases from user notification to completely custom content and feature a handful of helpful sub-components, sizes, variants, accessibility, and more.
+# Nav — Navigation components that share general markup and styles, from the base <b-nav> class to the active and disabled states. Swap modifier props to switch between each style.
+# Navbar — The component <b-navbar> is a responsive wrapper that positions branding, navigation, and other elements into a concise header. It's easily extensible and thanks to the <b-collapse> component.
+# Overlay — The b-overlay component is used to visually obscure a particular element or component and its content. It signals to the user of a state change within the element or component and can be used for creating loaders, warnings/alerts and more. v2.7.0
+# Pagination — Quick first, previous, next, last, and page buttons for pagination control of another component (such as <b-table> or lists).
+# Pagination Nav — Quick first, previous, next, last, and page buttons for navigation based pagination, supporting regular links or router links.
+  Popover — The Popover feature provides a tooltip-like behavior, can be easily applied to any interactive element via the <b-popover> component or v-b-popover directive
+# Progress — A custom progress component for displaying simple or complex progress bars, featuring support for horizontally stacked bars, animated backgrounds, and text labels.
+  Sidebar — NEW The `<b-sidebar>` component creates a fixed viewport, left or right, sliding popout drawer. v2.10.0
+# Spinner — The <b-spinner> component can be used to show the loading state in your projects. They're rendered only with basic HTML and CSS as a lightweight Vue functional component.
+  Table — For displaying tabular data. <b-table> supports pagination, filtering, sorting, custom rendering, events, and asynchronous data. For simple display of tabular data without all the fancy features, BootstrapVue also provides lightweight alternative components <b-table-lite> and <b-table-simple>
+# Tabs — Create a widget of tabbable panes of local content. The tabs component is built upon navs and cards internally, and provides full keyboard navigation control of the tabs.
+# Time — A custom time input widget that can be used to control other components v2.6.0
+# Toasts — Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.
+# Tooltip — Easily add tooltips to elements or components via the <b-tooltip> component or v-b-tooltip directive. 
