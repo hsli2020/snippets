@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Vue Example</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.css">
+  <style>[v-cloak] {display: none}</style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    <div class="mb-2">
+     <b-button @click="showMsgBoxOne">Simple msgBoxOk</b-button>
+     Return value: {{ String(boxOne) }}
+    </div>
+    <div class="mb-1">
+     <b-button @click="showMsgBoxTwo">msgBoxOk with options</b-button>
+     Return value: {{ String(boxTwo) }}
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue-icons.min.js"></script>
+  
+  <script>
+    window.onload = () => {
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            boxOne: '',
+            boxTwo: ''
+          }
+        },
+        methods: {
+          showMsgBoxOne() {
+            this.boxOne = ''
+            this.$bvModal.msgBoxOk('Action completed')
+            .then(value => {
+                this.boxOne = value
+            })
+            .catch(err => {
+                // An error occurred
+            })
+          },
+          showMsgBoxTwo() {
+            this.boxTwo = ''
+            this.$bvModal.msgBoxOk('Data was submitted successfully', {
+              title: 'Confirmation',
+              size: 'sm',
+              buttonSize: 'sm',
+              okVariant: 'success',
+              headerClass: 'p-2 border-bottom-0',
+              footerClass: 'p-2 border-top-0',
+              centered: true
+            })
+            .then(value => {
+                this.boxTwo = value
+            })
+            .catch(err => {
+                // An error occurred
+            })
+          }
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Vue Example</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.css">
+  <style>[v-cloak] {display: none}</style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    <div class="mb-2">
+     <b-button @click="showMsgBoxOne">Simple msgBoxConfirm</b-button>
+     Return value: {{ String(boxOne) }}
+    </div>
+    <div class="mb-1">
+     <b-button @click="showMsgBoxTwo">msgBoxConfirm with options</b-button>
+     Return value: {{ String(boxTwo) }}
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue-icons.min.js"></script>
+  
+  <script>
+    window.onload = () => {
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            boxOne: '',
+            boxTwo: ''
+          }
+        },
+        methods: {
+          showMsgBoxOne() {
+            this.boxOne = ''
+            this.$bvModal.msgBoxConfirm('Are you sure?')
+            .then(value => {
+                this.boxOne = value
+            })
+            .catch(err => {
+                // An error occurred
+            })
+          },
+          showMsgBoxTwo() {
+            this.boxTwo = ''
+            this.$bvModal.msgBoxConfirm('Please confirm that you want to delete everything.', {
+              title: 'Please Confirm',
+              size: 'sm',
+              buttonSize: 'sm',
+              okVariant: 'danger',
+              okTitle: 'YES',
+              cancelTitle: 'NO',
+              footerClass: 'p-2',
+              hideHeaderClose: false,
+              centered: true
+            })
+            .then(value => {
+                this.boxTwo = value
+            })
+            .catch(err => {
+                // An error occurred
+            })
+          }
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>
