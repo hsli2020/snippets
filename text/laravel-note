@@ -1,0 +1,31 @@
+Verb 	   | Path 	                | Action 	    | Route Name
+-----------+------------------------+---------------+ -------------
+GET 	   | /photo 	            | index 	    | photo.index
+GET 	   | /photo/create 	        | create 	    | photo.create
+POST 	   | /photo 	            | store 	    | photo.store
+GET 	   | /photo/{photo} 	    | show 	        | photo.show
+GET 	   | /photo/{photo}/edit 	| edit 	        | photo.edit
+PUT/PATCH  | /photo/{photo} 	    | update 	    | photo.update
+DELETE 	   | /photo/{photo} 	    | destroy 	    | photo.destroy
+
+Laravel ecosystem
+=================
+
+  - Vapor     : Serverless Platform               - vapor.laravel.com
+  - Forge     : Server Management                 - forge.laravel.com
+  - Envoyer   : Zero Downtime Deployment          - envoyer.io
+  - Horizon   : Queue Monitoring                  - laravel.com/docs/8.x/horizon
+  - Nova      : Administration Panel              - nova.laravel.com/
+  - Echo      : Realtime Events                   - laravel.com/docs/8.x/broadcasting
+  - Lumen     : Micro-Framework                   - lumen.laravel.com
+  - Homestead : Pre-Packaged Vagrant Box          - laravel.com/docs/8.x/homestead    
+  - Spark     : SaaS App Scaffolding              - spark.laravel.com
+  - Valet     : Dev Environment for Macs          - laravel.com/docs/8.x/valet
+  - Mix       : Webpack Asset Compilation         - laravel.com/docs/8.x/mix     
+  - Cashier   : Subscription Billing Integration  - laravel.com/docs/8.x/billing            
+  - Dusk      : Browser Testing and Automation    - laravel.com/docs/8.x/dusk          
+  - Passport  : Painless OAuth2 Implementation    - laravel.com/docs/8.x/passport          
+  - Scout     : Full-Text Search                  - laravel.com/docs/8.x/scout            
+  - Socialite : OAuth Authentication              - laravel.com/docs/8.x/socialite
+  - Telescope : Debug Assistant                   - laravel.com/docs/8.x/telescope           
+  - Jetstream : App Scaffolding                   - jetstream.laravel.com           

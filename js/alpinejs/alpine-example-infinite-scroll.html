@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Infinite Scroll using AlpineJS</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.1/tailwind.min.css'>
+</head>
+
+<body translate="no" >
+  <div class="p-8" x-data="infiniteScroll()" x-init="init()">
+    <template x-for="item in items">
+      <div class="bg-red-100 h-64 w-full border-b-2 border-red-300 flex items-center justify-center">
+        <h1 class="text-2xl inline" x-text="item"></h1>
+      </div>
+    </template>
+
+    <div class="bg-white h-64 w-full flex text-pink-600 items-center justify-center" id="infinite-scroll-trigger">
+      <svg class="animate-spin -ml-1 mr-3 h-5 w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Loading...</span>
+    </div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.7.0/alpine.js'></script>
+
+<script id="rendered-js" >
+
+// https://www.entreprehero.com/infinite-scroll-using-alpinejs/
+function infiniteScroll() {
+  return {
+    triggerElement: null,
+    page: 1,
+    lastPage: null,
+    itemsPerPage: 10,
+    observer: null,
+    isObserverPolyfilled: false,
+    items: [],
+    init(elementId) {
+      const ctx = this;
+      this.triggerElement = document.querySelector(elementId ? elementId : '#infinite-scroll-trigger');
+
+      // Check if browser can use IntersectionObserver which is waaaay more performant
+      if (!('IntersectionObserver' in window) ||
+      !('IntersectionObserverEntry' in window) ||
+      !('isIntersecting' in window.IntersectionObserverEntry.prototype) ||
+      !('intersectionRatio' in window.IntersectionObserverEntry.prototype))
+      {
+        // Loading polyfill since IntersectionObserver is not available
+        this.isObserverPolyfilled = true;
+
+        // Storing function in window so we can wipe it when reached last page
+        window.alpineInfiniteScroll = {
+          scrollFunc() {
+            var position = ctx.triggerElement.getBoundingClientRect();
+
+            if (position.top < window.innerHeight && position.bottom >= 0) {
+              ctx.getItems();
+            }
+          } };
+
+
+        window.addEventListener('scroll', window.alpineInfiniteScroll.scrollFunc);
+      } else {
+        // We can access IntersectionObserver
+        this.observer = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting === true) {
+            ctx.getItems();
+          }
+        }, { threshold: [0] });
+
+        this.observer.observe(this.triggerElement);
+      }
+
+      this.getItems();
+    },
+    getItems() {
+      // TODO: Do fetch here for the content and concat it to populated items
+      // TODO: Set last page from API call - ceil it
+
+      // SOF: Dummy Data
+      this.lastPage = 5;
+      console.log('Simulating fetching items...');
+      let dummyAdd = this.page === 1 ? 1 : 1 + (this.page - 1) * this.itemsPerPage;
+      this.items = this.items.concat(Array.from({ length: this.itemsPerPage }, (_, i) => i + dummyAdd));
+      // EOF: Dummy Data
+
+      // Next page
+      this.page++;
+
+      // We have shown the last page - clean up
+      if (this.lastPage && this.page > this.lastPage) {
+        if (this.isObserverPolyfilled) {
+          window.removeEventListener('scroll', window.alpineInfiniteScroll.scrollFunc);
+        } else {
+          this.observer.unobserve(this.triggerElement);
+        }
+
+        this.triggerElement.parentNode.removeChild(this.triggerElement);
+      }
+    } };
+
+}
+//# sourceURL=pen.js
+</script>
+
+</body>
+</html>

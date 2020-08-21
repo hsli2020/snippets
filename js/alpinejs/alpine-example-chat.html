@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - AlpineJS Chatbot</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.3/tailwind.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css'>
+  
+<style>
+.scrollbar-w-2::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+.scrollbar-track-blue-lighter::-webkit-scrollbar-track {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.scrollbar-thumb-blue::-webkit-scrollbar-thumb {
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+}
+
+.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <div x-data="chatBot()">
+    <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+        <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+            <template x-for="(message, key) in messages">
+                <div>
+                    <div class="flex items-end" :class="message.from=='bot'?'':'justify-end'">
+                        <div class="flex flex-col space-y-2 text-md leading-tight max-w-lg mx-2" :class="message.from=='bot'?'order-2 items-start':'order-1 items-end'">
+                            <div>
+                                <span class="px-4 py-3 rounded-xl inline-block" :class="message.from=='bot'?'rounded-bl-none bg-gray-100 text-gray-600':'rounded-br-none bg-blue-500 text-white'" x-text="message.text"></span>
+                            </div>
+                        </div>
+                        <img :src="message.from=='bot'?'https://cdn.diversityavatars.com/assets/images/avatars-gallery/placeholder.png':'https://i.pravatar.cc/100?img=7'" alt="" class="w-6 h-6 rounded-full" :class="message.from=='bot'?'order-1':'order-2'">
+                    </div>
+                </div>
+            </template>
+            <div x-show="botTyping" style="display: none;">
+                <div class="flex items-end">
+                    <div class="flex flex-col space-y-2 text-md leading-tight mx-2 order-2 items-start">
+                        <div><img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif" alt="..." class="w-16 ml-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+            <div class="relative flex">
+                <input type="text" placeholder="Say something..." autocomplete="off" autofocus="true" @keydown.enter="updateChat($event.target)" class="text-md w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-5 pr-16 bg-gray-100 border-2 border-gray-200 focus:border-blue-500 rounded-full py-2" x-ref="input" />
+                <div class="absolute right-2 items-center inset-y-0 hidden sm:flex">
+                    <button type="button" class="inline-flex items-center justify-center rounded-full h-8 w-8 transition duration-200 ease-in-out text-white bg-blue-500 hover:bg-blue-600 focus:outline-none" @click.prevent="updateChat($refs.input)">
+                        <i class="mdi mdi-arrow-right text-xl leading-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'></script>
+
+<script id="rendered-js" >
+function chatBot() {
+  return {
+    prompts: [
+    ["hi", "hey", "hello", "good morning", "good afternoon"],
+    ["how are you", "how is life", "how are things"],
+    ["what are you doing", "what is going on", "what is up"],
+    ["how old are you"],
+    ["who are you", "are you human", "are you bot", "are you human or bot"],
+    ["who created you", "who made you"],
+    ["your name please", "your name", "may i know your name", "what is your name", "what call yourself"],
+    ["i love you"],
+    ["happy", "good", "fun", "wonderful", "fantastic", "cool"],
+    ["bad", "bored", "tired"],
+    ["help me", "tell me story", "tell me joke"],
+    ["ah", "yes", "ok", "okay", "nice"],
+    ["bye", "good bye", "goodbye", "see you later"],
+    ["what should i eat today"],
+    ["bro"],
+    ["what", "why", "how", "where", "when"],
+    ["no", "not sure", "maybe", "no thanks"],
+    [""],
+    ["haha", "ha", "lol", "hehe", "funny", "joke"],
+    ["flip a coin", "heads or tails", "tails or heads", "head or tails", "head or tail", "tail or heads", "tail or head"]],
+
+    replies: [
+    ["Hello!", "Hi!", "Hey!", "Hi there!", "Howdy"],
+    ["Fine... how are you?", "Pretty well, how are you?", "Fantastic, how are you?"],
+    ["Nothing much", "About to go to sleep", "Can you guess?", "I don't know actually"],
+    ["I am infinite"],
+    ["I am just a bot", "I am a bot. What are you?"],
+    ["The one true God, JavaScript"],
+    ["I am nameless", "I don't have a name"],
+    ["I love you too", "Me too"],
+    ["Have you ever felt bad?", "Glad to hear it"],
+    ["Why?", "Why? You shouldn't!", "Try watching TV"],
+    ["What about?", "Once upon a time..."],
+    ["Tell me a story", "Tell me a joke", "Tell me about yourself"],
+    ["Bye", "Goodbye", "See you later"],
+    ["Sushi", "Pizza"],
+    ["Bro!"],
+    ["Great question"],
+    ["That's ok", "I understand", "What do you want to talk about?"],
+    ["Please say something :("],
+    ["Haha!", "Good one!"],
+    ["Heads", "Tails"]],
+
+    alternative: ["Same", "Go on...", "Bro...", "Try again", "I'm listening...", "I don't understand :/"],
+    coronavirus: ["Please stay home", "Wear a mask", "Fortunately, I don't have COVID", "These are uncertain times"],
+    botTyping: false,
+    messages: [{
+      from: 'bot',
+      text: 'Hello world!' }],
+
+    output: function (input) {
+      let product;
+
+      // Regex remove non word/space chars
+      // Trim trailing whitespce
+      // Remove digits - not sure if this is best
+      // But solves problem of entering something like 'hi1'
+
+      let text = input.toLowerCase().replace(/[^\w\s]/gi, "").replace(/[\d]/gi, "").trim();
+      text = text.
+      replace(/ a /g, " ") // 'tell me a story' -> 'tell me story'
+      .replace(/i feel /g, "").
+      replace(/whats/g, "what is").
+      replace(/please /g, "").
+      replace(/ please/g, "").
+      replace(/r u/g, "are you");
+
+      if (this.compare(this.prompts, this.replies, text)) {
+        // Search for exact match in `prompts`
+        product = this.compare(this.prompts, this.replies, text);
+      } else if (text.match(/thank/gi)) {
+        product = "You're welcome!";
+      } else if (text.match(/(corona|covid|virus)/gi)) {
+        // If no match, check if message contains `coronavirus`
+        product = this.coronavirus[Math.floor(Math.random() * this.coronavirus.length)];
+      } else {
+        // If all else fails: random this.alternative
+        product = this.alternative[Math.floor(Math.random() * this.alternative.length)];
+      }
+
+      // Update DOM
+      this.addChat(input, product);
+    },
+    compare: function (promptsArray, repliesArray, string) {
+      let reply;
+      let replyFound = false;
+      for (let x = 0; x < promptsArray.length; x++) {
+        for (let y = 0; y < promptsArray[x].length; y++) {
+          if (promptsArray[x][y] === string) {
+            let replies = repliesArray[x];
+            reply = replies[Math.floor(Math.random() * replies.length)];
+            replyFound = true;
+            // Stop inner loop when input value matches this.prompts
+            break;
+          }
+        }
+        if (replyFound) {
+          // Stop outer loop when reply is found instead of interating through the entire array
+          break;
+        }
+      }
+      if (!reply) {
+        for (let x = 0; x < promptsArray.length; x++) {
+          for (let y = 0; y < promptsArray[x].length; y++) {
+            if (this.levenshtein(promptsArray[x][y], string) >= 0.75) {
+              let replies = repliesArray[x];
+              reply = replies[Math.floor(Math.random() * replies.length)];
+              replyFound = true;
+              // Stop inner loop when input value matches this.prompts
+              break;
+            }
+          }
+          if (replyFound) {
+            // Stop outer loop when reply is found instead of interating through the entire array
+            break;
+          }
+        }
+      }
+      return reply;
+    },
+    levenshtein: function (s1, s2) {
+      var longer = s1;
+      var shorter = s2;
+      if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+      }
+      var longerLength = longer.length;
+      if (longerLength == 0) {
+        return 1.0;
+      }
+      return (longerLength - this.editDistance(longer, shorter)) / parseFloat(longerLength);
+    },
+    editDistance: function (s1, s2) {
+      s1 = s1.toLowerCase();
+      s2 = s2.toLowerCase();
+
+      var costs = new Array();
+      for (var i = 0; i <= s1.length; i++) {
+        var lastValue = i;
+        for (var j = 0; j <= s2.length; j++) {
+          if (i == 0)
+          costs[j] = j;else
+          {
+            if (j > 0) {
+              var newValue = costs[j - 1];
+              if (s1.charAt(i - 1) != s2.charAt(j - 1))
+              newValue = Math.min(Math.min(newValue, lastValue),
+              costs[j]) + 1;
+              costs[j - 1] = lastValue;
+              lastValue = newValue;
+            }
+          }
+        }
+        if (i > 0)
+        costs[s2.length] = lastValue;
+      }
+      return costs[s2.length];
+    },
+    addChat: function (input, product) {
+
+      // Add user message
+      this.messages.push({
+        from: 'user',
+        text: input });
+
+      // Keep messages at most recent
+      this.scrollChat();
+
+      // Fake delay to seem "real"
+      setTimeout(() => {
+        this.botTyping = true;
+        this.scrollChat();
+      }, 1000);
+
+      // add bit message with Fake delay to seem "real"
+      setTimeout(() => {
+        this.botTyping = false;
+        this.messages.push({
+          from: 'bot',
+          text: product });
+
+        this.scrollChat();
+      }, product.length / 10 * 1000 + (Math.floor(Math.random() * 2000) + 1500));
+
+    },
+    scrollChat: function () {
+      const messagesContainer = document.getElementById("messages");
+      messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+      setTimeout(() => {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+      }, 100);
+    },
+    updateChat: function (target) {
+      if (target.value.trim()) {
+        this.output(target.value.trim());
+        target.value = '';
+      }
+    } };
+
+}
+//# sourceURL=pen.js
+</script>
+
+</body>
+</html>
