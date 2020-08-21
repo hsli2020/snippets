@@ -1,0 +1,190 @@
+SellingPartnerApi
+    \AplusContentApi
+        createContentDocument()
+        getContentDocument()
+        listContentDocumentAsinRelations()
+        postContentDocumentApprovalSubmission()
+        postContentDocumentAsinRelations()
+        postContentDocumentSuspendSubmission()
+        searchContentDocuments()
+        searchContentPublishRecords()
+        updateContentDocument()
+        validateContentDocumentAsinRelations()
+
+    \AuthorizationApi
+        getAuthorizationCode()
+
+    \CatalogApi
+        getCatalogItem()
+        searchCatalogItems()
+
+    \FbaInboundApi
+        confirmPreorder()
+        confirmTransport()
+        createInboundShipment()
+        createInboundShipmentPlan()
+        estimateTransport()
+        getBillOfLading()
+        getInboundGuidance()
+        getLabels()
+        getPreorderInfo()
+        getPrepInstructions()
+        getShipmentItems()
+        getShipmentItemsByShipmentId()
+        getShipments()
+        getTransportDetails()
+        putTransportDetails()
+        updateInboundShipment()
+        voidTransport()
+
+    \FbaInboundEligibilityApi
+        getItemEligibilityPreview()
+
+    \FbaInventoryApi
+        getInventorySummaries()
+
+    \FbaOutboundApi
+        cancelFulfillmentOrder()
+        createFulfillmentOrder()
+        createFulfillmentReturn()
+        getFeatureInventory()
+        getFeatureSKU()
+        getFeatures()
+        getFulfillmentOrder()
+        getFulfillmentPreview()
+        getPackageTrackingDetails()
+        listAllFulfillmentOrders()
+        listReturnReasonCodes()
+        updateFulfillmentOrder()
+
+    \FeedsApi
+        cancelFeed()
+        createFeed()
+        createFeedDocument()
+        getFeed()
+        getFeedDocument()
+        getFeeds()
+
+    \FeesApi
+        getMyFeesEstimateForASIN()
+        getMyFeesEstimateForSKU()
+
+    \FinancesApi
+        listFinancialEventGroups()
+        listFinancialEvents()
+        listFinancialEventsByGroupId()
+        listFinancialEventsByOrderId()
+
+    \ListingsApi
+        deleteListingsItem()
+        patchListingsItem() 	PATCH  /listings/2020-09-01/items/{sellerId}/{sku}
+        putListingsItem()
+
+    \MerchantFulfillmentApi
+        cancelShipment()
+        cancelShipmentOld()
+        createShipment()
+        getAdditionalSellerInputs()
+        getAdditionalSellerInputsOld()
+        getEligibleShipmentServices()
+        getEligibleShipmentServicesOld()
+        getShipment()
+
+    \NotificationsApi
+        createDestination()
+        createSubscription()
+        deleteDestination()
+        deleteSubscriptionById()
+        getDestination()
+        getDestinations()
+        getSubscription()
+        getSubscriptionById()
+
+    \OrdersApi
+        getOrder()
+        getOrderAddress()
+        getOrderBuyerInfo()
+        getOrderItems()
+        getOrderItemsBuyerInfo()
+        getOrders()
+
+    \ProductPricingApi
+        getCompetitivePricing()
+        getItemOffers()
+        getListingOffers()
+        getPricing()
+
+    \ProductTypeDefinitionsApi
+        getDefinitionsProductType()
+        searchDefinitionsProductTypes()
+
+    \ReportsApi
+        cancelReport()
+        cancelReportSchedule()
+        createReport()
+        createReportSchedule()
+        getReport()
+        getReportDocument()
+        getReportSchedule()
+        getReportSchedules()
+        getReports()
+
+    \SalesApi
+        getOrderMetrics()
+
+    \SellersApi
+        getMarketplaceParticipations()
+
+    \ServiceApi
+        addAppointmentForServiceJobByServiceJobId()
+        cancelServiceJobByServiceJobId()
+        completeServiceJobByServiceJobId()
+        getServiceJobByServiceJobId()
+        getServiceJobs()
+        rescheduleAppointmentForServiceJobByServiceJobId()
+
+    \ShipmentInvoicingApi
+        getInvoiceStatus()
+        getShipmentDetails()
+        submitInvoice()
+
+    \ShippingApi
+        cancelShipment()
+        createShipment()
+        getAccount()
+        getRates()
+        getShipment()
+        getTrackingInformation()
+        purchaseLabels()
+        purchaseShipment()
+        retrieveShippingLabel()
+
+    \SmallAndLightApi
+        deleteSmallAndLightEnrollmentBySellerSKU()
+        getSmallAndLightEligibilityBySellerSKU()
+        getSmallAndLightEnrollmentBySellerSKU()
+        getSmallAndLightFeePreview()
+        putSmallAndLightEnrollmentBySellerSKU()
+
+    \SolicitationsApi
+        createProductReviewAndSellerFeedbackSolicitation()
+        getSolicitationActionsForOrder()
+
+    \TokensApi
+        createRestrictedDataToken()
+
+    SellingPartnerApi\UploadsApi
+        createUploadDestinationForResource()
+
+
+ReportsApi
+==========
+createReport() / cancelReport()
+getReports()
+getReport()
+
+createReportSchedule() / cancelReportSchedule()
+getReportSchedules()
+getReportSchedule()
+
+getReportDocument()

@@ -1,0 +1,425 @@
+# aplus-content-api
+===================
+
+  Operation: searchContentDocuments
+  GET /aplus/2020-11-01/contentDocuments
+
+  Operation: createContentDocument
+  POST /aplus/2020-11-01/contentDocuments
+
+  Operation: getContentDocument
+  GET /aplus/2020-11-01/contentDocuments/{contentReferenceKey}
+
+  Operation: updateContentDocument
+  POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}
+
+  Operation: listContentDocumentAsinRelations
+  GET /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/asins
+
+  Operation: postContentDocumentAsinRelations
+  POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/asins
+
+  Operation: validateContentDocumentAsinRelations
+  POST /aplus/2020-11-01/contentAsinValidations
+
+  Operation: searchContentPublishRecords
+  GET /aplus/2020-11-01/contentPublishRecords
+
+  Operation: postContentDocumentApprovalSubmission
+  POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/approvalSubmissions
+
+  Operation: postContentDocumentSuspendSubmission
+  POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/suspendSubmissions
+
+# authorization-api
+===================
+
+  Operation: getAuthorizationCode
+  Returns the Login with Amazon (LWA) authorization code for an existing Amazon MWS authorization.
+  GET /authorization/v1/authorizationCode
+
+# catalog-items-api
+===================
+
+  Operation: listCatalogItems
+  GET /catalog/v0/items
+
+  Operation: getCatalogItem
+  GET /catalog/v0/items/{asin}
+
+  Operation: listCatalogCategories
+  GET /catalog/v0/categories
+
+# fba-inbound-eligibility-api
+=============================
+
+  Operation: getItemEligibilityPreview
+  GET /fba/inbound/v1/eligibility/itemPreview
+
+# fba-inventory-api
+===================
+
+  Operation: getInventorySummaries
+  GET /fba/inventory/v1/summaries
+
+# fba-small-and-light-api
+=========================
+
+  Operation: getSmallAndLightEnrollmentBySellerSKU
+  GET /fba/smallAndLight/v1/enrollments/{sellerSKU}
+
+  Operation: putSmallAndLightEnrollmentBySellerSKU
+  PUT /fba/smallAndLight/v1/enrollments/{sellerSKU}
+
+  Operation: deleteSmallAndLightEnrollmentBySellerSKU
+  DELETE /fba/smallAndLight/v1/enrollments/{sellerSKU}
+
+  Operation: getSmallAndLightEligibilityBySellerSKU
+  GET /fba/smallAndLight/v1/eligibilities/{sellerSKU}
+
+  Operation: getSmallAndLightFeePreview
+  POST /fba/smallAndLight/v1/feePreviews
+
+# feeds-api
+===========
+
+  Operation: getFeeds
+  GET /feeds/2021-06-30/feeds
+
+  Operation: createFeed
+  POST /feeds/2021-06-30/feeds
+
+  Operation: getFeed
+  GET /feeds/2021-06-30/feeds/{feedId}
+
+  Operation: cancelFeed
+  DELETE /feeds/2021-06-30/feeds/{feedId}
+
+  Operation: createFeedDocument
+  POST /feeds/2021-06-30/documents
+
+  Operation: getFeedDocument
+  GET /feeds/2021-06-30/documents/{feedDocumentId}
+
+# finances-api
+==============
+
+  Operation: listFinancialEventGroups
+  GET /finances/v0/financialEventGroups
+
+  Operation: listFinancialEventsByGroupId
+  GET /finances/v0/financialEventGroups/{eventGroupId}/financialEvents
+
+  Operation: listFinancialEventsByOrderId
+  GET /finances/v0/orders/{orderId}/financialEvents
+
+  Operation: listFinancialEvents
+  GET /finances/v0/financialEvents
+
+# fulfillment-inbound-api
+=========================
+
+Operation: getInboundGuidance
+Operation: createInboundShipmentPlan
+Operation: updateInboundShipment
+Operation: createInboundShipment
+Operation: getPreorderInfo
+Operation: confirmPreorder
+Operation: getPrepInstructions
+Operation: getTransportDetails
+Operation: putTransportDetails
+Operation: voidTransport
+Operation: estimateTransport
+Operation: confirmTransport
+Operation: getLabels
+Operation: getBillOfLading
+Operation: getShipments
+Operation: getShipmentItemsByShipmentId
+Operation: getShipmentItems
+
+# fulfillment-outbound-api
+==========================
+
+Operation: getFulfillmentPreview
+Operation: listAllFulfillmentOrders
+Operation: createFulfillmentOrder
+Operation: getPackageTrackingDetails
+Operation: listReturnReasonCodes
+Operation: createFulfillmentReturn
+Operation: getFulfillmentOrder
+Operation: updateFulfillmentOrder
+Operation: cancelFulfillmentOrder
+Operation: getFeatures
+Operation: getFeatureInventory
+Operation: getFeatureSKU
+
+# listings-items-api
+====================
+
+  Operation: putListingsItem
+  PUT /listings/2020-09-01/items/{sellerId}/{sku}
+
+  Operation: deleteListingsItem
+  DELETE /listings/2020-09-01/items/{sellerId}/{sku}
+
+  Operation: patchListingsItem
+  PATCH /listings/2020-09-01/items/{sellerId}/{sku}
+
+# merchant-fulfillment-api
+==========================
+
+  Operation: getEligibleShipmentServicesOld
+  POST /mfn/v0/eligibleServices
+
+  Operation: getEligibleShipmentServices
+  POST /mfn/v0/eligibleShippingServices
+
+  Operation: getShipment
+  GET /mfn/v0/shipments/{shipmentId}
+
+  Operation: cancelShipment
+  DELETE /mfn/v0/shipments/{shipmentId}
+
+  Operation: cancelShipmentOld
+  PUT /mfn/v0/shipments/{shipmentId}/cancel
+
+  Operation: createShipment
+  POST /mfn/v0/shipments
+
+  Operation: getAdditionalSellerInputsOld
+  POST /mfn/v0/sellerInputs
+
+  Operation: getAdditionalSellerInputs
+  POST /mfn/v0/additionalSellerInputs
+
+# messaging-api
+===============
+
+Operation: getMessagingActionsForOrder
+Operation: confirmCustomizationDetails
+Operation: createConfirmDeliveryDetails
+Operation: createLegalDisclosure
+Operation: createNegativeFeedbackRemoval
+Operation: createConfirmOrderDetails
+Operation: createConfirmServiceDetails
+Operation: CreateAmazonMotors
+Operation: CreateWarranty
+Operation: GetAttributes
+Operation: createDigitalAccessKey
+Operation: createUnexpectedProblem
+
+# notifications-api
+===================
+
+Operation: getSubscription
+Operation: createSubscription
+Operation: getSubscriptionById
+Operation: deleteSubscriptionById
+Operation: getDestinations
+Operation: createDestination
+Operation: getDestination
+Operation: deleteDestination
+
+# orders-api
+============
+
+  Operation: getOrders
+  GET /orders/v0/orders
+
+  Operation: getOrder
+  GET /orders/v0/orders/{orderId}
+
+  Operation: getOrderBuyerInfo
+  GET /orders/v0/orders/{orderId}/buyerInfo
+
+  Operation: getOrderAddress
+  GET /orders/v0/orders/{orderId}/address
+
+  Operation: getOrderItems
+  GET /orders/v0/orders/{orderId}/orderItems
+
+  Operation: getOrderItemsBuyerInfo
+  GET /orders/v0/orders/{orderId}/orderItems/buyerInfo
+
+# product-fees-api
+==================
+
+  Operation: getMyFeesEstimateForSKU
+  POST /products/fees/v0/listings/{SellerSKU}/feesEstimate
+
+  Operation: getMyFeesEstimateForASIN
+  POST /products/fees/v0/items/{Asin}/feesEstimate
+
+# product-pricing-api
+=====================
+
+  Operation: getPricing
+  GET /products/pricing/v0/price
+
+  Operation: getCompetitivePricing
+  GET /products/pricing/v0/competitivePrice
+
+  Operation: getListingOffers
+  GET /products/pricing/v0/listings/{SellerSKU}/offers
+
+  Operation: getItemOffers
+  GET /products/pricing/v0/items/{Asin}/offers
+
+# product-type-definitions-api
+==============================
+
+  Operation: searchDefinitionsProductTypes
+  GET /definitions/2020-09-01/productTypes
+
+  Operation: getDefinitionsProductType
+  GET /definitions/2020-09-01/productTypes/{productType}
+
+# reports-api
+=============
+
+  Operation: getReports
+  GET /reports/2021-06-30/reports
+
+  Operation: createReport
+  POST /reports/2021-06-30/reports
+
+  Operation: getReport
+  GET /reports/2021-06-30/reports/{reportId}
+
+  Operation: cancelReport
+  DELETE /reports/2021-06-30/reports/{reportId}
+
+  Operation: getReportSchedules
+  GET /reports/2021-06-30/schedules
+
+  Operation: createReportSchedule
+  POST /reports/2021-06-30/schedules
+
+  Operation: getReportSchedule
+  GET /reports/2021-06-30/schedules/{reportScheduleId}
+
+  Operation: cancelReportSchedule
+  DELETE /reports/2021-06-30/schedules/{reportScheduleId}
+
+  Operation: getReportDocument
+  GET /reports/2021-06-30/documents/{reportDocumentId}
+
+# sales-api
+===========
+
+  Operation: getOrderMetrics
+  GET /sales/v1/orderMetrics
+
+# sellers-api
+=============
+
+  Operation: getMarketplaceParticipations
+  GET /sellers/v1/marketplaceParticipations
+
+# services-api
+==============
+
+Operation: getServiceJobByServiceJobId
+Operation: cancelServiceJobByServiceJobId
+Operation: completeServiceJobByServiceJobId
+Operation: getServiceJobs
+Operation: addAppointmentForServiceJobByServiceJobId
+Operation: rescheduleAppointmentForServiceJobByServiceJobId
+Operation: assignAppointmentResources
+Operation: setAppointmentFulfillmentData
+Operation: updateSchedule
+Operation: createReservation
+Operation: updateReservation
+Operation: cancelReservation
+Operation: createServiceDocumentUploadDestination
+
+# shipment-invoicing-api
+========================
+
+  Operation: getShipmentDetails
+  GET /fba/outbound/brazil/v0/shipments/{shipmentId}
+
+  Operation: submitInvoice
+  POST /fba/outbound/brazil/v0/shipments/{shipmentId}/invoice
+
+  Operation: getInvoiceStatus
+  GET /fba/outbound/brazil/v0/shipments/{shipmentId}/invoice/status
+
+# shipping-api
+==============
+
+  Operation: createShipment
+  POST /shipping/v1/shipments
+
+  Operation: getShipment
+  GET /shipping/v1/shipments/{shipmentId}
+
+  Operation: cancelShipment
+  POST /shipping/v1/shipments/{shipmentId}/cancel
+
+  Operation: purchaseLabels
+  POST /shipping/v1/shipments/{shipmentId}/purchaseLabels
+
+  Operation: retrieveShippingLabel
+  POST /shipping/v1/shipments/{shipmentId}/containers/{trackingId}/label
+
+  Operation: purchaseShipment
+  POST /shipping/v1/purchaseShipment
+
+  Operation: getRates
+  POST /shipping/v1/rates
+
+  Operation: getAccount
+  GET /shipping/v1/account
+
+  Operation: getTrackingInformation
+  GET /shipping/v1/tracking/{trackingId}
+
+# solicitations-api
+===================
+
+  Operation: getSolicitationActionsForOrder
+  GET /solicitations/v1/orders/{amazonOrderId}
+
+# tokens-api
+============
+
+  Operation: createRestrictedDataToken
+  POST /tokens/2021-03-01/restrictedDataToken
+
+  Operation: createProductReviewAndSellerFeedbackSolicitation
+  POST /solicitations/v1/orders/{amazonOrderId}/solicitations/productReviewAndSellerFeedback
+
+# uploads-api
+=============
+
+  Operation: createUploadDestinationForResource
+  POST /uploads/2020-11-01/uploadDestinations/{resource}
+
+# vendor-direct-fulfillment-inventory-api
+=========================================
+
+# vendor-direct-fulfillment-orders-api
+======================================
+
+# vendor-direct-fulfillment-payments-api
+========================================
+
+# vendor-direct-fulfillment-shipping-api
+========================================
+
+# vendor-direct-fulfillment-transactions-api
+============================================
+
+# vendor-invoices-api
+=====================
+
+# vendor-orders-api
+===================
+
+# vendor-shipments-api
+======================
+
+# vendor-transaction-status-api
+===============================
+
