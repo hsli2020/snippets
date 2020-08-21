@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Slide</title>
+    <link rel="stylesheet" href="slide.css">
+    <script src="slide.js"></script>
+    <style media="screen">
+      @import url(https://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext);
+      @import url(https://fonts.googleapis.com/css?family=Oswald:400,700);
+      @import url(https://fonts.googleapis.com/css?family=Inconsolata);
+      /* Customize theme: change body, h1, strong, pre or .slide class */
+      body {
+        font-family: 'Lato', sans-serif;
+        background-color: #edd400;
+        color: #453029;
+        line-height: 1.54;
+      }
+      .slide h1 {
+        font-family: 'Oswald', sans-serif;
+        font-weight: 400;
+        font-size: 2.6rem;
+      }
+      .slide pre {
+        font-family: 'Inconsolata';
+        font-size: 0.6rem;
+        line-height: 1.1;
+      }
+      .slide-10 h1 { color: #fff; text-shadow: 1px 1px 3px #453029; }
+      .slide-11 {
+        background: url("http://trikita.co/slide/icon.png"), url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/asanoha-400px.png");
+        background-repeat: no-repeat, repeat;
+        background-size: 35%, auto;
+        background-position: bottom right;
+      }
+      .slide-13 .slide-content {
+        background-image: url("http://trikita.co/slide/write_framed.png"),
+          url("http://trikita.co/slide/styles.gif"),
+          url("http://trikita.co/slide/illustrate_framed.png");
+        background-repeat: no-repeat;
+        background-size: 40%, 40%, 40%;
+        background-position: bottom left, bottom center, bottom right;
+      }
+    </style>
+  </head>
+  <body class="slide-16x9">
+    <pre id="slide">
+      #SLIDE
+      Good speech deserves time it takes
+      Save time for speech
+      Leave presentation to *Slide*
+
+      #Focus on content
+      Learn 5 markup rules
+      to make content look great
+
+      # #1
+      Each paragraph is a slide
+
+      # #2
+      Headers start with #
+
+      # #3
+      Emphasize *words*
+      surrounding them with **asterisks**
+
+      # #4
+      Indent code with 2 spaces
+        /* Day of week: Sakamoto's algorithm */
+        int dow(int y, int m, int d)
+        {
+          static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+          y -= m < 3;
+          return (y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
+        }
+
+      # #5
+      Lines starting with a dot
+      disable markup such as
+      headlines, code or blank lines
+
+      ↵  = new slide
+      .# = headline
+      ** = emphasize
+      ␣␣ = monospace
+      .. = escape
+
+      # Styling with CSS
+
+      # Selectors
+      ..slide
+      ..slide h1
+      ..slide strong
+      ..slide pre
+      .
+      ..slide-N, where N is slide number
+
+      # Example
+      .
+        .slide-10 h1 {
+          color: #fff;
+          text-shadow: 1px 1px 3px #453029;
+        }
+      .
+
+      # CSS backgrounds
+        .slide-12 {
+          background: url("icon.png"),
+                      url("bg.png");
+          background-repeat: no-repeat, repeat;
+          background-size: 40%, auto;
+          background-position: bottom right;
+        }
+
+
+      # Print mode
+      You can print slide thumbnails
+      to practice your speech
+
+      Slide for Android
+      .
+      .
+      .
+
+      # Links
+      http://trikita.co/slide
+      https://github.com/trikita/slide
+      https://github.com/trikita/slide-html
+      https://play.google.com/store/apps/details?id=trikita.slide
+    </pre>
+  </body>
+</html>
