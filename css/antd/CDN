@@ -1,0 +1,16 @@
+Open
+https://cdnjs.com/libraries/antd
+
+Will see
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/antd.min.js
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/antd-with-locales.min.js
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/antd.compact.min.css
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/antd.dark.min.css
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/antd.min.css
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/compact-theme.min.js
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/dark-theme.min.js
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/default-theme.min.js
+https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.5/theme.min.js 
+
+*.min.css => *.css
+*.min.js  => *.js
