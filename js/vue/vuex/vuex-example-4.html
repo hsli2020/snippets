@@ -1,0 +1,242 @@
+// public/index.html
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Vuex Example - Jump Start Vue.js</title>
+  <link rel="stylesheet" type="text/css"
+      href="<https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css>">
+  <style type="text/css">
+    body { background-color: #FFFFFF; }
+    .ui.menu .item img.logo { margin-right: 1.5em; }
+    .main.container { margin-top: 7em; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+// src/App.vue
+
+<template>
+  <div>
+    <div class="ui fixed inverted menu">
+      <div class="ui container">
+        <div class="header item">
+          <img class="logo" src="./assets/logo.png">
+          Jump Start Vue.js
+        </div>
+        <router-link class="item" to="/" exact>Home</router-link>
+        <router-link class="item" to="/users">Users</router-link>
+      </div>
+    </div>
+    <router-view></router-view>
+  </div>
+</template>
+<script>
+
+import { mapActions } from "vuex";
+
+export default {
+  name: "App",
+  methods: {
+    ...mapActions(["fetchUsers"])
+  },
+  created() {
+    this.fetchUsers();
+  }
+};
+</script>
+
+// src/store.js
+
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {
+    users: [],
+    selectedUserId: null,
+    isFetching: false
+  },
+
+  mutations: {
+    setUsers(state, { users }) {
+      state.users = users;
+    },
+    setSelectedUser(state, id) {
+      state.selectedUserId = id;
+    },
+    setIsFetching(state, bool) {
+      state.isFetching = bool;
+    }
+  },
+
+  getters: {
+    selectedUser: state =>
+      state.users.find(user => user.login.uuid === state.selectedUserId)
+  },
+
+  actions: {
+    fetchUsers({ commit }) {
+      commit("setIsFetching", true);
+      return axios
+        .get("https://randomuser.me/api/?nat=gb,us,au&results=5&seed=abc")
+        .then(res => {
+          setTimeout(() => {
+            commit("setIsFetching", false);
+            commit("setUsers", { users: res.data.results });
+          }, 2500);
+        })
+        .catch(error => {
+          commit("setIsFetching", false);
+          console.error(error);
+        });
+    }
+  }
+});
+
+// src/views/Home.vue
+
+<template>
+  <div class="ui main text container">
+    <h1 class="ui header">Vuex 数据管理</h1>
+    <p>This is a basic Vuex example app, to demo the concepts learned in the
+    accompanying chapter.</p>
+    <p>Go to <router-link to="/users">Users</router-link></p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Home"
+}
+</script>
+
+// src/views/Users.vue
+
+<template>
+  <div class="ui main text container">
+    <h1 class="ui header">Users</h1>
+    <div class="ui active inverted dimmer" v-if="isFetching">
+      <div class="ui text loader">Loading</div>
+    </div>
+    <ul v-else>
+      <li v-for="(user, index) in users" :key="index">
+        <router-link :to="{ name: 'user', params: { id: user.login.uuid }}">
+          {{ user.name.title }} {{ user.name.first }} {{ user.name.last }}
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+
+export default {
+  name: "Users",
+  computed: {
+    ...mapState([
+      'isFetching',
+      'users'
+    ])
+  }
+}
+</script>
+
+<style>
+  li { text-transform: capitalize; }
+</style>
+
+// src/views/User.vue
+
+<template>
+  <div class="ui main text container" v-if="selectedUser">
+    <div class="ui items">
+      <div class="item">
+        <div class="image">
+          <img :src="selectedUser.picture.large">
+        </div>
+        <div class="content">
+          <a class="header">{{ fullName }}</a>
+          <div class="meta">
+            <span>{{ selectedUser.email }}</span>
+          </div>
+          <div class="description">
+            <p>{{ selectedUser.location.street }}, {{ selectedUser.location.city }},
+            {{ selectedUser.location.state }}, {{ selectedUser.location.postcode }}
+            </p>
+          </div>
+          <div class="extra">
+            {{ selectedUser.phone }}<br />
+            {{ selectedUser.cell }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapMutations } from "vuex";
+
+export default {
+  name: "Users",
+  computed: {
+    ...mapGetters(["selectedUser"]),
+    fullName() {
+      return `${this.selectedUser.name.first} ${this.selectedUser.name.last}`;
+    }
+  },
+  methods: {
+    ...mapMutations(["setSelectedUser"])
+  },
+  created() {
+    const userId = this.$route.params.id;
+    this.setSelectedUser(userId);
+  }
+};
+</script>
+
+<style scoped>
+  a.header, p { text-transform: capitalize; }
+</style>
+
+// src/router.vue
+
+import Vue    from "vue";
+import Router from "vue-router";
+import Home   from "./views/Home.vue";
+import Users  from "./views/Users.vue";
+import User   from "./views/User.vue";
+
+Vue.use(Router);
+
+export default new Router({
+  mode: "history",
+  linkActiveClass: "active",
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: Home
+    },
+    {
+      name: "users",
+      path: "/users",
+      component: Users
+    },
+    {
+      name: "user",
+      path: "/users/:id",
+      component: User
+    }
+  ]
+});

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<title>Login / Register</title>
+</head>
+
+<body>
+<div class="container-fluid">
+<main>
+<div class="row py-4">
+    <div class="col-md-6 offset-md-3 gf-login">
+        <div class="card">
+            <div class="card-header">
+                <span class="iconfont">&#xe6c9;</span> 用户登录
+            </div>
+            <div class="card-body">
+                <form id="loginForm" action="/login/do" method="post">
+                    <div class="form-group row py-2">
+                        <label class="col-sm-3 col-form-label required text-right">账号：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" minlength="3" maxlength="20" name="passport" placeholder="请输入账号" required>
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <label class="col-sm-3 col-form-label required text-right">密码：</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" minlength="6" maxlength="20" name="password" placeholder="请输入密码" required>
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <label class="col-sm-3 col-form-label required text-right">验证码</label>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" minlength="4" maxlength="4"  name="captcha" placeholder="请输入正确的验证码" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" style="cursor: pointer;padding: 0;">
+                                        <img id="code-img" class="captcha" loading="lazy" onclick="gf.reloadCaptcha()">
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <div class="col-sm-3 offset-md-3">
+                            <button type="submit" class="btn btn-primary btn-block">登录</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row py-4">
+    <div class="col-md-6 offset-md-3 gf-register">
+        <div class="card">
+            <div class="card-header">
+                <span class="iconfont">&#xe666;</span> 用户注册
+            </div>
+            <div class="card-body">
+                <form id="registerForm" action="/register/do" method="post">
+                    <div class="form-group row py-2">
+                        <label for="passport" class="col-sm-3 col-form-label required text-right">账号</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" minlength="3" maxlength="20"  name="passport" placeholder="请输入账号" required>
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <label for="nickname" class="col-sm-3 col-form-label required text-right">昵称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" minlength="2" maxlength="20" name="nickname" placeholder="请输入昵称" required>
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <label for="password" class="col-sm-3 col-form-label required text-right">密码</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" minlength="6" maxlength="20"  id="password" name="password" placeholder="请输入密码" required>
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <label for="password2" class="col-sm-3 col-form-label required text-right">确认密码</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" minlength="6" maxlength="20" name="password2" placeholder="请再次输入密码" required>
+                        </div>
+                    </div>
+                    <div class="form-group row py-2">
+                        <label for="code" class="col-sm-3 col-form-label required text-right">验证码</label>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" minlength="4" maxlength="4"  name="captcha" placeholder="请输入正确的验证码" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" style="cursor: pointer;padding: 0;">
+                                        <img id="code-img" class="captcha" loading="lazy" onclick="gf.reloadCaptcha()">
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row py-2">
+                        <div class="col-sm-3 offset-md-3">
+                            <button type="submit" class="btn btn-primary btn-block">注册</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+</div>
+</body>
+</html>

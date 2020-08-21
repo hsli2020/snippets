@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="https://github.com/processing/p5.js/releases/download/0.5.6/p5.min.js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Voronoi Pursuit Curves</title>
+  
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  
+<style>
+* { margin:0; padding:0; } 
+html, body { width:100%; height:100%; } 
+canvas { display:block; }
+#controls {
+  display: block;
+  position: absolute;
+  top:10px; left:10px;
+  z-index: 2;
+  background-color:rgba(200, 200, 200, 0.8);
+  border-radius: 10px;
+}
+#control-toggle {
+  font-weight: bold;
+  text-align: center;
+  width:50px;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  margin: 0;
+}
+#control-toggle:hover{
+  background: #444444;
+  color: white;
+}
+#control-content {
+  padding: 10px;
+}
+#title {
+  text-align: center;
+}
+table {
+  border-collapse: separate;
+  line-height: .5;
+  border-spacing: 10px 0;
+}
+.desc {
+  font-weight: bold;
+}
+
+.value {
+  border-radius: 10px;
+}
+
+#description {
+  color: white;
+  font-wieght: bold;
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+}
+
+input[type=range] {
+  height: 25px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #2497E3;
+  border-radius: 1px;
+  border: 0px solid #000000;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #2497E3;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #A1D0FF;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #2497E3;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #2497E3;
+  border-radius: 1px;
+  border: 0px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #2497E3;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #A1D0FF;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2497E3;
+  border: 0px solid #000000;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #2497E3;
+  border: 0px solid #000000;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #2497E3;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #A1D0FF;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #2497E3;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #2497E3;
+}
+</style>
+
+<script>
+  window.console = window.console || function(t) {};
+</script>
+  
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+
+<body translate="no" >
+  <div id="controls">
+  <h1 id="control-toggle" onclick="toggleControls()">≡</h1>
+  <div id=control-content>
+    <h3 id="title">Controls:</h3>
+    <table>
+      <col width=100>
+      <col width=50>
+      <col width=200>
+      <tr>
+        <td class="desc"> Points: </td>
+        <td class="value"> value </td>
+        <td> <input id="numPolygonSlider" type="range" min="1" max="200" value="20" oninput="updateVals()" onchange="resize()"/></td>
+      </tr>
+      <tr>
+        <td class="desc"> Depth: </td>
+        <td class="value"> value </td>
+        <td> <input id="numLinesSlider" type="range" min="10" max="500" value="50" oninput="updateVals()" onchange="loop()"/></td>
+      </tr>
+      <tr>
+        <td class="desc"> Frequency: </td>
+        <td class="value"> value </td>
+        <td> <input id="divisorSlider" type="range" min="10" max="10000" value="1000" oninput="updateVals()" onchange="loop()"/></td>
+      </tr>
+      <tr>
+        <td class="desc"> Line Width: </td>
+        <td class="value"> value </td>
+        <td> <input id="lineWidthSlider" type="range" min="0.025" max="5" value="1" step="0.025" oninput="updateVals()" onchange="loop()"/></td>
+      </tr>
+      <tr>
+        <td class="desc"> Color 1: </td>
+        <td class="value"> </td>
+        <td> <input id="color1Slider" type="range" min="0" max="360" value="120" step="0.5" oninput="updateVals()" onchange="loop()"/></td>
+      </tr>
+      <tr>
+        <td class="desc"> Color 2: </td>
+        <td class="value"> </td>
+        <td> <input id="color2Slider" type="range" min="0" max="360" value="200" step="0.5" oninput="updateVals()" onchange="loop()"/></td>
+      </tr>
+      <tr>
+        <td class="desc"> Variance : </td>
+        <td class="value"> value </td>
+        <td> <input id="varianceSlider" type="range" min="0" max="360" value="45" step="0.5" oninput="updateVals()" onchange="loop()"/></td>
+      </tr>
+     </table>
+<!--     <button onclick="randomize()">Randomize</button>  -->
+  </div>
+</div>
+
+<div id="description">
+  Right click to save image.
+</div>
+
+<script src='https://github.com/processing/p5.js/releases/download/0.5.6/p5.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+
+<script id="rendered-js" >
+window.addEventListener('resize', resize, false);
+
+var voronoi;
+var verticies;
+var polygons;
+var hues;
+
+var numPolygons;
+var numLines;
+var divisor;
+var lineWidth;
+var color1;
+var color2;
+var variance;
+
+var numPolygonSlider;
+var numLinesSlider;
+var divisorSlider;
+var lineWidthSlider;
+var color1Slider;
+var color2Slider;
+var varianceSlider;
+
+function toggleControls() {
+  $("#control-content").toggle(200);
+}
+
+function updateVals() {
+  numPolygons = numPolygonSlider.val();
+  numLines = numLinesSlider.val();
+  divisor = max(divisorSlider.val(), numLines);
+  lineWidth = lineWidthSlider.val();
+  color1 = color1Slider.val();
+  color2 = color2Slider.val();
+  variance = varianceSlider.val();
+
+  divisorSlider.val(divisor);
+
+  numLinesSlider.closest("td").prev().html(numLines);
+  numPolygonSlider.closest("td").prev().html(numPolygons);
+  divisorSlider.closest("td").prev().html(divisor);
+  lineWidthSlider.closest("td").prev().html(lineWidth);
+  color1Slider.closest("td").prev().css({ "background-color": "hsl(" + color1 + ", 90%, 50%)" });
+  color2Slider.closest("td").prev().css({ "background-color": "hsl(" + color2 + ", 90%, 50%)" });
+  varianceSlider.closest("td").prev().html(variance);
+}
+
+// function randomize(){
+//   randomSlider(numLinesSlider);
+//   randomSlider(numPolygonSlider);
+//   // randomSlider(divisorSlider);
+//   randomSlider(color1Slider);
+//   randomSlider(color2Slider);
+//   randomSlider(varianceSlider);
+//   updateVals();
+//   resize();
+// }
+
+// function randomSlider(s){
+//   var min = parseInt(s.prop("min"));
+//   var max = parseInt(s.prop("max"));
+//   var range = max - min;
+//   var val = floor(min + random()*range);
+//   s.val(val);
+// }
+
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+function Polygon(points) {
+  this.points = [];
+  for (var i = 0; i < points.length; i++) {
+    this.points.push(new Point(points[i][0], points[i][1]));
+  }
+}
+
+function tween(p1, p2, perc) {
+  var diffx = p2.x - p1.x;
+  var diffy = p2.y - p1.y;
+  var p = new Point(p1.x + diffx * perc, p1.y + diffy * perc);
+  return p;
+}
+
+function setup() {
+  createCanvas();
+  colorMode(HSB, 360, 100, 100, 100);
+  ellipseMode(CENTER);
+}
+
+$(document).ready(function () {
+  $("#control-content").toggle(200);
+  numPolygonSlider = $("#numPolygonSlider");
+  numLinesSlider = $("#numLinesSlider");
+  divisorSlider = $("#divisorSlider");
+  lineWidthSlider = $("#lineWidthSlider");
+  color1Slider = $("#color1Slider");
+  color2Slider = $("#color2Slider");
+  varianceSlider = $("#varianceSlider");
+
+  updateVals();
+  resize();
+});
+
+function draw() {
+  background(0);
+  noFill();
+  if (!polygons) return;
+  strokeWeight(lineWidth);
+
+  hues = [];
+  var diff = abs(color1 - color2);
+  var base = min(color1, color2);
+  for (var i = 0; i < numPolygons; i++) {
+    hues.push(base + random() * diff);
+  }
+
+  for (var i = 0; i < polygons.length; i++) {
+    var polygon = polygons[i];
+    var points = polygon.points;
+
+    var perc = .2;
+    if (random < .5) perc = 1 - perc;
+
+    var baseHue = random() * 80;
+
+    for (var j = 0; j < numLines; j++) {
+      var newPoints = [];
+      beginShape();
+      for (var k = 0; k < points.length; k++) {
+        var p1 = points[k];
+        var p2 = points[(k + 1) % points.length];
+        vertex(p1.x, p1.y);
+        stroke(j / numLines * variance + hues[i], 100, 100);
+        newPoints.push(tween(p1, p2, j / divisor));
+      }
+      endShape(CLOSE);
+      points = newPoints;
+    }
+  }
+
+  noLoop();
+}
+
+function resize() {
+  resizeCanvas(window.innerWidth, window.innerHeight);
+  console.log(width + ", " + height + ", " + numPolygons);
+  voronoi = d3.voronoi().extent(
+  [
+  [0, 0],
+  [width, height]]);
+
+
+
+  verticies = [];
+  for (i = 0; i < numPolygons; i++) {
+    verticies.push([]);
+    verticies[i].push(random() * width);
+    verticies[i].push(random() * height);
+  }
+
+  var polyPoints = voronoi(verticies).polygons();
+  polygons = [];
+  var maxArea = 0;
+
+  for (var i = 0; i < polyPoints.length; i++) {
+    var polygon = new Polygon(polyPoints[i]);
+    polygons.push(polygon);
+  }
+
+  loop();
+}
+//# sourceURL=pen.js
+    </script>
+
+  
+
+</body>
+
+</html>
+ 
