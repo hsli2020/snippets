@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Modal Demo</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap-vue@2.0.0-rc.20/dist/bootstrap-vue.css">
+  <script type="text/javascript" src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/bootstrap-vue@2.0.0-rc.20/dist/bootstrap-vue.js"></script>
+
+  <style id="compiled-css" type="text/css">
+      body { padding: 1rem; }
+    /* EOS */
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <div>
+      <b-table small hover striped :items="clients" :fields="fields" :busy="busy">
+        <div slot="table-busy" class="p-3 text-center">
+          <b-spinner small></b-spinner> Loading
+        </div>
+        <template slot="details" slot-scope="{ item }">
+          <b-button size="sm" variant="warning" @click="loadClientInfo(item)">
+            Details
+          </b-button>
+        </template>
+      </b-table>
+      <b-modal :id="'modal-1'" @hidden="clearClientInfo">
+        <template slot="modal-title">Client: {{ client.name }}</template>
+        <p>Nome: {{client.id}}</p>
+        <p>E-mail: {{client.email}}</p>
+        <p>Telephone: {{client.telephone}}</p>
+        <p>Address: {{client.city}}</p>
+      </b-modal>
+    </div>
+</div>
+
+<script type="text/javascript">
+window.onload = () => {
+  new Vue({
+    el: '#app',
+    name: "ClientsAdmin",
+    data() {
+      return {
+        busy: false,
+        client: {},
+        clients: [],
+        fields: [
+          { key: "id", label: "Code", sortable: true },
+          { key: "name", label: "Name", sortable: true },
+          { key: "details", label: "Details" }
+        ]
+      };
+    },
+    methods: {
+      loadClients() {
+        this.busy = true
+        // Using a setTimout to emulate axios get
+        setTimeout(() => {
+          this.clients = [
+            {id: 1, name: 'Foo', email: 'info@foo.com', telephone: '123-456-7890', city: 'London' },
+            {id: 2, name: 'Bar', email: 'info@bar.com', telephone: '321-654-0987', city: 'Paris' },
+          ]
+          this.busy = false
+        }, 2000)
+      },
+      loadClientInfo(item) {
+        this.client = item;
+        this.$bvModal.show("modal-1")
+      },
+      clearClientInfo() {
+        this.client = {}
+      }
+    },
+    mounted() {
+      this.loadClients()
+    }
+  })
+}
+</script>
+</body>
+</html>

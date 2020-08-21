@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.customer-name {
+  background-color:green;
+  font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<!-- Add this to <head> -->
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<!-- Add this after vue.js -->
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+<div id="app">
+  <b-button v-b-modal.modal1 variant="danger" @click="deleteCustomer()">Delete</b-button>
+
+  <b-modal ref="myModalRef"
+    title="Delete Customer"
+    centered
+    no-close-on-backdrop
+    no-close-on-esc
+    @ok="proceedReq($event)"
+    @cancel="cancelReq()"
+    :cancel-disabled="deletingState"
+    :ok-disabled="loadingState"
+    :ok-only="deletingState && !loadingState">
+    <div v-if="!deletingState">
+      <p class="my-4">Are you sure, you want to delete customer:
+      <span class="customer-name">{{customer.name}}</span></p>
+    </div>
+    <div v-else>
+      <p v-if="loadingState">
+        Deleting customer <span class="customer-name">{{customer.name}}</span>
+      </p>
+      <p v-else>
+        Successfully deleted customer <span class="customer-name">{{customer.name}}</span>
+      </p>
+    </div>
+  </b-modal>
+</div>
+
+<script type="text/javascript">
+Vue.config.productionTip = false
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      customer: {name: 'demo'},
+      deletingState: false, // init=false, if pop up modal, change it to true
+      loadingState: false // when waiting for server respond, it will be true, otherwise, false
+    }
+  },
+  methods: {
+    deleteCustomer: function() {
+  	  this.deletingState = false
+      this.loadingState = false
+      this.$refs.myModalRef.show()
+    },
+    proceedReq: function (bvEvt) {
+      if(!this.deletingState) {
+        bvEvt.preventDefault() //if deletingState is false, doesn't close the modal
+        this.deletingState = true
+        this.loadingState = true
+        setTimeout(()=>{
+          console.log('simulate to wait for server respond...')
+          this.loadingState = false
+          this.deletingState = true
+        }, 1500)
+      } else {
+      	console.log('confirm to delete...')
+      }
+    },
+    cancelReq: function () {
+   	  console.log('cancelled')
+    }
+  }
+})
+</script>
+</body>
+</html>

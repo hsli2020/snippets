@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="https://cdpn.io/denic/fullembedgrid/bGVpOPj?animations=run&type=embed">
+<meta charset="UTF-8">
+<title>CodePen - Cursors</title>
+<style>
+/* Please ❤ this if you like it! */
+.wrapper {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #4776e6;
+  background: -webkit-linear-gradient(to right, #4776e6, #8e54e9);
+  background: linear-gradient(to right, #4776e6, #8e54e9);
+  padding: 0 10px;
+}
+
+.tile {
+  width: 200px;
+  height: 200px;display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #de5448;
+  margin-right: 10px;color: #fff;
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.tile--image-cursor {
+  background-color: #1da1f2;
+  cursor: /*savepage-url=https://picsum.photos/20/20*/ var(--savepage-url-21), auto;
+}
+
+.tile--emoji-cursor {
+  background-color: #4267b2;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🚀</text></svg>"), auto;
+}
+</style>
+
+<style id="savepage-cssvariables">
+  :root {
+    --savepage-url-21: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QDeRXhpZgAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAABMCAwABAAAAAQAAAGmHBAABAAAAZgAAAAAAAAA4YwAA6AMAADhjAADoAwAABwAAkAcABAAAADAyMTABkQcABAAAAAECAwCGkgcAFgAAAMAAAAAAoAcABAAAADAxMDABoAMAAQAAAP//AAACoAQAAQAAABQAAAADoAQAAQAAABQAAAAAAAAAQVNDSUkAAABQaWNzdW0gSUQ6IDU5OP/bAEMACAYGBwYFCAcHBwkJCAoMFA0MCwsMGRITDxQdGh8eHRocHCAkLicgIiwjHBwoNyksMDE0NDQfJzk9ODI8LjM0Mv/bAEMBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/CABEIABQAFAMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAABgUH/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//aAAwDAQACEAMQAAABwNya3ijc2FhSlnNBjr//xAAdEAACAgIDAQAAAAAAAAAAAAABAgMEABIFERMU/9oACAEBAAEFAtiy036P0Q5DsXtwmMZw0KE+EbGyojsf/8QAGBEBAQADAAAAAAAAAAAAAAAAAAESMUH/2gAIAQMBAT8Bs4wXaP/EABYRAAMAAAAAAAAAAAAAAAAAAAAQEf/aAAgBAgEBPwEr/8QAIRAAAQMEAQUAAAAAAAAAAAAAAQACIQMREjEiEBMzgsH/2gAIAQEABj8C4zZNLoHb+rzUx7LEX5RCO8m26ZkTtVXFsuMpzW6X/8QAHhABAAIBBAMAAAAAAAAAAAAAAQARITFBUZEQccH/2gAIAQEAAT8hr2yxfW0uaWBXaSvoInB5b6hMKHAdMeMjFXo0TOJWV8aQ5Kwa4sn/2gAMAwEAAgADAAAAED/QPv/EABkRAQACAwAAAAAAAAAAAAAAAAEAEBExUf/aAAgBAwEBPxABjHtWhP/EABgRAQEAAwAAAAAAAAAAAAAAAAEAEBEx/9oACAECAQE/EBU3iT2//8QAHhABAAEDBQEAAAAAAAAAAAAAAREAMYEhQVFhcZH/2gAIAQEAAT8QbdGudyDJgqORHiCdN+qAZ0Fkfk0RqJESIbaOGGr6Jyhko5Zw70MWj5QSKGW0jgJn2OCkolJD0OEvUJBQ6BQ6lr//2Q==);
+  }
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="tile">
+    Default
+  </div>
+  
+  <div class="tile tile--image-cursor">
+    Image Cursor
+  </div>
+  
+  <div class="tile tile--emoji-cursor">
+    Emoji Cursor
+  </div>
+</div>
+</body></html>

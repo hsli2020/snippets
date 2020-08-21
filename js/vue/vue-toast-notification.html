@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Vue.js Toast</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+
+  <!-- link href="https://cdn.jsdelivr.net/npm/vue-toast-notification@0.1.0/dist/theme-default.css" rel="stylesheet" -->
+  <link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+  
+  <style type="text/css">
+    body { font-family: Arial, Verdana, sans-sarif; background: #f8f8f8 }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <h1>Vue toast</h1>
+  <button @click="open">Show toast</button>
+  <hr>
+  <a href="https://github.com/ankurk91/vue-toast-notification">Github</a>&nbsp;
+  <a href="https://ankurk91.github.io/vue-toast-notification">More examples</a>
+</div>
+
+<script type="text/javascript">
+
+Vue.use(VueToast);
+
+var app = new Vue({
+  el: "#app",
+  methods: {
+    open() {
+      var types = [ 'success', 'error', 'warning', 'info', 'default' ];
+      var d = 1;
+      types.forEach((type) => {
+        this.$toast.open({
+          message: "Test message from Vue",
+          type: type, //"success",
+          duration: 1500*d++,
+          dismissible: true,
+          position: 'top-right',
+        })
+      })
+    }
+  }
+})
+</script>
+
+</body>
+</html>

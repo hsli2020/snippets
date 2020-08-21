@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Bootstrap-Vue Table</title>
+
+<!-- This caused problem
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+-->
+
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <b-container>
+    <h2>Bootstrap-Vue Table Demo</h2>
+
+    <b-form-group label="Table Options" label-cols-lg="2" v-slot="{ ariaDescribedby }">
+      <b-form-checkbox v-model="striped" :aria-describedby="ariaDescribedby" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" :aria-describedby="ariaDescribedby" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" :aria-describedby="ariaDescribedby" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" :aria-describedby="ariaDescribedby" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" :aria-describedby="ariaDescribedby" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" :aria-describedby="ariaDescribedby" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" :aria-describedby="ariaDescribedby" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" :aria-describedby="ariaDescribedby" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" :aria-describedby="ariaDescribedby" inline>Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="noCollapse" :aria-describedby="ariaDescribedby" inline>No border collapse</b-form-checkbox>
+    </b-form-group>
+
+    <b-form-group label="Head Variant" label-cols-lg="2" v-slot="{ ariaDescribedby }">
+      <b-form-radio-group
+        v-model="headVariant"
+        :aria-describedby="ariaDescribedby"
+        class="mt-lg-2"
+      >
+        <b-form-radio :value="null" inline>None</b-form-radio>
+        <b-form-radio value="light" inline>Light</b-form-radio>
+        <b-form-radio value="dark" inline>Dark</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+
+    <b-form-group label="Table Variant" label-for="table-style-variant" label-cols-lg="2">
+      <b-form-select
+        id="table-style-variant"
+        v-model="tableVariant"
+        :options="tableVariants"
+      >
+        <template #first>
+          <option value="">-- None --</option>
+        </template>
+      </b-form-select>
+    </b-form-group>
+
+    <b-form-group
+      label="Selection mode:"
+      label-for="table-select-mode-select"
+      label-cols-lg="2"
+    >
+      <b-form-select
+        id="table-select-mode-select"
+        v-model="selectMode"
+        :options="modes"
+        class="mb-3"
+      ></b-form-select>
+    </b-form-group>
+
+    <b-button @click="toggleBusy">Toggle Busy State</b-button>
+
+    <b-button size="sm" @click="selectAllRows">Select all</b-button>
+    <b-button size="sm" @click="clearSelected">Clear selected</b-button>
+    <b-button size="sm" @click="selectThirdRow">Select 3rd row</b-button>
+    <b-button size="sm" @click="unselectThirdRow">Unselect 3rd row</b-button>
+
+    <b-table ref="mytab"
+      responsive 
+      selectable
+      __sort-icon-left
+      :select-mode="selectMode"
+      selected-variant="info"
+      :striped="striped"
+      :bordered="bordered"
+      :borderless="borderless"
+      :outlined="outlined"
+      :small="small"
+      :hover="hover"
+      :dark="dark"
+      :fixed="fixed"
+      :foot-clone="footClone"
+      :no-border-collapse="noCollapse"
+      :items="items"
+      :fields="fields"
+      :head-variant="headVariant"
+      :table-variant="tableVariant"
+      :tbody-tr-class="rowClass"
+      :busy="isBusy" 
+      @row-selected="onRowSelected"
+      caption-top
+    >
+      <template #table-caption>This is a table caption.</template>
+
+      <!-- A virtual column -->
+      <template #cell(index)="data">
+        <b>{{ data.index + 1 }}</b>
+      </template>
+
+      <!-- A custom formatted column -->
+      <template #cell(first_name)="data">
+        <a href="javascript:;">{{ data.item.first_name }}</a>
+      </template>
+
+      <!-- A custom formatted column -->
+      <template #cell(name)="data">
+        <b class="text-info">{{ data.item.last_name.toUpperCase() }}</b>, <b>{{ data.item.first_name }}</b>
+      </template>
+
+      <!-- A virtual composite column -->
+      <template #cell(nameage)="data">
+        {{ data.item.first_name }} is {{ data.item.age }} years old
+      </template>
+
+      <!-- Optional default data cell scoped slot -->
+      <template #cell()="data">
+        <i>{{ data.value }}</i>
+      </template>
+
+      <!-- A custom formatted header cell for field 'name' -->
+      <template #head(name)="data">
+        <span class="text-danger">{{ data.label.toUpperCase() }}</span>
+      </template>
+
+      <template #table-busy>
+        <div class="text-center text-danger my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
+
+    </b-table>
+
+    <p>Selected Rows: {{ selected }}</p>
+
+  <b-container>
+</div>
+
+<script>
+var app = new Vue({
+  el: "#app",
+  data() {
+    return {
+      isBusy: false,
+      modes: ['multi', 'single', 'range'],
+      selectMode: 'single',
+      selected: [],
+      fields: [
+        { key: 'index', sortable: false }, // # sortable not working
+        { key: 'last_name', sortable: true },
+        { key: 'first_name', sortable: true },
+        { key: 'age', label: 'Age', sortable: true },
+        { key: 'name', label: 'Full Name' },
+        { key: 'nameage', label: 'Name & Age' },
+      ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { 
+          age: 69, first_name: 'Geneva', last_name: 'Wilson',
+          // _rowVariant: 'danger'
+        },
+        { age: 52, first_name: 'Frederison', last_name: 'Donald' },
+        { 
+          age: 38, first_name: 'Jami', last_name: 'Carney', status: 'awesome'
+          // _cellVariants: { age: 'info', first_name: 'warning' }
+        }
+      ],
+
+      tableVariants: [
+        'primary',
+        'secondary',
+        'info',
+        'danger',
+        'warning',
+        'success',
+        'light',
+        'dark'
+      ],
+
+      striped: false,
+      bordered: false,
+      borderless: false,
+      outlined: false,
+      small: false,
+      hover: false,
+      dark: false,
+      fixed: false,
+      footClone: false,
+      headVariant: null,
+      tableVariant: '',
+      noCollapse: false
+    }
+  },
+
+  methods: {
+    rowClass(item, type) {
+      if (!item || type !== 'row') return
+      if (item.status === 'awesome') return 'table-success'
+    },
+    toggleBusy() {
+      this.isBusy = !this.isBusy
+    },
+    onRowSelected(items) {
+      this.selected = items
+    },
+    selectAllRows() {
+      this.$refs.mytab.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.mytab.clearSelected()
+    },
+    selectThirdRow() {
+      // Rows are indexed from 0, so the third row is index 2
+      this.$refs.mytab.selectRow(2)
+    },
+    unselectThirdRow() {
+      // Rows are indexed from 0, so the third row is index 2
+      this.$refs.mytab.unselectRow(2)
+    }
+  }
+});
+</script>
+
+</body>
+</html>
