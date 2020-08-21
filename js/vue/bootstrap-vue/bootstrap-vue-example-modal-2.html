@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Vue Example</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.css">
+  <style>[v-cloak] {display: none}</style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    <b-button @click="$bvModal.show('modal-scoped')">Open Modal</b-button>
+
+    <b-modal id="modal-scoped">
+      <template v-slot:modal-header="{ close }">
+        <!-- Emulate built in modal header close button action -->
+        <b-button size="sm" variant="outline-danger" @click="close()">
+          Close Modal
+        </b-button>
+        <h5>Modal Header</h5>
+      </template>
+
+      <template v-slot:default="{ hide }">
+        <p>Modal Body with button</p>
+        <b-button @click="hide()">Hide Modal</b-button>
+      </template>
+
+      <template v-slot:modal-footer="{ ok, cancel, hide }">
+        <b>Custom Footer</b>
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <b-button size="sm" variant="success" @click="ok()">
+          OK
+        </b-button>
+        <b-button size="sm" variant="danger" @click="cancel()">
+          Cancel
+        </b-button>
+        <!-- Button with custom close trigger value -->
+        <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
+          Forget it
+        </b-button>
+      </template>
+    </b-modal>
+  </div>
+
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue-icons.min.js"></script>
+  
+  <script>
+    window.onload = () => {
+      new Vue({
+        el: '#app',
+      });
+    };
+  </script>
+
+</body>
+</html>
