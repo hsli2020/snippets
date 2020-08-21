@@ -1,0 +1,975 @@
+Inventory Reports
+================================================================================
+Inventory Report : _GET_FLAT_FILE_OPEN_LISTINGS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file open listings report that contains a summary of the
+seller's product listings with the price and quantity for each SKU. For
+Marketplace and Seller Central sellers.
+
+This report accepts the following ReportOptions values:
+
+Custom - A Boolean value that indicates whether a custom report is returned.
+For more information, see Custom Inventory Reports. Default: false. URL-encoded
+example: ReportOptions=custom%3Dtrue. This functionality is available only in
+the Canada, US, UK, and India marketplaces.
+--------------------------------------------------------------------------------
+All Listings Report : _GET_MERCHANT_LISTINGS_ALL_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file detailed all listings report. For Marketplace and
+Seller Central sellers.
+
+This report accepts the following ReportOptions values:
+
+Custom - A Boolean value that indicates whether a custom report is returned.
+For more information, see Custom Inventory Reports. Default: false. URL-encoded
+example: ReportOptions=custom%3Dtrue. This functionality is available only in
+the Canada, US, UK, and India marketplaces.
+--------------------------------------------------------------------------------
+Active Listings Report : _GET_MERCHANT_LISTINGS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file detailed active listings report. For Marketplace and
+Seller Central sellers.
+--------------------------------------------------------------------------------
+Inactive Listings Report : _GET_MERCHANT_LISTINGS_INACTIVE_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file detailed inactive listings report. For Marketplace and
+Seller Central sellers.
+--------------------------------------------------------------------------------
+Open Listings Report : _GET_MERCHANT_LISTINGS_DATA_BACK_COMPAT_
+
+API operation: RequestReport
+
+Tab-delimited flat file open listings report.
+
+This report accepts the following ReportOptions values:
+
+Custom - A Boolean value that indicates whether a custom report is returned.
+For more information, see Custom Inventory Reports. Default: false. URL-encoded
+example: ReportOptions=custom%3Dtrue. This functionality is available only in
+the Canada, US, UK, and India marketplaces.
+--------------------------------------------------------------------------------
+Open Listings Report Lite : _GET_MERCHANT_LISTINGS_DATA_LITE_
+
+API operation: RequestReport
+
+Tab-delimited flat file active listings report that contains only the SKU,
+ASIN, Price, and Quantity fields for items that have a quantity greater than
+zero. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Open Listings Report Liter : _GET_MERCHANT_LISTINGS_DATA_LITER_
+
+API operation: RequestReport
+
+Tab-delimited flat file active listings report that contains only the SKU and
+Quantity fields for items that have a quantity greater than zero. For
+Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Canceled Listings Report : _GET_MERCHANT_CANCELLED_LISTINGS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file canceled listings report. For Marketplace and Seller
+Central sellers.
+
+This report accepts the following ReportOptions values:
+
+Custom - A Boolean value that indicates whether a custom report is returned.
+For more information, see Custom Inventory Reports. Default: false. URL-encoded
+example: ReportOptions=custom%3Dtrue. This functionality is available only in
+the Canada, US, UK, and India marketplaces.
+--------------------------------------------------------------------------------
+Sold Listings Report : _GET_CONVERGED_FLAT_FILE_SOLD_LISTINGS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file sold listings report that contains items sold on
+Amazon's retail website. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Listing Quality and Suppressed Listing Report : _GET_MERCHANT_LISTINGS_DEFECT_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file listing quality and suppressed listing report that
+contains your listing information that is incomplete or incorrect. For
+Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Pan-European Eligibility: FBA ASINs : _GET_PAN_EU_OFFER_STATUS_
+
+API operation: RequestReport
+
+Tab-delimited flat file report that contains enrollment status and eligibility
+information for the Pan-European FBA program for each of the seller's
+Amazon-fulfilled listings. This report is only available to FBA sellers in the
+Spain, UK, France, Germany, and Italy marketplaces. For more information, see
+Pan-European Eligibility in the Seller Central Help.
+--------------------------------------------------------------------------------
+Pan-European Eligibility: Self-fulfilled ASINs : _GET_MFN_PAN_EU_OFFER_STATUS_
+
+API operation: RequestReport
+
+Tab-delimited flat file report that contains eligibility information for the
+Pan-European FBA Program for each of the seller's self-fulfilled listings.
+Self-fulfilled listings are not allowed in the Pan-European FBA program, and
+this report can help sellers determine whether to convert any of their
+self-fulfilled listings to Amazon-fulfilled listings in order to enroll them in
+the program. This report is only available in the Spain, UK, France, Germany,
+and Italy marketplaces. For more information, see Pan-European Eligibility in
+the Seller Central Help.
+--------------------------------------------------------------------------------
+Global Expansion Opportunities Report : _GET_FLAT_FILE_GEO_OPPORTUNITIES_
+
+API operation: RequestReport
+
+Tab-delimited flat file report that contains products that a seller lists which
+have a high sales potential in other Amazon marketplaces. This report is only
+available in the US marketplace.
+--------------------------------------------------------------------------------
+Referral Fee Preview Report : _GET_REFERRAL_FEE_PREVIEW_REPORT_
+
+API operation: RequestReport
+
+Tab-delimited flat file that contains your open listings as well as the price
+and estimated referral fees for each SKU.
+
+Note: The information in this report may be up to 24 hours old. Please do not
+request a report more than once per 24 hour period.
+
+This report is available in all marketplaces.
+================================================================================
+Order Reports
+
+Note that the date range that you specify when requesting an order report
+indicates when the orders became eligible for fulfillment (no longer in a
+"pending" state), not when the orders were created.
+--------------------------------------------------------------------------------
+Unshipped Orders Report : _GET_FLAT_FILE_ACTIONABLE_ORDER_DATA_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Tab-delimited flat file report that contains only orders that are not confirmed
+as shipped. Can be requested or scheduled. For Marketplace and Seller Central
+sellers.
+
+This report accepts the following ReportOptions values:
+
+ShowSalesChannel - A Boolean value that indicates whether an additional column
+is added to the report that shows the sales channel. Default: false.
+URL-encoded example: ReportOptions=ShowSalesChannel%3Dtrue
+--------------------------------------------------------------------------------
+Scheduled XML Order Report : _GET_ORDERS_DATA_
+
+API operation: ManageReportSchedule
+
+Scheduled XML order report. For Seller Central sellers only.
+
+You can only schedule one _GET_ORDERS_DATA_ or _GET_FLAT_FILE_ORDERS_DATA_
+report at a time. If you have one of these reports scheduled and you schedule a
+new report, the existing report will be canceled.
+--------------------------------------------------------------------------------
+Requested or Scheduled Flat File Order Report : _GET_FLAT_FILE_ORDERS_DATA_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Tab-delimited flat file order report that can be requested or scheduled. The
+report shows orders from the previous 60 days. For Marketplace and Seller
+Central sellers.
+
+Seller Central sellers can only schedule one _GET_ORDERS_DATA_ or
+_GET_FLAT_FILE_ORDERS_DATA_ report at a time. If you have one of these reports
+scheduled and you schedule a new report, the existing report will be canceled.
+
+Marketplace sellers can only schedule one _GET_FLAT_FILE_ORDERS_DATA_ or
+_GET_CONVERGED_FLAT_FILE_ORDER_REPORT_DATA_ report at a time. If you have one
+of these reports scheduled and you schedule a new report, the existing report
+will be canceled.
+
+Note: The format of this report will differ slightly depending on whether it is
+scheduled or requested.
+
+This report accepts the following ReportOptions values:
+
+ShowSalesChannel - A Boolean value that indicates whether an additional column
+is added to the report that shows the sales channel. Default: false.
+URL-encoded example: ReportOptions=ShowSalesChannel%3Dtrue
+--------------------------------------------------------------------------------
+Flat File Order Report : _GET_CONVERGED_FLAT_FILE_ORDER_REPORT_DATA_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Tab-delimited flat file order report that can be requested or scheduled. For
+Marketplace sellers only.
+
+You can only schedule one _GET_FLAT_FILE_ORDERS_DATA_ or
+_GET_CONVERGED_FLAT_FILE_ORDER_REPORT_DATA_ report at a time. If you have one
+of these reports scheduled and you schedule a new report, the existing report
+will be canceled.
+
+Note: The format of this report will differ slightly depending on whether it is
+scheduled or requested. For example, the format for the dates will differ, and
+the ship-method column is only returned when the report is requested.
+
+This report accepts the following ReportOptions values:
+
+ShowSalesChannel - A Boolean value that indicates whether an additional column
+is added to the report that shows the sales channel. Default: false.
+URL-encoded example: ReportOptions=ShowSalesChannel%3Dtrue
+================================================================================
+Order Tracking Reports
+
+These order tracking reports are available in North America (NA) and Europe
+(EU). For all sellers. These reports return all orders, regardless of
+fulfillment channel or shipment status. These reports are intended for order
+tracking, not to drive your fulfillment process, as the reports do not include
+customer-identifying information and scheduling is not supported. Also note
+that for self-fulfilled orders, item price is not shown for orders in a
+"pending" state.
+--------------------------------------------------------------------------------
+Flat File Orders By Last Update Report : _GET_FLAT_FILE_ALL_ORDERS_DATA_BY_LAST_UPDATE_
+
+API operation: RequestReport
+
+Tab-delimited flat file report that shows all orders updated in the specified
+period. Cannot be scheduled. For all sellers.
+--------------------------------------------------------------------------------
+Flat File Orders By Order Date Report : _GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_
+
+API operation: RequestReport
+
+Tab-delimited flat file report that shows all orders that were placed in the
+specified period. Cannot be scheduled. For all sellers.
+--------------------------------------------------------------------------------
+Flat File Archived Orders Report : _GET_FLAT_FILE_ARCHIVED_ORDERS_DATA_BY_ORDER_DATE_
+
+API operation: RequestReport
+
+Tab-delimited flat file report that shows all archived orders that were placed
+in the specified period. Cannot be scheduled. For all sellers.
+--------------------------------------------------------------------------------
+XML Orders By Last Update Report : _GET_XML_ALL_ORDERS_DATA_BY_LAST_UPDATE_
+
+API operation: RequestReport
+
+XML report that shows all orders updated in the specified period. Cannot be
+scheduled. For all sellers.
+--------------------------------------------------------------------------------
+XML Orders By Order Date Report : _GET_XML_ALL_ORDERS_DATA_BY_ORDER_DATE_
+
+API operation: RequestReport
+
+XML report that shows all orders that were placed in the specified period.
+Cannot be scheduled. For all sellers.
+
+Pending Order Reports
+
+These pending order reports are only available in the Japan marketplace. These
+reports can be both scheduled and requested where noted.
+--------------------------------------------------------------------------------
+Flat File Pending Orders Report : _GET_FLAT_FILE_PENDING_ORDERS_DATA_
+
+API operation: ManageReportSchedule
+API operation: RequestReport
+
+Tab-delimited flat file report that can be requested or scheduled that shows
+all pending orders. For all sellers.
+--------------------------------------------------------------------------------
+XML Pending Orders Report : _GET_PENDING_ORDERS_DATA_
+
+API operation: ManageReportSchedule
+API operation: RequestReport
+
+XML report that can be requested or scheduled that shows all pending orders.
+Can only be scheduled using Amazon MWS.
+--------------------------------------------------------------------------------
+Converged Flat File Pending Orders Report : _GET_CONVERGED_FLAT_FILE_PENDING_ORDERS_DATA_
+
+API operation: ManageReportSchedule
+API operation: RequestReport
+
+Flat file report that can be requested or scheduled that shows all pending
+orders. For Marketplace sellers.
+================================================================================
+Returns Reports
+--------------------------------------------------------------------------------
+XML Returns Report by Return Date : _GET_XML_RETURNS_DATA_BY_RETURN_DATE_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+XML report that can be requested or scheduled. Contains detailed returns
+information, including return request date, RMA ID, label details, ASIN, and
+return reason code. You can request up to 60 days of data in a single report.
+--------------------------------------------------------------------------------
+Flat File Returns Report by Return Date : _GET_FLAT_FILE_RETURNS_DATA_BY_RETURN_DATE_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Tab-delimited flat file report that can be requested or scheduled. Contains
+detailed returns information, including return request date, RMA ID, label
+details, ASIN, and return reason code. You can request up to 60 days of data in
+a single report.
+--------------------------------------------------------------------------------
+XML Prime Returns Report by Return Date : _GET_XML_MFN_PRIME_RETURNS_REPORT_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+XML report that can be requested or scheduled. Contains detailed Seller
+Fulfilled Prime returns information, including return request date, RMA ID,
+label details, ASIN, and return reason code. You can request up to 60 days of
+data in a single report.
+--------------------------------------------------------------------------------
+CSV Prime Returns Report by Return Date : _GET_CSV_MFN_PRIME_RETURNS_REPORT_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Comma-separated flat file report that can be requested or scheduled. Contains
+detailed Seller Fulfilled Prime returns information, including return request
+date, RMA ID, label details, ASIN, and return reason code. You can request up
+to 60 days of data in a single report.
+--------------------------------------------------------------------------------
+XML Return Attributes Report by Return Date : _GET_XML_MFN_SKU_RETURN_ATTRIBUTES_REPORT_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+XML report that can be requested or scheduled. Contains detailed return
+attribute information by SKU, including prepaid label eligibility and
+returnless refund eligibility. You can request up to 60 days of data in a
+single report.
+--------------------------------------------------------------------------------
+Flat File Return Attributes Report by Return Date : _GET_FLAT_FILE_MFN_SKU_RETURN_ATTRIBUTES_REPORT_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Tab-delimited flat file report that can be requested or scheduled. Contains
+detailed return attribute information by SKU, including prepaid label
+eligibility and returnless refund eligibility. You can request up to 60 days of
+data in a single report.
+================================================================================
+Performance Reports
+--------------------------------------------------------------------------------
+Flat File Feedback Report : _GET_SELLER_FEEDBACK_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file that returns negative and neutral feedback (one to
+three stars) from buyers who rated your seller performance. For all sellers.
+--------------------------------------------------------------------------------
+XML Customer Metrics Report : _GET_V1_SELLER_PERFORMANCE_REPORT_
+
+API operation: RequestReport
+
+XML file that contains the individual performance metrics data from the Seller
+Central dashboard. For all sellers.
+================================================================================
+Settlement Reports
+
+Note that settlement reports cannot be requested or scheduled. They are
+automatically scheduled by Amazon.
+--------------------------------------------------------------------------------
+Flat File Settlement Report : _GET_V2_SETTLEMENT_REPORT_DATA_FLAT_FILE_
+
+API operation: GetReportList
+API operation: GetReport
+
+Tab-delimited flat file settlement report that is automatically scheduled by
+Amazon; it cannot be requested through RequestReport. For all sellers.
+--------------------------------------------------------------------------------
+XML Settlement Report : _GET_V2_SETTLEMENT_REPORT_DATA_XML_
+
+API operation: GetReportList
+API operation: GetReport
+
+XML file settlement report that is automatically scheduled by Amazon; it cannot
+be requested through RequestReport. For Seller Central sellers only.
+--------------------------------------------------------------------------------
+Flat File V2 Settlement Report : _GET_V2_SETTLEMENT_REPORT_DATA_FLAT_FILE_V2_
+
+API operation: GetReportList
+API operation: GetReport
+
+Tab-delimited flat file alternate version of the Flat File Settlement Report
+that is automatically scheduled by Amazon; it cannot be requested through
+RequestReport. Price columns are condensed into three general purpose columns:
+amounttype, amountdescription, and amount. For Seller Central sellers only.
+================================================================================
+Fulfillment By Amazon (FBA) Reports
+
+There are limits to how often Amazon will generate FBA reports. These limits
+depend on whether an FBA report is a near real-time report or a daily report.
+See the following table to see which FBA reports are near real-time and which
+are daily.
+
+A near real-time FBA report is generated no more than once every 30 minutes.
+This means that after a near real-time FBA report is generated following your
+report request, a 30-minute waiting period must pass before Amazon will
+generate an updated version of that report. Note that the four "All Orders"
+reports are not subject to this limitation.
+
+A daily FBA report is generated no more than once every four hours. This means
+that after a daily FBA report is generated following your report request, a
+four-hour waiting period must pass before Amazon will generate an updated
+version of that report.
+
+For more information, see the "Do not request FBA reports more frequently than
+they are generated" section of the MWS for FBA Sellers Guide.
+
+FBA Sales Reports
+--------------------------------------------------------------------------------
+FBA Amazon Fulfilled Shipments Report : _GET_AMAZON_FULFILLED_SHIPMENTS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains detailed order/shipment/item information
+including price, address, and tracking data. You can request up to one month of
+data in a single report. Content updated near real-time in Europe (EU), Japan,
+and North America (NA). For FBA sellers only. For Marketplace and Seller
+Central sellers.
+
+Note: In Japan, EU, and NA, in most cases, there will be a delay of
+approximately one to three hours from the time a fulfillment order ships and
+the time the items in the fulfillment order appear in the report. In some rare
+cases there could be a delay of up to 24 hours.
+--------------------------------------------------------------------------------
+Flat File All Orders Report by Last Update : _GET_FLAT_FILE_ALL_ORDERS_DATA_BY_LAST_UPDATE_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Returns all orders updated in the specified date range
+regardless of fulfillment channel or shipment status. This report is intended
+for order tracking, not to drive your fulfillment process; it does not include
+customer identifying information and scheduling is not supported. For all sellers.
+--------------------------------------------------------------------------------
+Flat File All Orders Report by Order Date : _GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Returns all orders placed in the specified date range
+regardless of fulfillment channel or shipment status. This report is intended
+for order tracking, not to drive your fulfillment process; it does not include
+customer identifying information and scheduling is not supported. For all sellers.
+--------------------------------------------------------------------------------
+XML All Orders Report by Last Update : _GET_XML_ALL_ORDERS_DATA_BY_LAST_UPDATE_
+
+API operation: RequestReport
+
+XML file order report that returns all orders updated in the specified date
+range regardless of fulfillment channel or shipment status. This report is
+intended for order tracking, not to drive your fulfillment process; it does not
+include customer identifying information and scheduling is not supported. For
+all sellers.
+--------------------------------------------------------------------------------
+XML All Orders Report by Order Date : _GET_XML_ALL_ORDERS_DATA_BY_ORDER_DATE_
+
+API operation: RequestReport
+
+XML file order report that returns all orders placed in the specified date
+range regardless of fulfillment channel or shipment status. This report is
+intended for order tracking, not to drive your fulfillment process; it does not
+include customer identifying information and scheduling is not supported. For
+all sellers.
+--------------------------------------------------------------------------------
+FBA Customer Shipment Sales Report : _GET_FBA_FULFILLMENT_CUSTOMER_SHIPMENT_SALES_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains condensed item level data on shipped FBA
+customer orders including price, quantity, and ship to location. Content
+updated near real-time in Europe (EU), Japan, and North America (NA). For FBA
+sellers only. For Marketplace and Seller Central sellers.
+
+Note: In Japan, EU, and NA, in most cases, there will be a delay of
+approximately one to three hours from the time a fulfillment order ships and
+the time the items in the fulfillment order appear in the report. In some rare
+cases there could be a delay of up to 24 hours.
+--------------------------------------------------------------------------------
+FBA Promotions Report : _GET_FBA_FULFILLMENT_CUSTOMER_SHIPMENT_PROMOTION_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains promotions applied to FBA customer orders
+sold through Amazon; e.g. Super Saver Shipping. Content updated daily. This
+report is only available to FBA sellers in the North America (NA) region. For
+Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Customer Taxes : _GET_FBA_FULFILLMENT_CUSTOMER_TAXES_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file for tax-enabled US sellers. This report contains data
+through February 28, 2013. All new transaction data can be found in the Sales
+Tax Report. For FBA sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Remote Fulfillment Eligibility : _GET_REMOTE_FULFILLMENT_ELIGIBILITY_
+
+API operation: RequestReport
+
+Tab-delimited flat file that contains all of your US Fulfillment by Amazon
+offers and whether they qualify for the North America Remote Fulfillment (NARF)
+program.
+
+Note: Recheck this report regularly, since ASIN eligibility can change. This
+report can take up to 24 hours to generate.
+
+This report is only available in the Canada, US, and Mexico marketplaces.
+================================================================================
+FBA Inventory Reports
+--------------------------------------------------------------------------------
+FBA Amazon Fulfilled Inventory Report : _GET_AFN_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Content updated in near real-time. For FBA sellers
+only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Multi-Country Inventory Report : _GET_AFN_INVENTORY_DATA_BY_COUNTRY_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains quantity available for local fulfillment by
+country, helping Multi-Country Inventory sellers in Europe track their FBA
+inventory. Content updated in near-real time. This report is only available to
+FBA sellers in European (EU) marketplaces. For Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Daily Inventory History Report : _GET_FBA_FULFILLMENT_CURRENT_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains historical daily snapshots of your available
+inventory in Amazon’s fulfillment centers including quantity, location and
+disposition. Content updated daily. For FBA sellers only. For Marketplace and
+Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Monthly Inventory History Report : _GET_FBA_FULFILLMENT_MONTHLY_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains historical monthly snapshots of your
+available inventory in Amazon’s fulfillment centers including average and
+end-of-month quantity, location and disposition. Content updated daily. For FBA
+sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Received Inventory Report : _GET_FBA_FULFILLMENT_INVENTORY_RECEIPTS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains inventory that has completed the receive
+process at Amazon’s fulfillment centers. Content updated daily. For FBA sellers
+only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Reserved Inventory Report : _GET_RESERVED_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Provides data about the number of reserved units in
+your inventory. Content updated in near real-time. For FBA sellers only. For
+Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Inventory Event Detail Report : _GET_FBA_FULFILLMENT_INVENTORY_SUMMARY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains history of inventory events (e.g. receipts,
+shipments, adjustments etc.) by SKU and Fulfillment Center. Content updated
+daily. For FBA sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Inventory Adjustments Report : _GET_FBA_FULFILLMENT_INVENTORY_ADJUSTMENTS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains corrections and updates to your inventory in
+response to issues such as damage, loss, receiving discrepancies, etc. Content
+updated daily. For FBA sellers only. For Marketplace and Seller Central
+sellers.
+--------------------------------------------------------------------------------
+FBA Inventory Health Report : _GET_FBA_FULFILLMENT_INVENTORY_HEALTH_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains information about inventory age, condition,
+sales volume, weeks of cover, and price. Content updated daily. For FBA Sellers
+only. For Marketplace and Seller Central sellers. This report is not available
+in the Mexico and Australia marketplaces.
+--------------------------------------------------------------------------------
+FBA Manage Inventory : _GET_FBA_MYI_UNSUPPRESSED_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains current details of active (not archived)
+inventory including condition, quantity and volume. Content updated in near
+real-time. For FBA sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Manage Inventory - Archived : _GET_FBA_MYI_ALL_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains current details of all (including archived)
+inventory including condition, quantity and volume. Content updated in near
+real-time. This report is not available in the Mexico marketplace. For FBA
+sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Restock Inventory Report : _GET_RESTOCK_INVENTORY_RECOMMENDATIONS_REPORT_
+
+API operation: RequestReport
+
+Tab delimited flat file. Provides recommendations on products to restock,
+suggested order quantities, and reorder dates. For more information, see
+Restock Inventory Report. Content updated in near real-time. This report is
+only available to FBA sellers in the US marketplace.
+--------------------------------------------------------------------------------
+FBA Inbound Performance Report : _GET_FBA_FULFILLMENT_INBOUND_NONCOMPLIANCE_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains inbound shipment problems by product and
+shipment. Content updated daily. For Marketplace and Seller Central sellers.
+This report is only available to FBA sellers.
+--------------------------------------------------------------------------------
+FBA Stranded Inventory Report : _GET_STRANDED_INVENTORY_UI_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains a breakdown of inventory in stranded status,
+including recommended actions. Content updated in near real-time. This report
+is only available to FBA sellers in the US, India, and Japan marketplaces. For
+more information, see Stranded Inventory Report.
+--------------------------------------------------------------------------------
+FBA Bulk Fix Stranded Inventory Report : _GET_STRANDED_INVENTORY_LOADER_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains a list of stranded inventory. Update the
+listing information in this report file and then submit the file using the Flat
+File Inventory Loader Feed (_POST_FLAT_FILE_INVLOADER_DATA_) of the Feeds API
+section. Content updated in near real-time. This report is only available to
+FBA sellers in the US, India, and Japan marketplaces. For more information, see
+Bulk Fix Stranded Inventory Report.
+--------------------------------------------------------------------------------
+FBA Inventory Age Report : _GET_FBA_INVENTORY_AGED_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Indicates the age of inventory, which helps sellers
+take action to avoid paying the Long Term Storage Fee. Content updated daily.
+This report is only available to FBA sellers in the US, India, and Japan
+marketplaces. For more information, see Inventory Age Report.
+--------------------------------------------------------------------------------
+FBA Manage Excess Inventory Report : _GET_EXCESS_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains listings with excess inventory, which helps
+sellers take action to sell through faster. Content updated in near real-time.
+This report is only available to FBA sellers in the US, India, and Japan
+marketplaces. For more information, see Excess Inventory Report.
+--------------------------------------------------------------------------------
+FBA Storage Fees Report : _GET_FBA_STORAGE_FEE_CHARGES_DATA_
+
+API operation: RequestReport
+API operation: ManageReportSchedule
+
+Tab-delimited flat file. Contains estimated monthly inventory storage fees for
+each ASIN of a seller's inventory in Amazon fulfillment centers. For FBA
+sellers only.
+--------------------------------------------------------------------------------
+Get Report Exchange Data : _GET_PRODUCT_EXCHANGE_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file that contains product exchange information for the
+specified time duration.This report is only available in the India marketplace.
+================================================================================
+FBA Payments Reports
+--------------------------------------------------------------------------------
+FBA Fee Preview Report : _GET_FBA_ESTIMATED_FBA_FEES_TXT_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains the estimated Amazon Selling and Fulfillment
+Fees for your FBA inventory with active offers. The content is updated at least
+once every 72 hours. To successfully generate a report, specify the StartDate
+parameter of a minimum 72 hours prior to NOW and EndDate to NOW. For FBA
+sellers in the NA and EU only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Reimbursements Report : _GET_FBA_REIMBURSEMENTS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains itemized details of your inventory
+reimbursements including the reason for the reimbursement. Content updated
+daily. For FBA sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Long Term Storage Fee Charges Report : _GET_FBA_FULFILLMENT_LONGTERM_STORAGE_FEE_CHARGES_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file that contains the charge data for long-term storage.
+This report is only available in the Canada, US, Spain, UK, France, Germany,
+Italy, India, and Japan marketplaces.
+================================================================================
+FBA Customer Concessions Reports
+--------------------------------------------------------------------------------
+FBA Returns Report : _GET_FBA_FULFILLMENT_CUSTOMER_RETURNS_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains customer returned items received at an Amazon
+fulfillment center, including Return Reason and Disposition. Content updated
+daily. For FBA sellers only. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Replacements Report : _GET_FBA_FULFILLMENT_CUSTOMER_SHIPMENT_REPLACEMENT_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains replacements that have been issued to
+customers for completed orders. Content updated daily. For FBA sellers only.
+For Marketplace and Seller Central sellers. Available in the US marketplace
+only.
+================================================================================
+FBA Removals Reports
+--------------------------------------------------------------------------------
+FBA Recommended Removal Report : _GET_FBA_RECOMMENDED_REMOVAL_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. The report identifies sellable items that will be 365
+days or older during the next Long-Term Storage cleanup event, if the report is
+generated within six weeks of the cleanup event date. The report includes both
+sellable and unsellable items. Content updated daily. For FBA sellers. For
+Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Removal Order Detail Report : _GET_FBA_FULFILLMENT_REMOVAL_ORDER_DETAIL_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. This report contains all the removal orders, including
+the items in each removal order, placed during any given time period. This can
+be used to help reconcile the total number of items requested to be removed
+from an Amazon fulfillment center with the actual number of items removed along
+with the status of each item in the removal order. Content updated in near
+real-time. For FBA sellers. For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+FBA Removal Shipment Detail Report : _GET_FBA_FULFILLMENT_REMOVAL_SHIPMENT_DETAIL_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. This report provides shipment tracking information for
+all removal orders and includes the items that have been removed from an Amazon
+fulfillment center for either a single removal order or for a date range. This
+report will not include canceled returns or disposed items; it is only for
+shipment information. Content updated in near real-time. For FBA sellers. For
+Marketplace and Seller Central sellers.
+================================================================================
+FBA Small and Light Reports
+--------------------------------------------------------------------------------
+Small & Light Inventory Report : _GET_FBA_UNO_INVENTORY_DATA_
+
+API operation: RequestReport
+
+Tab-delimited flat file. Contains all of your products are enrolled in the
+Small & Light program and how much inventory you currently have in Small &
+Light fulfillment centers. The report also shows your current prices and
+whether any of your products are in unsellable status. This report is only
+available in the US, UK, Germany, and Japan marketplaces.
+================================================================================
+Tax Reports
+--------------------------------------------------------------------------------
+Sales Tax Report : _GET_FLAT_FILE_SALES_TAX_DATA_
+
+API operation: GetReportList
+API operation: GetReport
+
+Tab-delimited flat file for tax-enabled US sellers. Content updated daily. This
+report cannot be requested or scheduled. You must generate the report from the
+Tax Document Library in Seller Central. After the report has been generated,
+you can download the report using the GetReportList and GetReport operations.
+For Marketplace and Seller Central sellers.
+--------------------------------------------------------------------------------
+Amazon VAT Calculation Report : _SC_VAT_TAX_REPORT_
+
+API operation: RequestReport 	
+
+Comma-separated flat file report that provides detailed value-added tax (VAT)
+calculation information for buyer shipments, returns, and refunds. This report
+is only available in the Germany, Spain, Italy, France, and UK marketplaces.
+--------------------------------------------------------------------------------
+Amazon VAT Transactions Report : _GET_VAT_TRANSACTION_DATA_
+
+API operation: RequestReport 	
+
+Tab-delimited flat file report that provides detailed information for sales,
+returns, refunds, cross border inbound and cross border fulfillment center
+transfers. This report is only available in the Germany, Spain, Italy, France,
+and UK marketplaces.
+
+--------------------------------------------------------------------------------
+On Demand GST Merchant Tax Report B2B : _GET_GST_MTR_B2B_CUSTOM_
+
+API operation: RequestReport 	
+
+Tab-delimited flat file report that provides detailed information about sales,
+refunds, and cancellations from Amazon Business invoices issued within a date
+range that you specify. This report is only available in the India marketplace.
+--------------------------------------------------------------------------------
+On Demand GST Merchant Tax Report B2C : _GET_GST_MTR_B2C_CUSTOM_
+
+API operation: RequestReport 	
+
+Tab-delimited flat file report that provides detailed information about sales,
+refunds, and cancellations from consumer invoices issued within a date range
+that you specify. This report is only available in the India marketplace.
+================================================================================
+Browse Tree Report
+--------------------------------------------------------------------------------
+Browse Tree Report : _GET_XML_BROWSE_TREE_DATA_
+
+API operation: ManageReportSchedule
+API operation: RequestReport
+
+XML report that provides browse tree hierarchy information and node refinement
+information for the Amazon retail website in any marketplace.
+
+Can be requested or scheduled. For Marketplace and Seller Central sellers.
+
+This report accepts the following ReportOptions values:
+
+MarketplaceId – Specifies the marketplace from which you want browse tree
+information. Optional. If MarketplaceId is not included in the ReportOptions
+parameter, the report contains browse tree information from your default
+marketplace.
+
+Note: You must be registered as a seller in any marketplace that you specify
+using the MarketplaceId value. Also, your request must be sent to an endpoint
+that corresponds to the MarketplaceId that you specify. Otherwise the service
+returns an error. You can find a list of MarketplaceId values and endpoints in
+the "Amazon MWS endpoints and MarketplaceId values" section of the Amazon MWS
+Developer Guide.
+
+RootNodesOnly - Type: xs:boolean. Optional. If true, then the report contains
+only the root nodes from the marketplace specified using MarketplaceId (or from
+your default marketplace, if MarketplaceId is not specified). If false, or if
+RootNodesOnly is not included in the ReportOptions parameter, then the content
+of the report depends on the value of BrowseNodeId.
+
+BrowseNodeId – Specifies the top node of the browse tree hierarchy in the
+report. Optional. If BrowseNodeId is not included in the ReportOptions
+parameter, and if RootNodesOnly is false or is not included in the
+ReportOptions parameter, then the report contains the entire browse node
+hierarchy from the marketplace specified using MarketplaceId (or from your
+default marketplace, if MarketplaceId is not specified). Note that if you
+include an invalid BrowseNodeId in your request, the service returns a report
+that contains no data.
+
+Note: If RootNodesOnly and BrowseNodeId are both included in the ReportOptions
+parameter, RootNodesOnly takes precedence.
+
+Note: Amazon recommends that you do not include the MarketplaceIdList parameter
+with calls to the RequestReport operation that request the Browse Tree Report.
+If there is ever a conflict between a MarketplaceIdList parameter value and the
+MarketplaceId value of the ReportOptions parameter, the MarketplaceId value
+takes precedence.
+
+To keep track of which browse nodes change over time, Amazon recommends that
+each time you request this report you compare it to the last report you
+requested using the same ReportOptions values.
+
+URL-encoded example: ReportOptions=MarketplaceId%3DATVPDKIKX0DER;BrowseNodeId%3D15706661
+
+The Browse Tree Report is described by the following XSD: BrowseTreeReport.xsd.
+
+Note: As Amazon updates the Amazon MWS Reports API section, we may update the
+BrowseTreeReport.xsd schema. Keep this in mind if you choose to use this schema
+for validation. Monitor an Amazon MWS discussion forum for announcements of
+updates to the BrowseTreeReport.xsd schema. You can find the Amazon MWS
+discussion forums here:
+
+English: https://sellercentral.amazon.com/forums/forum.jspa?forumID=35
+Japanese: https://sellercentral.amazon.co.jp/forums/forum.jspa?forumID=14
+
+================================================================================
+Easy Ship Report
+--------------------------------------------------------------------------------
+EasyShip Report : _GET_EASYSHIP_DOCUMENTS_
+
+API operation: GetReport
+
+PDF report that contains the invoice, shipping label, and warranty (if
+available) documents for the Amazon Easy Ship order. This report is only
+available in the India marketplace. For more information, see How to get
+invoice, shipping label, and warranty documents.
+--------------------------------------------------------------------------------
+EasyShip Picked Up Report : _GET_EASYSHIP_PICKEDUP_
+
+API operation: GetReport
+
+Tab-delimited report that contains all of the seller-fulfilled orders that were
+picked-up on the specified dates. This report is only available in the India
+marketplace. For more information, see Download an EasyShip Orders Report in
+the Seller Central Help.
+--------------------------------------------------------------------------------
+EasyShip Waiting for Pick Up Report : _GET_EASYSHIP_WAITING_FOR_PICKUP_
+
+API operation: GetReport
+
+Tab-delimited report that contains all of your orders that are in the "Waiting
+for pick up" status in Seller Central. This report is only available in the
+India marketplace. For more information, see Download an EasyShip Orders
+Report in the Seller Central Help.
+================================================================================
+Amazon Business Reports
+
+Manage Quotes Report : _RFQD_BULK_DOWNLOAD_
+
+API operation: GetReport
+
+A Microsoft Excel Workbook (.xlsx) file. Contains current details of requests
+for quantity discounts including customer requests, active quantity discounts,
+analysis of pending requests, and analysis of all requests. Content updated
+in near real time. For Amazon Business sellers only. This report is only
+available in the US, UK, Germany, India, and Japan marketplaces.
+--------------------------------------------------------------------------------
+Referral Fee Discounts Report : _FEE_DISCOUNTS_REPORT_
+
+API operation: GetReport
+
+A Microsoft Excel Workbook (.xlsx) file that contains a summary of your fee discounts.
+
+Note: The information in this report may be up to 24 hours old. Please do not
+request a report more than once within a 24-hour period.
+
+This report is only available in the Canada, US, Spain, UK, France, Germany,
+Italy, and Australia marketplaces.
+================================================================================
+AmazonPay Reports
+--------------------------------------------------------------------------------
+AmazonPay Sandbox Settlement Report : _GET_FLAT_FILE_OFFAMAZONPAYMENTS_SANDBOX_SETTLEMENT_DATA_
+
+API operation: RequestReport
+
+Comma-separated flat file that contains all of the transactions made in
+seller's (sandbox) account. Here are the Marketplace IDs for the available
+sandbox marketplaces:
+
+    EU: A1G8446IYHA4MR
+    JP: A31YDYE76E6TCP
+    UK: A3M3RRFO9XDT2G
+    US: A3BXB0YN3XH17H
+
+This report is only available in the US, Spain, UK, France, Germany, Italy,
+Turkey, India, and Japan marketplaces.
+
+# END

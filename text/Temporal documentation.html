@@ -1,0 +1,1348 @@
+<!DOCTYPE html> <html data-sfz><meta charset='utf-8'><title>Temporal documentation</title><body hidden><meta name="viewport" content="width=device-width, initial-scale=1"><div id='sfz-wait-message'>Please wait...</div><div id='sfz-error-message'><strong>Error</strong>: Cannot open the page from the filesystem.<ul style='line-height:20px;'><li style='margin-bottom:10px'><strong>Chrome</strong>: Install <a href='https://chrome.google.com/webstore/detail/singlefilez/offkdfbbigofcgdokjemgjpdockaafjg'>SingleFileZ</a> and enable the option "Allow access to file URLs" in the details page of the extension (chrome://extensions/?id=offkdfbbigofcgdokjemgjpdockaafjg). Otherwise, start the browser with the switch "--allow-file-access-from-files".</li><li><strong>Safari</strong>: Select "Disable Local File Restrictions" in the "Develop" menu.</li></ul></div><script>!function(e){"use strict";var t,i="File format is not recognized.",n="CRC failed.",r="File contains encrypted entry.",a="File is using Zip64 (4gb+ file size).",o="Error while reading zip file.",s="Error while writing zip file.",l="Error while writing file data.",f="Error while reading file data.",_="File already exists.",d=524288,u="text/plain";try{t=0===new Blob([new DataView(new ArrayBuffer(0))]).size}catch(e){}function c(){this.crc=-1}function w(){}function b(e,t){var i,n;return i=new ArrayBuffer(e),n=new Uint8Array(i),t&&n.set(t,0),{buffer:i,array:n,view:new DataView(i)}}function h(){}function v(e){var t,i=this;i.size=0,i.init=function(n,r){var a=new Blob([e],{type:u});(t=new y(a)).init(function(){i.size=t.size,n()},r)},i.readUint8Array=function(e,i,n,r){t.readUint8Array(e,i,n,r)}}function x(t){var i,n=this;n.size=0,n.init=function(e){for(var r=t.length;"="==t.charAt(r-1);)r--;i=t.indexOf(",")+1,n.size=Math.floor(.75*(r-i)),e()},n.readUint8Array=function(n,r,a){var o,s=b(r),l=4*Math.floor(n/3),f=4*Math.ceil((n+r)/3),_=e.atob(t.substring(l+i,f+i)),d=n-3*Math.floor(l/4);for(o=d;o<d+r;o++)s.array[o-d]=_.charCodeAt(o);a(s.array)}}function y(e){var t=this;t.size=0,t.init=function(i){t.size=e.size,i()},t.readUint8Array=function(t,i,n,r){var a=new FileReader;a.onload=function(e){n(new Uint8Array(e.target.result))},a.onerror=r;try{a.readAsArrayBuffer(function(e,t,i){if(t<0||i<0||t+i>e.size)throw new RangeError("offset:"+t+", length:"+i+", size:"+e.size);return e.slice?e.slice(t,t+i):e.webkitSlice?e.webkitSlice(t,t+i):e.mozSlice?e.mozSlice(t,t+i):e.msSlice?e.msSlice(t,t+i):void 0}(e,t,i))}catch(e){r(e)}}}function p(){}function m(e){var i;this.init=function(e){i=new Blob([],{type:u}),e()},this.writeUint8Array=function(e,n){i=new Blob([i,t?e:e.buffer],{type:u}),n()},this.getData=function(t,n){var r=new FileReader;r.onload=function(e){t(e.target.result)},r.onerror=n,r.readAsText(i,e)}}function g(t){var i="",n="";this.init=function(e){i+="data:"+(t||"")+";base64,",e()},this.writeUint8Array=function(t,r){var a,o=n.length,s=n;for(n="",a=0;a<3*Math.floor((o+t.length)/3)-o;a++)s+=String.fromCharCode(t[a]);for(;a<t.length;a++)n+=String.fromCharCode(t[a]);s.length>2?i+=e.btoa(s):n=s,r()},this.getData=function(t){t(i+e.btoa(n))}}function k(e){var i;this.init=function(t){this.offset=0,i=new Blob([],{type:e}),t()},this.writeUint8Array=function(n,r){i=new Blob([i,t?n:n.buffer],{type:e}),this.offset=i.size,r()},this.getData=function(e){e(i)}}function U(e,t,i,n,r,a,o,s,l,f){var _,u,c,w=0,b=t.sn;function h(){e.removeEventListener("message",v,!1),s(u,c)}function v(t){var i=t.data,r=i.data,s=i.error;if(s)return s.toString=function(){return"Error: "+this.message},void l(s);if(i.sn===b)switch("number"==typeof i.codecTime&&(e.codecTime+=i.codecTime),"number"==typeof i.crcTime&&(e.crcTime+=i.crcTime),i.type){case"append":r?(u+=r.length,n.writeUint8Array(r,function(){x()},f)):x();break;case"flush":c=i.crc,r?(u+=r.length,n.writeUint8Array(r,function(){h()},f)):h();break;case"progress":o&&o(_+i.loaded,a);break;case"importScripts":case"newTask":case"echo":break;default:console.warn("zip.js:launchWorkerProcess: unknown message: ",i)}}function x(){(_=w*d)<=a?i.readUint8Array(r+_,Math.min(d,a-_),function(i){o&&o(_,a);var n=0===_?t:{sn:b};n.type="append",n.data=i;try{e.postMessage(n,[i.buffer])}catch(t){e.postMessage(n)}w++},l):e.postMessage({sn:b,type:"flush"})}u=0,e.addEventListener("message",v,!1),x()}function z(e,t,i,n,r,a,o,s,l,f){var _,u=0,w=0,b="input"===a,h="output"===a,v=new c;function x(){u*d<r?setTimeout(y,0):y()}function y(){var a;if((_=u*d)<r)t.readUint8Array(n+_,Math.min(d,r-_),function(t){var n;try{n=e.append(t,function(e){o&&o(_+e,r)})}catch(e){return void l(e)}n?(w+=n.length,i.writeUint8Array(n,function(){u++,x()},f),h&&v.append(n)):(u++,x()),b&&v.append(t),o&&o(_,r)},l);else{try{a=e.flush()}catch(e){return void l(e)}a?(h&&v.append(a),w+=a.length,i.writeUint8Array(a,function(){s(w,v.get())},f)):s(w,v.get())}}y()}function A(t,i,n,r,a,o,s,l,f,_,d){e.zip.useWebWorkers&&s?U(t,{sn:i,codecClass:"NOOP",crcType:"input"},n,r,a,o,f,l,_,d):z(new w,n,r,a,o,"input",f,l,_,d)}function S(e){var t,i,n="",r=["Ã‡","Ã¼","Ã©","Ã¢","Ã¤","Ã ","Ã¥","Ã§","Ãª","Ã«","Ã¨","Ã¯","Ã®","Ã¬","Ã„","Ã…","Ã‰","Ã¦","Ã†","Ã´","Ã¶","Ã²","Ã»","Ã¹","Ã¿","Ã–","Ãœ","Ã¸","Â£","Ã˜","Ã—","Æ’","Ã¡","Ã­","Ã³","Ãº","Ã±","Ã‘","Âª","Âº","Â¿","Â®","Â¬","Â½","Â¼","Â¡","Â«","Â»","_","_","_","Â¦","Â¦","Ã","Ã‚","Ã€","Â©","Â¦","Â¦","+","+","Â¢","Â¥","+","+","-","-","+","-","+","Ã£","Ãƒ","+","+","-","-","Â¦","-","+","Â¤","Ã°","Ã","ÃŠ","Ã‹","Ãˆ","i","Ã","Ã","Ã","+","+","_","_","Â¦","ÃŒ","_","Ã“","ÃŸ","Ã”","Ã’","Ãµ","Ã•","Âµ","Ã¾","Ã","Ãš","Ã›","Ã™","Ã½","Ã","Â¯","Â´","Â­","Â±","_","Â¾","Â¶","Â§","Ã·","Â¸","Â°","Â¨","Â·","Â¹","Â³","Â²","_"," "];for(t=0;t<e.length;t++)n+=(i=255&e.charCodeAt(t))>127?r[i-128]:String.fromCharCode(i);return n}function E(e){return decodeURIComponent(escape(e))}function D(e){var t,i="";for(t=0;t<e.length;t++)i+=String.fromCharCode(e[t]);return i}function L(e,t,i,n,o){e.version=t.view.getUint16(i,!0),e.bitFlag=t.view.getUint16(i+2,!0),e.compressionMethod=t.view.getUint16(i+4,!0),e.lastModDateRaw=t.view.getUint32(i+6,!0),e.lastModDate=function(e){var t=(4294901760&e)>>16,i=65535&e;try{return new Date(1980+((65024&t)>>9),((480&t)>>5)-1,31&t,(63488&i)>>11,(2016&i)>>5,2*(31&i),0)}catch(e){}}(e.lastModDateRaw),1!=(1&e.bitFlag)?((n||8!=(8&e.bitFlag))&&(e.crc32=t.view.getUint32(i+10,!0),e.compressedSize=t.view.getUint32(i+14,!0),e.uncompressedSize=t.view.getUint32(i+18,!0)),4294967295!==e.compressedSize&&4294967295!==e.uncompressedSize?(e.filenameLength=t.view.getUint16(i+22,!0),e.extraFieldLength=t.view.getUint16(i+24,!0)):o(a)):o(r)}function M(t,r,a){var s=0;function _(){}_.prototype.getData=function(r,o,_,d){var u=this;function c(e,t){d&&!function(e){var t=b(4);return t.view.setUint32(0,e),u.crc32==t.view.getUint32(0)}(t)?a(n):r.getData(function(e){o(e)})}function w(e){a(e||f)}function h(e){a(e||l)}t.readUint8Array(u.offset,30,function(n){var o,l=b(n.length,n);1347093252==l.view.getUint32(0)?(L(u,l,4,!1,a),o=u.offset+30+u.filenameLength+u.extraFieldLength,r.init(function(){0===u.compressionMethod?A(u._worker,s++,t,r,o,u.compressedSize,d,c,_,w,h):function(t,i,n,r,a,o,s,l,f,_,d){var u=s?"output":"none";e.zip.useWebWorkers?U(t,{sn:i,codecClass:"Inflater",crcType:u},n,r,a,o,f,l,_,d):z(new e.zip.Inflater,n,r,a,o,u,f,l,_,d)}(u._worker,s++,t,r,o,u.compressedSize,d,c,_,w,h)},h)):a(i)},w)};var d={getEntries:function(e){var n=this._worker;!function(e){var n=22;if(t.size<n)a(i);else{var r=n+65536;s(n,function(){s(Math.min(r,t.size),function(){a(i)})})}function s(i,r){t.readUint8Array(t.size-i,i,function(t){for(var i=t.length-n;i>=0;i--)if(80===t[i]&&75===t[i+1]&&5===t[i+2]&&6===t[i+3])return void e(new DataView(t.buffer,i,n));r()},function(){a(o)})}}(function(r){var s,l;s=r.getUint32(16,!0),l=r.getUint16(8,!0),s<0||s>=t.size?a(i):t.readUint8Array(s,t.size-s,function(t){var r,o,s,f,d=0,u=[],c=b(t.length,t);for(r=0;r<l;r++){if((o=new _)._worker=n,1347092738!=c.view.getUint32(d))return void a(i);L(o,c,d+6,!0,a),o.commentLength=c.view.getUint16(d+32,!0),o.directory=16==(16&c.view.getUint8(d+38)),o.offset=c.view.getUint32(d+42,!0),s=D(c.array.subarray(d+46,d+46+o.filenameLength)),o.filename=2048==(2048&o.bitFlag)?E(s):S(s),o.directory||"/"!=o.filename.charAt(o.filename.length-1)||(o.directory=!0),f=D(c.array.subarray(d+46+o.filenameLength+o.extraFieldLength,d+46+o.filenameLength+o.extraFieldLength+o.commentLength)),o.comment=2048==(2048&o.bitFlag)?E(f):S(f),u.push(o),d+=46+o.filenameLength+o.extraFieldLength+o.commentLength}e(u)},function(){a(o)})})},close:function(e){this._worker&&(this._worker.terminate(),this._worker=null),e&&e()},_worker:null};e.zip.useWebWorkers?T("inflater",function(e){d._worker=e,r(d)},function(e){a(e)}):r(d)}function W(e){return unescape(encodeURIComponent(e))}function C(e){var t,i=[];for(t=0;t<e.length;t++)i.push(e.charCodeAt(t));return i}function F(t,i,n,r){var a={},o=[],l=t.offset,d=0;function u(e){n(e||s)}function c(e){n(e||f)}var w={add:function(i,s,f,w,h){var v,x,y,p=this._worker;function m(e,i){var n=b(16);l+=e||0,n.view.setUint32(0,1347094280),void 0!==i&&(v.view.setUint32(10,i,!0),n.view.setUint32(4,i,!0)),s&&(n.view.setUint32(8,e,!0),v.view.setUint32(14,e,!0),n.view.setUint32(12,s.size,!0),v.view.setUint32(18,s.size,!0)),t.writeUint8Array(n.array,function(){l+=16,f()},u)}function g(){var f,g;(h=h||{},i=i.trim(),h.directory&&"/"!=i.charAt(i.length-1)&&(i+="/"),a.hasOwnProperty(i))?n(_):(x=C(W(i)),o.push(i),f=function(){s?r||0===h.level?A(p,d++,s,t,0,s.size,!0,m,w,c,u):function(t,i,n,r,a,o,s,l,f){e.zip.useWebWorkers?U(t,{sn:i,options:{level:a},codecClass:"Deflater",crcType:"input"},n,r,0,n.size,s,o,l,f):z(new e.zip.Deflater,n,r,0,n.size,"input",s,o,l,f)}(p,d++,s,t,h.level,m,w,c,u):m()},y=h.lastModDate||new Date,v=b(26),a[i]={headerArray:v.array,directory:h.directory,filename:x,offset:l,comment:C(W(h.comment||""))},v.view.setUint32(0,335546376),h.version&&v.view.setUint8(0,h.version),r||0===h.level||h.directory||v.view.setUint16(4,2048),v.view.setUint16(6,(y.getHours()<<6|y.getMinutes())<<5|y.getSeconds()/2,!0),v.view.setUint16(8,(y.getFullYear()-1980<<4|y.getMonth()+1)<<5|y.getDate(),!0),v.view.setUint16(22,x.length,!0),(g=b(30+x.length)).view.setUint32(0,1347093252),g.array.set(v.array,4),g.array.set(x,30),l+=g.array.length,t.writeUint8Array(g.array,f,u))}s?s.init(g,c):g()},close:function(e,i){this._worker&&(this._worker.terminate(),this._worker=null);var n,r,s,f=0,_=0;for(r=0;r<o.length;r++)f+=46+(s=a[o[r]]).filename.length+s.comment.length;for(n=b(f+22),r=0;r<o.length;r++)s=a[o[r]],n.view.setUint32(_,1347092738),n.view.setUint16(_+4,5120),n.array.set(s.headerArray,_+6),n.view.setUint16(_+32,s.comment.length,!0),s.directory&&n.view.setUint8(_+38,16),n.view.setUint32(_+42,s.offset,!0),n.array.set(s.filename,_+46),n.array.set(s.comment,_+46+s.filename.length),_+=46+s.filename.length+s.comment.length;n.view.setUint32(_,1347093766),n.view.setUint16(_+8,o.length,!0),n.view.setUint16(_+10,o.length,!0),n.view.setUint32(_+12,f,!0),n.view.setUint32(_+16,l,!0),i&&n.view.setUint16(_+20,i,!0),t.writeUint8Array(n.array,function(){t.getData(e)},u)},_worker:null};e.zip.useWebWorkers?T("deflater",function(e){w._worker=e,i(w)},function(e){n(e)}):i(w)}c.prototype.append=function(e){for(var t=0|this.crc,i=this.table,n=0,r=0|e.length;n<r;n++)t=t>>>8^i[255&(t^e[n])];this.crc=t},c.prototype.get=function(){return~this.crc},c.prototype.table=function(){var e,t,i,n=[];for(e=0;e<256;e++){for(i=e,t=0;t<8;t++)1&i?i=i>>>1^3988292384:i>>>=1;n[e]=i}return n}(),w.prototype.append=function(e,t){return e},w.prototype.flush=function(){},v.prototype=new h,v.prototype.constructor=v,x.prototype=new h,x.prototype.constructor=x,y.prototype=new h,y.prototype.constructor=y,p.prototype.getData=function(e){e(this.data)},m.prototype=new p,m.prototype.constructor=m,g.prototype=new p,g.prototype.constructor=g,k.prototype=new p,k.prototype.constructor=k;var I={deflater:["z-worker.js","deflate.js"],inflater:["z-worker.js","inflate.js"]};function T(t,i,n){if(null===e.zip.workerScripts||null===e.zip.workerScriptsPath){var r,a,o;if(e.zip.workerScripts){if(r=e.zip.workerScripts[t],!Array.isArray(r))return void n(new Error("zip.workerScripts."+t+" is not an array!"));a=r,o=document.createElement("a"),r=a.map(function(e){return o.href=e,o.href})}else(r=I[t].slice(0))[0]=(e.zip.workerScriptsPath||"")+r[0];var s=new Worker(r[0]);s.codecTime=s.crcTime=0,s.postMessage({type:"importScripts",scripts:r.slice(1)}),s.addEventListener("message",function e(t){var r=t.data;if(r.error)return s.terminate(),void n(r.error);"importScripts"===r.type&&(s.removeEventListener("message",e),s.removeEventListener("error",l),i(s))}),s.addEventListener("error",l)}else n(new Error("Either zip.workerScripts or zip.workerScriptsPath may be set, not both."));function l(e){s.terminate(),n(e)}}function R(e){console.error(e)}e.zip={Reader:h,Writer:p,BlobReader:y,Data64URIReader:x,TextReader:v,BlobWriter:k,Data64URIWriter:g,TextWriter:m,createReader:function(e,t,i){i=i||R,e.init(function(){M(e,t,i)},i)},createWriter:function(e,t,i,n){F(e,t,i=i||R,n=!!n)},useWebWorkers:!0,workerScriptsPath:null,workerScripts:null}}(this),function(e){"use strict";var t=0,i=1,n=2,r=-2,a=-3,o=-4,s=-5,l=[0,1,3,7,15,31,63,127,255,511,1023,2047,4095,8191,16383,32767,65535],f=1440,_=0,d=4,u=[96,7,256,0,8,80,0,8,16,84,8,115,82,7,31,0,8,112,0,8,48,0,9,192,80,7,10,0,8,96,0,8,32,0,9,160,0,8,0,0,8,128,0,8,64,0,9,224,80,7,6,0,8,88,0,8,24,0,9,144,83,7,59,0,8,120,0,8,56,0,9,208,81,7,17,0,8,104,0,8,40,0,9,176,0,8,8,0,8,136,0,8,72,0,9,240,80,7,4,0,8,84,0,8,20,85,8,227,83,7,43,0,8,116,0,8,52,0,9,200,81,7,13,0,8,100,0,8,36,0,9,168,0,8,4,0,8,132,0,8,68,0,9,232,80,7,8,0,8,92,0,8,28,0,9,152,84,7,83,0,8,124,0,8,60,0,9,216,82,7,23,0,8,108,0,8,44,0,9,184,0,8,12,0,8,140,0,8,76,0,9,248,80,7,3,0,8,82,0,8,18,85,8,163,83,7,35,0,8,114,0,8,50,0,9,196,81,7,11,0,8,98,0,8,34,0,9,164,0,8,2,0,8,130,0,8,66,0,9,228,80,7,7,0,8,90,0,8,26,0,9,148,84,7,67,0,8,122,0,8,58,0,9,212,82,7,19,0,8,106,0,8,42,0,9,180,0,8,10,0,8,138,0,8,74,0,9,244,80,7,5,0,8,86,0,8,22,192,8,0,83,7,51,0,8,118,0,8,54,0,9,204,81,7,15,0,8,102,0,8,38,0,9,172,0,8,6,0,8,134,0,8,70,0,9,236,80,7,9,0,8,94,0,8,30,0,9,156,84,7,99,0,8,126,0,8,62,0,9,220,82,7,27,0,8,110,0,8,46,0,9,188,0,8,14,0,8,142,0,8,78,0,9,252,96,7,256,0,8,81,0,8,17,85,8,131,82,7,31,0,8,113,0,8,49,0,9,194,80,7,10,0,8,97,0,8,33,0,9,162,0,8,1,0,8,129,0,8,65,0,9,226,80,7,6,0,8,89,0,8,25,0,9,146,83,7,59,0,8,121,0,8,57,0,9,210,81,7,17,0,8,105,0,8,41,0,9,178,0,8,9,0,8,137,0,8,73,0,9,242,80,7,4,0,8,85,0,8,21,80,8,258,83,7,43,0,8,117,0,8,53,0,9,202,81,7,13,0,8,101,0,8,37,0,9,170,0,8,5,0,8,133,0,8,69,0,9,234,80,7,8,0,8,93,0,8,29,0,9,154,84,7,83,0,8,125,0,8,61,0,9,218,82,7,23,0,8,109,0,8,45,0,9,186,0,8,13,0,8,141,0,8,77,0,9,250,80,7,3,0,8,83,0,8,19,85,8,195,83,7,35,0,8,115,0,8,51,0,9,198,81,7,11,0,8,99,0,8,35,0,9,166,0,8,3,0,8,131,0,8,67,0,9,230,80,7,7,0,8,91,0,8,27,0,9,150,84,7,67,0,8,123,0,8,59,0,9,214,82,7,19,0,8,107,0,8,43,0,9,182,0,8,11,0,8,139,0,8,75,0,9,246,80,7,5,0,8,87,0,8,23,192,8,0,83,7,51,0,8,119,0,8,55,0,9,206,81,7,15,0,8,103,0,8,39,0,9,174,0,8,7,0,8,135,0,8,71,0,9,238,80,7,9,0,8,95,0,8,31,0,9,158,84,7,99,0,8,127,0,8,63,0,9,222,82,7,27,0,8,111,0,8,47,0,9,190,0,8,15,0,8,143,0,8,79,0,9,254,96,7,256,0,8,80,0,8,16,84,8,115,82,7,31,0,8,112,0,8,48,0,9,193,80,7,10,0,8,96,0,8,32,0,9,161,0,8,0,0,8,128,0,8,64,0,9,225,80,7,6,0,8,88,0,8,24,0,9,145,83,7,59,0,8,120,0,8,56,0,9,209,81,7,17,0,8,104,0,8,40,0,9,177,0,8,8,0,8,136,0,8,72,0,9,241,80,7,4,0,8,84,0,8,20,85,8,227,83,7,43,0,8,116,0,8,52,0,9,201,81,7,13,0,8,100,0,8,36,0,9,169,0,8,4,0,8,132,0,8,68,0,9,233,80,7,8,0,8,92,0,8,28,0,9,153,84,7,83,0,8,124,0,8,60,0,9,217,82,7,23,0,8,108,0,8,44,0,9,185,0,8,12,0,8,140,0,8,76,0,9,249,80,7,3,0,8,82,0,8,18,85,8,163,83,7,35,0,8,114,0,8,50,0,9,197,81,7,11,0,8,98,0,8,34,0,9,165,0,8,2,0,8,130,0,8,66,0,9,229,80,7,7,0,8,90,0,8,26,0,9,149,84,7,67,0,8,122,0,8,58,0,9,213,82,7,19,0,8,106,0,8,42,0,9,181,0,8,10,0,8,138,0,8,74,0,9,245,80,7,5,0,8,86,0,8,22,192,8,0,83,7,51,0,8,118,0,8,54,0,9,205,81,7,15,0,8,102,0,8,38,0,9,173,0,8,6,0,8,134,0,8,70,0,9,237,80,7,9,0,8,94,0,8,30,0,9,157,84,7,99,0,8,126,0,8,62,0,9,221,82,7,27,0,8,110,0,8,46,0,9,189,0,8,14,0,8,142,0,8,78,0,9,253,96,7,256,0,8,81,0,8,17,85,8,131,82,7,31,0,8,113,0,8,49,0,9,195,80,7,10,0,8,97,0,8,33,0,9,163,0,8,1,0,8,129,0,8,65,0,9,227,80,7,6,0,8,89,0,8,25,0,9,147,83,7,59,0,8,121,0,8,57,0,9,211,81,7,17,0,8,105,0,8,41,0,9,179,0,8,9,0,8,137,0,8,73,0,9,243,80,7,4,0,8,85,0,8,21,80,8,258,83,7,43,0,8,117,0,8,53,0,9,203,81,7,13,0,8,101,0,8,37,0,9,171,0,8,5,0,8,133,0,8,69,0,9,235,80,7,8,0,8,93,0,8,29,0,9,155,84,7,83,0,8,125,0,8,61,0,9,219,82,7,23,0,8,109,0,8,45,0,9,187,0,8,13,0,8,141,0,8,77,0,9,251,80,7,3,0,8,83,0,8,19,85,8,195,83,7,35,0,8,115,0,8,51,0,9,199,81,7,11,0,8,99,0,8,35,0,9,167,0,8,3,0,8,131,0,8,67,0,9,231,80,7,7,0,8,91,0,8,27,0,9,151,84,7,67,0,8,123,0,8,59,0,9,215,82,7,19,0,8,107,0,8,43,0,9,183,0,8,11,0,8,139,0,8,75,0,9,247,80,7,5,0,8,87,0,8,23,192,8,0,83,7,51,0,8,119,0,8,55,0,9,207,81,7,15,0,8,103,0,8,39,0,9,175,0,8,7,0,8,135,0,8,71,0,9,239,80,7,9,0,8,95,0,8,31,0,9,159,84,7,99,0,8,127,0,8,63,0,9,223,82,7,27,0,8,111,0,8,47,0,9,191,0,8,15,0,8,143,0,8,79,0,9,255],c=[80,5,1,87,5,257,83,5,17,91,5,4097,81,5,5,89,5,1025,85,5,65,93,5,16385,80,5,3,88,5,513,84,5,33,92,5,8193,82,5,9,90,5,2049,86,5,129,192,5,24577,80,5,2,87,5,385,83,5,25,91,5,6145,81,5,7,89,5,1537,85,5,97,93,5,24577,80,5,4,88,5,769,84,5,49,92,5,12289,82,5,13,90,5,3073,86,5,193,192,5,24577],w=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],b=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,112,112],h=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577],v=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],x=15;function y(){var e,i,n,r,l,_;function d(e,i,o,d,u,c,w,b,h,v,y){var p,m,g,k,U,z,A,S,E,D,L,M,W,C,F;D=0,U=o;do{n[e[i+D]]++,D++,U--}while(0!==U);if(n[0]==o)return w[0]=-1,b[0]=0,t;for(S=b[0],z=1;z<=x&&0===n[z];z++);for(A=z,S<z&&(S=z),U=x;0!==U&&0===n[U];U--);for(g=U,S>U&&(S=U),b[0]=S,C=1<<z;z<U;z++,C<<=1)if((C-=n[z])<0)return a;if((C-=n[U])<0)return a;for(n[U]+=C,_[1]=z=0,D=1,W=2;0!=--U;)_[W]=z+=n[D],W++,D++;U=0,D=0;do{0!==(z=e[i+D])&&(y[_[z]++]=U),D++}while(++U<o);for(o=_[g],_[0]=U=0,D=0,k=-1,M=-S,l[0]=0,L=0,F=0;A<=g;A++)for(p=n[A];0!=p--;){for(;A>M+S;){if(k++,F=(F=g-(M+=S))>S?S:F,(m=1<<(z=A-M))>p+1&&(m-=p+1,W=A,z<F))for(;++z<F&&!((m<<=1)<=n[++W]);)m-=n[W];if(F=1<<z,v[0]+F>f)return a;l[k]=L=v[0],v[0]+=F,0!==k?(_[k]=U,r[0]=z,r[1]=S,z=U>>>M-S,r[2]=L-l[k-1]-z,h.set(r,3*(l[k-1]+z))):w[0]=L}for(r[1]=A-M,D>=o?r[0]=192:y[D]<d?(r[0]=y[D]<256?0:96,r[2]=y[D++]):(r[0]=c[y[D]-d]+16+64,r[2]=u[y[D++]-d]),m=1<<A-M,z=U>>>M;z<F;z+=m)h.set(r,3*(L+z));for(z=1<<A-1;0!=(U&z);z>>>=1)U^=z;for(U^=z,E=(1<<M)-1;(U&E)!=_[k];)k--,E=(1<<(M-=S))-1}return 0!==C&&1!=g?s:t}function u(t){var a;for(e||(e=[],i=[],n=new Int32Array(x+1),r=[],l=new Int32Array(x),_=new Int32Array(x+1)),i.length<t&&(i=[]),a=0;a<t;a++)i[a]=0;for(a=0;a<x+1;a++)n[a]=0;for(a=0;a<3;a++)r[a]=0;l.set(n.subarray(0,x),0),_.set(n.subarray(0,x+1),0)}this.inflate_trees_bits=function(t,n,r,o,l){var f;return u(19),e[0]=0,(f=d(t,0,19,19,null,null,r,n,o,e,i))==a?l.msg="oversubscribed dynamic bit lengths tree":f!=s&&0!==n[0]||(l.msg="incomplete dynamic bit lengths tree",f=a),f},this.inflate_trees_dynamic=function(n,r,l,f,_,c,x,y,p){var m;return u(288),e[0]=0,(m=d(l,0,n,257,w,b,c,f,y,e,i))!=t||0===f[0]?(m==a?p.msg="oversubscribed literal/length tree":m!=o&&(p.msg="incomplete literal/length tree",m=a),m):(u(288),(m=d(l,n,r,0,h,v,x,_,y,e,i))!=t||0===_[0]&&n>257?(m==a?p.msg="oversubscribed distance tree":m==s?(p.msg="incomplete distance tree",m=a):m!=o&&(p.msg="empty distance tree with lengths",m=a),m):t)}}y.inflate_trees_fixed=function(e,i,n,r){return e[0]=9,i[0]=5,n[0]=u,r[0]=c,t};var p=0,m=1,g=2,k=3,U=4,z=5,A=6,S=7,E=8,D=9;var L=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],M=0,W=1,C=2,F=3,I=4,T=5,R=6,B=7,P=8,j=9;function O(e,n){var o,_=this,d=M,u=0,c=0,w=0,b=[0],h=[0],v=new function(){var e,n,o,s,f=0,_=0,d=0,u=0,c=0,w=0,b=0,h=0,v=0,x=0;function y(e,n,r,o,s,f,_,d){var u,c,w,b,h,v,x,y,p,m,g,k,U,z,A,S;x=d.next_in_index,y=d.avail_in,h=_.bitb,v=_.bitk,m=(p=_.write)<_.read?_.read-p-1:_.end-p,g=l[e],k=l[n];do{for(;v<20;)y--,h|=(255&d.read_byte(x++))<<v,v+=8;if(0!==(b=(c=r)[S=3*((w=o)+(u=h&g))]))for(;;){if(h>>=c[S+1],v-=c[S+1],0!=(16&b)){for(b&=15,U=c[S+2]+(h&l[b]),h>>=b,v-=b;v<15;)y--,h|=(255&d.read_byte(x++))<<v,v+=8;for(b=(c=s)[S=3*((w=f)+(u=h&k))];;){if(h>>=c[S+1],v-=c[S+1],0!=(16&b)){for(b&=15;v<b;)y--,h|=(255&d.read_byte(x++))<<v,v+=8;if(z=c[S+2]+(h&l[b]),h>>=b,v-=b,m-=U,p>=z)p-(A=p-z)>0&&2>p-A?(_.window[p++]=_.window[A++],_.window[p++]=_.window[A++],U-=2):(_.window.set(_.window.subarray(A,A+2),p),p+=2,A+=2,U-=2);else{A=p-z;do{A+=_.end}while(A<0);if(U>(b=_.end-A)){if(U-=b,p-A>0&&b>p-A)do{_.window[p++]=_.window[A++]}while(0!=--b);else _.window.set(_.window.subarray(A,A+b),p),p+=b,A+=b,b=0;A=0}}if(p-A>0&&U>p-A)do{_.window[p++]=_.window[A++]}while(0!=--U);else _.window.set(_.window.subarray(A,A+U),p),p+=U,A+=U,U=0;break}if(0!=(64&b))return d.msg="invalid distance code",y+=U=v>>3<(U=d.avail_in-y)?v>>3:U,x-=U,v-=U<<3,_.bitb=h,_.bitk=v,d.avail_in=y,d.total_in+=x-d.next_in_index,d.next_in_index=x,_.write=p,a;u+=c[S+2],b=c[S=3*(w+(u+=h&l[b]))]}break}if(0!=(64&b))return 0!=(32&b)?(y+=U=v>>3<(U=d.avail_in-y)?v>>3:U,x-=U,v-=U<<3,_.bitb=h,_.bitk=v,d.avail_in=y,d.total_in+=x-d.next_in_index,d.next_in_index=x,_.write=p,i):(d.msg="invalid literal/length code",y+=U=v>>3<(U=d.avail_in-y)?v>>3:U,x-=U,v-=U<<3,_.bitb=h,_.bitk=v,d.avail_in=y,d.total_in+=x-d.next_in_index,d.next_in_index=x,_.write=p,a);if(u+=c[S+2],0===(b=c[S=3*(w+(u+=h&l[b]))])){h>>=c[S+1],v-=c[S+1],_.window[p++]=c[S+2],m--;break}}else h>>=c[S+1],v-=c[S+1],_.window[p++]=c[S+2],m--}while(m>=258&&y>=10);return y+=U=v>>3<(U=d.avail_in-y)?v>>3:U,x-=U,v-=U<<3,_.bitb=h,_.bitk=v,d.avail_in=y,d.total_in+=x-d.next_in_index,d.next_in_index=x,_.write=p,t}this.init=function(t,i,r,a,l,f){e=p,b=t,h=i,o=r,v=a,s=l,x=f,n=null},this.proc=function(L,M,W){var C,F,I,T,R,B,P,j=0,O=0,V=0;for(V=M.next_in_index,T=M.avail_in,j=L.bitb,O=L.bitk,B=(R=L.write)<L.read?L.read-R-1:L.end-R;;)switch(e){case p:if(B>=258&&T>=10&&(L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,W=y(b,h,o,v,s,x,L,M),V=M.next_in_index,T=M.avail_in,j=L.bitb,O=L.bitk,B=(R=L.write)<L.read?L.read-R-1:L.end-R,W!=t)){e=W==i?S:D;break}d=b,n=o,_=v,e=m;case m:for(C=d;O<C;){if(0===T)return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);W=t,T--,j|=(255&M.read_byte(V++))<<O,O+=8}if(F=3*(_+(j&l[C])),j>>>=n[F+1],O-=n[F+1],0===(I=n[F])){u=n[F+2],e=A;break}if(0!=(16&I)){c=15&I,f=n[F+2],e=g;break}if(0==(64&I)){d=I,_=F/3+n[F+2];break}if(0!=(32&I)){e=S;break}return e=D,M.msg="invalid literal/length code",W=a,L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);case g:for(C=c;O<C;){if(0===T)return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);W=t,T--,j|=(255&M.read_byte(V++))<<O,O+=8}f+=j&l[C],j>>=C,O-=C,d=h,n=s,_=x,e=k;case k:for(C=d;O<C;){if(0===T)return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);W=t,T--,j|=(255&M.read_byte(V++))<<O,O+=8}if(F=3*(_+(j&l[C])),j>>=n[F+1],O-=n[F+1],0!=(16&(I=n[F]))){c=15&I,w=n[F+2],e=U;break}if(0==(64&I)){d=I,_=F/3+n[F+2];break}return e=D,M.msg="invalid distance code",W=a,L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);case U:for(C=c;O<C;){if(0===T)return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);W=t,T--,j|=(255&M.read_byte(V++))<<O,O+=8}w+=j&l[C],j>>=C,O-=C,e=z;case z:for(P=R-w;P<0;)P+=L.end;for(;0!==f;){if(0===B&&(R==L.end&&0!==L.read&&(B=(R=0)<L.read?L.read-R-1:L.end-R),0===B&&(L.write=R,W=L.inflate_flush(M,W),B=(R=L.write)<L.read?L.read-R-1:L.end-R,R==L.end&&0!==L.read&&(B=(R=0)<L.read?L.read-R-1:L.end-R),0===B)))return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);L.window[R++]=L.window[P++],B--,P==L.end&&(P=0),f--}e=p;break;case A:if(0===B&&(R==L.end&&0!==L.read&&(B=(R=0)<L.read?L.read-R-1:L.end-R),0===B&&(L.write=R,W=L.inflate_flush(M,W),B=(R=L.write)<L.read?L.read-R-1:L.end-R,R==L.end&&0!==L.read&&(B=(R=0)<L.read?L.read-R-1:L.end-R),0===B)))return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);W=t,L.window[R++]=u,B--,e=p;break;case S:if(O>7&&(O-=8,T++,V--),L.write=R,W=L.inflate_flush(M,W),B=(R=L.write)<L.read?L.read-R-1:L.end-R,L.read!=L.write)return L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);e=E;case E:return W=i,L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);case D:return W=a,L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W);default:return W=r,L.bitb=j,L.bitk=O,M.avail_in=T,M.total_in+=V-M.next_in_index,M.next_in_index=V,L.write=R,L.inflate_flush(M,W)}},this.free=function(){}},x=0,O=new Int32Array(3*f),V=new y;_.bitk=0,_.bitb=0,_.window=new Uint8Array(n),_.end=n,_.read=0,_.write=0,_.reset=function(e,t){t&&(t[0]=0),d==R&&v.free(e),d=M,_.bitk=0,_.bitb=0,_.read=_.write=0},_.reset(e,null),_.inflate_flush=function(e,i){var n,r,a;return r=e.next_out_index,(n=((a=_.read)<=_.write?_.write:_.end)-a)>e.avail_out&&(n=e.avail_out),0!==n&&i==s&&(i=t),e.avail_out-=n,e.total_out+=n,e.next_out.set(_.window.subarray(a,a+n),r),r+=n,(a+=n)==_.end&&(a=0,_.write==_.end&&(_.write=0),(n=_.write-a)>e.avail_out&&(n=e.avail_out),0!==n&&i==s&&(i=t),e.avail_out-=n,e.total_out+=n,e.next_out.set(_.window.subarray(a,a+n),r),r+=n,a+=n),e.next_out_index=r,_.read=a,i},_.proc=function(e,n){var s,f,p,m,g,k,U,z;for(m=e.next_in_index,g=e.avail_in,f=_.bitb,p=_.bitk,U=(k=_.write)<_.read?_.read-k-1:_.end-k;;)switch(d){case M:for(;p<3;){if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);n=t,g--,f|=(255&e.read_byte(m++))<<p,p+=8}switch(x=1&(s=7&f),s>>>1){case 0:f>>>=3,f>>>=s=7&(p-=3),p-=s,d=W;break;case 1:var A=[],S=[],E=[[]],D=[[]];y.inflate_trees_fixed(A,S,E,D),v.init(A[0],S[0],E[0],0,D[0],0),f>>>=3,p-=3,d=R;break;case 2:f>>>=3,p-=3,d=F;break;case 3:return f>>>=3,p-=3,d=j,e.msg="invalid block type",n=a,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n)}break;case W:for(;p<32;){if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);n=t,g--,f|=(255&e.read_byte(m++))<<p,p+=8}if((~f>>>16&65535)!=(65535&f))return d=j,e.msg="invalid stored block lengths",n=a,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);u=65535&f,f=p=0,d=0!==u?C:0!==x?B:M;break;case C:if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);if(0===U&&(k==_.end&&0!==_.read&&(U=(k=0)<_.read?_.read-k-1:_.end-k),0===U&&(_.write=k,n=_.inflate_flush(e,n),U=(k=_.write)<_.read?_.read-k-1:_.end-k,k==_.end&&0!==_.read&&(U=(k=0)<_.read?_.read-k-1:_.end-k),0===U)))return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);if(n=t,(s=u)>g&&(s=g),s>U&&(s=U),_.window.set(e.read_buf(m,s),k),m+=s,g-=s,k+=s,U-=s,0!=(u-=s))break;d=0!==x?B:M;break;case F:for(;p<14;){if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);n=t,g--,f|=(255&e.read_byte(m++))<<p,p+=8}if(c=s=16383&f,(31&s)>29||(s>>5&31)>29)return d=j,e.msg="too many length or distance symbols",n=a,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);if(s=258+(31&s)+(s>>5&31),!o||o.length<s)o=[];else for(z=0;z<s;z++)o[z]=0;f>>>=14,p-=14,w=0,d=I;case I:for(;w<4+(c>>>10);){for(;p<3;){if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);n=t,g--,f|=(255&e.read_byte(m++))<<p,p+=8}o[L[w++]]=7&f,f>>>=3,p-=3}for(;w<19;)o[L[w++]]=0;if(b[0]=7,(s=V.inflate_trees_bits(o,b,h,O,e))!=t)return(n=s)==a&&(o=null,d=j),_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);w=0,d=T;case T:for(;!(w>=258+(31&(s=c))+(s>>5&31));){var H,N;for(s=b[0];p<s;){if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);n=t,g--,f|=(255&e.read_byte(m++))<<p,p+=8}if(s=O[3*(h[0]+(f&l[s]))+1],(N=O[3*(h[0]+(f&l[s]))+2])<16)f>>>=s,p-=s,o[w++]=N;else{for(z=18==N?7:N-14,H=18==N?11:3;p<s+z;){if(0===g)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);n=t,g--,f|=(255&e.read_byte(m++))<<p,p+=8}if(p-=s,H+=(f>>>=s)&l[z],f>>>=z,p-=z,(z=w)+H>258+(31&(s=c))+(s>>5&31)||16==N&&z<1)return o=null,d=j,e.msg="invalid bit length repeat",n=a,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);N=16==N?o[z-1]:0;do{o[z++]=N}while(0!=--H);w=z}}h[0]=-1;var Y=[],Z=[],q=[],G=[];if(Y[0]=9,Z[0]=6,s=c,(s=V.inflate_trees_dynamic(257+(31&s),1+(s>>5&31),o,Y,Z,q,G,O,e))!=t)return s==a&&(o=null,d=j),n=s,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);v.init(Y[0],Z[0],O,q[0],O,G[0]),d=R;case R:if(_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,(n=v.proc(_,e,n))!=i)return _.inflate_flush(e,n);if(n=t,v.free(e),m=e.next_in_index,g=e.avail_in,f=_.bitb,p=_.bitk,U=(k=_.write)<_.read?_.read-k-1:_.end-k,0===x){d=M;break}d=B;case B:if(_.write=k,n=_.inflate_flush(e,n),U=(k=_.write)<_.read?_.read-k-1:_.end-k,_.read!=_.write)return _.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);d=P;case P:return n=i,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);case j:return n=a,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n);default:return n=r,_.bitb=f,_.bitk=p,e.avail_in=g,e.total_in+=m-e.next_in_index,e.next_in_index=m,_.write=k,_.inflate_flush(e,n)}},_.free=function(e){_.reset(e,null),_.window=null,O=null},_.set_dictionary=function(e,t,i){_.window.set(e.subarray(t,t+i),0),_.read=_.write=i},_.sync_point=function(){return d==W?1:0}}var V=32,H=8,N=0,Y=1,Z=2,q=3,G=4,J=5,K=6,Q=7,X=12,$=13,ee=[0,0,255,255];function te(){}te.prototype={inflateInit:function(e){return this.istate=new function(){var e=this;function o(e){return e&&e.istate?(e.total_in=e.total_out=0,e.msg=null,e.istate.mode=Q,e.istate.blocks.reset(e,null),t):r}e.mode=0,e.method=0,e.was=[0],e.need=0,e.marker=0,e.wbits=0,e.inflateEnd=function(i){return e.blocks&&e.blocks.free(i),e.blocks=null,t},e.inflateInit=function(i,n){return i.msg=null,e.blocks=null,n<8||n>15?(e.inflateEnd(i),r):(e.wbits=n,i.istate.blocks=new O(i,1<<n),o(i),t)},e.inflate=function(e,o){var l,f;if(!e||!e.istate||!e.next_in)return r;for(o=o==d?s:t,l=s;;)switch(e.istate.mode){case N:if(0===e.avail_in)return l;if(l=o,e.avail_in--,e.total_in++,(15&(e.istate.method=e.read_byte(e.next_in_index++)))!=H){e.istate.mode=$,e.msg="unknown compression method",e.istate.marker=5;break}if(8+(e.istate.method>>4)>e.istate.wbits){e.istate.mode=$,e.msg="invalid window size",e.istate.marker=5;break}e.istate.mode=Y;case Y:if(0===e.avail_in)return l;if(l=o,e.avail_in--,e.total_in++,f=255&e.read_byte(e.next_in_index++),((e.istate.method<<8)+f)%31!=0){e.istate.mode=$,e.msg="incorrect header check",e.istate.marker=5;break}if(0==(f&V)){e.istate.mode=Q;break}e.istate.mode=Z;case Z:if(0===e.avail_in)return l;l=o,e.avail_in--,e.total_in++,e.istate.need=(255&e.read_byte(e.next_in_index++))<<24&4278190080,e.istate.mode=q;case q:if(0===e.avail_in)return l;l=o,e.avail_in--,e.total_in++,e.istate.need+=(255&e.read_byte(e.next_in_index++))<<16&16711680,e.istate.mode=G;case G:if(0===e.avail_in)return l;l=o,e.avail_in--,e.total_in++,e.istate.need+=(255&e.read_byte(e.next_in_index++))<<8&65280,e.istate.mode=J;case J:return 0===e.avail_in?l:(l=o,e.avail_in--,e.total_in++,e.istate.need+=255&e.read_byte(e.next_in_index++),e.istate.mode=K,n);case K:return e.istate.mode=$,e.msg="need dictionary",e.istate.marker=0,r;case Q:if((l=e.istate.blocks.proc(e,l))==a){e.istate.mode=$,e.istate.marker=0;break}if(l==t&&(l=o),l!=i)return l;l=o,e.istate.blocks.reset(e,e.istate.was),e.istate.mode=X;case X:return i;case $:return a;default:return r}},e.inflateSetDictionary=function(e,i,n){var a=0,o=n;return e&&e.istate&&e.istate.mode==K?(o>=1<<e.istate.wbits&&(a=n-(o=(1<<e.istate.wbits)-1)),e.istate.blocks.set_dictionary(i,a,o),e.istate.mode=Q,t):r},e.inflateSync=function(e){var i,n,l,f,_;if(!e||!e.istate)return r;if(e.istate.mode!=$&&(e.istate.mode=$,e.istate.marker=0),0===(i=e.avail_in))return s;for(n=e.next_in_index,l=e.istate.marker;0!==i&&l<4;)e.read_byte(n)==ee[l]?l++:l=0!==e.read_byte(n)?0:4-l,n++,i--;return e.total_in+=n-e.next_in_index,e.next_in_index=n,e.avail_in=i,e.istate.marker=l,4!=l?a:(f=e.total_in,_=e.total_out,o(e),e.total_in=f,e.total_out=_,e.istate.mode=Q,t)},e.inflateSyncPoint=function(e){return e&&e.istate&&e.istate.blocks?e.istate.blocks.sync_point():r}},e||(e=15),this.istate.inflateInit(this,e)},inflate:function(e){return this.istate?this.istate.inflate(this,e):r},inflateEnd:function(){if(!this.istate)return r;var e=this.istate.inflateEnd(this);return this.istate=null,e},inflateSync:function(){return this.istate?this.istate.inflateSync(this):r},inflateSetDictionary:function(e,t){return this.istate?this.istate.inflateSetDictionary(this,e,t):r},read_byte:function(e){return this.next_in.subarray(e,e+1)[0]},read_buf:function(e,t){return this.next_in.subarray(e,e+t)}};var ie=e.zip||e;ie.Inflater=ie._jzlib_Inflater=function(){var e=new te,n=_,r=new Uint8Array(512),a=!1;e.inflateInit(),e.next_out=r,this.append=function(o,l){var f,_,d=[],u=0,c=0,w=0;if(0!==o.length){e.next_in_index=0,e.next_in=o,e.avail_in=o.length;do{if(e.next_out_index=0,e.avail_out=512,0!==e.avail_in||a||(e.next_in_index=0,a=!0),f=e.inflate(n),a&&f===s){if(0!==e.avail_in)throw new Error("inflating: bad input")}else if(f!==t&&f!==i)throw new Error("inflating: "+e.msg);if((a||f===i)&&e.avail_in===o.length)throw new Error("inflating: bad input");e.next_out_index&&(512===e.next_out_index?d.push(new Uint8Array(r)):d.push(new Uint8Array(r.subarray(0,e.next_out_index)))),w+=e.next_out_index,l&&e.next_in_index>0&&e.next_in_index!=u&&(l(e.next_in_index),u=e.next_in_index)}while(e.avail_in>0||0===e.avail_out);return _=new Uint8Array(w),d.forEach(function(e){_.set(e,c),c+=e.length}),_}},this.flush=function(){e.inflateEnd()}}}(this);(function bootstrapCode() {let bootstrapStarted;zip.useWebWorkers = false;const xhr = new XMLHttpRequest();let displayTimeout;Array.from(document.documentElement.childNodes).forEach(node => {if (node != document.body && node != document.head) {node.remove();}});xhr.responseType = "blob";xhr.open("GET", "");xhr.onerror = () => displayTimeout = displayMessage("sfz-error-message");xhr.send();xhr.onload = async () => bootstrap(xhr.response);this.bootstrap = bootstrap;async function bootstrap(content) {if (bootstrapStarted) {return;}bootstrapStarted = true;stop();if (displayTimeout) {clearTimeout(displayTimeout);}displayTimeout = displayMessage("sfz-wait-message");if (Array.isArray(content)) {content = new Blob([new Uint8Array(content)]);}const zipReader = await new Promise((resolve, reject) => zip.createReader(new zip.BlobReader(content), resolve, reject));const entries = await new Promise(resolve => zipReader.getEntries(resolve));let resources = [];for (const entry of entries) {let dataWriter, content, textContent;if (entry.filename.match(/index\.html$/) || entry.filename.match(/stylesheet_[0-9]+\.css/) || entry.filename.match(/scripts\/[0-9]+\.js/)) {dataWriter = new zip.TextWriter();textContent = await new Promise(resolve => entry.getData(dataWriter, resolve));} else {const mimeType = entry.filename.match(/\.svg$/) ? "image/svg+xml" : "application/octet-stream";if (entry.filename.match(/frames\//)) {content = await new Promise(resolve => entry.getData(new zip.Data64URIWriter(mimeType), resolve));} else {content = URL.createObjectURL(await new Promise(resolve => entry.getData(new zip.BlobWriter(mimeType), resolve)));}}resources.push({ filename: entry.filename, content, textContent });}resources = resources.sort((resourceLeft, resourceRight) => resourceRight.filename.length - resourceLeft.filename.length);const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;let docContent;for (const resource of resources) {if (resource.textContent !== undefined) {let prefixPath = "";const prefixPathMatch = resource.filename.match(/(.*\/)[^/]+$/);if (prefixPathMatch && prefixPathMatch[1]) {prefixPath = prefixPathMatch[1];}const isScript = resource.filename.match(/scripts\/[0-9]+\.js/);if (!isScript) {resources.forEach(innerResource => {if (innerResource.filename.startsWith(prefixPath) && innerResource.filename != resource.filename) {const filename = innerResource.filename.substring(prefixPath.length);resource.textContent = resource.textContent.replace(new RegExp(filename.replace(REGEXP_ESCAPE, "\\$1"), "g"), innerResource.content);}});}let mimeType;if (resource.filename.match(/stylesheet_[0-9]+\.css/)) {mimeType = "text/css";} else if (isScript) {mimeType = "text/javascript";} else if (resource.filename.match(/index\.html$/)) {mimeType = "text/html";}if (resource.filename.match(/^([0-9_]+\/)?index.html$/)) {docContent = resource.textContent;} else {const reader = new FileReader();reader.readAsDataURL(new Blob([resource.textContent], { type: mimeType + ";charset=utf-8" }));resource.content = await new Promise((resolve, reject) => {reader.addEventListener("load", () => resolve(reader.result), false);reader.addEventListener("error", reject, false);});}}}const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-filez-disabled-noscript";const doc = (new DOMParser()).parseFromString(docContent, "text/html");doc.querySelectorAll("noscript:not([" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "])").forEach(element => {element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);element.textContent = "";});clearTimeout(displayTimeout);document.replaceChild(document.importNode(doc.documentElement, true), document.documentElement);document.querySelectorAll("link[rel*=icon]").forEach(element => element.parentElement.replaceChild(element, element));document.open = document.write = document.close = () => { };for (let element of Array.from(document.querySelectorAll("script"))) {await new Promise((resolve, reject) => {const scriptElement = document.createElement("script");Array.from(element.attributes).forEach(attribute => scriptElement.setAttribute(attribute.name, attribute.value));const async = element.getAttribute("async") == "" || element.getAttribute("async") == "async";if (element.textContent) {scriptElement.textContent = element.textContent;} else if (!async) {scriptElement.addEventListener("load", resolve);scriptElement.addEventListener("error", reject);}element.parentElement.replaceChild(scriptElement, element);if (element.textContent || async) {resolve();}});}document.dispatchEvent(new CustomEvent("single-filez-display-infobar"));}function displayMessage(elementId) {return setTimeout(() => {Array.from(document.body.childNodes).forEach(node => {if (node.id != elementId) {node.remove();}});document.body.hidden = false;}, 1500);}})()</script>
+<main hidden>
+This proposal is experimental.
+ The API will change based on feedback that we get.
+ Do give feedback and open issues; don't use it in production!
+ 
+Temporal Cookbook
+Overview
+
+Overview
+
+Running the cookbook files
+
+Frequently Asked Questions
+
+Current date and time
+
+Unix timestamp
+
+
+
+Converting between Temporal types and legacy Date
+
+Absolute from legacy Date
+
+
+
+Construction
+
+Time zone object from name
+
+Calendar input element
+
+
+
+Converting between types
+
+Noon on a particular date
+
+Birthday in 2030
+
+
+
+Serialization
+
+Zoned instant from instant and time zone
+
+
+
+Sorting
+
+Sort DateTimes
+
+Sort ISO date/time strings
+
+
+
+Rounding
+
+Round a time down to whole hours
+
+Round a date to the nearest start of the month
+
+
+
+Time zone conversion
+
+Preserving local time
+
+Preserving absolute instant
+
+Daily occurrence in local time
+
+UTC offset for a zoned event, as a string
+
+UTC offset for a zoned event, as a number of seconds
+
+Offset between two time zones at an instant
+
+Dealing with dates and times in a fixed location
+
+Book a meeting across time zones
+
+
+
+Arithmetic
+
+How many days until a future date
+
+Unit-constrained duration between now and a past/future zoned event
+
+Nearest offset transition in a time zone
+
+Comparison of an instant to business hours
+
+Flight arrival/departure/duration
+
+Push back a launch date
+
+Schedule a reminder ahead of matching a record-setting duration
+
+Nth weekday of the month
+
+Manipulating the day of the month
+
+Same date in another month
+
+Next weekly occurrence
+
+Weekday of yearly occurrence
+
+
+
+
+Running the cookbook files
+Running cookbook files: see instructions in ../polyfill/README.md
+Frequently Asked Questions
+These are some of the most common tasks that people ask questions about on StackOverflow with legacy Date.
+Here's how they would look using Temporal.
+Current date and timeHow to get the current date and time in the local time zone?
+/**
+ * Get the current date in JavaScript
+ * This is a popular question on Stack Overflow for dates in JS
+ * https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+ *
+ */
+
+const date = Temporal.now.date(); // Gets the current date
+date.toString(); // returns the date in ISO 8601 date format
+
+// If you additionally want the time:
+Temporal.now.dateTime().toString(); // date and time in ISO 8601 format
+Note that if you just want the date and not the time, you should use Temporal.Date.
+If you want both, use Temporal.DateTime.
+Unix timestampHow to get a Unix timestamp?
+/**
+ * Get a (Unix) timestamp in JavaScript
+ * This is the No.1 voted question on Stack Overflow for dates in JS
+ * https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+ *
+ */
+
+const timeStamp = Temporal.now.absolute();
+
+// Timestamp in Milliseconds
+timeStamp.getEpochMilliseconds();
+// Timestamp in Seconds
+timeStamp.getEpochSeconds();
+Converting between Temporal types and legacy Date
+Absolute from legacy DateMap a legacy ECMAScript Date instance into a Temporal.Absolute instance corresponding to the same instant in absolute time.
+const legacyDate = new Date('1970-01-01T00:00:01Z');
+
+// Convert legacy Date to Temporal.Absolute
+const absolute = Temporal.Absolute.fromEpochMilliseconds(legacyDate.getTime());
+
+assert(absolute instanceof Temporal.Absolute);
+Construction
+Time zone object from nameTemporal.TimeZone.from() can convert an IANA time zone name into a Temporal.TimeZone object.
+// Construct a Temporal.TimeZone from an IANA name:
+const tz = Temporal.TimeZone.from('Europe/London');
+
+// Cast the timezone back to an IANA name, two ways:
+tz.toString(); // Europe/London
+tz.name; // Europe/London
+Calendar input elementYou can use Temporal objects to set properties on a calendar control.
+Here is an example using an HTML &lt;input type="date"&gt; element with any day beyond â€œtodayâ€ disabled and not selectable.
+
+const datePicker = document.getElementById('calendar-input');
+const today = Temporal.now.date();
+datePicker.max = today;
+datePicker.value = today;
+Converting between types
+Noon on a particular dateAn example of combining a calendar date (Temporal.Date) and a wall-clock time (Temporal.Time) into a Temporal.DateTime.
+const date = Temporal.Date.from('2020-05-14');
+
+const noonOnDate = date.toDateTime(Temporal.Time.from({ hour: 12 }));
+
+assert(noonOnDate instanceof Temporal.DateTime);
+assert.equal(noonOnDate.toString(), '2020-05-14T12:00');
+Birthday in 2030An example of combining a day on the calendar (Temporal.MonthDay) and a year into a Temporal.Date.
+const birthday = Temporal.MonthDay.from('12-15');
+
+const birthdayIn2030 = birthday.toDateInYear(2030);
+birthdayIn2030.dayOfWeek; // =&gt; 7
+
+assert(birthdayIn2030 instanceof Temporal.Date);
+assert.equal(birthdayIn2030.toString(), '2030-12-15');
+Serialization
+Zoned instant from instant and time zoneUse the optional parameter of Temporal.Absolute.prototype.toString() to map a Temporal.Absolute instance and a time zone name into a string serialization of the local time in that zone corresponding to the instant in absolute time.
+Without the parameter, Temporal.Absolute.prototype.toString() gives a serialization in UTC time.
+Using the parameter is useful if you need your serialized strings to be in a specific time zone.
+const absoluteTime = Temporal.Absolute.from('2020-01-03T10:41:51Z');
+
+const result = absoluteTime.toString('Europe/Paris');
+
+assert.equal(result, '2020-01-03T11:41:51+01:00[Europe/Paris]');
+assert.equal(Temporal.Absolute.compare(absoluteTime, Temporal.Absolute.from(result)), 0);
+
+// With an offset:
+
+const result2 = absoluteTime.toString('-07:00');
+
+assert.equal(result2, '2020-01-03T03:41:51-07:00');
+
+// With a Temporal.TimeZone object:
+
+const timeZone = Temporal.TimeZone.from('Asia/Seoul');
+const result3 = absoluteTime.toString(timeZone);
+
+assert.equal(result3, '2020-01-03T19:41:51+09:00[Asia/Seoul]');
+Sorting
+Each Temporal type has a compare() static method, which can be passed to Array.prototype.sort() as the compare function in order to sort an array of Temporal types.
+Sort DateTimesSort a list of Temporal.DateTimes, for example in order to get a conference schedule in the correct order.
+Sorting other Temporal types would work exactly the same way as this.
+/**
+ * getSortedLocalDateTimes will sort an array of zoneless Temporal.DateTime instances by the
+ * corresponding local date and time of day (e.g., for building a conference schedule).
+ *
+ *
+ * @param {Temporal.DateTime[]} dateTimes - This is a DateTime instance
+ * @param {boolean} [reverse=false] - Return in reversed order
+ * @returns {Temporal.DateTime[]} the array from dateTimes, sorted
+ */
+function getSortedLocalDateTimes(dateTimes, reverse = false) {
+  let newDateTimes = Array.from(dateTimes).sort(Temporal.DateTime.compare);
+
+  return reverse ? newDateTimes.reverse() : newDateTimes;
+}
+
+// Sorting some conferences without timezones for example vue.js Amsterdam 2020
+let a = Temporal.DateTime.from({
+  year: 2020,
+  day: 20,
+  month: 2,
+  hour: 8,
+  minute: 45
+}); // Introduction
+let b = Temporal.DateTime.from({
+  year: 2020,
+  day: 21,
+  month: 2,
+  hour: 13,
+  minute: 10
+}); // Lunch Break
+let c = Temporal.DateTime.from({
+  year: 2020,
+  day: 20,
+  month: 2,
+  hour: 15,
+  minute: 30
+}); // Coffee Break
+const results = getSortedLocalDateTimes([a, b, c]);
+assert.deepEqual(
+  results.map((x) =&gt; x.toString()),
+  ['2020-02-20T08:45', '2020-02-20T15:30', '2020-02-21T13:10']
+);
+Sort ISO date/time stringsSort a list of ISO 8601 date/time strings, for example to place log entries in order.
+/**
+ * getSortedInstants will sort an array of strings (each of which is parseable
+ * as a Temporal.Absolute and may or may not include an IANA time zone name)
+ * by the corresponding absolute time (e.g., for presenting global log events
+ * sequentially).
+ *
+ * @param {string[]} parseableAbsoluteStrings - a group of ISO Strings
+ * @param {boolean} [reverse=false] - ascending or descending order
+ * @returns {string[]} the array from parseableAbsoluteStrings, sorted
+ */
+function getSortedInstants(parseableAbsoluteStrings, reverse = false) {
+  const sortedAbsoluteTimes = parseableAbsoluteStrings
+    .map((v) =&gt; [v, Temporal.Absolute.from(v)])
+    .sort(([, abs1], [, abs2]) =&gt; Temporal.Absolute.compare(abs1, abs2))
+    .map(([str]) =&gt; str);
+
+  return reverse ? sortedAbsoluteTimes.reverse() : sortedAbsoluteTimes;
+}
+
+// simple string comparison order would not be correct here:
+const a = '2020-01-23T17:04:36.491865121-08:00';
+const b = '2020-02-10T17:04:36.491865121-08:00';
+const c = '2020-04-01T05:01:00-05:00[America/New_York]';
+const d = '2020-04-01T10:00:00+01:00[Europe/London]';
+const e = '2020-04-01T11:02:00+02:00[Europe/Berlin]';
+
+const results = getSortedInstants([a, b, c, d, e]);
+
+// results will have correct order
+assert.deepEqual(results, [
+  '2020-01-23T17:04:36.491865121-08:00',
+  '2020-02-10T17:04:36.491865121-08:00',
+  '2020-04-01T10:00:00+01:00[Europe/London]',
+  '2020-04-01T05:01:00-05:00[America/New_York]',
+  '2020-04-01T11:02:00+02:00[Europe/Berlin]'
+]);
+Rounding
+Round a time down to whole hoursUse the round() method of each Temporal type if you want to round the time fields.
+Here's an example of rounding a time down to the previously occurring whole hour:
+const time = Temporal.Time.from('12:38:28.138818731');
+
+const wholeHour = time.round({ smallestUnit: 'hour', roundingMode: 'floor' });
+
+assert.equal(wholeHour.toString(), '12:00');
+Round a date to the nearest start of the monthRounding is only defined for time fields.
+Rounding a date field can be ambiguous, so date-only types such as Temporal.Date don't have a round() method.
+If you need to round a date to the nearest month, for example, then you must explicitly pick what kind of rounding you want.
+Here is an example of rounding to the nearest start of a month, rounding up in case of a tie:
+const date = Temporal.Date.from('2018-09-16');
+
+let { year, month } = date;
+if ((date.day - 1) / date.daysInMonth &gt;= 0.5) month++;
+if (month &gt; 12) {
+  month %= 12;
+  year++;
+}
+const nearestMonth = Temporal.Date.from({ year, month, day: 1 });
+
+assert.equal(nearestMonth.toString(), '2018-10-01');
+See also Push back a launch date for an easier way to round up unconditionally to the next start of a month.
+Time zone conversion
+Preserving local timeMap a zoneless date and time of day into a Temporal.Absolute instance at which the local date and time of day in a specified time zone matches it.
+This is easily done with dateTime.toAbsolute(), but here is an example of implementing different disambiguation behaviors than the 'compatible', 'earlier', 'later', and 'reject' ones built in to Temporal.
+/**
+ * Get an absolute time corresponding with a calendar date / wall-clock time in
+ * a particular time zone, the same as Temporal.TimeZone.getAbsoluteFor() or
+ * Temporal.DateTime.toAbsolute(), but with more disambiguation options.
+ *
+ * As well as the default Temporal disambiguation options 'compatible',
+ * 'earlier', 'later', and 'reject', there are additional options possible:
+ *
+ * - 'clipEarlier': Equivalent to 'earlier' when turning the clock back, and
+ *   when setting the clock forward returns the time just before the clock
+ *   changes.
+ * - 'clipLater': Equivalent to 'later' when turning the clock back, and when
+ *   setting the clock forward returns the exact time of the clock change.
+ *
+ * @param {Temporal.DateTime} dateTime - Calendar date and wall-clock time to
+ *   convert
+ * @param {Temporal.TimeZone} timeZone - Time zone in which to consider the
+ *   wall-clock time
+ * @param {string} [disambiguation='earlier'] - Disambiguation mode, see description.
+ * @returns {Temporal.Absolute} Absolute time in timeZone at the time of the
+ *   calendar date and wall-clock time from dateTime
+ */
+function getInstantWithLocalTimeInZone(dateTime, timeZone, disambiguation = 'earlier') {
+  // Handle the built-in modes first
+  if (['compatible', 'earlier', 'later', 'reject'].includes(disambiguation)) {
+    return timeZone.getAbsoluteFor(dateTime, { disambiguation });
+  }
+
+  const possible = timeZone.getPossibleAbsolutesFor(dateTime);
+
+  // Return only possibility if no disambiguation needed
+  if (possible.length === 1) return possible[0];
+
+  switch (disambiguation) {
+    case 'clipEarlier':
+      if (possible.length === 0) {
+        const before = dateTime.toAbsolute(timeZone, { disambiguation: 'earlier' });
+        return timeZone.getNextTransition(before).minus({ nanoseconds: 1 });
+      }
+      return possible[0];
+    case 'clipLater':
+      if (possible.length === 0) {
+        const before = dateTime.toAbsolute(timeZone, { disambiguation: 'earlier' });
+        return timeZone.getNextTransition(before);
+      }
+      return possible[possible.length - 1];
+  }
+  throw new RangeError(`invalid disambiguation ${disambiguation}`);
+}
+
+const germany = Temporal.TimeZone.from('Europe/Berlin');
+const nonexistentGermanWallTime = Temporal.DateTime.from('2019-03-31T02:45');
+
+const germanResults = {
+  earlier: /*     */ '2019-03-31T01:45+01:00[Europe/Berlin]',
+  later: /*       */ '2019-03-31T03:45+02:00[Europe/Berlin]',
+  compatible: /*  */ '2019-03-31T03:45+02:00[Europe/Berlin]',
+  clipEarlier: /* */ '2019-03-31T01:59:59.999999999+01:00[Europe/Berlin]',
+  clipLater: /*   */ '2019-03-31T03:00+02:00[Europe/Berlin]'
+};
+for (const [disambiguation, result] of Object.entries(germanResults)) {
+  assert.equal(
+    getInstantWithLocalTimeInZone(nonexistentGermanWallTime, germany, disambiguation).toString(germany),
+    result
+  );
+}
+
+const brazilEast = Temporal.TimeZone.from('America/Sao_Paulo');
+const doubleEasternBrazilianWallTime = Temporal.DateTime.from('2019-02-16T23:45');
+
+const brazilianResults = {
+  earlier: /*     */ '2019-02-16T23:45-02:00[America/Sao_Paulo]',
+  later: /*       */ '2019-02-16T23:45-03:00[America/Sao_Paulo]',
+  compatible: /*  */ '2019-02-16T23:45-02:00[America/Sao_Paulo]',
+  clipEarlier: /* */ '2019-02-16T23:45-02:00[America/Sao_Paulo]',
+  clipLater: /*   */ '2019-02-16T23:45-03:00[America/Sao_Paulo]'
+};
+for (const [disambiguation, result] of Object.entries(brazilianResults)) {
+  assert.equal(
+    getInstantWithLocalTimeInZone(doubleEasternBrazilianWallTime, brazilEast, disambiguation).toString(brazilEast),
+    result
+  );
+}
+Preserving absolute instantMap a zoned date and time of day into a string serialization of the local time in a target zone at the corresponding instant in absolute time.
+This could be used when converting user-input date-time values between time zones.
+/**
+ * Takes a local date and time in one time zone, and serializes it to a string
+ * expressing the local date and time in another time zone.
+ *
+ * If `sourceDateTime` doesn't exist in `sourceTimeZone`, or exists twice, then
+ * an error will be thrown by default.
+ * Usually this is what you want. (FIXME: but is it?)
+ * Use `sourceDisambiguationPolicy` to change this behaviour.
+ *
+ * @param {Temporal.DateTime} sourceDateTime - The local date and time
+ * @param {Temporal.TimeZone} sourceTimeZone - The time zone for
+ *  `sourceDateTime`
+ * @param {Temporal.TimeZone} targetTimeZone - The time zone for the
+ *  return value
+ * @param {string} [sourceDisambiguationPolicy=reject] - what to do when
+ *  `sourceDateTime` is ambiguous
+ * @returns {string} String indicating the time with time zone designation
+ */
+function getParseableZonedStringWithLocalTimeInOtherZone(
+  sourceDateTime,
+  sourceTimeZone,
+  targetTimeZone,
+  sourceDisambiguationPolicy = 'reject'
+) {
+  let instant = sourceDateTime.toAbsolute(sourceTimeZone, { disambiguation: sourceDisambiguationPolicy });
+  return instant.toString(targetTimeZone);
+}
+
+const result = getParseableZonedStringWithLocalTimeInOtherZone(
+  Temporal.DateTime.from('2020-01-09T00:00'),
+  Temporal.TimeZone.from('America/Chicago'),
+  Temporal.TimeZone.from('America/Los_Angeles')
+);
+// On this date, when it's midnight in Chicago, it's 10 PM the previous night in LA
+assert.equal(result, '2020-01-08T22:00-08:00[America/Los_Angeles]');
+Here is another example similar to the previous one, using the time zone for future events.
+The times and locations of a series of future meetings are stored as a pair of strings: one for the calendar date and wall-clock time, and one for the time zone.
+They cannot be stored as an absolute point in UTC because between now and the time when the event happens, the time zone rules for daylight saving time could change â€” for example, Brazil abolished daylight saving time in 2019 â€” but the meeting would still be held at the same wall-clock time on that date.
+So if the time zone rules changed, the event's absolute point in time would change.
+This example calculates the starting times of all the Ecma TC39 meetings in 2019, in local time in Tokyo.
+// Dates of the 2019 TC39 meetings:
+const tc39meetings = [
+  {
+    dateTime: '2019-01-28T10:00',
+    timeZone: 'America/Phoenix'
+  },
+  {
+    dateTime: '2019-03-26T10:00',
+    timeZone: 'America/New_York'
+  },
+  {
+    dateTime: '2019-06-04T10:00',
+    timeZone: 'Europe/Berlin'
+  },
+  {
+    dateTime: '2019-07-23T10:00',
+    timeZone: 'America/Los_Angeles'
+  },
+  {
+    dateTime: '2019-10-01T10:00',
+    timeZone: 'America/New_York'
+  },
+  {
+    dateTime: '2019-12-03T10:00',
+    timeZone: 'America/Los_Angeles'
+  }
+];
+
+// To follow the meetings remotely from Tokyo, calculate the times you would
+// need to join:
+const localTimeZone = Temporal.TimeZone.from('Asia/Tokyo');
+const localTimes = tc39meetings.map(({ dateTime, timeZone }) =&gt; {
+  return Temporal.DateTime.from(dateTime).toAbsolute(timeZone, { disambiguation: 'reject' }).toDateTime(localTimeZone);
+});
+
+assert.deepEqual(
+  localTimes.map((dt) =&gt; dt.toString()),
+  [
+    '2019-01-29T02:00',
+    '2019-03-26T23:00',
+    '2019-06-04T17:00',
+    '2019-07-24T02:00',
+    '2019-10-01T23:00',
+    '2019-12-04T03:00'
+  ]
+);
+Daily occurrence in local timeSimilar to the previous recipe, calculate the absolute times of a daily occurrence that happens at a particular local time in a particular time zone.
+/**
+ * Returns an iterator of the absolute times corresponding to a daily occurrence
+ * starting on a particular date, and happening at a particular local time in a
+ * particular time zone.
+ *
+ * @param {Temporal.Date} startDate - Starting date
+ * @param {Temporal.Time} time - Local time that event occurs at
+ * @param {Temporal.TimeZone} timeZone - Time zone in which event is defined
+ */
+function* calculateDailyOccurrence(startDate, time, timeZone) {
+  for (let date = startDate; ; date = date.plus({ days: 1 })) {
+    yield date.toDateTime(time).toAbsolute(timeZone);
+  }
+}
+
+// Daily meeting at 8 AM California time
+const startDate = Temporal.Date.from('2017-03-10');
+const time = Temporal.Time.from('08:00');
+const timeZone = Temporal.TimeZone.from('America/Los_Angeles');
+const iter = calculateDailyOccurrence(startDate, time, timeZone);
+
+assert(iter.next().value.toString(), '2017-03-10T16:00:00.000000000Z');
+assert(iter.next().value.toString(), '2017-03-11T16:00:00.000000000Z');
+// DST change:
+assert(iter.next().value.toString(), '2017-03-12T15:00:00.000000000Z');
+assert(iter.next().value.toString(), '2017-03-13T15:00:00.000000000Z');
+UTC offset for a zoned event, as a stringUse Temporal.TimeZone.getOffsetStringFor() to map a Temporal.Absolute instance and a time zone into the UTC offset at that instant in that time zone, as a string.
+const instant = Temporal.Absolute.from('2020-01-09T00:00Z');
+const nyc = Temporal.TimeZone.from('America/New_York');
+
+nyc.getOffsetStringFor(instant); // =&gt; -05:00
+UTC offset for a zoned event, as a number of secondsSimilarly, use Temporal.TimeZone.getOffsetNanosecondsFor() to do the same thing for the offset as a number of seconds.
+(Remember to divide by 109 to convert nanoseconds to seconds.)
+const instant = Temporal.Absolute.from('2020-01-09T00:00Z');
+const nyc = Temporal.TimeZone.from('America/New_York');
+
+nyc.getOffsetNanosecondsFor(instant) / 1e9; // =&gt; -18000
+Offset between two time zones at an instantAlso using Temporal.TimeZone.getOffsetNanosecondsFor(), we can map a Temporal.Absolute instance and two time zones into the signed difference of UTC offsets between those time zones at that instant, as a number of seconds.
+/**
+ * Returns the number of seconds' difference between the UTC offsets of two time
+ * zones, at a particular moment in time.
+ *
+ * @param {Temporal.Absolute} instant - A moment in time
+ * @param {Temporal.TimeZone} sourceTimeZone - A time zone to examine
+ * @param {Temporal.TimeZone} targetTimeZone - A second time zone to examine
+ * @returns {number} The number of seconds difference between the time zones'
+ *   UTC offsets
+ */
+function getUtcOffsetDifferenceSecondsAtInstant(instant, sourceTimeZone, targetTimeZone) {
+  const sourceOffsetNs = sourceTimeZone.getOffsetNanosecondsFor(instant);
+  const targetOffsetNs = targetTimeZone.getOffsetNanosecondsFor(instant);
+  return (targetOffsetNs - sourceOffsetNs) / 1e9;
+}
+
+const instant = Temporal.Absolute.from('2020-01-09T00:00Z');
+const nyc = Temporal.TimeZone.from('America/New_York');
+const chicago = Temporal.TimeZone.from('America/Chicago');
+
+// At this instant, Chicago is 3600 seconds earlier than New York
+assert.equal(getUtcOffsetDifferenceSecondsAtInstant(instant, nyc, chicago), -3600);
+Dealing with dates and times in a fixed locationHere is an example of Temporal used in a graph, showing fictitious activity for a storage tank in a fixed location (Stockholm, Sweden).
+The graph always starts at midnight in the tank's location, but the graph labels are in the viewer's time zone.
+
+// tankDataX and tankDataY are X and Y-axis data for the last 24 hours,
+// obtained from elsewhere, e.g. const [tankDataX, tankDataY] = fetchData();
+// tankDataX is an array of Temporal.Absolute, and tankDataY is an array of numbers.
+
+// Show data starting from the most recent midnight in the tank's location (Stockholm)
+const tankTimeZone = Temporal.TimeZone.from('Europe/Stockholm');
+const tankMidnight = Temporal.now.date(tankTimeZone).toDateTime().toAbsolute(tankTimeZone);
+const atOrAfterMidnight = (x) =&gt; Temporal.Absolute.compare(x, tankMidnight) &gt;= 0;
+const dataStartIndex = tankDataX.findIndex(atOrAfterMidnight);
+const labelFormatter = new Intl.DateTimeFormat(undefined, {
+  weekday: 'short',
+  hour: 'numeric',
+  minute: 'numeric',
+  timeZone: Temporal.now.timeZone()
+});
+const graphLabels = tankDataX.slice(dataStartIndex).map((x) =&gt; labelFormatter.format(x));
+const graphPoints = tankDataY.slice(dataStartIndex);
+
+const ctx = document.getElementById('storage-tank').getContext('2d');
+// The graph is made with Chart.js (https://www.chartjs.org/)
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: graphLabels,
+    datasets: [
+      {
+        label: 'Fill level',
+        data: graphPoints
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Stockholm storage tank'
+    },
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
+  }
+});
+Book a meeting across time zonesAcross the web there are several tools for finding meeting times that are appropriate for all the participants' time zones, such as World Time Buddy, World Clock Meeting Planner, and built into various calendar software.
+
+
+Here (UTC-04:00)Sep. 171 a.m.2 a.m.3 a.m.4 a.m.5 a.m.6 a.m.7 a.m.8 a.m.9 a.m.10 a.m.11 a.m.12 p.m.1 p.m.2 p.m.3 p.m.4 p.m.5 p.m.6 p.m.7 p.m.8 p.m.9 p.m.10 p.m.11 p.m.New York (UTC-04:00)Sep. 171 a.m.2 a.m.3 a.m.4 a.m.5 a.m.6 a.m.7 a.m.8 a.m.9 a.m.10 a.m.11 a.m.12 p.m.1 p.m.2 p.m.3 p.m.4 p.m.5 p.m.6 p.m.7 p.m.8 p.m.9 p.m.10 p.m.11 p.m.London (UTC+01:00)5 a.m.6 a.m.7 a.m.8 a.m.9 a.m.10 a.m.11 a.m.12 p.m.1 p.m.2 p.m.3 p.m.4 p.m.5 p.m.6 p.m.7 p.m.8 p.m.9 p.m.10 p.m.11 p.m.Sep. 181 a.m.2 a.m.3 a.m.4 a.m.Tokyo (UTC+09:00)1 p.m.2 p.m.3 p.m.4 p.m.5 p.m.6 p.m.7 p.m.8 p.m.9 p.m.10 p.m.11 p.m.Sep. 181 a.m.2 a.m.3 a.m.4 a.m.5 a.m.6 a.m.7 a.m.8 a.m.9 a.m.10 a.m.11 a.m.12 p.m.
+// Display local time zone and three others
+const here = Temporal.now.timeZone();
+const now = Temporal.now.absolute();
+const timeZones = [
+  { name: 'Here', tz: here },
+  { name: 'New York', tz: Temporal.TimeZone.from('America/New_York') },
+  { name: 'London', tz: Temporal.TimeZone.from('Europe/London') },
+  { name: 'Tokyo', tz: Temporal.TimeZone.from('Asia/Tokyo') }
+];
+
+// Start the table at midnight local time
+const calendarNow = now.toDateTime(here);
+const startTime = calendarNow
+  .with(Temporal.Time.from('00:00')) // midnight
+  .toAbsolute(here);
+
+// Build the table
+const table = document.getElementById('meeting-planner');
+timeZones.forEach(({ name, tz }) =&gt; {
+  const row = document.createElement('tr');
+
+  const title = document.createElement('td');
+  title.textContent = `${name} (UTC${tz.getOffsetStringFor(now)})`;
+  row.appendChild(title);
+
+  for (let hours = 0; hours &lt; 24; hours++) {
+    const cell = document.createElement('td');
+
+    const dt = startTime.plus({ hours }).toDateTime(tz);
+    cell.className = `time-${dt.hour}`;
+
+    // Highlight the current hour in each row
+    if (hours === calendarNow.hour) cell.className += ' time-current';
+
+    // Show the date in midnight cells
+    let formatOptions;
+    if (dt.hour === 0) {
+      formatOptions = { month: 'short', day: 'numeric' };
+    } else {
+      formatOptions = { hour: 'numeric' };
+    }
+    cell.textContent = dt.toLocaleString(undefined, formatOptions);
+    row.appendChild(cell);
+  }
+
+  table.appendChild(row);
+});
+Arithmetic
+How many days until a future dateAn example HTML form inspired by Days Calculator on timeanddate.com:
+
+ 
+ Enter future date:
+ 
+ 
+ Submit
+
+
+// Form parameters
+const params = new URL(document.location).searchParams;
+const futuredateParam = params.get('futuredate');
+
+// If you have Intl.DurationFormat, then you can do this with
+// until.toLocaleString() and untilMonths.toLocaleString(). This
+// example will be updated when that becomes possible. For now, we can
+// generate the string only in English.
+function englishPlural(n, singular, plural) {
+  return `${n} ${n === 1 ? singular : plural}`;
+}
+
+// When form data posted:
+if (futuredateParam !== null) {
+  const futureDate = Temporal.Date.from(futuredateParam);
+  const today = Temporal.now.date();
+  const until = futureDate.difference(today, { largestUnit: 'days' });
+  const untilMonths = futureDate.difference(today, { largestUnit: 'months' });
+
+  const dayString = englishPlural(until.days, 'day', 'days');
+  const monthString =
+    `${englishPlural(untilMonths.months, 'month', 'months')}` +
+    (untilMonths.days !== 0 ? `, ${englishPlural(untilMonths.days, 'day', 'days')}` : '');
+
+  const results = document.getElementById('futuredate-results');
+  results.innerHTML = `
+    &lt;p&gt;From and including: &lt;strong&gt;${today.toLocaleString()}&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;To but not including: &lt;strong&gt;${futureDate.toLocaleString()}&lt;/strong&gt;&lt;/p&gt;
+    &lt;h4&gt;Result: ${dayString}&lt;/h4&gt;
+    &lt;p&gt;It is ${dayString} from the start date to the end date, but not
+    including the end date.&lt;/p&gt;
+    &lt;p&gt;Or ${monthString} excluding the end date.&lt;/p&gt;
+  `;
+}
+Unit-constrained duration between now and a past/future zoned eventTake the difference between two Temporal.Absolute instances as a Temporal.Duration instance (positive or negative), representing the duration between the two instants without using units coarser than specified (e.g., for presenting a meaningful countdown with vs. without using months or days).
+const result = Temporal.Absolute.from('2020-01-09T04:00Z').difference(Temporal.Absolute.from('2020-01-09T00:00Z'), {
+  largestUnit: 'hours'
+});
+assert.equal(`${result}`, 'PT4H');
+
+const result2 = Temporal.Absolute.from('2020-01-09T00:00Z').difference(Temporal.Absolute.from('2020-01-09T04:00Z'), {
+  largestUnit: 'minutes'
+});
+assert.equal(`${result2}`, '-PT240M');
+
+// Example of using it in a countdown:
+
+const duration = Temporal.Absolute.from('2020-04-01T13:00-07:00[America/Los_Angeles]').difference(
+  Temporal.now.absolute()
+);
+// Note that this does not work unless you have Intl.DurationFormat, which is
+// still an early-stage proposal.
+`It's ${duration.toLocaleString()} ${duration.sign &lt; 0 ? 'until' : 'since'} the TC39 Temporal presentation`;
+Nearest offset transition in a time zoneMap a Temporal.Absolute instance and a Temporal.TimeZone object into a Temporal.Absolute instance representing the nearest following instant at which there is an offset transition in the time zone (e.g., for setting reminders).
+/**
+ * Get the nearest following instant that the given time zone transitions to
+ * another UTC offset, inclusive or exclusive.
+ *
+ * @param {Temporal.Absolute} absolute - Start time to consider
+ * @param {Temporal.TimeZone} timeZone - Time zone to consider
+ * @param {boolean} inclusive - Include the start time, or not
+ * @returns {(Temporal.Absolute|null)} - Next UTC offset transition, or null if
+ *   none known at this time
+ */
+function getInstantOfNearestOffsetTransitionToInstant(absolute, timeZone, inclusive) {
+  let nearest;
+  if (inclusive) {
+    // In case absolute itself is the moment of a transition:
+    nearest = timeZone.getNextTransition(absolute.minus({ nanoseconds: 1 }));
+  } else {
+    nearest = timeZone.getNextTransition(absolute);
+  }
+  return nearest;
+}
+
+const absolute = Temporal.Absolute.from('2019-04-16T21:01Z');
+
+const nyc = Temporal.TimeZone.from('America/New_York');
+const nextTransition = getInstantOfNearestOffsetTransitionToInstant(absolute, nyc, false);
+assert.equal(nextTransition.toString(), '2019-11-03T06:00Z');
+
+// Inclusive
+const sameTransition = getInstantOfNearestOffsetTransitionToInstant(nextTransition, nyc, true);
+assert.equal(sameTransition.toString(), nextTransition.toString());
+
+// No known future DST transitions in a time zone
+const regina = Temporal.TimeZone.from('America/Regina');
+assert.equal(getInstantOfNearestOffsetTransitionToInstant(absolute, regina), null);
+Comparison of an instant to business hoursThis example takes a roster of opening and closing times for a business, and maps a localized date and time of day into a time-sensitive state indicator ("opening soon" vs. "open" vs. "closing soon" vs. "closed").
+/**
+ * Compare the given time to the business hours of a business located in a
+ * particular time zone, and return a string indicating whether the business is
+ * open, closed, opening soon, or closing soon. The length of "soon" can be
+ * controlled using the `soonWindow` parameter.
+ *
+ * @param {Temporal.Absolute} now - Time at which to consider whether the
+ *  business is open
+ * @param {Temporal.TimeZone} timeZone - Time zone in which the business is
+ *  located
+ * @param {(Object|null)[]} businessHours - Array of length 7 indicating
+ *  business hours during the week
+ * @param {Temporal.Time} businessHours[].open - Time at which the business
+ *  opens
+ * @param {Temporal.Time} businessHours[].close - Time at which the business
+ *  closes
+ * @param {Temporal.Duration} soonWindow - Length of time before the opening or
+ *  closing time during which the business should be considered "opening soon"
+ *  or "closing soon"
+ * @returns {string} "open", "closed", "opening soon", or "closing soon"
+ */
+function getBusinessOpenStateText(now, timeZone, businessHours, soonWindow) {
+  function inRange(abs, start, end) {
+    return Temporal.Absolute.compare(abs, start) &gt;= 0 && Temporal.Absolute.compare(abs, end) &lt; 0;
+  }
+
+  const dateTime = now.toDateTime(timeZone);
+  const weekday = dateTime.dayOfWeek % 7; // convert to 0-based, for array indexing
+
+  // Because of times wrapping around at midnight, we may need to consider
+  // yesterday's and tomorrow's hours as well
+  const today = dateTime.toDate();
+  const yesterday = today.minus({ days: 1 });
+  const tomorrow = today.plus({ days: 1 });
+
+  // Push any of the businessHours that overlap today's date into an array,
+  // that we will subsequently check. Convert the businessHours Times into
+  // DateTimes so that they no longer wrap around.
+  const businessHoursOverlappingToday = [];
+  const yesterdayHours = businessHours[(weekday + 6) % 7];
+  if (yesterdayHours) {
+    const { open, close } = yesterdayHours;
+    if (Temporal.Time.compare(close, open) &lt; 0) {
+      businessHoursOverlappingToday.push({
+        open: yesterday.toDateTime(open).toAbsolute(timeZone),
+        close: today.toDateTime(close).toAbsolute(timeZone)
+      });
+    }
+  }
+  const todayHours = businessHours[weekday];
+  if (todayHours) {
+    const { open, close } = todayHours;
+    const todayOrTomorrow = Temporal.Time.compare(close, open) &gt;= 0 ? today : tomorrow;
+    businessHoursOverlappingToday.push({
+      open: today.toDateTime(open).toAbsolute(timeZone),
+      close: todayOrTomorrow.toDateTime(close).toAbsolute(timeZone)
+    });
+  }
+
+  // Check if any of the candidate business hours include the given time
+  const soon = now.plus(soonWindow);
+  let openNow = false;
+  let openSoon = false;
+  for (const { open, close } of businessHoursOverlappingToday) {
+    openNow = openNow || inRange(now, open, close);
+    openSoon = openSoon || inRange(soon, open, close);
+  }
+
+  if (openNow) {
+    if (!openSoon) return 'closing soon';
+    return 'open';
+  }
+  if (openSoon) return 'opening soon';
+  return 'closed';
+}
+
+// For example, a restaurant or bar might have opening hours that go past
+// midnight; make sure this is handled correctly
+const businessHours = [
+  /* Sun */ { open: Temporal.Time.from('13:00'), close: Temporal.Time.from('20:30') },
+  /* Mon */ null, // closed Mondays
+  /* Tue */ { open: Temporal.Time.from('11:00'), close: Temporal.Time.from('20:30') },
+  /* Wed */ { open: Temporal.Time.from('11:00'), close: Temporal.Time.from('20:30') },
+  /* Thu */ { open: Temporal.Time.from('11:00'), close: Temporal.Time.from('22:00') },
+  /* Fri */ { open: Temporal.Time.from('11:00'), close: Temporal.Time.from('00:00') },
+  /* Sat */ { open: Temporal.Time.from('11:00'), close: Temporal.Time.from('02:00') }
+];
+
+const now = Temporal.Absolute.from('2019-04-07T00:00+01:00[Europe/Berlin]');
+const tz = Temporal.TimeZone.from('Europe/Berlin');
+const soonWindow = Temporal.Duration.from({ minutes: 30 });
+const saturdayNightState = getBusinessOpenStateText(now, tz, businessHours, soonWindow);
+assert.equal(saturdayNightState, 'open');
+Flight arrival/departure/durationMap localized trip departure and arrival times into trip duration in units no larger than hours.
+/**
+ * Given localized departure and arrival times, get a trip duration suitable
+ * for display in an airline ticket website, for example.
+ *
+ * @param {string} parseableDeparture - Departure time with time zone
+ * @param {string} parseableArrival - Arrival time with time zone
+ * @returns {Temporal.Duration} A duration with units no larger than hours
+ */
+function getTripDurationInHrMinSec(parseableDeparture, parseableArrival) {
+  const departure = Temporal.Absolute.from(parseableDeparture);
+  const arrival = Temporal.Absolute.from(parseableArrival);
+  return arrival.difference(departure, { largestUnit: 'hours' });
+}
+
+const flightTime = getTripDurationInHrMinSec(
+  '2020-03-08T11:55:00+08:00[Asia/Hong_Kong]',
+  '2020-03-08T09:50:00-07:00[America/Los_Angeles]'
+);
+assert.equal(flightTime.toString(), 'PT12H55M');
+Map localized departure time and duration into localized arrival time.
+/**
+ * Given a localized departure time and a flight duration, get a local arrival
+ * time in the destination time zone.
+ *
+ * @param {string} parseableDeparture - Departure time with time zone
+ * @param {Temporal.Duration} flightTime - Duration of the flight
+ * @param {Temporal.TimeZone} destinationTimeZone - Time zone in which the
+ *  flight's destination is located
+ * @returns {Temporal.DateTime} Local arrival time
+ */
+function getLocalizedArrival(parseableDeparture, flightTime, destinationTimeZone) {
+  const departure = Temporal.Absolute.from(parseableDeparture);
+  const arrival = departure.plus(flightTime);
+  return arrival.toDateTime(destinationTimeZone);
+}
+
+const arrival = getLocalizedArrival(
+  '2020-03-08T11:55:00+08:00[Asia/Hong_Kong]',
+  Temporal.Duration.from({ minutes: 775 }),
+  'America/Los_Angeles'
+);
+assert.equal(arrival.toString(), '2020-03-08T09:50');
+Push back a launch dateAdd the number of days it took to get an approval, and advance to the start of the following month.
+/**
+ * Take a date, add a number of days' delay, and round to the start of the next
+ * month.
+ *
+ * @param {Temporal.Date} date - Original date
+ * @param {number} delayDays - Number of days' delay
+ * @returns {Temporal.Date} - Beginning of the next month after the delay
+ */
+function plusAndRoundToMonthStart(date, delayDays) {
+  return date
+    .plus({ days: delayDays })
+    .plus({ months: 1 }) // constrains to end of month if needed, e.g. Jan 31 -&gt; Feb 28
+    .with({ day: 1 });
+}
+
+const oldLaunchDate = Temporal.Date.from('2019-06-01');
+
+const fifteenDaysDelay = plusAndRoundToMonthStart(oldLaunchDate, 15);
+assert.equal(fifteenDaysDelay.toString(), '2019-07-01');
+
+const sixtyDaysDelay = plusAndRoundToMonthStart(oldLaunchDate, 60);
+assert.equal(sixtyDaysDelay.toString(), '2019-08-01');
+Schedule a reminder ahead of matching a record-setting durationWhen considering a record (for example, a personal-best time in a sport), you might want to receive an alert just before the record is about to be broken.
+This example takes a record as a Temporal.Duration, the starting instant of the current attempt as a Temporal.Absolute, and another Temporal.Duration indicating how long before the potentially record-setting instant you would like to receive an alert.
+It returns the instant at which a notification could be sent, for example "Keep going! 5 more minutes and it will be your personal best!"
+This could be used for workout tracking, racing (including long and potentially time-zone-crossing races like the Bullrun Rally, Iditarod, Self-Transcendence 3100, and Clipper Round The World), or even open-ended analogs like event-every-day "streaks".
+/**
+ * Retrieve a time at which to give advance notice of a record that is
+ * potentially about to be broken.
+ *
+ * @param {Temporal.Absolute} start - Start time of the event
+ * @param {Temporal.Duration} previousRecord - Existing record to be broken
+ * @param {Temporal.Duration} noticeWindow - Advance notice time
+ * @returns {Temporal.Absolute} Time at which to give advance notice of breaking
+ *  the record
+ */
+function getInstantBeforeOldRecord(start, previousRecord, noticeWindow) {
+  return start.plus(previousRecord).minus(noticeWindow);
+}
+
+// Start of the men's 10000 meters at the Rio de Janeiro 2016 Olympic Games
+const raceStart = Temporal.Absolute.from('2016-08-13T21:27-03:00[America/Sao_Paulo]');
+// Kenenisa Bekele's world record set in 2005
+const record = Temporal.Duration.from({ minutes: 26, seconds: 17, milliseconds: 530 });
+const noticeWindow = Temporal.Duration.from({ minutes: 1 });
+// Time to send a "hurry up, can you finish the race in 1 minute?" push
+// notification to all the runners
+const reminderAt = getInstantBeforeOldRecord(raceStart, record, noticeWindow);
+
+assert.equal(reminderAt.toString(), '2016-08-14T00:52:17.530Z');
+Nth weekday of the monthExample of getting a Temporal.Date representing the first Tuesday of the given Temporal.YearMonth, adaptable to other weekdays.
+/**
+ * Gets the first Tuesday of the month and returns its date
+ *
+ * @param {Temporal.YearMonth} queriedMonth - YearMonth instance to query
+ * @returns {Temporal.Date} Temporal.Date Instance which gives first tuesday
+ */
+function getFirstTuesday(queriedMonth) {
+  // We first need to convert to a date
+  const firstOfMonth = queriedMonth.toDateOnDay(1);
+
+  // We have Monday = 1, Sunday = 7, and we want to add a positive number
+  // smaller than 7 to get to the first Tuesday.
+  // If we're already on a Tuesday (2) then we want to add 0.
+  // So for the first of the month being a Monday through Sunday the additions are:
+  //    1, 0, 6, 5, 4, 3, 2 which is given by that formula.
+  // This lookup table makes this example easier to read, but you can also
+  // calculate the answer: (7 + desiredWeekday - firstOfMonth.dayOfWeek) % 7
+  return firstOfMonth.plus({ days: [1, 0, 6, 5, 4, 3, 2][firstOfMonth.dayOfWeek - 1] });
+}
+
+const myMonth = Temporal.YearMonth.from('2020-02');
+const firstTuesdayOfMonth = getFirstTuesday(myMonth);
+assert.equal(firstTuesdayOfMonth.toString(), '2020-02-04');
+assert.equal(firstTuesdayOfMonth.dayOfWeek, 2);
+
+// Similarly, to get the second Tuesday:
+const secondWeek = myMonth.toDateOnDay(8);
+const secondTuesday = secondWeek.plus({ days: [1, 0, 6, 5, 4, 3, 2][secondWeek.dayOfWeek - 1] });
+assert.equal(secondTuesday.day, firstTuesdayOfMonth.day + 7);
+
+// And the last Tuesday:
+const lastOfMonth = myMonth.toDateOnDay(myMonth.daysInMonth);
+const lastTuesday = lastOfMonth.minus({ days: [6, 0, 1, 2, 3, 4, 5][lastOfMonth.dayOfWeek - 1] });
+assert.equal(lastTuesday.toString(), '2020-02-25');
+assert.equal(lastTuesday.dayOfWeek, 2);
+// or:
+const lastTuesday2 = lastOfMonth.minus({ days: (7 + lastOfMonth.dayOfWeek - 2) % 7 });
+assert.equal(Temporal.Date.compare(lastTuesday, lastTuesday2), 0);
+Given a Temporal.YearMonth instance and an ISO 8601 ordinal calendar day of the week ranging from 1 (Monday) to 7 (Sunday), return a chronologically ordered array of Temporal.Date instances corresponding with every day in the month that is the specified day of the week (of which there will always be either four or five).
+/**
+ * Gets an array of Temporal.Dates of every day in the given month, that falls
+ * on the given day of the week.
+ *
+ * @param {Temporal.YearMonth} yearMonth - Year and month to query
+ * @param {number} dayNumberOfTheWeek - Day of the week, Monday=1, Sunday=7
+ * @returns {Temporal.Date[]} Array of dates
+ */
+function getWeeklyDaysInMonth(yearMonth, dayNumberOfTheWeek) {
+  const firstOfMonth = yearMonth.toDateOnDay(1);
+  let nextWeekday = firstOfMonth.plus({ days: (7 + dayNumberOfTheWeek - firstOfMonth.dayOfWeek) % 7 });
+  const result = [];
+  while (nextWeekday.month === yearMonth.month) {
+    result.push(nextWeekday);
+    nextWeekday = nextWeekday.plus({ days: 7 });
+  }
+  return result;
+}
+
+assert.equal(
+  getWeeklyDaysInMonth(Temporal.YearMonth.from('2020-02'), 1).join(' '),
+  '2020-02-03 2020-02-10 2020-02-17 2020-02-24'
+);
+assert.equal(
+  getWeeklyDaysInMonth(Temporal.YearMonth.from('2020-02'), 6).join(' '),
+  '2020-02-01 2020-02-08 2020-02-15 2020-02-22 2020-02-29'
+);
+Given a Temporal.Date instance, return the count of preceding days in its month that share its day of the week.
+/**
+ * Gets the number of preceding days in the same month as `date` that fall on
+ * the same day of the week as `date`.
+ *
+ * @param {Temporal.Date} date - Starting date
+ * @returns {number} Number of days
+ */
+function countPrecedingWeeklyDaysInMonth(date) {
+  // This doesn't actually require Temporal
+  return Math.floor((date.day - 1) / 7);
+}
+
+assert.equal(countPrecedingWeeklyDaysInMonth(Temporal.Date.from('2020-02-28')), 3);
+assert.equal(countPrecedingWeeklyDaysInMonth(Temporal.Date.from('2020-02-29')), 4);
+Manipulating the day of the monthHere are some examples of taking an existing date, and adjusting the day of the month.
+const date = Temporal.Date.from('2020-04-14');
+
+// Third day of next month:
+
+const thirdOfNextMonth = date.plus({ months: 1 }).with({ day: 3 });
+
+assert.equal(thirdOfNextMonth.toString(), '2020-05-03');
+
+// Last day of this month:
+
+const lastOfThisMonth = date.with({ day: date.daysInMonth });
+
+assert.equal(lastOfThisMonth.toString(), '2020-04-30');
+
+// On the 18th of this month at 8 PM:
+
+const thisMonth18thAt8PM = date.with({ day: 18 }).toDateTime(Temporal.Time.from('20:00'));
+
+assert.equal(thisMonth18thAt8PM.toString(), '2020-04-18T20:00');
+Same date in another monthLikewise, here are some examples of taking an existing date and adjusting the month, but keeping the day and year the same.
+Depending on the behaviour you want, you will need to pick the right overflow option, but the default of "constrain" should be correct for most cases.
+const date = Temporal.Date.from('2020-05-31');
+
+// Same date and time, but in February
+// (and use the last day if the date doesn't exist in February):
+
+const feb = date.with({ month: 2 });
+
+assert.equal(feb.toString(), '2020-02-29');
+
+// Same date and time, but in April
+// (and throw an exception if the date doesn't exist in April):
+
+assert.throws(() =&gt; {
+  date.with({ month: 4 }, { overflow: 'reject' });
+});
+Next weekly occurrenceFrom a Temporal.Absolute instance and a local Temporal.TimeZone, get a Temporal.DateTime representing the next occurrence of a weekly event that is scheduled on a particular weekday and time in a particular time zone. (For example, "weekly on Thursdays at 08:45 California time").
+/**
+ * Returns the local date and time for the next occurrence of a weekly occurring
+ * event.
+ *
+ * @param {Temporal.Absolute} now - Starting point
+ * @param {Temporal.TimeZone} localTimeZone - Time zone for return value
+ * @param {number} weekday - Weekday event occurs on (Monday=1, Sunday=7)
+ * @param {Temporal.Time} eventTime - Time event occurs at
+ * @param {Temporal.TimeZone} eventTimeZone - Time zone where event is planned
+ * @returns {Temporal.DateTime} Local date and time of next occurrence
+ */
+function nextWeeklyOccurrence(now, localTimeZone, weekday, eventTime, eventTimeZone) {
+  const dateTime = now.toDateTime(eventTimeZone);
+  const nextDate = dateTime.toDate().plus({ days: (weekday + 7 - dateTime.dayOfWeek) % 7 });
+  let nextOccurrence = nextDate.toDateTime(eventTime);
+
+  // Handle the case where the event is today but already happened
+  if (Temporal.DateTime.compare(dateTime, nextOccurrence) &gt; 0) {
+    nextOccurrence = nextOccurrence.plus({ days: 7 });
+  }
+
+  return nextOccurrence.toAbsolute(eventTimeZone).toDateTime(localTimeZone);
+}
+
+// "Weekly on Thursdays at 08:45 California time":
+const weekday = 4;
+const eventTime = Temporal.Time.from('08:45');
+const eventTimeZone = Temporal.TimeZone.from('America/Los_Angeles');
+
+const rightBefore = Temporal.Absolute.from('2020-03-26T08:30-07:00[America/Los_Angeles]');
+const localTimeZone = Temporal.TimeZone.from('Europe/London');
+let next = nextWeeklyOccurrence(rightBefore, localTimeZone, weekday, eventTime, eventTimeZone);
+assert.equal(next.toString(), '2020-03-26T15:45');
+
+const rightAfter = Temporal.Absolute.from('2020-03-26T09:00-07:00[America/Los_Angeles]');
+next = nextWeeklyOccurrence(rightAfter, localTimeZone, weekday, eventTime, eventTimeZone);
+assert.equal(next.toString(), '2020-04-02T16:45');
+Weekday of yearly occurrenceIn some countries, when a public holiday falls on a Tuesday or Thursday, an extra "bridge" public holiday is observed on Monday or Friday in order to give workers a long weekend off.
+The following example calculates this.
+/**
+ * Calculates the days that need to be taken off work in order to have a long
+ * weekend around a public holiday, "bridging" the holiday if it falls on a
+ * Tuesday or Thursday.
+ *
+ * @param {Temporal.MonthDay} holiday - Yearly date on the calendar
+ * @param {number} year - Year in which to calculate the bridge days
+ * @returns {Temporal.Date[]} List of dates to be taken off work
+ */
+function bridgePublicHolidays(holiday, year) {
+  const date = holiday.toDateInYear(year);
+  switch (date.dayOfWeek) {
+    case 1: // Mon
+    case 3: // Wed
+    case 5: // Fri
+      return [date];
+    case 2: // Tue; take Monday off
+      return [date.minus({ days: 1 }), date];
+    case 4: // Thu; take Friday off
+      return [date, date.plus({ days: 1 })];
+    case 6: // Sat
+    case 7: // Sun
+      return [];
+  }
+}
+
+const labourDay = Temporal.MonthDay.from('05-01');
+
+// No bridge day
+assert.deepEqual(
+  bridgePublicHolidays(labourDay, 2020).map((d) =&gt; d.toString()),
+  ['2020-05-01']
+);
+
+// Bridge day
+assert.deepEqual(
+  bridgePublicHolidays(labourDay, 2018).map((d) =&gt; d.toString()),
+  ['2018-04-30', '2018-05-01']
+);
+
+// Bad luck, the holiday is already on a weekend
+assert.deepEqual(
+  bridgePublicHolidays(labourDay, 2021).map((d) =&gt; d.toString()),
+  []
+);
+ 
+ 
+ This page includes a script which loads an implementation of Temporal in your browser.
+ You can open a console in your browser's developer tools and try it out directly!
+ 
+ View this or help contribute on GitHub.
+</main>
+</body><xmp><![CDATA[PK  /¶1Q            
+   index.htmlì}ÛrãF²à{EMûÌ´4x“Ô’¨çÈİíqoôm-9æØÇ¸HEX À@Q²£#æ#öq÷7ööSÎ—lfV.$(@T«åñXP¨KfVŞ*3ëÅŸ^}xyşãÇ×lİ{?Xİ¸¢÷âO–õ„}ä‚…üJØlæD#væx®øÖqÅOì	›n>&a·ÙŒ»G6'?ñCîZ‘Oü€»MÛ„Íï_öáÿã‰êÔæ‘è²óÑ”‰	k°N«ÓbNwï¨»ÛbwnµöZ-¶õš‡‘<öŠß¸ÎÅ(bçÎXl?±¬Ş‹±ˆ8ŒxŠèd­ÃŞùĞãcqråˆÌ#bß‹„<9v4:±Å•3ı±ÃÏ‰˜t8à®8i?…."'8œ«U0XÅtßóÈñ½MùöÉ×ñ.Y Ü[8"b£@Sÿ³Õ„á’¶ÑÍDœDâ:jB›…/ÛêK‰“nàûÑ–ÕçƒË‹ÀŸzv—}%†ø¿cËÂN¬ñ4øôˆşÑOûÂ·èı˜ÖŞeG­Öä]ñÀá}òÕîßİ|êûöÍC€›:¿‹nûÚùµúÚo¥{Ú>pÛ
+±"ÒİƒN?MñGßlX®Fİ½É5}×±™üX¹-C¶øyàò0üëÉS—{S ?ëé/©)´‡ûbŒ­sª	@3l5êèÁû~ùãngnødÛ°®àÂñhêüvwîÛvÁ·ßõƒîâsš÷Lğ=?s÷üŒ¶Fí¯a€¹!‡€]èañéü˜	âWŒ©a%ÆsëÊ ¨(jŒ§'H–`¶¶Ú­ÖÕŒYlÍÛ¬É:ğ¢@Ş>ö'|àD7İÖ1ì{wG—÷aÖ0ã(àz¦š±ö~kfGíü+X8a‹l7úÂó=1×°ÛChJíåî³ÿ÷Ÿªd,»=¯ö§FŸ{B6Ÿ%¡÷Õp ö†Ç©ÎH©Xôãlµw÷mq±CË™ğ ¥gı?ï}¾ÕÚÁÿ5ZûÛ¹Ïö[Î|7ÿ÷AÎ79Ï¶Ó&Tw “ÿsÜ÷¯­pÄmÖm±}xÚbé¯ÛÛÇ„âÖq²UöÄ˜å"ñÁİzİÌNÇH4­c¹û<şüé?/ÅÍ0 6~-X’/÷ ’ØßÃÀÇÈh}Šün>5æ>ûÀŠıà¸ƒî²Y	I¿E8èwrŸZâzÂ={ÉËp Õ,‚Áv1 GnhèIHH¶Ú:V,¢uŒd8tö#Ç¶…@up–¸ †DÑÇWNèô—¯Zın9°²ë®ÕÎ_šxÏv®ræ£ÿ
+I~“<HOyÉ rñ…t ßºoú=Óí‹¦RHÆ‘P£Ô¼¶Ø¬$õ†#ÃƒiÄğÑS)ì¨UØl7àYOÉ¹F8´$hş°pâò‚ÜŸÅ÷¢¹á°ó‡&p.Ùí:ZIïEHï	{‚@É™ÉBàÙùÈ	™îÁï0éÀ÷.z/xvè¾ë_„çvoü16€æ„MÔrš­çÍÎn5 hÚ¶"ĞhB ë7~ÅÃAàL¢f0/‡ô·ñ¢É{¸rg"ØéÇ7 ™¹.n?tµ>A­€…°‘K°hÄ#6ìBD'ñd_ùqGl~âÀaÇaô¼¦óöÈùéâàÇ£·Wßíµß_ö.œ+÷óa0uæO„·ĞÍ(ŒÓ>­±ƒ'§"ìÉØÙq<?Û÷EÉ§¡`Ğ‡·§´ÿ«i‚@=µ™cŸè~-ÕDy{© †ÛØ¾ƒíq³¢vØû ~·x;uIW‹úUNCMšĞ&Û0˜z	×‘ˆ'açaï{ù
+Ğz|ÅèÕ²Î†ø×ïŞX<¼¶…¸ğ°÷müŠâ+ö?õ+ÙÙÂ
+Ó Œ…Ô[ï¥|JZ8áŸ.›ÎÔs®%F|<éı ²øÏôGM}±Øó ¾áÓÑL/¦†Ü®¸àƒšhïeüS_°£ôMZ~–A$–¬^s2EQf„Sõ†á›ÅV.èS#Î5şcÉ4ZÖïÀÈ,¿ÿˆ94RzhÍ0|Åä+9|µh§x6è(7™F–p2‰ŞKõ˜Ñc¦¯‹„qèÅ’Uz¾ïYğ/·@©‰œÁÔ…I°ßÃdMœ%oˆö–­±ïÑÈæ7È;­İVïõ >0YWüXğï¤2ôÎÒ-YâAÀ'ˆ‰$ı‡Ş:„ÆŞOØ©weú½›©FÓô	Ä½3ùsÉÔ°“v5&rEúYÊHè#'ôã- TC}ÿæìa¡IóU¯L¦Lú'Îù{õË’IK=•KÀbŠÆˆ5ù®°Fş4å÷@4lÀ"ŸQF–²[Õ1q5èÙ.êíÀ“`‰@c–?¤‡ æD£xbw0²bÕœQsæé!57@²£åî	‘Ä’½œ<\0cC”(h²øäƒÈ–?ÆO=-dË©.b6§ˆ0İ‘~§	tYw6w@Şø)0ØWzj¯ğ5K^ãF\=Çi4 LC»	”MnÉFJ1È6x ©®÷ÃùK&2h¨¢†Œî0ü^Ñçú#yÓqr Œ,MÏM•!y¨–¯ÆèÌOØŒ$ÆÎ9fÌSg~Â1`Pä!+±%€—æÑ7gåh’”kX?¢ˆØß+ùtæÑ1§
+—œÑL°”3£bÃ­±$0ø ğÃ0µÔŞ7¨Şp¦0Ù µ>“İÅ˜å:ôNã_—ì¤‘?³ÆÜC±~ZS/r\\ı4šBJŸïüÃ[0jË¥…RŸÈ’²;HMöT:(b4{08'N4áa¤MQ*K™.˜î"Æ>tA˜@ÙFM5­%.›æwŠò‡‹Ä"¬Ş+N§H=i(ñ+¬²úÁÄ6ˆ7OBÇÈxûÓ– ùùË¸)n™„Œ‘éê¦Åœ}HN^‹sÅ][ Â  Ñ`ë}+Àê}3nĞÔ-–²Ëi8"7ÀÆåSo ÷Mï#<gd/q&ŸÒD8Ád@€q+cGú%ĞxDØŒy4Ñ¶€—?°ÕD´OâùŸ©ïa4ı=£ï`ú{z™ş­Zˆ-Èéu¦Œè{Û]½X*äÒÁFq& ŸEÚšYèñ]ªõgÚuÈÇrGz>|¨>ÏøXnE"Iùª¸3¼’°°ŒĞZ¿˜|œVË:IAì6I¶«$P“/—t˜fbòwid®i’!:‰›d_wAII®âİåíï(¢9ÔœøîtíÆìÜT¸Ióû×§¯Ş½nŒmé˜ÄK]Ó`UK=²;TPÈ &¥OnÆ@,‚^CéÏ˜‚»'¼dñ  ãø`ò@Ã³6òåŠ“².eÚ5|'ñ9ĞÇ¸a3ê¢Ìø"wºˆ­Ì†ZŞ../ß†¨KQÚ÷\hu#Ø–XŞ£İ@%pÊäÒHymáø2Q¾ˆyÿMN˜ShVñáHâTê½Às–¢÷áx¶|ÿ4ò/A<!`O{Í¿şõ	û+û{ŞÜ`Jÿz9£^°¹ÊT &ş„¬=¬K,Fê^R#Á~Îğ{MÉ!¶Ô®U"èéÍöşn»u´ÛDÀö-Çº@)ˆ›-üŒWº†›/š¸ÎŞ“'9ë½73`¼O{$´UK¹ÊœÖşD _öƒ§½İTSPNë	H—hJ|üi¯¡> ùoÚ4§İÛQ#)´–µËô·eØnÛ°İ±^{!ı4‘vÂâÑÈ ß« DäŸ)Ká^# ¶x¡’ r¡A~ø¼Õ–ĞË£"bM÷÷Ä”?ex¶ƒá.pÜ©^0 ²‰®îi“zNÜn#ˆyHÄ³ bÊÉÍ‹&r|”Õ@óŞGÊQG’ËoS²1™Äİ‚ÓÍ5G$*ÑOR$ö°7¤Ó”5(*¤û>ÆW,ùB‚ü*-kçœÍEBv¾)H×yßô‚Xå,Ûä.Å&g[8øv2úrÁ‰Àï7Úì
+0f× =;vçhOOÀ‰OÀ³"É‰ıÑZï·øÔn²oü•lş<M;ï@+wbÇ”ì x%`¢x=ñ£œ‘6¢2:»àœİ¸d˜½´Ìîäèì8É¾—¸qò‚¯€©ÕIşşOĞy#_¼~ùîTòSj£<Pä°Àï4ë )ji8ñéHCŸ ×"vc¡wB†´Ô¨I|äóR¹ÂWæ¶HQÏf/W6ğ:¡|Ú{U‰e!İ÷O{ÏÚG-«Õ†Ï[­.şÛşéÙ¦Ø©¢ö4U!âˆ¤€÷äã*&“zÄ^<¯*øî«Ûrù„6«b­4*!³”n†@c%×RD@1ÉiÖå÷òÚtv·2kYtEJÒÄT‰š¢Ï@Ö…cHa3gËàĞÀ†[Ûj=l€ËW¼~}súş4ñÕQZ-éOw$§Q—œ™c…Òi!©§#á W‚óï–f‰Ñï51ÃfU1Ã
+¥İëi +l¾–ê{›s<Lz"A!ègPºCGÑ3~ÆÈ~ÿ’Ü*d•±‰:§2Ç-åáD~8XáéÄ’OğxbI™ä}?úSâlèÓ‰É¡B$&<^ÆÃ&´ÀP ˆ/=eá¾+aèpÀcâl1W¨Ãxğİù»·Š%şÅå,(¨ø)ÚOÿrkÖ¨&'yÔù>Ø,7 2ößÿşß‘ÿ÷¿ÿ³3MìØ³Â—ƒŸ)¾šFºbçÁÊÆüúcw­Ö‘Õ>`WÜŠÔƒ»³p~Á¥™©Î^ªÌâ•Pÿææ]!›Ì‚»6>i.«xî¹Ëêœø<IÈÑtI°“áJ8¨q&´‰k™‹©'fE”mJÛ][[Äè¾^_•+ÙıiÂ ı!J§¾ãÉè”˜©»ÜZ~"°­b›fÜu­ë£Òjğü'©ã€í%šqş©Á²İšØAe6sÅš«”nûV{ïNÕÖ|ø#%ğJ¸¾*<NN¯l×±bîdÚı¡ÁŠ±{…Ğ–Cšd0íÓ^»SĞ(3î§èØ)&å»sí”$ëÒ SÀ©‚¢Å¿¦°®uÁü,Ø"ÈáØçíN·ÕªOÎ±CRvŠ“ÅÆ ,æø¬RC(<S†ÃÅÉ¼fñ£H_ò–UH0¤³@ÑØˆ’¡¡R“¢Câş™äP¨cµ÷ï¡QğÆC
+4D„ş¨B}ã÷#èí¬E®ÜOõ@73S À†c]•Çì}Cì FÉ½š8îVz?PÉ½== é½Û²êåƒy~‰Â,Ù”Â87¶Hî›wú€y’­Ô~©ş'Ï]tkÀŞŠdşŞœ×›IàG>:\šH’S<ĞÆ[R4Â“Ö…³=‰[–±ÎoHÅïSD?têhNÊªø“Ş?œh„9Ø8^öÎZ‹ÆB”o™™5ŒŒé’4è“B½’€Ø	ñX`8uuh©' {ğK÷«$cÊ“É>,œˆ3t	ïVëÒ ¥£ßz4¯Ê£5*wó´­Öîy»Õİkw÷ï8'+°¦ndˆ4
+ï™¼˜?şˆé‘õÁwÃ¢[b­BcVÒe[Òå×­6Xµ?§!ùKm Ü0$7ÊbdÆoY‡g™]¸ó¹²R3
+¯ÚY´c´‰W›}·*¸äòü]å—w‹>+âõÄì­ÖAş·M3'…°ªù|kWòùº¡gDÏ91p2Òetõ¨—÷9şí4txóLøSwóA’lw?3>b÷3å"»•k‹GZ[<Bm1!ÀútÅ\¿Ê|Y/Uíà5Œ²5lD¥†¤­®T¯Ä±îô€‘=òí69ğ=áõÑú±è#ÓòãÓ à7)ãçôÄUòµ!FZáTx˜"ø|°Ì±'tUds2©šs%ÉŠü>óM›|¡‚™ôáĞSÎ\‡êÕ¬	w(ûQ¥×!s=a÷…,W¥ë¶èò	äfDò‹Æ…%&+Ì%<É*ÀP.q¬Ö²ˆ3ƒf &¬Öå¶˜Ï%…µát…ı]H1e5Ğ¢CÅÅ²;PŒ}X!ëÓŠ°ó¬ûI:©²ÙÆĞ'Qm‰ÆEC" ?u\[-B|»!“G±÷ÿ$ûca.?ÿò‰ÙñJ¬T‰…Ù¦ûéû¾+¸÷‰ı,¸&N†ÜÅ/ĞÃ÷”_èV¯l‰kú\'ßçO‘+áGNÇx^;]a§3a‹„Şa,Z™‡Õ
+<ÖÚE—dà‡Æ<WÁnı|3…! "FÏ²^&¢ÃS°ÂCW$ñDb–l³Åsİ”ŠeŒ¹J«! ¹×ì·ˆYºa{íš¨\*&É0JíŠ¿åÑZ%hQÃ×t˜U¼ªî:«*RÕsã½VÚhZ^SÅ¨Dè„”@!*Ñ%Ì¨WSÑø-d§c¼SÄ	‚z£	+O±^cèç;ƒgÌ¨¤À_•½©8‚¡óÃ,Ê\~\YŒîÖ#—¸’ˆËÃ5ìxùnÖr#ïí—İûU³öUq#o0-É¦55SVĞdŸ;+hi¬ ½»1^Ğ.µ÷‚¼bı×oÁ/K²‚Á#+øÜYÁ§´÷7Æ
+vï=+xé‡B˜ó‚œ“SÏÂ†üBév?«vÜØ3Ô7n9XÕò—ºüò¼º[ˆÉë59`Ë(b¨dc>©ófÃëJ'2_¶¼®0ğ-È‘ïnÊİ’9íæ½:V§uŞ:ìîG—8S£ÎÛûİ]ãùr·ÏÛ»İ¶qçšW¬”•$5-¿@gåiWşWúàkÉÕ;¹‡`™ªÀ™²ç_‘Ï&.`hñ18²(¨<âºëÃ©72dyÙ±”Şx
+äÁ&Ş°‡÷ùbqìNF£¯ñ0jŒô‹z8ŞÀÚbIµ¥mìLrÍqeâ©Ó§Zt¿G^Æ×ïsWÂ•îsÄŞBYØŞÁJËúŒ+>˜’ËÃÃ¤x9zògjå¬oòœh«†ç[€!W€`Eê¯…C®d2s'[Ëæv7]šB*TË–dÌ´Ô‰WF)•8=M…µ˜*¨Ë€
+£¯–c÷Z¯¹ªO¯1•ïWÆ¤ù¹ÅÊ®\™©Œ.k TG—kœ€VC˜·Ğó‰ä\»*8ix·åÊ°Ò_ªã©K¶îç|¿½¥ \Öòùüe)1ƒ:µy5˜Ä}ŠÈÑ=*¡•{
+±Æâªˆ2UÊé uÅDÊF4”úIğãHkÔq5€Xmş·­Îîyû ÛÚëî>oìµŸï·;m«uX"ş¿|¸é±­‰ÿ¢İÚÀL›V/`Ê°ïw)³ÎÂ_Z?ŸEàxó½˜ıóG?¸4›.¿»Ú…´e=ùV6QPÖP­q·0sW“ïĞ*:©U|#×Yc›=´¨ĞÆ¿7ÇqKÛ¸åJÍ°¶#UbC#¼t#~5NRQJÛ&ùZO’ªØù_‡h)5bu,´ü°U‰ 5lÂmWªiµíß¼Ô¢ ¯³ÇÜ¢ïÕ/™B-ôV_ mû3ïi|W¨Kš‹.VÜärX]ôáÑ5Òw;g²È,ê:ÉF’	Mèû‹QNê9è›>ë×³¡#\;Œoså™úp8z~/Ä¸‡s|Ñ„_t= æ•ãOÃøR_º=^A÷NDõ¹g‘C©roİİÃnç°ÑŞ=<lì¶ïAÉÂÿwX°ÆQUÀ%’­XCŠ+¶†cîº"Œğ&z3s¶q¸;JŸë-ù6Ìí§0t}?ÃW½7Ù³1µV2ƒÏ¡@Úİ×4ÕÒn’Aˆ·K{‚ƒ&Y`×Şå-ö&‚Õ´«”˜µÕ¥d(¸Ô'Œ>I®JÇ(D%tµN€Gé¾ÎC©á™vF|~ŸHJyß0>×©Å|Üw.¦ "ñ,˜Ş[Ô›Ìˆ§ ²yXP9•áu7‘´(x‘ßKõÂbaŸ¿lZi&êaß{ÔÁï²××8˜£;q—ÀÔyÄ.ÏÎèZ¹È½Œ$İpØ¹JÜrJ÷Mx(äûÈw«F|‘%êÛ‡tËóÍ¨©øocy¼$J:Ÿ‘Ë¸
+Kã9Áœ¢â¦·:¨)S½eÁd«`–q(t¥'Í2 N­#|ã½[†ñ¤w<*rÃÅ¡¦ñİÛz+üë¯«t£–§ ¥;"”›†İ¯”c0Í?›àĞx’ÇÉØ+ó0*Áaş)•±´RÕ€ÜŠÔªJ˜»§+HŠi›Òşƒµ³Ò„úÅ˜Z¤XµÑï}GöÖ¤w&ÀPpÁÖ +JšL“i8²ğJ0›\ŒäİUá¹¼¿’3ù\İZÅ{d *ÏC½A5ˆ-
+PĞ¡-FıâL0jWk÷è"ôÄu$]„ó:¾®yÔÉŞ:+ïó
+¡«Ô¥±ÉÃŒK–B‰ƒ+2	1‹‡Ü«…æâ’/`‰ã7©ÒÙ›Ğã’?¹…{ò/½H.ú•ÆYRß:R¡ÙIÑê%İ&µœEª:7óh0ÂHt°¶tYÄš¦ø®o”³ÑUN‘¯ç›‹;¬?•‹æ…>ŒU°¶í©DD?’K´V-X£`µ&î¥<ÓÏ(Z"rú®x¦^Áîw”»0ÕÔS„†z¬ø,¾ÀkP`…$ªŞ¾[ü"òÿ.dä}&Î=/oĞœ»Õ­¹pi›ãQH~úº¸Í;II,ª5_|!"Òoı`k›ù¤¾P)ƒz‰sšİØ8Í!TzuìıiÈfÂuu3[9–Oò¿fiìï`?1Îw˜B³Ä¯Æ,-5À@zø¿­ÙIÜßÄCì¬«¦eÁ®3y­:í²×ÿš:Wj:ÛˆGƒmØÃ+]\]‚9M ;c²U(¢(Û
+ßŒ6ÓAÿñaÉoèé‹!Â/n.»À6¸?=Ë·´Ş…9J0¬œ!5}›ÍÊ©Ål$i+g6ŸT±@,IÍ0˜ÿËõÒlæè7òÕºå‹¹]k‚ı”í´XÂàa+nèc7¡Cõædé46?àbBÈ'ös–
+ObôcNÇ«,…aïï $åwà~‡§%Ìô®ùÄN3;™^	O.VğV Y	ºL!´ºÒBT°Ö_¥dWë'oC/í>(U…Ú´Æf¢[g1efÀi\‰œ©Í&]	òàİ•<‚Ä•åH
+ÙĞ	bÃmEŒhõ.!“4ÈŒü®N.‰£>µŞP]±¾aÔ¥i ‚‘)£rîÊFwe7OU–Å:[¢LÀ³)0½H;¥ÕÍŞŒ½«ÙÚİı«3	’¸èpZ5+qÀ_%Æ?ªá5æÃúP_QìZ>¨‚ªt
+(é¸Ntƒ±:?O9x˜'ìBtŞBfh<š"´›‹•nÆ#lÌh	1]T@,{„©00Í	ÁTŒÊbs=qP›Ç3[A›¶â–nÑ¿Jx8[ ì=#åµY™DiÖš{VXË?q˜•bà¥-5e÷ÚÿeÚï&•ÕdQ¯ªö^\Gçs?eÎšb\iUP1Ë t¼iÕ)1yÜóCô¼XüÏíxi)iåk›e)ñsêUÊÇ·+ÌÛGéø(¥ã£t¬I:ŞW¶^?ª2¬m™Q¶EpF?31–=QÔŒşPW©gG¯ƒ ´s%§]$ÆtÙZzãµIu3Š_—÷­›8Şw{Áù¶ôCÇ!;ñ]5ıU-2óÊ,ü?4{\É;Œ¹Üj€«&^iîT4²"soEêƒ¼Ù/“)¹ùËı< ÓµFÂ‹şN8ùwİïô¾‡…¹Óá[GVk×ÚmŸ·:%Ê‚Ö˜\'÷É÷·-1°L5VêØÚz]*h†Tø€{U˜\ç6À9›4]²bC*u™	+[Ë:«Ù¥ÕÜ¢şDj5Éél5KÚğj/p%ËY‡ÒöàßÆ‘ş§*²‹øŠHoDİ6ßÔÎ20ÃX…¼M8C>C45Ê¤Ê˜šÜSşKÁlâiû±ûå]€\‰ÄSõ‰K
+½Œ©Jš­ãŠá›J_æ³«'œj©jeLJK6n_O„Háù†+\£N¼¾@ÀÀæ¾Q?à¿;îkF_ M¤ëÖœqÿŸùÔõ7oÙş4/Ä‡¼o9Î£q„å•Ÿwvï‡qÔ×hyöQjKªv»äs³‘Ò+Ú­lE›´“êÁÑ&m¥úV´)©Õ=šI†ŠæÃ4“æåÉ£¥TĞk¥‰'…Ê–1U&:ô¶˜Ìù¹My%¥R‰½:#Ó’¹¶‘iBğâwÙ´à8ÓS½_L¶3ƒU	qèÎá®ó»<¢SéyIÊ±Løx ûGæÆ©ì²lj©šµNç¥©\à•%ï6…LÔÙyTS	æ «œL#YŠÆ½âîSjE4ÂK2PÃ»J¨=ç—¯¥ÊK†Æë¶<‘N‹ÅW””ÍR@ÆîÄ5â6ÔÉ’KzåY§IÏ:9òÍıúÓ` ´Ñõ+Ø|"Äê[äµÁ¯Um:ÿºÃ¨‚¼Y4sªŒ¥÷zLàÙ¹¬ÜÇ„° K|öotF-e şNe
+½Êè¦:[qY-¶õí›ÿz÷ºKù»Ø úÛ¶üJÄ³Í0¬¾ën~¥´JÊı”«”íi`
+šfmæCsEÚgRª›$›}(ó–`¾*™”öIQ¯q6¦Œ4‘d›Aº~'2SI	 MÛO’rèéu·¼+Ã>©;É€„lP4ã„^š8¥e'K°Eè\x4™ºòC?êk¨†¶œÚœÌş€›dÁr"œ²&K1%>ÌEéó( ‚LÔl>¡ñ=‹·ÌDÍ«©¦e‡ÙšÊá¯Ş8ÆõH¢ŞhÆrDsWÁ‹E¤¹ÓÚÌUÖrö>xã¥¼>W¸Cşû°|ÌòÒ€ÖÑ9UÓ¯ÚÇ¼³>Ø>‡ã“—#øïEå‡'joığŸ§ :»",¹nS.²£šìƒ'|ÔÌw¤İçDÏB6vlÏ¹‘Ñ¢¨`G¾i·ØÇw™âı,nùöT»ao“™;±ÄÙxßÇy§C7c¦}¾)dû±o]£-)–,Q]‚+tÆUƒÊŞ®ÀÈ †³!¶w†SîB]¨Œî Ù $Cí6œL(±¡-èwõÕXˆˆnQÆ"L!ˆ1aË»¢'Ü	R÷KwYÊ¼Z]çFšëéORö6ÌğËc«KÔR£¦|ß‘ŞÎ_B«Ÿ‚É«}?“fhlCQA¥‘‚ñÉDxáÎ´‚©‹UXğg~ãÑ‡œ\=ª–úP”Ùüßÿş_ÙòØÒ	U/‘ë'§˜02Ğçh³SYq	cuu\)À«„+_Õûš¯äã’¸tÙ4œùX! oArÆöN ¼ÌcP©5j?O<Hš·X’,²²UñÓË“TÓÇ7¯cÎÎ_î%D¤V¿ƒ¿d=\çşå_¿c©É^ÑÌ•—P‘™bù[ú¢ÁîQ¼ÀjÎ“‹oLZfì±¢Ü²’YWò ¬muåEEkœà±¢ü§’ÓÑÌøãÈsıÌ>¦Uñ}Fwò]«óü^\ßõ€aşÜjíİ˜çfz<@€Ğ%o÷ àıÃ;•¾W`ø¼¥İ–~¯`~;R¯ì~>ã{3Ï}P³]ú”ª²@ŒıH¸7²`&i;‰j«Á¡<*C¥ÖĞ`Ö·ãüjqyeĞÕ::}2Ó”‹$tx“°±ù€Ü¦jyZ“¯¸c>¹=lÛáé¥ˆ0İüxcİú­æ|º¬ÀÔŠGÖ9Ë}|n¾ñªË>VÉ;›½ós;C4ÄÔW!uüùnÎ8ïÃİÙ/‹ÏZ†ØQI<•`İöF—«"¼5NÃJ8şVİ«­üsGç­2·uî”€¼Qİú®—ƒú8°:{u‚HÕ5‚-È=™°]Â^ûÅ”Wr}«Í÷Æ’|o€³¦÷ï¬ú´ÉAÇrâëÃ±Iöğ@İ-9ÄÀ™ˆyÛ0"«Î¾ìùqèpEáALæB–ù İ¼»Zî*Pö{MÈñpWr\}Â1·ĞlÌ0ÈÎ/;Œuü¹¥Écd<Z“p¡0èbÈ`¹À)Š4ı$§€¿2‹ééàğK@åM"Ğüm2B¡<ó£"ou‰ìÔåm¿k†`ÊÊ¿HÔDúÅMûãCŒ¿Jµ€¥,ÄÒædªÆ:¶_ÅùT©ˆÊwƒØØò=^ce.P-$Ë‰[_E\¼¹umÛnã¥p«/¨~ƒ‰WÁµíJ“­ÿy9"ê¼OÃ¸á*µÔt	È»Cvúoér€¿yWjÒj•ñ&ò·/ö=»46­t áÓ®<–´¼;ª¯pÄ}è¥à»ûù/õçöQ®ÕãÍš*‚ë+RšïJ-®Şy O€£ü§å@áä×h(OÆòbàJÇ²Ê¥>×¤éİÓJÒ·Ÿw)}¢ÑÒÿüt—{ş‘¿tloš3
+õÙ¹Š€.
+ y$Ú/h;çíıG¾ùH‚$Áİ»%Áœ³Ÿi4°üá0‘5ô‹[T÷Ä"?¹ÅCx g]x
+dŞI“÷0áG6¦]i…ïÈä¤PaPa1:eé-¸û"ú@}I¤ë[Ûj™x<2¦R.s'N'ÙN&Ld¢O¥ßP<…IM™zx”®×B§+™$K¨ëi‰•Uª@Y£7[»´æ<â;eãKîY¸|ÁŞ‡ùĞğêMa€o% Xä eÅ°Y½…²+,®‰Ød‘Ã¬ÊÛ1xy²,u]á-y}Nfl_~HY©êŞÄlp€{ƒY²Âà}rõâ¼D°ı$!3¡Ç]g°jŸ;“Æ“­ïÅXĞSìÅ¹r€g÷oX»õ"œNzG€øAu™d]®ôıøXw´ı(EÂ£Hø,DB–Ô+Š)£¨üm|2.ê‘1íÃV±ŒQò@¥ï[ÑÌ§ğ/ @.xFÅKõ2Eb))q8óSe)°É›/îxê†¾*µ°®Ùa3L£÷Ö°.æfXK8Ã¡Ák z‰™ªâ8‚Í-2m,“¤wÊ†‹Z˜Ä³ô“‰ÌJ1ğMA	;¤Uî,©ı±HÊ,EÓÈøB‹Î}\¶ÎáiÊBôa]Ç[ÕËB]ÃS”åÅ5%?Q)Ä˜.iB"Ï¨¦aÆuÕü!Èó*Ó™œå©.\W&‰n3ä°±KfÍjssÕÌÊI¯ªbİ²Á´Å¤LÓãÊ­şş
+Jc} @%ŠK´\•»Ğl&é\Ë@ŞÊ§ÿû¬aÕQ«ğÑ¦{´é¾›ÎYïÆEMÅ +=œFªÈ¹¶DÔ„0Ûb÷y«k¬ê%´[<Ä‚ô(|³…	ï^Å-«Ä89væ6Å]œm.Jé9Šäp—‡œ¶à.º°»…ö¡Ö8ùBÌXãÖĞ¹¶¥«)§¼•î“àäG²<}×Ùe}×sÔîŠ¤’d\Àl?Í¾ämôùEÀ'£ü9µ Ùˆ2è8üvåD7Êíå9ŞÀaE9#³­³È\|w¼ÃÎfÂŞ¶¬:IC0îÎøM(ãËÉı.EJ–'tü,ŒûÛ‰ë$Êï]Ş®¬G©>¸rÄLğÉBâ]ï…í\)LF0ào¡:¿kì{¬cÕ{K\MØÔĞúïŠïÂ0×ËœïäÜ»â!R–‚¦EĞœ9v4:9V7‘âzÑ+NÚN8qùM·õ©eZN®eÛîsú£Ï—?‚êcN˜‘-ºŒ¹û'±Ì"İoÚêÂ[G­¾ßjâ‡H^w Í€÷ÊKzô]?èF÷`G‹‹ò›9cXxw¸[ô[Øl5&ŞÅv~c„n·İjı™áòÛøsáx«×ˆ‰à Eı–´z:‡S˜¼-‚„Zšq¸±î T%ÒÄ+ñÿ’[]ıõ#‘¾|ö£Å¯eq_C¹x#hgÀÆ	w
+ô ôP~?â˜Î(Ë)Áş³p&FŠû9ÏN2™_Ø	Šh0Â¿¶¶MCì’¥IŞÄƒ€ß¤9SìyÛ™[ü\{)Â†©’qüMÂ+Îq¥%Sq)V$íUL)ÅäŠJ;/sx—_p(Uå0àæuDÈ;ğzâù³JpAY~åp‘&·ª`\o"áÏrİ$ÂàZvÖf]ñÀÁk$Ò¢Ñ‡àt¢[Ó»‘Jn\¹ØÌï~]|Ii™z«èbÙ ,]—8HHøT5°CĞ!W\¦ÖÖ×fƒ,¦úo@Õº6öœ+õ¡ùæx6^q‹{ic\€Œ¢oQËn•)÷î‰YÑ?şay°ŸŸöŞxQéryr¦·—
+ñtA­—õ8*ğD,;]›	qió›BØ—;ˆÖ¨„ıíG‡-ş¾5Æ;^>§¼³”+‡»)­dU“²ZÏæ*ì³#òÔ¼•šMpôĞuJçôfÑª ›ªñW£–HÕˆéu„Feˆ¬y³|Ä[XÊn–Øf)<*Zrl™êŒ¶?˜¢¨˜]ˆèµ+°»onŞ˜*&Î‘´?¸jÇˆéÊ^¢µŠŒ¾äÜİŞT.orîà„lÌmuîKtğ6~ÙÖ(Š&a·ÙœÍfåömøÁEÓÈ­g®%Ó€%!
+´]‡İL*Pâ\Ğ¶×Ğàq¬=ø²1u(dÖqJ9)1q9uŒ~¬fú™R¯%/©ˆW|{4~‹—¹âJ¸k•/Õp)y)é—ı)=ØªÆ¿$«R‘S‹õ'ø¨"ìgĞ9‘»ş,"uh¸vß}ßwG“&˜šªsôA’äÖddŸŸ•¡5PÎXˆ7ÖsÆnN¯«êùçù-Yš› .ëY¨ü§/.ï4úIyá$ë“cjRÌdJğŸR}7İœáŸÈ¸´¸¥êZ|ø í$é6…10«?nòŞ7Ğˆñ¤²!5J%&Ä)9ê¨z3ÑÇŸ÷•‚\Ã(—èFŞë‰®^ìK÷)ãg(?à“IàOËR´‹ºÊR&8 ‹(|–šÁ§ƒ¦ÌÀbieiutD×ÆÆı©mß4@-möşÏşŸâ:wr¿Æ¹gÓåø)õF·6Õì£hìª_Òµ ïÔ²>ºÜóÀì¦Îñü¼?uÜH¦á¡†õÄw´†ş0šÁêUĞÅ›(Ì…CkäØ¶ğz_iTMd×ôAÆz¸|Šn(Ğ±‰cõg í»-ÖÆ¸”!Ø2ˆ£Õxˆñ1Ê‹»Î…)ùD+¶Z;òg[ıì¨Ÿ»êçú¹¯ßëİ?bP¾Ã#~Ä“ÉÒÃıƒİƒİx¢¸Şnè»­Éè˜ùäZÍê¹ä@ÏîPÿr¤‡×ï´sæ1÷ì¹y‡öşŞ°Ô<ô°zÔv.¯¶†G[C¬­AÖÖ0këå´ræÊ÷íçü`n®‡íÁÁá^©¹¶4ôı(òÇ–+†‘ +˜†İvc•äkz.‡™œ„‚è¹ì6Õ:ò'‹=uÍdTßwíO	Id¦`‹¼9È9“/rg±Ğ™UÖŒÔĞø#H±¾°FĞƒÑÙ,°Ò¹½…¯ú¾}Ó{ğ[ñmıpşÒjíu[­mx¦6¨tïLL¬}0÷¼İk3Ş7æwz¼Ç»½İ¼Ç{½½¼Çû½ı¼ÇÏ{Ïóôòöóõò·[½v+÷,4w¥íN¯İa“œ» š¼ç{½üöû œ¼çÏ:yÏ <yÏ>yÏ @9Ï;-€PŞó6€(ûü©â†,MƒObyßï"ÄäIb:Œú‘ÌÉ¬F2{ë{6FÏ‘}İjçÙ#ÂïÂ¾0œË,×e’ĞvçèlïDv÷O*;Ê¡±G,U†¥Ï—¥?U[|‘­ÚğMÒÚêı~%wé»t(ÅŸb¡ÁTÌG37,ğäŸ—‘mlv`ö@Ã'ª?À……ßsòõ"\7RM¦'â%<¤¦ŞK†w·÷\£íVöh…E¿›¼l7ßÖñ}Ç0ÒÆGmpzHé·M~ ô"­ˆGj1 •lSbˆTÎËÜEÿESÊièğf)p•&“•X¿l\S€bÔT:[ÓéÆé;DKª'úìä½±æW™r¼nNª
+›Óç(Ùgm®€x†ä0î«$ÌÌ¥Z­.Õ*Úıé-8Î&šU…ÎµÓöjÙ«øĞ7SÇµ>TŞ"îe¶w>@×¹3¯ÚâCcK²šé¯ù ,¹M»$Zÿ¶šÓ2UÇ\Ë»=cX’-`º´2%ùcÙ\é†´Ú3î—¨¾-RªĞ!Æ*>(¸Öš¾<²3wùóRÖ.YßëÊ‚÷ZzEmRÓˆòëòU:¦3ñ]5ïU-2İgVüz?/áT†İ¬æKzQtt—Ë5 ×’¾·»[ÂÀì( ëÊñP0–Q–ŞAUôÉ’—#Ç-«ñ€ªyv}7ÛSY¡õùÓºLÆı‹[¨Qè¡;{k]8ô×_Wí31¾>ë˜®û(MwP	ÀÚ¦29ötT×‰;oÎ|3aéª5¦¼^/×j¹»†Çh[™.ŒZ¼çÆ®®;VâtŠk¸K•È6æ4Kê\T¦Ô¢j,c'i/ĞwÎÅÈ%ß3z‚TÌ	íC,3'ø`DúŠ!ãw†eE¼‰ì>ÉóÁŞsù°†MõuÑ®Š…J&äÇT¾”B4UDcöâ6>tÀE‡¦N©]²øÁ‡¥9ˆËyWµ$TnÓZšâzšËB¶¢p“XÆÁöY_Å VI±¢¹b=•é«h4·ÓBbÆª¥÷‘j)Û´Y<”VŠÊû¶ÌÍ
+Mò-óŠªît¾}Å±Rœ|-muó>Ò¨æö˜|òD×+³mˆ¨âÈ½V{mYp×xàD£±ˆœAï4şõEsÔæ2K!kÌ½„QhM½Èq±Àı4š‚Šß¦	|İä½ï@ÙÂV(ğBF­°*=µb²`®JNŠàwşî-mE¼nbâÂÆËXMòpñ—¦=>§n$q_áè/¹‹ÌE>%ß2_^—ú¾+³lihNf²Ì'ìü€_^SıõÔêºğÒñ&X$ÿf"NHåDÇú‰lCïD^~sdµØw§B>h·0_ºhê^ô§Qä{½³iì€ªşÀIÃO¬}¨Mº·$BUŞ¾æØx¬*–œ‹–§Oo!å×¨şóÃ÷oK²²Ş¹øŞ‡Š¶½î7<Œ>ÈnÃ£òQ‘`ˆ“‰ÑlLX*ôV&ËÙØ%:o†ìÆŸ²¿+³6^)N%kñí UêQ¼€”.³vB–ŠZ5 q§FV­ÚÚ¦Äzõ-p¡AƒÃ@†ch&=ÃâD}Á¦„©Íf8w*ÖĞĞ^„lâ‡¡‚¾\ƒìôİª†#]ÉKÈKTi®À³İ´Ù_{®&T]ê¦K!;şèNƒ*îJ…ˆüÿöµ»mÙïù¨ÏÙ§mÉcÇm³×IšMv“8'VoÎnNOIÅš&T>¬zwıßï ¾dŠ)P”,õC*Y$óÂ¼03—ı“V–°Sl„ªıÂ¸ÌjM7¯œÛpÍÂŞuz7ã˜÷RwdÂÓÓ)x&ë¯Ó$\üøé×ùZüÊú6ÏQ÷…§P;Eûœ ROu„[y/a©sı›BâH´­ĞiJüäè,ŸªéÒmD¹©E<…¸åØğ32Í8XC+~¯²B7–&A*Mc=&dnRq»Ã’ğd ­¥h;elì?»¶ê„h¶wÌÖNRSß’ƒqrAŸ ˆ2P•¦Zu¿ˆG¦.!ã-Bi.^Ó•M2º Å2ˆZ/«^ê”‚S—F¯µÖ¢*1”Q:ÍŠª(µ#jN2È’6…`uXÀÂ™NtĞ4—Ì¤Ñ#­¥úV‰‘úa³‚,¬¥n­Ä½({PW4ïøjTiÔº±ñÒ¨âVÖW—!-ÅÙƒ÷ÆxİñvÆH‰íöƒİ§âGxš»—©‘K‘­Z¦T#I6K—Xºû	6ÄW¹,»\ô¤wy°˜4lœo:GOñëg!{N—ªÙÄ÷Ò !÷š¥äwöEz°ûNz»‹k92;àâ/ä0~oE¼, ósæ™½Y’àÜ[*ğRæüRÀÇşœ3z ¶¦ ëMËíYº6Vy½Í£˜»iEy\VÆ\ËåNh‹Zcê*Ko,v*Vaºš‰á÷é‹Ÿ§†!Ñ0D#*N¢A	³¯’ÁÄ8DŒe¼ué•ÌmH®ñ Á„Ç“½¨˜
+¦Ãó±«MˆòHâÈî˜ûv`ß0‚©ì’âç'-Ğä â>,"¢›{ËuP`v9T óO8paˆ1]‚`ôIŸSÏgæ{ ÕŒYßÚ°½]¶w¹×İ9RÓ`—êÂ§aèÀ›`İøÄ•½Şnü½©	¤×—¦ÓÕøÂxÒZ‘¥PS`Ëh;sÃUˆdşaÇj?ïŠúòÿj¤¿aåÈÃCEE»TTéKh4#®º=.{h·káæ™1óÙ¡‰l±õräKa¹*Î*#ŞºOİ§o—šZtlø9T‹ğÛC+£4~]Û.À~{=“èàAEÖ§îÁÓö‡Æ.+ü¤òüùPf6:TÁ˜‹-¸Ó¢¡fd²DÖæ¦lOA¢v;‡ N­ö1üû5ªÿû¿¹—Ìaş/ëuæT~ ­3æ&.ˆ¦yî#·]h oş8óE c‚ÍßBhÃŸsƒh2²û#¢}™ÇğÅú&sÂ»7c›UîS§èrÍ2âsï‚ÇKv+`n5Gó*£À·/ç&š…çOğ‰%½H_)Ê0-[`Ä¡\p&˜Ç8ú€»¯ŸÇ‚=rçJÜ,9¨+pA^`qQ€Ó
+<ê¢»¶o»MzUFôÙ§/>Ê‡‰|˜$K¥(î9÷?ĞqÚCÏ…¯BñQ÷	Â{¿³¾j]8À=W¾ÚrÇá¡²I>vVƒl¿G€>w'Âûw4KùóáQ1‘ÇÀj0¯>Ï|r>}ûí#ò-ùælO˜Œ\Ú7ÌM­?Ù›OƒQWôf#?w_) ´dXÑW±UÃ/{ğ8¾ñ¿â
+'ùÏ=LÜ‘Hı VÔËg¼¡Îkrß0}7Ò‚÷»Éšó_ïqî0êŞ¥Vk
+€!@–
+¢â-óÁ˜)¼.ogúä?»÷6ğ_¼µõäÆùÈşR IÁMÏ{ˆãyåb'ÒSpRøq¿@_¨v÷’ï$Ï‡ŠeÉİn¼À.WO8a“»ºTÓH*µk6‰_ˆÑXòÄ7um.U¾L1–¶@6]¶,E0˜[î|¥>K˜Ù|æQH"[]s|­`šb‹Óô‘`Ò³iu)E7½y7a‡’\ KçZ‹AwZmQ]Ü>É8(.ö[¤QéÜe®ÕáWcY¥zª¯m i×YêªLá„²RX{úŞ¹Xn¢w®ó½sgİƒÎi»c<ØQ!
+èŞökÂÄJ·º[°…æ"41dâfzmiÍ¨l‘x…²K€hrÈ<´ Y–¹—í,‚B±Ó±Ú‡İö³:"Àú•³¦¬¥ÍÁ¤[æ-GgÆY8ğÂ‡ÊÁY2xPüğ„“qññ‘+•JÆ~}ÑÍø§]¸%eŒÇ.m—n°®öY  ¶Ó¡aÙ±6ªœ¤Ãe¨‹şZ(ğ\=¦ís×âC‹b¨F€Ö
+¸ÕÃ<æû–È/.ı”fŸ¾x?.nyÀË†òqÕˆ*ºÛ~ñ¨Tf@¯ğÊñ°¬›‡C€\pÅÕw ‹ä"¿å/b-4´%¸¦c|]ôÄ¶ÿÍäEñ‹Y0VãR#¶ò™«®À:EĞh |
+‚ˆìîDsû -.`ˆ?©ÑjR¿âŸØ`gi	m6ÑQWÃ²ğ–Ùøo¢Ò.CÁ8İ…cñ.a*/ğ®*,ª „'#&bD™ÙlÇC@µˆH‹¤!)%iàaQUFæ^#\å„(Vvía´£<Ç–+¬p¾ßğ©/°>ù-	HhÄ¢ğÖ‘
+#%Ñ¾$””Ş”ˆã¤6&öQ%TPÃŠÓŠP‘w÷\Ä6eÜéë/wñ;o*-ræy@È ,¶ãZ²«–È„^¸	cW3÷05Ó×_öpË÷á•Ú†˜ŸòKŒ*cş°â±üq£|;’ø>&#AÆ=bB2HDƒÜ‹‡„Iù ?g€å{#*ÌJ	 oJ"dcŠ’wî” iÅ¢¢55V+w Zâ…/ÕÏaş”}]PÆ5’×ª‡3¥ıVB+EKaÉv?ÃÁ`"i/°Õ‡FÊµŸf®nÙóí#³‚FıíRc*‹4ãhÑë_·ŸÍUuúĞâ¾ÿl&äÍà¡\î]!¸rue_KMKŞTsõ†šš§KEQïÒ¯AXn0òùğLQ<ş_4ˆì¸$æå n˜'LÀ¶Õ£Â Æ›Ğa1GîÏÄƒ6ƒÓã½d}ú,Òñ|2ñèx,ŒD‡˜,Ä
+E#…k˜Æe ·¥ÔüB¦g»ehŠb±3_’üš{Ÿ<Tk
+`±m_Wmè²ô ÁGù,«ğNŒİü
+cE¡jMÕ™Q‹oMrtª•C—Ü³t<ÖÙ‚ú q¾,üú#‚-ÊPô¦¬dé•ÉÅD½CÇs #UëXt¸¹Râ·´E¯p¢èøaÏg„ğ›sKú#Ö¿Ú#¯¢“åŞZºâ`Àyµg‹T°ùyœ('#ÌÇŒ:bö*~fçLxjuKœópùUç¿,CV¿ÕèÓ\Éš×İeÄÈZš×w<úÌ€}[.f¡åS“³X_¾ C‚Ú’}oÚÆôYêŠgMÂ/·[bW‰¶6h¥dh£NÏêUÛ}&f&8ëkR˜ÔÈ,´ä(N1›4ëG(CG†VzVíæ¶iGkw³0y&KôVDœ–¸XOÌ)Œ4hı-šç_âÑGJíê¦R#W^K ±UÃtÕ0}˜i«`÷)ôÜë–slu2=Ìhë¯œiV%ˆüZ¥¨ç!(qú*Ü
+h[õíQ5å-‘\[5®N5®A%N[/›ïI}…ŞYbÓ®â>u¶pOe¦Ù©ÊIc%S{–®TH% -‡yeP~ÔVBrªt•­Ú:/ô±ºä…¹W0³îÙº^šs¼Z[%)1Õrô«õôÿ[°’EòÊäA–Gh-}IÖÓ{¼V £`]/(/xâ.à!P,±|÷@ù¥Ô7©ı\hà¿hC3RIsŒ/u¥Ó´u¯ti»ô—»¯0½!G\5êk [é<{3àªH2lPzz}Q1G5#
+·‰ËV-¼gÅü€†^Ğ‚zÔ#×˜5'Ë¦F %Ù—\´ê)XVz²(	ï{r|üPÜÄ°ÅMšØx¡§V%ëÎmÁ˜ù†ó'æÙ8ß’‹ĞMîe,¬¯åØİùşß|%œk+ˆ_Â‘ñP zĞ>=,Pcİì­oÉ>‡Cª\-ºj›É9r× ’ót×ÜÙ–«µ¸º³åêäê/ÀU[ÙrÈ–Cf!£pË![i‚C* ´yãÙ[ÙrH òÖ€C.h°å-‡4Á!µ!s™¥“'K§­-ínÊ5·e›ĞïÚÈ1_
+=ØøşKæ9¶k¼ZùÊÁÁ¿kL‰\Õ¢€$4ƒT¥zpñÚd×03¸È?GU»S=ÉŸóT”pzX”qZI…¨û4ñ‚ÍGŒØˆzPÕc*ÆëL•ª$õoíG®!e[´éÚ¿Ó4 ”"9W&@m¤öåĞÁXÔóìê7=µÌ+,x9÷İ}úâx†¨göã‡öã¦|©ŞfI1J€Ç˜ÄË¾frUÈDÜ“—OEí_m—„®øâ:¶tÆÂ„ ”]Zc1‘—™ªª9{-,/: ¥wá‡v@{(¨ˆ¥_¶?vDñQÀÆÛ©õ¯ŞøïùvÀd‘¬®ëÕÓƒ¯>Ã‘_ÇK²HòY÷›ØÁ()jY8Ê™ÚŠ(°o*o„¸²_NAÂ³dãâÍÙ¬«¶_ ­çûÖû`»¬oà¸LêÈİ‡¼¶¬˜·ikC³_¶¢UL3ÓF(®:ËÀD"ãÃ:¢ïåB:›DõÖPoçëAi¡­«™ê?ƒŒ­¬¯ÇšŠÊEiSÚõÓ½ò9Nª5%jö-åˆÉ§ä©Nğ‡Vû¤Ûéœ	ÿÅ‰hïÛtÿ-w/ıü£íÀ(öÀæÍÛ~~zÔÖkBo¾	zÃæ@B3F–°*m@Š0ÿ©Û9x{tôaIæÊ´…0Èj®¨]§,€§MkİËµhñ‚©’5ñÊ#“@¼­‡¯¨VÊá¶+wkÚõhı9{J:Â@ÄÕÕ5ùãœ²ï©õÇªgU€Ãå¨X!-µsÛÏTƒÏ12Ô½É;ò>ÍZ¿°]N]¯İŒĞOñ+9XÚ[ã£ÖÚªk]7FõÉ|mìˆÊ÷¿óøw”ïrW³<nPçŞŒæŒš2>5M£èÁÚ?fEŞê?ÓfïRc6XªÆêÑş•E-‡Âk#ËEÆjf¾³O_ˆZÅøZâ7Q‹8ŠÌœB¹—œ§:ƒùÄÆ2õü
++Å£¬ñØã@²ÜP··Ø8b;;Ÿà¹kî£ee]¼[GÅæ`4À²›z:ŒCoU7/Q!?oùØÇ“‹ŸÕGî;YÕÙ"ç}ôñ=ı¸\Àœø5Ö"óU`æÜÁ;/±OŸìÚ”,R®Ğa ZE#™·~P];sŸh]şç½ÍWLš@ƒ2qÖ¢Ù-Y¥Pâ]£pÍÕhOhÖô¼ÜµÂõìç^ıCÍÛ£6s¤È)2ì¡è‚HØŞåù;ŒsØ!#oXœGú¡j$êÕÅS“wïÅ™ÿZ?©´q¢!¶›Ëø|fµ;KmB?#ìdÃ)Í\§¯Q®š0ÊYD9é¨.x7lM#qƒ"d¥ãÕ`%ßş3¸İFzV¶zşº0R…ÆF'u²QGÁïØ t˜E-]cŸ9Ï¢èEÀNæ×4èĞ€?öÛ,ŸØ=ÙÒÊ]xì}úâB!êğÈ1ˆC(¬jñcz2cúe$`ÙÖ.ıÙf«ı€xğ9˜ëVùA}¥Ä½'xÒ"·<Tõ&ªe;Ä°7:úAì´ô{o¦š*«™lŸĞe›wFz¢jïQ~owù
+ÅÏÂıñâ^@Va³•8)dãqÙJ>ª(zèü„¼ä˜ÔnU
+ËEƒïâÉÓ}ÎG|"š@¥w>æÌnSÇ¹ÆP´P„çD´vì+–Ï½Gï¹?pÔèÕ¸%6%°Z{(VÂÏªµ“g2dÉÎ?“K+ø†ÅU~i±m;´àeX˜SAjøfGy«^œÅÓ„XEgéJ Ø£ı+˜¢EànvWpÅ?°ë¦öáƒ˜3$¤7cáVßã¾(œCÀâ$p`ó/CÇñB—|Æç[äİÀÔs0Ö.˜3´ºuı>Øs˜f[»-ÑùÊ±Ç°"1ÑJş÷œÁÑJ›İÈsÑµğEÄ=uø¥š,ø×»µ°Ô÷H,F¯üe¹î>3‘éA¥O¤úÑ_
+:QîF¤¾èxó¨Ç%;È§¡œÇ†3\ysÜ)? EÄé/—¢˜L€hNò€éÆæ¡ÿY.Ì"?ıiû‚¢¥¦V3g,¹Ñ¸›ûYvÿ*Ë!Ïc˜l¦«	ÉâV)²1YVWÅ;ÉÙ/…9wZF‰åÚugÑ¦ıZC+áƒÔÚu]^µr@4Z™¼JgÒòŒë`sÔ.Rx‘KÀ_û¤}»MûD¶f$ŸmN@ÿºÌö8-ó9wn¯ÇvŸüxÂ×aãŒ‰…ç‘œ¼—QÓy8s”ôg¨¤w»Ó0zÓ	¯”ÿú‰†_êeá4Uüƒ¹Ìµ}J^²+æ0 Š	óÑ!Êj³íöQy¼Ë!jònZÃn›ÌäF%Àßˆ9è¶Ël%{vÛÔôGëtß7£im)ßå¯d,%-C…n*±ÏD¢öÎlè[[ØŸCØ«CdìHêÃp¢Hí(øüu‡¤ú	Í›*c¶bûg0=Å¨¡ëÂ!^AFKÉ™îá¼…<Ö´%·€ºmšZšö‡&8İ$_¨T³b=–£ƒÓÎñœÿZªgÔF–êfˆşJ`KKÈ]³_Ú§/>#µÙwü1rRş¤œTğÛ¥ò’İ÷şÑØQ\ËE>)’«lÏ°>¯ŸšBöšæŸŒzäÜ‘Óo@Çâú9Ê!éûSk]Şzø³÷¡š0=K96ğÂ¸JªÊõ˜Ä›¼#„ ¡³øF,ÿ¢|‰2Y*N¶Ê|%ï¢w¥í«µríuùIŞà$
+>F½#i8-×q‘>¿D$€‰(ˆ8änĞ³G¤ÊP,jV”F<J´ëh˜¾H8ç%^mÓ
+•ù“OQ¢‚,!N~$ı—Ÿ¥ëyÂâH‰L¼sßĞİ(7 Mş5¨GQeˆã(ûTeifDÆö˜ï†°¾ÇX£Ãñ@šƒ°ÁXO$yvààîôÚú\pH–˜‘f=&…¼‚_0òxx9Š@ˆÏÁt6¢Å'Ôc§ÚÓÂ€Šv‹<k‘£yÚ"‡-r •í«C¡w+=ä°ÂëĞ¡ú»ñ‡ó«pLä¡q-WA:–Å¨o#º0¢C-Òe´§/;>×­O>,/êúæ’İcòŞU³=6ø¢NU+Ãå{Ø”qˆ¿=!!Çz2#ë7M×”ûTÛBÓOßœ7äWsRG'—A7•A+/ÂàXº¹J:c=58Ö¡Á±4ÇÒ-:‘NÎ‰ùµø|¶Jxt·µRŞˆE3;¯oËh9e=V‰í`B ÷ĞãõœƒæES*z9­³Få_†q¨4ì"ÉõùJÁ[í§µÑüúb7>P–yRIoÍØöµíPÓ}"£S¾D@&²UNK(ùşüÓ6–KšÂ£9Cø¤.•„id>ê5ÁÃÖÀØ[C—tÊóÍFšŞ‰XQÚ”·˜vPL	ßiP‚n6…q­àÌ•—óá÷ º€o—3OVC(¹
+<¹Ş¹õ?¥`]N7HaÇ¼«¤C®¦v`ò6©˜ÔZtOÎeŸè&5]¨¬vPs¶êÁòÕƒ”HÜ8ÍÁÑCõØTÀêzxjæ¨dÜ«¦€)Xlµ‚=@Çcå¨õÍe©´xÆ¿”°U6ö¸i¬|	H‰1õÊVò,!G[yòdÇZY%zábàQ}í9IfŸ¼ÎLŞ]œ““gíHé¨ÇÖ§sÔ#©$CLy$u/1/C“¤CvevÎt¾“]™œó¤¥Òa%ı‘Ç]îğK»/®—ÂÌ“ÕÇåÈ9œÑ*ñ:±ç1sáÜ¢2·¸u+–§
+€Ë¬!u«UFÆ¬om¬2>µ‹]øWÓö˜¼×L	íê1Âl‘ã9Ä[ÎşP}²ÔDOx(P4>şåŞÖeÆ’ @Ke-°ÅÕ^~b
+3/ö¦’CoãlP™*(F::]·ŞÊr}çÃîˆ‰3Á"¯³Ó·Tj×qbÜÇ¦_¹Ã¦JrÌs¬­ù.×e6"·Èâç’Fz«›"ĞJ©	SÀ4p:æj$5çŒjoı&ŒCÖaÉ½*ögåìéuCñÌë¼9RKO“](¡k“tÜòüĞYà®–®×´’+MsC c8¬,=§€.-]ká«‹áë2±2‡QX6#µ’»…5€º©“
+²¼ò×S”¯¸LÊºTz¼eWHumØO£
+ô6ëv¹7£ee~ç¶k|¤.Àiµ19°Ú‡$úØi'ãOlÿŠ-«¯«ëÆü·¬^Àê˜©Û'	«%¬~||^×kzuó\¥±çU¸ä¡¬v9Æ²‘Âu*{”¸âzxÊaê¨ÇÔñ¬‹pÙ×Û“Î#÷-|ºô:¾îî“ßĞø[âò$\ÔŒœöûÆ¯èµ'¹ˆ*‡ÆíIb×däèÌ6%©Å#)Ğø)‚F½ÎÉÔıñ%9ï]pæ»BqYõĞŒŠ
+ÊøjêÄp8÷€<ï9>.Úù™&Sqô<Pû3Ö–º6æÓYıá4¤Pgî‰iÁ¤¦›E¸nFÀ–`«ìóU&XİTU#£®©k±P…ÂÒO¥JGi¼½O_|H=%ûºÍ(&õcş¨ñú”DU“C„ÖQÑãï,ªA­úâ‰Ş}X½~Öàu©Ê3:>ob_"äª§V§¾Û¼sËl/Î&IZ	½Ÿ¿ G:~„1ÊDĞË¨ˆÅV½œ ®z[¶Ã¦ ·2Å!§YÌÈBÖ'‰şÈj6&(ßãÅ»ø„´ıÊrÒiÈèhDL®——ôDÊ÷ærşÑlã?µëë¼=ñÏ¥›¶sô—á}lºpB>}¨¦+IDâ¨gÁÉ§)ŠT¥“‚‡š×•d¦&Ö¯Ù! ¦0±bã¦ËiÛ8O®X¾ÏÇ'™;'İZh¡¸!½FIÀ,ÛµTó:§KÑkØ}PØÙPµÄË¸YŞÛWlbû¬EFe.9şu½+¥^16N»ağaLjŒ‘/æÅk6fòÒˆºÑc#Š—<Ù\b<ñ	o€D%•ÇvÿJöÍeÜ•ß0oè`Ï*råc½\XRLXï´ìÄÄw¢wüQÔOÜhé‹ò²°3P–ûÔgµUßú¦L£Ãå6äÍT,‹ùÉ;ÒI.zÃz^H½Û˜™‹GÚÅBŸ%¥NÄ ¡â˜!Š¥
+ŞJÏğ¤‚6d½‡¤wÍJj.Ù«hãİ,@vŒ×Ø1!>ÎÆí”‘XS}"ÏŞ>ÇY±ô¤D‡AÊK1í‘.K#sÄÛÿ\ßë²{*éeƒ¤áSÓÒ°ˆ+ó7«iU÷3»Ç~í±é-Õ–Ú²[ƒ^¢‹skñ¾l¡İgÅ}f¼‚]0„&"ÉO‘ığï˜ÏkÉ=u—8¼OéwĞ/ğ/î&m¼±PlnB¥tRÌè!$"~É:e;eµ|Ñè8¾~µwÈ¦cÌ#Ä>qã XzËê©Ä±ÍõÙ}“î¿¾Ê%İQèù"-¦kŸœ>="¯¨cƒ1áÚ²ôÎÒ.¬Nu—ÀÏœNq‹"àÉ?«^Ê’M§]Ñá9ÎÑs{F§éûwr}ÑWx¹ÁZ¬R¥ÎŞP'dy—Ú#ÔY$ºÓ%‘.Vï#^vïßh2sIwòu±µ”ÌxtŞnâ×ïíf"n9PãPë²AÁåz¹÷9è‹İ	æjIrî½9·ç)9°ğY—d¶ºóÛß%uBÒd¢ıÖDïÚ^ü|Œ¾òoHY¶°n3Kc)åAT§gjà ^r€¦ÏË€Cr­ï~‰àlz™Y'§˜¯?0Ñ¹à[¦\®fbwY¢Ø¸Ç“Se7’£§Ämmc®ÎÅ¥šygÄÜ+oAQp¤=ØJóÀ¯±öpäôQDäFt<f è!É–åÈ*ŞjcâµZ93]fnåÓ«–ãà¨ZÎ¬\EˆÊŒ¨õ>„V\¸æN=C’Ì¸­U6øšWë=J™/ËíÉ–>:v¾”ñg”¯«¥—U*{Q¢|ÕûÄ ·È‡’#PÜ|º¬¥>èğah8»fİ§ûï¹ÿë™{Éæ/5®5£ğ&]¼dÀüuá$>
+V'2Äxh<ë—ÂçãÓvûkª~i²şÔÍc ŸBvHqÜmSlõÃÎ¨+6ÅÂÌéj·´ÙäÄµ!eu]²7„híÕ©€”<ëÎ†ó6ü¨{‡\Gİª	MA[™¹•™+%3ŸZíƒnçY­F[N²‰"T¼ééİú)'Å/îÓQ Ÿ‰| 'ıä+ÓÕEÏf~½Û"[#ì9vŸŒ¸cã ¢Ø¾LôˆZØq/öi´d‚]àQ²ÓóìÁ%Û™À†·{@Ó72_D&ào<[•ù}D‹cû†8I®¦€À†°æÂ»ÃáŞ£î³‡O0+Be`CL/ÁxcYÉ!¯ÒÓ2YÉKäÈD©ö=†W Pà‡b[™Í(lVnG‹öI=@Éà"Z
+ÀH¹bº¾Cb)4áX9˜š™s".­¼¦·wñˆ²‚s+“%Ôİ‚¨iF^îˆ¸ Z(ÀUó	àEŞNô•+ê„ğS2£F¹€¬%MC.ğ“ û[	Nò$MCX[v!\kGh+r%îRhn±„øûO}0Dx3-Å‹!æOì ?ÒECÅ²h‹Ç¸gÇ¦
+ÉúE¥Ş5j®é…Ò.ô1ÛšZ^A«òËû’ñY^AKÌòËƒÓ5½¼2ªyTóµíVè9`–=ÖÊÃÓïÅk/Ãá* wÍ›ü5^'Õ„hu)¹ @W’G¡¢d¥}¯%—ÂÄÃÈphŒê›"ä‚*Şå	ù‚†—WP½µÂòB·n¶ªÍº”¸XšÄ¬ZH=z¯µSÊúŠ#3w}ÅXÎª¹;ÛyÊ4¯Á9`lüS˜ë1Ñ-âNŒUÎöé^¨z
+>è4Ë©pMÌ¸€:x.h3teÿıyÚ%:)Ì7{˜'z^nå	¹WÈÚÊ­ÜiNîtNÊÕçÓŒÑá°k"Îè€8aÿª•ĞøñİFS­Ä[DÓj¤ûÛVâm%ŞÒ„M&g€ü0äh–şÃşÍ„Æô+,ôpÀ0\.#×*üêp:ğ1:ocˆE”˜ Ãª‘éŒ±Ú[¬×Ãò4ÌÛ{DşÉCÒ§‚ZPT¡…Î6ıàcŸØs¦HÀ¹ãË+õŞ-†¢yàœÛo`½ŒÇUÿŸÍ&²f*÷Èˆ9cÈ¦Ê(óT&8Œ‚`ìŸîï_ÚÁ(ìí€İú‡Ï|Ì}êXZÿ‹¿ÙÁÛ°‡){j–ıLşPK~õ“ssW  —9 PK  /¶1Q            
+   index.json…ÍNÃ0„ï}Š(çÆvR$Úœ8ñáÂg‰·õOäİPÕwÇI8T€ÄÁ–µóÍŒíË¦(Ê˜pÀ İSre[”–y¤VJ6»ƒ ’cŠc$í*?Æ¤ì£!ib<½æ%,{Wnç Fv0Gtßd‘É³‡Àš1†ÒÉXœ C¿ jT¥U½ïTÓŞÚ]-Ôşşy…1ôğñˆ‚^ñepS™€â9 ,^ò`öx=äk×Müë=ozÊJXäíj!şt@€_”0D·6Óq¤NI`9XyŠC@ù®ÒlxpùD,{Ì›ÃÁ²ğ–¨ßõÏŠ~zLH~ñä¨ëæúPKíI9ü   µ  PK   /¶1Q               images/0.png‰PNG
+
+   IHDR  „  X   :Å(Û    IDATxœìİÙ’e¶Åù%!E1TÃ§yH „¦dQ#U§«Îdİf§9X{´u·õ+èâ\õ#è5ô<‡^C}±ıÃıå‘Ê˜Öş/37¤ÌTşr{D¾Â'‰B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„BÈÒÓuİÃ®ëÖe2™ü8úÜÖd2ùù9¿ÿVÿ½On2™üØîÑ<ßsôï>ÏÏ¶[böEfÑ!„B!$AÆ…l2™üÜuİÓñçÂç}‘YôcC!„B1O-VÛ‹®ëŒö>é?¶Õí²7qü¹Zò¦KG-“ÉäÇQ±{2ıïvóÆ…pôçÇãŸwêïÛÎöÎ3{ıx«_¶º®{´İúèÿÍ£Ñ÷©ÿnkj¶§ãÏğØlëí°~ö|lfB!„B62Ó%g›ÏÿR§ËÃ¨`lÕ¯}®­‡ã7ú7¥géxånŞv…pôs>ÚíçÜfö=÷îö³Œ×á6ß{küõã™G¥ìé6ßëÑô¿›ñ±ÙÑÛkO?6„B!„ÙcOÖ3EkzÏXÿñ‡;íYš.ãï¿M9z<*+;z;ì!¬ßã—2:5ßN…p§=¤³Î¾µË÷hö@víÃ¦¼m÷¹İİÎÜÎÛcïøØB!„B’dºŒŠÏv{Ş¶¦şÍãéÂ´Û÷îúC¥áÅéo‡BXàÃ©¶-„SŞ3ÅpÙŸ9o|Øçsm÷¹éå™¢6şùvóöXÇ;>6„B!„dé¦œc/Y³Wnê{ş²mºœÌRçØC8w!œş÷9û3…p–Ò7ú^;–Å=«İ
+ë\…p»Ç†B!„bQ‘ØöğÊ©Ò±ç9„Ûì±z¦0Ïa›qïÕLçÎ[w:Ôt‡½£³œC¸]!ü¥\îRĞ¶;‡p×ó·ùùæñvüÙ§Ï£$„B!„˜§›:l²íå®ÿûô!†[£¯şÜã©OÿıÑnee7ï >çn|şäL³oWû?©_;}õÎ®=4´¹pÌôUFwºâç6?ß¶Şœ¥»¹¨!„B!„Ì6‡ÍşÜqî!„B!„äÈÔ=¹ï!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„B!„äÌ!I/lÈrhAë€B!„BRæ5IeC–×´!„B!$ej!¼¼æ…B!„B8µŞt]Òµ5[®÷?Û¶…°ëº­®ën³<¬Ÿ›L&?îôçí¾×ôÇŸ7‹ú¾„B!„ò¼Â‹Zıa¡ÓËEÍV·v’BH!„B!ÏÆ¶ÄÂ©½[ıÇt]÷°ÿóÃ®ëîñõBB!„BÈZ†B¸Í×÷Òuİ£şÏ¿¿®ë>ş¸ëºÇ{|=…B!„²–q)„¿,“ÉäçñçöSû¯{:õù'}Ñ{8.3|=…B!„²–q)„º‡°¼m–Gı×=©ÿ•¤¾BH!„BY»P·ùúşëì´ÒFeï±ôK!Üöë)„„B!„u…p›¯ïÿşËÅcêÀú¹Édòóô÷Øéë)„„B!„u…p›¯}¬¹·áèã¦ÏÜéë)„„B!„uÍ¸^’t|Í–KÚ¥B!„BÙÆ…p
+!!„B!„pj!<·æ…B!„B8¿–ôÎ†,¿^Ğ: „B!„B!„B!„B!„B!„B!3¤¿)o½ÿÒ£]>÷Ìı¢!„B!„lh&“ÉÏã8.~]×=îºîqÿçG]×=YÕÏI!„B!ä ÓuİV×uOwùüÓÉdòãN'„B!„²¡™L&?ö{}(eq|˜høèÃÕıÄ„B!„B$“ÉäÇ©ø°–ÀÑç(„„B!„â–ZúÆ«¥o§=„?ıôÓÿH*3,ŸÏøu½\Näfš5››iÖln¦Y³¹™fÍæfš5››iVÖñr–ãÚ¤lwáx/àsCøüQçIIäfš5››iÖln¦Y³¹™fÍæfš5››iÖU¹™f]¥»ÿŒ¯2ZúÜ~¯2J!ô4q}M\_××Äõ5q}Íln¦YWé>_F”yfàøssŞ‡Bèiâúš¸¾&®¯‰ëkâúšÙÜL³®Ò]ËP=M\_××Äõ5q}M\_3››iÖUºk
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍºJw-C!ô4q}M\_××Äõ5q}Íln¦YWé®e(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4ë*İµ…ĞÓÄõ5q}M\_××Äõ5³¹™f]¥»–¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬«t×2BO××Äõ5q}M\_××Ìæfšu•îZ†Bèiâúš¸¾&®¯‰ëkâúšÙÜL³®Ò]ËP=M\_××Äõ5q}M\_3››iÖUºk
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍºJw-C!ô4q}M\_××Äõ5q}Íln¦Y_’tNÒÑØk
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÌzHÒ;’.Jºßÿ÷I‡—ø3¬e(„&®¯‰ëkâúš¸¾&®¯™ÍÍ0ë›ŠxRÒÍŞ¾Ø<u(„&®¯‰ëkâúš¸¾&®¯™ÍuŸõIW%]“tCÒİŞ>!éÌ’~†µ…ĞÓÄõ5q}M\_××Äõ5³¹«0I:¥(k‹ÈaI¿Rì|OÒI·%}&ékÅÌÇ%]¿1¡zš¸¾&®¯‰ëkâúš¸¾f6wÙæ+Š=s÷%]Ğ|çò’ôª¤ßJú-”/öWÃ^ÀŠ"ø7IßIú¦ÿÜùşû¤…ĞÓÄõ5q}M\_××Äõ5³¹Ë4*
+ÚIIŸö¾%é²¢œ½¥(t¯*®:.Š‡{õ.)®z¡ÿïkıò¶b–cŠ=W‡ˆŞP2zOQ¿Tœ?xL\T†Bhjâúš¸¾&®¯‰ëkâúšÙÜešoIúPÒG’(ÊÚ-I_(öTµ2ZŞéÿİIIŸ(ÊãŠso+.s¬ÿ÷ïKºŞßëŠâwbô½Îöÿö•Eº)¡zš¸¾&®¯‰ëkâúš¸¾f6wYæ+Š½v·{ÿ¡8„óâpÎ[öè]ë¿¶î<¥8ğ^ÿo?U\æ3IQ”ÂZßW”Ã²ÃrjÑƒnR(„&®¯‰ëkâúš¸¾&®¯™Í]´yHqq—¢Ø»÷E	üwIŸ+Jİ–¤ÓŠ=xEğª†½}7úóçş¿ãåOı×ŸÑ³{)„{„Bèiâúš¸¾&®¯‰ëkâúš›èQ\Pe™æ,9,éw½qQ±'ï;IßJú«bß–b/àNî¤¢Ä]V\!´îa¼ÕÿÛ«»ü[
+á¡zš¸¾&®¯‰ëkâúš¸¾æ&¹G·U¸Ğ/§%½¼`sÖQ\èå„bŞÅáœõÊŸß(Îç;­ÙËÜ%ÅÕI·úåCÅ…f(„û…ĞÓÄõ5q}M\_××Äõ57É=¦áª'åêœ¢Œ-Êœ%GEõ”¢ôİPüœãbvcêï³.'sÜç¿§B!ô4q}M\_××Äõ5(6¼®Àæ±Å}Y±÷í†sìêrWQšf}nô¬¯(ÊàIÅÅa®kû½€û-„Ï»PG¡zš¸¾&®¯‰ëkâú™‡$ı^q>Ô}Å!lïj¹÷3ã±ÍëU<ÿŠâÆêß*.Ìòe¿|¦8ÏîışkŞÔŞÏÍƒœõU¥ëº¢î´'B¸¡zš¸¾&®¯‰ëkâú™¯+Jà	ÅŞ™KŠ‹\Ôğñò¶bƒüUü8ª¸ÈÆ{Š{«½°ŸÇ6Ÿ{Dñ|)Š‚õ¾¤·kø^Q¿VÄ¿+“õÍw´ûŞÂıÌzHqùãŠçò¯%½Ñ¯³Š2ø‘v?¿B¸¡zš¸¾&®¯‰ëkâú™ç²¨—ÁÿXqˆŞ7Š« ^Rì=¼¨¸şxƒødÿï.+¡;ßÍ<ç{I<¶ÙÜ_)J×qÅóëz¿\RÃÏÏÁ;ıŸoö¿¡¸—_½1ûks˜{å½Ş?©x>ßëÍzñ˜«ÚûÂ5…ĞÓÄõ5q}M\_×Ç|U±Ç¯Ş{KÒ(Já÷’~Ğ³çro²}YÃF{ıØEÅ^œ·çüYxls¸‡5Ü¿ï´â9sCQºÆo4œV¿ÕŞ¾¡î©»Şÿ¹(öNOï•wÖWÏçóŠ½€7{$ÿ,é“şs³ÜB¸¡zš¸¾&®¯‰ëkân¾ù‚¤ßjØ¼£8Lïb[ê¾âÜ­éÛcı×ŸWì9¹®8”ï;I_(6 o(ö0^™ógâ±õs).S¯zTq¨gÑ°×í#ÍeÍ®òY‹Ú»nMñª¢h¾Óÿy¯¼Ğÿwûïù©âùÿ@ñ¦ÈsülÂ5…ĞÓÄõ5q}M\_w³ÍW‡ÆÓ°Q~Sq/ÅpKqƒìzXŞnËgŠçïĞ_k8Äï÷šıĞQ[/÷ˆ¢d]T{Èç	Å¡—u¯à,{İvZÎëÙRyQ±WñâĞå‹Šçáv?ßkn0Aq®â×ŠçñwŠßƒÏe‹B¸A¡zš¸¾&®¯‰ëkân¦yHÃ<Ni8Tï¢b£ü˜bOÎVÿßY7Ô/+ÊäMÅ–ï{oh¸8ÇK3ü|<¶^n}>Rœ‹zSñÜ¸­öpÏç]N*
+áuEÑü|d]Uì©şTqó[ıßıûSŠbzSqxèç~¬ØS~}ÎŸ‡B¸¡zš¸¾&®¯‰ëkânyXÃeı/*6Z?Ôö‡êÍ»A{LQ
+ï+Êä÷i_ÿW{üŒû™÷ˆbçkš­tsHq•ÔSıŸ—÷çñaÅó¬îş£¤¯$ıEQØfÙó<ïsğ’¢ÈıM±ÇúçÆ~¡áb1g{ë!ÏõœØ+ıÇo(Ç÷¿#»]Q”B¸¦¡zš¸¾&®¯‰ëkân–ù¢âüªzåÄz¨ŞAoĞS»¡_oàı‘†‹‚ìtEHişy_Q2X/bsA±h–Ul@_PÙÓš¿P>OÜŸÇ¿V»—íß4œg:ï·y–s’ş Ø#ùŸŠC?(Jb½ğQ]®+Î<«gK_İc¾ŸŸB¸¡zš¸¾&®¯‰ëkâ®·ùŠ†ûşZqx\=¬î†¢D-kƒö¸†ÛYÔRø¦¶ß#7Ï¼‡òçúy.+6îo+Jé;;,¿Uì)½¦8œğ\ÿoÎõË^7;?¨ìç±}Q1ÃyÅz}eIî<_¬è¶¢œÕ}¬Ø;8¾bèA/Çç¾ŞëízåÜûn‡rRóïõ£nX(„&®¯‰ëkâúš¸ëiÒpµŠğ;Š=hõ2ı§µüÚcŠÃñÆ{&¯gop|†k(¹÷5ìíùDQ>×P>§—³ö
+nşíƒş¿÷úõó–bOæËÚ½ Şãó»eŞÇöˆ†9)~ÎKŠu±Hw¼¢Ø]ß¼%éOŠ‹´ü]±Î¯jñÅè„¢ğÿMÃ9€}ˆê2f](„£P=M\_××Ä]|^T¼ëı+-oÏFM–u¼Jw^ó7Î“ª{å¾Qì)™çÒş‹Ú ­ç“]Q”¿wÏİ7Eç~ÿñ£ÛÌö’†{×Åóş[µW7} é¯n—±ÓrWÃ-6¾•ôOE‘| íÏ«|»ÿ¥(±/*JÏEÙ~[óÿşÍóØ¾¬(³÷F3\ÑPüåÎšCŠõSÔî‰®÷¬íi-· İÔó]Át¿…pB!ô4q}M\_w¶¼¦áp¶Yî—UóÅFñ–b£ğ¬8ÊÍ×|W±~]±wğ+EÉù£æÛC²ÈÚsjoPolA±—ïtÿç—úå÷­;ŞîšÚ+B~®(KõŞ‰çúy§—“ö~Óÿ»ÏÛß*öbİÒp~ÙÕ~}Ñpˆáñşk®i8÷ì‚æ¬fùú£.T·Üê—Ûı:ØRìÑœµôóx|_ÁzA–kzö6«(I«*fÂ5…ĞÓÄõ5q}MÜ½ó{œgÇo+6„_U”¾75œ÷T‹ã	ÅáŠÚz8Ü-ïj‰›²7Ù×¼¨8Dô¶b¯ÙwŠ¢´¥ùö”,zƒö”¢pİÔpW=tóº¢ ÖC)Ûõ&ä7úÏí—ÛJÒı~Ìò3Ô{ãİS\ò3Åï_½
+å%Å^¸ñU(?ìÿşµ¢ ÷Ö]ÓpSôY²Ûc{XÃ·Š«a~Ùÿœ¦–oû¯{W³İïñ Ç‡$½Ş¿“î+Xo¿%‰B˜8BO××Äõ53¹õFßk÷«(ÖËÜ¿¢(yõFÍW5l OßùDÿ÷3Î!ºÑİ-IßkØ0½­¸Éòv‡Üt²<¶«tg5_P¼ap^Q¿W…[ŠruSë·A{\QòjÉùVÒÿ¢(uuOØ
+Ùu‡ÃNŸ3Š7ë!±ãèËŠ+_Ùãë.(Šß}‡›~İÿœ·úŸUì­›å÷o§Ç¶‡Wz³ûYßü¹£áÊîÿ[o0K)ÜÏóøWŠ×¡z1¢ñ^Ûú3^ÓîëB¸ø…B8
+…ĞÓÄõ5¥øÍ²ï%ñØânŸyÏzS±¡zJ±axIñœ~EqÁ‡7%­näÕ¥^Øâ–bÉİşïĞpHÚNç@}®8WêâÒêß(6¿Ô°Qö;Í·ÇbŞlâc»iî,æQÅsë¸¢°|®8Œò3Åóé¦æ¿ Æ27hë½¿’ôïŠçôı×¿O§ü3Ì3ï9ÅïYı™(
+ø_å²Zú{í|ĞW‡Ì¾©¡<Öpä)çá} áñ«{Vï)¯­WÍ¼ŞıqÅS»ÒyŸÇ¯jx};£¡ŒW»Wp¯«vR¿PG¡zš¸æ«ŠwTë9P;]Š|Qá±Å­9¤xg¿ŞÓl|a‹ú?¿¤x§üWŠ¢÷šâ9{S±!~U±w¦î½;ÛÿÇ´çV(ŞÑ¿­aOÃxù›b£ëışg9×ÿûSÎ…:§Ø½§ØxşJq5¿?kØ@«{KŞÖŞ7ßO6å±İdw/óWı×ÔûıÕ[JœĞpEÍuß ­oŒÜVÙûŠ7GÖùª×G?ó=Åï}½âéuµ¿ï*Şª¯'õ*°w¿Çõ0ññÕ9ëyx§güyjQœ¥Îû<>¥x.Õ«Ä~¢xú¦÷vÛ+¸ªçÔ*ÍUºÂQ(„&®—ù‚¢¾¯øŸÉ'Šÿy~ ØÀ^Vxlqk~§áŠx§…ííı®÷Åáfu_=éŠÅñùGucñ#Åsı²bOÃ—ı¿¯÷ÎúD³ïuQÃák[n/ğşÈû@m1ï1<¬ØƒñâœëªfSÛMvw3Ó¾î!º®ıÀUoĞU ?*ŠÇ2Ëà~æ­Åíšâ÷¹ŞW¯^$§şŞ_é?W_GÎ+~Ç?R¼‰s]ñû~·ÿºZê/iş«cÔğúrR;—ÂyÇGúŸï†âMªÏ4’üåœ?#…pñ…p
+¡§‰»¹æQÅ”·¤õ…ëšâİÕñ= n*6pKÿµo*öÄ¼¤Åì9ä±Å•¢]ÖpuÆña™uoÛŠ=€×¦¾æ–Ú½|ÿ©Ø`ú«bê’bCï”¶/—§4‚U÷0Ì³1|R±yVíÆÙñ©y¦‹á{.™±ÿû"/›Éäng¾ x£(»zÅÎƒ,QÙ6¤Ú=Ş?6õ°Ïzà§Šóï*öèßU”¬úÏ}¤ç+õµ^×Î¥p–çñaÅcŞSüú·öøLÃy‹ëşØº<Ÿf](„£P=MÜõ5öÿî¢b£ôuÅ^ˆ7Ô3uRñNöÅöWıò¹âBõòßôìe¾‹âLo¨½¬ş‹ŠC¦ØÃ±æ&¸õµŒİÕ°ñógÅaQõ]÷+Šçn-µLİQ¼[~K±g°^åqwÏkï½‘ûÙø¨¦µ¾ßÿì÷oÀÔsƒêá­ódİ[wÚ|IÃù‚õª›èàïµ–mCz‘îIåğ3o ıgÿßïåğÂzÓ¥ğeÅ	¯+ŞÔz£ÿût+ŞÀ­ÿï>§x-û»â¢?õHˆûšÿ>ÂÅ/ÂQ(„&îzš/h¸ôwİ#qOÃIğç Û6÷™b/Ê·Š	|«8\èÛ|íûj÷€¼§áıu£ümÍ¿‘Ç6¯;¾¿×)µ7¶şVñÅ7ŠçŞ^ÿ>®x·übcï†æßXZôÆÇ¸ÖßµzõÉú{ö±âPîUİÏlÖdqë…GŞRÁñ%şë§ƒ*ë²AëîÒpîáŸ4\ôÚ;Ó¥°>g.÷öyÅÿSë›©õ~µÑğ»¢xíøXÃağûy}£.çùEúP=MÜõ4ßPü¢C±wäîÑtMñ?¡zIğZêN(Şm¬—Î®ï:ÖryJñ?­Ëzö°›ìõ2äµŒÎ{ş!m>÷ˆâvõ9XÏ·ÛÒpeÆ[®ş9Ï—cšÿòşËŞø8¦áw´îøBñû÷¹†½”õíWµıø—eä-ÿ
+ÁëöœZDŞÑpá‘+ŠñsŠ×Äz‰ÿƒ:_p6h3¸õŞ‰õÜßëÚÿÑ»-µÖÿ/ßëÿü†Ûy| ¡Öû=~¨á‹§7tgz>
+á(BOwïÔKV×\¿¥ÅŸtFÃ…ï)ö<Ô«$^ÑŞï"Öòïçgí¶S»¹¦(ßiØÃQ¯êvvÁóTø½]¾{Hq(TQ»·ìº†«ŠÓp‘‡´¿´MØè©7äşTÃá±R”Ä«Úùíß*.dR×ßVÿßcÚşğ³Ee]S‹Ê+åıZímõ¾•‹(«~gr)ŞpZôÅs+şßøgÅ…`>SÜãV¿|¡øÿæø~ã‹älò:Îô|ª…p
+¡§‰»wêE"ê¹Hõ²‹0i¸÷ÚWŠwëMzëÅ1yõ±/Fæ·Šbø±bwroÊc»©æªÜÿc¬{®^ÒpA£z5ÃYïµ	û1ëeóïõÿıLQ¯ª=Äû#E9¯á
+ŠŸõëğs{ò¿÷Ãr`q.ÅÆúEQÿ\ñZ÷WE_×çîúš·ÿÏüNÃ¹‹Ôp›šz¿G·½Î™OEÂ&BOwûRÒõ®¢Ï»»¢x7ù×lÖ°q]ßyü‹¢~ªØX¼¤Å¾x^é½;Šú ÿ9êy¯à¼‹¿·‹É!E1¹¤(9ã{Ôp­«ZÜ9~›´ÑsVQö.¨İSq¬_?çûÏ×C¶o(.šS¯’ø½†É´¼CGŸË/(^«ßV<¿PÁºñ^o2¿¬sS³mHoÒïí~–óŠçĞÇŠ7î(W³É³‰ó®Ò\¥K!…Bèiâ¶9¢¸À@=öÿ²b#m«_îj8ê‚â\¿YİkÖZ)6ªëU¯öŞMíïP“y_<+şÇVç­‡ªŞÔpµÄ7`ŞE…ßÛÅä÷îùU7~êŞ¬zxè"…Zõ†À2ÌãŠß­¯4œøŠÒò©bOã{Š×¥yUŸ7›ô\ş†£%¦ßœ;¢xC¯ÓZ7è®*»ÿƒ¤Ñpá‘ëZüã¼Êçq6wÙf½èÛßûÿÎûÆí¦Í»*s•.…p
+¡§‰9¢8T³(62Î)Nü®—…~0µÔsù).RğÒ³ßrO³f»2XË×*^<ëüûÿÔp2|½òŞ›Ú}¯Å:=¶ëhÖûÕw_Y’»ßÔûê]W<ÿï)Ş Åº.Ë4/i¸ğÎß‡ ı (†õõà]Å^úEÃeÿş¼¬x-ù@óıÔÃœR\œãªbOì›ıçê:=¡xî/õ‘â½ñ…G–y³ölÒî¿·u©ç.ômJÖuŞLÏ§"
+a
+¡§™É=¢Ø»õ¾†z“Øú‚~AÃy>*ùDÃ^‘[Š=†_¾¦nÔÿf{§Y(6`QúÅ³^5²¾ûù;í\
+³<§öcVlÄÖÃ	O)Öé¬‡ãî×İo^UUï%øo®¢y[ŞË6?R””¿)Šà=çe~¤ÙŠá~/BóbÿıìóßÏ›ß(Şd8¯a¯Êïç*ÿj—å-ÅkòûŠ×ßëŠ#¶4Üªç’ÚÃq¯¨½½Î².<²Ï©Œn¦YYÇËY(„£P=Í,î«ŠğŠ«Š½_ï)6ê%Ço(Ş­Ÿ ~L±ñq»_Şï?vZÏ.÷;m¿A¶İ¬/õ~½×ÚA—ÁE¼xÖÛ`Ôuğ¶¶ß(ÍğœÚ¯ù¦†ŠÔçÜÇŠçÖo½³œ3¶èY_T<Ÿ‹¢~¯(‚ÿÖÿ½Kè¼!°
+ó´â0Æ3£ï]öáèsµéÿ{^Q²Î*^ófÉáş{]èİšÿ63óæ…Ş9­øy¿Òp‹’ÓÚ}ı\Ğ°'µ>¿TìM­ç{×{¬×Î¥/Ûm&7Ó¬¬ãå,ÂQ(„f÷E‘©Ë·Š•/t    IDATYu£üŠæ¿ØqE—¤w‡BI±aÿÅÿ{Š}õÿ-Š½‹õ<¬ÓsÚ«zñ¼ á"Çûy§÷*¸?§öcÖ½ÑõPäO°ãó5ëï*7»í­YÔ¬‡{Ò‹†Û—|ª¸ÀÑ·Š+2Ö=æË<<ŠáöÓ—°¯otÕ‹ıÔ½ÎÓ‡a¾ Ø÷Šâ¼»×úïq­ÿïİşß_ĞğZuĞ9¬x£áv?ÇMÅ…«î)Şp¸Õÿ<;-wôìaüß(Îœ~3o“[ÜÍ6³¹™f-¢6¡zš›æ¾¦xwü‚¢`½¨Øh®8¯+)ú­bïÕ;ı×oiØóWÅ;Òõüœ«jßßÏr^ÃFZ=„ôÍşÏ—9§e nÄÑp#äM»2ãÙÑ¼ÇûÇ¢–àûÙ–yÿ´C½vÉ®4Ûóø¨†Cƒo(ÊÕxƒö{Åóñ¦†çH-[ohûbxüyğ©Vü~Õ½æÓ÷<­(_*ïË>W†Xêuá5Åaì÷ÏŸz˜äíşsïh¸HÖvßkkôoôÿ½Õ{=O+ŞäxOñúğ…â…ñåúèí÷Ïµ–/ÏÃO¯é÷ûÙ7ı±Åİ\3››iÖ"
+a
+¡§¹IîŠ.t2}ÈqïŸUlX_Q\½¯^1ó?û?Ûî _0ÆĞç[×4ì•¼©Ø˜_¦‘äXä‹çxŞ“nª}YíUX£Ş$¸¯Øç– Ï›½Çõ¦í'ñŸ(.Èò•âù[¯ØYc®‡oì^ëòEÅ›§³S¼	2k^é‹Šß›—5ÁZÆ‡'~ g¹Ë´!°î³U¼–ü á¼ÎZ´>ï—sŠß‰KŠ¢uEÃQ	+ÎW¬÷ıW{¬ë­fŞÖì‡1ï”_ix~ÕûUÖ{µ}Şÿ÷bå,çõèşzoÖfüw›ôØân–™ÍÍ4k…°	…ĞÓÜ÷bƒÿœÚ‹|©x—¸^\àÆ6ËMÅ†Ò÷Š‡?i¸ÜøAï™;®(D7eß+6®şÚÿ÷+ÅØmÅÚ¢÷²,úÅ³òZ/8R/á~¿_´˜rvTQb~§¡<]R{ÈÛ‹p·ËNÏãÃ.{_ÏQ½®Ø >­x^Ö{>NŸ‹wJÃ¡È×5ì‘;£˜ñÅóş„f¿ Í+®Ìx¢ÿw4ª|FCıP;ÂœiC`Sf½©¡ Ö›dÿU±çpüZxMQßW<.öÿ¦ŞZçı¿ı»½ßä»Šó§Ï®·êySÏ¢ú²â–%õµ¢^8ëÃŞ®¯Ãõ5qŞ#5iÿ¯¡›òØân†™ÍÍ4k…°	…ĞÓÜw|¥Ã[ŠwÁ¿Sz÷†œóŠîSŠn]ï¯W7>ú.ãådÿ³Öwîë!Q_+Jâó¢ºN/õ<ÊúÇân?k½ÄûégÎmóë~½Uì•úyH±±ù–â³jŸW<ê½Çî¢/ŒQ³İóøˆ†[‰Ô«³^Ñü{1Æ7}¯Eû³ÖßT÷kÅŞ˜—¥¹.µÖó°jA¸§xãb»–¬ÛÿÙèÙy9Õ?–÷oÜ×P°Nh÷£Nj¸8ËŠçC½ŠçvÚzO±·ú¨âyVoIR÷B¾£x¾‹`}“ìš}İ=©øı]÷uŒ»9n¦YYÇËY(„£P=ÍMpëˆ?Wì¬‡F}®Øã6ë•k1üTË9ÿé¸b£ì®â‚uãM)Êî7®DY7J?Vì]xK±'ëeÅŞ»4†ö¦†½ãCO£¶Tlx~Ğ¯ÇÛJ÷Å!ouOåeì9P;eúy|T1ïq{D.êùÿgtYñ<ú£âùÿÅFü]EIÜëĞãûŠçş]ÅFÿ·Î]¼¢Ùß¤È´!°I³÷Àmw¨ïnËqo®œúøô­xêí)OõŠ¹õ6[î_Z‹`=üy§×][ÜM7³¹™f-¢6¡zšëìR{Èİ–âP¦¯"÷…`Ï9©(‚ëŞµœ›x¯bÖ›Îú§¢ ı­¬ÎjçÃs)ÊÊÇjo«¥®óöáèsiØ#üYÿµ[Š"ú}ï^è¿ÿ¬—ßßO+ŠÔQÅóõUEy­çŞĞÁî‰¾ªx#ä3÷ü“¢$Öïkı×]éÿ[÷
+>Pœ«UßPùJQ >ógÈ´!iÖİÜczöüÖ«Š7€>í—ÛŠßÃïÏÏíÎƒ]§y×mãn¶™ÍÍ4k…°	…ĞÓ\W·rW4rwUQêâ¯j7^ÅÊM-ÿªŒËõ”ÚCÏ¾P”—qÉ«’ôå%EqùNÃÅ,>ëÿíœõß^Õö÷;§¡şMQtêéùşkQ
+¥({õ\«zµØzõØëšÿ6&{-'ëø¢Ö½ƒ—4ºwY±~¯ôK½2ã‡Š7Sî+	¼ÓÿyŞŸ1Ó†@¦Yguë¿Õî¯Ë.î4ë›_<¶¸›nfs3ÍZD!lB!ô4×Ñ­‡ÜÔP/i³_P²¼xP“zuÃZ‚ë¹µ ~¤á\¶ºµŞøü;Eü£¢¸œÓŞÅ¿^Hæ¾âœÅz¸æu-fOá‹ı÷=©(g×5\4¨îÁ\Ô­DN(ÖázgBWËj½%Áé}øYËÙfİ{Kñ»>ŞK¸¥Íx“aSÖ1îf˜ÙÜL³Q›P=Íus_é?^¹«WeÜô”l/óºõVŸ(
+â]Å¬ç9ø˜†sªzOáëıÏ|UQbï(ÎÉû[ÿ±eìŞ”Çv“İL³îÇ=¡ø}­{÷ïj¸ÏêºÏ»)ëw3Ìln¦Y‹(„M(„æ:¹¿Öğ‹·¨Cîxñ\_·^†ş®†Ã/Ÿ×]D)<¬Ø³vOQ`ÿ¡(…ß(ßtº‚lv7Ó¬ûuëÅºNi³n±IëwıÍln¦Y‹(„M(„æªÜCŠw—ëŸßèzŸÁıÜhx_P²½x®“{Lqˆåó>zHq•Ô÷úïó½b¯à(ÎY¬evYçŠ®Ó:vu3ÍšÍÍ4k67Ó¬¬ãå,ÂQ(„æ²İCŠ[\PbtQÃ^ÀŠ_ö+ZìF5/9İz>jİSøkE*noñí|3ûW÷W+Š7-®+nòGIÿ¢x.ß×bïm¹	ëØÍÍ4k67Ó¬ÙÜL³²—³l^!ìºîa×uOÇËÔçŸŒ>·5Ç·¦zšËvßPœ{u\Ã9cã+QÎzOÁM{AÉöâ¹®ît)<£¸"çWé|M‘ÃŠ=‰õÛ§4~Z/ærFñü¿±±.³ân¦‰ëkâúšÙÜL³mh!|Üuİã½>×uİ£®ëÌñ­7±^‘»)f=îšb¯İK0Ï*6Æ?RœwuWqo´o´¿‹lÊJ¶Ïuvk)üPq¨çÇıŸ/)Ş¸©Øø^ÿõ§Fÿæº†2¹	³ân‰ëkâúšÙÜL³mb!œL&?w]÷p»Ïu]÷t2™ü¸Óß÷È¦Âz>Ú97Ä=º÷ ²Ló°â½‹ŠK…_Plè¾´@óåŞº¡8ßê_5Üfà¼_P²½x®»{QqQ˜{øn+öVßĞp_ÁúÆE-‚—´ı}ÕÖ}VÜÍ2q}M\_3››iÖ¢M,„ı¡ ¿Z_×u[Ó‡‰ö_·myÜ&›RßTlÌSóŠCÂ^Wœ´Ó9BÏëD–i¾®Øëq^q.Ô‡Â½®(o•%½¥˜ï®âæØßIú÷şï÷‡â9¿ d{ñÜ÷’âÂ0ßéÙkßí¿×Uµ÷SÜÔYq7ÇÄõ5q}Íln¦Y‹6­ÖÒ7*õ|Â­Édòc‚BxH±÷¾âız^Ú=Eá©ì{Šó‚^Ó³ñbâ-çÊqæ™u¿yQQø>Ò°·îOn,ü…†Ëı¿«¸ĞÆ‘¾×ËŠsìTj(‚ÇàŸ*6¸¿“ôWE¼­Å]Qt]^P²½xn‚{BQün+öPßUÜXşÅ%³ŞöbfÅİ××Äõ5³¹™f-Ú´B¸]jéK°‡ğeEÙRœtWq(ØWŠ½ ß(JĞûŠÃ#Ç€x[Q|^UlÖ+`Óp%ÂedÖY÷“#Š½§EQÎn)JÙw’şS±gä{Åµo*
+ôY{F~¯X?‡û¥^zÿb¿ë?~TQ8ßY—4ôËı÷½ÚÛ—µÜ2È‹'îx9£(ƒ÷ûåæ¿à¦ÌŠ»&®¯‰ëkfs3ÍZäTû??sáÿ÷wšmeücÆ¯[öƒLQ8êyiÿ!éU”œ—ôOIÿ›b/ØŠbXûNÃùC7—ÿKÿuUlniyW\Ä}¼~nöó|×Ïù¿+Îãû¯~ıüSQ
+?SÜ_­®£/{öê¹T÷û¯Ûê—º¾¾9wú×Ãñ>×pV]Lı}YË*ÜL³nš{SñP_œgÅ]××Äõ5³¹™f½¡ØI²9éıåÊ¡ı•DŸ>ÿ³ÙUF(öî÷°»§¡¬Üêÿş©Ú‹AWìZú‰¤?(ö,~¬áIwG±§ğ5Å^Èç¹ré^ÙmÖıä¨†=uç5Ìú¾¢ä^PÌûwçñÏ•:­v}Ôÿ›ºNë/J]ÏßN}ı5EİéĞ»;||‹÷:š¸¾&®¯‰ëkâúšÙÜL³mâÂZwº×ànŸÛ#ëV_Q¶x\ÃQŞïÿ~VQFnõŸÛíÄcŠrø¡âÜ¶º÷ğ_{Ê¾ê?7ş7ï(¿|EÏÄ5û…kfu?y­ÿ~'5Ü;íŠ-gÇëi»«'¿æÜèûüI±7u|!ïëï#E	œe¯j¦”L³fs3ÍšÍÍ4k67Ó¬ÙÜL³²—³l^!\`Ö©Ö²sJ±7j»{ƒÍ»Ópa‰-Å¼ß)öİé+Š²sFmú½âVu¯[=GqŞÛ]l7ë^9ÜÛÇ5\¦ŞH»î¼®(Éñv\Q¶h8dô®âJ¥ó^)4ÓJ¦Y³¹™fÍæfš5››iÖln¦YYÇËY(„£¬C!<¤áÂ(ç4Æ8ëÕ ÷ZÎ*ÜRìíúLQ~Î*ŠàUµW/½ª¸ ÊÅùGŸj8ótÿïæ9Ä´ìı%M)ö~^è½z£í÷5ì5İké~~Á)ÖËÖh¹®İ/Í¿N¿Ø¼xânº‰ëkâúš¸¾f67Ó¬EÂ&«(„/*JÕ‘~ù½¢t\Ô°Çn·C÷³Ô«Œ~®(Y;=1.j8„òâÊûŠÃ/ëá«Wæœ5e¯•â
+¨µ^Wœûø™â/74û^Óış‚îgœ÷ªŒ«şÅæÅwÓM\_××Äõ5³¹™f-¢6Yf!<¬8Oï‚¢d]SÜ\şxÿßZ¸ÖáIw\Qÿ¬áªœŸ)®VxOqÑ›YSæøZIúbİÜPÑ¯ûŸáÚıÑuùËäfš5››iÖln¦Y³¹™fÍæfš•u¼œ…B8Ê2áï{¾N(.êrSQ´ê•-/j½t'‡M~ªØ³ø@QÎ¾Q<‰ŞÒl‡–9ÖÑ‹Š=€Ÿ+Jó·ırWQHç¹·_¶_l^<q7İÄõ5q}M\_3››iÖ"
+a“eÂŠ–_W\½òsÅ•-¿ÕÁ/xĞOºËŠRxOqÿ½úÿ^VìE|GqØën)3®ŸWû¯=£8TõÏ½õI¿®¸¸Ëú¹™fÍæfš5››iÖln¦Y³¹™fe/g¡²ŒBxXÒëŠRuS±·ëß{Ü¾P¹ÎOº3Šøâ¢7ûïó‘bİ{ÚıÊ£e†uôzÿug…¹Ş°–ÑÄÅ]ÖÑÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4+ëx9…p”EÂ#Š['Ôû
+ŞQœ÷ wo)
+Ï¢Ï\Ä“®Şãª†‹¯¼²Ãz(»¬£Ã’~«ö¢:W5:o	\‡_°Ln¦Y³¹™fÍæfš5››iÖln¦YYÇËY(„£t!<¤(F¿U¬ìcŠsâ>Rúø­âŞvõö7õ|¥g•Oº“îXoØşz¿Æ);¬«£ŠCN‹¢ßPì‰\ÇYq×ÇÄõ5q}M\_××ÌæfšµˆBØd?…ğˆâ‚*ï)Šß‹ıÇ~£¸‰zQìáº¤áş~W+¾Ä/‡_nú“î¸¢ìŞPœ#Y·Ñ8"éÅ…tî*nåğ¦¢,Òpˆè	·¹¸0§½®¿`™ÜL³fs3ÍšÍÍ4k67Ó¬ÙÜL³²—³PG™·Ö{ÖûÔ]Uìù;¥(Gg{»j|_Û_0ÆéIwLÃ¾ñ¼W{ünõëçı~ı¼Ó¯«Š2y]û¿çß:ş‚er3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍÊ:^ÎB!eŞBø¶â\·ñŞ¿{Šsë½ó®õ_³ÛÍåŸtç4Bú¡âÊ 7çLŞè—-E¬{ëÕJ7mVÜ|³fs3ÍšÍÍ4k67Ó¬ÙÜL³²—³PG™§¾¢xĞ>îÿ{Gq>àIS\	sÖ=]®Oº“Š²·¥8OòKIÿ¢8_òËşcw¥y{3¬ãur3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍÊ:^ÎB!e¯B8}nà§Šbóµ¢~«8ğ®6ãÁ_–{YqEÕ¯·ØøNqCû?êàÏ\õ¬™İL³fs3ÍšÍÍ4k67Ó¬ÙÜL³²—³PGÙ®’ô+ÅQêJ;­8îb×7Šø±bï×¼%ÇıIw¬_7÷Åğ“~=}h8kf7Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬¬ãå,BÅ-Ş“ô+®tùëşcoö/ŠÃ/j87ğºâÜÁËŠ2Xoš~Q›óà/Ó=®¸°Ì_$İî×ë¬YİL³fs3ÍšÍÍ4k67Ó¬ÙÜL³²—³¤/„/*nıpFÒÿ©8÷ï¢°S\åŠ†X¯9}ñ“ÚÿƒéI—iÖln¦Y³¹™fÍæfš5››iÖln¦YYÇËYÒÂß*
+a‘ôÿ*ˆ{ŠóÜê=õ®(İî–›üàó†»é&®¯‰ëkâúš¸¾f67Ó¬EB½§8'°Hú¿ç>P\óÅ
+r}ğùÃİt××Äõ5q}M\_3››iÖ"
+¡ŞÒp˜ÿCqÕĞûŠ½„î>¿`¸›nâúš¸¾&®¯‰ëkfs3ÍZD!ÔÅy‚g%u’n)®€¹Ÿ‹ÃlÚƒÏ/î¦›¸¾&®¯‰ëkâúšÙÜL³Q%Å…eŞ‘ôÿ(npN9|~Áp7İÄõ5q}M\_××ÌæfšµˆBØäŸÊõàó†»é&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZ´é…°ëº']×=ÚæcOûekoG!ô4q}M\_××Äõ5q}Íln¦Y‹6¹v]÷¨/}F{ÜuİãÑçŸÌñ-)„&®¯‰ëkâúš¸¾&®¯™ÍÍ4kÑ¦Â®ë¶º®{:™L~*„O'“É;ı}P=M\_××Äõ5q}M\_3››iÖ¢.„O&“ÉãBXKâø0ÑşğÑ‡3~[
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZ´‰…°?ô±$ád2ù‘B¸ön¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gÙ¬BX÷Ö¿Ï²‡ğ§Ÿ~úÍ¶2ş©x –½<Häfš5››iÖln¦Y³¹™fÍæfš5››iVÖñr–+Ú¤Œ.$3½ÔÉpáz»™fÍæfš5››iÖln¦Y³¹™fÍæfš•u¼œe³öNgú¢2ıß¹Êèúº™fÍæfš5››iÖln¦Y³¹™fÍæfš•u¼œÅ«J±Wû®­›iÖln¦Y³¹™fÍæfš5››iÖln¦YYÇËY6»p(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯ÓB¤7    IDAT‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬E›X»®{ØuİÓºlóù'£ÏoÍñ­)„&®¯‰ëkâúš¸¾&®¯™ÍÍ4kÑ¦Â®ë¶Æ%°ëºÇ“Éäçñß»®{ÜÿùQ×uOæøöBO××Äõ5q}M\_××ÌæfšµháÔßK_×uO'“É;ı}P=M\_××Äõ5q}M\_3››iÖ¢M+„Ó™L&?önM&Ú>úpÆoG!ô4q}M\_××Äõ5q}Íln¦Y‹6µN&“ëy‚uàècÂõu3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4+ëx9ËfÂšºW°/ƒÛî!üé§ŸşG³­Œ*ˆe/¹™fÍæfš5››iÖln¦Y³¹™fÍæfš•u¼œåŠ6=ã½€œC¸ön¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gÙ¬=„õ°Ğú÷Ñ-(¶úÏÏ)ä*£ëçfš5››iÖln¦Y³¹™fÍæfš5››iVÖñr–Í*„Ò³÷!œŞ8ş÷!\;7Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬ÙÜL³²—³l^!\`(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-ÚÄBØuİã®ëÖe2™ü8õù'£ÏoÍñ­)„&®¯‰ëkâúš¸¾&®¯™ÍÍ4kÑ¦Â®ëN&“ŸGÔuİÓÑßw]÷xô¹'s|{
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZ´i…p»Œ÷Nï1Ünâ.¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬E›^'“Éua×u[Ó‡‰ö‡>œñÛQ=M\_××Äõ5q}M\_3››iÖ¢M/„}|$åB¸Ön¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gÙÜB8.ƒıß·İCøÓO?ıf[ÿT<Ë^$r3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4+ëx9ËmZFÅï™=œC¸ön¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gÙ¬=„µîTò&“ÉÏ\et­İL³fs3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍÊ:^Î²q…°¹áhy8úšñÇ¹áz¹™fÍæfš5››iÖln¦Y³¹™fÍæfš•u¼œe³
+á‚C!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-ÚäBØuİÃ®ëlóñ']×=í—­9¾%…ĞÓÄõ5q}M\_××Äõ5³¹™f-ÚÔBØ—Á§Ó…°ëºÇ]×=îÿüh»Â¸K(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4kÑ&ÂÉdòs¿ğ™=„]×=L&?îô÷=B!ô4q}M\_××Äõ5q}Íln¦Y‹6±ÖLÂ®ë¶¦­ÅqÆoI!ô4q}M\_××Äõ5q}Íln¦Y‹œ
+ád2ù‘B¸ön¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gñ)„;í!üé§ŸşG³­Œ*ˆe/¹™fÍæfš5››iÖln¦Y³¹™fÍæfš•u¼œåŠ65œC¸‘n¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gñÙC(ırÁ®2º¾n¦Y³¹™fÍæfš5››iÖln¦Y³¹™fe/gñ*„ıÇŸvÜ‡p]İL³fs3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍÊ:^Î²¹…p¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³Q›P=M\_××Äõ5q}M\_3››iÖ"
+a
+¡§‰ëkâúš¸¾&®¯‰ëkfs3ÍZD!lB!ô4q}M\_××Äõ5q}Íln¦Y‹(„M(„&®¯‰ëkâúš¸¾&®¯™ÍÍ4k…°	…ĞÓÄõ5q}M\_××Äõ5³¹™f-¢6¡zš¸¾&®¯‰ëkâúš¸¾f67Ó¬EÂ&BO××Äõ5q}M\_××ÌæfšµˆBØ„Bèiâúš¸¾&®¯‰ëkâúšÙÜL³9Â®ët]÷´_¶æø§BO××Äõ5q}M\_××ÌæfšµÈ­v]÷¸ëºÇıŸu]÷dN!ô4q}M\_××Äõ5q}Íln¦Y‹áÓÉdòãNß#BO××Äõ5q}M\_××ÌæfšµÈ©v]·5}˜høèÃ¿…ĞÓÄõ5q}M\_××Äõ5³¹™f-r*„“ÉäG
+áÚ»™fÍæfš5››iÖln¦Y³¹™fÍæfš•u¼œÅ§î´‡ğ¿şë¿ş?I_Î°ÜP”B–Ëm9å9Ï!ür1?Õ)‰ÜL³fs3ÍšÍÍ4k67Ó¬ÙÜL³fs3Íº*7Ó¬«t“Édòós\eôËÅüT{&ÓƒŸiÖln¦Y³¹™fÍæfš5››iÖln¦YWåfšu•îâ2ºá¼÷!ürQ?ÓÉôàgš5››iÖln¦Y³¹™fÍæfš5››iÖU¹™f]¥»–ùrEn¦?Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬ÙÜL³®ÊÍ4ë*İµÌ—+r3=ø™fÍæfš5››iÖln¦Y³¹™fÍæfšuUn¦YWé®e¾\‘›éÁÏ4k67Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬«r3ÍºJw-óåŠÜL~¦Y³¹™fÍæfš5››iÖln¦Y³¹™f]•›iÖUºk™/Wäfzğ3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4ëªÜL³®Ò]Ë|¹"7ÓƒŸiÖln¦Y³¹™fÍæfš5››iÖln¦YWåfšu•îZæ¹G¹™fÍæfš5››iÖln¦Y³¹™fÍæfšuUn¦YWéB!„B!k”9od»An¦Y³¹™fÍæfš5››iÖU¹™fÍæfš5››iÖ•¥ëº‡]×=­ËÔç¶ú?Äİ<7Ó¬«rw3Wåº­ãU¹<¶¾.­¯›iÖln¦Y³¹™f]Ût]÷¸ëp]1“ÉäGÜÍw3Íº*7Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬ÙÜL³®e&“ÉÏ}ûİ}ìÇE7bÜÅ»™f]•›iÖln¦Y³¹™fÍæfš5››iÖln¦Y×2“ÉäçÑÊx2ıùí>†»n¦YWåfš5››iÖln¦Y³¹™fÍæfš5››iÖµL×u[“ÉäçÑßO·dÜÍt3Íº*7Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬ÙÜL³®eºş$ÉñÊè?¾ĞcgqïfšuUn¦Y³¹™fÍæfš5››iÖln¦Y³¹™f]ût]÷d›²µè•»x7Ó¬«r3ÍšÍÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4ëZgÇÏ.ı8Y\O3››iÖln¦Y³¹™fÍæfš5››iÖln¦Y×:]×=êVpì,®§™ÍÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4k67Ó¬k™U­ \O××Äõ5q}Íln¦Y³¹™fÍæfšuå™—Vıå¾]be·œ{|,ÍİÎÌæòØúº<¶¾.­¯Ëc»x—uìëòØúº®íZ¦ëº'uàşÏK9^vn¦Y³¹™fÍæfš5››iÖln¦YWåfš5››iÖŒîÚ¥‹üxêc§?æàfš5››iÖln¦Y³¹™fÍæfšuUn¦Y³¹™fÍè®]ºawè“m>¾°†¼
+7‘C¡  IDATÓ¬ÙÜL³fs3ÍšÍÍ4k67Ó¬«r3ÍšÍÍ4kFw­ÓÅ.ÒÇ£¿/ee¬ÂÍ4k67Ó¬ÙÜL³fs3ÍšÍÍ4ëªÜL³fs3ÍšÑ]ÛŒN¨|ÚuİÓeİxqn¦Y³¹™fÍæfš5››iÖln¦YWåfš5››iÖŒîÚ¦KtL³fs3ÍšÍÍ4k67Ó¬ÙÜL³®ÊÍ4k67Ó¬İ¥¥‘©õv]÷ğ Úñ&¸e®Êİ„u¼*—ÇÖ×å±õuyl}]ÛÅ»›¾WåòØúº«zl×2]»Õÿùa7Ãq±İ?»)îA˜«r7e¯Êå±õuyl}][_—Çvñî&¯ãU¹<¶¾îªÛµËd2ùq2™ü<şØxåàn®›iÖln¦Y³¹™fÍæfš5››iÖln¦Y³¹«šu-Ó»J·F[øÊÀ]¼›iÖln¦Y³¹™fÍæfš5››iÖln¦Y³¹«šumÓ7äGÿ¹ş½ëºGÓíwsÜeš]×mÕï—i¯ÊÍ4ë2İñóx™î8îë8³Ëk²¯›iÖeº¼&ã.Ò]Õ¬k“ntåt®+£ëOœ<@s×cnáÚÿ'‹.pŞjnûdZ û¤ëºGË4Wåîö<^”»×óxÁîÏå?¶;>—Wñ<6uyM^ ÛÛ¼&/Øå5y±æÈæ5yñ.¯Ét{;ÕkòÚ¥íí‡~:^1“¸×ÆB.­ÚÛÛ®àE¸ãY»N]´Ûÿ‡Ëp{ûñnÿ£X„Y¿ï^Ÿ_à:~æy¼(wdïøB±Šçò‚gİñ¹¼Šçñ¢Ü½Ç‹ryM^®Ëk2¯Éhòš¼@—×ä6¼&LVñš¼vévx÷¡üqÿçGİï€ÿ¤Ûá’­íö»÷<YtÑîè‰õt»ôzî×ï£şIı¤şL‹2§_@ê¬ıòdî,ÏãE¸£ï»ãóxî,ÏåEÌ:ËsyÏãE¸³<äòšÌk2¯ÉÏïóšÌk2¯És†×äå¼&¯mº®{²Ãæ“®oèİ6Mı l©yÇåáÔçÌíæ8Yô ç»ãõİ?ùÆÿs<ğõüÿ·wvÇmë@eaiæ¾€e¸µ¡¢ÜFò`@‚aRTn¸»à~çÌxâØØ%-ş¥»ß~ØÈZ³[8ïİÇÇøuï;}lámeÙïã³½ïö²QÖÃ^ècï;}läeŸüógÙ'ÿ›“}òÏŸaŸüo^öÉì“OCmŸ<%]“÷Dÿ8S`MÎÍø°h×èı†æ²vIstûæÈ3©ñ·Û,ó*õñ²hö²BW§L/+öqõ¤ïe¥>^Í^Vèãê”éeÅ>®÷^ŠRï.õrôpÆå—Uá›wç{ŸŞ-gkô–ÿlç·ûY£÷ŞRÊ½íĞê¿¿<ònÜz`’W©÷¼Y{Y©{¯B/+õñèÍŞËJ}¼çÍÚËJ}Ü{zY©G¯g/OImîÖìßfjƒbíõbË¹:<,ºå-ÏÛ8\ÆxkGfÅ^ŞÖ_F÷ØËôñ7k/+õñèÍŞËJ}<z³÷²Rïy³ö²RŞì½¬ÔÇ£×³—aBZ“{>,Ún1(Îg¬6ä#ê™–Ï3óv;e×LŞwg÷ò;^‹^>òşAzéµècø	ûd{èeTz™>ÎJ/K\/»ÒŸÕxu™ùìÁ˜ÙÛœgø¯§3“·¾æç«”áAƒ»÷ÈÙ{Oîå·½g¢RÛáLóîí0J^ë}ò‘×Ó™É[_óåÃíÖİ{äì½'÷òÛŞ3Q­íŞë+y-úøo¼N+ït”’†ŸiLN}S9£×ÂåuŒ­¼İí·²ñ`µUm#¼GN5o¦Ú–ïk=İËÆ­AJ^Ë}²·wÖ1vò¶×ïgô¨­‹÷È©æÍZÛn×ıÅL^Úzy£ÆxJJw¶°]†-Wvğ^Ã+–õŞ^¿m¼V®h¯RV5oõôëf}8m?x½JY—åyÛŞğ»´çLgBôö*eUóÛO÷uÓ¬xí½QY§¥Ô«9õÄc Öa}¼×óªeíÿ_]³»{•²Šzg(KwK€Š÷š^±¬[ë–İºç»¬Öfs÷*eõ¾µn&Şëy£²NI‰t”ñŞky•²îı®h¯RVoy>Ï0ŞºbêÇkïËú˜t¢~şXHÛø Øİ«”UÍÛ½§q]k¯½7*ë´”ç-$ã½ºÖ—â5ö*eİøî%à²„W)«Š·WØ½¶¼nûG•¬mêÿÇ›+7[^¥¬™½[ÛE÷Æl­ÁïŞ>@ÉëQÛKÑ%?>¶.£â½W)ëHùºì±ö”»W)«‚·½é)ëiáõõ*eüõßô^¥¬½ecÙŠnû1{Oáİrªy=j ÁD4Dy•²ªx×€5—ğæuFz»7[ŞëÄº{•²fôÖƒ†€\w¯RÖH/     \„Ò=›X†Û	³y•²Fz    à¢´[­¼JY#½¡”¯ç6/­[^æßóZßZámŒ£¼Ô6¯—ÚæõRÛ¼^j›×Km}(_K¸O4áUÊéeë¾Ùò|˜Òr}‘o^g”w–1òRÛ¼^j›×Kmóz©m^/µ€ÿM·AyÏ‚(ãUÊªæUÊªæUÊªæUÊªæUÊªæÊ
+½©{˜Òä¾Y%¯RV5¯RV5¯RV5¯RV5¯RV5oTV )Æ©n`kiÉx•²ªy•²ªy•²ªy•²ªy•²ªy£²ÈĞÖjga¼ÖßPò*eUó*eUó*eUó*eUó*eUóFem”¸‰kÜ½JY#½¡”¯Å÷áK)·ñkÖN5¯µ3Ê;ÓGy©m^/µÍë¥¶y½Ô6¯×Á¹;{jıºÉÄ53y­QŞ¨1†zFåW÷ùGı0áÄKmñ^Ï‰—Úâ½/µÍäiÎ€+x:Ã©¡oåy6å¶vëi”uÏğv—õ]œQŞÈ1¦¶¶^jKm3y©m^/µÍë¥¶¶ŞƒßIfÖV5oTÖÖ:ûR;náû¬QN\x±÷z9£¼3Œq”—ÚæõRÛ¼^j›×Kmóz©­wx]™Y[Õ¼QY§ Û˜~\µÚ˜^y-QŞÙÆ8ÊKmóz©m^/µÍë¥¶y½ÔÖñ aM<k«š7*k(åùîæQïúu+À§§×ÊåqŒ£¼Ô6¯—ÚæõRÛ¼^j›×KmÏ§ûúg—«WõN5¯Wm§ †½/Ëc 67¤rò,MïxÏvFygã(/µÍë¥¶y½Ô6¯—ÚæõRÛS¼/'®1cWï;N5¯Em§c]×ÿÆËëíhïux}¼JYÕ¼JYÕ¼JYÕ¼JYÕ¼QY—åÛëÄ5^¥¬‘ŞËĞÈûÒ¨’W)«šW)«šW)«šW)«šW)«š×ÒY¯İêçn×D{=QŞ¨1¾$%`5¯RV5¯RV5¯RV5¯RV5¯RV5¯…sf2í\¦3y=†"¼Qc|iêQ³ëÎDÍ«”UÍ«”UÍ«”UÍ«”UÍ«”UÍ{¦³L ²ÚM˜3×Êåc     ¸å`&Óú3§O42«×Âåc     ¸ ë›3™â½7*+     \ ¥Y[Õ¼‘³Ô    À…)B³¶ªy£²    À…(B³¶ªy£²    À…PšµUÍ•                           àLş wÿ{êëì    IEND®B`‚PK$ÌÕVhk  hk  PK  /¶1Q               images/1.icoåXûoÓUÿ¶[÷êºµlíº­ëºv+]»>Q˜#¸PâD¨cá1Šc°Mg_1˜h4>¢ş€1šhLğƒ?FMÔ”¨¼( ø?î9·ßo¿]¿n-úƒMN¾ßsî9÷~ïùœÇ½ƒ`¬V==Âp± øAğx8ŒÉ1Y€É¬(¸\íŸşâIFô¼Å‰½'D™Îx‚ñJ„z®ƒª¶åP¿tâÏş­ƒŸ¤øıŒ¿Áu§•©cß/`íècÏ3PÑßÀ1ˆ¼ ‘±ßiæ¾£¤—ş¦ì÷ØÔ5h\‘„rg„öüË'è½ÌÑÎ{GÒºj4u<ëŞ‚2»Ÿ¾£Ø\{Oƒ³g8»÷’N} R2Eì=:q‰­‚–ï©ªÚw³{4Ş?æ¦»ÁûÈ‡¤G¾MÊü,{÷'_ù>"Yxô,ÛÃ$´<üvj¯2ŒˆÄoOËÌîNˆ_„Ø3×ÀqÏ(±5“lş¯rÂ·¨Ü‘çh¿ÖĞjˆN^&[Ö¿«‰¿H¢½¹¹Z7}œ­£‚¿H¢}Í‚†Ù²AÂ£¿jâßXæ€`(‚ÒÚ6òú±4YêØ÷¿£?‹Ïèä‰âS×I?ràæË¿$=5üIa\ÿÒÒÕÀ_o\µ0äø¤jL^™YOşe^/Îî4iÖ-b1×şÄ7Ğ´òepõ¾ş­_dÅm`ç×ĞôĞ+¬Ş>m›?Së™ñ¤kİûÂ­#diYBu@´/±6e{—PıSÕ¤ˆ‰ö8îç+6Û¡mËç¼†²FYÃ²	É÷ÜıŸü–z×.Ü’1ÿ\0Ãõ°`ıeî¾#4¿õ&%›ĞÈÏ4u+.«or¿&Tı­Liı›0/¶ïŸÕ3QV¿lœ0@?9»G¨æ¡Õ)¹½’¿s¨3áıgÙünÚÎ;/¶Íı'c\F•Ö_†¡¢!*ÅAìé«ÙsÏ!#Ïƒ-²,¾¥4/bŒıÇ*\Hæİøñ¸giÿ¸~óßé§¹İ«~A>¸û{3ë‚ÁHDgœ<òã¯Ò³jJ9]{× ÿÈWzºˆ÷¬{“øùC_½O1ÿµğŸáì{Å¬Wâ|Õí½¬oC‘‰öØy‚t½ß—âİŞ¹Jª])ÿÑ?sÚâëƒ‘¯[^âXËô›×¼&Õ “ÅÉêäÒ9¦PøcáV}œŸã*g¥¼ŸMpt=¶p?å¢Üãİ½êTz©6Zƒ+É{9Õ{=>E¥5>çOı ÉğŒxÌìH·RÈ3ÿ•×¿)õ‹·›åÊ)Â{!ŞŒ¥Ş+„¿|}ä[?åñVÕ@y"×Å;
+ö‚ôÿeìŸñÎQâí‹†r<G¨Ä–fÿW÷¿cñ.âù=Jß^	_½şŸĞÀß½êU=«¹Ø¼K*yí]û†”÷øl\1Mç„|û¿ëÁ—Ø9c‘¸V•ÿ>âk§ÿu&3¤ò­‹îHb?4šÊÙ÷ÇÌõfÙÿ±ç*å6¯÷VÒÅ³QY]0cï½şmÇó®ÿÑñKûM‘0ÇÒúüN>AÏ¬»qğÏ»ü×¤–zøèåólìÿÏ÷?…¼Ÿû=`nöª˜hñ²Ïù…;ô»PK¼îné  6  PK  /¶1Q               stylesheet_0.cssUmkÜ8ş+†p€µx7MJeÚm)wĞŞÁ…~(%dil‹•%#“İ3şï7òÛ®“-af¤Ñ3Ï<#gN»ÜYd¹¨´9òæØ T¬Õ1um€†ø£ÑvÿMÈ‡aù…NÄP8ˆ¾ÿÿë2‡.şçp,ÀÆß³Öb…câ/Ú‹èAØ&şìVãôO0O€ZŠèoh!nÈÆğ:Oé"`%è¢D¾İ¼I+ámù.©‘hÑ¥µPJÛ‚'Ñ–l©tÆy~u{Fš	¹/¼k­âWy§d¬¢ØtÆÕ¨+ı|…BgÚh<öY‹èl¬mİb‡€hÔÎòS$6\m¶MÀ	gÎSÀ×ö¬)…rÏçÖá–Üùj0‚h /·cÇw›TSâ]ÍòÇå..o»ÉJŒ£«øvW&_ƒŞÙ¢›èH’dm¢?´Ş“sL»“­ohí´EğıÀ·¯â±†÷²¹§$oÎŒ^(íoâHì”nj#<3Nî×tÀ¤/éäW‡‘«OÛ’ê„é‰ŠÙ2¥íGüTö5Á2ëbPÅX!maš³ »m†­®ÅPŠÁ½Bü›©wÄd¶×z„
+*¬\Åê&(ÜÛä„ÈGË´——î	üxûxÇh|íhÚ¬Ò89ºs¥+¥æp¹“m3%3ÎÇ2M‹ĞÔ–b\v'}R;…AzŠ|‘‰ë$ŞŞÑ÷noîßŞÌÑ…Dı—Ğ¾ö,^ğ<^pÌ9né>ÌŒ@øqM@$>‘PSÆËrJzY/yÏ–YùT[&ŒqÏ RWIOßÜõœÏ%3R¸„ÒÒ¬êwoÂ ¿ö‰nxHçÅğª‚\Úâí½Úöb*èË­mx´‚L{é¬ê=µÎY{Íâ¿[´¦÷¾öğa²ê‘Uã¦CN<°Ïl¦—ÏM8ö¬–4MşèQ-C[£ËƒÌ{Ìè÷!‘Œ%“¥6êzgoº_=g¤7Ò;c2á»ùOp~3eta+#‰Èı%^rñxÙVÙº­îÂ¸püPK€HO  7  PK  /¶1Q               stylesheet_1.css­SMoÛ0ı+A‹!í`Îò±EÆëuÇ†h›¶…H¢!ÉKÓ ÿ}²mÎZ9ô"€äããã‡r*ğW.ÁÚ_o$èª…
+ÙÍSÔ˜7ıÇœ$IÈwiæŸÊP«®IcêğÙ1[CA{ÌÍól_‡iIÚ±”ş´%Ïı 9Eó]€Ä™7iÍf­víÙRşµäg+^/Pu@ŠJs‰¥Kû*¬Gr¯;İ“)zSèÊ+3
+äàËÂîÂ³7Ğ‡Y¢ª_Äë”)za²¡ğ*etaí1Û	ÇêCS£¶Ãú”ÿ<öÒ16NSæ¼'²(1w‚ôÔ6f¯€ùÄ>¯¾¢<·Úw0Zûm¶,Ve>İÇ5-\£ş*áï¢ù¨ÀTBóxj–¤ôM)=´NÌİùÄûoS2&?ÎXA¹.?•ÉlÇŠ¢»â¸»ûÌ_,f ­åñÒ»Æ§?œñ)v´Cç¤jwş°V‚ÃÊÀ!„›Vç®…~Zäv»İ†hF$tt6u«24qÉ:à¬3^]l¶IPƒıË.a¼†ÚKºK¢äC´Hü¯ïCîİß©Ég‘²İAè±›Ó 0€W›/§?PKÖÚÀ×  ×  PK   /¶1Q~õ“ssW  —9 
+   4         ßX index.htmlhttps://tc39.es/proposal-temporal/docs/cookbook.htmlPK   /¶1QíI9ü   µ  
+             Š° index.jsonPK    /¶1Q$ÌÕVhk  hk              ¾± images/0.pngdata:PK   /¶1Q¼îné  6              ` images/1.icohttps://tc39.es/favicon.icoPK   /¶1Q€HO  7     G         ƒ" stylesheet_0.csshttps://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.cssPK   /¶1QÖÚÀ×  ×     0         Ö% stylesheet_1.csshttps://tc39.es/proposal-temporal/docs/prism.cssPK      +  ë'  ]]></xmp></html>

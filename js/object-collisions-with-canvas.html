@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang=en-us>
+<head itemscope itemtype=https://schema.org/WebSite>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <meta http-equiv=x-ua-compatible content="IE=edge">
+    <title>Simulating Object Collisions With Canvas</title>
+    <meta name=description content="Simulating object collisions is a rewarding way to learn the basics of HTML canvas and physics simulation.">
+    <meta name=author content="Josh Bradley">
+    <link rel=canonical href=https://joshbradley.me/object-collisions-with-canvas/>
+    <meta itemprop=url content="https://joshbradley.me">
+    <link rel=stylesheet href=https://joshbradley.me/style.css>
+    <link rel=service-worker href=https://joshbradley.me/service-worker.min.js>
+</head>
+<body class="page post" itemscope itemtype=https://schema.org/WebPage>
+<main class=main style="max-width: 80rem;">
+    <article class=single itemscope itemtype=https://schema.org/CreativeWork>
+        <h1 itemprop=headline>Simulating Object Collisions With Canvas</h1>
+        <small class="meta time category-link">
+            <time itemprop=datePublished datetime=2020-07-25T16:27:50-07:00>Jul 25, 2020</time>
+            <a rel=bookmark href=https://joshbradley.me/categories/programming/>
+                <span>Programming</span>
+            </a>
+        </small>
+        <div itemprop=text>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script>
+<p id=hero></p>
+<style>canvas{width:100%}</style>
+<script>
+class State{constructor(display,actors){this.display=display;this.actors=actors;}
+update(time){const updateId=Math.floor(Math.random()*1000000);const actors=this.actors.map(actor=>{return actor.update(this,time,updateId);});return new State(this.display,actors);}}
+class Vector{constructor(x,y){this.x=x;this.y=y;}
+add(vector){return new Vector(this.x+vector.x,this.y+vector.y);}
+subtract(vector){return new Vector(this.x-vector.x,this.y-vector.y);}
+multiply(scalar){return new Vector(this.x*scalar,this.y*scalar);}
+dotProduct(vector){return this.x*vector.x+this.y*vector.y;}
+get magnitude(){return Math.sqrt(this.x**2+this.y**2);}
+get direction(){return Math.atan2(this.x,this.y);}}
+class Canvas{constructor(parent=document.body,width=400,height=400){this.canvas=document.createElement('canvas');this.canvas.width=width;this.canvas.height=height;parent.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');}
+sync(state){this.clearDisplay();this.drawActors(state.actors);}
+clearDisplay(){this.ctx.fillStyle='rgba(255, 255, 255, .4)';this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);this.ctx.strokeStyle='black';this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height);}
+drawActors(actors){for(let actor of actors){if(actor.type==='circle'){this.drawCircle(actor);}}}
+drawCircle(actor){this.ctx.beginPath();this.ctx.arc(actor.position.x,actor.position.y,actor.radius,0,Math.PI*2);this.ctx.closePath();this.ctx.fillStyle=actor.color;this.ctx.fill();}}
+class Ball{constructor(config){Object.assign(this,{id:Math.floor(Math.random()*1000000),type:'circle',position:new Vector(100,100),velocity:new Vector(5,3),radius:25,color:'blue',collisions:[],},config);}
+update(state,time,updateId){if(this.collisions.length>10){this.collisions=this.collisions.slice(this.collisions.length-3);}
+const upperLimit=new Vector(state.display.canvas.width-this.radius,state.display.canvas.height-this.radius);const lowerLimit=new Vector(0+this.radius,0+this.radius);if(this.position.x>=upperLimit.x||this.position.x<=lowerLimit.x){this.velocity=new Vector(-this.velocity.x,this.velocity.y);}
+if(this.position.y>=upperLimit.y||this.position.y<=lowerLimit.y){this.velocity=new Vector(this.velocity.x,-this.velocity.y);}
+for(let actor of state.actors){if(this===actor||this.collisions.includes(actor.id+updateId)){continue;}
+const distance=this.position.add(this.velocity).subtract(actor.position.add(actor.velocity)).magnitude;if(distance<=this.radius+actor.radius){const v1=collisionVector(this,actor);const v2=collisionVector(actor,this);this.velocity=v1;actor.velocity=v2;this.collisions.push(actor.id+updateId);actor.collisions.push(this.id+updateId);}}
+const newX=Math.max(Math.min(this.position.x+this.velocity.x,upperLimit.x),lowerLimit.x);const newY=Math.max(Math.min(this.position.y+this.velocity.y,upperLimit.y),lowerLimit.y);return new Ball({...this,position:new Vector(newX,newY),});}
+get area(){return Math.PI*this.radius**2;}
+get sphereArea(){return 4*Math.PI*this.radius**2;}}
+const collisionVector=(particle1,particle2)=>{return particle1.velocity.subtract(particle1.position.subtract(particle2.position).multiply(particle1.velocity.subtract(particle2.velocity).dotProduct(particle1.position.subtract(particle2.position))/particle1.position.subtract(particle2.position).magnitude**2).multiply((2*particle2.sphereArea)/(particle1.sphereArea+particle2.sphereArea)));};const isMovingTowards=(particle1,particle2)=>{return particle2.position.subtract(particle1.position).dotProduct(particle1.velocity)>0;};const runAnimation=animation=>{let lastTime=null;const frame=time=>{if(lastTime!==null){const timeStep=Math.min(100,time-lastTime)/1000;if(animation(timeStep)===false){return;}}
+lastTime=time;requestAnimationFrame(frame);};requestAnimationFrame(frame);};const random=(max=9,min=0)=>{return Math.floor(Math.random()*(max-min+1)+min);};const colors=['red','green','blue','purple','orange'];const collidingBalls=({width=400,height=400,parent=document.body,count=50})=>{const display=new Canvas(parent,width,height);const balls=[];for(let i=0;i<count;i++){balls.push(new Ball({radius:random(8,3)+Math.random(),color:colors[random(colors.length-1)],position:new Vector(random(width-10,10),random(height-10,10)),velocity:new Vector(random(3,-3),random(3,-3)),}));}
+let state=new State(display,balls);runAnimation(time=>{state=state.update(time);display.sync(state);});};collidingBalls({count:40,height:260,width:460,parent:document.getElementById('hero'),});</script><p><em>Satisfying, isn&rsquo;t it?</em></p><p>I used this project as my introduction to JavaScript&rsquo;s canvas and creating a physics simulation. It took me an embarrassingly long time to perfect so I figured it would be worth sharing.</p><p>The source code can be found <a rel="noopener noreferrer" target=_blank href=https://gist.github.com/joshuabradley012/bd2bc96bbe1909ca8555a792d6a36e04>here</a>.</p><h2 id=getting-started-with-canvas>Getting started with canvas</h2><p>If you have never used HTML5&rsquo;s <code>&lt;canvas></code> element, <a rel="noopener noreferrer" target=_blank href=https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial>MDN</a> has a fantastic beginner&rsquo;s guide. Otherwise, let&rsquo;s dive right in.</p><p>Using an ES6 class will let us manage state and create immutability later on, so let&rsquo;s get started with a constructor. To initialize the canvas we need to define the parent, width, and height. Most importantly, we need to assign it&rsquo;s context to a property that we can use later for drawing.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Canvas {
+  constructor(parent <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>document</span>.body, width <span style=color:#000;font-weight:700>=</span> <span style=color:#099>400</span>, height <span style=color:#000;font-weight:700>=</span> <span style=color:#099>400</span>) {
+    <span style=color:#000;font-weight:700>this</span>.canvas <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>document</span>.createElement(<span style=color:#d14>&#39;canvas&#39;</span>);
+    <span style=color:#000;font-weight:700>this</span>.canvas.width <span style=color:#000;font-weight:700>=</span> width;
+    <span style=color:#000;font-weight:700>this</span>.canvas.height <span style=color:#000;font-weight:700>=</span> height;
+    parent.appendChild(<span style=color:#000;font-weight:700>this</span>.canvas);
+    <span style=color:#000;font-weight:700>this</span>.ctx <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>this</span>.canvas.getContext(<span style=color:#d14>&#39;2d&#39;</span>);
+  }
+}
+</code></pre></div><p>With this, we can add methods to draw specific shapes. In this case, we&rsquo;ll only be drawing circles.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Canvas {
+  ...
+  drawCircle(actor) {
+    <span style=color:#000;font-weight:700>this</span>.ctx.beginPath();
+    <span style=color:#000;font-weight:700>this</span>.ctx.arc(actor.position.x, actor.position.y, actor.radius, <span style=color:#099>0</span>, <span style=color:#0086b3>Math</span>.PI <span style=color:#000;font-weight:700>*</span> <span style=color:#099>2</span>);
+    <span style=color:#000;font-weight:700>this</span>.ctx.closePath();
+    <span style=color:#000;font-weight:700>this</span>.ctx.fillStyle <span style=color:#000;font-weight:700>=</span> actor.color;
+    <span style=color:#000;font-weight:700>this</span>.ctx.fill();
+  }
+}
+</code></pre></div><p>Notice that <code>drawCircle</code> expects an <code>actor</code> with a position and radius property. Let&rsquo;s implement a basic class that we will build on later.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  constructor(x <span style=color:#000;font-weight:700>=</span> <span style=color:#099>20</span>, y <span style=color:#000;font-weight:700>=</span> <span style=color:#099>20</span>, color <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;red&#39;</span>, radius <span style=color:#000;font-weight:700>=</span> <span style=color:#099>10</span>) {
+    <span style=color:#000;font-weight:700>this</span>.color <span style=color:#000;font-weight:700>=</span> color;
+    <span style=color:#000;font-weight:700>this</span>.position <span style=color:#000;font-weight:700>=</span> { x<span style=color:#000;font-weight:700>:</span> x, y<span style=color:#000;font-weight:700>:</span> y };
+    <span style=color:#000;font-weight:700>this</span>.radius <span style=color:#000;font-weight:700>=</span> radius;
+  }
+}
+</code></pre></div><p>Now for a test&mldr;</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> canvas <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Canvas();
+<span style=color:#000;font-weight:700>const</span> ball <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball();
+canvas.drawCircle(ball);
+</code></pre></div><p id=example-1></p><script>class Canvas1{constructor(parent=document.body,width=400,height=400){this.canvas=document.createElement('canvas');this.canvas.width=width;this.canvas.height=height;parent.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');}
+drawCircle(actor){this.ctx.strokeStyle='black';this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height);this.ctx.beginPath();this.ctx.arc(actor.position.x,actor.position.y,actor.radius,0,Math.PI*2);this.ctx.closePath();this.ctx.fillStyle=actor.color;this.ctx.fill();}}
+class Ball1{constructor(x=20,y=20,color='red',radius=10){this.color=color;this.position={x:x,y:y};this.radius=radius;}}
+const canvas1=new Canvas1(document.getElementById('example-1'),460,200);const ball1=new Ball1();canvas1.drawCircle(ball1);</script><p><em>Marvelous!</em></p><p>The next step is to add some motion to our canvas using an animation loop.</p><h2 id=adding-animation>Adding animation</h2><p>Before we get ahead of ourselves, let&rsquo;s create a <code>Vector</code> class with some useful linear algebra methods so we can work easily in a coordinate plane.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Vector {
+  constructor(x, y) {
+    <span style=color:#000;font-weight:700>this</span>.x <span style=color:#000;font-weight:700>=</span> x;
+    <span style=color:#000;font-weight:700>this</span>.y <span style=color:#000;font-weight:700>=</span> y;
+  }
+
+  <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>   * Returning a new Vector creates immutability
+</span><span style=color:#998;font-style:italic>   * and allows chaining. These properties are
+</span><span style=color:#998;font-style:italic>   * extremely useful with the complex formulas
+</span><span style=color:#998;font-style:italic>   * we&#39;ll be using.
+</span><span style=color:#998;font-style:italic>   **/</span>
+  add(vector) {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>this</span>.x <span style=color:#000;font-weight:700>+</span> vector.x, <span style=color:#000;font-weight:700>this</span>.y <span style=color:#000;font-weight:700>+</span> vector.y);
+  }
+
+  subtract(vector) {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>this</span>.x <span style=color:#000;font-weight:700>-</span> vector.x, <span style=color:#000;font-weight:700>this</span>.y <span style=color:#000;font-weight:700>-</span> vector.y);
+  }
+
+  multiply(scalar) {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>this</span>.x <span style=color:#000;font-weight:700>*</span> scalar, <span style=color:#000;font-weight:700>this</span>.y <span style=color:#000;font-weight:700>*</span> scalar);
+  }
+
+  dotProduct(vector) {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>this</span>.x <span style=color:#000;font-weight:700>*</span> vector.x <span style=color:#000;font-weight:700>+</span> <span style=color:#000;font-weight:700>this</span>.y <span style=color:#000;font-weight:700>*</span> vector.y;
+  }
+
+  get magnitude() {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#0086b3>Math</span>.sqrt(<span style=color:#000;font-weight:700>this</span>.x <span style=color:#000;font-weight:700>**</span> <span style=color:#099>2</span> <span style=color:#000;font-weight:700>+</span> <span style=color:#000;font-weight:700>this</span>.y <span style=color:#000;font-weight:700>**</span> <span style=color:#099>2</span>);
+  }
+
+  get direction() {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#0086b3>Math</span>.atan2(<span style=color:#000;font-weight:700>this</span>.x, <span style=color:#000;font-weight:700>this</span>.y);
+  }
+}
+</code></pre></div><p>And let&rsquo;s update <code>Ball</code> to use an instance of <code>Vector</code> for its position.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  constructor(x <span style=color:#000;font-weight:700>=</span> <span style=color:#099>20</span>, y <span style=color:#000;font-weight:700>=</span> <span style=color:#099>20</span>, color <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;red&#39;</span>, radius <span style=color:#000;font-weight:700>=</span> <span style=color:#099>10</span>) {
+    <span style=color:#000;font-weight:700>this</span>.color <span style=color:#000;font-weight:700>=</span> color;
+    <span style=color:#000;font-weight:700>this</span>.position <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(x, y);
+    <span style=color:#000;font-weight:700>this</span>.radius <span style=color:#000;font-weight:700>=</span> radius;
+  }
+}
+</code></pre></div><p>That will make adding motion, collisions, and mass a lot simpler. So about that animation loop, this is going to get complex. MDN&rsquo;s guide uses a very straightforward animation loop to achieve this. But I&rsquo;m going to take a page out of <a rel="noopener noreferrer" target=_blank href=https://eloquentjavascript.net/16_game.html>Eloquent JavaScript</a> and implement a <code>State</code> class that provides some level of encapsulation. This makes it easier to add new shapes or swap out the display with something like WebGL if needed.</p><p><code>State</code> should keep track of which display is being used as well as which objects are present in the animation. Finally, there needs to be a method that will update the position of each actor within each frame.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> State {
+  constructor(display, actors) {
+    <span style=color:#000;font-weight:700>this</span>.display <span style=color:#000;font-weight:700>=</span> display;
+    <span style=color:#000;font-weight:700>this</span>.actors <span style=color:#000;font-weight:700>=</span> actors;
+  }
+
+  update(time) {
+
+    <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>     * Provide an update ID to let actors
+</span><span style=color:#998;font-style:italic>     * update other actors only once.
+</span><span style=color:#998;font-style:italic>     **/</span>
+    <span style=color:#000;font-weight:700>const</span> updateId <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>Math</span>.floor(<span style=color:#0086b3>Math</span>.random() <span style=color:#000;font-weight:700>*</span> <span style=color:#099>1000000</span>);
+    <span style=color:#000;font-weight:700>const</span> actors <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>this</span>.actors.map(actor =&gt; {
+      <span style=color:#000;font-weight:700>return</span> actor.update(<span style=color:#000;font-weight:700>this</span>, time, updateId);
+    });
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> State(<span style=color:#000;font-weight:700>this</span>.display, actors);
+  }
+}
+</code></pre></div><p>Now each <code>actor</code> within <code>State</code> should have an <code>update</code> method to increment the position within each frame. For <code>Ball</code> we need to add <code>update</code> as well as a <code>velocity</code> property. Because <code>Ball</code> is gaining a lot or properties we might want control of, we will provide a config object to the constructor using <code>Object.assign</code> as outlined in <a rel="noopener noreferrer" target=_blank href=https://github.com/ryanmcdermott/clean-code-javascript#set-default-objects-with-objectassign>clean JavaScript</a>.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  constructor(config) {
+    <span style=color:#0086b3>Object</span>.assign(<span style=color:#000;font-weight:700>this</span>,
+      {
+        type<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;circle&#39;</span>,
+        position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>20</span>, <span style=color:#099>20</span>),
+        velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>5</span>, <span style=color:#099>3</span>),
+        radius<span style=color:#000;font-weight:700>:</span> <span style=color:#099>10</span>,
+        color<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;red&#39;</span>,
+      },
+      config
+    );
+  }
+
+  update(state, time, updateId) {
+
+    <span style=color:#998;font-style:italic>// Check if hitting left or right of display
+</span><span style=color:#998;font-style:italic></span>    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>&gt;=</span> state.display.canvas.width <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#099>0</span>) {
+      <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>-</span><span style=color:#000;font-weight:700>this</span>.velocity.x, <span style=color:#000;font-weight:700>this</span>.velocity.y);
+    }
+
+    <span style=color:#998;font-style:italic>// Check if hitting top or bottom of display
+</span><span style=color:#998;font-style:italic></span>    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>&gt;=</span> state.display.canvas.height <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#099>0</span>) {
+      <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>this</span>.velocity.x, <span style=color:#000;font-weight:700>-</span><span style=color:#000;font-weight:700>this</span>.velocity.y);
+    }
+
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Ball({
+      ...<span style=color:#000;font-weight:700>this</span>,
+      position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>this</span>.position.add(<span style=color:#000;font-weight:700>this</span>.velocity),
+    });
+  }
+}
+</code></pre></div><p>To keep <code>Canvas</code> up to date, we need to add a <code>sync</code> method to be called with each frame. It should redraw every <code>actor</code> in <code>State</code>.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Canvas() {
+  ...
+  sync(state) {
+    <span style=color:#000;font-weight:700>this</span>.drawActors(state.actors);
+  }
+
+  drawActors(actors) {
+    <span style=color:#000;font-weight:700>for</span> (<span style=color:#000;font-weight:700>let</span> actor <span style=color:#000;font-weight:700>of</span> actors) {
+      <span style=color:#000;font-weight:700>if</span> (actor.type <span style=color:#000;font-weight:700>===</span> <span style=color:#d14>&#39;circle&#39;</span>) {
+        <span style=color:#000;font-weight:700>this</span>.drawCircle(actor);
+      }
+    }
+  }
+}
+</code></pre></div><p>Finally we need a function that will recursively call <code>requestAnimationFrame</code> to create our animation loop.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> runAnimation <span style=color:#000;font-weight:700>=</span> animation =&gt; {
+  <span style=color:#000;font-weight:700>let</span> lastTime <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>null</span>;
+  <span style=color:#000;font-weight:700>const</span> frame <span style=color:#000;font-weight:700>=</span> time =&gt; {
+    <span style=color:#000;font-weight:700>if</span> (lastTime <span style=color:#000;font-weight:700>!==</span> <span style=color:#000;font-weight:700>null</span>) {
+      <span style=color:#000;font-weight:700>const</span> timeStep <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>Math</span>.min(<span style=color:#099>100</span>, time <span style=color:#000;font-weight:700>-</span> lastTime) <span style=color:#000;font-weight:700>/</span> <span style=color:#099>1000</span>;
+
+      <span style=color:#998;font-style:italic>// return false from animation to stop
+</span><span style=color:#998;font-style:italic></span>      <span style=color:#000;font-weight:700>if</span> (animation(timeStep) <span style=color:#000;font-weight:700>===</span> <span style=color:#000;font-weight:700>false</span>) {
+        <span style=color:#000;font-weight:700>return</span>;
+      }
+    }
+    lastTime <span style=color:#000;font-weight:700>=</span> time;
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+};
+</code></pre></div><p>With that we could technically run the animation. However, canvas keeps track of each frame drawn on it and the resulting animation would look like a paintbrush being dragged across a canvas. Here is what it looks like.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> display <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Canvas();
+<span style=color:#000;font-weight:700>const</span> ball <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball();
+<span style=color:#000;font-weight:700>const</span> actors <span style=color:#000;font-weight:700>=</span> [ball];
+<span style=color:#000;font-weight:700>let</span> state <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> State(display, actors);
+runAnimation(time =&gt; {
+  state <span style=color:#000;font-weight:700>=</span> state.update(time);
+  display.sync(state);
+});
+</code></pre></div><p id=example-2></p><script>class State2{constructor(display,actors){this.display=display;this.actors=actors;}
+update(time){const updateId=Math.floor(Math.random()*1000000);const actors=this.actors.map(actor=>{return actor.update(this,time,updateId);});return new State(this.display,actors);}}
+class Canvas2{constructor(parent=document.body,width=400,height=400){this.canvas=document.createElement('canvas');this.canvas.width=width;this.canvas.height=height;parent.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');}
+sync(state){this.drawActors(state.actors);}
+drawActors(actors){for(let actor of actors){if(actor.type==='circle'){this.drawCircle(actor);}}}
+drawCircle(actor){this.ctx.strokeStyle='black';this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height);this.ctx.beginPath();this.ctx.arc(actor.position.x,actor.position.y,actor.radius,0,Math.PI*2);this.ctx.closePath();this.ctx.fillStyle=actor.color;this.ctx.fill();}}
+class Ball2{constructor(config){Object.assign(this,{type:'circle',position:new Vector(20,20),velocity:new Vector(5,3),radius:10,color:'red',},config);}
+update(state,time,updateId){if(this.position.x>=state.display.canvas.width||this.position.x<=0){this.velocity=new Vector(-this.velocity.x,this.velocity.y);}
+if(this.position.y>=state.display.canvas.height||this.position.y<=0){this.velocity=new Vector(this.velocity.x,-this.velocity.y);}
+return new Ball2({...this,position:this.position.add(this.velocity),});}}
+const example2=document.getElementById('example-2');const display2=new Canvas2(example2,460,200);const ball2=new Ball2();const actors2=[ball2];let state2=new State2(display2,actors2);display2.sync(state2);const startButton2=document.createElement('button');startButton2.innerText='Start animation';example2.appendChild(startButton2);const animateOnClick2=()=>{runAnimation(time=>{state2=state2.update(time);display2.sync(state2);});}
+startButton2.addEventListener('click',animateOnClick2,{once:true});</script><p>To change this we can modify <code>sync</code> to clear <code>Canvas</code> on each update. We can achieve this by drawing a white rectangle over the entire <code>Canvas</code>. And we can take advantage of the fact that previous frames are not destroyed. If the rectangle is opaque it will create a trail effect due to the previously drawn circles bleeding through.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Canvas() {
+  ...
+  sync(state) {
+    <span style=color:#000;font-weight:700>this</span>.clearDisplay();
+    <span style=color:#000;font-weight:700>this</span>.drawActors(state.actors);
+  }
+
+  clearDisplay() {
+
+    <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>     * If the rgba opacity is set to 1, there
+</span><span style=color:#998;font-style:italic>     * will be no trail. The lower the opacity,
+</span><span style=color:#998;font-style:italic>     * the longer the trail.
+</span><span style=color:#998;font-style:italic>     **/</span>
+    <span style=color:#000;font-weight:700>this</span>.ctx.fillStyle <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;rgba(255, 255, 255, .4)&#39;</span>;
+    <span style=color:#000;font-weight:700>this</span>.ctx.fillRect(<span style=color:#099>0</span>, <span style=color:#099>0</span>, <span style=color:#000;font-weight:700>this</span>.canvas.width, <span style=color:#000;font-weight:700>this</span>.canvas.height);
+  }
+  ...
+}
+</code></pre></div><p>Now we have motion!</p><p id=example-3></p><script>class State3{constructor(display,actors){this.display=display;this.actors=actors;}
+update(time){const updateId=Math.floor(Math.random()*1000000);const actors=this.actors.map(actor=>{return actor.update(this,time,updateId);});return new State(this.display,actors);}}
+class Canvas3{constructor(parent=document.body,width=400,height=400){this.canvas=document.createElement('canvas');this.canvas.width=width;this.canvas.height=height;parent.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');}
+sync(state){this.clearDisplay();this.drawActors(state.actors);}
+clearDisplay(){this.ctx.fillStyle='rgba(255, 255, 255, .4)';this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);this.ctx.strokeStyle='black';this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height);}
+drawActors(actors){for(let actor of actors){if(actor.type==='circle'){this.drawCircle(actor);}}}
+drawCircle(actor){this.ctx.beginPath();this.ctx.arc(actor.position.x,actor.position.y,actor.radius,0,Math.PI*2);this.ctx.closePath();this.ctx.fillStyle=actor.color;this.ctx.fill();}}
+class Ball3{constructor(config){Object.assign(this,{type:'circle',position:new Vector(30,30),velocity:new Vector(5,3),radius:10,color:'red',},config);}
+update(state,time,updateId){if(this.position.x>=state.display.canvas.width||this.position.x<=0){this.velocity=new Vector(-this.velocity.x,this.velocity.y);}
+if(this.position.y>=state.display.canvas.height||this.position.y<=0){this.velocity=new Vector(this.velocity.x,-this.velocity.y);}
+return new Ball3({...this,position:this.position.add(this.velocity),});}}
+const example3=document.getElementById('example-3');const display3=new Canvas3(example3,460,200);const ball3=new Ball3();const actors3=[ball3];let state3=new State3(display3,actors3);display3.sync(state3);runAnimation(time=>{state3=state3.update(time);display3.sync(state3);});</script><p><strong><em>Deep breath</em></strong> it&rsquo;s time for the final hurdle, adding collisions.</p><h2 id=detecting-collisions>Detecting collisions</h2><p>You&rsquo;ve already seen a bit of collision detection in the last update we made to <code>Ball</code> where we are checking if the ball is hitting the walls of the canvas, and updating the velocity accordingly.</p><p>However, to find if a ball is colliding with another ball, we have to check <em>every ball</em> against <em>every ball</em>. This is very inefficient with an O(n<sup>2</sup>) runtime but is the best solution outside of creating an elaborate matrix to represent coordinates. And it works well for less than 1000 objects.</p><p>This can be achieved with a <code>for</code> loop on each <code>update</code> of <code>Ball</code>.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  ...
+  update(state, time, updateId) {
+    ...
+    <span style=color:#000;font-weight:700>for</span> (<span style=color:#000;font-weight:700>let</span> actor <span style=color:#000;font-weight:700>of</span> state.actors) {
+
+      <span style=color:#998;font-style:italic>// A ball can&#39;t collide with itself
+</span><span style=color:#998;font-style:italic></span>      <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span> <span style=color:#000;font-weight:700>===</span> actor) {
+        <span style=color:#000;font-weight:700>continue</span>;
+      }
+
+      <span style=color:#000;font-weight:700>const</span> distance <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>this</span>.position.subtract(actor.position).magnitude;
+
+      <span style=color:#000;font-weight:700>if</span> (distance <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#000;font-weight:700>this</span>.radius <span style=color:#000;font-weight:700>+</span> actor.radius) {
+        <span style=color:#000;font-weight:700>this</span>.color <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;grey&#39;</span>;
+        actor.color <span style=color:#000;font-weight:700>=</span> <span style=color:#d14>&#39;grey&#39;</span>;
+      }
+    }
+
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Ball({
+      ...<span style=color:#000;font-weight:700>this</span>,
+      position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>this</span>.position.add(<span style=color:#000;font-weight:700>this</span>.velocity),
+    });
+  }
+}
+</code></pre></div><p>Because we are using a <code>Vector</code> to track the position of the ball, we can measure the distance between two objects using the <a rel="noopener noreferrer" target=_blank href=https://en.wikipedia.org/wiki/Euclidean_vector#Length>magnitude</a> of the <a rel="noopener noreferrer" target=_blank href=https://en.wikipedia.org/wiki/Euclidean_vector#Addition_and_subtraction>difference</a> between both object&rsquo;s position. Remember position is measured at the object&rsquo;s center, so to detect when the edges collide, we need to check if that distance is less than both object&rsquo;s radius combined.</p><p>For now, nothing very interesting happens when the balls collide, they just change color. But it&rsquo;s a start!</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> display <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Canvas();
+
+<span style=color:#000;font-weight:700>const</span> ball1 <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball({
+  position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>40</span>, <span style=color:#099>100</span>),
+  velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>1</span>, <span style=color:#099>0</span>),
+  radius<span style=color:#000;font-weight:700>:</span> <span style=color:#099>20</span>,
+});
+
+<span style=color:#000;font-weight:700>const</span> ball2 <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball({
+  position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>200</span>, <span style=color:#099>100</span>),
+  velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>-</span><span style=color:#099>1</span>, <span style=color:#099>0</span>),
+  color<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;blue&#39;</span>,
+});
+
+<span style=color:#000;font-weight:700>const</span> actors <span style=color:#000;font-weight:700>=</span> [ball1, ball2];
+<span style=color:#000;font-weight:700>let</span> state <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> State(display, actors);
+
+runAnimation(time =&gt; {
+  state <span style=color:#000;font-weight:700>=</span> state.update(time);
+  display.sync(state);
+});
+</code></pre></div><p id=example-4></p><script>class State4{constructor(display,actors){this.display=display;this.actors=actors;}
+update(time){const updateId=Math.floor(Math.random()*1000000);const actors=this.actors.map(actor=>{return actor.update(this,time,updateId);});return new State(this.display,actors);}}
+class Canvas4{constructor(parent=document.body,width=400,height=400){this.canvas=document.createElement('canvas');this.canvas.width=width;this.canvas.height=height;parent.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');}
+sync(state){this.clearDisplay();this.drawActors(state.actors);}
+clearDisplay(){this.ctx.fillStyle='rgba(255, 255, 255, .4)';this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);this.ctx.strokeStyle='black';this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height);}
+drawActors(actors){for(let actor of actors){if(actor.type==='circle'){this.drawCircle(actor);}}}
+drawCircle(actor){this.ctx.beginPath();this.ctx.arc(actor.position.x,actor.position.y,actor.radius,0,Math.PI*2);this.ctx.closePath();this.ctx.fillStyle=actor.color;this.ctx.fill();}}
+class Ball4{constructor(config){Object.assign(this,{type:'circle',position:new Vector(40,40),velocity:new Vector(5,3),radius:10,color:'red',},config);}
+update(state,time,updateId){if(this.position.x>=state.display.canvas.width||this.position.x<=0){this.velocity=new Vector(-this.velocity.x,this.velocity.y);}
+if(this.position.y>=state.display.canvas.height||this.position.y<=0){this.velocity=new Vector(this.velocity.x,-this.velocity.y);}
+for(let actor of state.actors){if(this===actor){continue;}
+const distance=this.position.subtract(actor.position).magnitude;if(distance<=this.radius+actor.radius){this.color='grey';actor.color='grey';}}
+return new Ball4({...this,position:this.position.add(this.velocity),});}}
+const example4=document.getElementById('example-4');const display4=new Canvas4(example4,460,200);const ball4a=new Ball4({position:new Vector(40,100),velocity:new Vector(1,0),radius:20,});const ball4b=new Ball4({position:new Vector(200,100),velocity:new Vector(-1,0),color:'blue',});const actors4=[ball4a,ball4b];let state4=new State4(display4,actors4);display4.sync(state4);const startButton4=document.createElement('button');startButton4.innerText='Start animation';example4.appendChild(startButton4);const animateOnClick4=()=>{runAnimation(time=>{state4=state4.update(time);display4.sync(state4);});}
+startButton4.addEventListener('click',animateOnClick4,{once:true});</script><h2 id=calculating-two-dimensional-elastic-collisions>Calculating two-dimensional elastic collisions</h2><p>It&rsquo;s math time! We&rsquo;re going to be using elastic collisions because I found it to be a fun animation without getting too complex with gravity and friction. But if that&rsquo;s what you&rsquo;re after, give it a shot.</p><p>Wikipedia has a fantastic animation showing what happens in a 2D collision on their <a rel="noopener noreferrer" target=_blank href=https://en.wikipedia.org/wiki/Elastic_collision#Two-dimensional>elastic collision</a> page.</p><figure><img data-src=https://joshbradley.me/images/Elastischer_sto%c3%9f_2D.gif class=lazyload alt="Two-dimensional elastic collision"><figcaption><h4>Two-dimensional elastic collision</h4></figcaption></figure><p>Mathematically this can be defined as the following. Keep in mind there is an alternate formula that uses angles, but because we are using vectors, this is an easier formula to implement.</p><p>$$
+\textbf v^{\prime}_1 = \textbf v_1 - \frac{2m_2}{m_1 + m_2} \frac{\langle \textbf v_1 - \textbf v_2, \textbf x_1 - \textbf x_2 \rangle}{\lVert \textbf x_1 - \textbf x_2 \rVert^2} (\textbf x_1 - \textbf x_2)
+$$
+$$
+\textbf v^{\prime}_2 = \textbf v_2 - \frac{2m_1}{m_1 + m_2} \frac{\langle \textbf v_2 - \textbf v_1, \textbf x_2 - \textbf x_1 \rangle}{\lVert \textbf x_2 - \textbf x_1 \rVert^2} (\textbf x_2 - \textbf x_1)
+$$</p><p>Where \( \textbf v^{\prime} \) is the resulting velocity vector, \( \textbf v \) is the current velocity, \( m \) is mass, and \( \textbf x \) is the position. Angle brackets \( \langle \ldots \rangle \) denote the <a rel="noopener noreferrer" target=_blank href=https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces/dot-cross-products/v/vector-dot-product-and-vector-length>dot product</a> of the vector and double vertical bars \( \lVert \ldots \rVert \) denote the <a rel="noopener noreferrer" target=_blank href=https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces/dot-cross-products/v/vector-dot-product-and-vector-length>magnitude or length</a> of the vector.</p><p>Currently, <code>Ball</code> doesn&rsquo;t have a representation of its mass. Assuming a constant density, we can use the spherical area of the circle as our mass.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  ...
+  get sphereArea() {
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#099>4</span> <span style=color:#000;font-weight:700>*</span> <span style=color:#0086b3>Math</span>.PI <span style=color:#000;font-weight:700>*</span> <span style=color:#000;font-weight:700>this</span>.radius <span style=color:#000;font-weight:700>**</span> <span style=color:#099>2</span>;
+  }
+}
+</code></pre></div><p>Using the methods we added to the <code>Vector</code> class we can write this in JavaScript. It&rsquo;s not a nice formula, but it is compact and accurate.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> collisionVector <span style=color:#000;font-weight:700>=</span> (b1, b2) =&gt; {
+  <span style=color:#000;font-weight:700>return</span> b1.velocity
+
+    <span style=color:#998;font-style:italic>// Take away from the starting velocity
+</span><span style=color:#998;font-style:italic></span>    .subtract(
+
+      <span style=color:#998;font-style:italic>// Subtract the positions
+</span><span style=color:#998;font-style:italic></span>      b1.position
+      .subtract(b2.position)
+
+      <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>       * Multiply by the dot product of
+</span><span style=color:#998;font-style:italic>       * the difference between the velocity
+</span><span style=color:#998;font-style:italic>       * and position of both vectors
+</span><span style=color:#998;font-style:italic>       **/</span>
+      .multiply(
+        b1.velocity
+        .subtract(b2.velocity)
+        .dotProduct(
+          b1.position
+          .subtract(b2.position)
+        )
+        <span style=color:#000;font-weight:700>/</span> b1.position
+        .subtract(b2.position)
+        .magnitude <span style=color:#000;font-weight:700>**</span> <span style=color:#099>2</span>
+      )
+
+      <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>       * Multiply by the amount of mass the
+</span><span style=color:#998;font-style:italic>       * object represents in the collision.
+</span><span style=color:#998;font-style:italic>       **/</span>
+      .multiply(
+        (<span style=color:#099>2</span> <span style=color:#000;font-weight:700>*</span> b2.sphereArea)
+        <span style=color:#000;font-weight:700>/</span> (b1.sphereArea <span style=color:#000;font-weight:700>+</span> b2.sphereArea)
+      )
+    );
+};
+</code></pre></div><p>It&rsquo;s worth bringing attention to how immutability makes this possible. We can perform multiple operations on the same vector without changing it&rsquo;s properties while returning new vectors that can be used for chaining.</p><p>Now we can use this in the <code>update</code> method of <code>Ball</code>. However, there is another issue we need to resolve. We can&rsquo;t update velocities one at a time because the current velocity of both actors is necessary to determine their new velocities. And if we update both actor&rsquo;s velocity now, the velocity will be updated twice because every actor checks every actor.</p><p>So we need a way to update both actors together but only update them once. There is likely a better way, but what I came up with is creating an ID for each collision and keeping track of those IDs in an array so we can skip them in the current update. The collision ID is composed of the object ID and update ID.</p><p>We already added an update ID to <code>State</code> so let&rsquo;s add an object ID to <code>Ball</code> as well as a collisions array. These are the pieces we need to calculate collisions in <code>Ball.update</code> so let&rsquo;s update that as well.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  constructor(config) {
+    <span style=color:#0086b3>Object</span>.assign(<span style=color:#000;font-weight:700>this</span>,
+      {
+        id<span style=color:#000;font-weight:700>:</span> <span style=color:#0086b3>Math</span>.floor(<span style=color:#0086b3>Math</span>.random() <span style=color:#000;font-weight:700>*</span> <span style=color:#099>1000000</span>),
+        type<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;circle&#39;</span>,
+        position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>40</span>, <span style=color:#099>40</span>),
+        velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>5</span>, <span style=color:#099>3</span>),
+        radius<span style=color:#000;font-weight:700>:</span> <span style=color:#099>10</span>,
+        color<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;red&#39;</span>,
+        collisions<span style=color:#000;font-weight:700>:</span> [],
+      },
+      config
+    );
+  }
+
+  update(state, time, updateId) {
+
+    <span style=color:#998;font-style:italic>// Check if hitting left or right of display
+</span><span style=color:#998;font-style:italic></span>    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>&gt;=</span> state.display.canvas.width <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#099>0</span>) {
+      <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>-</span><span style=color:#000;font-weight:700>this</span>.velocity.x, <span style=color:#000;font-weight:700>this</span>.velocity.y);
+    }
+
+    <span style=color:#998;font-style:italic>// Check if hitting top or bottom of display
+</span><span style=color:#998;font-style:italic></span>    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>&gt;=</span> state.display.canvas.height <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#099>0</span>) {
+      <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>this</span>.velocity.x, <span style=color:#000;font-weight:700>-</span><span style=color:#000;font-weight:700>this</span>.velocity.y);
+    }
+
+    <span style=color:#000;font-weight:700>for</span> (<span style=color:#000;font-weight:700>let</span> actor <span style=color:#000;font-weight:700>of</span> state.actors) {
+
+      <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>       * A ball can&#39;t collide with itself and
+</span><span style=color:#998;font-style:italic>       * skip balls that have already collided.
+</span><span style=color:#998;font-style:italic>       **/</span>
+      <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span> <span style=color:#000;font-weight:700>===</span> actor <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.collisions.includes(actor.id <span style=color:#000;font-weight:700>+</span> updateId)) {
+        <span style=color:#000;font-weight:700>continue</span>;
+      }
+
+      <span style=color:#000;font-weight:700>const</span> distance <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>this</span>.position.subtract(actor.position).magnitude;
+
+      <span style=color:#000;font-weight:700>if</span> (distance <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#000;font-weight:700>this</span>.radius <span style=color:#000;font-weight:700>+</span> actor.radius) {
+        <span style=color:#000;font-weight:700>const</span> v1 <span style=color:#000;font-weight:700>=</span> collisionVector(<span style=color:#000;font-weight:700>this</span>, actor);
+        <span style=color:#000;font-weight:700>const</span> v2 <span style=color:#000;font-weight:700>=</span> collisionVector(actor, <span style=color:#000;font-weight:700>this</span>);
+        <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> v1;
+        actor.velocity <span style=color:#000;font-weight:700>=</span> v2;
+        <span style=color:#000;font-weight:700>this</span>.collisions.push(actor.id <span style=color:#000;font-weight:700>+</span> updateId);
+        actor.collisions.push(<span style=color:#000;font-weight:700>this</span>.id <span style=color:#000;font-weight:700>+</span> updateId);
+      }
+    }
+
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Ball({
+      ...<span style=color:#000;font-weight:700>this</span>,
+      position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>this</span>.position.add(<span style=color:#000;font-weight:700>this</span>.velocity),
+    });
+  }
+  ...
+}
+</code></pre></div><p><strong><em>Phew</em></strong>, that was a big update. Time to kick the tires.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> display <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Canvas();
+
+<span style=color:#000;font-weight:700>const</span> ball1 <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball({
+  position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>40</span>, <span style=color:#099>100</span>),
+  velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>1</span>, <span style=color:#099>0</span>),
+  radius<span style=color:#000;font-weight:700>:</span> <span style=color:#099>20</span>,
+});
+
+<span style=color:#000;font-weight:700>const</span> ball2 <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball({
+  position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>200</span>, <span style=color:#099>100</span>),
+  velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>-</span><span style=color:#099>1</span>, <span style=color:#099>0</span>),
+  color<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;blue&#39;</span>,
+});
+
+<span style=color:#000;font-weight:700>const</span> actors <span style=color:#000;font-weight:700>=</span> [ball1, ball2];
+<span style=color:#000;font-weight:700>let</span> state <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> State(display, actors);
+
+runAnimation(time =&gt; {
+  state <span style=color:#000;font-weight:700>=</span> state.update(time);
+  display.sync(state);
+});
+</code></pre></div><p id=example-5></p><script>class State5{constructor(display,actors){this.display=display;this.actors=actors;}
+update(time){const updateId=Math.floor(Math.random()*1000000);const actors=this.actors.map(actor=>{return actor.update(this,time,updateId);});return new State(this.display,actors);}}
+class Canvas5{constructor(parent=document.body,width=400,height=400){this.canvas=document.createElement('canvas');this.canvas.width=width;this.canvas.height=height;parent.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');}
+sync(state){this.clearDisplay();this.drawActors(state.actors);}
+clearDisplay(){this.ctx.fillStyle='rgba(255, 255, 255, .5)';this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);this.ctx.strokeStyle='black';this.ctx.strokeRect(0,0,this.canvas.width,this.canvas.height);}
+drawActors(actors){for(let actor of actors){if(actor.type==='circle'){this.drawCircle(actor);}}}
+drawCircle(actor){this.ctx.beginPath();this.ctx.arc(actor.position.x,actor.position.y,actor.radius,0,Math.PI*2);this.ctx.closePath();this.ctx.fillStyle=actor.color;this.ctx.fill();}}
+class Ball5{constructor(config){Object.assign(this,{id:Math.floor(Math.random()*1000000),type:'circle',position:new Vector(40,40),velocity:new Vector(5,3),radius:10,color:'red',collisions:[],},config);}
+update(state,time,updateId){if(this.position.x>=state.display.canvas.width||this.position.x<=0){this.velocity=new Vector(-this.velocity.x,this.velocity.y);}
+if(this.position.y>=state.display.canvas.height||this.position.y<=0){this.velocity=new Vector(this.velocity.x,-this.velocity.y);}
+for(let actor of state.actors){if(this===actor||this.collisions.includes(actor.id+updateId)){continue;}
+const distance=this.position.subtract(actor.position).magnitude;if(distance<=this.radius+actor.radius){const v1=collisionVector(this,actor);const v2=collisionVector(actor,this);this.velocity=v1;actor.velocity=v2;this.collisions.push(actor.id+updateId);actor.collisions.push(this.id+updateId);}}
+return new Ball5({...this,position:this.position.add(this.velocity),});}
+get sphereArea(){return 4*Math.PI*this.radius**2;}}
+const example5=document.getElementById('example-5');const display5=new Canvas5(example5,460,200);const ball5a=new Ball5({position:new Vector(40,100),velocity:new Vector(2,0),radius:20,});const ball5b=new Ball5({position:new Vector(200,100),velocity:new Vector(-2,0),color:'blue',});const actors5=[ball5a,ball5b];let state5=new State5(display5,actors5);runAnimation(time=>{state5=state5.update(time);display5.sync(state5);});</script><p>Now that is <em>awesome</em>. But unfortunately, we&rsquo;re not quite done. There are some edge cases we need to deal with.</p><h2 id=resolve-bugs>Resolve bugs</h2><p>Here&rsquo;s our TODO list:</p><ol><li>Update wall collisions so only the edge touches</li><li>Fix &ldquo;sticky&rdquo; collisions</li><li>Fix wall squeeze collisions</li><li>Prevent excessive memory usage</li></ol><p>The first issue of wall collisions is relatively simple. We just need to give the position update an upper and lower bound based on the canvas walls.</p><p>For the second issue, you&rsquo;re likely wondering what a sticky collision is. As the description suggests, there are moments when two objects overlap and stick to each other. This leads to a continuous collision update that normally results in a frantic spiraling. It&rsquo;s an issue that only arises in very specific conditions, but becomes quite common with 10+ balls in the frame.</p><p>Here is an example of a sticky collision (if you don&rsquo;t see it try refreshing the page, they separate over time).</p><p id=example-6></p><script>const example6=document.getElementById('example-6');const display6=new Canvas5(example6,460,200);const ball6a=new Ball5({position:new Vector(180,100),velocity:new Vector(2,0),radius:20,});const ball6b=new Ball5({position:new Vector(200,100),velocity:new Vector(-2,5),color:'blue',});const actors6=[ball6a,ball6b];let state6=new State5(display6,actors6);runAnimation(time=>{state6=state6.update(time);display6.sync(state6);});</script><p>The solution I implemented is a simple bandaid. I check for collisions in the next frame and update the current frame as if they had collided. This way the objects never get a chance to overlap. However, they never get a chance to collide either. Thankfully, the effect is barely noticeable.</p><p>In pursuit of a better solution, I looked into calculating the amount of overlap and removing that distance from the current position before adding the new velocity. And it worked in a small environment, but once again issue arose when there were 10+ balls in the simulation. I&rsquo;m not sure if this is due to float precision, or balls backing up into another.</p><p>Wall squeezes occur when a ball hits the wall and another ball at the same time. I don&rsquo;t have a perfect solution for this. If wall collisions are calculated first, velocity is lost. If they are calculated after, velocity is gained. This is due to the bounding condition we created for wall collisions where the position is stopped exactly when the edge touches the wall. However, if I remove this bounding condition, objects can get stuck against the wall.</p><p>I decided to go with the solution that loses velocity because it looks the best with animations that run for a long time.</p><p>Finally, because we are keeping track of each collision in each ball, it can quickly overwhelm memory. An easy fix is to trim down the size of the array at a certain limit. I chose 10 as the limit because I have a hard time thinking of a situation where a ball will simultaneously collide with 10 other balls. However, this could be adjusted depending on the needs.</p><p>Here is a stable solution to these bugs.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>class</span> Ball {
+  ...
+  update(state, time, updateId) {
+
+    <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>     * Limit the size of the collisions array to
+</span><span style=color:#998;font-style:italic>     * prevent memory issues. If slice occurs on
+</span><span style=color:#998;font-style:italic>     * too many elements, it starts to lag.
+</span><span style=color:#998;font-style:italic>     **/</span>
+    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.collisions.length <span style=color:#000;font-weight:700>&gt;</span> <span style=color:#099>10</span>) {
+      <span style=color:#000;font-weight:700>this</span>.collisions <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>this</span>.collisions.slice(<span style=color:#000;font-weight:700>this</span>.collisions.length <span style=color:#000;font-weight:700>-</span> <span style=color:#099>3</span>);
+    }
+
+    <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>     * Set the upper and lower bounds based on the
+</span><span style=color:#998;font-style:italic>     * size of the canvas and size of the ball.
+</span><span style=color:#998;font-style:italic>     **/</span>
+    <span style=color:#000;font-weight:700>const</span> upperLimit <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(
+      state.display.canvas.width <span style=color:#000;font-weight:700>-</span> <span style=color:#000;font-weight:700>this</span>.radius,
+      state.display.canvas.height <span style=color:#000;font-weight:700>-</span> <span style=color:#000;font-weight:700>this</span>.radius
+    );
+    <span style=color:#000;font-weight:700>const</span> lowerLimit <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>0</span> <span style=color:#000;font-weight:700>+</span> <span style=color:#000;font-weight:700>this</span>.radius, <span style=color:#099>0</span> <span style=color:#000;font-weight:700>+</span> <span style=color:#000;font-weight:700>this</span>.radius);
+
+    <span style=color:#998;font-style:italic>// Check if hitting left or right of display
+</span><span style=color:#998;font-style:italic></span>    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>&gt;=</span> upperLimit.x <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>&lt;=</span> lowerLimit.x) {
+      <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>-</span><span style=color:#000;font-weight:700>this</span>.velocity.x, <span style=color:#000;font-weight:700>this</span>.velocity.y);
+    }
+
+    <span style=color:#998;font-style:italic>// Check if hitting top or bottom of display
+</span><span style=color:#998;font-style:italic></span>    <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>&gt;=</span> upperLimit.y <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>&lt;=</span> lowerLimit.y) {
+      <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>this</span>.velocity.x, <span style=color:#000;font-weight:700>-</span><span style=color:#000;font-weight:700>this</span>.velocity.y);
+    }
+
+    <span style=color:#000;font-weight:700>for</span> (<span style=color:#000;font-weight:700>let</span> actor <span style=color:#000;font-weight:700>of</span> state.actors) {
+
+      <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>       * A ball can&#39;t collide with itself and
+</span><span style=color:#998;font-style:italic>       * skip balls that have already collided.
+</span><span style=color:#998;font-style:italic>       **/</span>
+      <span style=color:#000;font-weight:700>if</span> (<span style=color:#000;font-weight:700>this</span> <span style=color:#000;font-weight:700>===</span> actor <span style=color:#000;font-weight:700>||</span> <span style=color:#000;font-weight:700>this</span>.collisions.includes(actor.id <span style=color:#000;font-weight:700>+</span> updateId)) {
+        <span style=color:#000;font-weight:700>continue</span>;
+      }
+
+      <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>       * Check if actors collide in the next frame
+</span><span style=color:#998;font-style:italic>       * by adding the current velocity and updating
+</span><span style=color:#998;font-style:italic>       * now if they do.
+</span><span style=color:#998;font-style:italic>       */</span>
+      <span style=color:#000;font-weight:700>const</span> distance <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>this</span>.position.add(<span style=color:#000;font-weight:700>this</span>.velocity)
+        .subtract(actor.position.add(actor.velocity))
+        .magnitude;
+
+      <span style=color:#000;font-weight:700>if</span> (distance <span style=color:#000;font-weight:700>&lt;=</span> <span style=color:#000;font-weight:700>this</span>.radius <span style=color:#000;font-weight:700>+</span> actor.radius) {
+        <span style=color:#000;font-weight:700>const</span> v1 <span style=color:#000;font-weight:700>=</span> collisionVector(<span style=color:#000;font-weight:700>this</span>, actor);
+        <span style=color:#000;font-weight:700>const</span> v2 <span style=color:#000;font-weight:700>=</span> collisionVector(actor, <span style=color:#000;font-weight:700>this</span>);
+        <span style=color:#000;font-weight:700>this</span>.velocity <span style=color:#000;font-weight:700>=</span> v1;
+        actor.velocity <span style=color:#000;font-weight:700>=</span> v2;
+        <span style=color:#000;font-weight:700>this</span>.collisions.push(actor.id <span style=color:#000;font-weight:700>+</span> updateId);
+        actor.collisions.push(<span style=color:#000;font-weight:700>this</span>.id <span style=color:#000;font-weight:700>+</span> updateId);
+      }
+    }
+
+    <span style=color:#998;font-style:italic>/**
+</span><span style=color:#998;font-style:italic>     * Use the bounds to limit the position
+</span><span style=color:#998;font-style:italic>     * update.
+</span><span style=color:#998;font-style:italic>     **/</span>
+    <span style=color:#000;font-weight:700>const</span> newX <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>Math</span>.max(
+      <span style=color:#0086b3>Math</span>.min(<span style=color:#000;font-weight:700>this</span>.position.x <span style=color:#000;font-weight:700>+</span> <span style=color:#000;font-weight:700>this</span>.velocity.x, upperLimit.x),
+      lowerLimit.x
+    );
+
+    <span style=color:#000;font-weight:700>const</span> newY <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>Math</span>.max(
+      <span style=color:#0086b3>Math</span>.min(<span style=color:#000;font-weight:700>this</span>.position.y <span style=color:#000;font-weight:700>+</span> <span style=color:#000;font-weight:700>this</span>.velocity.y, upperLimit.y),
+      lowerLimit.y
+    );
+
+    <span style=color:#000;font-weight:700>return</span> <span style=color:#000;font-weight:700>new</span> Ball({
+      ...<span style=color:#000;font-weight:700>this</span>,
+      position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(newX, newY),
+    });
+  }
+  ...
+}
+</code></pre></div><p>Now stickiness can only occur if two objects spawn on top of each other. Which can happen using a random generator like I did for the intro animation in this article.</p><p><strong><em>And we&rsquo;re done!</em></strong> Let&rsquo;s give it a final whirl.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> display <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Canvas();
+
+<span style=color:#000;font-weight:700>const</span> ball1 <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball({
+  position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>40</span>, <span style=color:#099>100</span>),
+  velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>2</span>, <span style=color:#099>3</span>),
+  radius<span style=color:#000;font-weight:700>:</span> <span style=color:#099>20</span>,
+});
+
+<span style=color:#000;font-weight:700>const</span> ball2 <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Ball({
+  position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#099>200</span>, <span style=color:#099>100</span>),
+  velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(<span style=color:#000;font-weight:700>-</span><span style=color:#099>1</span>, <span style=color:#099>3</span>),
+  color<span style=color:#000;font-weight:700>:</span> <span style=color:#d14>&#39;blue&#39;</span>,
+});
+
+<span style=color:#000;font-weight:700>const</span> actors <span style=color:#000;font-weight:700>=</span> [ball1, ball2];
+<span style=color:#000;font-weight:700>let</span> state <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> State(display, actors);
+
+runAnimation(time =&gt; {
+  state <span style=color:#000;font-weight:700>=</span> state.update(time);
+  display.sync(state);
+});
+</code></pre></div><p id=example-7></p><script>const example7=document.getElementById('example-7');const display7=new Canvas(example7,460,200);const ball7a=new Ball({position:new Vector(30,100),velocity:new Vector(2,3),radius:20,color:'red',});const ball7b=new Ball({position:new Vector(200,100),velocity:new Vector(-1,3),radius:10,});const actors7=[ball7a,ball7b];let state7=new State(display7,actors7);runAnimation(time=>{state7=state7.update(time);display7.sync(state7);});</script><h2 id=final-notes>Final notes</h2><p>I wrapped all of this in a function with a loop to generate balls of random size, color, at different positions and speeds. You can see all of this in the source code <a rel="noopener noreferrer" target=_blank href=https://gist.github.com/joshuabradley012/bd2bc96bbe1909ca8555a792d6a36e04>here</a>. But to wrap up the article, here is the script I used to generate the intro animation in this article.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-javascript data-lang=javascript><span style=color:#000;font-weight:700>const</span> random <span style=color:#000;font-weight:700>=</span> (max <span style=color:#000;font-weight:700>=</span> <span style=color:#099>9</span>, min <span style=color:#000;font-weight:700>=</span> <span style=color:#099>0</span>) =&gt; {
+  <span style=color:#000;font-weight:700>return</span> <span style=color:#0086b3>Math</span>.floor(<span style=color:#0086b3>Math</span>.random() <span style=color:#000;font-weight:700>*</span> (max <span style=color:#000;font-weight:700>-</span> min <span style=color:#000;font-weight:700>+</span> <span style=color:#099>1</span>) <span style=color:#000;font-weight:700>+</span> min);
+};
+
+<span style=color:#000;font-weight:700>const</span> colors <span style=color:#000;font-weight:700>=</span> [<span style=color:#d14>&#39;red&#39;</span>, <span style=color:#d14>&#39;green&#39;</span>, <span style=color:#d14>&#39;blue&#39;</span>, <span style=color:#d14>&#39;purple&#39;</span>, <span style=color:#d14>&#39;orange&#39;</span>];
+
+<span style=color:#000;font-weight:700>const</span> collidingBalls <span style=color:#000;font-weight:700>=</span> ({ width <span style=color:#000;font-weight:700>=</span> <span style=color:#099>400</span>, height <span style=color:#000;font-weight:700>=</span> <span style=color:#099>400</span>, parent <span style=color:#000;font-weight:700>=</span> <span style=color:#0086b3>document</span>.body, count <span style=color:#000;font-weight:700>=</span> <span style=color:#099>50</span> }) =&gt; {
+  <span style=color:#000;font-weight:700>const</span> display <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> Canvas(parent, width, height);
+  <span style=color:#000;font-weight:700>const</span> balls <span style=color:#000;font-weight:700>=</span> [];
+  <span style=color:#000;font-weight:700>for</span> (<span style=color:#000;font-weight:700>let</span> i <span style=color:#000;font-weight:700>=</span> <span style=color:#099>0</span>; i <span style=color:#000;font-weight:700>&lt;</span> count; i<span style=color:#000;font-weight:700>++</span>) {
+    balls.push(<span style=color:#000;font-weight:700>new</span> Ball({
+      radius<span style=color:#000;font-weight:700>:</span> random(<span style=color:#099>8</span>, <span style=color:#099>3</span>) <span style=color:#000;font-weight:700>+</span> <span style=color:#0086b3>Math</span>.random(),
+      color<span style=color:#000;font-weight:700>:</span> colors[random(colors.length <span style=color:#000;font-weight:700>-</span> <span style=color:#099>1</span>)],
+      position<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(random(width <span style=color:#000;font-weight:700>-</span> <span style=color:#099>10</span>, <span style=color:#099>10</span>), random(height <span style=color:#000;font-weight:700>-</span> <span style=color:#099>10</span>, <span style=color:#099>10</span>)),
+      velocity<span style=color:#000;font-weight:700>:</span> <span style=color:#000;font-weight:700>new</span> Vector(random(<span style=color:#099>3</span>, <span style=color:#000;font-weight:700>-</span><span style=color:#099>3</span>), random(<span style=color:#099>3</span>, <span style=color:#000;font-weight:700>-</span><span style=color:#099>3</span>)),
+    }));
+  }
+  <span style=color:#000;font-weight:700>let</span> state <span style=color:#000;font-weight:700>=</span> <span style=color:#000;font-weight:700>new</span> State(display, balls);
+  runAnimation(time =&gt; {
+    state <span style=color:#000;font-weight:700>=</span> state.update(time);
+    display.sync(state);
+  });
+};
+
+collidingBalls({
+  count<span style=color:#000;font-weight:700>:</span> <span style=color:#099>40</span>,
+  height<span style=color:#000;font-weight:700>:</span> <span style=color:#099>260</span>,
+  width<span style=color:#000;font-weight:700>:</span> <span style=color:#099>460</span>,
+  parent<span style=color:#000;font-weight:700>:</span> <span style=color:#0086b3>document</span>.getElementById(<span style=color:#d14>&#39;hero&#39;</span>),
+});
+</code></pre></div><p>This was a lot of fun. But it&rsquo;s not perfect. There are still issues with imperfect collisions (because the balls do not touch), wall squeezes, and balls that are spawned on top of each other. If you come with a solution for any of these things, please let me know!</p></div><small class="meta tags" itemprop=keywords><a rel=bookmark href=https://joshbradley.me/tags/javascript/><span itemprop=name>JavaScript</span></a><a rel=bookmark href=https://joshbradley.me/tags/canvas/><span itemprop=name>Canvas</span></a></small></article></main><footer class=footer itemscope itemtype=https://schema.org/WPFooter><form class=search action=https://duckduckgo.com/ method=get><label for=search-input hidden>Search</label><input id=search-input type=text name=q><button type=submit>Search</button><input type=hidden name=sites value=joshbradley.me></form><small class=colophon>&copy; <time itemprop=copyrightYear datetime=2020-07-27T10:32:57-07:00>2020</time> <span itemprop=copyrightHolder>Josh Bradley</span></small></footer><script src=https://joshbradley.me/app.min.js></script></body></html>
