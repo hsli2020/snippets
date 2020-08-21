@@ -1,0 +1,224 @@
+https://scriggo.com/
+------------------------------------------------------------
+{% extends "layout.html" %}
+{% import "banners.html" %}
+{% macro Body %}
+    <ul>
+      {% for product in products %}
+      <li><a href="{{ product.URL }}">{{ product.Name }}</a></li>
+      {% end %}
+    </ul>
+    {{ render "pagination.html" }}
+    {{ Banner() }}
+{% end %}
+------------------------------------------------------------
+{% if product.Stock > 10 %} good availability {% end %}
+------------------------------------------------------------
+{%%
+    for product in products {
+        if product.Stock == 0 {
+            continue
+        }
+        if product.Stock > 10 {
+            show "good availability: "
+        }
+        show product.Name, "\n"
+    }
+%%}
+------------------------------------------------------------
+{# review the following code #}
+------------------------------------------------------------
+{% show 5 + 2, " = ", 7 %}
+{% show price %}
+------------------------------------------------------------
+{%%
+  var value = 55
+  if value < 100 {
+      show "value is ", value
+  } else {
+      show "too large"
+  }
+%%}
+------------------------------------------------------------
+{% var greeting = "hello" %}
+
+<div>{{ greeting }}</div>
+
+<script>
+  var a = {{ greeting }};
+  var b = '{{ greeting }} world';
+</script>
+------------------------------------------------------------
+{{ render path }}
+{{ render "/promotion.html" }}
+{{ render "../header.html" }}
+{{ render "socials.html" }}
+
+{{ Image("picture.jpg", 400, 500) }}
+------------------------------------------------------------
+{% var email = render "email.html" %}
+
+{%%
+    if discount {
+        show "Offer: " + render "offer.html"
+    }
+%%}
+
+{% promo := render "extra.html" default "oops!" %}
+
+{{ render "specials.html" default "" }}
+{{ render "specials.html" default notify("specials.html does not exist") }}
+{{ render "specials.html" default render "no-specials.html" }}
+------------------------------------------------------------
+{% macro title %}An awesome book{% end %}
+{{ title() }}
+------------------------------------------------------------
+{% var product = "tablet" %}
+{% macro title %}An awesome {{ product }}{% end %}
+------------------------------------------------------------
+{% macro image(url string, width int, height int) %}
+  <img src="{{ url }}" width="{{ width }}" height="{{ height }}">
+{% end %}
+
+{{ image("picture.jpg", 400, 500) }}
+------------------------------------------------------------
+{% macro image(url string, width, height int) %}
+  <img src="{{ url }}" width="{{ width }}" height="{{ height }}">
+{% end %}
+------------------------------------------------------------
+{% extends "layout.html" %}
+{% macro Main %}
+
+<ul>
+  {% for product in products %}
+  <li><a href="{{ product.URL }}">{{ product.Name }}</a></li>
+  {% end for %}
+</ul>
+
+{% end macro %}
+------------------------------------------------------------
+{% extends "layout.html" %}
+{% Main %}
+
+<ul>
+  {% for product in products %}
+  <li><a href="{{ product.URL }}">{{ product.Name }}</a></li>
+  {% end for %}
+</ul>
+------------------------------------------------------------
+{% import "/imports/images.html" for Image %}
+{{ Image("offer.png", 200, 200) }}
+------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ Title() }}</title>
+</head>
+<body>
+  {{ Header() }}
+  {{ Body() }}
+</body>
+</head>
+
+{% extends "/layouts/standard.html" %}
+{% macro Title %}Awesome product{% end %}
+{% macro Header %}
+ <header>An awesome product</header>
+{% end %}
+{% macro Body %}
+  This awesome product is...
+{% end %}
+------------------------------------------------------------
+{% import "images.html" %}
+{{ Image("offer.png", 200, 200) }}
+
+<img src="offer.png" width="200" height="200">
+
+{% import "images.html" for Image, Banner %}
+{{ Image("offer.png", 200, 200) }}
+
+{% import images "images.html" %}
+{{ images.Image("offer.png", 200, 200) }
+------------------------------------------------------------
+{% if stock > 10 %}
+  Wide availability
+{% else if stock > 0 %}
+  Limited availability
+{% else %}
+  Not available
+{% end %}
+------------------------------------------------------------
+{% if promotion and stock %} promotion with immediate availability {% end %}
+{% if not price %} login to view price {% end %}
+
+{% if promotion != nil && stock > 0 %} promotion with immediate availability {% end %}
+{% if price == 0  %} login to view price {% end %}
+------------------------------------------------------------
+{% for article in articles %}
+  <div>{{ article.Title }}</div>
+{% end %}
+
+{% for i, article := range articles %}
+  <div>{{ i+1 }}. {{ article.Title }}</div>
+{% end %}
+
+{% for i < len(articles) %}
+  <div>{{ i+1 }}. {{ articles[i].Title }}</div>
+  {% i++ %}
+{% end %}
+
+{% for %}
+  {% var v = value() %}
+  {% if not v %}{% break %}{% end %}
+{% end %}
+
+{% for i := 0; i < len(articles); i++ %}
+  <div>{{ i+1 }}. {{ articles[i].Name }}</div>
+{% end %}
+
+{% for product in products %}
+  {% if not product.Price %}
+    {% continue %}
+  {% end if %}
+  <div>{{ product.Name }}</div>
+{% end %}
+
+{% for n in []int{1, 2, 3, 4, 5} %}
+  {% if n > 3 %}
+    {% break %}
+  {% end if %}
+  {{ n }}
+{% end %}
+------------------------------------------------------------
+{% switch department.Name %}
+{% case "Tappeti" %}
+  Rugs and rugs on offer for yuor home
+{% case "Cuscini", "Federe" %}
+  Offers for the bedroom
+{% default %}
+  Specials
+{% end %}
+
+{% switch %}
+{% case stock > 10 %}
+  Available
+{% case name == "Cuscini" %}
+  Offers for the bedroom
+{% default %}
+  Specials
+{% end %}
+------------------------------------------------------------
+{% var colors = []string{"red", "blue", "yellow", "green"} %}
+{% if colors contains "yellow" %}
+  colors contains "yellow"
+{% end %}
+
+{% if product.Name contains "bundle" %}
+  the product's name contains the word "bundle"
+{% end %}
+
+{% var nameOf = map[int]string{1: "one", 4: "four", 7: "seven"} %}
+{% if nameOf contains 7 %}
+  nameOf contains the key 7
+{% end %}
+------------------------------------------------------------

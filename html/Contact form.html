@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - responsive contact page form</title>
+  
+<style>
+body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(41, 39, 39);
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 500px;
+            margin: 15vh auto;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 0 15px rgb(180, 51, 73);
+            /* background-color: gray; */
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+        }
+        
+        input {
+            width: 100%;
+            margin: 5px 0;
+            height: 35px;
+            font-size: 17px;
+            text-align: center;
+            outline: none;
+            border-radius: 15px;
+            border: none;
+            background: rgb(235, 228, 228);
+        }
+        
+        textarea {
+            width: 100%;
+            margin: 5px 0;
+            font-size: 17px;
+            text-align: center;
+            outline: none;
+            border-radius: 15px;
+            border: none;
+            background: rgb(235, 228, 228);
+        }
+        input[type=submit]{
+            margin: 10px auto;
+            width: 120px;
+            background: rgb(216, 31, 62);
+            color: white;
+            cursor: pointer;
+        }
+        input[type=submit]:hover{
+        background: tomato;
+        }
+        @media screen and (max-width:600px) {
+            .container{
+                width: 90%;
+            }
+        }
+</style>
+</head>
+
+<body translate="no" >
+
+    <div class="container">
+        <h2>Write Us</h2>
+        <form action="">
+            <input type="email" name="email" id="email" placeholder="Enter your email">
+            <input type="text" name="name" id="name" placeholder=" enter your name">
+            <textarea name="message" id="message" cols="30" rows="10" placeholder="Enter your message here"></textarea>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+</body>
+</html>
+ 

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Accessible Material Dialog</title>
+  
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+:root {
+  --ratio: 3.74;
+  --cta-color: rgb(0, 102, 254);
+  --light-color-bg: rgb(238, 241, 247);
+  --dark-color-bg: rgb(55, 65, 81);
+  --grey-color: rgb(107, 114, 128);
+  --leading: 0.025em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+main {
+  width: 700px;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+button {
+  display: block;
+  margin-top: 2rem;
+  width: calc(44px * var(--ratio));
+  height: 44px;
+  border-radius: calc(3px * var(--ratio));
+  border: none;
+  letter-spacing: ccalc(3 * var(--leading, 0.025em));
+  font-family: inherit;
+  color: var(--grey-color);
+  background-color: var(--light-color-bg);
+  font-size: large;
+  font-weight: 700;
+}
+
+button:focus {
+  outline: none;
+  border: 0.0625rem solid transparent;
+  box-shadow: 0 0 0 0.125rem #fff, 0 0 0 0.2rem var(--dark-color-bg);
+}
+
+button.cta {
+  background-color: var(--cta-color);
+  color: white;
+}
+
+button.cta:focus {
+  box-shadow: 0 0 0 0.125rem #fff, 0 0 0 0.2rem var(--cta-color);
+}
+
+#open_dialog {
+  margin: 0 auto;
+}
+
+dialog {
+  border: none !important;
+  border-radius: calc(5px * var(--ratio));
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 1.6rem;
+  max-width: 400px;
+}
+
+dialog img {
+  display: block;
+  max-width: 75%;
+  margin: 1rem 0 auto 2rem;
+}
+
+.h1 {
+  margin: 2rem 0 1rem;
+  font-weight: 900;
+}
+
+.h2 {
+  margin: 2rem 0 1rem;
+  font-weight: 800;
+}
+
+p {
+  color: var(--grey-color);
+  letter-spacing: var(--leading, 0.025em);
+  line-height: 1.625;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.flex-space-between {
+  justify-content: space-between;
+}
+</style>
+</head>
+
+<body translate="no" >
+<main>
+  <h1 class="h1">Dialog</h1>
+
+  <p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum iure at
+    dolor libero assumenda nam dolorum consequuntur voluptatem? Numquam
+    accusantium eligendi, deleniti dolores dicta fuga aperiam placeat
+    eveniet. Quod, magnam.
+  </p>
+  <button id="open_dialog">Open Dialog</button>
+
+  <dialog aria-labelledby="dialog_title" aria-describedby="dialog_description">
+    <img src="https://native-dialog.surge.sh/location-service.svg" alt="Illustration of Location Services" />
+    <h2 id="dialog_title" class="h2">Use location services?</h2>
+    <p id="dialog_description">
+      In order to give directional instructions, we kindly ask you to turn
+      on the location services.
+    </p>
+    <div class="flex flex-space-between">
+      <button id="close_dialog">Close</button>
+      <button id="confirm_dialog" class="cta">Confirm</button>
+    </div>
+  </dialog>
+</main>
+  
+<script id="rendered-js" type="module">
+import dialogPolyfill from "https://cdn.skypack.dev/dialog-polyfill@0.5.6";
+
+const dialog = document.querySelector("dialog");
+const openDialogBtn = document.getElementById("open_dialog");
+const closeDialogBtn = document.getElementById("close_dialog");
+
+const elements = dialog.querySelectorAll(
+'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])');
+
+const firstElement = elements[0];
+const lastElement = elements[elements.length - 1];
+
+const trapFocus = e => {
+  if (e.key === "Tab") {
+    const tabForwards = !e.shiftKey && document.activeElement === lastElement;
+    const tabBackwards = e.shiftKey && document.activeElement === firstElement;
+    if (tabForwards) {
+      // only TAB is pressed, not SHIFT simultaneously
+      // Prevent default behavior of keydown on TAB (i.e. focus next element)
+      e.preventDefault();
+      firstElement.focus();
+    } else if (tabBackwards) {
+      // TAB and SHIFT are pressed simultaneously
+      e.preventDefault();
+      lastElement.focus();
+    }
+  }
+};
+
+const openDialog = () => {
+  dialog.showModal();
+  dialog.addEventListener("keydown", trapFocus);
+};
+
+const closeDialog = e => {
+  e.preventDefault();
+  dialog.close();
+  dialog.removeEventListener("keydown", trapFocus);
+  openDialogBtn.focus();
+};
+
+openDialogBtn.addEventListener("click", openDialog);
+closeDialogBtn.addEventListener("click", closeDialog);
+
+if (typeof dialog.showModal !== "function") {
+  /**
+   * How to add polyfill outside CodePen conditionally
+   * let polyfill = document.createElement("script");
+   * polyfill.type = "text/javascript";
+   * polyfill.src = "/dist/dialog-polyfill.js";
+   * document.body.append(polyfill);
+  
+   * const polyfillStyles = document.createElement("link");
+   * polyfillStyles.rel = "stylesheet";
+   * polyfillStyles.href = "dialog-polyfill.css";
+   * document.head.append(polyfillStyles);
+   **/
+
+  // Register polyfill on dialog element once the script has loaded
+  dialogPolyfill.registerDialog(dialog);
+}
+//# sourceURL=pen.js
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<style>
+body, input {font-family: verdana; font-size: 20px}
+#f {width: 600px}
+</style>
+<!-- script type="text/javascript" charset="utf-8" src="audio.js"></script -->
+<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+ 
+<script>
+var data = [];
+var sampleRate = 44100;
+
+$(window).bind('hashchange', function() {
+	$('#f').val(window.location.hash.substr(1));
+});
+
+$(function () {
+	if (window.location.hash.length>0)
+	{
+		$('#f').val(window.location.hash.substr(1));
+	}
+});
+
+function generateData()
+{
+	data = [];
+	sampleRate = parseInt($('#s').val());
+	var code = 'for (var t=0; t<' + $('#n').val() + '; t++) data[t] = ' + $('#f').val() + ';';
+	eval(code);
+	$('#b').val('Encoding...');
+	setTimeout(encode, 1);
+}
+
+function encode()
+{
+	var dataUri = encodeAudio8bit(data);
+	$('#b').val('Generate and play');
+	var ap = $('#pl').attr({ src: dataUri });
+	ap[0].play();
+}
+
+function generate()
+{
+	$('#b').val('Generating...');
+	setTimeout(generateData, 1);
+}
+
+function encodeAudio8bit(data) {
+  var n = data.length;
+  var integer = 0, i;
+ 
+  // 8-bit mono WAVE header template
+  var header = "RIFF<##>WAVEfmt \x10\x00\x00\x00\x01\x00\x01\x00<##><##>\x01\x00\x08\x00data<##>";
+ 
+  // Helper to insert a 32-bit little endian int.
+  function insertLong(value) {
+    var bytes = "";
+    for (i = 0; i < 4; ++i) {
+      bytes += String.fromCharCode(value % 256);
+      value = Math.floor(value / 256);
+    }
+    header = header.replace('<##>', bytes);
+  }
+ 
+  // ChunkSize
+  insertLong(36 + n);
+ 
+  // SampleRate
+  insertLong(sampleRate);
+ 
+  // ByteRate
+  insertLong(sampleRate);
+ 
+  // Subchunk2Size
+  insertLong(n);
+ 
+  // Output sound data
+  for (var i = 0; i < n; ++i) {
+    header += String.fromCharCode(Math.round(Math.min(1, Math.max(-1, data[i])) * 127 + 127));
+  }
+ 
+  return 'data:audio/wav;base64,' + btoa(header);
+}
+
+</script>
+<body>
+	Formula: 
+	<input type="text" id="f" value="t*((t>>12|t>>8)&63&t>>4)" />
+	<br/>
+	Sample rate: 
+	<input type="text" id="s" value="88200" />
+	<br/>
+	Number of samples (length): 
+	<input type="text" id="n" value="500000" />
+	<br/>
+	<input type="button" id="b" value="Generate and play" onClick="generate()" />
+	<br/>
+	<br/>
+	<audio controls="controls" id="pl"></audio>
+</body>
+</html>

@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>CodePen - CSS-Only Dropdown Navigation Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Baloo+2&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+  
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.dropdown__title {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+}
+
+nav {
+  background-color: rebeccapurple;
+  padding: 0 1rem;
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+}
+nav > ul {
+  grid-auto-flow: column;
+}
+nav > ul > li {
+  margin: 0 0.5rem;
+}
+nav > ul > li a,
+nav > ul > li .dropdown__title {
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+  font-size: 1.125rem;
+}
+nav > ul > li a:focus,
+nav > ul > li .dropdown__title:focus {
+  outline: none;
+}
+nav > ul > li > a,
+nav > ul > li .dropdown__title {
+  padding: 1rem 0.5rem;
+  border-top: 3px solid transparent;
+  transition: 280ms all 120ms ease-out;
+}
+nav > ul > li > a:hover, nav > ul > li > a:focus,
+nav > ul > li .dropdown__title:hover,
+nav > ul > li .dropdown__title:focus {
+  border-top-color: pink;
+  color: pink;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+nav ul li {
+  padding: 0;
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown .dropdown__title {
+  display: inline-flex;
+  align-items: center;
+}
+.dropdown .dropdown__title:after {
+  content: "";
+  border: 0.35rem solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.45);
+  margin-left: 0.25em;
+  transform: translateY(0.15em);
+}
+.dropdown .dropdown__menu {
+  position: absolute;
+  min-width: 15ch;
+  left: 50%;
+  top: calc(100% - 0.25rem);
+  transition: 280ms all 120ms ease-out;
+  transform: rotateX(-90deg) translateX(-50%);
+  transform-origin: top center;
+  visibility: hidden;
+  opacity: 0.3;
+  padding: 0.5em 0;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0.15em 0.25em rgba(0, 0, 0, 0.25);
+}
+.dropdown .dropdown__menu a {
+  color: #47246b;
+  display: block;
+  padding: 0.5em;
+  opacity: 0;
+  transition: 280ms all 120ms ease-out;
+}
+.dropdown .dropdown__menu a:hover {
+  background-color: rgba(102, 51, 153, 0.15);
+}
+.dropdown .dropdown__menu a:focus {
+  outline: none;
+  background-color: rgba(102, 51, 153, 0.25);
+}
+.dropdown:after {
+  content: "";
+  border: 0.5rem solid transparent;
+  border-bottom-color: #fff;
+  position: absolute;
+  top: calc(100% - 1.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 280ms all 120ms ease-out;
+  opacity: 0;
+  will-change: opacity;
+}
+.dropdown:hover .dropdown__title, .dropdown:focus-within .dropdown__title {
+  border-top-color: pink;
+}
+.dropdown:hover .dropdown__menu, .dropdown:focus-within .dropdown__menu {
+  opacity: 1;
+  transform: rotateX(0) translateX(-50%);
+  visibility: visible;
+}
+.dropdown:hover .dropdown__menu a, .dropdown:focus-within .dropdown__menu a {
+  opacity: 1;
+}
+.dropdown:hover:after, .dropdown:focus-within:after {
+  opacity: 1;
+}
+
+body {
+  font-family: "Baloo 2", sans-serif;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header,
+footer {
+  display: grid;
+  place-items: center;
+}
+
+header {
+  background-image: url(https://images.unsplash.com/photo-1582232655383-0826ba4f1347?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  box-shadow: inset 100vw 100vh rgba(102, 51, 153, 0.6);
+  min-height: 40vh;
+  color: #fff;
+}
+
+main {
+  padding: 1rem;
+  max-width: 80ch;
+  margin: 0 auto;
+}
+main:focus {
+  outline: none;
+}
+
+footer {
+  background-color: mintcream;
+}
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+p {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+</style>
+
+  
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <body tabindex="-1">
+  <header>
+    <h1>Steph's Sweet Shoppe</h1>
+  </header>
+  <nav aria-label="Main Navigation">
+    <ul>
+      <li><a href="#">About</a></li>
+      <li class="dropdown">
+        <!-- aria-expanded needs managed with Javascript -->
+        <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="sweets-dropdown">
+          Sweets
+        </button>
+        <ul class="dropdown__menu" id="sweets-dropdown">
+          <li><a href="#">Donuts</a></li>
+          <li><a href="#">Cupcakes</a></li>
+          <li><a href="#">Chocolate</a></li>
+          <li><a href="#">Bonbons</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Order</a></li>
+    </ul>
+  </nav>
+  <main>
+    <p><a href="https://moderncss.dev/">https://moderncss.dev/</a></p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+    <p>Marzipan soufflé cotton candy tart sweet bonbon. Macaroon fruitcake pie gummies gummi bears biscuit dragée. Topping icing marshmallow. Soufflé gummies dessert jelly dessert liquorice.</p>
+  </main>
+  <footer>
+    <p>&copy; Steph's Sweet Shoppe</p>
+  </footer>
+</body>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+
+  
+      <script id="rendered-js" >
+"use strict";
+//# sourceURL=pen.js
+    </script>
+
+  
+
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-4793b73c6332f7f14a9b6bba5d5e62748e9d1bd0b5c52d7af6376f3d1c625d7e.js"></script>
+</body>
+
+</html>
+ 

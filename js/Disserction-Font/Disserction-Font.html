@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+  <HEAD>
+    <TITLE>Dissection Font</TITLE>
+    <SCRIPT TYPE="text/javascript" src="svg.min.js"></SCRIPT>
+    <SCRIPT TYPE="text/javascript" src="Knuth.js"></SCRIPT>
+    <SCRIPT TYPE="text/javascript" src="2piece.js"></SCRIPT>
+    <SCRIPT TYPE="text/javascript" src="2piece-discon.js"></SCRIPT>
+    <SCRIPT TYPE="text/javascript" src="index.js"></SCRIPT>
+    <STYLE TYPE="text/css">
+      #warnings { background: red; color: yellow; padding: 1ex; display: none; }
+      @media print {
+        .noprint { display: none; }
+      }
+      /*TD { text-align: center; }*/
+      TEXTAREA { vertical-align: middle; }
+    </STYLE>
+
+  </HEAD>
+  <BODY>
+    <TABLE WIDTH="100%">
+      <TR>
+        <TD STYLE="text-align: left; vertical-align: middle;">
+          <H1><A HREF="./">Dissection Font</A></H1>
+        <TD STYLE="text-align: right; vertical-align: middle;">
+          <H2>by <A HREF="http://erikdemaine.org/">Erik&nbsp;Demaine</A>, <A HREF="http://martindemaine.org">Martin&nbsp;Demaine</A>, <A HREF="http://www-cs-faculty.stanford.edu/~knuth/">Donald E. Knuth</A>, <A HREF="http://jazz.cias.osakafu-u.ac.jp/~uno/index-e.htm">Yushi Uno</A>, 2018</H2>
+    </TABLE>
+
+    <P ID="warnings">
+    </P>
+
+    <TABLE id="data" WIDTH="100%" CLASS="noprint">
+      <TR>
+        <TD>
+          <LABEL FOR="text">Enter text to render:</LABEL> &nbsp;
+          <TEXTAREA NAME="text" ID="text" ROWS=4 COLS=40></TEXTAREA>
+        </TD>
+        <TD>
+          <INPUT ID="letter" TYPE="radio" NAME="form" VALUE="letter"/><LABEL FOR="letter">Letter without dissection</LABEL>
+          <BR>
+          <INPUT ID="solved" TYPE="radio" NAME="form" VALUE="solved"/><LABEL FOR="solved">Dissection in form of letter</LABEL>
+          <BR>
+          <INPUT ID="square" TYPE="radio" NAME="form" VALUE="square"/><LABEL FOR="square">Dissection in form of square</LABEL>
+          <BR>
+          <INPUT ID="both" TYPE="radio" NAME="form" VALUE="both" CHECKED/><LABEL FOR="both">Dissection in both forms</LABEL>
+        </TD>
+        <TD>
+          <INPUT ID="4piece" TYPE="radio" NAME="font" VALUE="4piece" CHECKED/><LABEL FOR="4piece">4-piece disconnected font</LABEL>
+          <BR>
+          <INPUT ID="2piece-discon" TYPE="radio" NAME="font" VALUE="2piece-discon"/><LABEL FOR="2piece-discon">2-piece disconnected font</LABEL>
+          <BR>
+          <INPUT ID="3piece" TYPE="radio" NAME="font" VALUE="3piece"/><LABEL FOR="3piece">3-piece connected font</LABEL>
+          <BR>
+          <INPUT ID="2piece" TYPE="radio" NAME="font" VALUE="2piece"/><LABEL FOR="2piece">2-piece connected font</LABEL>
+        </TD>
+      </TR>
+    </TABLE>
+
+    <P>
+
+    <DIV id="output" STYLE="width: 100%">
+    </DIV>
+
+    <DIV STYLE="text-align: right" CLASS="noprint">
+      <BUTTON ID="downloadSVG">Download SVG</BUTTON>
+      <A ID="download" STYLE="display: none"></A>
+    </DIV>
+
+    <HR CLASS="noprint">
+
+    <P CLASS="noprint">
+    In these fonts, each letter or digit or ampersand can be
+    <B><A HREF="https://en.wikipedia.org/wiki/Dissection_problem">dissected</A></B>
+    (cut into pieces such that those pieces re-arrange) into a
+    6&nbsp;&times;&nbsp;6 square.
+    The dissections all happen to be polyomino dissections, and they allow
+    translation, rotation, and reflection in the piece re-arrangement.
+    There are four different fonts, each using up to 2, 3, or 4 pieces
+    in each dissection.
+    Of course, with more pieces, it is easier to get nicer-looking letters.
+    The 2- and 4-piece <b>disconnected</b> fonts use some disconnected pieces
+    (but still each piece moves as a single unit),
+    while the 2- and 3-piece <b>connected</b> fonts use connected pieces.
+    In the disconnected fonts, we achieve uniform letter heights.
+
+    <P CLASS="noprint">
+    <B>Origin.</B>
+    The 3- and 4-piece font come from a draft of
+    <I><A HREF="https://www-cs-faculty.stanford.edu/~knuth/taocp.html">The Art of Computer Programming</A></I>,
+    volume 4, pre-fascicle 9B &ldquo;A Potpourri of Puzzles&rdquo;,
+    where Knuth poses (and solves)
+    two exercises in mathematical/puzzle font design.
+    See <A HREF="https://www.nytimes.com/2018/12/17/science/donald-knuth-computers-algorithms-programming.html">Knuth's December 2018 profile in the New York Times</A>.
+    These fonts were originally presented at
+    <A HREF="http://knuth80.elfbrink.se/">Knuth's 80th Birthday Party</A>
+    in January 2018.
+    The 2-piece disconnected font was released in May 2019.
+
+    <P CLASS="noprint">
+    <B>Font forms.</B>
+    Each font can be presented in a fully solved form
+    (&ldquo;Dissection in both forms&rdquo;) or in a variety of puzzle forms.
+    &ldquo;Letter without dissection&rdquo; is the hardest form: the puzzle
+    for each letter is to find a dissection with the specified number of pieces
+    into a 6&nbsp;&times;&nbsp;6 square.
+    In &ldquo;Dissection in form of letter&rdquo;, the puzzle is to find the
+    re-arrangement of the letter into the square (a relatively easy puzzle).
+    In &ldquo;Dissection in form of square&rdquo;, the puzzle is to figure out
+    which letter the pieces can re-arrange into; this form is a
+    <B>puzzle font</B> in the sense that reading the message requires solving
+    the puzzle.
+
+    <P CLASS="noprint">
+    <B>Related mathematics.</B>
+    It has been known since 1814 that every two polygons of the same area
+    have a dissection
+    (<A HREF="http://erikdemaine.org/papers/HingedDissections_DCG/">and even a hinged dissection</A>),
+    but finding a dissection with the fewest possible pieces
+    (or a specified number <I>k</I> of pieces)
+    <A HREF="http://erikdemaine.org/papers/Dissection_JCDCGG2015full/">is <B>strongly NP-complete</B></A>.
+
+    <P CLASS="noprint">
+    Check out <A HREF="http://erikdemaine.org/fonts/">other mathematical and
+    puzzle fonts</A>. &bull; Feedback or not working?
+    <A HREF="mailto:edemaine+fonts@mit.edu">Email Erik</A>.
+  </BODY>
+</HTML>
