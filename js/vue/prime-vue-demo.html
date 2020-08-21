@@ -1,0 +1,23 @@
+<meta charset="utf-8">
+<title>calendar demo</title>
+<link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css " rel="stylesheet">
+<link href="https://unpkg.com/primevue/resources/primevue.min.css " rel="stylesheet">
+<link href="https://unpkg.com/primeicons/primeicons.css " rel="stylesheet">
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/primevue/components/calendar/calendar.umd.min.js"></script>
+<script src="https://unpkg.com/primevue/components/colorpicker/colorpicker.umd.min.js"></script>
+
+<div id="app">
+  <p-calendar></p-calendar>
+  <p-colorpicker></p-colorpicker>
+</div>
+
+<script>
+new Vue({
+  components: {
+    'p-calendar': calendar,
+    'p-colorpicker': colorpicker,
+  }
+}).$mount('#app')
+</script>
