@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Loan Calculator</title>
+    <style media="screen">
+    body{
+      background: rgb(8, 144, 110);
+      font-family: sans-serif;
+    }
+    #loancal {
+  width: 345px;
+  height: 440px;
+  background-color:white;
+  color: #fff;
+  padding: 10px;
+  margin: 100px auto;
+}
+h1 {
+  font-size:30px;
+  text-align: center;
+  color: rgb(9, 95, 172);
+  margin-bottom: 35px;
+}
+.input{
+  margin-left: 40px;
+  margin-right: 40px;
+}
+p{
+color: rgb(17, 103, 170);
+font-size: 17px;
+}
+input{
+  width: 100%;
+  height: 33px;
+}
+
+#interest_rate {
+  margin-left: 2px;
+}
+ h2{
+   text-align: center;
+   color: rgb(6, 111, 139);
+   margin-top: 35px;
+ }
+
+    </style>
+</head>
+<body>
+    <div id="loancal">
+        <h1>Loan Calculator</h1>
+        <div class="input">
+        <p>Loan Amount: $</p>
+          <input id="amount" type="number" min="1" max="5000000" onchange="computeLoan()">
+        <p>Interest Rate: %</p>
+        <input id="interest_rate" min="0" max="100" value="10" step=".1" onchange="computeLoan()">
+        <p>Months to Pay: </p>
+         <input id="months" type="number" min="1" max="300" value="1" step="1" onchange="computeLoan()">
+      </div>
+        <h2 id="payment"></h2>
+    </div>
+    <script type="text/javascript">
+    function computeLoan(){
+        const amount = document.querySelector('#amount').value;
+        const interest_rate = document.querySelector('#interest_rate').value;
+        const months = document.querySelector('#months').value;
+        const interest = (amount * (interest_rate * 0.01)) / months;
+        let payment = ((amount / months) + interest).toFixed(2); //calculate monthly payment
+
+        //regedit to add a comma after every three digits
+        payment = payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //\B looks for a word boundary, ? says what to look for, \d looks for 3 digits in a row
+        document.querySelector('#payment').innerHTML = `Monthly Payment = ${payment}`
+
+    }
+    </script>
+</body>
+</html>

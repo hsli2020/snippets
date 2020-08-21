@@ -1,0 +1,28 @@
+// proto-service
+syntax = "proto3";
+package go.microservice.btchdwallet;
+
+option go_package = "github.com/LuisAcerv/btchdwallet";
+
+service Wallet {
+    rpc CreateWallet(Request)      returns (Response) {}
+    rpc CreateChildWallet(Request) returns (Response) {}
+    rpc GetWallet(Request)         returns (Response) {}
+    rpc GetBalance(Request)        returns (Response) {}
+}
+
+message Request {
+    string Address   = 1;
+    string Mnemonic  = 2;
+}
+
+message Response {
+    string Address            = 1;
+    string PubKey             = 2;
+    string PrivKey            = 3;
+    string Mnemonic           = 4;
+    int64  Balance            = 5;
+    int64  TotalReceived      = 6;
+    int64  TotalSent          = 7;
+    int64  UnconfirmedBalance = 8;
+}
