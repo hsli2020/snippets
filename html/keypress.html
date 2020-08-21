@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>KeyPress Event</title>
+</head>
+
+<body>
+</body>
+
+<script>
+    window.onkeydown = (e) => {
+        var t = document.createTextNode('key-down-' + e.key);
+        document.body.appendChild(t);
+    }
+    window.onkeyup = (e) => {
+        var br = document.createElement('br');
+        var t = document.createTextNode(' / key-up-' + e.key);
+        document.body.appendChild(t);
+        document.body.appendChild(br);
+    }
+</script>
+
+</html>
