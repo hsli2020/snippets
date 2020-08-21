@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Vue Tippy</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-tippy@4/dist/vue-tippy.min.js"></script>
+</head>
+<body>
+
+<a href="https://vuejsexamples.com/directive-wrapper-for-tippy-js/">Document and Examples</a>
+
+<div id="app">
+    <p><a :content="message" href="{{ message }}" v-tippy>{{ message }}</a></p>
+    <button :content="message" v-tippy>Hover Me</button>
+    <button content="I'm the default tooltip!" v-tippy>Try me!</button>
+    <button content="Hello" v-tippy="{ placement : 'top',  arrow: true }">My Button!</button>
+</div>
+
+<script>
+window.onload=function(){
+  Vue.use(VueTippy);
+
+  app = new Vue({
+	el: '#app',
+	data: { message: 'https://kabbouchi.github.io/vue-tippy' },
+	methods: { }
+  });
+};
+</script>
+
+</body>
+</html>
