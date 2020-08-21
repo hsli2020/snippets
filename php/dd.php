@@ -15,6 +15,11 @@ function dd()
     die(0);
 }
 
+function dd(...$args)
+{
+	die(var_dump(...$args));
+}
+
 function fpr()
 {
     $list = array_map(function($v) {

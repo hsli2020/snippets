@@ -1,0 +1,13 @@
+Here is a list of the new locations of the names exported by io/ioutil:
+
+ioutil.Discard   => io.Discard
+ioutil.NopCloser => io.NopCloser
+ioutil.ReadAll   => io.ReadAll
+
+ioutil.ReadDir   => os.ReadDir
+ioutil.ReadFile  => os.ReadFile
+ioutil.WriteFile => os.WriteFile
+ioutil.TempDir   => os.MkdirTemp
+ioutil.TempFile  => os.CreateTemp
+
+os.ReadDir (note: returns a slice of os.DirEntry rather than a slice of fs.FileInfo)
