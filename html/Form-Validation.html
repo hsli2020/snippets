@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Validation API example</title>
+
+<style>
+* {
+  font-family: sans-serif;
+  font-size: 1em;
+}
+
+div {
+  width: 100%;
+  max-width: 15em;
+  margin: 1em auto;
+}
+
+label, input {
+  display: block;
+  width: 100%;
+}
+
+input {
+  padding: 0.5em;
+  border: 1px solid #666;
+  border-radius: 4px;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+}
+
+.help {
+  display: none;
+  font-size: 0.8em;
+  text-align: center;
+  margin: 0.2em 0 1em 0;
+  color: #c00;
+}
+
+.invalid .help {
+  display: block;
+}
+
+.invalid label, .invalid input {
+  color: #c00;
+  border-color: #c00;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <form id="myform" action="./" method="post">
+    <div>
+      <label for="name">name</label>
+      <input type="text" autocomplete="username" id="name" name="name" required />
+      <p class="help">Please enter your name.</p>
+    </div>
+
+    <div>
+      <label for="email">email</label>
+      <input type="email" autocomplete="email" id="email" name="email" />
+      <p class="help">Please enter your email or telephone.</p>
+    </div>
+
+    <div>
+      <label for="tel">telephone</label>
+      <input type="tel" autocomplete="tel" id="tel" name="tel" />
+      <p class="help">Please enter your email or telephone.</p>
+    </div>
+
+    <div>
+      <button type="submit">submit</button>
+    </div>
+  </form>
+
+<script id="rendered-js" >
+// ___________________________________________________________________
+// validate contact form
+const myform = document.getElementById('myform');
+
+myform.noValidate = true;
+
+// custom form validation
+myform.addEventListener('submit', validateForm);
+
+// stop submission of valid form for demo
+myform.addEventListener('submit', e => {
+  e.preventDefault();
+  alert('Form is valid!\n(open the console)');
+
+  const fd = new FormData(e.target);
+  for (const [name, value] of fd.entries()) {
+    console.log(name + ': ' + value);
+  }
+});
+
+// form validation
+function validateForm(e) {
+  const form = e.target,
+	    field = Array.from(form.elements);
+
+  // reset fields
+  field.forEach(i => {
+    i.setCustomValidity('');
+    i.parentElement.classList.remove('invalid');
+  });
+
+  // email or tel set?
+  const err = form.email.value || form.tel.value ? '' : 'error';
+  form.email.setCustomValidity(err);
+  form.tel.setCustomValidity(err);
+
+  if (!form.checkValidity()) {
+    // form is invalid - cancel submit
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    // apply invalid class
+    field.forEach(i => {
+      if (!i.checkValidity()) {
+        // field is invalid - add class
+        i.parentElement.classList.add('invalid');
+      }
+    });
+  }
+}
+//# sourceURL=pen.js
+</script>
+
+</body>
+</html>

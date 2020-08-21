@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Zombie Profiles</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,700;1,300&display=swap');
+* { box-sizing: border-box; }
+body {
+  font-family: 'Libre Franklin', sans-serif;
+}
+h1 {
+  text-align: center;
+}
+.profiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: auto;
+}
+.profiles > :nth-child(odd) {
+  margin-right: 2em;
+}
+zombie-profile {
+  width: calc(50% - 1em);
+  display: block;
+  border: 1px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  column-gap: 20px;
+}
+zombie-profile img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 1em 0 0;
+}
+zombie-profile li, zombie-profile ul {
+  display: inline;
+  padding: 0;
+}
+zombie-profile li::after {
+  content: ', ';
+}
+zombie-profile li:last-child::after {
+  content: '';
+}
+zombie-profile li:last-child::before {
+  content: ' and ';
+}
+@media screen and (max-width: 1000px) {
+  .profiles {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 700px) {
+  zombie-profile {
+    width: 100%;
+  }
+  .profiles > :nth-child(odd) {
+    margin-right: 0;
+  }
+}
+
+.profiles zombie-profile .label {
+  color: red;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <h1>Undying Love: A Zombie Dating Service</h1>
+
+<div class="profiles">
+<zombie-profile>
+  <img slot="profile-image" src="https://assets.codepen.io/1804713/moana.png" />
+  <span slot="zombie-name" part="zname">Mooana</span>
+  <span slot="z-age">25</span>
+  <span slot="idate">October 15, 2027</span>
+  <ul slot="z-interests">
+    <li>rotary phones</li>
+    <li>human sports</li>
+    <li>brains</li>
+  </ul>
+  <span slot="statement">Fun and fancy free lady looking for a zombie with all its limbs.</span>
+</zombie-profile>
+
+<zombie-profile>
+  <img slot="profile-image" src="https://assets.codepen.io/1804713/leroy.png" />
+  <span slot="zombie-name">Leroy</span>
+  <span slot="z-age">29</span>
+  <span slot="idate">March 1, 2026</span>
+  <ul slot="z-interests">
+    <li>disco</li>
+    <li>leisure suits</li>
+    <li>brains</li>
+  </ul>
+  <span slot="statement">Disco daddy who won't stop dancing your heart away.</span>
+</zombie-profile>
+
+<zombie-profile>
+  <img slot="profile-image" src="https://assets.codepen.io/1804713/phil.png" />
+  <span slot="zombie-name">Phil</span>
+  <span slot="z-age">31</span>
+  <span slot="idate">December 22, 2025</span>
+  <ul slot="z-interests">
+    <li>brains</li>
+    <li>selfies</li>
+  </ul>
+  <span slot="statement">I'm out of this world! You know... because of the spacesuit... get it?</span>
+</zombie-profile>
+
+<zombie-profile>
+  <img slot="profile-image" src="https://assets.codepen.io/1804713/ahabcshanty.png" />
+  <span slot="zombie-name">A. C. Shanty</span>
+  <span slot="z-age">41</span>
+  <span slot="idate">November 7, 2026</span>
+  <ul slot="z-interests">
+    <li>sea shanties</li>
+    <li>reality tv</li>
+    <li>brains</li>
+    <li>more brains</li>
+  </ul>
+  <span slot="statement">What's a pirate's favorite letter?<br>Rrrrrrr!<br>Aye! But his first love be the C</span>
+</zombie-profile>
+
+<zombie-profile>
+  <img slot="profile-image" src="https://assets.codepen.io/1804713/helga.png" />
+  <span slot="zombie-name">Helga</span>
+  <span slot="z-age">39</span>
+  <span slot="idate">February 14, 2028</span>
+  <ul slot="z-interests">
+    <li>puns</li>
+    <li>rhubarb</li>
+    <li>brains</li>
+    <li>space lasers</li>
+  </ul>
+  <span slot="statement">The hostess with the mostest!</span>
+</zombie-profile>
+
+<zombie-profile>
+</zombie-profile>
+</div>
+
+<template id="zprofiletemplate">
+  <style>
+    img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin: 0 1em 0 0;
+    }
+    h2 {
+      font-size: 3em;
+      margin: 0 0 0.25em 0;
+      line-height: 0.8;
+    }
+    h3 {
+      margin: 0.5em 0 0 0;
+      font-weight: normal;
+    }
+    .age, .infection-date {
+      display: block;
+    }
+    span {
+      line-height: 1.4;
+    }
+    .label {
+      color: #555;
+    }
+    li, ul {
+      display: inline;
+      padding: 0;
+    }
+    li::after {
+      content: ', ';
+    }
+    li:last-child::after {
+      content: '';
+    }
+    li:last-child::before {
+      content: ' and ';
+    }
+  </style>
+
+  <div class="profilepic">
+    <slot name="profile-image"><img src="https://assets.codepen.io/1804713/default.png" alt=""></slot>
+  </div>
+
+  <div class="info">
+    <h2><slot name="zombie-name" part="zname">Zombie Bob</slot></h2>
+    <span class="age"><span class="label">Age:</span> <slot name="z-age">37</slot></span>
+    <span class="infection-date"><span class="label">Infection Date:</span> <slot name="idate">September 12, 2025</slot></span>
+    <div class="interests">
+      <span class="label">Interests: </span>
+      <slot name="z-interests">
+        <ul>
+          <li>Long Walks on Beach</li>
+          <li>brains</li>
+          <li>defeating humanity</li>
+        </ul>
+      </slot>
+    </div>
+    <span class="z-statement"><span class="label">Apocalyptic Statement: </span> <slot name="statement">Moooooooan!</slot></span>
+  </div>
+</template>
+  
+<script id="rendered-js" >
+customElements.define('zombie-profile', class extends HTMLElement {
+  constructor() {
+    super();
+
+    let profile = document.getElementById('zprofiletemplate');
+    let myprofile = profile.content;
+
+    const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(myprofile.cloneNode(true));
+  }
+});
+</script>
+
+</body>
+</html>

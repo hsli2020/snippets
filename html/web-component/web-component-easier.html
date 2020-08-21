@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - The ______ Are Coming!</title>
+</head>
+
+<body translate="no" >
+  <p>The Apocalypse will never happen!</p>
+
+  <apocalyptic-warning>
+     <span slot="whats-coming">Undead</span>
+  </apocalyptic-warning>
+
+  <apocalyptic-warning>
+     <span slot="whats-coming">Halitosis Laden Zombie Minions</span>
+  </apocalyptic-warning>
+
+<template id="warningtemplate">
+  <style>
+    p {
+      background-color: pink;
+      padding: 0.5em;
+      border: 1px solid red;
+    }
+  </style>
+    <p>The <slot name="whats-coming">Zombies</slot> are coming!</p>
+</template>
+
+<script id="rendered-js" >
+customElements.define('apocalyptic-warning', class extends HTMLElement {
+  constructor() {
+    super();
+
+    let warning = document.getElementById('warningtemplate');
+    let mywarning = warning.content;
+
+    const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(mywarning.cloneNode(true));
+  }
+});
+</script>
+
+</body>
+</html>
