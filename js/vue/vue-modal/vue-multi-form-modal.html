@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Vue 2.0 Multi Page Modal</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css'>
+
+<style>
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    transition: opacity .3s ease;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- template for the parent modal component -->
+<script type="x/template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask" @click="close" v-show="show" >
+      <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card" @click.stop>
+          <header class="modal-card-head">
+            <p class="modal-card-title">The Thing</p>
+            <button class="delete" aria-label="close" @click="close"></button>
+          </header>
+          <section class="modal-card-body">
+              <!-- dynamic component based on currentform variable -->
+              <component :is="currentform" v-bind:currentdata="currentdata" @update_value="updateValue"></component>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button" @click="nextThing()" v-show="step<things.length-1">
+              Next
+            </button>
+            <button class="button" @click="previousThing()" v-show="step>0">
+              Previous
+            </button>
+            <button class="button is-success" @click="finishThing()" v-show="step==things.length-1">
+              Finish
+            </button>
+            <button class="button" @click="cancelThing()">
+              Cancel
+            </button>
+          </footer>
+         </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+<!-- template for the age form -->
+<script type="x/template" id="age-thing">
+  <div class="field">
+    {{currentdata}}
+    <label class="label">Age?</label>
+    <div class="control">
+        <input class="input" v-model="age" type="text" placeholder="Tell me about your age.">
+    </div>
+  </div>
+</script>
+
+<!-- template for the girth form -->
+<script type="x/template" id="girth-thing">
+  <div class="field">
+    {{currentdata}}
+    <label class="label">Girth?</label>
+    <div class="control">
+        <input class="input" v-model="girth" type="text" placeholder="Tell me about your girth.">
+    </div>
+  </div>
+</script>
+
+<!-- template for the onions form -->
+<script type="x/template" id="onions-thing">
+  <div class="field">
+    {{currentdata}}
+    <label class="label">Onions?</label>
+    <div class="control">
+        <input class="input" v-model="onions" type="text" placeholder="Tell me about your onions.">
+    </div>
+  </div>
+</script>
+
+<!-- app -->
+<div id="app">
+  <button @click="showProcessModal = true">Start The Thing</button>
+  <process-modal :show="showProcessModal" @close="showProcessModal = false"></process-modal>
+</div>
+
+<script src='https://unpkg.com/vue@2.4.2'></script>
+
+<script>
+Vue.component('agething', {
+  template: '#age-thing',
+  props: ['currentdata'],
+  data: function () {
+    return {
+      age: this.currentdata.age };
+  },
+  watch: {
+    'age': function (v) {
+      this.$emit('update_value', v, this.$options.name, 'age');
+    }
+  }
+});
+
+Vue.component('girththing', {
+  template: '#girth-thing',
+  props: ['currentdata'],
+  data: function () {
+    return {
+      girth: this.currentdata.girth
+    };
+  },
+  watch: {
+    'girth': function (v) {
+      this.$emit('update_value', v, this.$options.name, 'girth');
+    }
+  }
+});
+
+Vue.component('onionsthing', {
+  template: '#onions-thing',
+  props: ['currentdata'],
+  data: function () {
+    return {
+      onions: this.currentdata.onions
+    };
+  },
+  watch: {
+    'onions': function (v) {
+      this.$emit('update_value', v, this.$options.name, 'onions');
+    }
+  }
+});
+
+Vue.component('ProcessModal', {
+  template: '#modal-template',
+  props: ['show'],
+  data() {
+    return {
+      things: ['agething', 'girththing', 'onionsthing'],
+      agething: { age: '' },
+      girththing: { girth: '' },
+      onionsthing: { onions: '' },
+      step: 0
+    };
+  },
+  computed: {
+    currentform() {
+      return this.things[this.step];
+    },
+    currentdata() {
+      return this[this.things[this.step]];
+    }
+  },
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+    nextThing() {
+      this.step++;
+    },
+    previousThing() {
+      this.step--;
+    },
+    cancelThing() {
+      this.close();
+    },
+    finishThing() {
+      alert('you are ' + this.agething.age + ', your girth is ' + this.girththing.girth + ' and to onions, you say ' + this.onionsthing.onions);
+      this.close();
+    },
+    updateValue(v, f, d) {
+      this[f][d] = v;
+    }
+  }
+});
+
+new Vue({
+  el: '#app',
+  data: {
+    showProcessModal: false
+  }
+});
+</script>
+
+</body>
+</html>
