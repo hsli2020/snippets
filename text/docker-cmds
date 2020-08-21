@@ -1,0 +1,172 @@
+docker builder build       Build an image from a Dockerfile
+docker builder prune       Remove build cache
+
+docker config  create      Create a config from a file or STDIN
+docker config  inspect     Display detailed information on one or more configs
+docker config  ls          List configs
+docker config  rm          Remove one or more configs
+
+docker container  attach      Attach local standard input, output, and error streams to a running container
+docker container  commit      Create a new image from a container's changes
+docker container  cp          Copy files/folders between a container and the local filesystem
+docker container  create      Create a new container
+docker container  diff        Inspect changes to files or directories on a container's filesystem
+docker container  exec        Run a command in a running container
+docker container  export      Export a container's filesystem as a tar archive
+docker container  inspect     Display detailed information on one or more containers
+docker container  kill        Kill one or more running containers
+docker container  logs        Fetch the logs of a container
+docker container  ls          List containers
+docker container  pause       Pause all processes within one or more containers
+docker container  port        List port mappings or a specific mapping for the container
+docker container  prune       Remove all stopped containers
+docker container  rename      Rename a container
+docker container  restart     Restart one or more containers
+docker container  rm          Remove one or more containers
+docker container  run         Run a command in a new container
+docker container  start       Start one or more stopped containers
+docker container  stats       Display a live stream of container(s) resource usage statistics
+docker container  stop        Stop one or more running containers
+docker container  top         Display the running processes of a container
+docker container  unpause     Unpause all processes within one or more containers
+docker container  update      Update configuration of one or more containers
+docker container  wait        Block until one or more containers stop, then print their exit codes
+
+docker context  create      Create a context
+docker context  export      Export a context to a tar or kubeconfig file
+docker context  import      Import a context from a tar or zip file
+docker context  inspect     Display detailed information on one or more contexts
+docker context  ls          List contexts
+docker context  rm          Remove one or more contexts
+docker context  update      Update a context
+docker context  use         Set the current docker context
+
+docker image    build       Build an image from a Dockerfile
+docker image    history     Show the history of an image
+docker image    import      Import the contents from a tarball to create a filesystem image
+docker image    inspect     Display detailed information on one or more images
+docker image    load        Load an image from a tar archive or STDIN
+docker image    ls          List images
+docker image    prune       Remove unused images
+docker image    pull        Pull an image or a repository from a registry
+docker image    push        Push an image or a repository to a registry
+docker image    rm          Remove one or more images
+docker image    save        Save one or more images to a tar archive (streamed to STDOUT by default)
+docker image    tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+docker network  connect     Connect a container to a network
+docker network  create      Create a network
+docker network  disconnect  Disconnect a container from a network
+docker network  inspect     Display detailed information on one or more networks
+docker network  ls          List networks
+docker network  prune       Remove all unused networks
+docker network  rm          Remove one or more networks
+
+docker node     demote      Demote one or more nodes from manager in the swarm
+docker node     inspect     Display detailed information on one or more nodes
+docker node     ls          List nodes in the swarm
+docker node     promote     Promote one or more nodes to manager in the swarm
+docker node     ps          List tasks running on one or more nodes, defaults to current node
+docker node     rm          Remove one or more nodes from the swarm
+docker node     update      Update a node
+
+docker plugin   create      Create a plugin from a rootfs and configuration.
+                            Plugin data directory must contain config.json and rootfs directory.
+docker plugin   disable     Disable a plugin
+docker plugin   enable      Enable a plugin
+docker plugin   inspect     Display detailed information on one or more plugins
+docker plugin   install     Install a plugin
+docker plugin   ls          List plugins
+docker plugin   push        Push a plugin to a registry
+docker plugin   rm          Remove one or more plugins
+docker plugin   set         Change settings for a plugin
+docker plugin   upgrade     Upgrade an existing plugin
+
+docker secret   create      Create a secret from a file or STDIN as content
+docker secret   inspect     Display detailed information on one or more secrets
+docker secret   ls          List secrets
+docker secret   rm          Remove one or more secrets
+
+docker service  create      Create a new service
+docker service  inspect     Display detailed information on one or more services
+docker service  logs        Fetch the logs of a service or task
+docker service  ls          List services
+docker service  ps          List the tasks of one or more services
+docker service  rm          Remove one or more services
+docker service  rollback    Revert changes to a service's configuration
+docker service  scale       Scale one or multiple replicated services
+docker service  update      Update a service
+
+docker stack   deploy       Deploy a new stack or update an existing stack
+docker stack   ls           List stacks
+docker stack   ps           List the tasks in the stack
+docker stack   rm           Remove one or more stacks
+docker stack   services     List the services in the stack
+
+docker swarm   ca           Display and rotate the root CA
+docker swarm   init         Initialize a swarm
+docker swarm   join         Join a swarm as a node and/or manager
+docker swarm   join-token   Manage join tokens
+docker swarm   leave        Leave the swarm
+docker swarm   unlock       Unlock swarm
+docker swarm   unlock-key   Manage the unlock key
+docker swarm   update       Update the swarm
+
+docker system  df           Show docker disk usage
+docker system  events       Get real time events from the server
+docker system  info         Display system-wide information
+docker system  prune        Remove unused data
+
+docker trust   key          Manage keys for signing Docker images
+docker trust   signer       Manage entities who can sign Docker images
+docker trust   inspect      Return low-level information about keys and signatures
+docker trust   revoke       Remove trust for an image
+docker trust   sign         Sign an image
+
+docker volume  create       Create a volume
+docker volume  inspect      Display detailed information on one or more volumes
+docker volume  ls           List volumes
+docker volume  prune        Remove all unused local volumes
+docker volume  rm           Remove one or more volumes
+
+docker attach  [OPTIONS] CONTAINER
+docker build   [OPTIONS] PATH | URL | -
+docker commit  [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+docker cp      [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+docker create  [OPTIONS] IMAGE [COMMAND] [ARG...]
+docker diff    CONTAINER
+docker events  [OPTIONS]
+docker exec    [OPTIONS] CONTAINER COMMAND [ARG...]
+docker export  [OPTIONS] CONTAINER
+docker history [OPTIONS] IMAGE
+docker images  [OPTIONS] [REPOSITORY[:TAG]]
+
+docker import  [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
+docker info    [OPTIONS]
+docker inspect [OPTIONS] NAME|ID [NAME|ID...]
+docker kill    [OPTIONS] CONTAINER [CONTAINER...]
+docker load    [OPTIONS]
+docker login   [OPTIONS] [SERVER]
+docker logout  [SERVER]
+docker logs    [OPTIONS] CONTAINER
+docker pause   CONTAINER [CONTAINER...]
+docker port    CONTAINER [PRIVATE_PORT[/PROTO]]
+docker ps      [OPTIONS]
+docker pull    [OPTIONS] NAME[:TAG|@DIGEST]
+docker push    [OPTIONS] NAME[:TAG]
+docker rename  CONTAINER NEW_NAME
+docker restart [OPTIONS] CONTAINER [CONTAINER...]
+docker rm      [OPTIONS] CONTAINER [CONTAINER...]
+docker rmi     [OPTIONS] IMAGE [IMAGE...]
+docker run     [OPTIONS] IMAGE [COMMAND] [ARG...]
+docker save    [OPTIONS] IMAGE [IMAGE...]
+docker search  [OPTIONS] TERM
+docker start   [OPTIONS] CONTAINER [CONTAINER...]
+docker stats   [OPTIONS] [CONTAINER...]
+docker stop    [OPTIONS] CONTAINER [CONTAINER...]
+docker tag     SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+docker top     CONTAINER [ps OPTIONS]
+docker unpause CONTAINER [CONTAINER...]
+docker update  [OPTIONS] CONTAINER [CONTAINER...]
+docker version [OPTIONS]
+docker wait    CONTAINER [CONTAINER...]

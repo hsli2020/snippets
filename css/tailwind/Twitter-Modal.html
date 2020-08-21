@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Twitter Modal with Tailwind CSS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.4/tailwind.min.css'>
+</head>
+
+<body translate="no" >
+<div class="h-screen flex items-center justify-center">
+
+<!-- modal -->
+<div class="w-3/4 rounded-lg shadow-lg bg-blue-900">
+  <!-- header -->
+  <div class="border-b border-blue-400 text-blue-400">
+    <div class="p-4">X</div>
+  </div>
+  
+  <!-- body -->
+  <div class="relative p-4 pl-20">
+    <img src="https://placekitten.com/g/50/50" class="absolute top-0 left-0 ml-4 mt-4 rounded-full">
+    <textarea class="bg-transparent pt-4 w-full text-white text-lg outline-none" placeholder="What's happening?" rows="5"></textarea>
+  </div>
+  
+  <!-- footer -->
+  <div class="pl-20 pb-4 pr-4 flex justify-between">
+    <div class="flex text-2xl items-center">
+      <div class="mr-2">🙂</div>
+      <div class="mr-2">😝</div>
+      <div class="mr-2">🤯</div>
+      <div>🥰</div>
+    </div>
+    <div>
+      <button class="bg-blue-400 rounded-full text-blue-100 inline-block py-2 px-4">Tweet</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>

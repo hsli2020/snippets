@@ -1,0 +1,134 @@
+容器(Container)
+
+生命周期
+
+    docker create 创建容器但不启动它。
+    docker rename 用于重命名容器。
+    docker run    一键创建并同时启动该容器。
+    docker rm     删除容器。
+    docker update 调整容器的资源限制。
+
+启动和停止
+
+    docker start   启动已存在的容器。
+    docker stop    停止运行中的容器。
+    docker restart 重启容器。
+    docker pause   暂停运行中的容器，将其「冻结」在当前状态。
+    docker unpause 结束容器暂停状态。
+    docker wait    阻塞地等待某个运行中的容器直到停止。
+    docker kill    向运行中的容器发送 SIGKILL 指令。
+    docker attach  连接到运行中的容器。
+
+信息
+
+    docker ps      查看运行中的所有容器。
+    docker logs    从容器中读取日志。
+    docker inspect 查看某个容器的所有信息（包括 IP 地址）。
+    docker events  从容器中获取事件 (events)。
+    docker port    查看容器的公开端口。
+    docker top     查看容器中活动进程。
+    docker stats   查看容器的资源使用量统计信息。
+    docker diff    查看容器文件系统中存在改动的文件。
+
+导入 / 导出
+
+    docker cp 在容器和本地文件系统之间复制文件或目录。
+    docker export 将容器的文件系统打包为归档文件流 (tarball archive stream) 并输出至标准输出。
+
+执行命令
+
+    docker exec 在容器内执行命令。
+
+镜像(Images)
+
+生命周期
+
+    docker images 查看所有镜像。
+    docker import 从归档文件创建镜像。
+    docker build 从 Dockerfile 创建镜像。
+    docker commit 为容器创建镜像，如果容器正在运行则会临时暂停。
+    docker rmi 删除镜像。
+    docker load 从标准输入 (STDIN) 加载归档包 (tar archive) 作为镜像，包括镜像本身和标签。
+    docker save 将镜像打包为归档包，并输出至标准输出 (STDOUT)，包括所有的父层、标签和版本。
+
+其它信息
+
+    docker history 查看镜像的历史记录。
+    docker tag 给镜像打标签命名（本地或者仓库均可）。
+
+网络(Networks)
+
+生命周期
+
+    docker network create
+    docker network rm
+
+其它信息
+
+    docker network ls
+    docker network inspect
+
+建立连接
+
+    docker network connect
+    docker network disconnect
+
+仓管中心和仓库(Registry & Repository)
+
+    docker login 登入仓管中心。
+    docker logout 登出仓管中心。
+    docker search 从仓管中心检索镜像。
+    docker pull 从仓管中心拉取镜像到本地。
+    docker push 从本地推送镜像到仓管中心。
+
+Dockerfile
+
+当你执行 docker build 时，Docker 将会根据 配置文件 启动 Docker 容器。远优于使用 docker commit。
+
+指令
+    .dockerignore
+    FROM 为其他指令设置基础镜像 (Base Image)。
+    MAINTAINER (deprecated - use LABEL instead) 为生成的镜像设置作者字段。
+    RUN 在当前镜像的基础上生成一个新层并执行命令。
+    CMD 设置容器默认执行命令。
+    EXPOSE 告知 Docker 容器在运行时所要监听的网络端口。注意：并没有实际上将端口设置为可访问。
+    ENV 设置环境变量。
+    ADD 将文件、目录或远程文件复制到容器中。缓存无效。请尽量用 COPY 代替 ADD。
+    COPY 将文件或文件夹复制到容器中。
+		 注意：将使用 ROOT 用户复制文件，故无论 USER / WORKDIR 指令如何配置，你都需要手动修改其所有者（chown），
+		 ADD 也是一样。
+    ENTRYPOINT 将容器设为可执行的。
+    VOLUME 在容器内部创建挂载点 (mount point) 指向外部挂载的卷标或其他容器。
+    USER 设置随后执行 RUN / CMD / ENTRYPOINT 命令的用户名。
+    WORKDIR 设置工作目录 (working directory)。
+    ARG 定义编译时 (build-time) 变量。
+    ONBUILD 添加触发指令，当该镜像被作为其他镜像的基础镜像时该指令会被触发。
+    STOPSIGNAL 设置停止容器时，向容器内发送的系统调用信号 (system call signal)。
+    LABEL 将键值对元数据 (key/value metadata) 应用到镜像、容器或是守护进程。
+
+卷标(Volumes)
+
+Docker 的卷标 (volumes) 是 独立的文件系统。它们并非必须连接到特定的容器上。
+生命周期
+
+    docker volume create
+    docker volume rm
+
+信息
+
+    docker volume ls
+    docker volume inspect
+
+清理
+
+最新的 数据管理命令 已在 Docker 1.13 实现：
+
+    docker system prune
+    docker volume prune
+    docker network prune
+    docker container prune
+    docker image prune
+
+df 命令
+
+    docker system df 将显示当前 Docker 各部分占用的磁盘空间。
