@@ -1,0 +1,451 @@
+#func New() *Browser
+ 
+ func (b *Browser) CDPCall(c CDPCall) *Browser
+ func (b *Browser) Call(ctx context.Context, sessionID, methodName string, params json.RawMessage) (res []byte, err error)
+ func (b *Browser) CallContext() (context.Context, proto.Client, string)
+ func (b *Browser) CancelTimeout() *Browser
+ func (b *Browser) Client(c *cdp.Client) *Browser
+ func (b *Browser) Close() error
+ func (b *Browser) Connect() (err error)
+ func (b *Browser) Context(ctx context.Context, cancel func()) *Browser
+ func (b *Browser) ControlURL(url string) *Browser
+ func (b *Browser) DefaultViewport(viewport *proto.EmulationSetDeviceMetricsOverride) *Browser
+ func (b *Browser) DisableDomain(ctx context.Context, sessionID proto.TargetSessionID, method proto.Payload) (recover func())
+ func (b *Browser) EachEvent(fn interface{}) (wait func())
+ func (b *Browser) EnableDomain(ctx context.Context, sessionID proto.TargetSessionID, method proto.Payload) (recover func())
+ func (b *Browser) Event() *goob.Observable
+#func (b *Browser) GetContext() context.Context
+
+ func (b *Browser) HandleAuth(username, password string) func() error
+ func (b *Browser) MustHandleAuth(username, password string)
+
+ func (b *Browser) HijackRequests() *HijackRouter
+
+ func (b *Browser) Incognito() (*Browser, error)
+ func (b *Browser) MustIncognito() *Browser
+
+ func (b *Browser) LoadState(sessionID proto.TargetSessionID, method proto.Payload) (has bool)
+ func (b *Browser) MustClose()
+
+#func (b *Browser) MustConnect() *Browser
+
+ func (b *Browser) Page(url string) (*Page, error)
+ func (b *Browser) MustPage(url string) *Page
+
+ func (b *Browser) PageFromTarget(targetID proto.TargetTargetID) (*Page, error)
+ func (b *Browser) MustPageFromTargetID(targetID proto.TargetTargetID) *Page
+
+ func (b *Browser) Pages() (Pages, error)
+ func (b *Browser) MustPages() Pages
+
+ func (b *Browser) Quiet(quiet bool) *Browser
+ func (b *Browser) ServeMonitor(host string, openBrowser bool) string
+ func (b *Browser) Sleeper(sleeper func() utils.Sleeper) *Browser
+ func (b *Browser) Slowmotion(delay time.Duration) *Browser
+#func (b *Browser) Timeout(d time.Duration) *Browser
+ func (b *Browser) Trace(enable bool) *Browser
+ func (b *Browser) TraceLog(msg func(string), js func(string, Array), err func(error)) *Browser
+ func (b *Browser) WaitEvent(e proto.Payload) (wait func())
+ 
+ func (el *Element) Attribute(name string) (*string, error)
+ func (el *Element) MustAttribute(name string) *string
+
+#func (el *Element) Blur() error
+ func (el *Element) MustBlur() *Element
+
+#func (el *Element) Focus() error
+ func (el *Element) MustFocus() *Element
+
+#func (el *Element) Hover() error
+ func (el *Element) MustHover() *Element
+
+ func (el *Element) Box() (*proto.DOMRect, error)
+ func (el *Element) MustBox() *proto.DOMRect
+
+ func (el *Element) Click(button proto.InputMouseButton) error
+#func (el *Element) MustClick() *Element
+
+ func (el *Element) Clickable() (bool, error)
+ func (el *Element) MustClickable() bool
+
+#func (el *Element) Element(selectors ...string) (*Element, error)
+#func (el *Element) MustElement(selector string) *Element
+
+ func (el *Element) CallContext() (context.Context, proto.Client, string)
+ func (el *Element) CancelTimeout() *Element
+
+ func (el *Element) CanvasToImage(format string, quality float64) ([]byte, error)
+ func (el *Element) MustCanvasToImage(format string, quality float64) []byte
+
+ func (el *Element) ContainsElement(target *Element) (bool, error)
+ func (el *Element) MustContainsElement(target *Element) bool
+
+ func (el *Element) Context(ctx context.Context, cancel func()) *Element
+ func (el *Element) Describe(depth int, pierce bool) (*proto.DOMNode, error)
+
+ func (el *Element) ElementByJS(opts *EvalOptions) (*Element, error)
+ func (el *Element) MustElementByJS(js string, params ...interface{}) *Element
+
+ func (el *Element) ElementMatches(pairs ...string) (*Element, error)
+ func (el *Element) MustElementMatches(selector, regex string) *Element
+
+ func (el *Element) ElementX(xPaths ...string) (*Element, error)
+ func (el *Element) MustElementX(xpath string) *Element
+
+ func (el *Element) Elements(selector string) (Elements, error)
+ func (el *Element) MustElements(selector string) Elements
+
+ func (el *Element) ElementsByJS(opts *EvalOptions) (Elements, error)
+ func (el *Element) MustElementsByJS(js string, params ...interface{}) Elements
+
+ func (el *Element) ElementsX(xpath string) (Elements, error)
+ func (el *Element) MustElementsX(xpath string) Elements
+
+ func (el *Element) Eval(js string, params ...interface{}) (*proto.RuntimeRemoteObject, error)
+ func (el *Element) MustEval(js string, params ...interface{}) proto.JSON
+
+ func (el *Element) EvalWithOptions(opts *EvalOptions) (*proto.RuntimeRemoteObject, error)
+ func (el *Element) Frame() *Page
+
+#func (el *Element) GetContext() context.Context
+
+#func (el *Element) HTML() (string, error)
+#func (el *Element) MustHTML() string
+
+ func (el *Element) Has(selector string) (bool, error)
+ func (el *Element) MustHas(selector string) bool
+
+ func (el *Element) HasMatches(selector, regex string) (bool, error)
+ func (el *Element) MustHasMatches(selector, regex string) bool
+
+ func (el *Element) HasX(selector string) (bool, error)
+ func (el *Element) MustHasX(selector string) bool
+
+#func (el *Element) Input(text string) error
+#func (el *Element) MustInput(text string) *Element
+
+ func (el *Element) Matches(selector string) (bool, error)
+ func (el *Element) MustMatches(selector string) bool
+
+ func (el *Element) MustDescribe() *proto.DOMNode
+
+ func (el *Element) Next() (*Element, error)
+ func (el *Element) MustNext() *Element
+
+ func (el *Element) NodeID() (proto.DOMNodeID, error)
+ func (el *Element) MustNodeID() proto.DOMNodeID
+
+ func (el *Element) Parent() (*Element, error)
+ func (el *Element) MustParent() *Element
+
+ func (el *Element) Parents(selector string) (Elements, error)
+ func (el *Element) MustParents(selector string) Elements
+
+ func (el *Element) Press(key rune) error
+ func (el *Element) MustPress(key rune) *Element
+
+ func (el *Element) Previous() (*Element, error)
+ func (el *Element) MustPrevious() *Element
+
+ func (el *Element) Property(name string) (proto.JSON, error)
+ func (el *Element) MustProperty(name string) proto.JSON
+
+ func (el *Element) Release() error
+ func (el *Element) MustRelease()
+
+ func (el *Element) Resource() ([]byte, error)
+ func (el *Element) MustResource() []byte
+
+ func (el *Element) Screenshot(format proto.PageCaptureScreenshotFormat, quality int) ([]byte, error)
+ func (el *Element) MustScreenshot(toFile ...string) []byte
+
+ func (el *Element) ScrollIntoView() error
+ func (el *Element) MustScrollIntoView() *Element
+
+ func (el *Element) Select(selectors []string) error
+ func (el *Element) MustSelect(selectors ...string) *Element
+
+ func (el *Element) SelectAllText() error
+ func (el *Element) MustSelectAllText() *Element
+
+ func (el *Element) SelectText(regex string) error
+ func (el *Element) MustSelectText(regex string) *Element
+
+ func (el *Element) SetFiles(paths []string) error
+ func (el *Element) MustSetFiles(paths ...string) *Element
+
+ func (el *Element) ShadowRoot() (*Element, error)
+ func (el *Element) MustShadowRoot() *Element
+
+ func (el *Element) Text() (string, error)
+ func (el *Element) MustText() string
+
+ func (el *Element) Visible() (bool, error)
+ func (el *Element) MustVisible() bool
+
+ func (el *Element) Wait(js string, params ...interface{}) error
+ func (el *Element) MustWait(js string, params ...interface{}) *Element
+
+ func (el *Element) WaitInvisible() error
+ func (el *Element) MustWaitInvisible() *Element
+
+ func (el *Element) WaitLoad() error
+ func (el *Element) MustWaitLoad() *Element
+
+ func (el *Element) WaitStable(interval time.Duration) error
+ func (el *Element) MustWaitStable() *Element
+
+ func (el *Element) WaitVisible() error
+ func (el *Element) MustWaitVisible() *Element
+
+ func (el *Element) Sleeper(sleeper func() utils.Sleeper) *Element
+ func (el *Element) Timeout(d time.Duration) *Element
+ func (el *Element) Trace(msg string) (removeOverlay func())
+ 
+ func (els Elements) Empty() bool
+ func (els Elements) First() *Element
+ func (els Elements) Last() *Element
+ 
+ func (e *Error) Error() string
+ func (e *Error) Unwrap() error
+---------- 
+ func NewEvalOptions(js string, jsArgs Array) *EvalOptions
+ 
+ func (e *EvalOptions) ByObject() *EvalOptions
+ func (e *EvalOptions) This(id proto.RuntimeRemoteObjectID) *EvalOptions
+---------- 
+ func (h *Hijack) ContinueRequest(cq *proto.FetchContinueRequest)
+ func (h *Hijack) LoadResponse(client *http.Client, loadBody bool) error
+ func (h *Hijack) MustLoadResponse()
+---------- 
+ func (ctx *HijackRequest) Body() string
+ func (ctx *HijackRequest) Header(key string) string
+ func (ctx *HijackRequest) Headers() proto.NetworkHeaders
+ func (ctx *HijackRequest) JSONBody() gjson.Result
+ func (ctx *HijackRequest) Method() string
+ func (ctx *HijackRequest) Req() *http.Request
+ func (ctx *HijackRequest) SetBody(obj interface{}) *HijackRequest
+ func (ctx *HijackRequest) Type() proto.NetworkResourceType
+ func (ctx *HijackRequest) URL() *url.URL
+---------- 
+ func (ctx *HijackResponse) Body() string
+ func (ctx *HijackResponse) Fail(reason proto.NetworkErrorReason) *HijackResponse
+ func (ctx *HijackResponse) Headers() http.Header
+ func (ctx *HijackResponse) Payload() *proto.FetchFulfillRequest
+ func (ctx *HijackResponse) SetBody(obj interface{}) *HijackResponse
+ func (ctx *HijackResponse) SetHeader(pairs ...string) *HijackResponse
+---------- 
+ func (r *HijackRouter) Add(pattern string, resourceType proto.NetworkResourceType, handler func(*Hijack)) error
+ func (r *HijackRouter) MustAdd(pattern string, handler func(*Hijack))
+
+ func (r *HijackRouter) Remove(pattern string) error
+ func (r *HijackRouter) MustRemove(pattern string)
+
+ func (r *HijackRouter) Run()
+
+ func (r *HijackRouter) Stop() error
+ func (r *HijackRouter) MustStop()
+---------- 
+ func (k *Keyboard) Down(key rune) error
+ func (k *Keyboard) MustDown(key rune) *Keyboard
+
+ func (k *Keyboard) InsertText(text string) error
+ func (k *Keyboard) MustInsertText(text string) *Keyboard
+
+ func (k *Keyboard) Press(key rune) error
+ func (k *Keyboard) MustPress(key rune) *Keyboard
+
+ func (k *Keyboard) Up(key rune) error
+ func (k *Keyboard) MustUp(key rune) *Keyboard
+---------- 
+ func (m *Mouse) Click(button proto.InputMouseButton) error
+ func (m *Mouse) MustClick(button proto.InputMouseButton) *Mouse
+
+ func (m *Mouse) Down(button proto.InputMouseButton, clicks int64) error
+ func (m *Mouse) MustDown(button proto.InputMouseButton) *Mouse
+
+ func (m *Mouse) Up(button proto.InputMouseButton, clicks int64) error
+ func (m *Mouse) MustUp(button proto.InputMouseButton) *Mouse
+
+ func (m *Mouse) Move(x, y float64, steps int) error
+ func (m *Mouse) MustMove(x, y float64) *Mouse
+
+ func (m *Mouse) MustScroll(x, y float64) *Mouse
+ func (m *Mouse) Scroll(offsetX, offsetY float64, steps int) error
+---------- 
+ func (p *Page) AddScriptTag(url, content string) error
+ func (p *Page) MustAddScriptTag(url string) *Page
+
+ func (p *Page) AddStyleTag(url, content string) error
+ func (p *Page) MustAddStyleTag(url string) *Page
+
+ func (p *Page) CallContext() (context.Context, proto.Client, string)
+ func (p *Page) CancelTimeout() *Page
+
+ func (p *Page) Close() error
+ func (p *Page) MustClose()
+
+ func (p *Page) Context(ctx context.Context, cancel func()) *Page
+
+ func (p *Page) Cookies(urls []string) ([]*proto.NetworkCookie, error)
+ func (p *Page) MustCookies(urls ...string) []*proto.NetworkCookie
+
+ func (p *Page) DisableDomain(method proto.Payload) (recover func())
+ func (p *Page) EachEvent(fn interface{}) (wait func())
+
+ func (p *Page) Element(selectors ...string) (*Element, error)
+ func (p *Page) MustElement(selectors ...string) *Element
+
+ func (p *Page) ElementByJS(opts *EvalOptions) (*Element, error)
+ func (p *Page) MustElementByJS(js string, params ...interface{}) *Element
+
+ func (p *Page) ElementFromNode(id proto.DOMNodeID) (*Element, error)
+ func (p *Page) MustElementFromNode(id proto.DOMNodeID) *Element
+
+ func (p *Page) ElementFromObject(id proto.RuntimeRemoteObjectID) *Element
+
+ func (p *Page) ElementFromPoint(x, y int64) (*Element, error)
+ func (p *Page) MustElementFromPoint(left, top int) *Element
+
+ func (p *Page) ElementMatches(pairs ...string) (*Element, error)
+ func (p *Page) MustElementMatches(pairs ...string) *Element
+
+ func (p *Page) ElementX(xPaths ...string) (*Element, error)
+ func (p *Page) MustElementX(xPaths ...string) *Element
+
+ func (p *Page) Elements(selector string) (Elements, error)
+ func (p *Page) MustElements(selector string) Elements
+
+ func (p *Page) ElementsByJS(opts *EvalOptions) (Elements, error)
+ func (p *Page) MustElementsByJS(js string, params ...interface{}) Elements
+
+ func (p *Page) ElementsX(xpath string) (Elements, error)
+ func (p *Page) MustElementsX(xpath string) Elements
+
+ func (p *Page) Emulate(device devices.DeviceType, landscape bool) error
+ func (p *Page) MustEmulate(device devices.DeviceType) *Page
+
+ func (p *Page) EnableDomain(method proto.Payload) (recover func())
+
+ func (p *Page) Eval(js string, jsArgs ...interface{}) (*proto.RuntimeRemoteObject, error)
+ func (p *Page) MustEval(js string, params ...interface{}) proto.JSON
+
+ func (p *Page) EvalOnNewDocument(js string) (proto.PageScriptIdentifier, error)
+ func (p *Page) MustEvalOnNewDocument(js string)
+
+ func (p *Page) EvalWithOptions(opts *EvalOptions) (*proto.RuntimeRemoteObject, error)
+
+ func (p *Page) Expose(name string) (callback chan string, stop func(), err error)
+ func (p *Page) MustExpose(name string) (callback chan string, stop func())
+
+ func (p *Page) ExposeJSHelper() *Page
+#func (p *Page) GetContext() context.Context
+
+ func (p *Page) GetDownloadFile(pattern string, resourceType proto.NetworkResourceType, client *http.Client) func() (http.Header, []byte, error)
+ func (p *Page) MustGetDownloadFile(pattern string) func() []byte
+
+ func (p *Page) GetWindow() (*proto.BrowserBounds, error)
+ func (p *Page) MustGetWindow() *proto.BrowserBounds
+
+ func (p *Page) HandleDialog(accept bool, promptText string) func() error
+ func (p *Page) MustHandleDialog(accept bool, promptText string) (wait func())
+
+ func (p *Page) Has(selectors ...string) (bool, error)
+ func (p *Page) MustHas(selector string) bool
+
+ func (p *Page) HasMatches(pairs ...string) (bool, error)
+ func (p *Page) MustHasMatches(selector, regex string) bool
+
+ func (p *Page) HasX(selectors ...string) (bool, error)
+ func (p *Page) MustHasX(selector string) bool
+
+ func (p *Page) HijackRequests() *HijackRouter
+
+ func (p *Page) Info() (*proto.TargetTargetInfo, error)
+ func (p *Page) MustInfo() *proto.TargetTargetInfo
+
+ func (p *Page) IsIframe() bool
+ func (p *Page) LoadState(method proto.Payload) (has bool)
+
+ func (p *Page) Navigate(url string) error
+ func (p *Page) MustNavigate(url string) *Page
+
+ func (p *Page) ObjectToJSON(obj *proto.RuntimeRemoteObject) (proto.JSON, error)
+ func (p *Page) MustObjectToJSON(obj *proto.RuntimeRemoteObject) proto.JSON
+
+ func (p *Page) MustObjectsToJSON(list []*proto.RuntimeRemoteObject) proto.JSON
+
+ func (p *Page) PDF(req *proto.PagePrintToPDF) ([]byte, error)
+ func (p *Page) MustPDF() []byte
+
+ func (p *Page) Pause() error
+ func (p *Page) MustPause() *Page
+
+ func (p *Page) Release(objectID proto.RuntimeRemoteObjectID) error
+ func (p *Page) MustRelease(objectID proto.RuntimeRemoteObjectID) *Page
+
+ func (p *Page) Screenshot(fullpage bool, req *proto.PageCaptureScreenshot) ([]byte, error)
+ func (p *Page) MustScreenshot(toFile ...string) []byte
+
+ func (p *Page) MustScreenshotFullPage(toFile ...string) []byte
+
+ func (p *Page) Search(from, to int, queries ...string) (Elements, error)
+ func (p *Page) MustSearch(queries ...string) *Element
+
+ func (p *Page) SetCookies(cookies []*proto.NetworkCookieParam) error
+ func (p *Page) MustSetCookies(cookies ...*proto.NetworkCookieParam) *Page
+
+ func (p *Page) SetExtraHeaders(dict []string) (func(), error)
+ func (p *Page) MustSetExtraHeaders(dict ...string) (cleanup func())
+
+ func (p *Page) SetUserAgent(req *proto.NetworkSetUserAgentOverride) error
+ func (p *Page) MustSetUserAgent(req *proto.NetworkSetUserAgentOverride) *Page
+
+ func (p *Page) StopLoading() error
+ func (p *Page) MustStopLoading() *Page
+
+ func (p *Page) Timeout(d time.Duration) *Page
+
+ func (p *Page) Viewport(params *proto.EmulationSetDeviceMetricsOverride) error
+ func (p *Page) MustViewport(width, height int64, deviceScaleFactor float64, mobile bool) *Page
+
+ func (p *Page) Wait(thisID proto.RuntimeRemoteObjectID, js string, params Array) error
+ func (p *Page) MustWait(js string, params ...interface{})
+
+ func (p *Page) WaitIdle(timeout time.Duration) (err error)
+ func (p *Page) MustWaitIdle() *Page
+
+ func (p *Page) WaitLoad() error
+ func (p *Page) MustWaitLoad() *Page
+
+ func (p *Page) WaitOpen() func() (*Page, error)
+ func (p *Page) MustWaitOpen() (wait func() (newPage *Page))
+
+ func (p *Page) WaitPauseOpen() (wait func() (*Page, error), resume func() error, err error)
+ func (p *Page) MustWaitPauseOpen() (wait func() *Page, resume func())
+
+ func (p *Page) WaitRequestIdle(d time.Duration, includes, excludes []string) func()
+ func (p *Page) MustWaitRequestIdle(excludes ...string) (wait func())
+
+#func (p *Page) Window(bounds *proto.BrowserBounds) error
+#func (p *Page) MustWindow(left, top, width, height int64) *Page
+#func (p *Page) MustWindowFullscreen() *Page
+#func (p *Page) MustWindowMaximize() *Page
+#func (p *Page) MustWindowMinimize() *Page
+#func (p *Page) MustWindowNormal() *Page
+
+ func (p *Page) Overlay(left, top, width, height float64, msg string) (remove func())
+ func (p *Page) Root() *Page
+ func (p *Page) Sleeper(sleeper func() utils.Sleeper) *Page
+ func (p *Page) WaitEvent(e proto.Payload) (wait func())
+---------- 
+ func (ps Pages) Empty() bool
+
+ func (ps Pages) First() *Page
+ func (ps Pages) Last() *Page
+
+ func (ps Pages) Find(selector string) (*Page, error)
+ func (ps Pages) MustFind(selector string) *Page
+
+ func (ps Pages) FindByURL(regex string) (*Page, error)
+ func (ps Pages) MustFindByURL(regex string) *Page
