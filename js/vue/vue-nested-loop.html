@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Vue Nested Loop Table</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    table { width: 50%; border-collapse: collapse; }
+    table, th, td { border: 1px solid black; }
+    th, td { padding: 5px 10px; }
+  </style>
+</head>
+<body>
+
+<h2>Vue Nested Loop in Table (tbody)</h2>  
+
+<table id="my-table">
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Warehouse</th>
+      <th>Qty</th>
+    </tr>
+  </thead>
+
+  <tbody v-for="product in products">
+    <tr v-for="warehouse in product.warehouses">
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ warehouse.name }}</td>
+      <td>{{ warehouse.qty }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<script src="https://unpkg.com/vue@2.5.9/dist/vue.js"></script>
+
+<script type="text/javascript">
+new Vue({
+  el: '#my-table',
+  data: {
+    products: [
+      {
+        name: 'Keyboard',
+        price: '$40.00',
+        warehouses: [
+          { name: "WH-1", qty: 10 },
+          { name: "WH-2", qty: 20 },
+        ]
+      },
+      {
+        name: 'Monitor',
+        price: '$300.00',
+        warehouses: [
+          { name: "WH-1", qty: 15 },
+          { name: "WH-2", qty: 25 },
+          { name: "WH-3", qty: 35 },
+        ]
+      }
+    ]
+  }
+})
+</script>
+</body>
+</html>

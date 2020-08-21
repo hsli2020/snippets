@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Vue js Bootstrap modal </title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+  <style>
+    .modal-active{ display:block; }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+	<button class="btn" @click="showModal=true">Show</button>
+
+	<modal v-if="showModal" @close="showModal = false" title="Modal title">
+       <p>Some content displayed in the modal.</p>
+	</modal>
+  </div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+
+<script>
+Vue.component("modal", {
+  props: ['title'],
+  template: `
+    <div class="modal fade in modal-active">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" @click="$emit('close')" class="close">
+              <span>&times;</span>
+            </button>
+            <h4 class="modal-title">
+              {{title}}
+            </h4>
+          </div>
+          <div class="modal-body">
+            <slot></slot>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" @click="$emit('close')">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>` 
+});
+
+new Vue({
+  el: "#root",
+  data: {
+    showModal: false 
+  } 
+});
+</script>
+</body>
+</html>

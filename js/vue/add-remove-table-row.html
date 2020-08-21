@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+  <title>Add Remove Table Row Dynamically In VueJs</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>   
+</head>
+<body>
+
+<h3 class="text-success" align="center">Add Remove Table Row Dynamically In VueJs</h3><br>
+<div class="container" id="app">     
+  <div class="panel-group">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Add Remove Table Row Dynamically In VueJs</div>                  
+        <div class="panel-body"> 
+          <i class="fa fa-plus pull-right" @click="addRow"
+             style="font-size:25px;color:#337ab7;cursor:pointer"></i>
+          <table class="table table-bordered">
+            <thead class="text text-success">
+              <tr>                            
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for='(user, index) in users'>                            
+                <td><input v-model="user.name"  class="form-control" type="text" /></td>
+                <td><input v-model="user.email" class="form-control" type="text" /></td>
+                <td><input v-model="user.mobno" class="form-control" type="text"/></td>
+                <td><i @click="deleteRow(index)" class="fa fa-remove" 
+                     style="font-size:25px;color:red;cursor:pointer"></i>
+                </td>
+              </tr>                        
+            </tbody>
+          </table>
+        </div>                        
+      </div>                        
+    </div>
+  </div>
+</div>
+
+<script >
+  var app = new Vue({
+    el: '#app',
+    data: {
+      users:[{name:'',email:'',mobno:''}]     
+    },
+    methods: {
+      addRow: function() {      
+        this.users.push({name:'',email:'',mobno:''})
+      },
+      deleteRow(index){    
+        this.users.splice(index,1);             
+      }    
+    }   
+  })
+</script>
+</body>
+</html> 
