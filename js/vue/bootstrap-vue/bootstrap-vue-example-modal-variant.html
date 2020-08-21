@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Vue Example</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.css">
+  <style>[v-cloak] {display: none}</style>
+</head>
+<body>
+
+  <div id="app" v-cloak>
+    <b-button @click="show=true" variant="primary">Show Modal</b-button>
+
+    <b-modal
+      v-model="show"
+      title="Modal Variants"
+      :header-bg-variant="headerBgVariant"
+      :header-text-variant="headerTextVariant"
+      :body-bg-variant="bodyBgVariant"
+      :body-text-variant="bodyTextVariant"
+      :footer-bg-variant="footerBgVariant"
+      :footer-text-variant="footerTextVariant"
+    >
+      <b-container fluid>
+        <b-row class="mb-1 text-center">
+          <b-col cols="3"></b-col>
+          <b-col>Background</b-col>
+          <b-col>Text</b-col>
+        </b-row>
+
+        <b-row class="mb-1">
+          <b-col cols="3">Header</b-col>
+          <b-col>
+            <b-form-select
+              v-model="headerBgVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="headerTextVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+        </b-row>
+
+        <b-row class="mb-1">
+          <b-col cols="3">Body</b-col>
+          <b-col>
+            <b-form-select
+              v-model="bodyBgVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="bodyTextVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+        </b-row>
+
+        <b-row>
+          <b-col cols="3">Footer</b-col>
+          <b-col>
+            <b-form-select
+              v-model="footerBgVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+          <b-col>
+            <b-form-select
+              v-model="footerTextVariant"
+              :options="variants"
+            ></b-form-select>
+          </b-col>
+        </b-row>
+      </b-container>
+
+      <template v-slot:modal-footer>
+        <div class="w-100">
+          <p class="float-left">Modal Footer Content</p>
+          <b-button
+            variant="primary"
+            size="sm"
+            class="float-right"
+            @click="show=false"
+          >
+            Close
+          </b-button>
+        </div>
+      </template>
+    </b-modal>
+  </div>
+
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@2.16.0/dist/bootstrap-vue-icons.min.js"></script>
+  
+  <script>
+    window.onload = () => {
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            show: false,
+            variants: ['primary', 'secondary', 'success', 'warning',
+                'danger', 'info', 'light', 'dark'],
+            headerBgVariant: 'dark',
+            headerTextVariant: 'light',
+            bodyBgVariant: 'light',
+            bodyTextVariant: 'dark',
+            footerBgVariant: 'warning',
+            footerTextVariant: 'dark'
+          }
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no">
+<title>ISOlation.SITE</title>
+<style class=theme>
+  :root {
+    --pink: darkturquoise;
+    --hotpink: darkblue;
+    --white: deepskyblue;
+    --purple: powderblue;
+    --weirdpink: steelblue;
+    --text: white;
+  }
+</style>
+<style>
+  :root {
+    background-image: linear-gradient(135deg, rgba(21, 186, 248,0.6) 0%, rgba(21, 186, 248,0.6) 42%,transparent 42%, transparent 53%,rgba(41, 145, 229,0.6) 53%, rgba(41, 145, 229,0.6) 62%,transparent 62%, transparent 88%,rgba(62, 104, 209,0.6) 88%, rgba(62, 104, 209,0.6) 100%),linear-gradient(45deg, transparent 0%, transparent 29%,rgb(31, 166, 238) 29%, rgb(31, 166, 238) 35%,rgb(41, 145, 229) 35%, rgb(41, 145, 229) 55%,transparent 55%, transparent 56%,rgb(62, 104, 209) 56%, rgb(62, 104, 209) 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+    background-attachment: fixed;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  :root, body {
+    display: flex;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: system-ui, monospace;
+  }
+
+  body {
+    align-items: center;
+    justify-content: center;
+  }
+
+  body, legend, button, a {
+    color: var(--text);
+  }
+
+  fieldset, legend, button {
+    padding: 0.5rem;
+  }
+
+  fieldset {
+    width: 369px;
+    max-width: 85vw;
+  }
+
+  fieldset {
+    padding: 3.5rem 2rem 2rem 2rem;
+  }
+
+  fieldset {
+    background: linear-gradient(to bottom right, var(--purple), var(--hotpink) );
+    border: 0;
+  }
+
+  fieldset legend, button {
+    background: var(--weirdpink);
+    border: medium solid ;
+  }
+
+  input {
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    font-weight: bold;
+    color: navy;
+    border: 0;
+    outline: 0;
+  }
+
+  input::placeholder {
+    color: var(--pink);
+  }
+
+  input:focus {
+    background-color: white;
+  }
+
+  fieldset legend {
+    font-size: larger;
+    padding-left: 0;
+    position: relative;
+    top: 3rem;
+    background: transparent;
+    border: 0;
+  }
+
+  form p label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  form input {
+    flex-grow: 1;
+  }
+</style>
+<form id=secure>
+  <fieldset>
+    <legend><h3 some>ISOlation.SITE</h3></legend>
+    <p>
+      Protect your <strong>devices</strong> from web-transmitted infections (WTIs).
+    <p>
+      Picked up some random URL IRL? 
+    <p>
+      Stay safe. Put it in the box, then press the button.
+    <p>
+      <label aria-label="URL">
+        <input type=url required name=url maxlength=32000 placeholder="https://are.you.gonna.break.me/?my_trust=0">
+      </label>
+    <p>
+      <label>
+        <button>ISOlate It</button>
+      </label>
+    <details>
+      <summary>You want more?</summary>
+      <p>
+        <small>
+          If you prefer to carry protection with you wherever you go, you can <a href=https://browsergap.dosyago.com/signup.html>buy an API key</a>, to intertwine your own code with <a href=https://github.com/dosyago/browsergap.js><code>the SDK</code></a>. 
+          <br>
+          <small><i>
+            *This isolation is made from pixels not rubber. It's not perfect but it will protect you from most risks and should not get in the way of your browsing enjoyment.
+          </i></small>
+        </small>
+    </details>
+  </fieldset>
+</form>
+<script type=module src=/src/bg_loader.js></script>
+<p class=alternate id=alt hidden>
+  Open-source code, binaries, npm global packages and docker images can <a rel="alternate external" target=_blank href=https://github.com/dosyago/BrowserGap>be found here.</a>
+</p>
