@@ -1,0 +1,316 @@
+main{
+  display: flex;
+  align-items: stretch;
+  margin: 0 0 10px 0;
+}
+
+.canvas{
+  margin-right: 50px;
+  width: 50%;
+  margin: auto;
+}
+
+#andala-canvas{
+  border: 1px solid black;
+  border-radius: 30px;
+  margin: auto;
+  display: block;
+}
+
+h1{
+  font-size: 65px;
+  text-align: center;
+  font-family: 'Alegreya Sans', sans-serif;
+  margin-bottom: -7px;
+}
+
+h3{
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Cormorant', serif;
+}
+
+/* right sidebar */
+
+.right-side-bar-selection{
+  margin-top: 125px;
+  /* margin-left: 35px; */
+  width: 25%;
+}
+
+.right-side-bar-selection button{
+  margin-left: 10%;
+  margin-right: 20%;
+  font-family: 'Cormorant', serif;
+  font-size: 18px;
+}
+
+#canvas-reset-button{
+  height: 35px;
+  font-size: 17px;
+  border-radius: 10px;
+}
+
+/* left sidebar */
+
+.left-side-bar-selection{
+  margin-top: 125px;
+  font-family: 'Cormorant', serif;
+  font-size: 18px;
+  /* margin-right: 50px;
+  margin-left: 50px; */
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* margin-left: auto; */
+  /* margin-right: 0; */
+  /* padding-left: 15%; */
+  /* padding-left: 30px; */
+}
+
+.left-side-bar-selection div{
+  margin-right: 10%;
+  margin-left: 20%;
+  justify-content: space-between;
+}
+
+.draw-instructions{
+  margin-bottom: 45px;
+  font-size: 19px;
+}
+
+.left-side-bar-selection p{
+  width: 130px;
+  margin-right: 15px;
+}
+
+.drawing-color{
+  display: flex;
+  /* margin-top: 30px; */
+}
+
+.drawing-color ul{
+  display: flex;
+  flex-wrap: wrap;
+  /* height: 50px; */
+  width: 120px;
+  /* margin-left: 15px; */
+}
+
+.drawing-color li{
+  box-sizing: border-box;
+  margin: 2px;
+  border: 1px solid gray;
+}
+
+.drawing-color li:hover{
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+li.drawing-color-selected{
+  border: 3px dashed #5882FA;
+}
+
+#red-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #FA5858;
+  border-radius: 3px;
+}
+
+#orange-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #FACC2E;
+  border-radius: 3px;
+}
+
+#yellow-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #F4FA58;
+  border-radius: 3px;
+}
+
+#green-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #81F79F;
+  border-radius: 3px;
+}
+
+#blue-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #81F7F3;
+  border-radius: 3px;
+}
+
+#purple-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #DA81F5;
+  border-radius: 3px;
+}
+
+#pink-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #F781F3;
+  border-radius: 3px;
+}
+
+#black-brush{
+  height: 20px;
+  width: 20px;
+  background-color: black;
+  border-radius: 3px;
+}
+
+#white-brush{
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 3px;
+  /* border: 0.5px solid gray; */
+}
+
+#gray-brush{
+  height: 20px;
+  width: 20px;
+  background-color: #A4A4A4;
+  border-radius: 3px;
+}
+
+.canvas-background-color{
+  display: flex;
+  /* align-items: flex-start; */
+  margin-top: 30px;
+}
+
+.canvas-background-color ul{
+  display: flex;
+  width: 120px;
+}
+
+.canvas-background-color li{
+  box-sizing: border-box;
+  margin: 2px;
+  border: 1px solid gray;
+}
+
+.canvas-background-color li:hover{
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+li.canvas-background-selected{
+  border: 3px dashed #5882FA;
+}
+
+#white-background{
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 3px;
+  /* border: 0.5px solid gray; */
+}
+
+#black-background{
+  height: 20px;
+  width: 20px;
+  background-color: black;
+  border-radius: 3px;
+}
+
+.brush-size{
+  display: flex;
+  margin-top: 30px;
+}
+
+.brush-size ul{
+  width: 120px;
+}
+
+.brush-size li{
+  margin-bottom: 4px;
+}
+
+.brush-size li:last-of-type{
+  margin-bottom: 0;
+}
+
+.brush-size li:hover{
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.brush-size-selected{
+  text-decoration: underline;
+}
+
+.canvas-symmetry{
+  display: flex;
+  margin-top: 30px;
+}
+
+.canvas-symmetry input{
+  width: 20px;
+}
+
+.canvas-symmetry ul{
+  width: 120px;
+}
+
+.canvas-symmetry li{
+  margin-bottom: 4px;
+}
+
+.canvas-symmetry li:last-of-type{
+  margin-bottom: 0;
+}
+
+.canvas-symmetry li:hover{
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.canvas-symmetry label{
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+#radial-order{
+  margin-bottom: 6px;
+}
+
+.symmetry-selected{
+  text-decoration: underline;
+}
+
+/* contact-icons */
+
+.link-list{
+  text-align: center;
+}
+
+.link-list a{
+  text-decoration: none;
+  font-size: 45px;
+  cursor: pointer;
+  color: #adb5bd;
+  padding: 10px;
+}
+
+#personal-site{
+  font-size: 40px;
+}
+
+#author{
+  text-align: center;
+  margin: 10px;
+  font-family: 'Cormorant', serif;
+}

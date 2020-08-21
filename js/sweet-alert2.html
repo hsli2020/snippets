@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>SweetAlert2 - Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+</head>
+<body>
+
+<button type="button" onclick="toast()">Toast</button>
+<button type="button" onclick="template()">Template</button>
+<button type="button" onclick="input()">Input</button>
+<button type="button" onclick="select()">Select</button>
+<button type="button" onclick="input2()">Input2</button>
+
+
+<template id="my-template">
+  <swal-title>
+    Save changes to "Untitled 1" before closing?
+  </swal-title>
+  <swal-icon type="warning" color="red"></swal-icon>
+  <swal-button type="confirm">
+    Save As
+  </swal-button>
+  <swal-button type="cancel">
+    Cancel
+  </swal-button>
+  <swal-button type="deny">
+    Close without Saving
+  </swal-button>
+  <swal-param name="allowEscapeKey" value="false" />
+  <swal-param
+    name="customClass"
+    value='{ "popup": "my-popup" }' />
+</template>
+
+<script>
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+function toast() {
+  Toast.fire({
+    icon: 'success',
+    title: 'Signed in successfully'
+  })
+}
+
+function template() {
+  Swal.fire({
+    template: '#my-template'
+  })
+}
+
+function input() {
+  const ipAPI = '//api.ipify.org?format=json'
+  
+  const inputValue = fetch(ipAPI)
+    .then(response => response.json())
+    .then(data => data.ip)
+  
+  const { value: ipAddress } = Swal.fire({
+    title: 'Enter your IP address',
+    input: 'text',
+    inputLabel: 'Your IP address',
+    inputValue: inputValue,
+    showCancelButton: true,
+    inputValidator: (value) => {
+      if (!value) {
+        return 'You need to write something!'
+      }
+    }
+  })
+  
+  if (ipAddress) {
+    Swal.fire(`Your IP address is ${ipAddress}`)
+  }
+}
+
+function select() {
+  const { value: fruit } = Swal.fire({
+    title: 'Select field validation',
+    input: 'select',
+    inputOptions: {
+      'Fruits': {
+        apples: 'Apples',
+        bananas: 'Bananas',
+        grapes: 'Grapes',
+        oranges: 'Oranges'
+      },
+      'Vegetables': {
+        potato: 'Potato',
+        broccoli: 'Broccoli',
+        carrot: 'Carrot'
+      },
+      'icecream': 'Ice cream'
+    },
+    inputPlaceholder: 'Select a fruit',
+    showCancelButton: true,
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+        if (value === 'oranges') {
+          resolve()
+        } else {
+          resolve('You need to select oranges :)')
+        }
+      })
+    }
+  })
+  
+  if (fruit) {
+    Swal.fire(`You selected: ${fruit}`)
+  }
+}
+
+function input2() {
+  const { value: formValues } = Swal.fire({
+    title: 'Multiple inputs',
+    html:
+      '<input id="swal-input1" class="swal2-input">' +
+      '<input id="swal-input2" class="swal2-input">',
+    focusConfirm: false,
+    preConfirm: () => {
+      return [
+        document.getElementById('swal-input1').value,
+        document.getElementById('swal-input2').value
+      ]
+    }
+  })
+  
+  if (formValues) {
+    Swal.fire(JSON.stringify(formValues))
+  }
+}
+</script>
+</body>
+</html>
