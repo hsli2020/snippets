@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Clay.css Demo</title>
+<!--
+  <link rel="stylesheet" href="https://unpkg.com/claymorphism-css/dist/clay.css" />
+-->  
+  <style>
+  
+    .clay{
+		background:var(--clay-background,rgba(0,0,0,.005));
+		border-radius:var(--clay-border-radius,32px);
+		box-shadow:var(--clay-shadow-outset,8px 8px 16px 0 rgba(0,0,0,.25)),
+		     inset var(--clay-shadow-inset-primary,-8px -8px 16px 0 rgba(0,0,0,.25)),
+		     inset var(--clay-shadow-inset-secondary,8px 8px 16px 0 hsla(0,0%,100%,.2))
+	}
+
+	.card{
+	  /* Modify clay.css properties */
+	  --clay-background: #f76d6d;
+	  --clay-border-radius: 48px;
+
+	  /* Extended styles */
+	  color: #f1f1f1;
+	  padding: 48px;
+	}
+
+  </style>
+</head>
+<body>
+
+<div class="clay" style="width: 480px;font-size: 32px;padding: 20px;">
+  Fluffy ipsum dolor sit amet consectetur, adipisicing elit. Incidunt aliquid distinctio aliquam ratione animi soluta, quisquam in iste illum suscipit recusandae saepe fugiat, vel doloremque consectetur deleniti tenetur eveniet fugit? 
+</div>
+
+<br><br>
+
+<div class="clay card" style="width: 600px;font-size: 40px;">
+  Fluffy ipsum dolor sit amet consectetur, adipisicing elit. Incidunt aliquid distinctio aliquam ratione animi soluta, quisquam in iste illum suscipit recusandae saepe fugiat, vel doloremque consectetur deleniti tenetur eveniet fugit? 
+</div>
+
+</body>
+</html>
