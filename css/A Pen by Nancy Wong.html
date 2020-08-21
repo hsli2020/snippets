@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - A Pen by Nancy Wong</title>
+<style>
+/* Canvas */
+
+body, html {
+    background-color: #f6f6f6;
+}
+
+#painting {
+  height: 400px;
+  width: 400px;
+  background: #fff4db;    
+  margin-top: 30px;
+  margin: auto;
+  box-shadow: 10px 10px 0px #8d8d8d;
+}
+
+/* Box IDs */
+
+#top-row {
+  height: 290px;
+}
+
+#big-box {
+  width: 290px;
+  height: 290px;
+}
+
+#bottom-left-box {
+  width: 100px;
+  height: 100px;
+}
+
+#bottom-right-column {
+  height: 100px;
+  width: 40px;
+}
+
+#bottom-middle-box {
+  height: 100px;
+  width: 240px;
+}
+
+/* Divider IDs */
+
+#divider-1 {
+  height: 290px;
+  width: 10px;
+}
+
+#divider-2 {
+  height: 10px;
+  width: 100px;
+}
+
+#divider-3 {
+  height: 10px;
+  width: 400px;
+}
+
+#divider-4 {
+  height: 100px;
+  width: 10px;
+}
+
+#divider-5 {
+  height: 10px;
+  width: 50px;
+}
+
+#divider-6 {
+  height: 100px;
+  width: 10px;
+}
+
+/* Box Classes */
+
+.right {
+  float: right;
+}
+
+.medium-box {
+  width: 100px;
+  height: 140px;
+}
+
+.small-box {
+  width: 50px;
+  height: 45px;
+}
+
+
+/* Color Classes */
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.black {
+  background-color: black;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <div id="painting">
+      
+      <div id="top-row">
+        <div id="big-box" class="red right"></div>
+        <div id="divider-1" class="black right"></div>
+        <div id="top-left-column" class="right">
+          <div class="medium-box"></div>
+          <div id="divider-2" class="black"></div>
+          <div class="medium-box"></div>
+        </div>
+      </div>
+      
+      <div class="black right" id="divider-3" ></div>
+      <div id="bottom-row">
+        <div id="bottom-right-column" class="right">
+          <div class="small-box blue right"></div>
+          <div id="divider-5" class="black right"></div>
+          <div class="small-box yellow right"></div>
+        </div>
+        <div id="divider-6" class="right black"></div>
+        
+        <div id="bottom-middle-box" class="right"></div>
+        <div id="divider-4" class="black right"></div>
+        <div id="bottom-left-box" class="blue right"></div>
+      </div>
+    </div>
+
+</body>
+</html>

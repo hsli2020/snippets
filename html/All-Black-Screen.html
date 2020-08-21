@@ -1,0 +1,281 @@
+<html>
+<head>
+<title>All Black Screen | Make Your Screen Black</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Make your screen black. Click or tap to turn your display all black. Works with multiple other colors too. Useful for cleaning your screen or spotting dead pixels.">
+<style>
+        body{
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        #nav{
+            display: flex;
+            justify-content: center;
+            padding: 27px 0;
+        }
+        #logo{
+            display: flex;
+            justify-content: center;
+        }
+        #logo-image{
+            width: 460px;
+            max-width: 80%;
+        }
+        #main{
+        }
+        #description{
+            text-align: center;
+            margin-bottom: 43px;
+        }
+        #colors-list{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 613px;
+            max-width: 95%;
+            margin: 0 auto;
+        }
+        .color{
+            width: 180px;
+            height: 120px;
+            border-radius: 19px;
+            border: 2px solid #e3e3e3;
+            cursor: pointer;
+        }
+        .color.black{
+            background: #000;
+        }
+        .color.white{
+            background: #ffffff;
+        }
+        .color.green{
+            background: #008000;
+        }
+        .color.blue{
+            background: #0000ff;
+        }
+        .color.red{
+            background: #FF0000;
+        }
+        .color.purple{
+            background: #800080;
+        }
+        .color-wrap{
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+        .color-description{
+            margin-left: 30px;
+            font-size: 20px;
+        }
+        section{
+            padding: 15px;
+        }
+        h1{
+            text-align: center;
+            font-size: 44px;
+            margin: 30px 0 27px;
+        }
+        h2{
+            text-align: center;
+            margin: 42px 0;
+            font-size: 27px;
+        }
+        .top-section .image{
+            display: flex;
+            justify-content: center;
+        }
+        .info{
+            text-align: center;
+            margin: 0 0 37px 0;
+        }
+        .info-title{
+            font-weight: bold;
+            font-size: 18px;
+            margin: 9px 0;
+        }
+        footer{
+            text-align: center;
+            padding: 17px 0;
+        }
+        video{
+            width: 0;
+            height: 0;
+        }
+        @media (min-width: 561px){
+            h1{
+                margin-top: 35px;
+            }
+            .color{
+                width: 340px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+<div id="nav"></div>
+<h1>ALL BLACK SCREEN</h1>
+<p id="description">Make your screen black.</p>
+<section id="colors-list">
+<div class="color-wrap">
+<button class="color black" data-color="#000000"></button>
+<div class="color-description">Make my screen black.</div>
+</div>
+<div class="color-wrap">
+<button class="color white" data-color="#ffffff"></button>
+<div class="color-description">Make my screen white.</div>
+</div>
+<div class="color-wrap">
+<button class="color green" data-color="#008000"></button>
+<div class="color-description">Make my screen green.</div>
+</div>
+<div class="color-wrap">
+<button class="color blue" data-color="#0000ff"></button>
+<div class="color-description">Make my screen blue.</div>
+</div>
+<div class="color-wrap">
+<button class="color red" data-color="#ff0000"></button>
+<div class="color-description">Make my screen red.</div>
+</div>
+<div class="color-wrap">
+<button class="color purple" data-color="#800080"></button>
+<div class="color-description">Make my screen purple.</div>
+</div>
+</section>
+<section id="info" class="info-section">
+<h2>Why make my screen black</h2>
+<div class="info-wrap">
+<div class="info">
+<div class="info-title">Save energy</div>
+<div class="info-description">Making your screen all black saves energy. This is especially true on OLED screens, where black pixels actually turn off.</div>
+</div>
+<div class="info">
+<div class="info-title">As a prank</div>
+<div class="info-description">You can use this as a prank to pretend like the device is dead.</div>
+</div>
+<div class="info">
+<div class="info-title">Check for dead pixels</div>
+<div class="info-description">A completely black screen makes it easier to spot dead pixels.</div>
+</div>
+<div class="info">
+<div class="info-title">Stealth mode</div>
+<div class="info-description">When you're in a dark room and you want to temporarily switch off the display light, this can be easier than putting your device into standby mode.</div>
+</div>
+<div class="info">
+<div class="info-title">Meditation</div>
+<div class="info-description">You can use this to meditate. Feel free to play your favorite meditation song while you're at it.</div>
+</div>
+<div class="info">
+<div class="info-title">Better than standby mode</div>
+<div class="info-description">You get most of the benefits of being in standby mode, with your apps still running in the background.</div>
+</div>
+<div class="info">
+<div class="info-title">Check if screen is OLED</div>
+<div class="info-description">You can use this to check if your screen is an OLED one, as OLED screens don't emit light when set to black.</div>
+</div>
+<div class="info">
+<div class="info-title">Use screen as mirror</div>
+<div class="info-description">Need to see who's behind you? A black screen can help you see reflections. Works better on glossy displays.</div>
+</div>
+<div class="info">
+<div class="info-title">See the dust</div>
+<div class="info-description">Need to clean your screen, but don't want to turn it off? This will help you see all those dust particles.</div>
+</div>
+<div class="info">
+<div class="info-title">Because it's cool</div>
+<div class="info-description">Impress your friends - or just use it to stay stylish. Black will never go out of fashion.</div>
+</div>
+</div>
+</section>
+<section id="faq" class="info-section">
+<h2>Frequently asked questions</h2>
+<div class="info-wrap">
+<div class="info">
+<div class="info-title">Does it work on iOS devices?</div>
+<div class="info-description">Yes. We're using a workaround, since iOS does not support native browser fullscreen.</div>
+</div>
+<div class="info">
+<div class="info-title">Does it work with multiple screens?</div>
+<div class="info-description">No.</div>
+</div>
+<div class="info">
+<div class="info-title">Does it prevent standby mode?</div>
+<div class="info-description">Yes - most browsers prevent the device from entering into standby when in fullscreen.</div>
+</div>
+<div class="info">
+<div class="info-title">Does it work with multiple colors?</div>
+<div class="info-description">Yes, feel free to choose any of the colors available.</div>
+</div>
+<div class="info">
+<div class="info-title">Why make my screen all black?</div>
+<div class="info-description">There are several reasons why you might want to make your screen black. Check the section above for some common examples.</div>
+</div>
+<div class="info">
+<div class="info-title">I like this tool. How can I say thanks?</div>
+<div class="info-description">Bookmark this page for fast access and share it on social media to help it reach as many people as possible.</div>
+</div>
+<div class="info">
+<div class="info-title">How does this work?</div>
+<div class="info-description">It uses some very basic Javascript. The method is called <code>requestFullscreen()</code>. Works with most browsers, including iOS ones.</div>
+</div>
+</div>
+</section>
+</div>
+<div id="fullscreenelement"></div>
+<footer>© All Black Screen. All rights reserved.</footer>
+<script>
+
+        let color;
+        let buttons = document.querySelectorAll('.color');
+        let fullscreenelement = document.getElementById('fullscreenelement');
+        let iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+        let vid = false;
+        buttons.forEach(function(e){
+           e.onclick = function(){
+               color = e.dataset.color;
+               fullscreenelement.style.backgroundColor = color;
+               allscreen(color);
+           }
+        });
+
+        function allscreen(){
+            if (iOS) {
+                if (!vid) {
+                    let e = document.createElement('video');
+                    e.src = color.substring(1) + '.mp4?v=2';
+                    e.autoplay = true;
+                    e.loop = true;
+                    e.playsInline = true;
+                    e.controls = true;
+                    document.body.appendChild(e);
+                    e.addEventListener('loadedmetadata', function () {
+                        e.webkitEnterFullscreen();
+                    }, false);
+                    vid = e;
+                } else {
+                    vid.src = color.substring(1) + '.mp4?v=2';
+                    vid.addEventListener('loadedmetadata', function () {
+                        vid.webkitEnterFullscreen();
+                    }, false);
+                }
+
+            }
+
+            if (fullscreenelement.requestFullscreen) {
+                fullscreenelement.requestFullscreen();
+            } else if (fullscreenelement.webkitRequestFullscreen) { /* Safari */
+                fullscreenelement.webkitRequestFullscreen();
+            } else if (fullscreenelement.msRequestFullscreen) { /* IE11 */
+                fullscreenelement.msRequestFullscreen();
+            }
+
+        }
+
+
+
+    </script>
+</body>
+</html>
