@@ -1,0 +1,397 @@
+下面我们实现Go语言版的四种gRPC调用方式。
+
+1. 单向RPC实现
+
+# 编写proto
+
+syntax = "proto3";
+
+package helloworld;
+
+service Greets {
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloReply {
+  string name = 1;
+  string message = 2;
+}
+
+message HelloRequest {
+  string name = 1;
+  string message = 2;
+}
+
+进入proto文件夹，运行命令
+protoc -I . --go_out=plugins=grpc:. ./helloworld.proto
+在.目录中生成helloworld.pb.go文件
+
+# 编写server
+
+type Server struct {
+}
+
+//实现SayHello接口
+func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+    log.Println(in.Name, in.Message)
+    return &pb.HelloReply{Name: "婷婷", Message: "不回来了"}, nil
+}
+
+func main() {
+    //协议类型以及ip，port
+    lis, err := net.Listen("tcp", ":8002")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    //定义一个rpc的server
+    server := grpc.NewServer()
+
+    //注册服务，相当与注册SayHello接口
+    pb.RegisterGreetsServer(server, &Server{})
+
+    //进行映射绑定
+    reflection.Register(server)
+
+    //启动服务
+    err = server.Serve(lis)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+}
+
+pb为proto文件生成的文件别名
+
+定义server结构体作为rpc调用的结构体，这个结构体必须实现SayHello这个接口
+
+listen -> grpc.NewServer() -> pb.RegisterGreetsServer(server, &Server{}) -> s.Serve(lis)
+
+# 编写client
+
+func main() {
+    //创建一个grpc连接
+    conn, err := grpc.Dial("localhost:8002", grpc.WithInsecure())
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer conn.Close()
+
+    //创建RPC客户端
+    client := pb.NewGreetsClient(conn)
+
+    //设置超时时间
+    _, cancel := context.WithTimeout(context.Background(), time.Second)
+    defer cancel()
+
+    // 调用方法
+    reply, err := client.SayHello(context.Background(), 
+        &pb.HelloRequest{Name: "小超", Message: "回来吃饭吗"})
+    if err != nil {
+        log.Fatalf("couldn not greet: %v", err)
+    }
+    log.Println(reply.Name, reply.Message)
+}
+
+grpc.Dial("localhost:8002", grpc.WithInsecure())连接到服务器，grpc.WithInsecure()取消明文检测
+
+context.WithTimeout(context.Background(), time.Second)设置超时时间
+
+c := pb.NewGreetsClient(conn)创建rpc调用的客户端
+
+c.SayHello(context.Background(), &pb.HelloRequest{Name: name})进行rpc调用
+
+抽象接口
+
+其实也就是要实现这个接口，因为俩边都是单项调用，所以调用和实现的接口都是这个
+
+type GreetsClient interface {
+   SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+}
+
+
+2. 服务端流RPC
+
+# 编写proto
+
+syntax = "proto3";
+
+package helloworld;
+
+service Greet{
+  rpc SayHello (HelloRequest) returns(stream HelloReply) {}
+}
+
+message HelloReply {
+  string name = 1;
+  string message = 2;
+}
+
+message HelloRequest {
+  string name = 1;
+  string message = 2;
+}
+
+相比于单项RPC调用，因为是客户端流，所以在HelloRequest多了一个stream
+
+# 编写server
+
+type Server struct {
+}
+
+//实现rpc接口
+func (*Server) SayHello(request *pb.HelloRequest, server pb.Greet_SayHelloServer) error {
+    fmt.Println(request)
+    var err error
+    for i := 0; i < 2; i++ {
+        if i == 0 {
+            err = server.Send(&pb.HelloReply{Name: "小超", Message: "没事，一次比赛而已"})
+        } else {
+            err = server.Send(&pb.HelloReply{Name: "小超", Message: "晚上带你去吃好吃的"})
+        }
+        if err != nil {
+            fmt.Println(err)
+            return err
+        }
+    }
+    return nil
+}
+
+func main() {
+    //协议类型以及ip，port
+    listen, err := net.Listen("tcp", ":8002")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    //定义一个rpc的server
+    s := grpc.NewServer()
+
+    //注册服务，相当与注册SayHello接口
+    pb.RegisterGreetServer(s, &Server{})
+
+    //进行映射绑定
+    reflection.Register(s)
+
+    //启动服务
+    err = s.Serve(listen)
+    if err != nil {
+        fmt.Println(err)
+    }
+}
+
+# 编写client
+
+client发送的是一个流，与单项RPC方式不同，他通过rpc调用获得的是一个流传输对象greetClient，
+可以用流传输对象不停的往对端发送数据
+
+func main() {
+    //创建一个grpc的连接
+    grpcConn, err := grpc.Dial("127.0.0.1"+":8002", grpc.WithInsecure())
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    //创建grpc的client
+    client := pb.NewGreetClient(grpcConn)
+
+    //设置超时时间
+    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+    defer cancel()
+
+    //调用rpc方法，获得流接口
+    res, err := client.SayHello(ctx, &pb.HelloRequest{Name: "小超", Message: "今天比赛输了"})
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    //循环接收数据
+    for {
+        recv, err := res.Recv()
+        if err != nil {
+            fmt.Println(err)
+            break
+        }
+        fmt.Println(recv)
+    }
+}
+
+# 抽象接口
+
+服务器要实现的接口
+
+// GreetsServer is the server API for Greets service.
+type GreetsServer interface {
+   SayHello(Greets_SayHelloServer) error
+}
+
+客户端调用的接口
+
+type GreetsClient interface {
+   SayHello(ctx context.Context, opts ...grpc.CallOption) (Greets_SayHelloClient, error)
+}
+
+3. 服务端流RPC
+
+# 编写proto
+
+syntax = "proto3";
+
+package helloworld;
+
+service Greets{
+  rpc SayHello (stream HelloRequest) returns (HelloReply) {}
+}
+
+message HelloReply {
+  string name = 1;
+  string message = 2;
+}
+
+message HelloRequest {
+  string name = 1;
+  string message = 2;
+}
+
+# 编写服务器
+
+type Server struct{}
+
+//实现rpc方法，直到对端调用CloseAndRecv就会读到EOF
+func (*Server) SayHello(in pb.Greets_SayHelloServer) error {
+    for {
+        recv, err := in.Recv()
+        //接收完数据之后发送响应
+        if err == io.EOF {
+            err := in.SendAndClose(&pb.HelloReply{Name: "婷婷", Message: "滚"})
+            if err != nil {
+                return err
+            }
+            return nil
+        } else if err != nil {
+            return err
+        }
+        fmt.Println(recv)
+    }
+}
+
+func main() {
+    //绑定协议，ip以及端口
+    lis, err := net.Listen("tcp", ":8002")
+    if err != nil {
+        fmt.Println("failed to listen: %v", err)
+        return
+    }
+
+    //创建一个grpc服务对象
+    server := grpc.NewServer()
+
+    //注册rpc服务
+    pb.RegisterGreetsServer(server, &Server{})
+
+    //注册服务端反射
+    reflection.Register(server)
+
+    //启动服务器
+    err = server.Serve(lis)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+}
+
+# 编写客户端
+
+func main() {
+    //创建一个grpc的连接
+    grpcConn, err := grpc.Dial("127.0.0.1"+":8002", grpc.WithInsecure())
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    //创建grpc的client
+    client := pb.NewGreetsClient(grpcConn)
+
+    //设置超时时间
+    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+    defer cancel()
+
+    //调用rpc方法，得到一个客户端用于循环发送数据
+    greetClient, err := client.SayHello(ctx)
+
+    if err != nil {
+        fmt.Println("sayHello error")
+        fmt.Println(err)
+        return
+    }
+
+    maxCount := 2
+    curCount := 0
+
+    //循环发送
+    //调了CloseAndRecv()服务端就会读到EOF，server端可根据是否读到EOF来判断客户端是否将数据发完
+    for {
+        if curCount == 0 {
+            err = greetClient.Send(&pb.HelloRequest{Name: "小超", Message: "怎么了，宝贝"})
+        } else {
+            err = greetClient.Send(&pb.HelloRequest{Name: "小超", Message: "别生气了，带你吃好吃的"})
+        }
+
+        if err != nil {
+            fmt.Println("send error")
+            fmt.Println(err)
+            return
+        }
+        curCount += 1
+        if curCount >= maxCount {
+            res, err := greetClient.CloseAndRecv()
+            if err != nil {
+                fmt.Println(err)
+                break
+            }
+            fmt.Println(res)
+            break
+        }
+    }
+}
+
+# 抽象接口
+
+# 客户端接口
+
+type GreetsClient interface {
+   SayHello(ctx context.Context, opts ...grpc.CallOption) (Greets_SayHelloClient, error)
+}
+
+# 服务器接口
+
+type GreetsServer interface {
+   SayHello(Greets_SayHelloServer) error
+}
+
+4. 双向流RPC
+
+双向流RPC就交给读者自己练习吧，相信理解了单项RPC，客户端流RPC，服务端流RPC三种传输方式，
+写出双向流RPC应该没任何问题。
+
+实现总结
+
+其实弄懂了单项RPC、服务端流式RPC、客户端流式RPC、双向流PRC四种gRPC应用场景，实现起来将非常容易。
+
+根据应用场景选择好哪种gRPC服务
+
+写好proto文件，用protoc生成.pb.go文件
+
+服务端实现接口->listen 
+              -> grpc.NewServer() 
+              -> pb.RegisterGreetsServer(server, &Server{}) 
+              -> s.Serve(lis)
+
+客户端grpc.Dial->pb.NewGreetsClient->context.WithTimeout->client.SayHello(调用接口)->
+如果是流传输则循环读取数据
