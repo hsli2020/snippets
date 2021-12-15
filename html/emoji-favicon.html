@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Favicon Machine</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+  <style>
+    .favicon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      grid-gap: 1rem;
+    }
+    .favicon-grid > button {
+      border: 0;
+      background: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 3rem;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    body {
+      background: #ffb300;
+      margin: 2rem;
+      font: 100% system-ui, sans-serif;
+    }
+    h1 {
+      font-weight: 900;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    Emojis as Favicons
+  </h1>
+
+  <p><a href="https://twitter.com/LeaVerou/status/1241619866475474946">Super genius idea</a> by Lea Verou! Click emojis to set the favicon (you'll see on the <a href="https://000458870.codepen.website/" target="_blank" rel="noopener">deployed website</a> version of <a href="https://codepen.io/chriscoyier/project/editor/ZeWQWJ">this project</a>).</p>
+
+  <div class="favicon-grid">
+    <button>🍔</button>
+    <button>😀</button>
+    <button>🙅🏻‍♀️</button>
+    <button>🐛</button>
+    <button>🎛</button>
+    <button>🤯</button>
+    <button>🎯</button>
+    <button>📕</button>
+    <button>5️⃣</button>
+    <button>🎨</button>
+    <button>🏆</button>
+    <button>👀</button>
+    <button>🔥</button>
+    <button>📦</button>
+    <button>🌴</button>
+    <button>😑</button>
+    <button>👻</button>
+    <button>👋</button>
+    <button>🐭</button>
+    <button>🥨</button>
+  </div>
+
+<script>
+  const linkForFavicon = document.querySelector(
+  `head > link[rel='icon']`
+);
+
+function faviconTemplate(string, icon) {
+  return `
+    <svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
+      <text y=%22.9em%22 font-size=%2290%22>
+        ${icon}
+      </text>
+    </svg>
+  `.trim();
+}
+
+const buttons = document.querySelectorAll(`.favicon-grid > button`);
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    newFavicon = faviconTemplate`${button.innerText}`;
+    console.log(newFavicon);
+    linkForFavicon.setAttribute(`href`, `data:image/svg+xml,${newFavicon}`);
+  });
+});
+
+</script>
+
+</body>
+</html>

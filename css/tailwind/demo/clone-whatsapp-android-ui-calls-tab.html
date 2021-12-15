@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@1.4.6/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+    <div class="flex flex-col min-h-screen max-w-sm mx-auto">
+  <header
+    class="flex flex-wrap pt-3 text-white mb-1"
+    style="background-color:#128C7E"
+  >
+    <div class="flex justify-between text-xl w-full font-medium pl-4">
+      WhatsApp
+      <div class="flex items-center">
+        <svg
+          class="h-4 mr-6 text-base"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          ></path></svg
+        ><svg
+          class="h-4 mr-4 text-base"
+          style=""
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 192 512"
+        >
+          <path
+            fill="currentColor"
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="flex w-full items-center mt-4">
+      <div class="pl-3 w-full">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z"
+          ></path>
+        </svg>
+      </div>
+      <button
+        class="opacity-50 tracking-wide text-sm uppercase font-medium text-center py-2 px-8 focus:outline-none"
+      >
+        chats
+      </button>
+      <button
+        class="opacity-50 tracking-wide text-sm uppercase font-medium text-center py-2 px-8 focus:outline-none"
+      >
+        status
+      </button>
+      <button
+        class="opacity-100 border-b-2 border-white tracking-wide text-sm uppercase font-medium text-center py-2 px-8 focus:outline-none"
+      >
+        calls
+      </button>
+    </div>
+  </header>
+  <div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/derekebradley/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Charles</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/demersdesigns/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Sabrina</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/buryaknick/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Tyrell</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(45deg); color: red;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          style="color: #128C7E;"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 576 512"
+        >
+          <path
+            fill="currentColor"
+            d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/r_garcia/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Haley</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/alsobrooks/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Gay</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/felipecsl/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Lera</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/Karimmove/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Lewis</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(45deg); color: red;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Asa</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          style="color: #128C7E;"
+          viewBox="0 0 512 512"
+        >
+          <path
+            fill="currentColor"
+            d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/bluesix/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Alisa</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(45deg); color: red;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          style="color: #128C7E;"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 576 512"
+        >
+          <path
+            fill="currentColor"
+            d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="px-3 pt-1 mt-1 flex justify-between">
+      <img
+        src="https://s3.amazonaws.com/uifaces/faces/twitter/kuldarkalvik/128.jpg"
+        class="w-12 h-12 rounded-full"
+        alt="dp"
+      />
+      <div class="flex flex-wrap ml-4 pb-4 w-full">
+        <div class="inline-flex justify-between w-full font-bold">Deven</div>
+        <div class="inline-flex w-full text-sm text-gray-500">
+          <span class="pr-2">
+            <svg
+              class="h-4"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style="transform: rotate(225deg); color: #128C7E;"
+            >
+              <path
+                fill="currentColor"
+                d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              ></path>
+            </svg>
+          </span>
+          Today, 10:30
+        </div>
+      </div>
+      <div class="inline-flex items-center p-5 text-green-200">
+        <svg
+          class="h-4"
+          style="color: #128C7E;"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 576 512"
+        >
+          <path
+            fill="currentColor"
+            d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

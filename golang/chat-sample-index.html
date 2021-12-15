@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Go Chat!</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Go Chat!</h1>
+      </div>
+      <form id="input-form" class="form-inline">
+        <div class="form-group">
+          <input
+            id="input-username"
+            type="text"
+            class="form-control"
+            placeholder="Enter username"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            id="input-text"
+            type="text"
+            class="form-control"
+            placeholder="Enter chat text here"
+          />
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+      <div id="chat-text"></div>
+    </div>
+  </body>
+
+  <script>
+	window.addEventListener('DOMContentLoaded', (_) => {
+	  let websocket = new WebSocket("wss://" + window.location.host + "/websocket");
+	  let room = document.getElementById("chat-text");
+
+	  websocket.addEventListener("message", function (e) {
+		let data = JSON.parse(e.data);
+		let chatContent = `<p><strong>${data.username}</strong>: ${data.text}</p>`;
+
+		room.append(chatContent);
+		room.scrollTop = room.scrollHeight; // Auto scroll to the bottom
+	  });
+
+	  let form = document.getElementById("input-form");
+	  form.addEventListener("submit", function (event) {
+		event.preventDefault();
+		let username = document.getElementById("input-username");
+		let text = document.getElementById("input-text");
+		websocket.send(
+		  JSON.stringify({
+			username: username.value,
+			text: text.value,
+		  })
+		);
+		text.value = "";
+	  });
+	});
+  </script>
+</html>

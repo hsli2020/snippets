@@ -1,0 +1,98 @@
+E-commerce APIs (https://api.fabric.inc/browse-all-topics)
+==========================================================
+
+# Users
+    Create Local User
+    Login Local User
+    Refresh User Token
+    Get User Details
+    Update User Details
+    Update Username
+    Reset Password
+    Verify Reset Token
+    Update Password
+    Change Password
+    Create Address
+    Update Address
+    Delete Address
+    Get Address by ID
+    Get Address by Kind
+    Get All Addresses of User
+    Set Default Address
+    Unset Default Address
+# Cart
+    Add Items to Cart
+    Retrieve Cart by Cart ID or userAuthToken
+    Remove Item from Cart
+    Empty Cart
+    Update Cart
+    Apply Promo
+    Remove Promo
+    Merge Guest and User Carts
+    Delete Cart
+    Add ship-to to Line Items
+# Ship-to
+    Create Shipping
+    Retrieve Shipping by shipTo ID
+    Retrieve Cart by Ship-to ID
+    Update Shipping
+# Bill-to
+    Create Billing
+    Retrieve Bill-to by ship-to ID
+    Retrieve Billing by Bill-to ID
+    Update Billing
+# Decoupled Cart
+    Add Items to Cart
+    Retrieve Cart by Cart ID or userAuthToken
+    Remove Item from Cart
+    Update Cart
+    Merge Guest and User Carts
+    Empty Cart
+    Delete Cart
+# Orders
+    Add Shipment
+    Order Checkout (Credit Card)
+    Order Checkout (Affirm)
+    Retrieve Orders By User
+    Retrieve Orders By Email
+    Retrieve Order By ID
+# Shipping
+    Shipping - Create
+    Shipping - Update
+    Shipping - Get All
+    Shipping - Get Available
+    Shipping - Get By ID
+    Shipping - Delete
+    Address Validation
+# Tax
+    Create Estimate Transaction
+# Wishlist
+    Add Item to Wishlist
+    Get Wishlist by userAuthToken
+    Delete Item from Wishlist
+# Inventory
+    Get Multiple by itemId
+    Inventory - Bulk Insert
+# Items
+    Get Items by itemIds
+    Get Item by itemId
+    Get item and price by SKU
+    Get items by SKUs
+# Notifications
+    Communication - Send Email
+# XM
+    Retrieve Live Pages
+    Retrieve Page by URL
+    Retrieve Live Global Components
+    Retrieve Menu List
+    Retrieve Menu Items by Menu ID
+    Retrieve Menu Items
+# Promotions
+    Validate Promotions
+    Retrieve a List of Promotions
+    Retrieve a Single Promotion
+# Price
+    Retrieve Price by Item IDs
+    Retrieve Price by Item and Price List IDs
+    Set Price
+    Set Bulk Price

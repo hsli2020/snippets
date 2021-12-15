@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Sortable table with Vue.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+  <style id="compiled-css" type="text/css">
+    @charset "UTF-8";
+    body { background-color: white; padding: 10px; }
+    table th.sorted.asc::after { display: inline-block; content: '▼'; }
+    table th.sorted.desc::after { display: inline-block; content: '▲'; }
+
+	table { border-collapse: collapse; width: 40%;}
+	table, th, td { border: 1px solid black;}
+    td, th { padding: 5px 10px; }
+    th { cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<main id="app">
+  <table>
+    <thead>
+      <tr>
+        <th
+          :class="sortedClass('id')"
+          @click="sortBy('id')"
+        >
+          ID
+        </th>
+        <th
+          :class="sortedClass('name')"
+          @click="sortBy('name')"
+        >
+          Name
+        </th>
+        <th
+          :class="sortedClass('age')"
+          @click="sortBy('age')"
+        >
+          Age
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="item in sortedItems"
+        :key="item.id"
+      >
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.age }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<script type="text/javascript">
+
+// import vue@2.5
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      sort: {
+        key: '',
+        isAsc: false
+      },
+      items: [
+        { id: 1, name: 'taro', age: 20 },
+        { id: 2, name: 'jiro', age: 15 },
+        { id: 3, name: 'saburo', age: 18 },
+        { id: 4, name: 'shiro', age: 14 },
+      ]
+    }
+  },
+  computed: {
+    sortedItems () {
+      const list = this.items.slice();  // ソート時でdataの順序を書き換えないため
+      if (!!this.sort.key) {
+        list.sort((a, b) => {
+          a = a[this.sort.key]
+          b = b[this.sort.key]
+
+          return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+        });
+      }
+      
+      return list;
+    }
+  },
+  methods: {
+    sortedClass (key) {
+      return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc' }` : '';
+    },
+    sortBy (key) {
+      this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false;
+      this.sort.key = key;
+    }
+  }
+});
+</script>
+
+</body>
+</html>

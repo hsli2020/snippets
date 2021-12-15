@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="module">
+      import { app } from "https://unpkg.com/hyperapp"
+      import {
+        main,
+        h1,
+        button,
+        text,
+      } from "https://unpkg.com/@hyperapp/html?module"
+
+      const Subtract = (state) => ({ ...state, count: state.count - 1 })
+      const Add = (state) => ({ ...state, count: state.count + 1 })
+
+      app({
+        init: (count = 0) => ({ count }),
+        view: (state) =>
+          main([
+            h1(text(state.count)),
+            button({ onclick: Subtract }, text("-")),
+            button({ onclick: Add }, text("+")),
+          ]),
+        node: document.getElementById("app"),
+      })
+    </script>
+  </head>
+  <body>
+    <main id="app"></main>
+  </body>
+</html>

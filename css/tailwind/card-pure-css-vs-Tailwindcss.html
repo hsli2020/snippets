@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <style>
+    /* Card Styling */
+
+    .card {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      padding: 1rem 3rem;
+    }
+
+    .avatar {
+      text-align: center;
+      height: 10rem;
+      width: 10rem;
+      background-color: #2d3748;
+      margin: 0 auto 1rem auto;
+      border-radius: 50%;
+    }
+
+    .text {
+      color: white;
+      font-size: 4rem;
+      margin: 2rem;
+      display: inline-block;
+    }
+
+    .heading {
+      text-align: center;
+      color: #4299e1;
+    }
+
+    .description {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 1rem;
+    }
+
+    .button {
+      display: block;
+      margin: auto;
+      width: 10rem;
+      background-color: #4299e1;
+      color: white;
+      border-radius: 0.5rem;
+      border-width: 0;
+      padding: 0.5rem;
+      text-transform: uppercase;
+    }
+  </style>
+  <body class="flex items-center justify-evenly min-h-screen font-sans">
+    <!-- Styled with CSS -->
+
+    <div class="card">
+      <div class="avatar"><span class="text">Va</span></div>
+      <h1 class="heading">Varun</h1>
+      <p class="description">Software Developer</p>
+      <button class="button">Follow</button>
+    </div>
+
+    <!-- Styled with Tailwindcss -->
+
+    <div class="shadow-2xl px-12 py-4">
+      <div class="w-40 h-40 bg-gray-800 mx-auto mb-4 rounded-full text-center">
+        <span class="text-6xl text-white m-8 inline-block">Va</span>
+      </div>
+      <h1 class="text-center text-blue-500">Varun</h1>
+      <p class="text-center text-gray-600 mb-4">Software Developer</p>
+      <button
+        class="block m-auto w-40 text-white bg-blue-500 text-center rounded-lg border-0 uppercase p-2"
+      >
+        Follow
+      </button>
+    </div>
+  </body>
+</html>

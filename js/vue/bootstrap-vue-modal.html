@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Vue.Js Bootstrap Modal Example</title>
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body class="bg-dark">
+
+<div class="container">
+  <div class="col-md-12 mt-4" id="components-demo">
+    <div class="row mt-3">
+      <div class="col-md-5 offset-md-3 p-3 shadow-lg" style="border:2px solid red;">
+         <h5 class="text-white">Vue Js Bootstrap Modal Example</h5>
+
+         <button type="button" class="btn btn-primary" @click="showModel = true" >
+           Open modal
+         </button>
+
+         <model v-if="showModel" @close="showModel = false">
+            <p>Nicesnippets.com</p>
+         </model>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+
+<script>
+Vue.component('model', {
+  template: `
+    <!-- The Modal -->
+    <div class="modal" id="myModal" style="display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Modal Heading</h4>
+            <button type="button" class="close" @click="$emit('close')" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <slot></slot>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" @click="$emit('close')" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> `
+});
+
+new Vue({
+  el: '#components-demo',
+  data:{
+    showModel:false
+  }
+})
+
+</script>
+</body>
+</html>

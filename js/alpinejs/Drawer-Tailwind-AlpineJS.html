@@ -1,0 +1,230 @@
+<html lang="en"><head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+<link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+
+
+  <title>CodePen - AlpineJS Bottom Drawer with Tabs</title>
+  
+  
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css">
+  
+<style>
+[x-cloak] {
+  display: none;
+}
+.translate-y-0 {
+    --transform-translate-y: 0 !important;
+}
+.translate-y-8\/10 {
+   --transform-translate-y: 72%;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+<style>._3emE9--dark-theme .-S-tR--ff-downloader{background:rgba(30,30,30,.93);border:1px solid rgba(82,82,82,.54);box-shadow:0 4px 7px rgba(30,30,30,.55);color:#fff}._3emE9--dark-theme .-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn{background:#3d4b52}._3emE9--dark-theme .-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn:hover{background:#131415}._3emE9--dark-theme .-S-tR--ff-downloader ._10vpG--footer{background:rgba(30,30,30,.93)}._2mDEx--white-theme .-S-tR--ff-downloader{background:#fff;border:1px solid rgba(82,82,82,.54);box-shadow:0 4px 7px rgba(30,30,30,.55);color:#314c75}._2mDEx--white-theme .-S-tR--ff-downloader ._6_Mtt--header{font-weight:700}._2mDEx--white-theme .-S-tR--ff-downloader ._2dFLA--container ._2bWNS--notice{border:0;color:rgba(0,0,0,.88)}._2mDEx--white-theme .-S-tR--ff-downloader ._10vpG--footer{background:#fff}.-S-tR--ff-downloader{display:block;overflow:hidden;position:fixed;bottom:20px;right:7.1%;width:330px;height:180px;background:rgba(30,30,30,.93);border-radius:2px;color:#fff;z-index:99999999;border:1px solid rgba(82,82,82,.54);box-shadow:0 4px 7px rgba(30,30,30,.55);transition:.5s}.-S-tR--ff-downloader._3M7UQ--minimize{height:62px}.-S-tR--ff-downloader._3M7UQ--minimize .nxuu4--file-info,.-S-tR--ff-downloader._3M7UQ--minimize ._6_Mtt--header{display:none}.-S-tR--ff-downloader ._6_Mtt--header{padding:10px;font-size:17px;font-family:sans-serif}.-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn{float:right;background:#f1ecec;height:20px;width:20px;text-align:center;padding:2px;margin-top:-10px;cursor:pointer}.-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn:hover{background:#e2dede}.-S-tR--ff-downloader ._13XQ2--error{color:red;padding:10px;font-size:12px;line-height:19px}.-S-tR--ff-downloader ._2dFLA--container{position:relative;height:100%}.-S-tR--ff-downloader ._2dFLA--container .nxuu4--file-info{padding:6px 15px 0;font-family:sans-serif}.-S-tR--ff-downloader ._2dFLA--container .nxuu4--file-info div{margin-bottom:5px;width:100%;overflow:hidden}.-S-tR--ff-downloader ._2dFLA--container ._2bWNS--notice{margin-top:21px;font-size:11px}.-S-tR--ff-downloader ._10vpG--footer{width:100%;bottom:0;position:absolute;font-weight:700}.-S-tR--ff-downloader ._10vpG--footer ._2V73d--loader{animation:n0BD1--rotation 3.5s linear forwards;position:absolute;top:-120px;left:calc(50% - 35px);border-radius:50%;border:5px solid #fff;border-top-color:#a29bfe;height:70px;width:70px;display:flex;justify-content:center;align-items:center}.-S-tR--ff-downloader ._10vpG--footer ._24wjw--loading-bar{width:100%;height:18px;background:#dfe6e9;border-radius:5px}.-S-tR--ff-downloader ._10vpG--footer ._24wjw--loading-bar ._1FVu9--progress-bar{height:100%;background:#8bc34a;border-radius:5px}.-S-tR--ff-downloader ._10vpG--footer ._2KztS--status{margin-top:10px}.-S-tR--ff-downloader ._10vpG--footer ._2KztS--status ._1XilH--state{float:left;font-size:.9em;letter-spacing:1pt;text-transform:uppercase;width:100px;height:20px;position:relative}.-S-tR--ff-downloader ._10vpG--footer ._2KztS--status ._1jiaj--percentage{float:right}</style></head>
+
+<body translate="no">
+  <div x-data="drawer()" x-init="init()" class="jrCompareDrawer fixed bottom-0 left-0 right-0 bg-gray-200 transform translate-y-8/10 ease-in-out duration-700 translate-y-0" :class="{ 'translate-y-0': open &amp;&amp; items.length, 'translate-y-full': !items.length }" style="z-index: 2000; box-shadow: 0px 0px 9px #CCCCCC;">
+    <!-- tabs -->
+    <nav class="jrCompareTabs px-4 py-2 flex items-center justify-between bg-gray-100" @click="open = !open">
+        <div class="text-gray-600"></div>
+        <div class="px-4 w-full">
+            <template x-for="(tab,index) in tabs" :key="index">
+                <a href="#" class="mx-2 px-3 py-2 font-medium no-underline text-sm leading-5 rounded-md text-gray-800" :class="{ 'bg-gray-300': activeTab == tab }" @click.stop="activeTab = tab; if (!open) open = true">
+                        <span x-text="getTabItemCount(tab)" class="inline-flex items-center justify-center rounded-full text-xs w-5 h-5" :class="{ 'bg-gray-200 text-gray-900': activeTab !== tab, 'bg-gray-100 text-gray-900': activeTab == tab }">                        
+                        </span>
+                        <span x-text="tab" class="ml-1"></span>
+                </a>
+            </template>
+        
+                <a href="#" class="mx-2 px-3 py-2 font-medium no-underline text-sm leading-5 rounded-md text-gray-800" :class="{ 'bg-gray-300': activeTab == tab }" @click.stop="activeTab = tab; if (!open) open = true">
+                        <span x-text="getTabItemCount(tab)" class="inline-flex items-center justify-center rounded-full text-xs w-5 h-5 bg-gray-200 text-gray-900" :class="{ 'bg-gray-200 text-gray-900': activeTab !== tab, 'bg-gray-100 text-gray-900': activeTab == tab }">2</span>
+                        <span x-text="tab" class="ml-1">Art Galleries</span>
+                </a>
+            
+                <a href="#" class="mx-2 px-3 py-2 font-medium no-underline text-sm leading-5 rounded-md text-gray-800 bg-gray-300" :class="{ 'bg-gray-300': activeTab == tab }" @click.stop="activeTab = tab; if (!open) open = true">
+                        <span x-text="getTabItemCount(tab)" class="inline-flex items-center justify-center rounded-full text-xs w-5 h-5 bg-gray-100 text-gray-900" :class="{ 'bg-gray-200 text-gray-900': activeTab !== tab, 'bg-gray-100 text-gray-900': activeTab == tab }">2</span>
+                        <span x-text="tab" class="ml-1">Hotel</span>
+                </a>
+            </div>
+        <!-- Toggle drawer icon -->
+        <div class="justify-end">
+            <div x-show="open">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="text-gray-700 w-8 h-8"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div x-show="!open" style="display: none;">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="text-gray-700 w-8 h-8"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+            </div>
+        </div>
+    </nav>        
+    <!-- tab content -->
+    <div class="jrCompareContent mx-4 pt-3">
+        <!-- Items -->
+        <ul class="list-none -mx-4 mt-4 cursor-default flex flex-row overflow-x-auto overflow-y-hidden">    
+        <template x-for="item in items.filter( item => item.tab == activeTab)" :key="item.id">
+            <li class="w-64 h-20 ml-4 my-3 flex flex-row flex-none shadow-md bg-white">
+                <div class="relative w-20 aspect-1x1">
+                    <a :href="item.url" class="no-underline">
+                        <img class="absolute inset-0 object-cover" :src="item.image">
+                    </a>
+                </div>
+                <div class="flex-1 relative">
+                    <a :href="item.url" x-text="item.title" class="p-4 block text-sm text-gray-900 no-underline"></a>
+                    <span class="absolute -mt-3 right-0 top-0 cursor-pointer" @click="removeItem(item.id)">
+                        <svg fill="currentColor" viewBox="0 0 20 20" class="text-gray-700 w-6 h-6"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                    </span>
+                </div>
+            </li>                       
+        </template>
+    
+            
+            <li class="w-64 h-20 ml-4 my-3 flex flex-row flex-none shadow-md bg-white">
+                <div class="relative w-20 aspect-1x1">
+                    <a :href="item.url" class="no-underline" href="https://demo.jreviews.com/city-guide/hotels/encore-las-vegas">
+                        <img class="absolute inset-0 object-cover" :src="item.image" src="https://demo.jreviews.com/media/reviews/photos/thumbnail/150x150c/2d/4d/1f/encorevegas.jpg">
+                    </a>
+                </div>
+                <div class="flex-1 relative">
+                    <a :href="item.url" x-text="item.title" class="p-4 block text-sm text-gray-900 no-underline" href="https://demo.jreviews.com/city-guide/hotels/encore-las-vegas">Listing A</a>
+                    <span class="absolute -mt-3 right-0 top-0 cursor-pointer" @click="removeItem(item.id)">
+                        <svg fill="currentColor" viewBox="0 0 20 20" class="text-gray-700 w-6 h-6"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                    </span>
+                </div>
+            </li>                       
+        
+            <li class="w-64 h-20 ml-4 my-3 flex flex-row flex-none shadow-md bg-white">
+                <div class="relative w-20 aspect-1x1">
+                    <a :href="item.url" class="no-underline" href="https://demo.jreviews.com/city-guide/hotels/the-mercer-hotel">
+                        <img class="absolute inset-0 object-cover" :src="item.image" src="https://demo.jreviews.com/media/reviews/photos/thumbnail/150x150c/00/33/d3/_mercer_1297955534.jpg">
+                    </a>
+                </div>
+                <div class="flex-1 relative">
+                    <a :href="item.url" x-text="item.title" class="p-4 block text-sm text-gray-900 no-underline" href="https://demo.jreviews.com/city-guide/hotels/the-mercer-hotel">Listing B</a>
+                    <span class="absolute -mt-3 right-0 top-0 cursor-pointer" @click="removeItem(item.id)">
+                        <svg fill="currentColor" viewBox="0 0 20 20" class="text-gray-700 w-6 h-6"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                    </span>
+                </div>
+            </li>                       
+                               
+        
+                                   
+        </ul>
+    </div>
+</div>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+      <script id="rendered-js">
+const listings = [
+{
+  id: 50,
+  title: "Listing A",
+  image: "https://demo.jreviews.com/media/reviews/photos/thumbnail/150x150c/2d/4d/1f/encorevegas.jpg",
+  url: "https://demo.jreviews.com/city-guide/hotels/encore-las-vegas",
+  tab: "Hotel" },
+
+{
+  id: 40,
+  title: "Listing B",
+  image: "https://demo.jreviews.com/media/reviews/photos/thumbnail/150x150c/00/33/d3/_mercer_1297955534.jpg",
+  url: "https://demo.jreviews.com/city-guide/hotels/the-mercer-hotel",
+  tab: "Hotel" },
+
+{
+  id: 86,
+  title: "Listing C",
+  image: "https://demo.jreviews.com/media/reviews/photos/thumbnail/150x150c/ee/f8/cb/_2005Redford0015_1298809656.jpg",
+  url: "https://demo.jreviews.com/city-guide/art-galleries/redford-theatre",
+  tab: "Art Galleries" },
+
+{
+  id: 91,
+  title: "Listing D",
+  image: "https://demo.jreviews.com/media/reviews/photos/thumbnail/150x150c/62/10/54/kaleid.jpg",
+  url: "https://demo.jreviews.com/city-guide/art-galleries/kaleid-gallery",
+  tab: "Art Galleries" }];
+
+
+
+const drawer = () => {
+  const groupBy = function (xs, key) {
+    return xs.reduce(function (rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  };
+
+  return {
+    open: false,
+    items: listings,
+    tabs: [],
+    activeTab: null,
+    init() {
+      this.tabs = Object.keys(groupBy(this.items, 'tab')).sort();
+      this.activeTab = this.activeTab || this.tabs[0];
+      this.$watch('items', value => {
+        this.refreshTabs();
+        if (this.tabs.length && this.items.filter(item => item.tab == this.activeTab).length === 0) {
+          this.activeTab = this.tabs[0];
+        }
+      });
+    },
+    toggleItem($event) {
+      // If item exists, remove, otherwise add 
+      const index = this.items.findIndex(item => item.id === $event.detail.id);
+      if (index == -1) {
+        this.items.push($event.detail);
+        this.open = true;
+      } else {
+        this.items.splice(index, 1);
+      }
+      this.refreshTabs();
+      this.activeTab = $event.detail.tab;
+    },
+    removeItem(id) {
+      this.items = this.items.filter(item => item.id !== id);
+    },
+    removeActiveTab() {
+      this.items = this.items.filter(item => item.tab !== this.activeTab);
+      this.refreshTabs();
+      if (this.tabs.length) {
+        this.activeTab = this.tabs[0];
+      }
+    },
+    refreshTabs() {
+      this.tabs = Object.keys(groupBy(this.items, 'tab')).sort();
+    },
+    getTabItemCount(tab) {
+      return this.items.filter(item => item.tab == tab).length;
+    } };
+
+};
+//# sourceURL=pen.js
+    </script>
+
+  
+
+
+
+
+ 
+<!----></body></html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+
+  <meta charset="UTF-8">
+  
+  <title>CodePen - News letter with Alpine Js, Tailwind css, Google sheets</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+    <script src="https://unpkg.com/stein-js-client"></script>
+
+	<style>
+		[x-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+
+<body translate="no" >
+  <div class="flex h-full" x-data="data()">
+  <div x-show="showSuccess" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90" class="z-50 absolute right-0 mr-16 -mt-16">
+    <div class="max-w-sm mx-auto relative absolute left-0 right-0 overflow-hidden mt-24">
+      <div class="absolute right-0 mr-3 mt-3 text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer" x-on:click="showSuccess = !showSuccess">
+        <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
+        </svg>
+      </div>
+      <div class="shadow w-full rounded-md bg-white overflow-hidden w-full block p-4">
+        <div class="flex">
+          <svg class="fill-current w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12,2C6.486,2,2,6.486,2,12c0,5.514,4.486,10,10,10s10-4.486,10-10C22,6.486,17.514,2,12,2z M10.001,16.413l-3.713-3.705 L7.7,11.292l2.299,2.295l5.294-5.294l1.414,1.414L10.001,16.413z" />
+          </svg>
+          <div class="flex-1 ml-3">
+            <h2 class="text-gray-900 font-semibold text-sm mb-1">
+              Suceessfully subscribed!
+            </h2>
+            <p class="text-gray-700 text-xs">
+              Please stay updated for our latest news.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show="showLoginModal">
+    <div class="p-4 max-w-4xl mx-auto relative absolute left-0 right-0 overflow-hidden mt-24">
+      <!-- <div
+            class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer"
+            x-on:click="showLoginModal = !showLoginModal"
+          >
+            <svg
+              class="fill-current w-6 h-6"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z"
+              />
+            </svg>
+          </div> -->
+
+      <div class="shadow w-full rounded-lg bg-white overflow-hidden w-full block px-8 md:px-16 lg:px-16 py-8">
+        <div class="flex flex-wrap -mx-4">
+          <div class="hidden md:block md:w-1/2 px-4 md:pt-12">
+            <h1 class="text-2xl md:text-3xl text-gray-700 font-bold leading-tight tracking-tight mb-6 md:pr-16">
+              Join our community for taking these benifits
+            </h1>
+
+            <ul x-show="lists.length">
+              <template x-for="list in lists" :key="list">
+                <li class="flex list-none list-style-ul text-gray-600 md:text-lg items-center mb-1">
+                  <div class="w-8">
+                    <svg class="fill-current w-6 h-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12,2C6.486,2,2,6.486,2,12c0,5.514,4.486,10,10,10s10-4.486,10-10C22,6.486,17.514,2,12,2z M10.001,16.413l-3.713-3.705 L7.7,11.292l2.299,2.295l5.294-5.294l1.414,1.414L10.001,16.413z" />
+                    </svg>
+                  </div>
+                  <div class="flex-1" x-text="list"></div>
+                </li>
+              </template>
+            </ul>
+
+            <div class="mt-8">
+              <a href="#" class="inline-flex align-items-center justify-center font-semibold focus:outline-none focus:shadow-outline rounded-lg px-4 py-3 border border-gray-800 text-white bg-gray-800 mr-3 hover:opacity-75 shadow">Login with Github</a>
+            </div>
+          </div>
+          <div class="md:block lg:block md:w-1/2 px-4">
+            <div class="py-10">
+              <div class="rounded bg-gray-200 p-4 md:px-6 md:py-10 border-t-8 border-blue-500">
+                <div class="mb-3 text-center">
+                  <div class="leading-none text-xl text-gray-700">
+                    Subscribe to our
+                  </div>
+                  <div class="leading-none sans-serif-3 text-4xl md:text-5xl text-blue-600 font-bold italic">
+                    Newsletter.
+                  </div>
+                </div>
+
+                <p class="text-gray-600 text-center mb-4">
+                  Get latest technical news straight <br />
+                  in your email inbox.
+                </p>
+
+                <div class="mb-4 relative">
+                  <input class="w-full block px-4 py-3 leading-normal block w-full border border-gray-300 text-gray-900 placeholder-gray-400 bg-white font-sans rounded-lg text-left appearance-none focus:outline-none focus:shadow-outline focus:border-blue-100 transition ease-in-out duration-150" :class="{ 'border-red-400 text-red-700': errors.email.length }" id="username" type="email" placeholder="Email address..." x-model="subscriberEmail" x-on:keydown="errors.email=[]" />
+                  <template x-if="errors.email.length">
+                    <div x-text="errors.email[0]" class="text-red-600 mt-1 text-sm"></div>
+                  </template>
+                  <template x-if="errors.email.length">
+                    <svg class="absolute text-red-600 fill-current mt-3 w-6 h-6" style="top: 0; right: 12px" v-if="errors.length" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M11.953,2C6.465,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.493,2,11.953,2z M13,17h-2v-2h2V17z M13,13h-2V7h2V13z" />
+                    </svg>
+                  </template>
+                </div>
+                <button class="mb-4 shadow w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:shadow-outline" type="button" x-on:click="subscribeMe()">
+                  Subscribe Me
+                </button>
+
+                <p class="text-gray-600 text-center text-xs">
+                  By registering you agree to our Terms &amp; Condition and
+                  Privacy Policy.
+                </p>
+              </div>
+            </div>
+            <!-- <div class="h-24 grid-blue"></div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function data() {
+    return {
+      errors: {
+        email: []
+      },
+      showSuccess: false,
+      showLoginModal: true,
+      lists: [
+        "collect & organize valuable code snippets",
+        "access from anywhere",
+        "share with others",
+        "filter snippets by category"
+      ],
+      subscriberEmail: null,
+      subscribeMe() {
+        const regex = RegExp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+");
+        if (!regex.test(this.subscriberEmail)) {
+          this.errors = {
+            email: ["Please provide a valid email address"]
+          };
+          return;
+        }
+        const store = new SteinStore(
+          "https://api.steinhq.com/v1/storages/5e7ee1f5b88d3d04ae08162a"
+        );
+        store
+          .append("Sheet1", [{
+            email: this.subscriberEmail
+          }])
+          .then(res => {
+            this.subscriberEmail = null;
+            this.showSuccess = true;
+          });
+      }
+    };
+  }
+</script>
+</body>
+</html>

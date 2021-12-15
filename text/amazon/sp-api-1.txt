@@ -1,0 +1,178 @@
+SellingPartnerApi
+\AplusContentApi
+    createContentDocument() 	                POST /aplus/2020-11-01/contentDocuments
+    getContentDocument() 	                    GET  /aplus/2020-11-01/contentDocuments/{contentReferenceKey}
+    listContentDocumentAsinRelations() 	        GET  /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/asins
+    postContentDocumentApprovalSubmission() 	POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/approvalSubmissions
+    postContentDocumentAsinRelations() 	        POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/asins
+    postContentDocumentSuspendSubmission() 	    POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}/suspendSubmissions
+    searchContentDocuments() 	                GET  /aplus/2020-11-01/contentDocuments
+    searchContentPublishRecords() 	            GET  /aplus/2020-11-01/contentPublishRecords
+    updateContentDocument() 	                POST /aplus/2020-11-01/contentDocuments/{contentReferenceKey}
+    validateContentDocumentAsinRelations() 	    POST /aplus/2020-11-01/contentAsinValidations
+
+\AuthorizationApi
+    getAuthorizationCode() 	GET /authorization/v1/authorizationCode
+    Returns the Login with Amazon (LWA) authorization code for an existing Amazon MWS authorization.
+
+\CatalogApi
+    getCatalogItem() 	    GET /catalog/2020-12-01/items/{asin}
+    searchCatalogItems() 	GET /catalog/2020-12-01/items
+
+\FbaInboundApi
+    confirmPreorder() 	            PUT  /fba/inbound/v0/shipments/{shipmentId}/preorder/confirm
+    confirmTransport() 	            POST /fba/inbound/v0/shipments/{shipmentId}/transport/confirm
+    createInboundShipment() 	    POST /fba/inbound/v0/shipments/{shipmentId}
+    createInboundShipmentPlan() 	POST /fba/inbound/v0/plans
+    estimateTransport() 	        POST /fba/inbound/v0/shipments/{shipmentId}/transport/estimate
+    getBillOfLading() 	            GET  /fba/inbound/v0/shipments/{shipmentId}/billOfLading
+    getInboundGuidance() 	        GET  /fba/inbound/v0/itemsGuidance
+    getLabels() 	                GET  /fba/inbound/v0/shipments/{shipmentId}/labels
+    getPreorderInfo() 	            GET  /fba/inbound/v0/shipments/{shipmentId}/preorder
+    getPrepInstructions() 	        GET  /fba/inbound/v0/prepInstructions
+    getShipmentItems() 	            GET  /fba/inbound/v0/shipmentItems
+    getShipmentItemsByShipmentId() 	GET  /fba/inbound/v0/shipments/{shipmentId}/items
+    getShipments() 	                GET  /fba/inbound/v0/shipments
+    getTransportDetails() 	        GET  /fba/inbound/v0/shipments/{shipmentId}/transport
+    putTransportDetails() 	        PUT  /fba/inbound/v0/shipments/{shipmentId}/transport
+    updateInboundShipment() 	    PUT  /fba/inbound/v0/shipments/{shipmentId}
+    voidTransport() 	            POST /fba/inbound/v0/shipments/{shipmentId}/transport/void
+
+\FbaInboundEligibilityApi
+    getItemEligibilityPreview() 	GET /fba/inbound/v1/eligibility/itemPreview
+
+\FbaInventoryApi
+    getInventorySummaries() 	    GET /fba/inventory/v1/summaries
+
+\FbaOutboundApi
+    cancelFulfillmentOrder() 	    PUT  /fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}/cancel
+    createFulfillmentOrder() 	    POST /fba/outbound/2020-07-01/fulfillmentOrders
+    createFulfillmentReturn() 	    PUT  /fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}/return
+    getFeatureInventory() 	        GET  /fba/outbound/2020-07-01/features/inventory/{featureName}
+    getFeatureSKU() 	            GET  /fba/outbound/2020-07-01/features/inventory/{featureName}/{sellerSku}
+    getFeatures() 	                GET  /fba/outbound/2020-07-01/features
+    getFulfillmentOrder() 	        GET  /fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}
+    getFulfillmentPreview() 	    POST /fba/outbound/2020-07-01/fulfillmentOrders/preview
+    getPackageTrackingDetails() 	GET  /fba/outbound/2020-07-01/tracking
+    listAllFulfillmentOrders() 	    GET  /fba/outbound/2020-07-01/fulfillmentOrders
+    listReturnReasonCodes() 	    GET  /fba/outbound/2020-07-01/returnReasonCodes
+    updateFulfillmentOrder() 	    PUT  /fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}
+
+\FeedsApi
+    cancelFeed() 	        DELETE /feeds/2020-09-04/feeds/{feedId}
+    createFeed() 	        POST   /feeds/2020-09-04/feeds
+    createFeedDocument() 	POST   /feeds/2020-09-04/documents
+    getFeed() 	            GET    /feeds/2020-09-04/feeds/{feedId}
+    getFeedDocument() 	    GET    /feeds/2020-09-04/documents/{feedDocumentId}
+    getFeeds() 	            GET    /feeds/2020-09-04/feeds
+
+\FeesApi
+    getMyFeesEstimateForASIN() 	POST /products/fees/v0/items/{Asin}/feesEstimate
+    getMyFeesEstimateForSKU() 	POST /products/fees/v0/listings/{SellerSKU}/feesEstimate
+
+\FinancesApi
+    listFinancialEventGroups() 	    GET /finances/v0/financialEventGroups
+    listFinancialEvents() 	        GET /finances/v0/financialEvents
+    listFinancialEventsByGroupId() 	GET /finances/v0/financialEventGroups/{eventGroupId}/financialEvents
+    listFinancialEventsByOrderId() 	GET /finances/v0/orders/{orderId}/financialEvents
+
+\ListingsApi
+    deleteListingsItem() 	DELETE /listings/2020-09-01/items/{sellerId}/{sku}
+    patchListingsItem() 	PATCH  /listings/2020-09-01/items/{sellerId}/{sku}
+    putListingsItem() 	    PUT    /listings/2020-09-01/items/{sellerId}/{sku}
+
+\MerchantFulfillmentApi
+    cancelShipment() 	                DELETE /mfn/v0/shipments/{shipmentId}
+    cancelShipmentOld() 	            PUT    /mfn/v0/shipments/{shipmentId}/cancel
+    createShipment() 	                POST   /mfn/v0/shipments
+    getAdditionalSellerInputs() 	    POST   /mfn/v0/additionalSellerInputs
+    getAdditionalSellerInputsOld() 	    POST   /mfn/v0/sellerInputs
+    getEligibleShipmentServices() 	    POST   /mfn/v0/eligibleShippingServices
+    getEligibleShipmentServicesOld() 	POST   /mfn/v0/eligibleServices
+    getShipment() 	                    GET    /mfn/v0/shipments/{shipmentId}
+
+\NotificationsApi
+    createDestination() 	    POST   /notifications/v1/destinations
+    createSubscription() 	    POST   /notifications/v1/subscriptions/{notificationType}
+    deleteDestination() 	    DELETE /notifications/v1/destinations/{destinationId}
+    deleteSubscriptionById()    DELETE /notifications/v1/subscriptions/{notificationType}/{subscriptionId}
+    getDestination() 	        GET    /notifications/v1/destinations/{destinationId}
+    getDestinations() 	        GET    /notifications/v1/destinations
+    getSubscription() 	        GET    /notifications/v1/subscriptions/{notificationType}
+    getSubscriptionById() 	    GET    /notifications/v1/subscriptions/{notificationType}/{subscriptionId}
+
+\OrdersApi
+    getOrder() 	                GET /orders/v0/orders/{orderId}
+    getOrderAddress() 	        GET /orders/v0/orders/{orderId}/address
+    getOrderBuyerInfo() 	    GET /orders/v0/orders/{orderId}/buyerInfo
+    getOrderItems() 	        GET /orders/v0/orders/{orderId}/orderItems
+    getOrderItemsBuyerInfo() 	GET /orders/v0/orders/{orderId}/orderItems/buyerInfo
+    getOrders() 	            GET /orders/v0/orders
+
+\ProductPricingApi
+    getCompetitivePricing() 	GET /products/pricing/v0/competitivePrice
+    getItemOffers() 	        GET /products/pricing/v0/items/{Asin}/offers
+    getListingOffers() 	        GET /products/pricing/v0/listings/{SellerSKU}/offers
+    getPricing() 	            GET /products/pricing/v0/price
+
+\ProductTypeDefinitionsApi
+    getDefinitionsProductType() 	    GET /definitions/2020-09-01/productTypes/{productType}
+    searchDefinitionsProductTypes() 	GET /definitions/2020-09-01/productTypes
+
+\ReportsApi
+    cancelReport() 	        DELETE /reports/2020-09-04/reports/{reportId}
+    cancelReportSchedule() 	DELETE /reports/2020-09-04/schedules/{reportScheduleId}
+    createReport() 	        POST   /reports/2020-09-04/reports
+    createReportSchedule() 	POST   /reports/2020-09-04/schedules
+    getReport() 	        GET    /reports/2020-09-04/reports/{reportId}
+    getReportDocument() 	GET    /reports/2020-09-04/documents/{reportDocumentId}
+    getReportSchedule() 	GET    /reports/2020-09-04/schedules/{reportScheduleId}
+    getReportSchedules() 	GET    /reports/2020-09-04/schedules
+    getReports() 	        GET    /reports/2020-09-04/reports
+
+\SalesApi
+    getOrderMetrics() 	GET /sales/v1/orderMetrics
+
+\SellersApi
+    getMarketplaceParticipations() 	GET /sellers/v1/marketplaceParticipations
+
+\ServiceApi
+    addAppointmentForServiceJobByServiceJobId() 	    POST /service/v1/serviceJobs/{serviceJobId}/appointments
+    cancelServiceJobByServiceJobId() 	                PUT  /service/v1/serviceJobs/{serviceJobId}/cancellations
+    completeServiceJobByServiceJobId() 	                PUT  /service/v1/serviceJobs/{serviceJobId}/completions
+    getServiceJobByServiceJobId() 	                    GET  /service/v1/serviceJobs/{serviceJobId}
+    getServiceJobs() 	                                GET  /service/v1/serviceJobs
+    rescheduleAppointmentForServiceJobByServiceJobId() 	POST /service/v1/serviceJobs/{serviceJobId}/appointments/{appointmentId}
+
+\ShipmentInvoicingApi
+    getInvoiceStatus() 	    GET  /fba/outbound/brazil/v0/shipments/{shipmentId}/invoice/status
+    getShipmentDetails() 	GET  /fba/outbound/brazil/v0/shipments/{shipmentId}
+    submitInvoice() 	    POST /fba/outbound/brazil/v0/shipments/{shipmentId}/invoice
+
+\ShippingApi
+    cancelShipment() 	        POST /shipping/v1/shipments/{shipmentId}/cancel
+    createShipment() 	        POST /shipping/v1/shipments
+    getAccount() 	            GET  /shipping/v1/account
+    getRates() 	                POST /shipping/v1/rates
+    getShipment() 	            GET  /shipping/v1/shipments/{shipmentId}
+    getTrackingInformation() 	GET  /shipping/v1/tracking/{trackingId}
+    purchaseLabels() 	        POST /shipping/v1/shipments/{shipmentId}/purchaseLabels
+    purchaseShipment() 	        POST /shipping/v1/purchaseShipment
+    retrieveShippingLabel() 	POST /shipping/v1/shipments/{shipmentId}/containers/{trackingId}/label
+
+\SmallAndLightApi
+    deleteSmallAndLightEnrollmentBySellerSKU() 	DELETE /fba/smallAndLight/v1/enrollments/{sellerSKU}
+    getSmallAndLightEligibilityBySellerSKU() 	GET    /fba/smallAndLight/v1/eligibilities/{sellerSKU}
+    getSmallAndLightEnrollmentBySellerSKU() 	GET    /fba/smallAndLight/v1/enrollments/{sellerSKU}
+    getSmallAndLightFeePreview() 	            POST   /fba/smallAndLight/v1/feePreviews
+    putSmallAndLightEnrollmentBySellerSKU() 	PUT    /fba/smallAndLight/v1/enrollments/{sellerSKU}
+
+\SolicitationsApi
+    createProductReviewAndSellerFeedbackSolicitation() 	POST /solicitations/v1/orders/{amazonOrderId}/solicitations/productReviewAndSellerFeedback
+    getSolicitationActionsForOrder() 	                GET  /solicitations/v1/orders/{amazonOrderId}
+
+\TokensApi
+    createRestrictedDataToken() 	POST /tokens/2021-03-01/restrictedDataToken
+
+SellingPartnerApi\UploadsApi
+    createUploadDestinationForResource() 	POST /uploads/2020-11-01/uploadDestinations/{resource}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js in PHP</title>
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <!--
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  -->
+</head>
+<body>
+
+<div id="app">
+  <h1>{{ message }}</h1>
+
+  <p>
+    <router-link to="/">Home</router-link>
+    <router-link to="/about">About</router-link>
+  </p>
+
+  <router-view></router-view>
+</div>
+
+<script>
+ const Home = { template: '<div> Home page </div>' };
+ const About = { template: '<div> About page </div>' };
+
+ const routes = [
+   { path: '',       component: Home },
+   { path: '/about', component: About },
+   { path: '*',      component: Home }
+ ];
+
+ const router = new VueRouter({
+   mode: 'history',
+   routes: routes
+ });
+
+ new Vue({
+   el: "#app",
+   router: router,
+   data: {
+     message: 'Hello Vue from PHP!'
+   }
+ });
+</script>
+
+</body>
+</html>

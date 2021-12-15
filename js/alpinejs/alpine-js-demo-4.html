@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Alpine.js Alert/Flash Message Example</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/tailwindcss@1.x.x/dist/tailwind.min.css'>
+</head>
+
+<body translate="no" >
+  <div class="m-4" x-data="{ msg: 'Something not ideal might be happening.', level: '', capitalize: str => str.charAt(0).toUpperCase() + str.slice(1) }">
+
+  <label for="alert-message" class="block mb-2">Alert Message</label>
+  <input id="alert-message" name="alert-message" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mb-2" x-model="msg" />
+
+  <button @click="level = 'info'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Alert Info
+  </button>
+
+  <button @click="level = 'error'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+    Alert Error
+  </button>
+
+  <button @click="msg = '', level = ''" class="font-bold py-2 px-4 rounded">
+    Clear
+  </button>
+
+  <template x-if="msg && level">
+    <div role="alert" class="mt-2">
+      <div class="text-white font-bold rounded-t px-4 py-2" :class="{'bg-red-500': level === 'error', 'bg-blue-500': level === 'info'}" x-text="capitalize(level)">
+      </div>
+      <div class="border border-t-0 rounded-b px-4 py-3" :class="{'bg-red-100 text-red-700 border-red-400': level === 'error', 'bg-blue-100 text-blue-700 border-blue-400': level === 'info'}">
+        <p x-text="msg"></p>
+      </div>
+    </div>
+  </template>
+</div>
+  
+  <script src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js'></script>
+</body>
+</html>

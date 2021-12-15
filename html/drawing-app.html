@@ -1,0 +1,140 @@
+<!DOCTYPE html> <!-- https://github.com/0shuvo0/Angle-Brace-Tuts/tree/master/Drawing%20App -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drawing App</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- link rel="stylesheet" href="style.css" -->
+  <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav{
+        width: 310px;
+        height: 50px;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        opacity: .3;
+        transition: opacity .5s;
+    }
+    .nav:hover{
+        opacity: 1;
+    }
+
+    .clr{
+        height: 30px;
+        width: 30px;
+        background-color: blue;
+        border-radius: 50%;
+        border: 3px solid rgb(214, 214, 214);
+        transition: transform .5s;
+    }
+    .clr:hover{
+        transform: scale(1.2);
+    }
+    .clr:nth-child(1){
+        background-color: #000;
+    }
+    .clr:nth-child(2){
+        background-color: #EF626C;
+    }
+    .clr:nth-child(3){
+        background-color: #fdec03;
+    }
+    .clr:nth-child(4){
+        background-color: #24d102;
+    }
+    .clr:nth-child(5){
+        background-color: #fff;
+    }
+
+    button{
+        border: none;
+        outline: none;
+        padding: .6em 1em;
+        border-radius: 3px;
+        background-color: #03bb56;
+        color: #fff;
+    }
+    .save{
+        background-color: #0f65d4;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="nav">
+      <div class="clr" data-clr="#000"></div>
+      <div class="clr" data-clr="#EF626C"></div>
+      <div class="clr" data-clr="#fdec03"></div>
+      <div class="clr" data-clr="#24d102"></div>
+      <div class="clr" data-clr="#fff"></div>
+      <button class="clear">clear</button>
+      <button class="save">save</button>
+  </div>
+  <!-- script src="main.js"></script -->
+  <script>
+    let canvas = document.getElementById("canvas")
+    canvas.height = window.innerHeight
+    canvas.width = window.innerWidth
+    let ctx = canvas.getContext("2d")
+    ctx.lineWidth = 5
+
+    let prevX = null
+    let prevY = null
+
+    let draw = false
+
+    let clrs = document.querySelectorAll(".clr")
+    clrs = Array.from(clrs)
+    clrs.forEach(clr => {
+        clr.addEventListener("click", () => {
+            ctx.strokeStyle = clr.dataset.clr
+        })
+    })
+
+    let clearBtn = document.querySelector(".clear")
+    clearBtn.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+    })
+
+    let saveBtn = document.querySelector(".save")
+    saveBtn.addEventListener("click", () => {
+        let data = canvas.toDataURL("imag/png")
+        let a = document.createElement("a")
+        a.href = data
+        a.download = "sketch.png"
+        a.click()
+    })
+
+    window.addEventListener("mousedown", (e) => draw = true)
+    window.addEventListener("mouseup", (e) => draw = false)
+
+    window.addEventListener("mousemove", function(e){
+        if(prevX == null || prevY == null || !draw){
+            prevX = e.clientX
+            prevY = e.clientY
+            return
+        }
+
+        let mouseX = e.clientX
+        let mouseY = e.clientY
+        ctx.beginPath()
+        ctx.moveTo(prevX, prevY)
+        ctx.lineTo(mouseX, mouseY)
+        ctx.stroke()
+
+        prevX = e.clientX
+        prevY = e.clientY
+    })
+  </script>
+</body>
+</html>

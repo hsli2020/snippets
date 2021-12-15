@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Activity Voter</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex/dist/vuex.js"></script>
+    <style>
+      /* ADD CSS HERE */
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Activity voter</h1>
+      <form @submit="onSubmit">
+        <input type="text" placeholder="Add Activity" v-model="activityName" />
+        <button id="button">Add Activity</button>
+      </form>
+      <ul>
+        <activity-item
+          v-for="item in activities"
+          v-bind:increment="increment"
+          v-bind:decrement="decrement"
+          v-bind:activity="item"
+          v-bind:emojis="emojis"
+          v-bind:key="item.name"
+        ></activity-item>
+      </ul>
+    </div>
+  </body>
+
+  <script>
+    Vue.component('activity-item', {
+      props: ['activity', 'emojis', 'increment', 'decrement'],
+      template: `
+		<li>
+		  <span>{{ activity.name }} 
+			  <span v-if="activity.rating <= -5">{{ emojis.hateIt }}</span>
+			  <span v-else-if="activity.rating <= -3">{{ emojis.argh }}</span>
+			  <span v-else-if="activity.rating < 3">{{ emojis.meh }}</span>
+			  <span v-else-if="activity.rating < 5">{{ emojis.nice }}</span>
+			  <span v-else>{{ emojis.yay }}</span>
+			  <button @click="decrement(activity.name)">👎</button>
+			  {{activity.rating}}
+			  <button @click="increment(activity.name)">👍</button>
+		  </span>
+		</li>
+    `
+    });
+
+    Vue.use(Vuex);
+
+    const store = new Vuex.Store({
+      state: {
+        activities: [],
+        emojis: { yay: '🤩', nice: '😀', meh: '😐', argh: '🤬', hateIt: '💩' }
+      },
+      mutations: {
+        increment(state, activityName) {
+          state.activities
+            .filter(activity => activity.name === `${activityName}`)
+            .map(activity => activity.rating++);
+        },
+
+        decrement(state, activityName) {
+          state.activities
+            .filter(activity => activity.name === `${activityName}`)
+            .map(activity => activity.rating--);
+        },
+
+        addActivity(state, name) {
+          state.activities.push({ name, rating: 0 });
+        }
+      }
+    });
+    new Vue({
+      el: '#app',
+      store,
+
+      data() {
+        return {
+          activityName: ''
+        };
+      },
+
+      computed: Vuex.mapState(['activities', 'emojis']),
+
+      methods: {
+        increment(activityName) {
+          this.$store.commit('increment', activityName);
+        },
+
+        decrement(activityName) {
+          this.$store.commit('decrement', activityName);
+        },
+
+        addActivity(activityName) {
+          this.$store.commit('addActivity', activityName);
+        },
+
+        onSubmit(e) {
+          e.preventDefault();
+          this.addActivity(this.activityName);
+          this.activityName = '';
+        }
+      }
+    });
+  </script>
+</html>

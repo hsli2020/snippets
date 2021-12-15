@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - CSS 3D Studio Room (Mine! 😅)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+:root {
+  --blur: 1vmin;
+  --perspective: 2000;
+  --rotate-x: -20;
+  --rotate-y: -45;
+  --plane-height: 50;
+  --plane-width: 50;
+  --dark: 0;
+  --zoomed: 0;
+  --scale: calc(0.75 + (var(--zoomed) * 4));
+  --wall-thickness: 4;
+  --cm: calc((var(--plane-height) / 240));
+  --transition: 0.2s;
+  --floor-shade-one: #8f663d;
+  --floor-shade-two: #c29970;
+  --floor-shade-three: #e0ccb8;
+  --windowsill-shade-one: #bf8a40;
+  --windowsill-shade-two: #996f33;
+  --windowsill-shade-three: #735326;
+  --wall-shade-one: #fafafa;
+  --wall-shade-two: #f2f2f2;
+  --wall-shade-three: #e6e6e6;
+  --wall-shade-four: #d9d9d9;
+  --skirting-one: #ededed;
+  --skirting-two: #e0e0e0;
+  --fade-one: #f7baba;
+  --fade-two: #bae3f7;
+  --fade-three: #e3baf7;
+  --fade-four: #baf7ba;
+  --cube: #f2f2f2;
+  --leg-one: #1a1a1a;
+  --leg-two: #1f1f1f;
+  --leg-three: #242424;
+  --leg-four: #292929;
+  --rug: #0f1924;
+  --peripheral-one: #333;
+  --peripheral-two: #4d4d4d;
+  --peripheral-three: #666;
+  --peripheral-four: #808080;
+  --mac-one: #ccc;
+  --mac-two: #b3b3b3;
+  --blind: #f2e6d9;
+  --mac-three: #999;
+  --pot-one: #bf6a40;
+  --pot-two: #953;
+  --pot-three: #734026;
+  --chair-one: #000;
+  --chair-two: #1a1a1a;
+  --chair-three: #333;
+  --chair-four: #4d4d4d;
+  --chair-accent-one: #f2f2f2;
+  --chair-accent-two: #d65c5c;
+  --bg: #d1e5fa;
+  --light: #ccc;
+  --icon: #69c;
+}
+audio {
+  display: none;
+}
+body {
+  min-height: 100vh;
+  overflow: hidden;
+}
+.dg.ac {
+  z-index: 100;
+  -webkit-transform: translate3d(0, 0, 50vmin);
+          transform: translate3d(0, 0, 50vmin);
+}
+[type="checkbox"] {
+  position: absolute;
+  left: 100%;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+label {
+  position: fixed;
+  z-index: 100;
+  right: 1rem;
+  bottom: 1rem;
+  border-radius: 50%;
+  height: 44px;
+  width: 44px;
+  cursor: pointer;
+  -webkit-transform: translate3d(0, 0, 50vmin) translate(0, calc((var(--index) * -100%) + (var(--index) * -10px)));
+          transform: translate3d(0, 0, 50vmin) translate(0, calc((var(--index) * -100%) + (var(--index) * -10px)));
+}
+svg {
+  height: 28px;
+  width: 28px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+path {
+  fill: var(--icon);
+}
+[for='spin'] {
+  --index: 0;
+}
+[for='dark'] {
+  --index: 1;
+}
+[for='audio'] {
+  --index: 2;
+}
+[for='zoom'] {
+  --index: 3;
+}
+#spin:checked ~ .scene__wrapper {
+  --spin: 1;
+}
+#zoom:checked ~ .scene__wrapper {
+  --zoomed: 1;
+  --scale: 4.75;
+}
+#zoom:checked ~ label:not([for='zoom']) {
+  display: none;
+}
+#zoom:checked + label {
+  background: #fff;
+}
+#dark:checked ~ .scene__wrapper .light-cube div,
+#dark:checked ~ .scene__wrapper .light-cube:after {
+  -webkit-animation: fade 10s calc(2 * var(--transition)) infinite linear;
+          animation: fade 10s calc(2 * var(--transition)) infinite linear;
+}
+@-webkit-keyframes fade {
+  0%, 100% {
+    background: var(--fade-one);
+  }
+  25% {
+    background: var(--fade-two);
+  }
+  50% {
+    background: var(--fade-three);
+  }
+  75% {
+    background: var(--fade-four);
+  }
+}
+@keyframes fade {
+  0%, 100% {
+    background: var(--fade-one);
+  }
+  25% {
+    background: var(--fade-two);
+  }
+  50% {
+    background: var(--fade-three);
+  }
+  75% {
+    background: var(--fade-four);
+  }
+}
+#dark:checked ~ .scene__wrapper .light-cube:after {
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+}
+#dark:checked ~ .scene__wrapper .wall--left div:nth-of-type(3):after {
+  opacity: 1;
+}
+#dark:checked ~ .scene__wrapper .wall--right-right div:nth-of-type(1):after,
+#dark:checked ~ .scene__wrapper .shelf div:nth-of-type(5):after {
+  -webkit-animation: fade 10s calc(2 * var(--transition)) infinite linear;
+          animation: fade 10s calc(2 * var(--transition)) infinite linear;
+}
+#dark:checked ~ .scene__wrapper .jfdi div:nth-of-type(3):after {
+  color: #ccc;
+}
+#dark:checked ~ .scene__wrapper .jfdi div:nth-of-type(4):after {
+  -webkit-transition: -webkit-transform var(--transition) var(--transition);
+  transition: -webkit-transform var(--transition) var(--transition);
+  transition: transform var(--transition) var(--transition);
+  transition: transform var(--transition) var(--transition), -webkit-transform var(--transition) var(--transition);
+  -webkit-transform: translate(-8%, -16%);
+          transform: translate(-8%, -16%);
+}
+#dark:checked ~ .scene__wrapper .windowsill div:nth-of-type(1),
+#dark:checked ~ .scene__wrapper .windowsill div:nth-of-type(5),
+#dark:checked ~ .scene__wrapper .floor div:nth-of-type(5) {
+  -webkit-filter: brightness(0.25);
+          filter: brightness(0.25);
+}
+#dark:checked ~ .scene__wrapper .plant__plant {
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+}
+#dark:checked ~ .scene__wrapper .chair__back div:nth-of-type(3):after {
+  -webkit-filter: brightness(0.25);
+          filter: brightness(0.25);
+}
+#dark:checked ~ .scene__wrapper .desk__top div:nth-of-type(1) {
+  -webkit-filter: brightness(0.1);
+          filter: brightness(0.1);
+}
+#dark:checked ~ .scene__wrapper .desk__top div:nth-of-type(3) {
+  -webkit-filter: brightness(0.3);
+          filter: brightness(0.3);
+}
+#dark:checked ~ .scene__wrapper .desk__top div:nth-of-type(5) {
+  -webkit-filter: brightness(0.2);
+          filter: brightness(0.2);
+}
+#dark:checked ~ .scene__wrapper .bear-canvas div {
+  -webkit-filter: brightness(0.35);
+          filter: brightness(0.35);
+}
+#dark:checked ~ .scene__wrapper .bear-canvas div:nth-of-type(1) {
+  -webkit-filter: brightness(0.35) grayscale(1);
+          filter: brightness(0.35) grayscale(1);
+}
+#dark:checked ~ .scene__wrapper .rug div:nth-of-type(5) {
+  -webkit-filter: brightness(0.25);
+          filter: brightness(0.25);
+}
+#zoom:checked ~ .scene__wrapper .scene,
+#zoom:checked ~ .scene__wrapper .studio,
+#zoom:checked ~ .scene__wrapper .plane {
+  -webkit-transition: -webkit-transform var(--transition);
+  transition: -webkit-transform var(--transition);
+  transition: transform var(--transition);
+  transition: transform var(--transition), -webkit-transform var(--transition);
+}
+#zoom:checked ~ .scene__wrapper .chair {
+  -webkit-transition: opacity var(--transition);
+  transition: opacity var(--transition);
+}
+#dark:checked ~ .scene__wrapper {
+  --dark: 1;
+  --floor-shade-one: #241a0f;
+  --floor-shade-two: #47331f;
+  --floor-shade-three: #6b4d2e;
+  --windowsill-shade-one: #735326;
+  --windowsill-shade-two: #4d3719;
+  --windowsill-shade-three: #261c0d;
+  --wall-shade-one: #616161;
+  --wall-shade-two: #595959;
+  --wall-shade-three: #4d4d4d;
+  --wall-shade-four: #404040;
+  --skirting-one: #545454;
+  --skirting-two: #474747;
+  --fade-one: #f7baba;
+  --fade-two: #bae3f7;
+  --fade-three: #e3baf7;
+  --fade-four: #baf7ba;
+  --leg-one: #0d0d0d;
+  --leg-two: #0f0f0f;
+  --leg-three: #121212;
+  --leg-four: #141414;
+  --rug: #0f1924;
+  --peripheral-one: #1a1a1a;
+  --peripheral-two: #262626;
+  --peripheral-three: #333;
+  --peripheral-four: #404040;
+  --mac-one: #333;
+  --mac-two: #2e2e2e;
+  --mac-three: #262626;
+  --pot-one: #734026;
+  --pot-two: #4d2b19;
+  --blind: #4d3319;
+  --pot-three: #26150d;
+  --chair-one: #000;
+  --chair-two: #0d0d0d;
+  --chair-three: #1a1a1a;
+  --chair-four: #262626;
+  --chair-accent-one: #666;
+  --chair-accent-two: #7a1f1f;
+  --bg: #05192e;
+  --cube: #666;
+  --light: #fff;
+  --icon: #0f4c8a;
+}
+:checked + label svg:last-of-type {
+  display: block;
+}
+:checked + label svg:first-of-type {
+  display: none;
+}
+label svg:last-of-type {
+  display: none;
+}
+.scene {
+  -webkit-perspective: calc(var(--perspective, 800) * 1px);
+          perspective: calc(var(--perspective, 800) * 1px);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-transform: scale(var(--scale)) translate3d(0, 0, 50vmin);
+          transform: scale(var(--scale)) translate3d(0, 0, 50vmin);
+}
+.scene__wrapper {
+  -webkit-transition: background var(--transition);
+  transition: background var(--transition);
+  background: var(--bg);
+}
+.plane {
+  height: calc(var(--plane-height, 25) * 1vmin);
+  width: calc(var(--plane-width, 25) * 1vmin);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(calc((var(--rotate-x, -24) - (var(--zoomed) * var(--rotate-x, -24))) * 1deg)) rotateY(calc(((var(--rotate-y, -24) - (var(--zoomed) * var(--rotate-y, -24))) + (var(--zoomed) * -90)) * 1deg)) rotateX(90deg) translate3d(0, 0, 0);
+          transform: rotateX(calc((var(--rotate-x, -24) - (var(--zoomed) * var(--rotate-x, -24))) * 1deg)) rotateY(calc(((var(--rotate-y, -24) - (var(--zoomed) * var(--rotate-y, -24))) + (var(--zoomed) * -90)) * 1deg)) rotateX(90deg) translate3d(0, 0, 0);
+}
+.plane:before {
+  content: '';
+  background: rgba(0,0,0,0.5);
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+  height: 112%;
+  width: 112%;
+  position: absolute;
+  top: -8%;
+  left: -10%;
+  -webkit-transform: translate3d(0, 0, -11vmin);
+          transform: translate3d(0, 0, -11vmin);
+  z-index: -1;
+}
+.cuboid {
+  --width: var(--cuboid-width, 15);
+  --height: var(--cuboid-height, 10);
+  --depth: var(--cuboid-depth, 4);
+  height: calc(var(--depth) * 1vmin);
+  width: calc(var(--width) * 1vmin);
+  position: absolute;
+  -webkit-transform: rotateZ(calc(var(--starting-rotation, 0) * 1deg)) translate3d(calc(var(--x, 0) * 1vmin), calc(var(--y, 0) * 1vmin), calc(var(--z, 0) * 1vmin)) rotateX(calc(var(--rotate-cuboid-x, 0) * 1deg)) rotateY(calc(var(--rotate-cuboid-y, 0) * 1deg)) rotateZ(calc(var(--rotate-cuboid-z, 0) * 1deg));
+          transform: rotateZ(calc(var(--starting-rotation, 0) * 1deg)) translate3d(calc(var(--x, 0) * 1vmin), calc(var(--y, 0) * 1vmin), calc(var(--z, 0) * 1vmin)) rotateX(calc(var(--rotate-cuboid-x, 0) * 1deg)) rotateY(calc(var(--rotate-cuboid-y, 0) * 1deg)) rotateZ(calc(var(--rotate-cuboid-z, 0) * 1deg));
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.cuboid__side {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.cuboid > div:nth-of-type(1) {
+  height: calc(var(--height) * 1vmin);
+  width: 100%;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotateX(-90deg) translate3d(0, 0, calc((var(--depth) / 2) * 1vmin));
+          transform: translate(-50%, -50%) rotateX(-90deg) translate3d(0, 0, calc((var(--depth) / 2) * 1vmin));
+}
+.cuboid > div:nth-of-type(2) {
+  height: calc(var(--height) * 1vmin);
+  width: 100%;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transform: translate(-50%, -50%) rotateX(-90deg) rotateY(180deg) translate3d(0, 0, calc((var(--depth) / 2) * 1vmin));
+          transform: translate(-50%, -50%) rotateX(-90deg) rotateY(180deg) translate3d(0, 0, calc((var(--depth) / 2) * 1vmin));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.cuboid > div:nth-of-type(3) {
+  height: calc(var(--height) * 1vmin);
+  width: calc(var(--depth) * 1vmin);
+  -webkit-transform: translate(-50%, -50%) rotateX(-90deg) rotateY(90deg) translate3d(0, 0, calc((var(--width) / 2) * 1vmin));
+          transform: translate(-50%, -50%) rotateX(-90deg) rotateY(90deg) translate3d(0, 0, calc((var(--width) / 2) * 1vmin));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.cuboid > div:nth-of-type(4) {
+  height: calc(var(--height) * 1vmin);
+  width: calc(var(--depth) * 1vmin);
+  -webkit-transform: translate(-50%, -50%) rotateX(-90deg) rotateY(-90deg) translate3d(0, 0, calc((var(--width) / 2) * 1vmin));
+          transform: translate(-50%, -50%) rotateX(-90deg) rotateY(-90deg) translate3d(0, 0, calc((var(--width) / 2) * 1vmin));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.cuboid > div:nth-of-type(5) {
+  height: calc(var(--depth) * 1vmin);
+  width: calc(var(--width) * 1vmin);
+  -webkit-transform: translate(-50%, -50%) translate3d(0, 0, calc((var(--height) / 2) * 1vmin));
+          transform: translate(-50%, -50%) translate3d(0, 0, calc((var(--height) / 2) * 1vmin));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.cuboid > div:nth-of-type(6) {
+  height: calc(var(--depth) * 1vmin);
+  width: calc(var(--width) * 1vmin);
+  -webkit-transform: translate(-50%, -50%) translate3d(0, 0, calc((var(--height) / 2) * -1vmin)) rotateX(180deg);
+          transform: translate(-50%, -50%) translate3d(0, 0, calc((var(--height) / 2) * -1vmin)) rotateX(180deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.studio {
+  height: 100%;
+  width: 100%;
+  -webkit-transform: translate3d(0, 0, calc((-10 + (var(--zoomed) * -10)) * 1vmin));
+          transform: translate3d(0, 0, calc((-10 + (var(--zoomed) * -10)) * 1vmin));
+}
+.floor {
+  --height: 1;
+  --width: calc(50 + var(--wall-thickness));
+  --depth: calc(50 + var(--wall-thickness));
+  --z: -0.5;
+  --y: calc(var(--wall-thickness) * -1);
+  --x: calc(var(--wall-thickness) * -1);
+  -webkit-transition: background var(--transition);
+  transition: background var(--transition);
+}
+.floor div:not(.studio__shadow) {
+  background: var(--floor-shade-three);
+}
+.floor div:nth-of-type(1) {
+  background: var(--floor-shade-one);
+}
+.floor div:nth-of-type(3) {
+  background: var(--floor-shade-two);
+}
+.floor div:nth-of-type(5) {
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+}
+.floor div:nth-of-type(5):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  background: url("https://images.pexels.com/photos/235994/pexels-photo-235994.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260") 0 0/15vmin 15vmin;
+}
+.wall {
+  -webkit-transition: background var(--transition);
+  transition: background var(--transition);
+}
+.wall--left {
+  --height: calc(220 * var(--cm));
+  --width: var(--wall-thickness);
+  --depth: calc((240 * var(--cm)) + var(--wall-thickness));
+  --z: calc(110 * var(--cm));
+  --x: calc(var(--wall-thickness) * -1);
+  --y: calc(var(--wall-thickness) * -1);
+}
+.wall--left div:nth-of-type(1) {
+  background: var(--wall-shade-four);
+}
+.wall--left div:nth-of-type(2) {
+  background: var(--wall-shade-one);
+}
+.wall--left div:nth-of-type(3) {
+  background: var(--wall-shade-one);
+  overflow: hidden;
+}
+.wall--left div:nth-of-type(3):before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+  background: radial-gradient(rgba(0,0,0,0.5), transparent 100%) 80% 64%/20% 35% no-repeat, radial-gradient(rgba(0,0,0,0.5), transparent 100%) 45% 58%/45% 20% no-repeat, radial-gradient(rgba(0,0,0,0.5), transparent 100%) 36% 100%/64% 30% no-repeat;
+}
+.wall--left div:nth-of-type(3):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80%;
+  width: 80%;
+  overflow: hidden;
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+  -webkit-transform: rotate(41deg) translate(-18%, -36%);
+          transform: rotate(41deg) translate(-18%, -36%);
+  opacity: 0;
+  -webkit-transition: opacity var(--transition) var(--transition);
+  transition: opacity var(--transition) var(--transition);
+  background: radial-gradient(circle at 50% 100%, rgba(242,236,217,0.85), transparent 60%);
+}
+.wall--left div:nth-of-type(5) {
+  background: var(--wall-shade-three);
+}
+.wall--left div:nth-of-type(4),
+.wall--left div:nth-of-type(6) {
+  background: var(--wall-shade-two);
+}
+.wall--right-lower {
+  --height: calc(100 * var(--cm));
+  --width: 50;
+  --depth: var(--wall-thickness);
+  --z: calc(50 * var(--cm));
+  --y: calc(var(--wall-thickness) * -1);
+}
+.wall--right-lower:after {
+  content: '';
+  height: 30%;
+  width: calc((114 * var(--cm)) * 1vmin);
+  top: 102%;
+  left: calc((22 * var(--cm)) * 1vmin);
+  -webkit-filter: blur(calc(0.75 * var(--blur)));
+          filter: blur(calc(0.75 * var(--blur)));
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: rotateX(90deg) translate(0, calc((44 * var(--cm)) * 1vmin));
+          transform: rotateX(90deg) translate(0, calc((44 * var(--cm)) * 1vmin));
+}
+.wall--right-lower div {
+  background: var(--wall-shade-four);
+}
+.wall--right-lower div:nth-of-type(5) {
+  background: var(--wall-shade-three);
+}
+.wall--right-lower div:nth-of-type(2),
+.wall--right-lower div:nth-of-type(3) {
+  background: var(--wall-shade-one);
+}
+.wall--right-left {
+  --height: calc(220 * var(--cm));
+  --width: calc(22 * var(--cm));
+  --depth: var(--wall-thickness);
+  --z: calc(110 * var(--cm));
+  --y: calc(var(--wall-thickness) * -1);
+}
+.wall--right-left div {
+  background: var(--wall-shade-four);
+}
+.wall--right-left div:nth-of-type(3) {
+  background: var(--wall-shade-two);
+}
+.wall--right-left div:nth-of-type(2) {
+  background: var(--wall-shade-one);
+}
+.wall--right-upper {
+  --height: calc(22 * var(--cm));
+  --width: calc(240 * var(--cm));
+  --depth: var(--wall-thickness);
+  --z: calc(209 * var(--cm));
+  --y: calc(var(--wall-thickness) * -1);
+}
+.wall--right-upper div {
+  background: var(--wall-shade-four);
+}
+.wall--right-upper div:nth-of-type(2),
+.wall--right-upper div:nth-of-type(3) {
+  background: var(--wall-shade-one);
+}
+.wall--right-upper div:nth-of-type(5) {
+  background: var(--wall-shade-three);
+}
+.wall--right-right {
+  --height: calc(220 * var(--cm));
+  --width: calc((240 - 136) * var(--cm));
+  --depth: var(--wall-thickness);
+  --z: calc(110 * var(--cm));
+  --y: calc(var(--wall-thickness) * -1);
+  --x: calc(136 * var(--cm));
+}
+.wall--right-right div {
+  background: var(--wall-shade-four);
+}
+.wall--right-right div:nth-of-type(1):after {
+  content: '';
+  position: absolute;
+  height: 24%;
+  width: 70%;
+  border-radius: 50%;
+  background: none;
+  -webkit-filter: blur(calc(2 * var(--blur)));
+          filter: blur(calc(2 * var(--blur)));
+  top: 15%;
+  left: 15%;
+  opacity: 0.75;
+}
+.wall--right-right div:nth-of-type(2),
+.wall--right-right div:nth-of-type(3) {
+  background: var(--wall-shade-one);
+}
+.wall--right-right div:nth-of-type(4) {
+  background: var(--wall-shade-four);
+}
+.wall--right-right div:nth-of-type(5) {
+  background: var(--wall-shade-three);
+}
+.windowsill {
+  --height: calc(2 * var(--cm));
+  --depth: calc(22 * var(--cm));
+  --width: calc(114 * var(--cm));
+  --z: calc(100 * var(--cm));
+  --x: calc(22 * var(--cm));
+  --y: calc(var(--wall-thickness) * -0.8);
+}
+.windowsill div {
+  background: var(--windowsill-shade-one);
+}
+.windowsill div:nth-of-type(1) {
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+  background: url("https://images.pexels.com/photos/172276/pexels-photo-172276.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+}
+.windowsill div:nth-of-type(2) {
+  background: var(--wall-shade-one);
+}
+.windowsill div:nth-of-type(5) {
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+  background: url("https://images.pexels.com/photos/172276/pexels-photo-172276.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+}
+.windowsill div:nth-of-type(6) {
+  background: var(--windowsill-shade-three);
+}
+.studio-light {
+  --width: calc(4 * var(--cm));
+  --height: calc(15 * var(--cm));
+  --depth: calc(30 * var(--cm));
+  --z: calc(146 * var(--cm));
+  --rotate-cuboid-z: 20;
+  --rotate-cuboid-x: 30;
+  --rotate-cuboid-y: 45;
+  top: 86%;
+  left: 15%;
+  margin-top: calc((-15 * var(--cm)) * 1vmin);
+}
+.studio-light div {
+  background: var(--peripheral-four);
+  -webkit-transition: background var(--transition);
+  transition: background var(--transition);
+}
+.studio-light div:nth-of-type(4) {
+  background: var(--light);
+  -webkit-transition: background var(--transition) var(--transition);
+  transition: background var(--transition) var(--transition);
+}
+.studio-light div:nth-of-type(5) {
+  background: var(--peripheral-two);
+}
+.studio-light div:nth-of-type(3) {
+  background: var(--peripheral-one);
+}
+.studio-light__stand {
+  --width: calc(3 * var(--cm));
+  --depth: calc(3 * var(--cm));
+  --height: calc(80 * var(--cm));
+  --z: calc(100 * var(--cm));
+  top: 85%;
+  left: 15%;
+}
+.studio-light__stand div {
+  background: var(--peripheral-four);
+}
+.studio-light__stand div:nth-of-type(1) {
+  background: var(--peripheral-one);
+}
+.studio-light__stand div:nth-of-type(3) {
+  background: var(--peripheral-three);
+}
+.desk {
+  height: calc((180 * var(--cm)) * 1vmin);
+  width: calc((68 * var(--cm)) * 1vmin);
+  top: calc((30 * var(--cm)) * 1vmin);
+  left: calc((0 * var(--cm)) * 1vmin);
+  position: absolute;
+}
+.desk__shadow {
+  background: rgba(0,0,0,0.5);
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+  position: absolute;
+}
+.desk__shadow--floor {
+  background: radial-gradient(circle at 0 50%, rgba(0,0,0,0.35) 50%, transparent 80%);
+  height: 110%;
+  width: 80%;
+  top: 5%;
+}
+.desk__leg {
+  --width: calc(8 * var(--cm));
+  --depth: calc(5 * var(--cm));
+  --height: calc(64 * var(--cm));
+  --z: calc(32 * var(--cm));
+  --x: calc(20 * var(--cm));
+}
+.desk__leg--right {
+  --y: calc(15 * var(--cm));
+}
+.desk__leg--left {
+  --y: calc(160 * var(--cm));
+}
+.desk__leg--bottom-right {
+  --width: calc(50 * var(--cm));
+  --height: calc(2 * var(--cm));
+  --y: calc(15 * var(--cm));
+  --x: calc(5 * var(--cm));
+  --z: calc(1 * var(--cm));
+}
+.desk__leg--bottom-left {
+  --width: calc(50 * var(--cm));
+  --height: calc(2 * var(--cm));
+  --x: calc(5 * var(--cm));
+  --y: calc(160 * var(--cm));
+  --z: calc(1 * var(--cm));
+}
+.desk__leg div {
+  -webkit-transition: background var(--transition);
+  transition: background var(--transition);
+  background: var(--leg-one);
+}
+.desk__leg div:nth-of-type(1) {
+  background: var(--leg-two);
+}
+.desk__top {
+  --height: calc(4 * var(--cm));
+  --width: calc(68 * var(--cm));
+  --depth: calc(180 * var(--cm));
+  --z: calc(64 * var(--cm));
+}
+.desk__top div {
+  background: url("https://images.pexels.com/photos/978484/pexels-photo-978484.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") 0 0/20vmin 30vmin;
+  -webkit-transition: background var(--transition), -webkit-filter var(--transition);
+  transition: background var(--transition), -webkit-filter var(--transition);
+  transition: filter var(--transition), background var(--transition);
+  transition: filter var(--transition), background var(--transition), -webkit-filter var(--transition);
+}
+.desk__top div:nth-of-type(1) {
+  -webkit-filter: brightness(0.25);
+          filter: brightness(0.25);
+}
+.desk__top div:nth-of-type(5) {
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+}
+.desk__top div:nth-of-type(6) {
+  background: var(--floor-shade-three);
+}
+.jfdi {
+  --height: calc(40 * var(--cm));
+  --width: calc(2 * var(--cm));
+  --depth: calc(60 * var(--cm));
+  --y: calc(90 * var(--cm));
+  --x: var(--cm);
+  --z: calc(190 * var(--cm));
+}
+.jfdi div {
+  background: #000;
+}
+.jfdi div:nth-of-type(4):after {
+  content: '';
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  height: 100%;
+  width: 100%;
+  -webkit-transition: -webkit-transform var(--transition);
+  transition: -webkit-transform var(--transition);
+  transition: transform var(--transition);
+  transition: transform var(--transition), -webkit-transform var(--transition);
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+}
+.jfdi div:nth-of-type(3) {
+  background: #262626;
+}
+.jfdi div:nth-of-type(3):after {
+  -webkit-transition: color var(--transition);
+  transition: color var(--transition);
+  content: 'JFDI';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: calc((22 * var(--cm)) * 1vmin);
+  text-align: center;
+  line-height: calc((40 * var(--cm) * 1vmin));
+}
+.shelf {
+  --height: calc(5 * var(--cm));
+  --depth: calc(26 * var(--cm));
+  --width: calc(60 * var(--cm));
+  --z: calc(144 * var(--cm));
+  --y: var(--cm);
+  --x: calc(170 * var(--cm));
+}
+.shelf div {
+  background: var(--wall-shade-three);
+}
+.shelf div:nth-of-type(5) {
+  background: var(--wall-shade-one);
+  overflow: hidden;
+}
+.shelf div:nth-of-type(5):after {
+  content: '';
+  height: 200%;
+  border-radius: 50%;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-filter: blur(calc(2 * var(--blur)));
+          filter: blur(calc(2 * var(--blur)));
+  -webkit-transform: translate(-80%, -50%);
+          transform: translate(-80%, -50%);
+}
+.shelf div:nth-of-type(3) {
+  background: var(--wall-shade-two);
+}
+.shelf div:nth-of-type(2):after {
+  content: '';
+  width: 100%;
+  height: 250%;
+  position: absolute;
+  top: 110%;
+  left: 4%;
+  background: rgba(0,0,0,0.5);
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: skewX(-5deg);
+          transform: skewX(-5deg);
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+}
+.light-cube {
+  --height: calc(15 * var(--cm));
+  --width: calc(15 * var(--cm));
+  --depth: calc(15 * var(--cm));
+  --z: calc(155 * var(--cm));
+  --x: calc(180 * var(--cm));
+  --y: calc(5 * var(--cm));
+  --rotate-cuboid-z: 40;
+}
+.light-cube div {
+  background: var(--wall-shade-one);
+}
+.light-cube div:nth-of-type(1) {
+  background: var(--wall-shade-three);
+}
+.light-cube div:nth-of-type(3) {
+  background: var(--wall-shade-two);
+}
+.skirting--left {
+  --height: calc(8 * var(--cm));
+  --width: calc(2 * var(--cm));
+  --depth: calc(240 * var(--cm));
+  --z: calc(4 * var(--cm));
+}
+.skirting--left div {
+  background: var(--skirting-one);
+}
+.skirting--left div:nth-of-type(3) {
+  background: var(--skirting-one);
+}
+.skirting--left div:nth-of-type(3):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.5) 0 75%, transparent) 40% 0/70% 150% no-repeat;
+}
+.skirting--left div:nth-of-type(5) {
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(rgba(0,0,0,0.5)), to(transparent)) 0 50%/100% 70% no-repeat, var(--skirting-one);
+  background: linear-gradient(transparent, rgba(0,0,0,0.5), transparent) 0 50%/100% 70% no-repeat, var(--skirting-one);
+}
+.skirting--right {
+  --height: calc(8 * var(--cm));
+  --width: calc(240 * var(--cm));
+  --depth: calc(2 * var(--cm));
+  --z: calc(4 * var(--cm));
+}
+.skirting--right div {
+  background: var(--skirting-two);
+}
+.rug {
+  --height: calc(1 * var(--cm));
+  --width: calc(140 * var(--cm));
+  --depth: calc(140 * var(--cm));
+  --x: calc(80 * var(--cm));
+  --y: calc(50 * var(--cm));
+  --z: calc(0.5 * var(--cm));
+}
+.rug div {
+  background: var(--rug);
+}
+.rug div:nth-of-type(5) {
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+  background: url("https://images.pexels.com/photos/3707669/pexels-photo-3707669.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover;
+}
+.monitor--main {
+  --width: calc(3 * var(--cm));
+  --depth: calc(86 * var(--cm));
+  --height: calc(36 * var(--cm));
+  --z: calc(106 * var(--cm));
+  --y: calc(-43 * var(--cm));
+  --x: calc(10 * var(--cm));
+  top: 50%;
+}
+.monitor--portrait {
+  --depth: calc(34 * var(--cm));
+  --width: calc(3 * var(--cm));
+  --height: calc(56 * var(--cm));
+  --z: calc(104 * var(--cm));
+  --x: calc(20 * var(--cm));
+  --rotate-cuboid-z: 30;
+  top: 8%;
+}
+.monitor div {
+  background: var(--peripheral-one);
+}
+.monitor div:nth-of-type(3),
+.monitor div:nth-of-type(5) {
+  background: var(--peripheral-four);
+}
+.monitor div:nth-of-type(2) {
+  background: var(--peripheral-three);
+}
+.monitor iframe {
+  position: absolute;
+  height: 800%;
+  width: 800%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(0.125);
+          transform: translate(-50%, -50%) scale(0.125);
+}
+.monitor__arm {
+  --width: calc(4 * var(--cm));
+  --depth: calc(4 * var(--cm));
+  --height: calc(30 * var(--cm));
+  --z: calc(80 * var(--cm));
+}
+.monitor__arm--main {
+  --x: calc(6 * var(--cm));
+  top: 65%;
+}
+.monitor__arm--portrait {
+  --x: calc(20 * var(--cm));
+  --rotate-cuboid-z: 30;
+  top: 10%;
+}
+.monitor__arm div {
+  background: var(--peripheral-four);
+}
+.monitor__arm div:nth-of-type(3),
+.monitor__arm div:nth-of-type(5) {
+  background: var(--peripheral-four);
+}
+.monitor__arm div:nth-of-type(1) {
+  background: var(--peripheral-one);
+}
+.mac {
+  --width: calc(20 * var(--cm));
+  --height: calc(5 * var(--cm));
+  --depth: calc(20 * var(--cm));
+  --z: calc(60 * var(--cm));
+  --x: calc(44 * var(--cm));
+  top: 10%;
+}
+.mac div {
+  background: var(--mac-three);
+}
+.mac div:nth-of-type(1) {
+  background: var(--mac-one);
+}
+.mac div:nth-of-type(3) {
+  background: var(--mac-two);
+}
+.keyboard {
+  --depth: calc(38 * var(--cm));
+  --width: calc(14 * var(--cm));
+  --height: calc(2 * var(--cm));
+  --z: calc(1 * var(--cm));
+}
+.keyboard div {
+  background: var(--peripheral-two);
+}
+.keyboard div:nth-of-type(1) {
+  background: var(--peripheral-one);
+}
+.keyboard__keys {
+  --depth: calc(36 * var(--cm));
+  --width: calc(12 * var(--cm));
+  --height: calc(3 * var(--cm));
+  --z: calc(1.5 * var(--cm));
+  --x: calc(1 * var(--cm));
+  --y: calc(1 * var(--cm));
+}
+.keyboard__keys div {
+  background: #999;
+}
+.keyboard__keys div:nth-of-type(5):after {
+  content: '';
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+  width: calc((36 * var(--cm)) * 1vmin);
+  height: calc((12 * var(--cm)) * 1vmin);
+  -webkit-transform: rotate(270deg) translate(-100%, 0%);
+          transform: rotate(270deg) translate(-100%, 0%);
+  background: url("https://assets.codepen.io/605876/keychron-keys.png?width=338&height=109&format=auto");
+  background-size: cover;
+}
+.keyboard__base {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  height: calc((38 * var(--cm)) * 1vmin);
+  width: calc((14 * var(--cm)) * 1vmin);
+  top: 50%;
+  left: 60%;
+  position: absolute;
+  -webkit-transform: translate3d(0, -50%, calc((66 * var(--cm)) * 1vmin));
+          transform: translate3d(0, -50%, calc((66 * var(--cm)) * 1vmin));
+}
+.mousemat {
+  height: 260%;
+  width: 200%;
+  background: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, calc(var(--cm) * 0.1vmin));
+          transform: translate3d(-50%, -50%, calc(var(--cm) * 0.1vmin));
+}
+.mouse {
+  --depth: calc(6 * var(--cm));
+  --width: calc(10 * var(--cm));
+  --height: calc(4 * var(--cm));
+  --z: calc(2 * var(--cm));
+  top: -40%;
+  left: 20%;
+}
+.mouse div {
+  background: var(--peripheral-three);
+}
+.mouse div:nth-of-type(1) {
+  background: var(--peripheral-one);
+}
+.mouse div:nth-of-type(2),
+.mouse div:nth-of-type(3) {
+  background: var(--peripheral-four);
+}
+.mouse div:nth-of-type(5):after {
+  content: '';
+  height: 25%;
+  width: 30%;
+  background: #80e619;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.bear-canvas {
+  --width: calc(60 * var(--cm));
+  --height: calc(60 * var(--cm));
+  --depth: calc(2 * var(--cm));
+  --z: calc(80 * var(--cm));
+  --x: calc(168 * var(--cm));
+  --y: var(--cm);
+}
+.bear-canvas div {
+  background: #f2f2f2;
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+}
+.bear-canvas div:nth-of-type(1) {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.25)), to(rgba(255,255,255,0.25))), url("https://assets.codepen.io/605876/avatar.png"), #fafafa;
+  background: linear-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0.25)), url("https://assets.codepen.io/605876/avatar.png"), #fafafa;
+  background-size: 75%;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-filter: brightness(1) grayscale(1);
+          filter: brightness(1) grayscale(1);
+}
+.bear-canvas div:nth-of-type(2):after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  -webkit-filter: blur(var(--blur));
+          filter: blur(var(--blur));
+  position: absolute;
+  top: 10%;
+  left: -5%;
+}
+.window {
+  width: calc((114 * var(--cm)) * 1vmin);
+  background: linear-gradient(40deg, transparent 20%, rgba(255,255,255,0.5), transparent 50%), linear-gradient(40deg, transparent 50%, rgba(255,255,255,0.25), transparent 60%), rgba(209,243,250,0.25);
+  height: calc((95 * var(--cm)) * 1vmin);
+  position: absolute;
+  -webkit-transform: rotateX(90deg) translate3d(calc((22 * var(--cm)) * 1vmin), calc((102 * var(--cm)) * 1vmin), calc((18 * var(--cm)) * 1vmin));
+          transform: rotateX(90deg) translate3d(calc((22 * var(--cm)) * 1vmin), calc((102 * var(--cm)) * 1vmin), calc((18 * var(--cm)) * 1vmin));
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+}
+.window__frame--top,
+.window__frame--middle,
+.window__frame--bottom {
+  --depth: calc(4 * var(--cm));
+  --width: calc(115 * var(--cm));
+  --height: calc(4 * var(--cm));
+}
+.window__frame--top div,
+.window__frame--middle div,
+.window__frame--bottom div {
+  background: #fafafa;
+}
+.window__frame--top div:nth-of-type(6),
+.window__frame--middle div:nth-of-type(6),
+.window__frame--bottom div:nth-of-type(6) {
+  background: #e6e6e6;
+}
+.window__frame--top {
+  bottom: 0;
+}
+.window__frame--middle {
+  top: 60%;
+}
+.window__frame--left,
+.window__frame--right {
+  --depth: calc(95 * var(--cm));
+  --width: calc(4 * var(--cm));
+  --height: calc(4 * var(--cm));
+}
+.window__frame--left div,
+.window__frame--right div {
+  background: #fafafa;
+}
+.window__frame--left div:nth-of-type(6),
+.window__frame--right div:nth-of-type(6) {
+  background: #e6e6e6;
+}
+.window__frame--right {
+  right: 0;
+}
+.blinds {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform: translate3d(0, 0, calc((-10 * var(--cm)) * 1vmin)) rotate(180deg);
+          transform: translate3d(0, 0, calc((-10 * var(--cm)) * 1vmin)) rotate(180deg);
+}
+.blinds:after {
+  content: "";
+  background: rgba(128,128,128,0.1);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform-origin: 50% 0%;
+          transform-origin: 50% 0%;
+  -webkit-transition: -webkit-transform calc(2 * var(--transition)) var(--transition);
+  transition: -webkit-transform calc(2 * var(--transition)) var(--transition);
+  transition: transform calc(2 * var(--transition)) var(--transition);
+  transition: transform calc(2 * var(--transition)) var(--transition), -webkit-transform calc(2 * var(--transition)) var(--transition);
+  -webkit-transform: scaleY(var(--dark));
+          transform: scaleY(var(--dark));
+}
+.blind {
+  height: 10%;
+  width: 100%;
+  position: absolute;
+  top: -5%;
+  left: 0;
+  background: var(--blind);
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transition: background var(--transition), -webkit-transform calc(2 * var(--transition)) var(--transition);
+  transition: background var(--transition), -webkit-transform calc(2 * var(--transition)) var(--transition);
+  transition: transform calc(2 * var(--transition)) var(--transition), background var(--transition);
+  transition: transform calc(2 * var(--transition)) var(--transition), background var(--transition), -webkit-transform calc(2 * var(--transition)) var(--transition);
+  -webkit-transform: translate(0, calc((var(--index) * (100 * var(--dark))) * 1%)) rotateX(calc((-85 + (var(--dark) * 83)) * 1deg));
+          transform: translate(0, calc((var(--index) * (100 * var(--dark))) * 1%)) rotateX(calc((-85 + (var(--dark) * 83)) * 1deg));
+}
+.plant {
+  height: calc((14 * var(--cm)) * 1vmin);
+  width: calc((14 * var(--cm)) * 1vmin);
+  position: absolute;
+  -webkit-transform: translate3d(calc((208 * var(--cm)) * 1vmin), calc((6 * var(--cm)) * 1vmin), calc((146 * var(--cm)) * 1vmin));
+          transform: translate3d(calc((208 * var(--cm)) * 1vmin), calc((6 * var(--cm)) * 1vmin), calc((146 * var(--cm)) * 1vmin));
+}
+.plant__plant {
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+  height: calc((50 * var(--cm)) * 1vmin);
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  -webkit-transform: translate(-50%, 0) rotateX(-90deg) translate3d(0, calc((var(--cm) * 10) * -1vmin), 0) rotateY(calc(var(--r, 0) * 1deg));
+          transform: translate(-50%, 0) rotateX(-90deg) translate3d(0, calc((var(--cm) * 10) * -1vmin), 0) rotateY(calc(var(--r, 0) * 1deg));
+}
+.plant__plant:nth-of-type(2) {
+  --r: 90;
+}
+.plant__plant:nth-of-type(3) {
+  --r: 220;
+}
+.plant__pot {
+  --height: calc(10 * var(--cm));
+  --width: calc(14 * var(--cm));
+  --depth: calc(14 * var(--cm));
+  --z: calc(6 * var(--cm));
+}
+.plant__pot div {
+  background: var(--pot-three);
+}
+.plant__pot div:nth-of-type(1) {
+  background: var(--pot-two);
+}
+.plant__pot div:nth-of-type(3) {
+  background: var(--pot-one);
+}
+.plant__pot div:nth-of-type(5) {
+  background: #111;
+}
+.chair__base {
+  opacity: calc(1 - var(--zoomed));
+  height: calc((66 * var(--cm)) * 1vmin);
+  width: calc((66 * var(--cm)) * 1vmin);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-30%, -70%, calc((2 * var(--cm)) * 1vmin)) rotateZ(-25deg);
+          transform: translate3d(-30%, -70%, calc((2 * var(--cm)) * 1vmin)) rotateZ(-25deg);
+}
+.chair__shadow {
+  background: rgba(0,0,0,0.75);
+  height: 115%;
+  width: 115%;
+  border-radius: 50%;
+  -webkit-filter: blur(calc(1.5 * var(--blur)));
+          filter: blur(calc(1.5 * var(--blur)));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-55%, -45%);
+          transform: translate(-55%, -45%);
+}
+.chair__wheel {
+  --height: calc(6 * var(--cm));
+  --width: calc(6 * var(--cm));
+  --depth: calc(6 * var(--cm));
+  --z: calc(3 * var(--cm));
+  --x: calc(30 * var(--cm));
+  top: 50%;
+  left: 50%;
+  margin-left: calc((-3 * var(--cm)) * 1vmin);
+  margin-top: calc((-3 * var(--cm)) * 1vmin);
+}
+.chair__wheel--one {
+  --starting-rotation: 0;
+}
+.chair__wheel--two {
+  --starting-rotation: 72;
+}
+.chair__wheel--three {
+  --starting-rotation: 144;
+}
+.chair__wheel--four {
+  --starting-rotation: 216;
+}
+.chair__wheel--five {
+  --starting-rotation: 288;
+}
+.chair__wheel div {
+  background: var(--peripheral-three);
+}
+.chair__wheel div:nth-of-type(1),
+.chair__wheel div:nth-of-type(2) {
+  background: #000;
+}
+.chair__spine {
+  --height: calc(30 * var(--cm));
+  --width: calc(6 * var(--cm));
+  --depth: calc(6 * var(--cm));
+  --z: calc(20 * var(--cm));
+  top: 50%;
+  left: 50%;
+  margin-left: calc((-3 * var(--cm)) * 1vmin);
+  margin-top: calc((-3 * var(--cm)) * 1vmin);
+}
+.chair__spine div {
+  background: #000;
+}
+.chair__spine div:nth-of-type(1) {
+  background: var(--peripheral-four);
+}
+.chair__leg {
+  --height: calc(4 * var(--cm));
+  --width: calc(30 * var(--cm));
+  --depth: calc(6 * var(--cm));
+  --z: calc(8 * var(--cm));
+  --x: calc(18 * var(--cm));
+  top: 50%;
+  left: 50%;
+  margin-left: calc((-15 * var(--cm)) * 1vmin);
+  margin-top: calc((-3 * var(--cm)) * 1vmin);
+}
+.chair__leg--one {
+  --starting-rotation: 0;
+}
+.chair__leg--two {
+  --starting-rotation: 72;
+}
+.chair__leg--three {
+  --starting-rotation: 144;
+}
+.chair__leg--four {
+  --starting-rotation: 216;
+}
+.chair__leg--five {
+  --starting-rotation: 288;
+}
+.chair__leg div {
+  background: var(--mac-one);
+}
+.chair__leg div:nth-of-type(1),
+.chair__leg div:nth-of-type(2) {
+  background: var(--mac-three);
+}
+.chair__seat {
+  --height: calc(10 * var(--cm));
+  --width: calc(50 * var(--cm));
+  --depth: calc(40 * var(--cm));
+  --z: calc(32 * var(--cm));
+  top: 50%;
+  left: 50%;
+  margin-left: calc((-25 * var(--cm)) * 1vmin);
+  margin-top: calc((-20 * var(--cm)) * 1vmin);
+}
+.chair__seat div {
+  background: var(--chair-one);
+}
+.chair__seat div:nth-of-type(1),
+.chair__seat div:nth-of-type(2) {
+  background: var(--chair-accent-one);
+}
+.chair__wing {
+  --height: calc(10 * var(--cm));
+  --width: calc(50 * var(--cm));
+  --depth: calc(16 * var(--cm));
+  --z: calc(34 * var(--cm));
+  top: 50%;
+  left: 50%;
+  margin-left: calc((-25 * var(--cm)) * 1vmin);
+}
+.chair__wing--right {
+  margin-top: calc((-28 * var(--cm)) * 1vmin);
+  --rotate-cuboid-x: -15;
+}
+.chair__wing--right div:nth-of-type(2) {
+  background: var(--chair-accent-one);
+  border: calc((1 * var(--cm)) * 1vmin) solid var(--chair-accent-two);
+}
+.chair__wing--left {
+  margin-top: calc((12 * var(--cm)) * 1vmin);
+  --rotate-cuboid-x: 15;
+}
+.chair__wing--left div:nth-of-type(1) {
+  background: var(--chair-accent-one);
+  border: calc((1 * var(--cm)) * 1vmin) solid var(--chair-accent-two);
+}
+.chair__wing div {
+  background: var(--chair-two);
+}
+.chair__back {
+  --height: calc(66 * var(--cm));
+  --depth: calc(48 * var(--cm));
+  --width: calc(10 * var(--cm));
+  --z: calc(64 * var(--cm));
+  --rotate-cuboid-y: 10;
+  right: 0%;
+  top: 50%;
+  margin-top: calc((-24 * var(--cm)) * 1vmin);
+}
+.chair__back div {
+  background: var(--chair-three);
+}
+.chair__back div:nth-of-type(1),
+.chair__back div:nth-of-type(2) {
+  background: var(--chair-two);
+  border: calc((1 * var(--cm)) * 1vmin) solid var(--chair-accent-two);
+}
+.chair__back div:nth-of-type(3):after {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 40%;
+  width: 40%;
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+  -webkit-transition: -webkit-filter var(--transition);
+  transition: -webkit-filter var(--transition);
+  transition: filter var(--transition);
+  transition: filter var(--transition), -webkit-filter var(--transition);
+  background: url("https://assets.codepen.io/605876/avatar.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.chair__top {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  -webkit-animation-name: spin;
+          animation-name: spin;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-duration: calc(var(--spin, 0) * 1s);
+          animation-duration: calc(var(--spin, 0) * 1s);
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+@keyframes spin {
+  to {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+.chair__headrest {
+  --height: calc(20 * var(--cm));
+  --depth: calc(40 * var(--cm));
+  --width: calc(10 * var(--cm));
+  --z: calc(100 * var(--cm));
+  top: 50%;
+  right: -5%;
+  margin-top: calc((-20 * var(--cm)) * 1vmin);
+}
+.chair__headrest div {
+  background: var(--chair-two);
+}
+.chair__headrest div:nth-of-type(1),
+.chair__headrest div:nth-of-type(2) {
+  border: calc((1 * var(--cm)) * 1vmin) solid var(--chair-accent-two);
+}
+.chair__headrest div:nth-of-type(5) {
+  background: var(--chair-three);
+}
+.chair__armrest--horizontal {
+  --height: calc(4 * var(--cm));
+  --width: calc(30 * var(--cm));
+  --depth: calc(8 * var(--cm));
+  --z: calc(52 * var(--cm));
+  left: 20%;
+}
+.chair__armrest--horizontal--right {
+  top: -5%;
+}
+.chair__armrest--horizontal--left {
+  bottom: -5%;
+}
+.chair__armrest--horizontal div {
+  background: var(--chair-four);
+}
+.chair__armrest--horizontal div:nth-of-type(1) {
+  background: var(--chair-three);
+}
+.chair__armrest--vertical {
+  --height: calc(20 * var(--cm));
+  --depth: calc(6 * var(--cm));
+  --width: calc(6 * var(--cm));
+  --z: calc(40 * var(--cm));
+  left: 35%;
+}
+.chair__armrest--vertical--right {
+  top: -4%;
+}
+.chair__armrest--vertical--left {
+  bottom: -4%;
+}
+.chair__armrest--vertical div {
+  background: var(--chair-three);
+}
+.chair__armrest--vertical div:nth-of-type(1) {
+  background: var(--chair-one);
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <audio class="ambience" src="https://assets.codepen.io/605876/loyalty-freak-music_everyone.mp3" muted="muted" playsinline="playsinline" autoplay="autoplay" loop="loop"></audio>
+<input id="zoom" type="checkbox"/>
+<label for="zoom" title="Toggle zoom">
+  <svg viewBox="0 0 24 24">
+    <path d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z"></path>
+  </svg>
+  <svg viewBox="0 0 24 24">
+    <path d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z"></path>
+  </svg>
+</label>
+<input id="audio" type="checkbox"/>
+<label for="audio" title="Toggle audio">
+  <svg viewBox="0 0 24 24">
+    <path d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z"></path>
+  </svg>
+  <svg viewBox="0 0 24 24">
+    <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"></path>
+  </svg>
+</label>
+<input id="dark" type="checkbox"/>
+<label for="dark" title="Toggle light">
+  <svg viewBox="0 0 24 24">
+    <path d="M9,2C7.95,2 6.95,2.16 6,2.46C10.06,3.73 13,7.5 13,12C13,16.5 10.06,20.27 6,21.54C6.95,21.84 7.95,22 9,22A10,10 0 0,0 19,12A10,10 0 0,0 9,2Z"></path>
+  </svg>
+  <svg viewBox="0 0 24 24">
+    <path d="M3.55,18.54L4.96,19.95L6.76,18.16L5.34,16.74M11,22.45C11.32,22.45 13,22.45 13,22.45V19.5H11M12,5.5A6,6 0 0,0 6,11.5A6,6 0 0,0 12,17.5A6,6 0 0,0 18,11.5C18,8.18 15.31,5.5 12,5.5M20,12.5H23V10.5H20M17.24,18.16L19.04,19.95L20.45,18.54L18.66,16.74M20.45,4.46L19.04,3.05L17.24,4.84L18.66,6.26M13,0.55H11V3.5H13M4,10.5H1V12.5H4M6.76,4.84L4.96,3.05L3.55,4.46L5.34,6.26L6.76,4.84Z"></path>
+  </svg>
+</label>
+<input id="spin" type="checkbox"/>
+<label for="spin" title="Toggle chair spin">
+  <svg viewBox="0 0 24 24">
+    <path d="M8,5.14V19.14L19,12.14L8,5.14Z"></path>
+  </svg>
+  <svg viewBox="0 0 24 24">
+    <path d="M18,18H6V6H18V18Z"></path>
+  </svg>
+</label>
+<div class="scene__wrapper">
+  <div class="scene">
+    <div class="plane">
+      <div class="studio">
+        <div class="cuboid floor">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid rug">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid wall wall--left">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="window">
+          <div class="cuboid window__frame window__frame--top">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid window__frame window__frame--left">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid window__frame window__frame--right">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid window__frame window__frame--bottom">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid window__frame window__frame--middle">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="blinds">
+            <div class="blind" style="--index: 0"></div>
+            <div class="blind" style="--index: 1"></div>
+            <div class="blind" style="--index: 2"></div>
+            <div class="blind" style="--index: 3"></div>
+            <div class="blind" style="--index: 4"></div>
+            <div class="blind" style="--index: 5"></div>
+            <div class="blind" style="--index: 6"></div>
+            <div class="blind" style="--index: 7"></div>
+            <div class="blind" style="--index: 8"></div>
+            <div class="blind" style="--index: 9"></div>
+            <div class="blind" style="--index: 10"></div>
+          </div>
+        </div>
+        <div class="cuboid wall wall--right-left">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid wall wall--right-upper">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid wall wall--right-right">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid skirting skirting--left">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid skirting skirting--right">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid windowsill">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid wall wall--right-lower">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid jfdi">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="cuboid shelf">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="plant"><img class="plant__plant" src="https://assets.codepen.io/605876/plant.png?width=204&amp;height=306&amp;format=auto"/><img class="plant__plant" src="https://assets.codepen.io/605876/plant.png?width=204&amp;height=306&amp;format=auto"/><img class="plant__plant" src="https://assets.codepen.io/605876/plant.png?width=204&amp;height=306&amp;format=auto"/>
+          <div class="cuboid plant__pot">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+        </div>
+        <div class="cuboid light-cube">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="desk">
+          <div class="desk__shadow desk__shadow--floor"></div>
+          <div class="cuboid desk__leg desk__leg--left">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid desk__leg desk__leg--right">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid desk__leg desk__leg--bottom-left">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid desk__leg desk__leg--bottom-right">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid mac">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid desk__top">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid monitor__arm monitor__arm--main">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid monitor__arm monitor__arm--portrait">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid monitor monitor--main">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side">
+              <iframe src="https://css-tricks.com"></iframe>
+            </div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid monitor monitor--portrait">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side">
+              <iframe src="https://jhey.dev"></iframe>
+            </div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="keyboard__base">
+            <div class="mousemat"></div>
+            <div class="cuboid mouse">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid keyboard">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid keyboard__keys">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+          </div>
+          <div class="cuboid studio-light__stand">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid studio-light">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+        </div>
+        <div class="cuboid bear-canvas">
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+          <div class="cuboid__side"></div>
+        </div>
+        <div class="chair__base">
+          <div class="chair__shadow"></div>
+          <div class="cuboid chair__wheel chair__wheel--one">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__wheel chair__wheel--two">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__wheel chair__wheel--three">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__wheel chair__wheel--four">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__wheel chair__wheel--five">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__leg chair__leg--one">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__leg chair__leg--two">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__leg chair__leg--three">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__leg chair__leg--four">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__leg chair__leg--five">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="cuboid chair__spine">
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+            <div class="cuboid__side"></div>
+          </div>
+          <div class="chair__top">
+            <div class="cuboid chair__seat">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__wing chair__wing--left">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__wing chair__wing--right">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__back">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__headrest">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__armrest chair__armrest--vertical chair__armrest--vertical--left">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__armrest chair__armrest--vertical chair__armrest--vertical--right">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__armrest chair__armrest--horizontal chair__armrest--horizontal--left">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+            <div class="cuboid chair__armrest chair__armrest--horizontal chair__armrest--horizontal--right">
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+              <div class="cuboid__side"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
+<script id="rendered-js" >
+// Purely for toggling audio
+const AUDIO_TOGGLE = document.querySelector('#audio');
+const AUDIO = document.querySelector('.ambience');
+AUDIO.volume = 0.5;
+AUDIO_TOGGLE.addEventListener('input', () => {
+  AUDIO.muted = !AUDIO.muted;
+});
+//# sourceURL=pen.js
+    </script>
+
+</body>
+</html>
+ 

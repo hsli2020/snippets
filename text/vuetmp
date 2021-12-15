@@ -1,0 +1,39 @@
+<template>
+  <div>
+    {{ subtotal }}
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      items: []
+    }
+  },
+
+  methods: {
+    update(index, item) {
+      this.items[index] = item;
+    },
+
+    reset() {
+      this.items = [];
+    },
+
+    onFiltered(filteredItems) {
+    }
+  },
+
+  computed: {
+    subtotal() {
+    }
+  },
+
+  mounted() {
+  }
+}
+</script>
+
+<style scoped>
+</style>

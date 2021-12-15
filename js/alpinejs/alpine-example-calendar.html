@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Calendly Clone (Alpine JS + TailwindCSS)</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css'>
+  <link rel='stylesheet' href='https://leadobo.com/default.css'>
+  
+<style>
+/*
+// Codepen does not allow @apply 
+
+.Quiz--calendar {
+    @apply flex flex-no-wrap mb-3;
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0.5rem;
+
+        caption button {
+            @apply
+            relative w-8 h-8
+            flex items-center justify-center
+            rounded-full text-gray-500
+            ;
+
+            &:enabled {
+                @apply text-blue-600;
+            }
+
+            &:enabled:hover {
+                @apply bg-blue-50;
+            }
+
+            &:focus {
+                @apply outline-none;
+            }
+        }
+
+        th, td {
+            width: calc((1 / 7) * 100%);
+        }
+
+        thead {
+            th { @apply uppercase font-light leading-none text-sm; }
+        }
+
+        input + label {
+            @apply
+                relative w-10 h-10
+                flex items-center justify-center
+                rounded-full select-none
+            ;
+
+            &.open {
+                @apply font-medium cursor-pointer text-blue-500 bg-blue-50;
+
+                &:hover {
+                    @apply bg-blue-100;
+                }
+                &:active, &.active {
+                    @apply text-white outline-none bg-blue-500;
+                }
+            }
+
+            &.today::after {
+                content: '';
+                @apply w-1 h-1 rounded-full bg-currentColor absolute left-1/2 transform -translate-x-1/2;
+                bottom: 0.2rem;
+            }
+
+            &.past {
+                @apply text-gray-400;
+            }
+        }
+
+        input:checked + label.open {
+            @apply text-white outline-none bg-blue-500;
+        }
+    }
+
+    ul {
+        @apply relative;
+
+        &::before, &::after {
+            width: 100%;
+            display: block;
+            position: absolute;
+            height: 2rem;
+            pointer-events: none;
+        }
+        &.bottom::before {
+            content: '';
+            background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+            top: 0;
+        }
+        &.top::after {
+            content: '';
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+            bottom: 0;
+        }
+
+        li {
+            label, button {
+                @apply flex items-center justify-center w-full py-3 px-2 font-semibold rounded text-center border border-solid border-blue-300 transition-all duration-1000 ease-in-out ;
+
+                &:hover, &:focus {
+                    @apply outline-none;
+                }
+            }
+
+            button {
+                @apply bg-blue-500 text-white border-blue-500 w-0 hidden;
+            }
+
+            input:checked + div label {
+                @apply bg-gray-500 text-white border-gray-500 w-1/2;
+            }
+
+            input:checked + div button {
+                @apply flex w-1/2;
+            }
+        }
+    }
+}
+*/
+</style>
+</head>
+
+<body translate="no" >
+  <script>
+      function avaliable() {
+          return {
+              Mon: [
+                  '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'
+              ],
+              Tue: [
+                  'a', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'
+              ],
+              Wed: [
+                  '0b', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'
+              ],
+              No: [
+                  '0c', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'
+              ],
+              Wow: [
+                  '09d', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'
+              ],
+              Sat: [ '0e', '10:00', '11:00', '12:00', '23:00' ]
+          }
+      }
+  </script>
+
+  <div class="Quiz--calendar Calendar--calendar" wire:ignore wire:model="a"
+       x-data="{ lang: 'en-US', today: new Date(), time: null, day: null, month: null, year: null, avaliable: avaliable() }"
+       x-init="() => { day=today.getDate(); month=today.getMonth(); year=today.getFullYear();  }"
+       x-bind:style="'max-height: ' + $refs.calendarTable.offsetHeight + 'px'"
+  >
+    <table x-ref="calendarTable" class="Calendar--table">
+        <caption class="mb-4 px-4">
+            <div class="flex items-center">
+                <b x-text="Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long' }).format(new Date(year, month, 1, 0, 0, 0, 0))">Loading...</b>
+                <div class="inline-flex ml-auto space-x-2">
+                    <button type="button"
+                            x-bind:disabled="month===today.getMonth() && year===today.getFullYear()"
+                            x-on:click="day=null; month--; if(month<0) { year--; month=11; }"
+                    >
+                        <i class="fas fa-angle-left fa-fw"></i>
+                    </button>
+                    <button type="button"
+                            class="active"
+                            x-on:click="day=null; month++; if(month>11) { year++; month=0; }"
+                    >
+                        <i class="fas fa-angle-right fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </caption>
+        <thead>
+        <tr>
+            <template x-for="(_,d) in Array.from({ length: 7 })" x-bind:key="d">
+                <th x-text="new Intl.DateTimeFormat(lang , { weekday: 'short' }).format(new Date(0, 0, d, 0, 0, 0, 0))"></th>
+            </template>
+        </tr>
+        </thead>
+        <tbody>
+        <template x-for="week in Array.from({ length: new Date(year, month, 1).getDay() + new Date(year, month+1, 0).getDate() }).reduce((w, _, i) => { if(i % 7 === 0) w.push([]); w[w.length - 1].push(i - new Date(year, month, 1).getDay() + 1); return w }, [])"
+                  x-bind:key="week"
+        >
+            <tr>
+                <template x-for="_day in week" x-bind:key="_day">
+                    <td>
+                        <template x-if="_day > 0">
+                            <div >
+                                <input type="radio" name="day" x-model="day" x-bind:id="_day" x-bind:value="_day" x-on:input.stop="time=null" style="display:none"
+                                       x-bind:disabled="(today.valueOf() >= new Date(year, month, _day+1, 0, 0, 0, 0).valueOf()) || !Object.keys(avaliable).includes(new Intl.DateTimeFormat('en-US' , { weekday: 'short' }).format(new Date(year, month, _day)))"
+                                />
+                                <label x-bind:for="_day" x-text="_day"
+                                       x-bind:class="{
+                                                'today': ((today.getDate() === _day) && (today.getMonth() === month) && (today.getFullYear() === year)),
+                                                'open': (today.valueOf() <= new Date(year, month, _day+1, 0, 0, 0, 0).valueOf()) && Object.keys(avaliable).includes(new Intl.DateTimeFormat('en-US' , { weekday: 'short' }).format(new Date(year, month, _day))),
+                                                'past': today.valueOf() >= new Date(year, month, _day+1, 0, 0, 0, 0).valueOf()
+                                           }"
+                                ></label>
+                            </div>
+                        </template>
+                    </td>
+                </template>
+            </tr>
+        </template>
+        </tbody>
+    </table>
+    <template x-if="day">
+        <div class="flex flex-col space-y-2">
+            <b x-text="Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date(year, month, day, 0, 0, 0, 0))">Loading...</b>
+            <ul x-ref="calendarTimes" class="overflow-y-scroll flex flex-col space-y-2">
+                <template x-if="avaliable[new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(new Date(year, month, day, 0, 0, 0, 0))].map(_time => new Date(year + '/' + (month + 1) + '/' + day + ' ' + _time).getTime()).filter(_time => _time > today).length">
+                    <template x-for="_time in avaliable[new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(new Date(year, month, day, 0, 0, 0, 0))].map(_time => new Date(year + '/' + (month + 1) + '/' + day + ' ' + _time).getTime()).filter(_time => _time > today)" x-bind:key="time">
+                        <li class="w-64">
+                            <input type="radio" name="time" x-model="time" x-bind:value="_time - (today.getTimezoneOffset() * 60 * 1000)" x-bind:id="_time" style="display:none" />
+                            <div class="flex space-x-1">
+                                <label x-bind:for="_time" x-text="new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(new Date(_time))"></label>
+                                <button type="submit">Confirm</button>
+                            </div>
+                        </li>
+                    </template>
+                </template>
+                <template x-if="!avaliable[new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(new Date(year, month, day, 0, 0, 0, 0))].map(_time => new Date(year + '/' + (month + 1) + '/' + day + ' ' + _time).getTime()).filter(_time => _time > today).length">
+                    <div>No Slots Today</div>
+                </template>
+            </ul>
+        </div>
+    </template>
+  </div>
+  
+  <script src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js'></script>
+
+</body>
+</html>

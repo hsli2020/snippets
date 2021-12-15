@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>CodePen - Playing with CSS Grid &#39;auto-fit&#39; and &#39;grid-auto-flow&#39;</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  
+<style>
+ul[class] {
+    margin: 0;
+    padding: 0;
+}
+
+ul[class] li {
+    list-style: none;
+}
+
+ul[class] li > * {
+    margin: 1rem;
+}
+
+:focus {
+    box-shadow: 0 0 0 0.25rem rebeccapurple;
+    outline: 0;
+}
+
+/* [1] 'auto-fit' grid columns, so no media queries required. */
+/* [2] 'dense' packing fills in holes earlier in the grid. */
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: dense; /* [2] */
+    grid-template-columns: repeat(auto-fit, 20rem); /* [1] */
+    justify-content: center;
+}
+
+.grid > * {
+    align-items: flex-start;
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* [3] Make fullwidth card span all grid columns. */
+.fullwidth {
+    grid-column: 1 / -1;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.fullwidth,
+.is-selected {
+    background: wheat;
+}
+</style>
+
+  
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <h1>Playing with CSS Grid... to "inject" a fullwidth grid item into a grid whose columns are <i>auto-arranged</i></h1>
+<p>Imagine a grid of product cards, where clicking on a "quick view" button "injects" a new card that is expanded full width of the entire grid, immediately below the card that was clicked (thereby allowing a visual "connection" between the two cards), and is completely responsive.</p>
+<ul>
+    <li>Usually, "quick views" are rendered as popups or overlays, but in this case, an "inline" solution is required.</li>
+    <li>This mock-up requires very little CSS code to achieve it, and <strong>zero media queries</strong>.</li>
+    <li>In reality, the "injected" card will probably be fetched via JavaScript and placed in the correct place in the DOM. However, for demo purposes, I've directly added the fullwidth cards in their correct positions in the DOM, and I'm simply toggling their visibility.</li>
+</ul>
+
+<h2>Accessibility considerations</h2>
+<ul>
+    <li>HTML source order is preserved for the cards, providing a good natural tab order.</li>
+    <li>The whole grid is wrapped in an <code>aria-live</code> region so that DOM changes are announced to screen readers.</li>
+    <li>Focus management ensures the "injected" card receives keyboard focus, and on closing the card, keyboard focus is returned to the button that originally triggered the card's visibility.</li>
+</ul>
+
+<div role="region" aria-live="polite">
+    <ul class="grid">
+        <li>
+            <p>1</p>
+        </li>
+        <li>
+            <p>2</p>
+            <button type="button" data-quick-view>Quick view</button>
+        </li>
+        <li class="fullwidth is-hidden">
+            <button type="button" data-close>Close 2</button>
+            <p>fullwidth 2</p>
+            <p>This grid item needs to stretch the full width of the page, and force other grid items to reflow around it, whilst remaining "visually connected" to the preceeding grid item.</p>
+          <p>Test <a href="#">inline link</a>.</p>
+        </li>
+        <li>
+            <p>3</p>
+        </li>
+        <li>
+            <p>4</p>
+            <button type="button" data-quick-view>Quick view</button>
+        </li>
+        <li class="fullwidth is-hidden">
+            <button type="button" data-close>Close 4</button>
+            <p>fullwidth 4</p>
+            <p>This grid item needs to stretch the full width of the page, and force other grid items to reflow around it, whilst remaining "visually connected" to the preceeding grid item.</p>
+          <p>Test <a href="#">inline link</a>.</p>
+        </li>
+        <li>
+            <p>5</p>
+            <button type="button" data-quick-view>Quick view</button>
+        </li>
+        <li class="fullwidth is-hidden">
+            <button type="button" data-close>Close 5</button>
+            <p>fullwidth 5</p>
+            <p>This grid item needs to stretch the full width of the page, and force other grid items to reflow around it, whilst remaining "visually connected" to the preceeding grid item.</p>
+          <p>Test <a href="#">inline link</a>.</p>
+        </li>
+        <li>
+            <p>6</p>
+        </li>
+        <li>
+            <p>7</p>
+        </li>
+        <li>
+            <p>8</p>
+        </li>
+    </ul>
+</div>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+
+  
+      <script id="rendered-js" >
+const quickViewButtons = document.querySelectorAll('[data-quick-view');
+const closeButtons = document.querySelectorAll('[data-close');
+const fullwidthCards = document.querySelectorAll('.fullwidth');
+let trigger;
+
+quickViewButtons.forEach(quickView => {
+  quickView.addEventListener('click', e => {
+    // Close any other fullwidth cards first.
+    fullwidthCards.forEach(fullwidth => {
+      if (!fullwidth.classList.contains('is-hidden')) {
+        fullwidth.removeAttribute('tabIndex');
+        fullwidth.classList.toggle('is-hidden');
+        fullwidth.previousElementSibling.classList.toggle('is-selected');
+      }
+    });
+
+    // Now open the related fullwidth card, and set keyboard focus.
+    e.target.parentElement.classList.toggle('is-selected');
+    e.target.parentElement.nextElementSibling.classList.toggle('is-hidden');
+    e.target.parentElement.nextElementSibling.setAttribute('tabIndex', '-1');
+    e.target.parentElement.nextElementSibling.focus();
+  });
+});
+
+closeButtons.forEach(close => {
+  close.addEventListener('click', e => {
+    e.target.parentElement.classList.toggle('is-hidden');
+    e.target.parentElement.removeAttribute('tabIndex');
+    e.target.parentElement.previousElementSibling.classList.toggle('is-selected');
+
+    trigger = e.target.parentElement.previousElementSibling.querySelector('[data-quick-view');
+    // Return keyboard focus to the "trigger" button.
+    trigger.focus();
+  });
+});
+//# sourceURL=pen.js
+    </script>
+
+  
+
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-4793b73c6332f7f14a9b6bba5d5e62748e9d1bd0b5c52d7af6376f3d1c625d7e.js"></script>
+</body>
+
+</html>
+ 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Vue Toast</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+<!--
+<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-default.css" rel="stylesheet">
+-->
+</head>
+<body>
+
+<div id="app">
+    <p><a href="{{ message }}">{{ message }}</a></p>
+
+	<button type="button" @click="open()">Open</button>
+	<button type="button" @click="success()">Success</button>
+	<button type="button" @click="error()">Error</button>
+	<button type="button" @click="warning()">Warning</button>
+	<button type="button" @click="info()">Info</button>
+	<button type="button" @click="normal()">Normal</button>
+</div>
+
+<script>
+window.onload=function(){
+  Vue.use(VueToast, {position: 'top-right'});
+
+  app = new Vue({
+	el: '#app',
+	data: { message: 'https://github.com/ankurk91/vue-toast-notification' },
+	methods: {
+	  open:    function () { Vue.$toast.open({ message: 'Something went wrong!' }); },
+      success: function () { Vue.$toast.success('Order placed.'); },
+	  error:   function () { Vue.$toast.error('Something went wrong!'); },
+	  warning: function () { Vue.$toast.warning('Something went wrong!'); },
+	  info:    function () { Vue.$toast.info('Something went wrong!'); },
+	  normal:  function () { Vue.$toast.default('Something went wrong!'); }
+	}
+  });
+
+  // Vue.$toast.open(options)
+  // Vue.$toast.success(message,?options)
+  // Vue.$toast.error(message,?options)
+  // Vue.$toast.warning(message,?options)
+  // Vue.$toast.info(message,?options)
+  // Vue.$toast.default(message,?options)
+};
+</script>
+
+</body>
+</html>

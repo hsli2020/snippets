@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Something useful built with Alpine.JS</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+</head>
+<body class="text-center text-white bg-dark h-100 d-flex flex-column" 
+    x-data="{ showModal: false, name: '', email: '', success: false }">
+
+  <div class="d-flex h-100 p-3 mx-auto flex-column">
+    <main role="main" class="flex-grow-1 mt-auto d-flex flex-column justify-content-center">
+      <h1 class="cover-heading">New widget launching soon.</h1>
+      <p class="lead">Not long to go until Acme Inc launch their latest product.</p>
+      <p class="alert alert-success" x-show="success">Thanks <span x-text="name"></span> we will be in touch.</p>
+      <p class="lead" x-show="!success">
+        <button class="btn btn-lg btn-secondary" @click="showModal=true" >Get in touch</button>
+      </p>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+      <div class="inner"><p>Demo of AlpineJS for Smashing Magazine.</p></div>
+    </footer>
+  </div>
+
+  <div class="modal fade text-dark"
+      :class="{ 'show d-block': showModal }" x-show="showModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Get in touch</h5>
+          <button type="button" class="close" aria-label="Close" @click="showModal=false" >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" class="form-control" name="name" x-model="name" >
+          </div>
+          <div class="form-group">
+            <label for="email">Your email</label>
+            <input type="email" class="form-control" name="email" x-model="email" >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" :disabled="!name || !email"
+            @click="submitForm({name: name, email: email}).then(() => {
+              showModal=false; success=true;
+            })">Submit</button>
+          <button type="button" class="btn btn-secondary"
+            @click="showModal=false; success=true;">Close</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"></script>
+  <script>
+    function submitForm(data) {
+      //return fetch('https://httpstat.us/200',
+      //  { method: 'POST', body: JSON.stringify(data) });
+    }
+  </script>
+</body>
+</html>

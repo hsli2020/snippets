@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN" id="bgimg">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Disable ContextMenu and more...</title>
+
+<script type="text/javascript">
+    var omitformtags=["input", "textarea", "select"];
+
+    omitformtags=omitformtags.join("|");
+
+    function disableselect(e){ 
+        if (omitformtags.indexOf(e.target.tagName.toLowerCase())==-1) 
+            return false;
+    }
+
+    function reEnable(){ 
+        return true;
+    }
+
+    if (typeof document.onselectstart!="undefined") 
+        document.onselectstart=new Function ("return false");
+    else {
+        document.onmousedown=disableselect;
+        document.onmouseup=reEnable;
+    } 
+</script>
+
+<script type="text/javascript">
+    function stop(){ 
+        return false; 
+    } 
+    document.oncontextmenu=stop; 
+
+    function click(e) {
+        if (document.layers) {
+            if (e.which == 3) {
+                oncontextmenu='return false';
+            }
+        }
+    }
+
+    if (document.layers) {
+        document.captureEvents(Event.MOUSEDOWN);
+    }
+
+    document.onmousedown=click;
+    document.oncontextmenu = new Function("return false;")
+
+    document.onkeydown =document.onkeyup = document.onkeypress=function(){ 
+        if(window.event.keyCode == 123) { 
+            window.event.returnValue=false;
+            return(false); 
+        } 
+    }
+</script>
+</head>
+<body>
+    <h1>Context Menu disabled, F12 disabled</h1>
+</body>
+</html>

@@ -1,0 +1,51 @@
+// generate video
+ffmpeg -f concat -i image-list.txt -vsync vfr -pix_fmt yuv420p video.mp4
+
+// generate audio
+ffmpeg -f concat -safe 0 -i audio-list.txt -c copy output.mp3
+
+// merge video and audio
+ffmpeg -i video.mp4 -i output.mp3 -c:v copy -c:a aac output.mp4
+
+// audio-list.txt
+file 'audio/audio00.mp3'
+file 'audio/audio01.mp3'
+file 'audio/audio02.mp3'
+file 'audio/audio03.mp3'
+file 'audio/audio04.mp3'
+file 'audio/audio05.mp3'
+file 'audio/audio06.mp3'
+file 'audio/audio07.mp3'
+file 'audio/audio08.mp3'
+file 'audio/audio09.mp3'
+file 'audio/audio10.mp3'
+file 'audio/audio11.mp3'
+file 'audio/audio12.mp3'
+
+// image-list.txt
+file 'image/image00.jpeg'
+duration 0
+file 'image/image01.jpeg'
+duration 3
+file 'image/image02.jpeg'
+duration 4
+file 'image/image03.jpeg'
+duration 1
+file 'image/image04.jpeg'
+duration 1
+file 'image/image05.jpeg'
+duration 8
+file 'image/image06.jpeg'
+duration 4
+file 'image/image07.jpeg'
+duration 1
+file 'image/image08.jpeg'
+duration 4
+file 'image/image09.jpeg'
+duration 4
+file 'image/image10.jpeg'
+duration 6
+file 'image/image11.jpeg'
+duration 2
+file 'image/image12.jpeg'
+duration 7

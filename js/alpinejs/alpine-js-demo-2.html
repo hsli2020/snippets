@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Alpinejs Tutorial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700|Nunito:400,700" />
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.9.8/dist/alpine.js" defer></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js" defer></script>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6 { font-family: "Nunito", sans-serif; }
+h1 { font-size: 66px; color: #fff; margin-bottom: 26px; }
+h2 {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0;
+  line-height: 46px;
+  margin-bottom: 54px;
+}
+p, a, span { font-family: "Lora", serif; }
+a:hover { text-decoration: none; }
+.navigation { position: absolute; width: 100%; }
+.navbar-brand { color: #fff !important; font-weight: 700; }
+
+.hero {
+  background-color: #0078d7;
+  background-image: url("https://godwinekuma.github.io/we-connect/images/hero_banner.jpg");
+  background-position: center center;
+  background-size: cover;
+  padding: 100px 0 150px;
+}
+
+.form-control {
+  border-radius: 0px !important;
+  outline: none;
+}
+
+.btn { border-radius: 0px; }
+
+#photos {
+  /* Prevent vertical gaps */
+  line-height: 0;
+
+  -webkit-column-count: 5;
+  -webkit-column-gap: 0px;
+  -moz-column-count: 5;
+  -moz-column-gap: 0px;
+  column-count: 5;
+  column-gap: 10px;
+}
+
+#photos img {
+  /* Just in case there are inline attributes */
+  width: 100% !important;
+  height: auto !important;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1200px) {
+  #photos {
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+    column-count: 4;
+  }
+}
+@media (max-width: 1000px) {
+  #photos {
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+  }
+}
+@media (max-width: 800px) {
+  #photos {
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
+}
+@media (max-width: 400px) {
+  #photos {
+    -moz-column-count: 1;
+    -webkit-column-count: 1;
+    column-count: 1;
+  }
+}
+</style>
+</head>
+<body
+    x-data="images()"
+    x-init="fetch('https://pixabay.com/api/?key=15819227-ef2d84d1681b9442aaa9755b8&q=yellow+flowers&image_type=photo')
+.then(response => response.json())
+.then(response => { images = response.hits })"
+  >
+    <!-- Header section -->
+    <header class="navigation">
+      <div class="container navigation-content">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand" href="index.html"
+            ><img
+              src="https://godwinekuma.github.io/we-connect/images/logo-white.svg"
+              alt="weconnect logo"
+              height="50"
+              class="navbar-brand-image"
+            />
+            PictureGram</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+    <!-- Header section /-->
+
+    <!-- Hero Section -->
+    <div>
+      <section class="hero">
+        <div class="container">
+          <div class="d-flex flex-column align-items-center">
+            <h1 class="display-4" style="text-align:center; color:white">
+              Search for images.
+            </h1>
+            <h2 class="" style="text-align:center; color:white">
+              Pixel perfect images can be found here.
+            </h2>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="search images"
+                x-model="q"
+                aria-label="Text input with segmented dropdown button"
+              />
+              <select class="custom-select" x-model="image_type">
+                <option selected>choose image type</option>
+                <option value="all">All</option>
+                <option value="photo">Photo</option>
+                <option value="illustration">Illustration</option>
+                <option value="vector">Vector</option>
+              </select>
+              <div class="input-group-append">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  x-on:click="getImages()"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="photos" class="my-5">
+        <template x-for="image in images" :key="image.id">
+          <img x-bind:src="image.webformatURL" alt="image.tags[0]" />
+        </template>
+      </section>
+    </div>
+    <script>
+      function images() {
+        return {
+          images: [],
+          q: "",
+          image_type: "",
+          getImages: async function() {
+            console.log("params", this.q, this.image_type);
+            const response = await fetch(
+              `https://pixabay.com/api/?key=15819227-ef2d84d1681b9442aaa9755b8&q=${
+                this.q
+              }&image_type=${this.image_type}`
+            );
+            const data = await response.json();
+            this.images = data.hits;
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+// ===== main.js
+
+import Vue from 'vue'
+import App from './App'
+import { store } from './store/store'
+
+Vue.config.productionTip = false
+
+new Vue({
+  el: '#app',
+  store,
+  components: { App },
+  template: '<App/>'
+})
+
+// ===== App.vue
+
+<template>
+  <div id="app">
+    <Form/>
+    <Display/>
+  </div>
+</template>
+
+<script>
+import Form from './components/Form'
+import Display from './components/Display'
+
+export default {
+  name: 'App',
+  components: {
+    Form,
+    Display
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+
+// ===== store/store.js
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export const store = new Vuex.Store({
+  state: {
+    flavor: ''
+  },
+  mutations: {
+    change(state, flavor) {
+      state.flavor = flavor
+    }
+  },
+  getters: {
+    flavor: state => state.flavor
+  }
+})
+
+// ===== components/Form.vue
+
+<template>
+  <div>
+    <label for="flavor">Favorite ice cream flavor?</label>
+    <input @input="changed" name="flavor">
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    changed: function(event) {
+      this.$store.commit('change', event.target.value)
+    }
+  }
+}
+</script>
+
+// ===== Display.vue
+
+<template>
+  <div>
+    <p>You chose {{ $store.getters.flavor }}</p>
+  </div>
+</template>
+
+// ===== index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>CodeSandbox Vue</title>
+</head>
+<body>
+	<div id="app"></div>
+	<!-- built files will be auto injected -->
+</body>
+</html>
