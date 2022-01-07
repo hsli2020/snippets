@@ -1,0 +1,32 @@
+
+host:
+  NA: "https://sellingpartnerapi-na.amazon.com"
+  EU: "https://sellingpartnerapi-eu.amazon.com"
+  FE: "https://sellingpartnerapi-fe.amazon.com"
+
+marketplace_ids:
+  AE: "A2VIGQ35RCS4UG"
+  AU: "A39IBJ37TRP1C6"
+  BR: "A2Q3Y263D00KWC"
+  CA: "A2EUQ1WTGCTBG2"
+  DE: "A1PA6795UKMFR9"
+  EG: "ARBP9OOSHTCHU"
+  ES: "A1RKKUPIHCS9HS"
+  FR: "A13V1IB3VIYZZH"
+  GB: "A1F83G8C2ARO7P"
+  JP: "A1VC38T7YXB528"
+  IN: "A21TJRUUN4KGV"
+  IT: "APJ6JRA9NG5V4"
+  MX: "A1AM78C64UM0Y8"
+  NL: "A1805IZSGTT6HS"
+  SA: "A17E79C6D8DWNP"
+  SG: "A19VAU5U5O7RUS"
+  SE: "A2NODRKZP88ZB9"
+  TR: "A33AVAJ2PDY3EV"
+  UK: "A1F83G8C2ARO7P"
+  US: "ATVPDKIKX0DER"
+
+aws_region:
+  NA: "us-east-1" # North America (Canada, US, Mexico, and Brazil marketplaces)
+  EU: "eu-west-1" # Europe (Spain, UK, France, Netherlands, Germany, Italy, Sweden, Poland, Egypt, Turkey, United Arab Emirates, and India marketplaces)
+  FE: "us-west-2" # Far East (Singapore, Australia, and Japan marketplaces)
