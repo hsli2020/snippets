@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>CodePen - 項脊軒志</title>
+  
+  
+  
+  
+<style>
+@charset "utf-8";
+
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html {
+	color: #333;
+	background: #fff;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  -ms-writing-mode: vertical-rl;
+  
+}
+
+#content {
+  margin: 10vh;
+  font: 400 22px/1.6 'Noto Serif TC', serif;
+  overflow: none;
+  overflow-y: scroll;
+  height: 80vh;
+}
+
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, group, menu, nav, section {
+	margin: 0;
+	padding: 0;
+}
+
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* HTML5 媒体文件跟 img 保持一致 */
+audio, canvas, video {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+/* 要注意表单元素并不继承父级 font 的问题 */
+body, button, input, select, textarea {
+	font: 500 14px/1.6 'Hiragino Sans GB', sans-serif;
+}
+
+/* 去掉各Table  cell 的边距并让其边重合 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* IE bug fixed: th 不继承 text-align*/
+th {
+	text-align: inherit;
+}
+
+/* 去除默认边框 */
+fieldset, img {
+	border: 0;
+}
+
+/* 解决 IE6-7 图片缩放锯齿问题 */
+img {
+    -ms-interpolation-mode: bicubic;    
+}
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+	display: block;
+}
+
+/* 块/段落引用 */
+blockquote {
+	margin: 1em 4em 1em 2em;
+	padding: 0.6em 1em;
+	background: #f1f1f1;
+}
+blockquote blockquote {
+	padding: 0 0 0 1em;
+	margin-left: 2em;
+	border-left: 0.4em solid #ddd;
+}
+
+/* Firefox 以外，元素没有下划线，需添加 */
+acronym, abbr {
+	border-bottom: 1px dotted;
+	font-variant: normal;
+}
+
+/* 添加鼠标问号，进一步确保应用的语义是正确的（要知道，交互他们也有洁癖，如果你不去掉，那得多花点口舌） */
+abbr {
+	cursor: help;
+}
+
+/* 一致的 del 样式 */
+del {
+	text-decoration: line-through;
+}
+
+address, caption, cite, code, den, em, th, var {
+	font-style: normal;
+	font-weight: 500;
+}
+
+/* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
+ul, ol {
+	list-style: none;
+}
+
+/* 对齐是排版最重要的因素, 别让什么都居中 */
+caption, th {
+	text-align: left;
+}
+
+q:before, q:after {
+	content: '';
+}
+
+/* 统一上标和下标 */
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: text-top\9;
+}
+:root sub, :root sup{
+	vertical-align: baseline; /* for ie9 and other mordern browsers */
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+
+/* 让链接在 hover 状态下显示下划线 */
+a:hover {
+	text-decoration: underline;
+}
+
+/* 默认不显示下划线，保持页面简洁 */
+ins, a {
+	text-decoration: none;
+}
+
+/* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+ * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+ * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+ * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+ * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/ 
+ */
+u, .typo-u {
+/* 	text-decoration: underline; */
+}
+
+/* 标记，类似于手写的荧光笔的作用 */
+mark {
+	background: #fffdd1;
+}
+
+/* 代码片断 */
+pre, code {
+	font-family: "Courier New", Courier, monospace;
+}
+pre {
+	border: 1px solid #ddd;
+	border-left-width: 0.4em;
+	background: #fbfbfb;
+	padding: 10px;
+}
+
+/* 底部印刷体、版本等标记 */
+small {
+	font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+	color: #333;
+}
+
+.clearfix:before, .clearfix:after {
+	content: "";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both
+}
+
+.clearfix {
+	zoom: 1
+}
+
+/* 保证块/段落之间的空白隔行 */
+.typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr, .typo table,
+.typo-p, .typo-pre, .typo-ul, .typo-ol, .typo-dl, .typo-form, .typo-hr, .typo-table {
+	margin-bottom: 1em;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 500;
+	font-weight: 800\9;
+	color:#333;
+}
+
+/* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+.typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6,
+.typo-h1, .typo-h2, .typo-h3, .typo-h4, .typo-h5, .typo-h6 {
+	margin-bottom: 0.4em;
+	line-height: 1.5;
+}
+.typo h1, .typo-h1 {
+	font-size: 2.4em;
+  font-weight: 700;
+}
+.typo h2, .typo-h2 {
+	font-size: 1.6em;
+}
+.typo h3, .typo-h3 {
+	font-size: 1.4em;
+}
+.typo h4, .typo-h4 {
+	font-size: 1.2em;
+}
+.typo h5, .typo h6, .typo-h5, .typo-h6 {
+	font-size: 1em;
+}
+
+/* 在文章中，应该还原 ul 和 ol 的样式 */
+.typo ul, .typo-ul {
+	margin-left: 1.3em;
+	list-style: disc;
+}
+.typo ol, .typo-ol {
+	list-style: decimal;
+	margin-left: 1.9em;
+}
+.typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 2em;
+}
+.typo li ul, .typo-ul ul, .typo-ol ul {
+	list-style: circle;
+}
+
+/* 同 ul/ol，在文章中应用 table 基本格式 */
+.typo table th, .typo table td, .typo-table th, .typo-table td {
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+}
+.typo table th, .typo-table th {
+	background: #fbfbfb;
+}
+.typo table thead th, .typo-table thead th {
+	background: #f1f1f1;
+}
+
+/* TODO: 供着重号使用 */
+.typo-em, .typo em {
+	font-weight: 700;
+}
+
+/* TODO: 供首字下沉使用 */
+.typo-first{
+
+}
+
+.typo-date {
+ text-align: right;
+ text-indent: 4em;
+}
+
+/*
+.footer{
+ background: url('http://res.sa20.com/1472958553128208001.jpg') 65% 2% no-repeat; 
+ width: 280px;
+  opacity: 0.8;
+}
+*/
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <html>
+<head>
+  <meta charset="utf-8">
+  <title>項脊軒志</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="content">
+   <section>
+     <article class="typo">
+       <h1>項脊軒志</h1>
+       <small>歸有光</small>
+      
+       <caption>
+       <p>
+    項脊軒，舊南閤子也。室僅方丈，可容一人居。百年老屋，塵泥滲漉，雨澤下注，每移案，顧視無可置者。又北向，不能得日，日過午已昏。余稍為修葺，使不上漏；前闢四窗，垣牆周庭，以當南日；日影反照，室始洞然。又雜植蘭桂竹木於庭，舊時欄楯，亦遂增勝。借書滿架，偃仰嘯歌，冥然兀坐。萬籟有聲，而庭階寂寂，小鳥時來啄食，人至不去。三五之夜，明月半牆，桂影斑駁，風移影動，珊珊可愛。</p>
+         <p>
+然余居於此，多可喜，亦多可悲。先是，庭中通南北為一，迨諸父異爨，內外多置小門牆，往往而是。東犬西吠，客逾庖而宴，雞棲於廳。庭中始為籬，已為牆，凡再變矣。家有老嫗，嘗居於此。嫗，先大母婢也，乳二世，先妣撫之甚厚。室西連於中閨，先妣嘗一至。嫗每謂余曰：「某所，而母立於茲。」嫗又曰：「汝姊在吾懷，呱呱而泣；娘以指叩門扉曰：『兒寒乎？欲食乎？』吾從板外相為應答。」語未畢，余泣，嫗亦泣。余自束髮讀書軒中，一日，大母過余曰：「吾兒，久不見若影，何竟日默默在此，大類女郎也！」比去，以手闔門，自語曰：「吾家讀書久不效，兒之成，則可待乎？」頃之，持一象笏至，曰：「此吾祖太常公宣德間執此以朝，他日汝當用之。」瞻顧遺跡，如在昨日，令人長號不自禁。</p>
+         <p>
+
+軒東故嘗為廚，人往，從軒前過。余扃牖而居，久之，能以足音辨人。軒凡四遭火，得不焚，殆有神護者。</p>
+         <p>
+
+項脊生曰：蜀清守丹穴，利甲天下，其後秦皇帝築女懷清臺。劉玄德與曹操爭天下，諸葛孔明起隴中，方二人之昧昧於一隅也，世何足以知之？余區區處敗屋中，方揚眉瞬目，謂有奇景；人知之者，其謂與埳井之蛙何異？</p>
+         <p>
+
+余既為此志，後五年，吾妻來歸。時至軒中，從余問古事，或憑几學書。吾妻歸寧，述諸小妹語曰：「聞姊家有閤子，且何謂閤子也？」其後六年，吾妻死，室壞不修。其後二年，余久臥病無聊，乃使人復葺南閤子，其制稍異於前。然自後余多在外，不常居。
+</p>
+         <p>
+庭有枇杷樹，吾妻死之年所手植也。今已亭亭如蓋矣。
+     </p>
+       </caption>
+     </article> 
+   </section>
+  </div>
+  <div class="footer"></div>
+</body>
+</html>
+  
+  
+  
+  
+
+</body>
+
+</html>
+ 

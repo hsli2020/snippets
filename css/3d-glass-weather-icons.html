@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - 3D glass weather icons</title>
+  
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+@-webkit-keyframes rotation {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes rotation {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+@-webkit-keyframes snow {
+  0% {
+    transform: translateY(-12rem) rotate(45deg);
+  }
+  50%, 100% {
+    transform: translateY(12rem) rotate(45deg);
+  }
+}
+@keyframes snow {
+  0% {
+    transform: translateY(-12rem) rotate(45deg);
+  }
+  50%, 100% {
+    transform: translateY(12rem) rotate(45deg);
+  }
+}
+@-webkit-keyframes thunder {
+  0%, 25%, 75%, 100% {
+    filter: drop-shadow(0px -1px 0px #cfb8e5) drop-shadow(0px 0px 0px #9a4ee7) drop-shadow(0px 0px 0px rgba(154, 78, 231, 0.3)) drop-shadow(-2px -2px 1px #3c3762) drop-shadow(4px 1px 1px #3c3762);
+  }
+  50% {
+    filter: drop-shadow(0px -1px 0px #cfb8e5) drop-shadow(0px 0px 3px #9a4ee7) drop-shadow(0px 0px 30px rgba(154, 78, 231, 0.3)) drop-shadow(-2px -2px 1px #3c3762) drop-shadow(4px 1px 1px #3c3762);
+  }
+}
+@keyframes thunder {
+  0%, 25%, 75%, 100% {
+    filter: drop-shadow(0px -1px 0px #cfb8e5) drop-shadow(0px 0px 0px #9a4ee7) drop-shadow(0px 0px 0px rgba(154, 78, 231, 0.3)) drop-shadow(-2px -2px 1px #3c3762) drop-shadow(4px 1px 1px #3c3762);
+  }
+  50% {
+    filter: drop-shadow(0px -1px 0px #cfb8e5) drop-shadow(0px 0px 3px #9a4ee7) drop-shadow(0px 0px 30px rgba(154, 78, 231, 0.3)) drop-shadow(-2px -2px 1px #3c3762) drop-shadow(4px 1px 1px #3c3762);
+  }
+}
+@-webkit-keyframes floating {
+  0%, 100% {
+    transform: translatey(0);
+  }
+  50% {
+    transform: translatey(1rem);
+  }
+}
+@keyframes floating {
+  0%, 100% {
+    transform: translatey(0);
+  }
+  50% {
+    transform: translatey(1rem);
+  }
+}
+@-webkit-keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+}
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+}
+@-webkit-keyframes neon {
+  0%, 40%, 60%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.9);
+  }
+}
+@keyframes neon {
+  0%, 40%, 60%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.9);
+  }
+}
+body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.weather--sun {
+  background: linear-gradient(45deg, #628aa4, #77a1b8);
+}
+.weather--thunder {
+  background: linear-gradient(45deg, #172a44, #1f3654);
+}
+.weather--snow {
+  background: linear-gradient(45deg, #5e6270, #82889c);
+}
+.weather--rainbow {
+  background: linear-gradient(45deg, #1d5476, #296b8f);
+}
+
+.icon {
+  position: relative;
+  width: 18rem;
+  height: 13rem;
+  transform: scale(0.8);
+}
+.icon__rainbow {
+  position: absolute;
+  right: 0rem;
+  top: -2rem;
+  height: 14rem;
+  width: 14rem;
+  filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.2));
+  -webkit-animation: pulse 4s infinite;
+          animation: pulse 4s infinite;
+}
+.icon__rainbow-arc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  color: red;
+  box-shadow: inset 2.5rem 2rem 0.3rem -3rem #000000bf, inset 0 0 0.3rem 0.25rem #ffffffb8, inset 0 0 0.2rem 0.4rem #000000a6, inset 0 0 0 0.6rem;
+  -webkit-animation: neon 4s infinite;
+          animation: neon 4s infinite;
+}
+.icon__rainbow-arc:nth-child(1) {
+  color: #ff1f5d;
+}
+.icon__rainbow-arc:nth-child(2) {
+  color: #eb8125;
+  inset: 0.9rem;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.icon__rainbow-arc:nth-child(3) {
+  color: #fbff0e;
+  inset: 1.8rem;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.icon__rainbow-arc:nth-child(4) {
+  color: #a8ef3c;
+  inset: 2.7rem;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+.icon__rainbow-arc:nth-child(5) {
+  color: #59d9ff;
+  inset: 3.6rem;
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+.icon__rainbow-arc:nth-child(6) {
+  color: #6685f5;
+  inset: 4.5rem;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+.icon__rainbow-arc:nth-child(7) {
+  color: #6a38e1;
+  inset: 5.4rem;
+  -webkit-animation-delay: 1.2s;
+          animation-delay: 1.2s;
+}
+.icon__snow {
+  position: absolute;
+  top: 12.8rem;
+  left: 0;
+  width: 100%;
+  height: 10rem;
+  overflow: hidden;
+}
+.icon__snow-flakes {
+  position: absolute;
+  top: 0;
+  left: 13rem;
+  height: 0.8rem;
+  width: 0.8rem;
+  background: #fff;
+  -webkit-animation: snow 3s linear infinite;
+          animation: snow 3s linear infinite;
+  transform: translateY(-12rem) rotate(45deg);
+  opacity: 0.5;
+  color: #fff;
+  box-shadow: 1rem 2rem, 1rem 7rem, 4rem 8rem, -5rem 8rem, -2rem 4rem, 0rem 11rem, 4rem 5rem, -2rem 8rem, 4rem 3rem 0 -0.1rem, 0rem 5rem 0 -0.1rem, -4rem 5rem 0 -0.1rem, -2rem 10rem 0 -0.1rem, -1rem 3rem 0 -0.2rem, 2rem 5rem 0 -0.2rem, -2rem 11rem 0 -0.2rem, 2rem 9rem 0 -0.2rem, -4rem 3rem 0 -0.2rem;
+}
+.icon__rain {
+  position: absolute;
+  top: 12.8rem;
+  left: 0;
+  width: 100%;
+  height: 10rem;
+  overflow: hidden;
+}
+.icon__rain-drops {
+  position: absolute;
+  top: 0;
+  left: 13rem;
+  height: 0.6rem;
+  width: 0.6rem;
+  background: #7a98e9;
+  -webkit-animation: snow 3s linear infinite;
+          animation: snow 3s linear infinite;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+  transform: translateY(-12rem) rotate(45deg);
+  opacity: 1;
+  color: #7a98e9;
+  box-shadow: 1rem 2rem, 1rem 7rem, 4rem 8rem, -5rem 8rem, -2rem 4rem, 0rem 11rem, 4rem 5rem, -2rem 8rem, 4rem 3rem 0 -0.1rem, 0rem 5rem 0 -0.1rem, -4rem 5rem 0 -0.1rem, -2rem 10rem 0 -0.1rem, -1rem 3rem 0 -0.2rem, 2rem 5rem 0 -0.2rem, -2rem 11rem 0 -0.2rem, 2rem 9rem 0 -0.2rem, -4rem 3rem 0 -0.2rem;
+  border-radius: 0 1rem 1rem;
+}
+.icon__sun {
+  position: absolute;
+  top: 1rem;
+  right: 3.5rem;
+  height: 5rem;
+  width: 5rem;
+  background: linear-gradient(45deg, #f09559 40%, #f0ca43);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px rgba(239, 218, 144, 0.4)) drop-shadow(0 0 30px rgba(240, 202, 67, 0.4));
+}
+.icon__sun-lights {
+  position: absolute;
+  inset: 0;
+  -webkit-animation: rotation 6s linear infinite;
+          animation: rotation 6s linear infinite;
+}
+.icon__sun-light {
+  position: absolute;
+  top: -2.75rem;
+  left: 50%;
+  margin-left: -0.45rem;
+  border-radius: 1rem;
+  width: 0.9rem;
+  height: 2.5rem;
+  background: linear-gradient(45deg, #f0b343, #f0ca43);
+  transform-origin: 50% 5.25rem;
+}
+.icon__sun-light:nth-child(2) {
+  transform: rotate(45deg);
+}
+.icon__sun-light:nth-child(3) {
+  transform: rotate(90deg);
+}
+.icon__sun-light:nth-child(4) {
+  transform: rotate(135deg);
+}
+.icon__sun-light:nth-child(5) {
+  transform: rotate(180deg);
+}
+.icon__sun-light:nth-child(6) {
+  transform: rotate(225deg);
+}
+.icon__sun-light:nth-child(7) {
+  transform: rotate(270deg);
+}
+.icon__sun-light:nth-child(8) {
+  transform: rotate(315deg);
+}
+.icon__thunder {
+  position: absolute;
+  top: 10rem;
+  left: 50%;
+  margin-left: -2.4rem;
+  width: 4.8rem;
+  height: 8.6rem;
+  filter: drop-shadow(0px -1px 0px #cfb8e5) drop-shadow(0px 0px 0px #9a4ee7) drop-shadow(-2px -2px 1px #3c3762) drop-shadow(4px 1px 1px #3c3762);
+  -webkit-animation: thunder 3s infinite, floating 3s infinite;
+          animation: thunder 3s infinite, floating 3s infinite;
+}
+.icon__thunder:before, .icon__thunder:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #645d95;
+  height: 5rem;
+  width: 3rem;
+  border-radius: 0.4rem;
+  box-shadow: inset -0.2rem -0.4rem 0.2rem #3c3762, inset -0.1rem -0.1rem 0.4rem #fff;
+  -webkit-clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+          clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+}
+.icon__thunder:after {
+  top: auto;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  -webkit-clip-path: polygon(0% 100%, 100% 0%, 45% 0%, 0% 26%);
+          clip-path: polygon(0% 100%, 100% 0%, 45% 0%, 0% 26%);
+  box-shadow: inset 0.2rem 0.3rem 0.2rem #3c3762, inset 0.1rem 0.2rem 0.4rem #fff;
+}
+.icon__cloud {
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 18rem;
+  height: 12rem;
+  background: rgba(255, 255, 255, 0.45);
+  opacity: 1;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  -webkit-clip-path: url(#cloud-path);
+          clip-path: url(#cloud-path);
+  box-shadow: inset 0rem -1.3rem 0.25rem -1rem #fff, inset 0rem 0rem 5rem 0rem #ffffff4d;
+}
+.weather--snow .icon__cloud {
+  background: rgba(100, 130, 197, 0.45);
+}
+.weather--thunder .icon__cloud {
+  background: rgba(116, 116, 116, 0.45);
+}
+.weather--rainbow .icon__cloud {
+  background: #4a6676;
+}
+.icon__cloud-reflect {
+  height: 12rem;
+  width: 11.9rem;
+  border-radius: 50%;
+  box-shadow: inset 0rem -1.1rem 0.25rem -1rem #fff, inset 0.45rem 0rem 0.25rem -0.25rem #fff, inset -0.45rem 0.5rem 0.25rem -0.45em #fff, inset 0.25rem 0.25rem 0.5rem 0rem rgba(0, 0, 0, 0.3);
+  -webkit-clip-path: polygon(0 0, 100% 0%, 100% 33%, 50% 30%, 50% 100%, 0% 100%);
+          clip-path: polygon(0 0, 100% 0%, 100% 33%, 50% 30%, 50% 100%, 0% 100%);
+}
+.icon__cloud-reflect--2 {
+  position: absolute;
+  width: 8.7rem;
+  height: 8.7rem;
+  bottom: 0.1rem;
+  right: 0.5rem;
+  -webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 50% 100%, 29% 0%);
+          clip-path: polygon(0 0, 100% 0%, 100% 100%, 50% 100%, 29% 0%);
+}
+.icon__cloud-shadow {
+  position: absolute;
+  left: 30rem;
+  top: -30rem;
+  width: 18rem;
+  height: 9rem;
+  border-radius: 50%;
+  box-shadow: -36rem 38rem 7rem #00000054;
+  z-index: -1;
+}
+.icon__cloud-svg clipPath {
+  transform: scale(0.65);
+}
+</style>
+
+</head>
+
+<body translate="no" >
+  <div class="weather weather--sun">
+  <div class="icon">
+    <div class="icon__sun">
+      <div class="icon__sun-lights">
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      <div class="icon__sun-light"></div>
+      </div>
+    </div>   
+    <div class="icon__cloud">
+      <div class="icon__cloud-reflect icon__cloud-reflect--1">    
+      </div>
+      <div class="icon__cloud-reflect icon__cloud-reflect--2">   
+      </div>  
+       <svg  class="icon__cloud-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewbox="0 0 200 500" width="50%"  ><clipPath id="cloud-path"><path d=" M 146.5 293 C 65.644 293 0 227.356 0 146.5 C 0 65.644 65.644 0 146.5 0 C 205.641 0 256.643 35.12 279.772 85.624 C 293.416 79.445 308.559 76 324.5 76 C 384.383 76 433 124.617 433 184.5 C 433 244.383 384.383 293 324.5 293 L 324.5 293 C 324.5 293 324.5 293 324.5 293 L 146.5 293 Z " fill="currentColor"/></clipPath></svg>
+    </div>
+    <div class="icon__cloud-shadow">
+    </div>
+  </div>
+</div>
+<div class="weather weather--thunder">
+  <div class="icon">
+    <div class="icon__rain">
+      <div class="icon__rain-drops"></div>
+    </div>   
+    <div class="icon__thunder">
+    </div>   
+    <div class="icon__cloud">
+      <div class="icon__cloud-reflect icon__cloud-reflect--1">    
+      </div>
+      <div class="icon__cloud-reflect icon__cloud-reflect--2">   
+      </div>  
+       <svg  class="icon__cloud-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewbox="0 0 200 500" width="50%"  ><clipPath id="cloud-path"><path d=" M 146.5 293 C 65.644 293 0 227.356 0 146.5 C 0 65.644 65.644 0 146.5 0 C 205.641 0 256.643 35.12 279.772 85.624 C 293.416 79.445 308.559 76 324.5 76 C 384.383 76 433 124.617 433 184.5 C 433 244.383 384.383 293 324.5 293 L 324.5 293 C 324.5 293 324.5 293 324.5 293 L 146.5 293 Z " fill="currentColor"/></clipPath></svg>
+    </div>
+    <div class="icon__cloud-shadow">
+    </div>
+  </div>
+</div>
+<div class="weather weather--snow">
+  <div class="icon">
+    <div class="icon__snow">
+      <div class="icon__snow-flakes"></div>
+    </div>   
+    <div class="icon__cloud">
+      <div class="icon__cloud-reflect icon__cloud-reflect--1">    
+      </div>
+      <div class="icon__cloud-reflect icon__cloud-reflect--2">   
+      </div>  
+       <svg  class="icon__cloud-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewbox="0 0 200 500" width="50%"  ><clipPath id="cloud-path"><path d=" M 146.5 293 C 65.644 293 0 227.356 0 146.5 C 0 65.644 65.644 0 146.5 0 C 205.641 0 256.643 35.12 279.772 85.624 C 293.416 79.445 308.559 76 324.5 76 C 384.383 76 433 124.617 433 184.5 C 433 244.383 384.383 293 324.5 293 L 324.5 293 C 324.5 293 324.5 293 324.5 293 L 146.5 293 Z " fill="currentColor"/></clipPath></svg>
+    </div>
+    <div class="icon__cloud-shadow">
+    </div>
+  </div>
+</div>
+<div class="weather weather--rainbow">
+  <div class="icon">
+    <div class="icon__rainbow">
+        <div class="icon__rainbow-arc"></div>
+        <div class="icon__rainbow-arc"></div>
+        <div class="icon__rainbow-arc"></div>
+        <div class="icon__rainbow-arc"></div>
+        <div class="icon__rainbow-arc"></div>
+        <div class="icon__rainbow-arc"></div>
+        <div class="icon__rainbow-arc"></div>
+    </div>   
+    <div class="icon__cloud">
+      <div class="icon__cloud-reflect icon__cloud-reflect--1">    
+      </div>
+      <div class="icon__cloud-reflect icon__cloud-reflect--2">   
+      </div>  
+       <svg  class="icon__cloud-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewbox="0 0 200 500" width="50%"  ><clipPath id="cloud-path"><path d=" M 146.5 293 C 65.644 293 0 227.356 0 146.5 C 0 65.644 65.644 0 146.5 0 C 205.641 0 256.643 35.12 279.772 85.624 C 293.416 79.445 308.559 76 324.5 76 C 384.383 76 433 124.617 433 184.5 C 433 244.383 384.383 293 324.5 293 L 324.5 293 C 324.5 293 324.5 293 324.5 293 L 146.5 293 Z " fill="currentColor"/></clipPath></svg>
+    </div>
+    <div class="icon__cloud-shadow">
+    </div>
+  </div>
+</div>
+  
+<script id="rendered-js" >
+// Inspired by
+// 3D Icons | 1 | Weather
+// https://dribbble.com/shots/18045563-3D-Icons-1-Weather?utm_source=ownedsocial
+// by @george_finnbog
+//# sourceURL=pen.js
+</script>
+  
+</body>
+</html>
