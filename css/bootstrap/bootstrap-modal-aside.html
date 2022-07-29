@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="keywords" content="htmlcss bootstrap menu, navbar, mega menu examples" />
+<meta name="description" content="Bootstrap navbar examples for any type of project, Bootstrap 4" />  
+<title>Demo - Bootstrap customize modal example. html code </title>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+crossorigin="anonymous"></script>
+
+<!-- Bootstrap files (jQuery first, then Popper.js, then Bootstrap JS) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+// jquery ready start
+$(document).ready(function() {
+	// jQuery code
+}); // jquery end
+</script>
+
+<style type="text/css">
+.modal .modal-dialog-aside{
+	width: 350px;
+	max-width:80%; height: 100%; margin:0;
+	transform: translate(0); transition: transform .2s;
+}
+
+.modal .modal-dialog-aside .modal-content{  height: inherit; border:0; border-radius: 0;}
+.modal .modal-dialog-aside .modal-content .modal-body{ overflow-y: auto }
+.modal.fixed-left .modal-dialog-aside{ margin-left:auto;  transform: translateX(100%); }
+.modal.fixed-right .modal-dialog-aside{ margin-right:auto; transform: translateX(-100%); }
+
+.modal.show .modal-dialog-aside{ transform: translateX(0);  }
+
+</style>
+</head>
+<body>
+
+<header class="section-header bg-light py-4">
+<div class="container">
+	<h2>Demo page</h2>
+</div>
+</header> <!-- section-header.// -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+
+<div class="container">
+
+<section class="section-content py-5">
+
+		<button data-toggle="modal" data-target="#modal_simple" class="btn btn-primary" type="button">  Modal simple  </button>
+
+		<button data-toggle="modal" data-target="#modal_aside_right" class="btn btn-primary" type="button">  Modal aside right  </button>
+
+		<button data-toggle="modal" data-target="#modal_aside_left" class="btn btn-primary" type="button">  Modal aside left  </button>
+
+		<br> <br>
+		<h6>Demo view: Offcanvas sidebars with bootstrap modal component.  </h6>
+        <p>For this demo page you should connect to the internet to receive files from CDN  like Bootstrap CSS, Bootstrap JS and jQuery. </p>
+		<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+
+		<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+
+		<a href="http://bootstrap-menu.com/detail-modal.html" class="btn btn-warning"> &laquo Back to tutorial or Download code</a>
+
+</section>
+
+</div><!-- container //  -->
+
+
+
+<div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Simple modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div> <!-- modal-bialog .// -->
+</div> <!-- modal.// -->
+
+
+
+<div id="modal_aside_right" class="modal fixed-right fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-aside" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Right fixed sample</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div> <!-- modal-bialog .// -->
+</div> <!-- modal.// -->
+
+
+
+<div id="modal_aside_left" class="modal fixed-left fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-aside" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Left fixed sample</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div> <!-- modal-bialog .// -->
+</div> <!-- modal.// -->
+
+
+</body>
+</html>
