@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CSS Only Puzzle Game</title>
+  
+<style>
+/* number of columns/rows, don't forget to adjust the HTML value */
+g {
+  --s: 70px;
+  /* size of the puzzle */
+  --r: 12px;
+  display: grid;
+  width: fit-content;
+  border: 1px solid;
+  margin: auto;
+  grid: auto-flow var(--s)/repeat(5, var(--s));
+}
+
+g:before {
+  content: "Original Image";
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+  text-shadow: 0 0 2px #000, 0 0 2px #000, 0 0 2px #000;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: calc(5*var(--s)*0.6);
+  aspect-ratio: 1;
+  -webkit-mask: repeating-linear-gradient(-45deg, #000 0 10%, #000d 0 20%);
+  background: var(--i) 0/100% 100%;
+  display: grid;
+  place-content: center;
+}
+
+z {
+  display: grid;
+  position: relative;
+  pointer-events: none;
+  outline: 1px dashed;
+}
+
+a {
+  grid-area: 1/1;
+  width: 0;
+  transition: 0s 0.2s;
+  pointer-events: initial;
+}
+
+b {
+  grid-area: 1/1;
+  z-index: 2;
+  display: grid;
+  filter: drop-shadow(0 0 2px red) drop-shadow(0 0 2px red);
+  cursor: grab;
+  pointer-events: initial;
+  height: calc(100% + var(--r));
+  width: calc(100% + var(--r));
+  place-self: start end;
+  --m:
+  	radial-gradient(var(--r) at calc(50% - var(--r)/2) 0,#0000 98%,#000) var(--r) 0/100% var(--r) no-repeat,
+  	radial-gradient(var(--r) at calc(100% - var(--r)) calc(50% - var(--r)/2),#0000 98%,#000) var(--r) 50%/100% calc(100% - 2*var(--r)) no-repeat,
+  	radial-gradient(var(--r) at var(--r) calc(50% - var(--r)/2),#000 98%,#0000),
+  	radial-gradient(var(--r) at calc(50% + var(--r)/2) calc(100% - var(--r)),#000 98%,#0000);
+}
+
+b:before {
+  content: "";
+  background: var(--i) 0/calc(5*var(--s)) calc(5*var(--s));
+  -webkit-mask: var(--m);
+  mask: var(--m);
+}
+
+z:first-child b {
+  height: calc(100% + var(--r));
+  width: 100%;
+  --m:
+  	radial-gradient(var(--r) at 100% calc(50% + var(--r)/2),#0000 98%,#000)
+  	 0 calc(-1*var(--r)) no-repeat,
+  	radial-gradient(var(--r) at 50% calc(100% - var(--r)),#000 98%,#0000) ;
+}
+
+z:nth-child(-n+4):not(:first-child) b {
+  place-self: start end;
+  height: calc(100% + var(--r));
+  width: calc(100% + var(--r));
+  --m:
+  	radial-gradient(var(--r) at calc(100% - var(--r)) calc(50% + var(--r)/2),#0000 98%,#000)
+  	 var(--r) calc(-1*var(--r)) no-repeat,
+  	radial-gradient(var(--r) at var(--r) calc(50% - var(--r)/2),#000 98%,#0000),
+  	radial-gradient(var(--r) at calc(50% + var(--r)/2) calc(100% - var(--r)),#000 98%,#0000) ;
+}
+
+z:nth-child(5) b {
+  place-self: start end;
+  height: calc(100% + var(--r));
+  width: calc(100% + var(--r));
+  --m:
+  	linear-gradient(#000 0 0) var(--r) calc(-1*var(--r)) no-repeat,
+  	radial-gradient(var(--r) at var(--r) calc(50% - var(--r)/2),#000 98%,#0000),
+  	radial-gradient(var(--r) at calc(50% + var(--r)/2) calc(100% - var(--r)),#000 98%,#0000) ;
+}
+
+z:nth-child(5n+1):not(:first-child):not(:nth-last-child(5)) b {
+  height: calc(100% + var(--r));
+  width: 100%;
+  --m:
+  	radial-gradient(var(--r) at 100% calc(50% - var(--r)/2),#0000 98%,#000) 50%/ 100% calc(100% - 2*var(--r)) no-repeat,
+  	radial-gradient(var(--r) at 50% 0,#0000 98%,#000) 0 0/ 100% var(--r) no-repeat,
+  	radial-gradient(var(--r) at 50% calc(100% - var(--r)),#000 98%,#0000) ;
+}
+
+z:nth-last-child(5) b {
+  height: 100%;
+  width: 100%;
+  --m:
+  	radial-gradient(var(--r) at 100% calc(50% - var(--r)),#0000 98%,#000) 0 var(--r) no-repeat,
+  	radial-gradient(var(--r) at 50% 0,#0000 98%,#000) 0 0/ 100% var(--r) no-repeat;
+}
+
+z:nth-child(5n):not(:nth-child(5)):not(:last-child) b {
+  place-self: start end;
+  height: calc(100% + var(--r));
+  width: calc(100% + var(--r));
+  --m:
+  	radial-gradient(var(--r) at calc(50% - var(--r)/2) var(--r),#0000 98%,#000) var(--r) calc(-1*var(--r)) no-repeat,
+  	radial-gradient(var(--r) at var(--r) calc(50% - var(--r)/2),#000 98%,#0000),
+  	radial-gradient(var(--r) at calc(50% + var(--r)/2) calc(100% - var(--r)),#000 98%,#0000) ;
+}
+
+z:last-child b {
+  place-self: end;
+  height: 100%;
+  width: calc(100% + var(--r));
+  --m:
+  	radial-gradient(var(--r) at calc(50% - var(--r)/2) 0,#0000 98%,#000) var(--r) 0 no-repeat,
+  	radial-gradient(var(--r) at var(--r) 50%,#000 98%,#0000) ;
+}
+
+z:nth-last-child(-n+4):not(:last-child) b {
+  place-self: end;
+  height: 100%;
+  width: calc(100% + var(--r));
+  --m:
+  	radial-gradient(var(--r) at calc(50% - var(--r)/2) 0,#0000 98%,#000) var(--r) 0/100% var(--r) no-repeat,
+  	radial-gradient(var(--r) at calc(100% - var(--r)) calc(50% - var(--r)/2),#0000 98%,#000) var(--r) 100%/100% calc(100% - var(--r)) no-repeat,
+  	radial-gradient(var(--r) at var(--r) 50%,#000 98%,#0000) ;
+}
+
+z:nth-of-type(1) b {
+  transform: translate(200%, 200%) rotate(87deg) translate(440%) rotate(-78deg);
+}
+
+z:nth-of-type(1) b:before {
+  background-position: 0% 0%;
+}
+
+z:nth-of-type(2) b {
+  transform: translate(100%, 200%) rotate(141deg) translate(446%) rotate(-148deg);
+}
+
+z:nth-of-type(2) b:before {
+  background-position: 25% 0%;
+}
+
+z:nth-of-type(3) b {
+  transform: translate(0%, 200%) rotate(77deg) translate(409%) rotate(-70deg);
+}
+
+z:nth-of-type(3) b:before {
+  background-position: 50% 0%;
+}
+
+z:nth-of-type(4) b {
+  transform: translate(-100%, 200%) rotate(23deg) translate(423%) rotate(-17deg);
+}
+
+z:nth-of-type(4) b:before {
+  background-position: 75% 0%;
+}
+
+z:nth-of-type(5) b {
+  transform: translate(-200%, 200%) rotate(39deg) translate(428%) rotate(-34deg);
+}
+
+z:nth-of-type(5) b:before {
+  background-position: 100% 0%;
+}
+
+z:nth-of-type(6) b {
+  transform: translate(200%, 100%) rotate(80deg) translate(450%) rotate(-72deg);
+}
+
+z:nth-of-type(6) b:before {
+  background-position: 0% 25%;
+}
+
+z:nth-of-type(7) b {
+  transform: translate(100%, 100%) rotate(100deg) translate(459%) rotate(-90deg);
+}
+
+z:nth-of-type(7) b:before {
+  background-position: 25% 25%;
+}
+
+z:nth-of-type(8) b {
+  transform: translate(0%, 100%) rotate(137deg) translate(444%) rotate(-129deg);
+}
+
+z:nth-of-type(8) b:before {
+  background-position: 50% 25%;
+}
+
+z:nth-of-type(9) b {
+  transform: translate(-100%, 100%) rotate(172deg) translate(445%) rotate(-171deg);
+}
+
+z:nth-of-type(9) b:before {
+  background-position: 75% 25%;
+}
+
+z:nth-of-type(10) b {
+  transform: translate(-200%, 100%) rotate(42deg) translate(460%) rotate(-44deg);
+}
+
+z:nth-of-type(10) b:before {
+  background-position: 100% 25%;
+}
+
+z:nth-of-type(11) b {
+  transform: translate(200%, 0%) rotate(1deg) translate(447%) rotate(9deg);
+}
+
+z:nth-of-type(11) b:before {
+  background-position: 0% 50%;
+}
+
+z:nth-of-type(12) b {
+  transform: translate(100%, 0%) rotate(130deg) translate(440%) rotate(-131deg);
+}
+
+z:nth-of-type(12) b:before {
+  background-position: 25% 50%;
+}
+
+z:nth-of-type(13) b {
+  transform: translate(0%, 0%) rotate(172deg) translate(453%) rotate(-163deg);
+}
+
+z:nth-of-type(13) b:before {
+  background-position: 50% 50%;
+}
+
+z:nth-of-type(14) b {
+  transform: translate(-100%, 0%) rotate(167deg) translate(422%) rotate(-173deg);
+}
+
+z:nth-of-type(14) b:before {
+  background-position: 75% 50%;
+}
+
+z:nth-of-type(15) b {
+  transform: translate(-200%, 0%) rotate(12deg) translate(416%) rotate(-15deg);
+}
+
+z:nth-of-type(15) b:before {
+  background-position: 100% 50%;
+}
+
+z:nth-of-type(16) b {
+  transform: translate(200%, -100%) rotate(142deg) translate(442%) rotate(-150deg);
+}
+
+z:nth-of-type(16) b:before {
+  background-position: 0% 75%;
+}
+
+z:nth-of-type(17) b {
+  transform: translate(100%, -100%) rotate(128deg) translate(414%) rotate(-124deg);
+}
+
+z:nth-of-type(17) b:before {
+  background-position: 25% 75%;
+}
+
+z:nth-of-type(18) b {
+  transform: translate(0%, -100%) rotate(58deg) translate(410%) rotate(-61deg);
+}
+
+z:nth-of-type(18) b:before {
+  background-position: 50% 75%;
+}
+
+z:nth-of-type(19) b {
+  transform: translate(-100%, -100%) rotate(33deg) translate(466%) rotate(-28deg);
+}
+
+z:nth-of-type(19) b:before {
+  background-position: 75% 75%;
+}
+
+z:nth-of-type(20) b {
+  transform: translate(-200%, -100%) rotate(43deg) translate(425%) rotate(-48deg);
+}
+
+z:nth-of-type(20) b:before {
+  background-position: 100% 75%;
+}
+
+z:nth-of-type(21) b {
+  transform: translate(200%, -200%) rotate(17deg) translate(420%) rotate(-26deg);
+}
+
+z:nth-of-type(21) b:before {
+  background-position: 0% 100%;
+}
+
+z:nth-of-type(22) b {
+  transform: translate(100%, -200%) rotate(151deg) translate(401%) rotate(-147deg);
+}
+
+z:nth-of-type(22) b:before {
+  background-position: 25% 100%;
+}
+
+z:nth-of-type(23) b {
+  transform: translate(0%, -200%) rotate(56deg) translate(416%) rotate(-56deg);
+}
+
+z:nth-of-type(23) b:before {
+  background-position: 50% 100%;
+}
+
+z:nth-of-type(24) b {
+  transform: translate(-100%, -200%) rotate(122deg) translate(438%) rotate(-112deg);
+}
+
+z:nth-of-type(24) b:before {
+  background-position: 75% 100%;
+}
+
+z:nth-of-type(25) b {
+  transform: translate(-200%, -200%) rotate(18deg) translate(450%) rotate(-9deg);
+}
+
+z:nth-of-type(25) b:before {
+  background-position: 100% 100%;
+}
+
+z b {
+  transition: 9999s 9999s;
+}
+
+z:active a {
+  width: 100%;
+  transition: 0s;
+}
+
+z a:hover ~ b {
+  transform: translate(0);
+  filter: none;
+  transition: 0s;
+}
+
+body {
+  background: #547980;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+p {
+  font-size: 0.8rem;
+  text-align: center;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <h1>CSS Puzzle</h1>
+<p>drag & drop the piece into...<br> Well, you know how a puzzle works :)</p>
+<g style="--i:url(https://assets.codepen.io/1480814/1059-800x800.jpg)">
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+  <z><a></a><b draggable="true"></b></z>
+</g>
+
+</body>
+</html>

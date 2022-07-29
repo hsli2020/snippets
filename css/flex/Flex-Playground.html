@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Flex Playground</title>
+<style>
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: DodgerBlue;
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+</style>
+</head>
+<body>
+<h1>Flexible Boxes</h1>
+
+<div class="flex-container">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>  
+  <div>4</div>
+  <div>5</div>
+  <div>6</div>  
+  <div>7</div>
+  <div>8</div>
+</div>
+
+
+<div style="display: flex; justify-content: space-between; margin-top:5em;">
+<div style="width:50%">
+  <h2>The flex container properties:</h2>
+  <ul>
+    <li><a href="#"><code>flex-direction</code></a>子元素排列方向(row,column)</li>
+    <li><a href="#"><code>flex-wrap</code></a></li>
+    <li><a href="#"><code>flex-flow</code></a> (flex-direction, flex-wrap)</li>
+    <li><a href="#"><code>justify-content</code></a>子元素在主轴上排列方式</li>
+    <li><a href="#"><code>align-items</code></a>子元素在交叉轴上的排列方式</li>
+    <li><a href="#"><code>align-content</code></a></li>
+  </ul>
+</div>
+
+<div style="width:50%">
+  <h2>The flex item properties are:</h2>
+  <ul>
+    <li><a href="#"><code>order</code></a></li>
+    <li><a href="#"><code>flex-grow</code></a></li>
+    <li><a href="#"><code>flex-shrink</code></a></li>
+    <li><a href="#"><code>flex-basis</code></a></li>
+    <li><a href="#"><code>flex</code></a> (flex-grow, flex-shrink, flex-basis)</li>
+    <li><a href="#"><code>align-self</code></a></li>
+  </ul>
+</div>
+</div>
+
+<h2>Perfect Centering</h2>
+<pre>
+.flex-container {
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+}
+</pre>
+
+</body>
+</html>

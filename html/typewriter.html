@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+
+  <meta charset="UTF-8">
+  <title>CodePen - TYPEWRITER</title>
+  
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap');
+
+body {
+  padding: 20px;
+  font-family: 'Inconsolata', monospace;
+  background-color: #ffab73;
+}
+
+.text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-right: 4px solid black;
+    font-size: 180%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.animation{
+  animation: typewriter 4s steps(15) 1s infinite both,
+             blinkCursor 500ms steps(15) infinite;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 214px;
+  }
+}
+
+@keyframes blinkCursor{
+  from {
+    border-right-color: black;
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+</style>
+</head>
+
+<body translate="no" >
+  <p class="text animation">I am Pratham ❤</p>
+</body>
+</html>

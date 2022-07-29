@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Social Buttons</title>
+
+<style>
+/* ===== Boxicons CSS ===== */
+@import url("https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css");
+
+.social-button {
+    width: 280px;
+    height: 60px;
+    border-radius: 7px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: 1s;
+}
+.social-button:hover {
+    background: rgb(245, 245, 245);
+}
+
+.social-button span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #7e4ccb;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 999;
+    transition: .4s;
+    border-radius: 7px;
+}
+.social-button span i {
+    font-size: 1.2em;
+}
+.social-button:hover span {
+  transform: translateX(-100%);
+  transition-delay: .1s;
+}
+
+.social-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-grow: 1;
+    font-size: 1.7em;
+    color: rgb(20, 20, 20, .9);
+    text-align: center;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: 0.3s;
+}
+.social-button:hover a {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.social-button a:nth-of-type(1) {
+    transition-delay: .6s;
+}
+.social-button a:nth-of-type(2) {
+    transition-delay: .5s;
+}
+.social-button a:nth-of-type(3) {
+    transition-delay: .4s;
+}
+.social-button a:nth-of-type(4) {
+    transition-delay: .3s;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <div class="social-button">
+    <span><i class="bx bx-share"></i>Share</span>
+    <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+    <a href="#"><i class='bx bxl-facebook'></i></a>
+    <a href="#"><i class='bx bxl-twitter'></i></a>
+    <a href="#"><i class='bx bxl-discord-alt'></i></a>
+</div>
+
+</body>
+</html>

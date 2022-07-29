@@ -1,0 +1,382 @@
+import "log"
+
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+
+import "github.com/alexedwards/scs/v2"
+
+	// Setup session
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = app.IsProduction
+
+type App struct {
+	UseCache       bool
+	TemplatesCache map[string]*template.Template
+	IsProduction   bool
+	Session        *scs.SessionManager
+	InfoLog        *log.Logger
+	ErrorLog       *log.Logger
+	MailChan       chan models.MailData
+}
+
+// just test middleware
+func WriteToConsole(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println(fmt.Sprintf("Hit the page: %s", r.URL))
+		next.ServeHTTP(w, r)
+	})
+}
+
+import "github.com/justinas/nosurf"
+
+// NoSurf sets CSRF token for every request
+func NoSurf(next http.Handler) http.Handler {
+	csrfHandler := nosurf.New(next)
+
+	csrfHandler.SetBaseCookie(http.Cookie{
+		HttpOnly: true,
+		Path:     "/",
+		Secure:   app.IsProduction,
+		SameSite: http.SameSiteLaxMode,
+	})
+
+	return csrfHandler
+}
+
+// LoadSession loads and saves session on every request
+func LoadSession(next http.Handler) http.Handler {
+	return session.LoadAndSave(next)
+}
+
+func routes(app *app.Config) http.Handler {
+	mux := chi.NewRouter()
+
+	// Middlewares
+	mux.Use(middleware.Recoverer)
+	mux.Use(WriteToConsole)
+	mux.Use(NoSurf)
+	mux.Use(LoadSession)
+
+	// Routes
+	mux.Get("/", handlers.Repo.Home)
+	mux.Get("/about", handlers.Repo.About)
+	mux.Get("/generals-quarters", handlers.Repo.Generals)
+	mux.Get("/majors-suite", handlers.Repo.Majors)
+
+	mux.Get("/search-availability", handlers.Repo.Availablility)
+	mux.Post("/search-availability", handlers.Repo.PostAvailablility)
+	mux.Post("/search-availability-json", handlers.Repo.PostAvailablilityJSON)
+	mux.Get("/choose-room/{id}", handlers.Repo.ChooseRoom)
+
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Post("/make-reservation", handlers.Repo.PostReservation)
+
+	mux.Get("/contact", handlers.Repo.Contact)
+
+	mux.Get("/reservation-summary", handlers.Repo.ReservationSummary)
+
+	fileServer := http.FileServer(http.Dir("./static/"))
+	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
+
+	return mux
+}
+
+func listenForMail() {
+	go func() {
+		for {
+			mailData := <-app.MailChan
+			sendMsg(mailData)
+		}
+	}()
+}
+
+func sendMsg(m models.MailData) {
+	server := mail.NewSMTPClient()
+	server.Host = "localhost"
+	server.Port = 1025
+	server.KeepAlive = false
+	server.ConnectTimeout = 10 * time.Second
+	server.SendTimeout = 10 * time.Second
+
+	client, err := server.Connect()
+	if err != nil {
+		app.ErrorLog.Println(err)
+	}
+
+	email := mail.NewMSG()
+	email.SetSubject(m.Subject)
+	email.SetFrom(m.From)
+	email.AddTo(m.To)
+	email.SetBody(mail.TextHTML, m.Content)
+	err = email.Send(client)
+	if err != nil {
+		app.ErrorLog.Println(err)
+	}
+}
+////
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+
+	start := r.Form.Get("start")
+	end := r.Form.Get("end")
+
+	layout := "2006-01-02"
+	startDate, err := time.Parse(layout, start)
+	endDate, err := time.Parse(layout, end)
+////
+    http.Redirect(w, r, "/search", http.StatusTemporaryRedirect)
+    http.Redirect(w, r, "/search", http.StatusSeeOther)
+////
+	render.Template(w, r, "choose-room", &models.TemplateData{
+		Data: data,
+	})
+////
+	out, err := json.MarshalIndent(resp, "", "    ")
+	w.Header().Set("Content-type", "application/json")
+	w.Write([]byte(out))
+////
+	data := make(map[string]interface{})
+	data["reservation"] = res
+
+	stringMap := make(map[string]string)
+	stringMap["start_date"] = res.StartDate.Format("2006-01-02")
+	stringMap["end_date"] = res.EndDate.Format("2006-01-02")
+
+	render.Template(w, r, "make-reservation", &models.TemplateData{
+		Form:      forms.New(nil),
+		Data:      data,
+		StringMap: stringMap,
+	})
+////
+	err := r.ParseForm()
+
+	reservation.FirstName = r.Form.Get("first_name")
+	reservation.LastName = r.Form.Get("last_name")
+	reservation.Email = r.Form.Get("email")
+	reservation.Phone = r.Form.Get("phone")
+
+	form := forms.New(r.PostForm)
+
+	form.Required("first_name", "last_name", "email")
+	form.MinLength("first_name", 3)
+	form.IsEmail("email")
+
+	if !form.Valid() {
+		data := make(map[string]interface{})
+
+		data["reservation"] = reservation
+		http.Error(w, "Validation failed", http.StatusSeeOther)
+		render.Template(w, r, "make-reservation", &models.TemplateData{
+			Form: form,
+			Data: data,
+		})
+
+		return
+	}
+////
+	mail := models.MailData{
+		From:    "me@gmail.com",
+		To:      reservation.Email,
+		Subject: "Reservation confirmation",
+		Content: fmt.Sprintf(guestMessage, reservation.FirstName, reservation.StartDate, reservation.EndDate),
+	}
+	app.MailChan <- mail
+////
+
+// Contact handles requests to contact page
+func (rep *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "contact", &models.TemplateData{})
+}
+
+func ClientError(w http.ResponseWriter, status int) {
+	app.InfoLog.Println("Client error with status of", status)
+	http.Error(w, http.StatusText(status), status)
+}
+
+func ServerError(w http.ResponseWriter, err error) {
+	trace := fmt.Sprintf("%s\n%s", err.Error(), debug.Stack())
+	app.ErrorLog.Println(trace)
+	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+}
+
+// User is the user model
+type User struct {
+	ID          int
+	FirstName   string
+	LastName    string
+	Email       string
+	Password    string
+	AccessLevel int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
+// MailData represents email message
+type MailData struct {
+	From    string
+	To      string
+	Subject string
+	Content string
+}
+
+// InsertReservation inserts a reservation to the table reservations
+func (pr *postgresDBRepo) InsertReservation(res models.Reservation) (int, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var newID int
+
+	stmt := `INSERT INTO reservations (first_name, last_name, email, phone, start_date, end_date, 
+		room_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;`
+
+	err := pr.DB.QueryRowContext(ctx, stmt,
+		res.FirstName,
+		res.LastName,
+		res.Email,
+		res.Phone,
+		res.StartDate,
+		res.EndDate,
+		res.RoomID,
+		time.Now(),
+		time.Now(),
+	).Scan(&newID)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return newID, nil
+}
+
+// InsertRoomRestriction insterts RoomRestriction to the table room_restrictions
+func (pr *postgresDBRepo) InsertRoomRestriction(roomRestriction models.RoomRestriction) (int, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var newID int
+
+	stmt := `INSERT INTO room_restrictions (start_date, end_date, room_id, reservation_id, restriction_id,  
+		created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;`
+
+	err := pr.DB.QueryRowContext(ctx, stmt,
+		roomRestriction.StartDate,
+		roomRestriction.EndDate,
+		roomRestriction.RoomID,
+		roomRestriction.ReservationID,
+		roomRestriction.RestrictionID,
+		time.Now(),
+		time.Now(),
+	).Scan(&newID)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return newID, nil
+}
+
+// SearchAvailabilityByDatesAndRoomID returns true if availability exists for room id and false if no availability exists
+func (pr *postgresDBRepo) SearchAvailabilityByDatesAndRoomID(start, end time.Time, roomID int) (bool, error) {
+	var numRows int
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	query := `
+        SELECT 
+            COUNT(id)
+        FROM 
+            room_restrictions
+        WHERE 
+        room_id = $1
+            $2 < end_date AND $3 > start_date;`
+
+	row := pr.DB.QueryRowContext(ctx, query, roomID, end, start)
+	err := row.Scan(&numRows)
+	if err != nil {
+		return false, err
+	}
+
+	if numRows == 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+// SearchAvailabilityForAllRooms returns a slice of available rooms for given period
+func (pr *postgresDBRepo) SearchAvailabilityForAllRooms(start, end time.Time) ([]models.Room, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var rooms []models.Room
+
+	query := `
+        SELECT 
+            r.id, r.room_name
+        FROM
+            rooms r
+        WHERE 
+            r.id NOT IN (
+                SELECT
+                    room_id
+                FROM
+                    room_restrictions rr
+                WHERE
+                    $1 < rr.end_date AND $2 > rr.start_date 
+        )
+	`
+
+	rows, err := pr.DB.QueryContext(ctx, query, end, start)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var room models.Room
+
+		err := rows.Scan(&room.ID, &room.RoomName)
+		if err != nil {
+			return rooms, err
+		}
+
+		rooms = append(rooms, room)
+	}
+
+	if err := rows.Err(); err != nil {
+		return rooms, err
+	}
+
+	return rooms, nil
+}
+
+// GetRoomByID returns room model by id
+func (pr *postgresDBRepo) GetRoomByID(roomID int) (models.Room, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
+	defer cancel()
+
+	var room models.Room
+
+	query := `
+        SELECT id, room_name, created_at, updated_at 
+          FROM rooms
+         WHERE id=$1
+	`
+
+	row := pr.DB.QueryRowContext(ctx, query, roomID)
+	err := row.Scan(
+		&room.ID,
+		&room.RoomName,
+		&room.CreatedAt,
+		&room.UpdatedAt,
+	)
+	if err != nil {
+		return room, err
+	}
+
+	return room, nil
+}
