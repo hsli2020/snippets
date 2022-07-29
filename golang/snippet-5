@@ -1,0 +1,845 @@
+
+var client *http.Client
+
+func main() {
+	client = &http.Client{Timeout: 10 * time.Second}
+
+	GetCatFact()
+	GetRandomUser()
+}
+
+func GetJson(url string, target interface{}) error {
+	resp, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	return json.NewDecoder(resp.Body).Decode(target)
+}
+
+type RandomUser struct {
+	Results []UserResult
+}
+
+type UserResult struct {
+	Name UserName
+	Email string
+	Picture UserPicture
+}
+
+type UserName struct {
+	Title string
+	First string
+	Last string
+}
+
+type UserPicture struct {
+	Large string
+	Medium string
+	Thumbnail string
+}
+
+func GetRandomUser() {
+	url := "https://randomuser.me/api/"
+
+	var user RandomUser
+
+	err := GetJson(url, &user)
+
+	if err != nil {
+		fmt.Printf("error getting json: %s\n", err.Error())
+	} else {
+		fmt.Printf("User: %s %s %s\nEmail: %s\nThumbnail: %s",
+			user.Results[0].Name.Title,
+			user.Results[0].Name.First,
+			user.Results[0].Name.Last,
+			user.Results[0].Email,
+			user.Results[0].Picture.Thumbnail,
+		)
+	}
+}
+
+type CatFact struct {
+	Fact string `json:"fact"`
+	Length int	`json:"length"`
+}
+
+func GetCatFact() {
+	url := "https://catfact.ninja/fact"
+
+	var catFact CatFact
+
+	err := GetJson(url, &catFact)
+	if err != nil {
+		fmt.Printf("error getting cat fact: %s\n", err.Error())
+	} else {
+		fmt.Printf("A super interesting Cat Fact: %s\n", catFact.Fact)
+	}
+}
+
+// ---------------------------------------------------------
+var client *http.Client
+
+type randomFact struct {
+	Text string `json:"text"`
+}
+
+func getRandomFact() (randomFact, error) {
+	var fact randomFact
+	resp, err := client.Get("https://uselessfacts.jsph.pl/random.json?language=en")
+	if err != nil {
+		return randomFact{}, err
+	}
+
+	defer resp.Body.Close()
+
+	err = json.NewDecoder(resp.Body).Decode(&fact)
+	if err != nil {
+		return randomFact{}, err
+	}
+
+	return fact, nil
+}
+
+func main() {
+	client = &http.Client{Timeout: 10 * time.Second}
+    fact, err := getRandomFact()
+}
+
+// ---------------------------------------------------------
+
+func reverse(arr []int) {
+	for i, j := 0, len(arr)-1; i < j; i, j = i+1, j-1 {
+		arr[i], arr[j] = arr[j], arr[i]
+	}
+}
+
+func printSlice(slice []int) {
+	fmt.Printf("Slice %v len %d cap %d\n",
+		slice, len(slice), cap(slice))
+}
+
+// ---------------------------------------------------------
+
+type CustomError struct {
+	Message string
+	Code int
+}
+
+func (c CustomError) Error() string {
+	return c.Message + " " + strconv.Itoa(c.Code)
+}
+
+func Divide(x, y float64) (float64, error) {
+	if y == 0 {
+		// return float64(0), errors.New("cannot divide by zero")
+		return 0.0, CustomError{"cannot divide by zero", -1}
+	} else {
+		return x / y, nil
+	}
+}
+
+// ---------------------------------------------------------
+
+import "constraints"
+
+type NumberType interface {
+	int | float32 | float64 | uint16 | uint64 | uint32 | int32
+}
+
+func addList[T constraints.Ordered](list []T) T {
+	var sum T
+	for _, item := range list {
+		sum += item
+	}
+	return sum
+}
+
+func printMe(thing any) {
+	fmt.Println(thing)
+}
+
+// ---------------------------------------------------------
+
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"time"
+
+	"github.com/dgrijalva/jwt-go"
+)
+
+var SECRET = []byte("super-secret-auth-key")
+var api_key = "1234"
+
+func CreateJWT() (string, error) {
+
+	token := jwt.New(jwt.SigningMethodHS256)
+
+	claims := token.Claims.(jwt.MapClaims)
+
+	claims["exp"] = time.Now().Add(time.Hour).Unix()
+
+	tokenStr, err := token.SignedString(SECRET)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return "", err
+	}
+
+	return tokenStr, nil
+}
+
+func ValidateJWT(next func(w http.ResponseWriter, r* http.Request)) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		if r.Header["Token"] != nil {
+			token, err := jwt.Parse(r.Header["Token"][0], func(t *jwt.Token) (interface{}, error) {
+				_, ok := t.Method.(*jwt.SigningMethodHMAC)
+				if !ok {
+					w.WriteHeader(http.StatusUnauthorized)
+					w.Write([]byte("not authorized"))
+				}
+				return SECRET, nil
+			})
+
+			if err != nil {
+				w.WriteHeader(http.StatusUnauthorized)
+				w.Write([]byte("not authorized: " + err.Error()))
+			}
+
+			if token.Valid {
+				next(w, r)
+			}
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("not authorized"))
+		}
+	})
+}
+
+func GetJwt(w http.ResponseWriter, r *http.Request) {
+	if r.Header["Access"] != nil {
+		if r.Header["Access"][0] != api_key {
+			return
+		} else {
+			token, err := CreateJWT()
+			if err != nil {
+				return
+			}
+			fmt.Fprint(w, token)
+		}
+	}
+}
+
+func Home(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "super secret area")
+}
+
+func main() {
+	http.Handle("/api", ValidateJWT(Home))
+	http.HandleFunc("/jwt", GetJwt)
+
+	http.ListenAndServe(":3500", nil)
+}
+
+// ---------------------------------------------------------
+
+func toggle(status string) {
+	cmd := exec.Command("gpio", "mode", "7", status)
+	_, err := cmd.Output()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+// ---------------------------------------------------------
+
+package main
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+)
+
+type Book struct {
+	Title string `json:"title"`
+	Author string `json:"author"`
+	Pages int `json:"pages"`
+}
+
+func Hello(w http.ResponseWriter, r *http.Request) {
+	// Setting content-type isn't always important
+	// In this case the browser would automatically
+	// know the content type as text/html
+	w.Header().Set("Content-Type", "text/html")
+
+	w.Write([]byte("<h1 style='color: steelblue'>Hello</h1>"))
+}
+
+func GetBook(w http.ResponseWriter, r *http.Request) {
+	// Where text/html wasn't important to set
+	// Setting the type for JSON is important
+	w.Header().Set("Content-Type", "application/json")
+
+	book := Book { Title: "The Gunslinger", Author: "Stephen King", Pages: 304 }
+
+	// we pass the writer, because it will use our response writer to
+	// send the json.
+	// We encode the book to JSON with Encode()
+	json.NewEncoder(w).Encode(book)
+
+}
+
+func main() {
+	// The endpoints.  This is technically pattern matching
+	// So when a client requests a URL, it checks if there
+	// is any matching patterns that we have set here
+	http.HandleFunc("/hello", Hello)
+	http.HandleFunc("/book", GetBook)
+
+	log.Fatal(http.ListenAndServe(":5100", nil))
+}
+
+// ---------------------------------------------------------
+package server
+
+import (
+	"encoding/json"
+	"net/http"
+)
+
+type Weather struct {
+	City			string	`json:"city"`
+	Forecast	string	`json:"forecast"`
+}
+
+func GetWeather(url string) (*Weather, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+	var weather Weather
+	err = json.NewDecoder(resp.Body).Decode(&weather)
+	if err != nil {
+		return nil, err
+	}
+
+	return &weather, nil
+}
+
+// ---------------------------------------------------------
+package server
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"reflect"
+	"testing"
+	"errors"
+)
+
+type Tests struct {
+	name string
+	server *httptest.Server
+	response *Weather
+	expectedError error
+}
+
+
+func TestGetWeather(t *testing.T) {
+
+	tests := []Tests {
+		{
+			name: "basic-request",
+			server: httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte(`{ "city": "Denver, CO", "forecast": "sunny"}`))
+			})),
+			response: &Weather{
+				City: "Denver, CO",
+				Forecast: "sunny",
+			},
+			expectedError: nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T){
+			defer test.server.Close()
+
+			resp, err := GetWeather(test.server.URL)
+
+			if !reflect.DeepEqual(resp, test.response) {
+				t.Errorf("FAILED: expected %v, got %v\n", test.response, resp)
+			}
+			 if !errors.Is(err, test.expectedError) {
+				t.Errorf("Expected error FAILED: expected %v got %v\n", test.expectedError, err)
+			 }
+		})
+	}
+}
+// ---------------------------------------------------------
+package main
+
+import "fmt"
+
+func fibonacci(max int, ch chan int) {
+	fib := make([]int, max)
+	fib[0] = 0
+	fib[1] = 1
+	ch <- fib[0]
+	ch <- fib[1]
+
+	for i := 2; i < max; i++ {
+		fib[i] = fib[i-1] + fib[i-2]
+		ch <- fib[i]
+	}
+	close(ch)
+}
+
+func main() {
+	ch := make(chan int)
+	go fibonacci(20, ch)
+
+	for msg := range ch {
+		fmt.Println(msg)
+	}
+}
+
+// ---------------------------------------------------------
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+)
+
+var msgChan chan string
+
+func getTime(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	if msgChan != nil {
+		msg := time.Now().Format("15:04:05")
+		msgChan <- msg
+	}
+}
+
+func sseHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Client connected")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+
+	msgChan = make(chan string)
+
+	defer func() {
+		close(msgChan)
+		msgChan = nil
+		fmt.Println("Client closed connection")
+	}()
+
+	flusher, ok := w.(http.Flusher)
+	if !ok {
+		fmt.Println("Could not init http.Flusher")
+	}
+
+	for {
+		select {
+		case message := <- msgChan:
+			fmt.Println("case message... sending message")
+			fmt.Println(message)
+			fmt.Fprintf(w, "data: %s\n\n", message)
+			flusher.Flush()
+		case <- r.Context().Done():
+				fmt.Println("Client closed connection")
+				return
+		}
+	}
+
+}
+
+func main() {
+	 router := http.NewServeMux()
+
+	 router.HandleFunc("/event", sseHandler)
+	 router.HandleFunc("/time", getTime)
+
+	 log.Fatal(http.ListenAndServe(":3500", router))
+}
+
+<script>
+	import { onMount } from "svelte"
+	let time = ""
+
+	onMount( () => {
+		const evtSrc = new EventSource("http://localhost:3500/event")
+		evtSrc.onmessage = function(event) {
+			
+			time = event.data
+		}
+
+		evtSrc.onerror = function(event) {
+			console.log(event)
+		}
+	})
+
+	async function getTime() {
+		const res = await fetch("http://localhost:3500/time")
+		if (res.status !== 200) {
+			console.log("Could not connect to the server")
+		} else {
+			console.log("OK")
+		}
+	}
+</script>
+
+<main>
+	<h1>Server Sent Events</h1>
+	<button on:click="{ getTime }">Get Time</button>
+	<p>Time: { time }</p>
+</main>
+// ---------------------------------------------------------
+package model
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/lib/pq"
+)
+
+var db *sql.DB
+
+func Setup() {
+
+	dsn := "host=172.17.0.2 port=5432 user=admin password=test dbname=admin sslmode=disable"
+	var err error
+	db, err = sql.Open("postgres", dsn)
+	if err != nil {
+		panic(err)
+	}
+
+	err = db.Ping()
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+package model
+
+type User struct {
+	ID	uint64 `json:"id"`
+	Name string `json:"name"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+}
+
+func CreateUser(user *User) error {
+	statement := `insert into users(name, email, password) values($1, $2, $3);`
+
+	_, err := db.Exec(statement, user.Name, user.Email, user.Password)
+	return err
+}
+
+func GetUser(id string) (User, error) {
+	var user User
+
+	statement := `select * from users where id=$1;`
+
+	rows, err := db.Query(statement, id)
+	if err != nil {
+		return User{}, err
+	}
+
+	for rows.Next() {
+		err = rows.Scan(&user.ID, &user.Name, &user.Email, &user.Password)
+		if err != nil {
+			return User{}, err
+		}
+	}
+
+	return user, nil
+}
+
+func CheckEmail(email string, user *User) bool {
+	statement := `select id, name, email, password from users where email=$1 limit 1;`
+
+	rows, err := db.Query(statement, email)
+	if err != nil {
+		return false
+	}
+	for rows.Next() {
+		err = rows.Scan(&user.ID, &user.Name, &user.Email, &user.Password)
+		if err != nil {
+			return false
+		}
+	}
+
+	return true
+}
+
+// ---------------------------------------------------------
+package routes
+
+import (
+	"fmt"
+	"sessionauth/model"
+	"strings"
+
+	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
+)
+
+type user struct {
+	Name 		string `json:"name"`
+	Email 		string `json:"email"`
+	Password 	string `json:"password"`
+}
+
+func NewMiddleware() fiber.Handler {
+	return AuthMiddleware
+}
+
+func AuthMiddleware(c *fiber.Ctx) error {
+
+	sess, err := store.Get(c)
+
+	if strings.Split(c.Path(), "/")[1] == "auth" {
+		return c.Next()
+	}
+
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+
+	if sess.Get(AUTH_KEY) == nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+
+	return c.Next()
+}
+
+func Register(c *fiber.Ctx) error {
+	c.Accepts("application/json")
+	var data user
+
+	err := c.BodyParser(&data)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+
+	password, bcErr := bcrypt.GenerateFromPassword([]byte(data.Password), 14)
+	if bcErr != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+	
+	user := model.User {
+		Name: data.Name,
+		Email: data.Email,
+		Password: string(password),
+	}
+	err = model.CreateUser(&user)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map {
+		"message": "registered.",
+	})
+
+}
+
+func Login(c *fiber.Ctx) error {
+	var data user
+
+	err := c.BodyParser(&data)
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+
+	var user model.User
+	if !model.CheckEmail(data.Email, &user) {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized. email not in db",
+		})
+	}
+	
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(data.Password))
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized. password not good. " + err.Error(),
+		})
+	}
+
+	sess, sessErr := store.Get(c)
+	if sessErr != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+
+	sess.Set(AUTH_KEY, true)
+	sess.Set(USER_ID, user.ID)
+
+	sessErr = sess.Save()
+	if sessErr != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map {
+		"message": "logged in",
+	})
+}
+
+func Logout(c *fiber.Ctx) error {
+	sess, err := store.Get(c)
+	if err != nil {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map {
+			"message": "logged out (no session)",
+		})
+	}
+
+	err = sess.Destroy()
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map {
+			"message": "something went wrong: " + err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map {
+		"message": "logged out",
+	})
+}
+
+func HealthCheck(c *fiber.Ctx) error {
+	sess, err := store.Get(c)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+
+	auth := sess.Get(AUTH_KEY)
+
+	if auth != nil {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map {
+			"message": "authenticated",
+		})
+	} else {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+}
+
+func GetUser(c *fiber.Ctx) error {
+	sess, err := store.Get(c)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+
+	if sess.Get(AUTH_KEY) == nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+
+	userId := sess.Get(USER_ID)
+	if userId == nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+
+	var user model.User
+	user, err = model.GetUser(fmt.Sprint(userId))
+	fmt.Printf("user: %v\n", user)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map {
+			"message": "not authorized",
+		})
+	}
+	user.Password = ""
+
+	return c.Status(fiber.StatusOK).JSON(user)
+}
+
+// ---------------------------------------------------------
+package routes
+
+import (
+	"time"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/session"
+)
+
+var (
+	store 		*session.Store
+	AUTH_KEY 	string 	= "authenticated"
+	USER_ID 	string 	= "user_id"
+)
+
+func Setup() {
+
+	router := fiber.New()
+
+	store = session.New(session.Config{
+		CookieHTTPOnly: true,
+		// CookieSecure: true, for https
+		Expiration: time.Hour * 5,
+	})
+
+	router.Use(NewMiddleware(), cors.New(cors.Config{
+		AllowCredentials: true,
+		AllowOrigins: "*",
+		AllowHeaders: "Access-Control-Allow-Origin, Content-Type, Origin, Accept",
+	}))
+
+	router.Post("/auth/register", Register)
+	router.Post("/auth/login", Login)
+	router.Post("/auth/logout", Logout)
+	router.Get("/auth/healthcheck", HealthCheck)
+
+	router.Get("/user", GetUser)
+
+	router.Listen(":5000")
+}
+
+// ---------------------------------------------------------
+
+// ---------------------------------------------------------
+
+// ---------------------------------------------------------
+
+// ---------------------------------------------------------
+
