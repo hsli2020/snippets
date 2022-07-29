@@ -1,0 +1,131 @@
+https://docs.etherscan.io/api-endpoints/accounts
+Accounts:
+    - Get Ether Balance for a Single Address
+    - Get Ether Balance for Multiple Addresses in a Single Call
+    - Get a list of 'Normal' Transactions By Address
+    - Get a list of 'Internal' Transactions by Address
+    - Get 'Internal Transactions' by Transaction Hash
+    - Get "Internal Transactions" by Block Range
+    - Get a list of 'ERC20 - Token Transfer Events' by Address
+    - Get a list of 'ERC721 - Token Transfer Events' by Address
+    - Get a list of 'ERC1155 - Token Transfer Events' by Address
+    - Get list of Blocks Validated by Address
+    - Get Beacon Chain Withdrawals by Address and Block Range
+    - Get Historical Ether Balance for a Single Address By BlockNo
+
+
+https://docs.etherscan.io/api-endpoints/contracts
+Contacts
+    - Get Contract ABI for Verified Contract Source Codes
+    - Get Contract Source Code for Verified Contract Source Codes
+    - Get Contract Creator and Creation Tx Hash
+    - Verify Source Code
+    - Source Code Submission Gist
+        Check Source Code Verification Submission Status
+    - Verify Proxy Contract
+        Verifying Proxy Contract using cURL
+        Checking Proxy Contract Verification Submission Status using cURL
+
+
+https://docs.etherscan.io/api-endpoints/stats
+Transactions
+    - Check Contract Execution Status
+    - Check Transaction Receipt Status
+
+
+https://docs.etherscan.io/api-endpoints/blocks
+Blocks
+    - Get Block And Uncle Rewards by BlockNo
+    - Get Estimated Block Countdown Time by BlockNo
+    - Get Block Number by Timestamp
+    - Get Daily Average Block Size 
+    - Get Daily Block Count and Rewards 
+    - Get Daily Block Rewards 
+    - Get Daily Average Time for A Block to be Included in the Ethereum Blockchain 
+    - Get Daily Uncle Block Count and Rewards 
+
+
+https://docs.etherscan.io/api-endpoints/logs
+Logs
+    - Get Event Logs by Address
+    - Get Event Logs by Topics
+    - Get Event Logs by Address filtered by Topics
+
+
+https://docs.etherscan.io/api-endpoints/geth-parity-proxy
+Geth/Parity Proxy
+    - eth_blockNumber
+    - eth_getBlockByNumber
+    - eth_getUncleByBlockNumberAndIndex
+    - eth_getBlockTransactionCountByNumber
+    - eth_getTransactionByHash
+    - eth_getTransactionByBlockNumberAndIndex
+    - eth_getTransactionCount
+    - eth_sendRawTransaction
+    - eth_getTransactionReceipt
+    - eth_call
+    - eth_getCode
+    - eth_getStorageAt
+    - eth_gasPrice
+    - eth_estimateGas
+
+https://docs.etherscan.io/api-endpoints/tokens
+Token:
+    - Get ERC20-Token TotalSupply by ContractAddress
+    - Get ERC20-Token Account Balance for TokenContractAddress
+    - Get Historical ERC20-Token TotalSupply by ContractAddress & BlockNo
+    - Get Historical ERC20-Token Account Balance for TokenContractAddress by BlockNo
+    - Get Token Holder List by Contract Address
+    - Get Token Info by ContractAddress
+    - Get Address ERC20 Token Holding
+    - Get Address ERC721 Token Holding
+    - Get Address ERC721 Token Inventory By Contract Address
+
+
+https://docs.etherscan.io/api-endpoints/gas-tracker
+Gas Tracker
+    - Get Estimation of Confirmation Time
+    - Get Gas Oracle
+    - Get Daily Average Gas Limit 
+    - Get Ethereum Daily Total Gas Used
+    - Get Daily Average Gas Price
+
+
+https://docs.etherscan.io/api-endpoints/stats-1
+Stats
+    - Get Total Supply of Ether
+    - Get Total Supply of Ether 2
+    - Get Ether Last Price
+    - Get Ethereum Nodes Size
+    - Get Total Nodes Count
+    - Get Daily Network Transaction Fee 
+    - Get Daily New Address Count 
+    - Get Daily Network Utilization 
+    - Get Daily Average Network Hash Rate 
+    - Get Daily Transaction Count 
+    - Get Daily Average Network Difficulty 
+    - Get Ether Historical Daily Market Cap 
+    - Get Ether Historical Price 
+
+https://docs.etherscan.io/api-pro/api-pro
+API PRO Endpoints
+    - Get Historical Ether Balance for a Single Address By BlockNo 
+    - Get Daily Average Block Size 
+    - Get Daily Block Count and Rewards 
+    - Get Daily Block Rewards 
+    - Get Daily Average Time for A Block to be Included in the Ethereum Blockchain 
+    - Get Daily Uncle Block Count and Rewards 
+    - Get Historical ERC20-Token TotalSupply by ContractAddress & BlockNo 
+    - Get Historical ERC20-Token Account Balance for TokenContractAddress by BlockNo 
+    - Get Token Info by ContractAddress 
+    - Get Daily Average Gas Limit 
+    - Get Ethereum Daily Total Gas Used
+    - Get Daily Average Gas Price
+    - Get Daily Network Transaction Fee 
+    - Get Daily New Address Count 
+    - Get Daily Network Utilization 
+    - Get Daily Average Network Hash Rate 
+    - Get Daily Transaction Count 
+    - Get Daily Average Network Difficulty 
+    - Get Ether Historical Daily Market Cap 
+    - Get Ether Historical Price 

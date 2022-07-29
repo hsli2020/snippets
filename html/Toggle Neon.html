@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Toggle Neon</title>
+  <link rel="canonical" href="https://codepen.io/alvaromontoro/pen/ExMvdxV">
+  
+<style>
+body {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  margin: 0;
+  height: 100vh;
+	background-image: linear-gradient(45deg, #223, #112);
+  background:
+    radial-gradient(at 100% 0, #fff2, #fff0 50%),
+    radial-gradient(at 0% 100%, #0002, #0000 50%),
+    #545153;
+}
+
+@property --x {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 1deg;
+}
+
+@property --c {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #0000;
+}
+
+.neon {
+  --x: 1deg;
+  --c: #0000;
+  font-size: 3rem;
+  appearance: none;
+  position: relative;
+  aspect-ratio: 2;
+  border-radius: 100em;
+  background: 
+    linear-gradient(to bottom right, #0001, #0000),
+    #444143;
+  width: 3em;
+  box-shadow:
+    inset 0 0 0.25em -0.25em #0008,
+    inset 0.05em 0.05em 0.2em #000811,
+    inset -0.05em -0.05em 0.15em 0.05em #ccc1,
+    0 0 0 0.11em #545153
+    ;
+  transition: --x 0.5s, --c 0.5s, box-shadow 0.5s;
+  filter: drop-shadow(0 0 0.2em var(--c));
+  
+  &::before {
+    content: "";
+    position: absolute;
+    height: 80%;
+    aspect-ratio: 1;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    background: #545153;
+    box-shadow:
+      inset -0.05em -0.05em 0.1em #0008,
+      inset 0.05em 0.05em 0.1em #ffffff22,
+       0.1em 0.1em 0.15em #000c,
+       -0.1em -0.1em 0.1em #ffffff00;8;
+    border-radius: 50%;
+    transition: left 0.5s;
+  }
+  
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 0.25em);
+    height: calc(100% + 0.25em);
+    border: 0.1em solid #0ff;
+    border-radius: 100em;
+    -webkit-mask: conic-gradient(from calc(270deg - var(--x)), #000 calc(2 * var(--x)), #0001 0);
+    box-shadow: 0 0 0 2em #0000; /* hack for safari */
+  }
+  
+  &:hover {
+    --x: 3deg;
+    --c: #0ff5;
+    box-shadow:
+      inset 0 0 0.25em -0.25em #0008,
+      inset 0.05em 0.05em 0.2em #000811,
+      inset -0.05em -0.05em 0.15em 0.05em #ccc1,
+      0 0 0.05em 0.075em #545153
+      ;
+  }
+  
+  &:checked {
+    --x: 180deg;
+    --c: #0fff;
+    box-shadow:
+    inset 0 0 0.25em -0.25em #0008,
+    inset 0.05em 0.05em 0.2em #000811,
+    inset -0.05em -0.05em 0.15em 0.05em #ccc1,
+    0 0 0.1em 0.05em #545153
+    ;
+    
+    &::before {
+      left: 75%;
+    }
+  }
+  
+  &[disabled] {
+    opacity: 0.25;
+  }
+}
+
+@media print {
+  .neon {
+    background: none;
+    
+    &, &::before, &::after {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .neon, .neon::before, .neon::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <!-- inspired by https://codepen.io/jkantner/pen/MWzqMrp -->
+<input type="checkbox" role="switch" class="neon" />
+  
+
+</body>
+</html>

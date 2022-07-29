@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Components - Modal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="width:80%; margin:0 auto;">
+
+  <p class="text-center text-md text-clifford">https://readymadeui.com/tailwind-components/header</p><br><br>
+
+<div
+      class="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+      <div class="w-full max-w-lg bg-white shadow-lg rounded-md p-6 relative">
+        <div class="my-8 flex items-start max-sm:flex-col gap-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 fill-red-500 shrink-0" viewBox="0 0 24 24">
+            <path
+              d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
+              data-original="#000000" />
+            <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
+              data-original="#000000" />
+          </svg>
+          <div>
+            <h4 class="text-xl font-semibold text-gray-800">Are you sure you want to delete it?</h4>
+            <p class="text-sm text-gray-500 mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor auctor
+              arcu,
+              at fermentum dui. Maecenas</p>
+          </div>
+        </div>
+        <div class="flex justify-end gap-4 max-sm:flex-col">
+          <button type="button"
+            class="px-6 py-2.5 min-w-[150px] rounded text-gray-800 text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
+          <button type="button"
+            class="px-6 py-2.5 min-w-[150px] rounded text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
+        </div>
+      </div>
+    </div>
+
+<br><br>
+
+</body>
+</html>
