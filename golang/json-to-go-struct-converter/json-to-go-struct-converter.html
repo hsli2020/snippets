@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html class="scroll-smooth light" style="color-scheme: light;" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<script>!function(){try {var d=document.documentElement.classList;d.remove('light','dark');var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);m.media!==t||m.matches?d.add('dark'):d.add('light')}else if(e) d.add(e)}catch(e){}}()</script>
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>Convert JSON to Go Struct instantly</title>
+<meta name="robots" content="follow, index">
+<meta name="description">
+<meta property="og:url" content="https://learngolangonline.com/json-to-go-struct-converter">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Learn Go, Free Interctive Go Tutorials">
+<meta property="og:description">
+<meta property="og:title" content="Convert JSON to Go Struct instantly">
+<meta property="og:image" content="https://learngolangonline.com/static/images/twitter-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="https://twitter.com/learngoonline">
+<meta name="twitter:title" content="Convert JSON to Go Struct instantly">
+<meta name="twitter:description">
+<meta name="twitter:image" content="https://learngolangonline.com/static/images/twitter-card.png">
+<link rel="canonical" href="https://learngolangonline.com/json-to-go-struct-converter">
+<meta name="next-head-count" content="18">
+<link rel="apple-touch-icon" sizes="76x76" href="https://learngolangonline.com/static/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://learngolangonline.com/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://learngolangonline.com/static/favicons/favicon-16x16.png">
+<link rel="manifest" href="https://learngolangonline.com/static/favicons/site.webmanifest">
+<link rel="mask-icon" href="https://learngolangonline.com/static/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+<link rel="alternate" type="application/rss+xml" href="https://learngolangonline.com/feed.xml">
+<link rel="preload" href="res/1d887b5541c04e05.css" as="style">
+<link rel="stylesheet" href="res/1d887b5541c04e05.css" data-n-g="">
+
+<noscript data-n-css=""></noscript>
+
+<script defer="defer" nomodule="" src="res/polyfills-5cd94c89d3acac5f.js"></script>
+<script src="res/webpack-22bd79dc4303cbb7.js" defer="defer"></script>
+<script src="res/main-351a94a8e5a5fd5f.js" defer="defer"></script>
+<script src="res/_app-a5a0b65993a6544d.js" defer="defer"></script>
+<script src="res/json-to-go-struct-converter-b8048bc0593cb2a1.js" defer="defer"></script>
+<script src="res/_buildManifest.js" defer="defer"></script>
+<script src="res/_ssgManifest.js" defer="defer"></script>
+<script src="res/_middlewareManifest.js" defer="defer"></script>
+
+<!--
+<link as="script" rel="prefetch" href="https://learngolangonline.com/_next/static/chunks/675-64a821d6ab4fd557.js">
+<link as="script" rel="prefetch" href="https://learngolangonline.com/_next/static/chunks/pages/index-2b8e698e0ff1d09c.js">
+-->
+<link as="script" rel="prefetch" href="res/675-64a821d6ab4fd557.js">
+<link as="script" rel="prefetch" href="res/index-2b8e698e0ff1d09c.js">
+
+<style data-id="immersive-translate-input-injected-css">
+.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+
+.immersive-translate-search-recomend {
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: relative;
+  font-size: 16px;
+}
+.immersive-translate-search-enhancement-en-title {
+  color: #4d5156;
+}
+/* dark */
+@media (prefers-color-scheme: dark) {
+  .immersive-translate-search-recomend {
+    border: 1px solid #3c4043;
+  }
+  .immersive-translate-close-action svg {
+    fill: #bdc1c6;
+  }
+
+.immersive-translate-search-enhancement-en-title {
+  color: #bdc1c6;
+}
+}
+
+
+.immersive-translate-search-settings {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.immersive-translate-search-recomend::before {
+  /* content: " "; */
+  /* width: 20px; */
+  /* height: 20px; */
+  /* top: 16px; */
+  /* position: absolute; */
+  /* background: center / contain url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAxlBMVEUAAADpTInqTIjpSofnSIfqS4nfS4XqS4nqTIjsTYnrTInqTIroS4jvQIDqTIn////+/v7rSYjpTIn8/v7uaZzrTIr9/f3wfansWJL88/b85e73qc39+/v3xNnylrvrVI/98fb62Obva5/8+fr76vH4y9zpSIj74e353Oj1ocTzm77xhK/veKbtYpjsXJTqU47oTInxjrXyh7L99fj40eH2ttH1udD3sc31ssz1rMnykLXucqPtbqD85e/1xdn2u9DzqcXrUY6FaJb8AAAADnRSTlMA34BgIM8Q37/fz7+/EGOHcVQAAAGhSURBVDjLhZPncuowEEZFTW7bXVU7xsYYTO/p7bb3f6lICIOYJOT4h7/VnFmvrBFjrF3/CR/SajBHswafctG0Qg3O8O0Xa8BZ6uw7eLjqr30SofCDVSkemMinfL1ecy20r5ygR5zz3ArcAqJExPTPKhDENEmS30Q9+yo4lEQkqVTiIEAHCT10xWERRdH0Bq0aCOPZNDV3s0xaYce1lHEoDHU8wEh3qRJypNcTAeKUIjgKMeGLDoRCLVLTVf+Ownj8Kk6H9HM6QXPgYjQSB0F00EJEu10ILQrs/QeP77BSSr0MzLOyuJJQbnUoOOIUI/A8EeJk9E4YUHUWiRyTVKGgQUB8/3e/NpdGlfI+FMQyWsCBWyz4A/ZyHXyiiz0Ne5aGZssoxRmcChw8/EFKQ5JwwkUo3FRT5yXS7q+Y/rHDZmFktzpGMvO+5QofA4FPpEmGw+EWRCFvnaof7Zhe8NuYSLR0xErKLThUSs8gnODh87ssy6438yzbLzxl012HS19vfCf3CNhnbWOL1eEsDda+gDPUvri8tSZzNFrwIZf1NmNvqC1I/t8j7nYAAAAASUVORK5CYII='); */
+}
+
+.immersive-translate-search-title {}
+
+.immersive-translate-search-title-wrapper {}
+
+.immersive-translate-search-time {
+  font-size: 12px;
+  margin: 4px 0 24px;
+  color: #70757a;
+}
+
+.immersive-translate-expand-items {
+  display: none;
+}
+
+.immersive-translate-search-more {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.immersive-translate-modal-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-modal-body {
+  color: hsl(205, 20%, 32%)
+}
+
+.immersive-translate-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.immersive-translate-btn {
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 14px;
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #007bff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px 16px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body class="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
+
+<div id="__next" data-reactroot="">
+<div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+
+<header class="flex items-center justify-between py-4">
+<div>
+<a aria-label="" href="https://learngolangonline.com/">
+<div class="flex items-center justify-between">
+<div class="mr-2">
+<svg width="235.8" height="38.88" xmlns="http://www.w3.org/2000/svg">
+<path d="m126.2 3.4-1.4 3.16q-1.68-.92-3.42-1.52t-3.86-.6a8.052 8.052 0 0 0-2.995.548 7.568 7.568 0 0 0-1.485.792q-1.96 1.34-3.1 3.94-.989 2.255-1.12 5.382a23.325 23.325 0 0 0-.02.978q0 2.924.787 5.105a10.415 10.415 0 0 0 .253.635 9.672 9.672 0 0 0 1.173 2.019 7.641 7.641 0 0 0 1.707 1.641 7.172 7.172 0 0 0 3.924 1.274 8.797 8.797 0 0 0 .316.006q2.24 0 3.98-.94a16.144 16.144 0 0 0 1.201-.713q.571-.376 1.03-.762a7.975 7.975 0 0 0 .509-.465v-6.12h-5.8v-3h9.4V29.6h-3.36v-2.8a14.353 14.353 0 0 1-1.751 1.317 18.942 18.942 0 0 1-1.649.943 9.437 9.437 0 0 1-3.762 1 11.252 11.252 0 0 1-.678.02 10.629 10.629 0 0 1-3.725-.64 9.804 9.804 0 0 1-2.035-1.04 10.755 10.755 0 0 1-3.172-3.319 13.58 13.58 0 0 1-.788-1.461 15.012 15.012 0 0 1-1.163-3.828 20.735 20.735 0 0 1-.277-3.472 22.52 22.52 0 0 1 .334-3.967 17.029 17.029 0 0 1 1.186-3.933 13.092 13.092 0 0 1 2.314-3.579 11.782 11.782 0 0 1 2.066-1.781 11.133 11.133 0 0 1 4.548-1.76 14.825 14.825 0 0 1 2.352-.18 18.103 18.103 0 0 1 2.387.15 13.444 13.444 0 0 1 2.253.49q2.04.64 3.84 1.64Zm93.36 33.72 1.32-3.12a8.225 8.225 0 0 0 1.527.949 9.895 9.895 0 0 0 .713.311 6.762 6.762 0 0 0 1.275.35q.839.15 1.845.15a8.68 8.68 0 0 0 1.808-.177q1.161-.247 2.041-.839a5.03 5.03 0 0 0 .611-.484 4.541 4.541 0 0 0 1.163-1.797q.457-1.24.457-2.983v-2.56q-.652.782-1.768 1.498a12.563 12.563 0 0 1-.532.322 6.363 6.363 0 0 1-2.072.734 8.636 8.636 0 0 1-1.508.126q-2.36 0-4.48-1.22a8.894 8.894 0 0 1-2.917-2.735 10.975 10.975 0 0 1-.523-.845 10.072 10.072 0 0 1-1.085-3.05 14.013 14.013 0 0 1-.235-2.63 12.824 12.824 0 0 1 .367-3.123 10.673 10.673 0 0 1 .933-2.437 10.283 10.283 0 0 1 2.425-3.049A9.779 9.779 0 0 1 222 9.72q2.2-1.4 4.84-1.4a8.946 8.946 0 0 1 1.928.201 7.486 7.486 0 0 1 1.272.399 10.282 10.282 0 0 1 1.531.787 8.399 8.399 0 0 1 .949.693V8.8h3.28v20.32a16.277 16.277 0 0 1-.142 2.214q-.161 1.169-.503 2.143a8.066 8.066 0 0 1-.555 1.243q-1.2 2.16-3.34 3.16a10.324 10.324 0 0 1-2.642.809 14.097 14.097 0 0 1-2.378.191q-1.84 0-3.58-.44a10.893 10.893 0 0 1-2.12-.767 9.407 9.407 0 0 1-.98-.553ZM86.04 29.6h-3.6V8.8h3.48v3.48q1.12-1.68 2.86-2.82 1.74-1.14 4.14-1.14 3.52 0 5.26 2.12a7.361 7.361 0 0 1 1.442 2.951q.261 1.057.293 2.292a13.506 13.506 0 0 1 .005.357V29.6h-3.6V16.44q0-2.24-1.06-3.6a3.432 3.432 0 0 0-2.511-1.341 4.825 4.825 0 0 0-.429-.019 5.249 5.249 0 0 0-2.74.786 6.941 6.941 0 0 0-.74.514q-1.64 1.3-2.8 3.06V29.6Zm112.48 0h-3.6V8.8h3.48v3.48q1.12-1.68 2.86-2.82 1.74-1.14 4.14-1.14 3.52 0 5.26 2.12a7.361 7.361 0 0 1 1.442 2.951q.261 1.057.293 2.292a13.506 13.506 0 0 1 .005.357V29.6h-3.6V16.44q0-2.24-1.06-3.6a3.432 3.432 0 0 0-2.511-1.341 4.825 4.825 0 0 0-.429-.019 5.249 5.249 0 0 0-2.74.786 6.941 6.941 0 0 0-.74.514q-1.64 1.3-2.8 3.06V29.6ZM36.88 20.68H22.32q.335 2.72 1.816 4.33a5.992 5.992 0 0 0 .224.23 5.658 5.658 0 0 0 3.05 1.524 8.008 8.008 0 0 0 1.39.116q1.8 0 3.24-.38 1.44-.38 2.76-.98l.84 3.08q-1.44.64-3.24 1.06a15.566 15.566 0 0 1-2.037.328 20.81 20.81 0 0 1-2.003.092 11.327 11.327 0 0 1-3.098-.402 8.443 8.443 0 0 1-4.002-2.458q-2.323-2.536-2.586-6.88a18.85 18.85 0 0 1-.034-1.14q0-3.12 1.18-5.58a9.857 9.857 0 0 1 2.006-2.833A9.155 9.155 0 0 1 23.12 9.74a8.419 8.419 0 0 1 4.104-1.389 10.482 10.482 0 0 1 .816-.031q2.714 0 4.594 1.064a6.885 6.885 0 0 1 .386.236q1.98 1.3 2.98 3.5t1 4.84a30.081 30.081 0 0 1-.116 2.679 27.836 27.836 0 0 1-.004.041ZM16.64 29.6H0v-28h3.8v24.6h12.84v3.4Zm39.4-19.12V8.8h3.28v15.76q0 1.52.74 1.98.74.46 1.62.46l-.76 2.8a7.089 7.089 0 0 1-1.706-.189q-2.255-.56-2.893-2.779a5.436 5.436 0 0 1-.041-.152 8.523 8.523 0 0 1-1.244 1.37 11.399 11.399 0 0 1-1.256.97 5.971 5.971 0 0 1-1.981.841q-.807.19-1.748.215a10.882 10.882 0 0 1-.291.004q-2.6 0-4.72-1.32a9.179 9.179 0 0 1-2.965-3.011 11.169 11.169 0 0 1-.415-.729 10.891 10.891 0 0 1-1.052-3.177 14.658 14.658 0 0 1-.208-2.523 13.257 13.257 0 0 1 .399-3.307 11.187 11.187 0 0 1 .861-2.293q1.26-2.48 3.48-3.94a8.919 8.919 0 0 1 4.478-1.443 10.955 10.955 0 0 1 .622-.017 9.034 9.034 0 0 1 1.917.196 7.481 7.481 0 0 1 1.343.424 10.401 10.401 0 0 1 1.715.917 8.841 8.841 0 0 1 .825.623Zm128.44 0V8.8h3.28v15.76q0 1.52.74 1.98.74.46 1.62.46l-.76 2.8a7.089 7.089 0 0 1-1.706-.189q-2.255-.56-2.893-2.779a5.436 5.436 0 0 1-.041-.152 8.523 8.523 0 0 1-1.244 1.37 11.399 11.399 0 0 1-1.256.97 5.971 5.971 0 0 1-1.981.841q-.807.19-1.748.215a10.882 10.882 0 0 1-.291.004q-2.6 0-4.72-1.32a9.179 9.179 0 0 1-2.965-3.011 11.169 11.169 0 0 1-.415-.729 10.891 10.891 0 0 1-1.052-3.177 14.658 14.658 0 0 1-.208-2.523 13.257 13.257 0 0 1 .399-3.307 11.187 11.187 0 0 1 .861-2.293q1.26-2.48 3.48-3.94a8.919 8.919 0 0 1 4.478-1.443 10.955 10.955 0 0 1 .622-.017 9.034 9.034 0 0 1 1.917.196 7.481 7.481 0 0 1 1.343.424 10.401 10.401 0 0 1 1.715.917 8.841 8.841 0 0 1 .825.623Zm-27.68 12.6V0h3.6v22.72q0 1.296.324 2.189a3.189 3.189 0 0 0 .576 1.011q.9 1.04 2.5 1.04.76 0 1.5-.18a8.877 8.877 0 0 0 .585-.163q.281-.089.52-.189a4.777 4.777 0 0 0 .155-.068l.88 2.92a7.26 7.26 0 0 1-.641.247q-.319.106-.684.202a13.992 13.992 0 0 1-.455.111 9.527 9.527 0 0 1-1.262.194 12.205 12.205 0 0 1-1.078.046 8.345 8.345 0 0 1-1.956-.221A7.018 7.018 0 0 1 160 29.38a5.073 5.073 0 0 1-2.13-1.906 6.342 6.342 0 0 1-.21-.354q-.86-1.56-.86-4.04ZM70.08 29.6h-3.6V8.8h3.48v4.52q.52-1.32 1.4-2.46.88-1.14 2.2-1.84a5.927 5.927 0 0 1 1.872-.61 7.784 7.784 0 0 1 1.208-.09q.6 0 1.2.06a7.589 7.589 0 0 1 .422.053q.2.032.371.072a3.527 3.527 0 0 1 .207.055l-1.08 3.72a3.905 3.905 0 0 0-.858-.245q-.397-.068-.848-.074a6.64 6.64 0 0 0-.094-.001 5.183 5.183 0 0 0-2.652.738 6.244 6.244 0 0 0-.168.102 5.361 5.361 0 0 0-1.389 1.279q-.441.569-.8 1.298a9.171 9.171 0 0 0-.011.023 7.728 7.728 0 0 0-.588 1.724q-.185.833-.244 1.807a15.636 15.636 0 0 0-.028.949v9.72Zm71.76.48q-2.96 0-5.32-1.38-2.36-1.38-3.7-3.84a10.98 10.98 0 0 1-1.234-3.919 13.928 13.928 0 0 1-.106-1.741 14.002 14.002 0 0 1 .26-2.764 10.409 10.409 0 0 1 1.1-3.036q1.36-2.44 3.72-3.76a10.468 10.468 0 0 1 4.648-1.304 12.53 12.53 0 0 1 .632-.016q2.92 0 5.26 1.32t3.72 3.74a10.318 10.318 0 0 1 1.186 3.377 13.817 13.817 0 0 1 .194 2.363 13.674 13.674 0 0 1-.299 2.924 10.502 10.502 0 0 1-1.061 2.856q-1.36 2.46-3.7 3.82a10.103 10.103 0 0 1-4.39 1.327 12.29 12.29 0 0 1-.91.033Zm0-3.2a7.497 7.497 0 0 0 2.09-.276 5.6 5.6 0 0 0 2.83-1.864q1.76-2.14 1.76-5.54a8.55 8.55 0 0 0-.49-2.914 8.006 8.006 0 0 0-.39-.906 7.679 7.679 0 0 0-1.669-2.227 7.268 7.268 0 0 0-.711-.573q-1.5-1.06-3.42-1.06-3.16 0-4.92 2.08-1.693 2.001-1.757 5.26a13.147 13.147 0 0 0-.003.26q0 2.08.88 3.86a7.775 7.775 0 0 0 1.412 2.016 7.051 7.051 0 0 0 .968.824q1.5 1.06 3.42 1.06Zm-86.12-2.6V13.12q-1.08-.76-2.38-1.22-1.3-.46-2.74-.46-1.92 0-3.38.98a6.52 6.52 0 0 0-2.008 2.17 7.985 7.985 0 0 0-.292.55q-.84 1.74-.84 4.06 0 2.24.84 3.98a7.041 7.041 0 0 0 1.242 1.818 6.279 6.279 0 0 0 1.078.902q1.48.98 3.32.98 1.52 0 2.88-.74a7.78 7.78 0 0 0 1.888-1.421 7.228 7.228 0 0 0 .392-.439Zm128.44 0V13.12q-1.08-.76-2.38-1.22-1.3-.46-2.74-.46-1.92 0-3.38.98a6.52 6.52 0 0 0-2.008 2.17 7.985 7.985 0 0 0-.292.55q-.84 1.74-.84 4.06 0 2.24.84 3.98a7.041 7.041 0 0 0 1.242 1.818 6.279 6.279 0 0 0 1.078.902q1.48.98 3.32.98 1.52 0 2.88-.74a7.78 7.78 0 0 0 1.888-1.421 7.228 7.228 0 0 0 .392-.439ZM232.2 24V13.12q-.866-.63-2.081-1.144a14.41 14.41 0 0 0-.039-.016 6.499 6.499 0 0 0-1.522-.42 8.854 8.854 0 0 0-1.358-.1q-1.64 0-3.08.88-1.44.88-2.34 2.54a7.12 7.12 0 0 0-.702 1.973q-.173.842-.195 1.808a12.458 12.458 0 0 0-.003.279 9.728 9.728 0 0 0 .191 1.974 7.324 7.324 0 0 0 .709 1.986 7.43 7.43 0 0 0 1.165 1.63 6.321 6.321 0 0 0 1.175.97q1.44.92 3.12.92a6.111 6.111 0 0 0 1.831-.267 5.442 5.442 0 0 0 1.049-.453 8.342 8.342 0 0 0 1.192-.806A6.524 6.524 0 0 0 232.2 24ZM22.28 17.76h11.4a9.742 9.742 0 0 0-.162-1.834q-.198-1.034-.64-1.843a4.969 4.969 0 0 0-.718-1.003 4.995 4.995 0 0 0-2.784-1.51 7.358 7.358 0 0 0-1.416-.13 5.432 5.432 0 0 0-2.045.374 5.01 5.01 0 0 0-1.795 1.246q-1.52 1.62-1.84 4.7Z" vector-effect="non-scaling-stroke" stroke-linecap="round" fill-rule="evenodd" font-size="12" stroke="#000" stroke-width="0.945" fill="#2563eb" style="stroke:#000;stroke-width:.25mm;fill:#2563eb">
+</path>
+</svg>
+</div>
+<div class="hidden h-6 text-2xl font-semibold sm:block">
+</div>
+</div>
+</a>
+</div>
+<div class="flex items-center text-base leading-5">
+<div class="hidden sm:block">
+<a href="http://learngolangonline.com/posts" class="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">Blog
+</a>
+<a href="http://lembdadev.com/" class="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">JS Blog
+</a>
+<a href="https://tools.knitocode.com/" class="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">Dev Tools
+</a>
+<a href="https://twitter.com/learngoonline" class="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">Twitter
+</a>
+</div>
+<button aria-label="Toggle Dark Mode" type="button" class="ml-1 mr-1 h-8 w-8 rounded p-1 sm:ml-4">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-gray-900 dark:text-gray-100">
+<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+</path>
+</svg>
+</button>
+<div class="sm:hidden">
+<button type="button" class="ml-1 mr-1 h-8 w-8 rounded py-1" aria-label="Toggle Menu">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-gray-900 dark:text-gray-100">
+<path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd">
+</path>
+</svg>
+</button>
+<div class="fixed top-0 left-0 z-10 h-full w-full transform bg-gray-200 opacity-95 duration-300 ease-in-out dark:bg-gray-800 translate-x-full">
+<div class="flex justify-end">
+<button type="button" class="mr-5 mt-11 h-8 w-8 rounded" aria-label="Toggle Menu">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-gray-900 dark:text-gray-100">
+<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd">
+</path>
+</svg>
+</button>
+</div>
+<nav class="fixed mt-8 h-full">
+<div class="px-12 py-4">
+<a href="http://learngolangonline.com/posts" class="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100">Blog
+</a>
+</div>
+<div class="px-12 py-4">
+<a href="http://lembdadev.com/" class="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100">JS Blog
+</a>
+</div>
+<div class="px-12 py-4">
+<a href="https://tools.knitocode.com/" class="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100">Dev Tools
+</a>
+</div>
+<div class="px-12 py-4">
+<a href="https://twitter.com/learngoonline" class="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100">Twitter
+</a>
+</div>
+</nav>
+</div>
+</div>
+</div>
+</header>
+</div>
+<nav class="navbar-dark bg-primary-500 text-white navbar-expand-lg mb-3 d-none d-lg-block">
+<div class="w-full">
+<div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+<ul class="flex">
+<li class="pr-8 py-2 font-semibold">
+<a class="" href="https://learngolangonline.com/hello-world">Golang
+</a>
+</li>
+<li class="pr-8 py-2 font-semibold">
+<a class="" href="https://learngolangonline.com/python">Python
+</a>
+</li>
+<li class="pr-8 py-2 font-semibold">
+<a class="" href="https://learngolangonline.com/sql">SQL
+</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+<div class="flex h-screen flex-col justify-between">
+<main class="mb-auto">
+<div class="my-10 w-full">
+<div class="mb-4 w-full border-b-2 pb-20">
+<h1 class="my-8 bg-gradient-to-r from-blue-200 to-blue-900 bg-clip-text text-6xl font-extrabold leading-9 tracking-tight text-transparent sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">JSON to Go Struct Converter
+</h1>
+<div class="w-full">
+<p class="mb-4 w-full text-lg">Paste JSON Data into the input and get output as equivalent 
+<a href="https://learngolangonline.com/structs" class="underline text-primary-500 font-semibold">Go Struct
+</a>
+</p>
+</div>
+<section class="h-full border-b border-gray-200 p-0">
+<div class="flex w-full flex-wrap">
+<div class="h-full w-1/2 overflow-y-auto">
+<h3 class="my-4 text-xl font-bold">JSON INPUT
+</h3>
+
+
+<textarea style="height:40rem" class="h-92 w-full flex-grow resize-none border border-indigo-700 bg-gray-100 p-3 text-gray-800 outline-none focus:shadow-none focus:outline-none focus:ring-inset focus:ring-indigo-800" placeholder="Enter JSON">{
+  "userId": 1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+}
+</textarea>
+</div>
+<div class="h-full w-1/2 overflow-y-auto">
+<h3 class="my-4 text-xl font-bold">Go Struct
+</h3>
+
+
+<textarea style="height:40rem" class="h-92 w-full flex-grow resize-none border border-gray-200 bg-gray-100 p-3 text-gray-800 outline-none focus:shadow-none focus:outline-none focus:ring-inset focus:ring-indigo-800" placeholder="Output">type AutoGenerated struct {
+	UserID int `json:"userId"`
+	ID int `json:"id"`
+	Title string `json:"title"`
+	Completed bool `json:"completed"`
+}
+</textarea>
+</div>
+</div>
+</section>
+</div>
+</div>
+
+</main>
+
+
+<footer>
+<div class="w-full border border-indigo-500 p-4">
+<h3 class="mb-2 mt-0 text-xl font-semibold leading-6 text-gray-900">Online Developer Utility Tools
+</h3>
+<div class="container mx-auto p-4">
+<div>
+<h3 class="mb-4 mt-8 text-2xl font-bold">HTML
+</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/html/symbols">
+<a>HTML Arrow Symbols, Entities and Codes 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/html/html-encrypter">
+<a>Html Encrypter 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/html/html-decrypter">
+<a>Html Decrypter 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/html/html-encoder-decoder">
+<a>Html Encoder/Decoder 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/html/password-generator">
+<a>Password Generator 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+</div>
+</div>
+<div>
+<h3 class="mb-4 mt-8 text-2xl font-bold">CSS
+</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/css/box-shadow-generator">
+<a>Box Shasow Generator 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+</div>
+</div>
+<div>
+<h3 class="mb-4 mt-8 text-2xl font-bold">TAILWIND
+</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/tailwind/css-to-tailwind-converter">
+<a>CSS To Tailwind Converter 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/tailwind/tailwind-to-css-converter">
+<a>Tailwind to CSS Converter 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+</div>
+</div>
+<div>
+<h3 class="mb-4 mt-8 text-2xl font-bold">Javascript
+</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/javascript/minify-javascript">
+<a>Minify Javascript 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+</div>
+</div>
+<div>
+<h3 class="mb-4 mt-8 text-2xl font-bold">SALARY
+</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="border border-gray-400 p-4 text-gray-600 hover:border-indigo-400 hover:font-bold hover:text-indigo-500">
+<h4 class="font-semi-bold mb-0 text-lg">
+<a href="https://tools.knitocode.com/salary/PPPConverter">
+<a>PPP Salary Converter 
+</a>
+</a>
+<span>⤍
+</span>
+</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16 flex w-full flex-col items-center">
+<div class="card-box w-full rounded-t-lg pt-5">
+<div class="mx-auto max-w-screen-lg px-4 text-gray-800 sm:grid sm:grid-cols-2 sm:px-6 md:grid-cols-3">
+<div class="p-5">
+<h3 class="text-xl font-bold text-primary-600">LearnGolang</h3>
+<a href="http://learngolangonline.com/about" class="my-3 block">About</a>
+<a href="http://learngolangonline.com/privacy-policy" class="my-3 block">Privacy</a>
+<a href="http://learngolangonline.com/terms" class="my-3 block">Terms &amp; Conditions</a>
+<a href="https://twitter.com/Learngoonline" class="my-3 block">Contact us</a>
+</div>
+<div class="p-5">
+<div class="text-sm font-bold uppercase text-primary-600">Resources
+</div>
+<a href="http://learngolangonline.com/posts" class="my-3 block">All Posts</a>
+<a href="http://learngolangonline.com/categories" class="my-3 block">Categories</a>
+<a href="http://learngolangonline.com/snippet" class="my-3 block">Code Snippet</a>
+<a href="http://learngolangonline.com/posts/golang-roadmap" class="my-3 block">Golang Roadmap 2023</a>
+<a href="https://knitocode.com/" class="my-3 block">Web Developement Resources</a>
+</div>
+<div class="p-5">
+<div class="text-sm font-bold uppercase text-primary-600">Other Link</div>
+<a href="https://twitter.com/learngoonline" class="my-3 block">Twitter</a>
+<a href="http://learngolangonline.com/interview-question" class="my-3 block">Interview Questions</a>
+<a href="https://learngolangonline.com/posts/bash-cheetsheet-2023" class="my-3 block">Bash Cheetsheet</a>
+<a href="https://learngolangonline.com/posts/vim-cheetsheet" class="my-3 block">Vim Cheetsheet</a>
+<a href="https://lembdadev.com/css-to-tailwind-converter" class="my-3 block">CSS To Tailwind Converter</a>
+<a href="https://fonts.knitocode.com/" class="my-3 block">Fonts Generator</a>
+</div>
+</div>
+</div>
+<div class="mb-4 flex w-full justify-center space-x-2 border-t-2 pt-4 text-sm text-gray-500 dark:text-gray-400">
+<div>LearnGolangOnline</div><div> • </div><div>© 2023 </div><div> • </div>
+<a href="https://learngolangonline.com/">All Right Reserved</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</div>
+<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/json-to-go-struct-converter","query":{},"buildId":"_6Lt_TSxtsrOhG0QoBBs1","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}
+</script>
+<next-route-announcer>
+<p aria-live="assertive" id="__next-route-announcer__" role="alert" style="border: 0px none; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; overflow-wrap: normal;">
+</p>
+</next-route-announcer>
+
+
+</body>
+</html>

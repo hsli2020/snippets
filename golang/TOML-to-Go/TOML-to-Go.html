@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>TOML-to-Go: Convert TOML to Go instantly</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--[if IE]>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+<meta name="description" content="TOML-to-Go: Convert TOML to Go instantly">
+<meta name="keywords" content="续日,xuri,TOML,Golang">
+<meta name="author" content="Ri Xu">
+<meta name="robots" content="all">
+<meta content="always" name="referrer">
+<meta name="wot-verification" content="c800202e4dd249fdc091">
+<meta name="p:domain_verify" content="4b12344b74fc609e10344b1782aafb0f">
+<meta name="360-site-verification" content="b84b5cd5e8cfcaeb4e123672070b2795">
+<meta name="msvalidate.01" content="CFBAB0FA541B804543BC09078FC99380">
+<meta name="copyright" content="Ri Xu Online">
+<meta name="language" content="en-US">
+<meta name="owner" content="Ri Xu">
+<meta name="topic" content="Golang,TOML,Go">
+<meta name="category" content="Tools">
+<meta name="summary" content="TOML-to-Go: Convert TOML to Go instantly">
+<meta name="rating" content="General">
+<meta name="coverage" content="Worldwide">
+<meta name="distribution" content="Global">
+<meta property="og:title" content="TOML-to-Go">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xuri.me">
+<meta property="og:image" content="https://xuri.me/apps/icons/apple-touch-icon-180x180-precomposed.png">
+<meta property="og:description" content="Convert TOML to Go instantly">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script src="res/FSI12vWfR_GZQBEnFmWpM_YFY4g.js"></script><link rel="license" href="https://www.opensource.org/licenses/mit-license.php">
+<link rel="dns-prefetch" href="https://xuri.me/">
+<link href="https://xuri.me/" rel="prefetch">
+<link rel="icon" sizes="192x192" href="https://xuri.me/apps/icons/touch-icon-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://xuri.me/apps/icons/apple-touch-icon-180x180-precomposed.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://xuri.me/apps/icons/apple-touch-icon-152x152-precomposed.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://xuri.me/apps/icons/apple-touch-icon-144x144-precomposed.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://xuri.me/apps/icons/apple-touch-icon-120x120-precomposed.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://xuri.me/apps/icons/apple-touch-icon-114x114-precomposed.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://xuri.me/apps/icons/apple-touch-icon-76x76-precomposed.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://xuri.me/apps/icons/apple-touch-icon-72x72-precomposed.png">
+<link rel="apple-touch-icon" href="https://xuri.me/apps/icons/apple-touch-icon-precomposed.png">
+<link rel="stylesheet" href="res/tomorrow.highlight.css">
+<link rel="stylesheet" href="res/common.css">
+<style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+
+.immersive-translate-search-recomend {
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: relative;
+  font-size: 16px;
+}
+.immersive-translate-search-enhancement-en-title {
+  color: #4d5156;
+}
+/* dark */
+@media (prefers-color-scheme: dark) {
+  .immersive-translate-search-recomend {
+    border: 1px solid #3c4043;
+  }
+  .immersive-translate-close-action svg {
+    fill: #bdc1c6;
+  }
+
+.immersive-translate-search-enhancement-en-title {
+  color: #bdc1c6;
+}
+}
+
+
+.immersive-translate-search-settings {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.immersive-translate-search-recomend::before {
+  /* content: " "; */
+  /* width: 20px; */
+  /* height: 20px; */
+  /* top: 16px; */
+  /* position: absolute; */
+  /* background: center / contain url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAxlBMVEUAAADpTInqTIjpSofnSIfqS4nfS4XqS4nqTIjsTYnrTInqTIroS4jvQIDqTIn////+/v7rSYjpTIn8/v7uaZzrTIr9/f3wfansWJL88/b85e73qc39+/v3xNnylrvrVI/98fb62Obva5/8+fr76vH4y9zpSIj74e353Oj1ocTzm77xhK/veKbtYpjsXJTqU47oTInxjrXyh7L99fj40eH2ttH1udD3sc31ssz1rMnykLXucqPtbqD85e/1xdn2u9DzqcXrUY6FaJb8AAAADnRSTlMA34BgIM8Q37/fz7+/EGOHcVQAAAGhSURBVDjLhZPncuowEEZFTW7bXVU7xsYYTO/p7bb3f6lICIOYJOT4h7/VnFmvrBFjrF3/CR/SajBHswafctG0Qg3O8O0Xa8BZ6uw7eLjqr30SofCDVSkemMinfL1ecy20r5ygR5zz3ArcAqJExPTPKhDENEmS30Q9+yo4lEQkqVTiIEAHCT10xWERRdH0Bq0aCOPZNDV3s0xaYce1lHEoDHU8wEh3qRJypNcTAeKUIjgKMeGLDoRCLVLTVf+Ownj8Kk6H9HM6QXPgYjQSB0F00EJEu10ILQrs/QeP77BSSr0MzLOyuJJQbnUoOOIUI/A8EeJk9E4YUHUWiRyTVKGgQUB8/3e/NpdGlfI+FMQyWsCBWyz4A/ZyHXyiiz0Ne5aGZssoxRmcChw8/EFKQ5JwwkUo3FRT5yXS7q+Y/rHDZmFktzpGMvO+5QofA4FPpEmGw+EWRCFvnaof7Zhe8NuYSLR0xErKLThUSs8gnODh87ssy6438yzbLzxl012HS19vfCf3CNhnbWOL1eEsDda+gDPUvri8tSZzNFrwIZf1NmNvqC1I/t8j7nYAAAAASUVORK5CYII='); */
+}
+
+.immersive-translate-search-title {}
+
+.immersive-translate-search-title-wrapper {}
+
+.immersive-translate-search-time {
+  font-size: 12px;
+  margin: 4px 0 24px;
+  color: #70757a;
+}
+
+.immersive-translate-expand-items {
+  display: none;
+}
+
+.immersive-translate-search-more {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.immersive-translate-modal-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-modal-body {
+  color: hsl(205, 20%, 32%)
+}
+
+.immersive-translate-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.immersive-translate-btn {
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 14px;
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #007bff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px 16px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}
+</style></head>
+<body>
+<header>
+<div class="intro">
+<h1>TOML-to-Go</h1>
+<h2>Convert TOML to Go struct</h2>
+<p>
+This tool instantly converts TOML into a Go type definition. Paste a 
+TOML structure on the left and the equivalent Go type will be generated 
+to the right, which you can paste into your program. The script has to 
+make some assumptions, so double-check the output.
+</p>
+<p>
+For an example, try converting TOML from the <a href="javascript:" id="sample1">SmartyStreets API</a>.
+</p>
+<p>
+<a href="javascript:" id="dark">Dark mode</a>
+</p>
+</div>
+<img src="res/toml-to-go.png" id="brand" alt="TOML-to-Go: Convert TOML to Go instantly" title="TOML-to-Go: Convert TOML to Go instantly">
+<div class="clear"></div>
+</header>
+<table>
+<tbody><tr>
+<th style="width: 45%;">TOML</th>
+<th style="width: 10%; font-size: 22px;">→</th>
+<th style="width: 45%;">Go <label><input type="checkbox" id="inline" checked="checked"> Inline type definitions</label> <span class="copy" id="copy-btn">Copy to clipboard</span></th>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td style="width: 50%;">
+<textarea id="input" placeholder="Paste TOML here" contenteditable=""></textarea>
+</td>
+<td style="width: 50%;">
+<div id="output"><span style="color: #777;">Go will appear here</span></div>
+</td>
+</tr>
+</tbody></table>
+<footer>
+Copyright © 2013 - <script type="text/javascript"> document.write((new Date()).getFullYear()); </script>2023 <a href="https://xuri.me/" title="Ri Xu Online" target="_blank">Ri Xu Online</a> All rights reserved. - <a href="https://github.com/xuri/toml-to-go" target="_blank" title="Source Code">View on GitHub</a>
+<br>
+The Go Gopher artwork is a derivative of that by <a href="https://go.dev/blog/6years" target="_blank">The Go Blog</a>.
+</footer>
+<script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(function(reg) {
+        }).catch(function(err) {
+            console.warn('Error whilst registering service worker', err);
+        })
+    }
+</script>
+<script src="res/jquery.min.js" type="text/javascript"></script>
+<script src="res/highlight.min.js" type="text/javascript"></script>
+<script src="res/json-to-go.js" type="text/javascript"></script>
+<script src="res/toml.js" type="text/javascript"></script>
+<script src="res/expanding.js" type="text/javascript"></script>
+<script src="res/common.js" type="text/javascript"></script>
+<script async="" src="res/gofmt.js" type="text/javascript"></script>
+<script>(function(){var js = "window['__CF$cv$params']={r:'7e83cf1149b13a02',m:'ZXf_N3h2ADpRxgEBrEUxpcijtPmHTPRQGMP0SxRrL8Q-1689610790-0-ASnjOIAqZhEC4EQEEWVSX8qXj4pFfkOXl1DrQ34oZmlA'};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/invisible.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script>
+<script defer="defer" src="res/v2cb3a2ab87c5498db5ce7e6608cf55231689030342039" integrity="sha512-DI3rPuZDcpH/mSGyN22erN5QFnhl760f50/te7FTIYxodEF8jJnSFnfnmG/c+osmIQemvUrnBtxnMpNdzvx1/g==" data-cf-beacon="{&quot;rayId&quot;:&quot;7e83cf1149b13a02&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;c77074b2c18540d993ec3a76503c4883&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+
+
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+<body>
+	<!-- Text Header -->
+	<header class="w-full container mx-auto">
+		<div class="flex flex-col items-center py-12">
+			<h1>
+				<a class="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="/">
+					Blog
+				</a>
+			</h1>
+			<p class="text-lg text-gray-600">
+				A simple blog that runs on Go.
+			</p>
+		</div>
+	</header>
+
+	<!-- Categories -->
+	<nav class="w-full py-4 border-t border-b bg-gray-100">
+		<div class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
+			<ul class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
+				<li><a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Technology</a></li>
+				<li><a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Automotive</a></li>
+				<li><a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Finance</a></li>
+				<li><a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Politics</a></li>
+				<li><a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Culture</a></li>
+				<li><a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mx-auto flex flex-wrap py-6">
+
+		<!-- Posts Section -->
+		<section class="w-full md:w-2/3 flex flex-col items-center px-3 mx-auto">
+
+			<article class="flex flex-col shadow my-4">
+				<figure>
+					<a href="#" class="hover:opacity-75">
+						<img src="https://source.unsplash.com/collection/1346951/1000x500?sig=1">
+					</a>
+				</figure>
+				<div class="bg-white flex flex-col justify-start p-6">
+					<h2 class="pb-4"><a href="#" class="text-3xl font-bold hover:text-gray-700">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a></h2>
+					<p class="text-sm pb-3">
+						By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>. Published on April 25th, 2020.
+					</p>
+					<p class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna...</p>
+					<p><a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a></p>
+				</div>
+			</article>
+
+			<article class="flex flex-col shadow my-4">
+				<figure>
+					<a href="#" class="hover:opacity-75">
+						<img src="https://source.unsplash.com/collection/1346951/1000x500?sig=2">
+					</a>
+				</figure>
+				<div class="bg-white flex flex-col justify-start p-6">
+					<h2 class="pb-4"><a href="#" class="text-3xl font-bold hover:text-gray-700">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a></h2>
+					<p class="text-sm pb-3">
+						By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>. Published on April 25th, 2020.
+					</p>
+					<p class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna...</p>
+					<p><a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a></p>
+				</div>
+			</article>
+
+			<article class="flex flex-col shadow my-4">
+				<figure>
+					<a href="#" class="hover:opacity-75">
+						<img src="https://source.unsplash.com/collection/1346951/1000x500?sig=3">
+					</a>
+				</figure>
+				<div class="bg-white flex flex-col justify-start p-6">
+					<h2 class="pb-4"><a href="#" class="text-3xl font-bold hover:text-gray-700">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a></h2>
+					<p class="text-sm pb-3">
+						By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>. Published on April 25th, 2020.
+					</p>
+					<p class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna...</p>
+					<p><a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a></p>
+				</div>
+			</article>
+
+			<!-- Pagination -->
+			<ul class="flex items-center py-8 font-semibold text-sm">
+				<li class="inline-block"><a href="#" class="h-10 w-10 bg-blue-800 hover:bg-blue-600 text-white flex items-center justify-center">1</a></li>
+				<li class="inline-block"><a href="#" class="h-10 w-10 text-gray-800 hover:bg-blue-600 hover:text-white flex items-center justify-center">2</a></li>
+				<li class="inline-block"><a href="#" class="h-10 w-10 text-gray-800 hover:text-gray-900 flex items-center justify-center ml-3">Next <i class="fas fa-arrow-right ml-2"></i></a></li>
+			</ul>
+
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer class="w-full border-t bg-white pb-12 pt-12">
+		<div class="w-full container mx-auto flex flex-col items-center">
+			<p>A simple blog that runs on Go by <a href="https://aristorinjuang.com" target="_blank" rel="noopener noreferrer">Aristo Rinjuang</a>.</p>
+		</div>
+	</footer>
+</body>
+</html>
