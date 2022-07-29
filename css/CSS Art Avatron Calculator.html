@@ -1,0 +1,593 @@
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+    <title>CodePen - CSS Art Avatron Calculator</title>
+    <link rel="canonical" href="https://codepen.io/kassandrasanch/pen/MWzgJYZ" />
+  
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat&family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 10px;
+}
+body .avatron {
+  font-size: 1.5vmin;
+  width: 36.5em;
+  height: 60.5em;
+  position: absolute;
+  top: 51.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(14, 30, 37, 0.15) -2em -1em 2.5em 1em;
+  background: linear-gradient(to bottom, rgba(182, 184, 173, 0.1), rgba(182, 184, 173, 0.5) 85%, rgba(255, 255, 255, 0.02) 87%, rgba(255, 255, 255, 0.01) 97%, rgba(0, 0, 0, 0.05) 99%) 100% 0%/100% 21.8%, #c6c6bc;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
+body .avatron::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, #bfc0b6 49%, #c4c4bb 51%) 100% 24%/40% 3em;
+  background-repeat: no-repeat;
+}
+body .avatron .top-stripes-container {
+  width: 100%;
+  height: 2.4em;
+  position: absolute;
+  top: 1.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+body .avatron .top-stripes-container .stripe {
+  width: 100%;
+  height: 0.35em;
+  background: #827f66;
+  background: linear-gradient(30deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.1) 15%, rgba(255, 255, 255, 0.4) 51%) 100% 100%/0.4em 100%, linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 5%, #827f66 51%);
+  background-repeat: no-repeat;
+}
+body .avatron .result {
+  width: 80.5%;
+  height: 8em;
+  position: absolute;
+  top: 8.5%;
+  left: 49.8%;
+  transform: translateX(-50%);
+  box-shadow: black 0.3em 0.3em 0.6em 0px inset, rgba(0, 0, 0, 0.5) -3px -3px 0.6em 0.1em inset, rgba(255, 87, 51, 0.5) 0px 0.3em 0.2em 0px inset;
+  background: linear-gradient(#010101 74%, #1a1a1a 78%) 30% 100%/100% 100%;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container {
+  border-top-left-radius: 0.8em;
+  border-bottom-left-radius: 0.8em;
+  border-bottom-right-radius: 0.8em;
+  width: 80.5%;
+  height: 43.6em;
+  position: absolute;
+  top: 24%;
+  left: 49.8%;
+  transform: translateX(-50%);
+  border-left: 0.15em solid rgba(0, 0, 0, 0.05);
+  border-right: 0.15em solid rgba(0, 0, 0, 0.05);
+  border-bottom: 0.15em solid rgba(0, 0, 0, 0.03);
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.4)) 100% 100%/2em 35.8em, linear-gradient(to right, rgba(255, 255, 255, 0.4), #c6c6bc) 0% 0%/3em 100%;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-text {
+  font-family: "Chivo Mono", monospace;
+  font-family: "Montserrat", sans-serif;
+  color: rgba(209, 209, 209, 0.7);
+  font-size: 2.7em;
+}
+body .avatron .button-container .button-text--number {
+  font-family: "Raleway", sans-serif;
+}
+body .avatron .button-container .logo-container {
+  width: 19.5em;
+  border-right: 0.1em solid rgba(0, 0, 0, 0.2);
+  border-bottom: 0.1em solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 9.7em;
+  height: 4.2em;
+  top: 2.2em;
+  background: linear-gradient(to right, #b7b9ae 49%, transparent 51%) 0% 100%/0.1em 100%, linear-gradient(to bottom, #b7b9ae 49%, transparent 51%) 50% 0%/100% 0.15em, linear-gradient(to top, #b7b9ae 49%, transparent 51%) 50% 100%/100% 0.3em, #d8d8d6;
+  font-family: "Inconsolata", monospace;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .logo {
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  font-weight: 200;
+  font-size: 2em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  left: 5%;
+}
+body .avatron .button-container .button-container-top {
+  border-top-left-radius: 0.8em;
+  width: 27%;
+  height: 7.8em;
+  position: absolute;
+  left: 0em;
+  top: 0.5%;
+  border-radius: 0.5em;
+  border: 0.15em solid rgba(0, 0, 0, 0.05);
+}
+body .avatron .button-container .button-container-top .button-top-row {
+  width: 7em;
+  position: absolute;
+  left: 0.35em;
+  border-radius: 0.5em;
+  height: 94%;
+  bottom: 0;
+  overflow: hidden;
+}
+body .avatron .button-container .button-container-top .button-first {
+  box-shadow: inset rgba(0, 0, 0, 0.35) 0px 0.1em 0.8em 0.2em, inset rgba(0, 0, 0, 0.35) -0.5em 0.1em 0.4em 0.2em, inset rgba(118, 36, 3, 0.35) -0.5em 0.1em 0.4em 0.2em;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  width: 100%;
+  height: 7.8em;
+  border-radius: 0.5em;
+}
+body .avatron .button-container .button-container-top .button-first .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.25) 50%, rgba(180, 95, 5, 0) 64%) 0% 4.7em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em, radial-gradient(200% 100% at 50% 0%, rgba(166, 71, 12, 0.5), rgba(255, 0, 0, 0), rgba(0, 0, 0, 0)) 0% 0em/6.8em 6.8em, radial-gradient(100% 150% at 0% 50%, rgba(0, 0, 0, 0.7) 30%, rgba(139, 19, 2, 0.3) 45%, rgba(166, 71, 12, 0.2) 50%, rgba(0, 0, 0, 0) 80%) -1.5em -1em/6.8em 7.8em;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-top .button-first .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-45deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.13)), linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), linear-gradient(-35deg, #e49a2c, #dc9023), #eaa335;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 0.2em 0.5em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button--orange {
+  background-color: #e3972a;
+}
+body .avatron .button-container .button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body .avatron .button-container .button-text--bold {
+  font-weight: bold;
+}
+body .avatron .button-container .button-container-bottom {
+  position: absolute;
+  bottom: 0.4em;
+  height: 35.3em;
+  width: 28em;
+  left: 49.8%;
+  transform: translateX(-50%);
+  border-radius: 0.5em;
+  background: #030303;
+}
+body .avatron .button-container .button-container-bottom::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: radial-gradient(100% 100% at 50% 50%, rgba(35, 35, 35, 0.5), rgba(255, 0, 0, 0) 60%) 0em 5.5em/6.87em 3em;
+  background-repeat: no-repeat;
+  box-shadow: black 0em 0em 1.5em 0px inset, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+body .avatron .button-container .button-container-bottom .button {
+  width: 24.5%;
+  height: 100%;
+  position: relative;
+}
+body .avatron .button-container .button-container-bottom .button--gray {
+  background-color: #768176;
+}
+body .avatron .button-container .button-container-bottom .button--white {
+  background: radial-gradient(150% 120% at 20% 50%, rgba(128, 129, 124, 0.55) 40%, rgba(50, 58, 35, 0.8) 50%, rgba(0, 0, 0, 0.55) 80%) 50% 50%/6.87em 7em, #d6d7cf;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .button-row {
+  width: 100%;
+  height: 20%;
+  border-radius: inherit;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  border-top-right-radius: 0.5em;
+  overflow: hidden;
+}
+body .avatron .button-container .button-container-bottom .top-row::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  box-shadow: 0em 0.2em 0.5em rgba(0, 0, 0, 0.8) inset;
+  background: linear-gradient(to right, transparent, #050604, transparent) 75.4% 100%/0.2em 100%, radial-gradient(100% 100% at 50% 50%, rgba(213, 104, 0, 0.5), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 77.8% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, rgba(204, 77, 0, 0.9), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 77.8% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, black, rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 77.8% 50%/2.5em 150%, linear-gradient(to right, transparent, #050604, transparent) 50% 100%/0.2em 100%, radial-gradient(100% 100% at 50% 50%, rgba(213, 104, 0, 0.5), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 50% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, rgba(204, 77, 0, 0.9), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 50% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, black, rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 50% 50%/2.5em 150%, linear-gradient(to right, transparent, #050604, transparent) 24.5% 100%/0.2em 100%, radial-gradient(100% 100% at 50% 50%, rgba(213, 104, 0, 0.5), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 22.4% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, rgba(204, 77, 0, 0.9), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 22.4% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, black, rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 23% 50%/2.5em 150%;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .top-row .button-first .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.25) 50%, rgba(180, 95, 5, 0) 64%) 0% 4.7em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em, radial-gradient(200% 100% at 50% 0%, rgba(166, 71, 12, 0.5), rgba(255, 0, 0, 0), rgba(0, 0, 0, 0)) 0% 0em/6.8em 6.8em, radial-gradient(100% 150% at 0% 50%, rgba(0, 0, 0, 0.7) 30%, rgba(139, 19, 2, 0.3) 45%, rgba(166, 71, 12, 0.2) 50%, rgba(0, 0, 0, 0) 80%) -1.5em -1em/6.8em 7.8em;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .top-row .button-first .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-45deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.13)), linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), linear-gradient(-35deg, #e49a2c, #dc9023), #eaa335;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 0.2em 0.5em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button-container-bottom .top-row .button-fourth .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.25) 50%, rgba(180, 95, 5, 0) 64%) 0% 4.7em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em, radial-gradient(200% 100% at 50% 0%, rgba(166, 71, 12, 0.5), rgba(255, 0, 0, 0), rgba(0, 0, 0, 0)) 0% 0em/6.8em 6.8em, radial-gradient(100% 180% at 100% 50%, rgba(0, 0, 0, 0.5) 20%, rgba(139, 19, 2, 0.3) 45%, rgba(166, 71, 12, 0.2) 50%, rgba(0, 0, 0, 0) 80%) 1.5em -1em/6.8em 7.8em;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .top-row .button-fourth .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), linear-gradient(-35deg, #e49a2c, #dc9023), #eaa335;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 0.2em 0.5em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button-container-bottom .top-row .button-second .shading,
+body .avatron .button-container .button-container-bottom .top-row .button-third .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.25) 50%, rgba(180, 95, 5, 0) 64%) 0% 4.7em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em, radial-gradient(250% 100% at 50% 0%, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.05), rgba(0, 0, 255, 0), rgba(0, 0, 0, 0)) 0% -1em/6.8em 6.8em, radial-gradient(200% 100% at 50% 0%, rgba(166, 71, 12, 0.5), rgba(255, 0, 0, 0), rgba(0, 0, 0, 0)) 0% 0em/6.8em 6.8em;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .top-row .button-second .button-inner,
+body .avatron .button-container .button-container-bottom .top-row .button-third .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), linear-gradient(-35deg, #e49a2c, #dc9023), #eaa335;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 0.2em 0.5em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button-container-bottom .second-row,
+body .avatron .button-container .button-container-bottom .third-row,
+body .avatron .button-container .button-container-bottom .fourth-row,
+body .avatron .button-container .button-container-bottom .fifth-row {
+  height: 20%;
+  width: 100%;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-text,
+body .avatron .button-container .button-container-bottom .third-row .button-text,
+body .avatron .button-container .button-container-bottom .fourth-row .button-text,
+body .avatron .button-container .button-container-bottom .fifth-row .button-text {
+  top: 48%;
+}
+body .avatron .button-container .button-container-bottom .second-row::after,
+body .avatron .button-container .button-container-bottom .third-row::after,
+body .avatron .button-container .button-container-bottom .fourth-row::after,
+body .avatron .button-container .button-container-bottom .fifth-row::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  box-shadow: 0em 0.2em 0.5em rgba(0, 0, 0, 0.8) inset;
+  background: linear-gradient(to right, transparent, #050604, transparent) 75.4% 100%/0.2em 100%, radial-gradient(100% 50% at 100% 50%, #141a11, rgba(20, 26, 17, 0.5) 65%, rgba(20, 26, 17, 0.1), rgba(255, 0, 0, 0) 81%) 74% 50%/2em 150%, radial-gradient(100% 60% at 0% 50%, #141a11, rgba(20, 26, 17, 0.3) 45%, rgba(20, 26, 17, 0.1), rgba(255, 0, 0, 0) 61%) 82% 50%/2.5em 150%, linear-gradient(to right, transparent, #050604, transparent) 50% 100%/0.2em 100%, radial-gradient(100% 100% at 50% 50%, #141a11 20%, rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 50% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, rgba(20, 26, 17, 0.4) 30%, rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 50% 50%/2.5em 150%, linear-gradient(to right, transparent, #050604, transparent) 24.5% 100%/0.2em 100%, radial-gradient(100% 100% at 50% 50%, rgba(20, 26, 17, 0.5), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 22.4% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, rgba(20, 26, 17, 0.9), rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 22.4% 50%/2.5em 150%, radial-gradient(100% 100% at 50% 50%, black, rgba(255, 0, 0, 0) 51%, rgba(0, 0, 0, 0)) 23% 50%/2.5em 150%;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-inner,
+body .avatron .button-container .button-container-bottom .third-row .button-inner,
+body .avatron .button-container .button-container-bottom .fourth-row .button-inner,
+body .avatron .button-container .button-container-bottom .fifth-row .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.1)), linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(-35deg, #5d6d5e, #7a857a), #768274;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: rgba(255, 255, 255, 0.4) 0.2em 0em 0.5em -0.1em, rgba(255, 255, 255, 0.2) 0.1em 0.2em 0.1em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-first .shading,
+body .avatron .button-container .button-container-bottom .third-row .button-first .shading,
+body .avatron .button-container .button-container-bottom .fourth-row .button-first .shading,
+body .avatron .button-container .button-container-bottom .fifth-row .button-first .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.25) 50%, rgba(180, 95, 5, 0) 64%) 0% 4.7em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em, radial-gradient(200% 100% at 50% 0%, rgba(98, 74, 46, 0.5), rgba(255, 0, 0, 0), rgba(0, 0, 0, 0)) 0% 0em/6.8em 6.8em, radial-gradient(100% 150% at 0% 50%, rgba(0, 0, 0, 0.7) 30%, rgba(52, 63, 42, 0.3) 45%, rgba(52, 63, 42, 0.2) 50%, rgba(0, 0, 0, 0) 80%) -1.5em -1em/6.8em 7.8em;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-first .button-inner,
+body .avatron .button-container .button-container-bottom .third-row .button-first .button-inner,
+body .avatron .button-container .button-container-bottom .fourth-row .button-first .button-inner,
+body .avatron .button-container .button-container-bottom .fifth-row .button-first .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.1)), linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(-35deg, #5d6d5e, #7a857a), #768274;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: rgba(255, 255, 255, 0.4) 0.2em 0em 0.5em -0.1em, rgba(255, 255, 255, 0.2) 0.1em 0.2em 0.1em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-fourth .button-text,
+body .avatron .button-container .button-container-bottom .third-row .button-fourth .button-text,
+body .avatron .button-container .button-container-bottom .fourth-row .button-fourth .button-text,
+body .avatron .button-container .button-container-bottom .fifth-row .button-fourth .button-text {
+  color: #8c8d88;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-fourth .shading,
+body .avatron .button-container .button-container-bottom .third-row .button-fourth .shading,
+body .avatron .button-container .button-container-bottom .fourth-row .button-fourth .shading,
+body .avatron .button-container .button-container-bottom .fifth-row .button-fourth .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(35, 35, 35, 0.05) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(35, 35, 35, 0.05) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(35, 35, 35, 0.05) 46%, white 50%, rgba(35, 35, 35, 0.05) 64%) 0% 5em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em;
+  background-repeat: no-repeat;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-fourth .button-inner,
+body .avatron .button-container .button-container-bottom .third-row .button-fourth .button-inner,
+body .avatron .button-container .button-container-bottom .fourth-row .button-fourth .button-inner,
+body .avatron .button-container .button-container-bottom .fifth-row .button-fourth .button-inner {
+  width: 5.5em;
+  height: 5.5em;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 48%;
+  border-radius: 1.6em;
+  border: 0.08em solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.1)), linear-gradient(-35deg, rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(-35deg, #c9c8be, #c4c6bb), #768274;
+  background-repeat: no-repeat;
+  z-index: 999;
+  box-shadow: white 0.2em 0em 0.3em -0.1em, rgba(255, 255, 255, 0.2) 0.1em 0.2em 0.1em -0.1em, rgba(0, 0, 0, 0.2) -0.2em -0.1em 0.2em -0.1em;
+}
+body .avatron .button-container .button-container-bottom .second-row .button-second .shading,
+body .avatron .button-container .button-container-bottom .second-row .button-third .shading,
+body .avatron .button-container .button-container-bottom .third-row .button-second .shading,
+body .avatron .button-container .button-container-bottom .third-row .button-third .shading,
+body .avatron .button-container .button-container-bottom .fourth-row .button-second .shading,
+body .avatron .button-container .button-container-bottom .fourth-row .button-third .shading,
+body .avatron .button-container .button-container-bottom .fifth-row .button-second .shading,
+body .avatron .button-container .button-container-bottom .fifth-row .button-third .shading {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 0% 0/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.25) 50%, rgba(180, 95, 5, 0) 64%) 0% 4.7em/2em 2em, linear-gradient(-45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.15) 50%, rgba(180, 95, 5, 0) 64%) 100% 0em/2.5em 2em, linear-gradient(45deg, rgba(213, 104, 0, 0) 46%, rgba(255, 255, 255, 0.35) 50%, rgba(180, 95, 5, 0) 64%) 100% 4em/2.5em 3em, radial-gradient(200% 100% at 50% 0%, rgba(98, 74, 46, 0.5), rgba(255, 0, 0, 0), rgba(0, 0, 0, 0)) 0% 0em/6.8em 6.8em;
+  background-repeat: no-repeat;
+}
+
+.bk {
+  background-image: none;
+}
+
+.opacity {
+  opacity: 0.5;
+}
+</style>
+</head>
+
+<body translate="no">
+  <div class="avatron">
+    <div class="top-stripes-container">
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+    </div>
+    <div class="result">
+
+    </div>
+    <div class="button-container">
+        <div class="logo-container">
+            <div class="logo">
+                <span class="name">Avatron</span> <strong>903M</strong>
+            </div>
+        </div>
+        <div class="button-container-top">
+            <div class="button-top-row">
+                <div class="button button--orange button-first">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text">C</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-container-bottom">
+            <div class="button-row top-row">
+                <div class="button button--orange button-first">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text">MC</div>
+                    </div>
+                </div>
+                <div class="button button--orange button-second">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text">M+</div>
+                    </div>
+                </div>
+                <div class="button button--orange button-third">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text">M-</div>
+                    </div>
+                </div>
+                <div class="button button--orange button-fourth">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text">MR</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row second-row">
+                <div class="button button--gray button-first">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">7</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-second">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">8</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-third">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number ">9</div>
+                    </div>
+                </div>
+                <div class="button button--white button-fourth">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number button-text--bold">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row third-row">
+                <div class="button button--gray button-first">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">4</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-second">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">5</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-third">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number ">6</div>
+                    </div>
+                </div>
+                <div class="button button--white button-fourth">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number button-text--bold">÷</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row fourth-row">
+                <div class="button button--gray button-first">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">1</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-second">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">2</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-third">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number ">3</div>
+                    </div>
+                </div>
+                <div class="button button--white button-fourth">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number button-text--bold">X</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row fifth-row">
+                <div class="button button--gray button-first">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">0</div>
+                    </div>
+                </div>
+                <div class="button button--gray button-second">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number">.</div>
+                    </div>
+                </div>
+                <div class="button button--white button-fourth">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number ">=</div>
+                    </div>
+                </div>
+                <div class="button button--white button-fourth">
+                    <div class="shading"></div>
+                    <div class="button-inner">
+                        <div class="button-text button-text--number button-text--bold">+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+</html>

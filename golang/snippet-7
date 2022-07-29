@@ -1,0 +1,1108 @@
+https://github.com/AkhilSharma90/simple-http-server-GO
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+func formHandler(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
+		return
+	}
+	fmt.Fprintf(w, "POST request successful")
+	name := r.FormValue("name")
+	address := r.FormValue("address")
+	fmt.Fprintf(w, "Name = %s\n", name)
+	fmt.Fprintf(w, "Address = %s\n", address)
+}
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/hello" {
+		http.Error(w, "404 not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != "GET" {
+		http.Error(w, "method is not supported", http.StatusNotFound)
+		return
+	}
+	fmt.Fprintf(w, "hello!")
+}
+
+func main() {
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/", fileServer)
+	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/hello", helloHandler)
+
+	fmt.Printf("Starting server at port 8080\n")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal(err)
+	}
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/Golang-MySQL-CRUD-Bookstore-Management-API
+
+package utils
+
+import(
+	"encoding/json"
+	"io/ioutil"
+	"net/http"
+)
+
+func ParseBody(r *http.Request, x interface{}){
+	if body, err := ioutil.ReadAll(r.Body); err == nil{
+		if err := json.Unmarshal([]byte(body), x); err != nil{
+			return 
+		}
+	}
+}
+
+package config
+
+import(
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+)
+
+var db * gorm.DB
+
+func Connect(){
+	d, err := gorm.Open("mysql", "akhil:Axlesharma@12@/simplerest?charset=utf8&parseTime=True&loc=Local")
+	if err != nil{
+		panic(err)
+	}
+	db = d
+}
+
+func GetDB() *gorm.DB{
+	return db
+}
+
+package routes
+
+import (
+	"github.com/gorilla/mux"
+	"github.com/akhil/go-bookstore/pkg/controllers"
+)
+
+var RegisterBookStoreRoutes = func(router *mux.Router){
+	router.HandleFunc("/book/", controllers.CreateBook).Methods("POST")
+	router.HandleFunc("/book/", controllers.GetBook).Methods("GET")
+	router.HandleFunc("/book/{bookId}", controllers.GetBookById).Methods("GET")
+	router.HandleFunc("/book/{bookId}", controllers.UpdateBook).Methods("PUT")
+	router.HandleFunc("/book/{bookId}", controllers.DeleteBook).Methods("DELETE")
+}
+
+package models
+
+import(
+	"github.com/jinzhu/gorm"
+	"github.com/akhil/go-bookstore/pkg/config"
+)
+
+var db *gorm.DB
+
+type Book struct{
+	gorm.Model
+	Name string `gorm:""json:"name"`
+	Author string `json:"author"`
+	Publication string `json:"publication"`
+}
+
+func init(){
+	config.Connect()
+	db = config.GetDB()
+	db.AutoMigrate(&Book{})
+}
+
+func (b *Book) CreateBook() *Book{
+	db.NewRecord(b)
+	db.Create(&b)
+	return b
+}
+
+func GetAllBooks() []Book{
+	var Books []Book
+	db.Find(&Books)
+	return Books
+}
+
+func GetBookById(Id int64) (*Book, *gorm.DB){
+	var getBook Book
+	db:=db.Where("ID=?", Id).Find(&getBook)
+	return &getBook, db
+}
+
+func DeleteBook(ID int64) Book{
+	var book Book
+	db.Where("ID=?", ID).Delete(book)
+	return book
+}
+
+package controllers
+
+import(
+	"encoding/json"
+	"fmt"
+	"github.com/gorilla/mux"
+	"net/http"
+	"strconv"
+	"github.com/akhil/go-bookstore/pkg/utils"
+	"github.com/akhil/go-bookstore/pkg/models"
+)
+
+var NewBook models.Book
+
+func GetBook(w http.ResponseWriter, r *http.Request){
+	newBooks:=models.GetAllBooks()
+	res, _ :=json.Marshal(newBooks)
+	w.Header().Set("Content-Type","pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+func GetBookById(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	bookId := vars["bookId"]
+	ID, err:= strconv.ParseInt(bookId,0,0)
+	if err != nil {
+		fmt.Println("error while parsing")
+	}
+	bookDetails, _:= models.GetBookById(ID)
+	res, _ := json.Marshal(bookDetails)
+	w.Header().Set("Content-Type","pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+func CreateBook(w http.ResponseWriter, r *http.Request){
+	CreateBook := &models.Book{}
+	utils.ParseBody(r, CreateBook)
+	b:= CreateBook.CreateBook()
+	res, _ := json.Marshal(b)
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+func DeleteBook(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	bookId := vars["bookId"]
+	ID, err := strconv.ParseInt(bookId, 0,0)
+	if err != nil {
+		fmt.Println("error while parsing")
+	}
+	book := models.DeleteBook(ID)
+	res, _ := json.Marshal(book)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+func UpdateBook(w http.ResponseWriter, r *http.Request){
+	var updateBook = &models.Book{}
+	utils.ParseBody(r, updateBook)
+	vars := mux.Vars(r)
+	bookId := vars["bookId"]
+	ID, err := strconv.ParseInt(bookId, 0,0)
+	if err != nil {
+		fmt.Println("error while parsing")
+	}
+	bookDetails, db:=models.GetBookById(ID)
+	if updateBook.Name != ""{
+		bookDetails.Name = updateBook.Name
+	}
+	if updateBook.Author != ""{
+		bookDetails.Author = updateBook.Author
+	}
+	if updateBook.Publication != ""{
+		bookDetails.Publication = updateBook.Publication
+	}
+	db.Save(&bookDetails)
+	res, _ := json.Marshal(bookDetails)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
+package main
+
+import(
+	"log"
+	"net/http"
+	"github.com/gorilla/mux"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/akhil/go-bookstore/pkg/routes"
+)
+
+func main(){
+	r := mux.NewRouter()
+	routes.RegisterBookStoreRoutes(r)
+	http.Handle("/", r)
+	log.Fatal(http.ListenAndServe("localhost:9010", r))
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/GO-Slackbot-Calculates-Age
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+
+	"github.com/shomali11/slacker"
+)
+
+func printCommandEvents(analyticsChannel <-chan *slacker.CommandEvent) {
+	for event := range analyticsChannel {
+		fmt.Println("Command Evenets")
+		fmt.Println(event.Timestamp)
+		fmt.Println(event.Command)
+		fmt.Println(event.Parameters)
+		fmt.Println(event.Event)
+		fmt.Println()
+	}
+}
+
+func main() {
+	os.Setenv("SLACK_BOT_TOKEN", "xoxb-310246501329-2253154075362-5bewxhgvdaoCpRKivBSeG4P4")
+	os.Setenv("SLACK_APP_TOKEN", "xapp-1-A027MA572CC-2246395933878-354ffc9a0aad7282fca446b")
+
+	bot := slacker.NewClient(os.Getenv("SLACK_BOT_TOKEN"), os.Getenv("SLACK_APP_TOKEN"))
+
+	go printCommandEvents(bot.CommandEvents())
+
+	bot.Command("my yob is <year>", &slacker.CommandDefinition{
+		Description: "yob calculator",
+		Example:     "my yob is 2020",
+		Handler: func(botCtx slacker.BotContext, request slacker.Request, response slacker.ResponseWriter) {
+			year := request.Param("year")
+			yob, err := strconv.Atoi(year)
+			if err != nil {
+				println("error")
+			}
+			age := 2021 - yob
+			r := fmt.Sprintf("age is %d", age)
+			response.Reply(r)
+		},
+	})
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	err := bot.Listen(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/GO-SlackBot-Uploads-File
+
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/slack-go/slack"
+)
+
+func main() {
+
+	os.Setenv("SLACK_BOT_TOKEN", "xoxb-310246501329-2246808119766-C2TQU9hIq6qMt5vloSXVSkQ7")
+	os.Setenv("CHANNEL_ID", "C9478EZ7B")
+	api := slack.New(os.Getenv("SLACK_BOT_TOKEN"))
+	channelArr := []string{os.Getenv("CHANNEL_ID")}
+	fileArr := []string{"ZIPL.pdf"}
+
+	for i := 0; i < len(fileArr); i++ {
+		params := slack.FileUploadParameters{
+			Channels: channelArr,
+			File:     fileArr[i],
+		}
+		file, err := api.UploadFile(params)
+		if err != nil {
+			fmt.Printf("%s\n", err)
+			return
+		}
+		fmt.Printf("Name: %s, URL:%s\n", file.Name, file.URL)
+	}
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/GO-Email-Checking-Tool
+
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"net"
+	"os"
+	"strings"
+)
+
+func main() {
+
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Printf("domain,hasMX,hasSPF,sprRecord,hasDMARC,dmarcRecord\n")
+
+	for scanner.Scan() {
+		checkDomain(scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal("Error: could not read from input: %v\n", err)
+	}
+}
+
+func checkDomain(domain string) {
+
+	var hasMX, hasSPF, hasDMARC bool
+	var spfRecord, dmarcRecord string
+
+	mxRecords, err := net.LookupMX(domain)
+
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
+
+	if len(mxRecords) > 0 {
+		hasMX = true
+	}
+
+	txtRecords, err := net.LookupTXT(domain)
+
+	if err != nil {
+		log.Printf("Error:%v\n", err)
+	}
+
+	for _, record := range txtRecords {
+		if strings.HasPrefix(record, "v=spf1") {
+			hasSPF = true
+			spfRecord = record
+			break
+		}
+	}
+
+	dmarcRecords, err := net.LookupTXT("_dmarc." + domain)
+	if err != nil {
+		log.Printf("ErrorL%v\n", err)
+	}
+
+	for _, record := range dmarcRecords {
+		if strings.HasPrefix(record, "v=DMARC1") {
+			hasDMARC = true
+			dmarcRecord = record
+			break
+		}
+	}
+
+	fmt.Printf("%v, %v, %v, %v, %v, %v", domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord)
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/Simple-go-AWS-Lambda-example
+
+package main
+
+import(
+	"fmt"
+	"github.com/aws/aws-lambda-go/lambda"
+)
+
+type MyEvent struct{
+	Name string `json:"what is your name?"`
+	Age int `json:"How old are you"`
+}
+
+type MyResponse struct{
+	Message string `json:"Answer:"`
+}
+
+func HandleLambdaEvent(event MyEvent)(MyResponse, error){
+	return MyResponse{Message: fmt.Sprintf("%s is %d years old!", event.Name, event.Age)}, nil
+}
+
+func main(){
+	lambda.Start(HandleLambdaEvent)
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/go-beginner-CRM-project
+
+package main
+
+import (
+	"fmt"
+
+	"github.com/akhil/go-fiber-crm-basic/database"
+	"github.com/akhil/go-fiber-crm-basic/lead"
+	"github.com/gofiber/fiber"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+)
+
+func setupRoutes(app *fiber.App) {
+	app.Get("/api/v1/lead", lead.GetLeads)
+	app.Get("/api/v1/lead/:id", lead.GetLead)
+	app.Post("/api/v1/lead", lead.NewLead)
+	app.Delete("/api/v1/lead/:id", lead.DeleteLead)
+}
+
+func initDatabase() {
+	var err error
+	database.DBConn, err = gorm.Open("sqlite3", "leads.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	fmt.Println("Connection opened to database")
+	database.DBConn.AutoMigrate(&lead.Lead{})
+	fmt.Println("Database Migrated")
+}
+
+func main() {
+	app := fiber.New()
+	initDatabase()
+	setupRoutes(app)
+	app.Listen(3000)
+	defer database.DBConn.Close()
+}
+
+package lead
+
+import (
+	"github.com/akhil/go-fiber-crm-basic/database"
+	"github.com/gofiber/fiber"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+)
+
+type Lead struct {
+	gorm.Model
+	Name    string `json:"name"`
+	Company string `json:"company"`
+	Email   string `json:"email"`
+	Phone   int    `json:"phone"`
+}
+
+func GetLeads(c *fiber.Ctx) {
+	db := database.DBConn
+	var leads []Lead
+	db.Find(&leads)
+	c.JSON(leads)
+}
+
+func GetLead(c *fiber.Ctx) {
+	id := c.Params("id")
+	db := database.DBConn
+	var lead Lead
+	db.Find(&lead, id)
+	c.JSON(lead)
+}
+
+func NewLead(c *fiber.Ctx) {
+	db := database.DBConn
+	lead := new(Lead)
+	if err := c.BodyParser(lead); err != nil {
+		c.Status(503).Send(err)
+		return
+	}
+	db.Create(&lead)
+	c.JSON(lead)
+}
+
+func DeleteLead(c *fiber.Ctx) {
+	id := c.Params("id")
+	db := database.DBConn
+
+	var lead Lead
+	db.First(&lead, id)
+	if lead.Name == "" {
+		c.Status(500).Send("No lead found with ID")
+		return
+	}
+	db.Delete(&lead)
+	c.Send("Lead successfully Deleted")
+}
+
+package database
+
+import (
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+)
+
+var (
+	DBConn *gorm.DB
+)
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/go-beginner-fiber-HRMS-project
+
+package main
+
+import (
+	"context"
+	"log"
+	"time"
+
+	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+type MongoInstance struct {
+	Client *mongo.Client
+	Db     *mongo.Database
+}
+
+var mg MongoInstance
+
+const dbName = "fiber-hrms"
+const mongoURI = "mongodb://localhost:27017/" + dbName
+
+type Employee struct {
+	ID     string  `json:"id,omitempty" bson:"_id,omitempty"`
+	Name   string  `json:"name"`
+	Salary float64 `json:"salary"`
+	Age    float64 `json:"age"`
+}
+
+func Connect() error {
+	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURI))
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	err = client.Connect(ctx)
+	db := client.Database(dbName)
+
+	if err != nil {
+		return err
+	}
+
+	mg = MongoInstance{
+		Client: client,
+		Db:     db,
+	}
+	return nil
+}
+
+func main() {
+
+	if err := Connect(); err != nil {
+		log.Fatal(err)
+	}
+	app := fiber.New()
+
+	app.Get("/employee", func(c *fiber.Ctx) error {
+
+		query := bson.D{{}}
+
+		cursor, err := mg.Db.Collection("employees").Find(c.Context(), query)
+		if err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
+
+		var employees []Employee = make([]Employee, 0)
+
+		if err := cursor.All(c.Context(), &employees); err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
+
+		return c.JSON(employees)
+	})
+
+	app.Post("/employee", func(c *fiber.Ctx) error {
+		collection := mg.Db.Collection("employees")
+
+		employee := new(Employee)
+
+		if err := c.BodyParser(employee); err != nil {
+			return c.Status(400).SendString(err.Error())
+		}
+
+		employee.ID = ""
+
+		insertionResult, err := collection.InsertOne(c.Context(), employee)
+
+		if err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
+
+		filter := bson.D{{Key: "_id", Value: insertionResult.InsertedID}}
+		createdRecord := collection.FindOne(c.Context(), filter)
+
+		createdEmployee := &Employee{}
+		createdRecord.Decode(createdEmployee)
+
+		return c.Status(201).JSON(createdEmployee)
+
+	})
+
+	app.Put("/employee/:id", func(c *fiber.Ctx) error {
+		idParam := c.Params("id")
+
+		employeeID, err := primitive.ObjectIDFromHex(idParam)
+
+		if err != nil {
+			return c.SendStatus(400)
+		}
+
+		employee := new(Employee)
+
+		if err := c.BodyParser(employee); err != nil {
+			return c.Status(400).SendString(err.Error())
+		}
+
+		query := bson.D{{Key: "_id", Value: employeeID}}
+		update := bson.D{
+			{Key: "$set",
+				Value: bson.D{
+					{Key: "name", Value: employee.Name},
+					{Key: "age", Value: employee.Age},
+					{Key: "salary", Value: employee.Salary},
+				},
+			},
+		}
+
+		err = mg.Db.Collection("employees").FindOneAndUpdate(c.Context(), query, update).Err()
+
+		if err != nil {
+			if err == mongo.ErrNoDocuments {
+				return c.SendStatus(400)
+			}
+			return c.SendStatus(500)
+		}
+
+		employee.ID = idParam
+
+		return c.Status(200).JSON(employee)
+
+	})
+
+	app.Delete("/employee/:id", func(c *fiber.Ctx) error {
+
+		employeeID, err := primitive.ObjectIDFromHex(c.Params("id"))
+
+		if err != nil {
+			return c.SendStatus(400)
+		}
+
+		query := bson.D{{Key: "_id", Value: employeeID}}
+		result, err := mg.Db.Collection("employees").DeleteOne(c.Context(), &query)
+
+		if err != nil {
+			return c.SendStatus(500)
+		}
+
+		if result.DeletedCount < 1 {
+			return c.SendStatus(404)
+		}
+
+		return c.Status(200).JSON("record deleted")
+
+	})
+
+	log.Fatal(app.Listen(":3000"))
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/Golang-Serverless-Project
+
+package main
+
+import(
+    "github.com/akhil/go-serverless-yt/pkg/handlers"
+    "os"
+    "github.com/aws/aws-lambda-go/events"
+    "github.com/aws/aws-lambda-go/lambda"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/dynamodb"
+    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+)
+
+var(
+	dynaClient dynamodbiface.DynamoDBAPI
+)
+
+func main(){
+	region := os.Getenv("AWS_REGION")
+	awsSession, err := session.NewSession(&aws.Config{
+		Region: aws.String(region)},)
+
+	if err!=nil{
+		return
+	}
+	dynaClient = dynamodb.New(awsSession)
+	lambda.Start(handler)
+}
+
+
+const tableName = "go-serverless-yt"
+
+func handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error){
+		switch req.HTTPMethod{
+		case "GET":
+			return handlers.GetUser(req, tableName, dynaClient)
+		case "POST":
+			return handlers.CreateUser(req, tableName, dynaClient)
+		case "PUT":
+			return handlers.UpdateUser(req, tableName, dynaClient)
+		case "DELETE":
+			return handlers.DeleteUser(req, tableName, dynaClient)
+		default:
+			return handlers.UnhandledMethod()
+		}
+}
+
+package handlers
+
+import(
+	"encoding/json"
+	"github.com/aws/aws-lambda-go/events"
+)
+
+func apiResponse(status int, body interface{})(*events.APIGatewayProxyResponse, error){
+	resp := events.APIGatewayProxyResponse{Headers: map[string]string{"Content-Type":"application/json"}}
+	resp.StatusCode = status 
+
+	stringBody, _ := json.Marshal(body)
+	resp.Body = string(stringBody)
+	return &resp, nil
+}
+
+package handlers
+
+import(
+	"github.com/akhil/go-serverless-yt/pkg/user"
+	"net/http"
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+
+)
+
+var ErrorMethodNotAllowed = "method not allowed"
+
+type ErrorBody struct{
+	ErrorMsg *string `json:"error,omitempty"`
+}
+
+func GetUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+	*events.APIGatewayProxyResponse, error,
+){
+
+	email := req.QueryStringParameters["email"]
+	if len(email) > 0 {
+		result, err := user.FetchUser(email, tableName, dynaClient)
+		if err!= nil {
+			return apiResponse(http.StatusBadRequest, ErrorBody{aws.String(err.Error())})
+		}
+		return apiResponse(http.StatusOK, result)
+	}
+
+	result, err := user.FetchUsers(tableName, dynaClient)
+	if err!= nil {
+		return apiResponse(http.StatusBadRequest, ErrorBody{
+			aws.String(err.Error()),
+		})
+	}
+	return apiResponse(http.StatusOK, result)
+
+}
+
+func CreateUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+	*events.APIGatewayProxyResponse, error,
+){
+	result, err := user.CreateUser(req, tableName, dynaClient)
+	if err!=nil {
+		return apiResponse(http.StatusBadRequest, ErrorBody{
+			aws.String(err.Error()),
+		})
+	}
+	return apiResponse(http.StatusCreated, result)
+}
+
+func UpdateUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+	*events.APIGatewayProxyResponse, error,
+){
+	result, err := user.UpdateUser(req, tableName, dynaClient)
+	if err!= nil {
+		return apiResponse(http.StatusBadRequest, ErrorBody{
+			aws.String(err.Error()),
+		})
+	}
+	return apiResponse(http.StatusOK, result)
+}
+
+func DeleteUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+	*events.APIGatewayProxyResponse, error,
+){
+	err := user.DeleteUser(req, tableName, dynaClient)
+
+	if err!= nil {
+		return apiResponse(http.StatusBadRequest, ErrorBody{
+			aws.String(err.Error()),
+		})
+	}
+	return apiResponse(http.StatusOK, nil)
+}
+
+func UnhandledMethod()(*events.APIGatewayProxyResponse, error){
+	return apiResponse(http.StatusMethodNotAllowed, ErrorMethodNotAllowed)
+}
+
+package user
+
+import(
+	"github.com/akhil/go-serverless-yt/pkg/validators"
+	"encoding/json"
+	"errors"
+	"github.com/aws/aws-lambda-go/events"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/service/dynamodb"
+    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
+)
+
+var(
+	ErrorFailedToUnmarshalRecord = "failed to unmarshal record"
+	ErrorFailedToFetchRecord = "failed to fetch record"
+	ErrorInvalidUserData = "invalid user data"
+	ErrorInvalidEmail = "invalid email"
+	ErrorCouldNotMarshalItem = "could not marshal item"
+	ErrorCouldNotDeleteItem = "could not delete item"
+	ErrorCouldNotDynamoPutItem = "could not dynamo put item"
+	ErrorUserAlreadyExists = "user.User already exists"
+	ErrorUserDoesNotExist = "user.User does not exist"
+)
+
+type User struct{
+	Email 		string	`json:"email"`
+	FirstName	string 	`json:"firstName"`
+	LastName	string 	`json:"lastName"`
+}
+
+func FetchUser(email, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*User, error){
+
+	input := &dynamodb.GetItemInput{
+		Key: map[string]*dynamodb.AttributeValue{
+			"email":{
+				S: aws.String(email),
+			},
+		},
+		TableName: aws.String(tableName),
+	}
+
+	result, err := dynaClient.GetItem(input)
+	if err!= nil {
+		return nil, errors.New(ErrorFailedToFetchRecord)
+	}
+
+	item := new(User)
+	err = dynamodbattribute.UnmarshalMap(result.Item, item)
+	if err != nil {
+		return nil, errors.New(ErrorFailedToUnmarshalRecord)
+	}
+	return item, nil
+}
+
+func FetchUsers(tableName string, dynaClient dynamodbiface.DynamoDBAPI)(*[]User, error){
+	input := &dynamodb.ScanInput{
+		TableName: aws.String(tableName),
+	}
+
+	result, err := dynaClient.Scan(input)
+	if err!= nil {
+		return nil, errors.New(ErrorFailedToFetchRecord)
+	}
+	item := new([]User)
+	err = dynamodbattribute.UnmarshalListOfMaps(result.Items, item)
+	return item, nil
+}
+
+func CreateUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+	*User,
+	error,
+){
+	var u User
+
+	if err := json.Unmarshal([]byte(req.Body), &u); err!=nil {
+		return nil, errors.New(ErrorInvalidUserData)
+	}
+	if !validators.IsEmailValid(u.Email){
+		return nil, errors.New(ErrorInvalidEmail)
+	}
+
+	currentUser, _ := FetchUser(u.Email, tableName, dynaClient)
+	if currentUser != nil && len(currentUser.Email) != 0 {
+		return nil, errors.New(ErrorUserAlreadyExists)
+	}
+
+	av, err := dynamodbattribute.MarshalMap(u)
+
+	if err != nil {
+		return nil, errors.New(ErrorCouldNotMarshalItem)
+	}
+
+	input := &dynamodb.PutItemInput{
+		Item: av,
+		TableName: aws.String(tableName),
+	}
+
+	_, err = dynaClient.PutItem(input)
+	if err != nil {
+		return nil, errors.New(ErrorCouldNotDynamoPutItem)
+	}
+	return &u, nil
+}
+
+func UpdateUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI)(
+	*User,
+	error,
+){
+	var u User
+	if err := json.Unmarshal([]byte(req.Body), &u); err !=nil {
+		return nil, errors.New(ErrorInvalidEmail)
+	}
+
+	currentUser, _ := FetchUser(u.Email, tableName, dynaClient)
+	if currentUser !=nil && len (currentUser.Email) == 0{
+		return nil, errors.New(ErrorUserDoesNotExist)
+	}
+
+	av, err := dynamodbattribute.MarshalMap(u)
+	if err != nil {
+		return nil, errors.New(ErrorCouldNotMarshalItem)
+	}
+
+	input := &dynamodb.PutItemInput{
+		Item: av,
+		TableName: aws.String(tableName),
+	}
+
+	_, err = dynaClient.PutItem(input)
+	if err!=nil {
+		return nil, errors.New(ErrorCouldNotDynamoPutItem)
+	}
+	return &u, nil
+}
+
+func DeleteUser(req events.APIGatewayProxyRequest, tableName string, dynaClient dynamodbiface.DynamoDBAPI) error{
+	email := req.QueryStringParameters["email"]
+	input := &dynamodb.DeleteItemInput{
+		Key: map[string]*dynamodb.AttributeValue{
+			"email":{
+				S: aws.String(email),
+			},
+		},
+		TableName: aws.String(tableName),
+	}
+	_, err := dynaClient.DeleteItem(input)
+	if err != nil {
+		return errors.New(ErrorCouldNotDeleteItem)
+	}
+
+	return nil
+}
+
+package validators
+
+import "regexp"
+
+func IsEmailValid(email string) bool {
+	var rxEmail = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64}@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+
+	if len(email) < 3 || len(email) > 254 || !rxEmail.MatchString(email){
+		return false
+	}
+
+	return true
+}
+
+------------------------------------------------------------
+https://github.com/AkhilSharma90/AI-Bot-GOlang-Wit.ai-Wolfram-Slack
+
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+	"github.com/krognol/go-wolfram"
+	"github.com/shomali11/slacker"
+	"github.com/tidwall/gjson"
+
+	witai "github.com/wit-ai/wit-go/v2"
+)
+
+var wolframClient *wolfram.Client
+
+func printCommandEvents(analyticsChannel <-chan *slacker.CommandEvent) {
+	for event := range analyticsChannel {
+		fmt.Println("Command Events")
+		fmt.Println(event.Timestamp)
+		fmt.Println(event.Command)
+		fmt.Println(event.Parameters)
+		fmt.Println(event.Event)
+		fmt.Println()
+	}
+}
+
+func main() {
+	godotenv.Load(".env")
+
+	bot := slacker.NewClient(os.Getenv("SLACK_BOT_TOKEN"), os.Getenv("SLACK_APP_TOKEN"))
+	client := witai.NewClient(os.Getenv("WIT_AI_TOKEN"))
+	wolframClient := &wolfram.Client{AppID: os.Getenv("WOLFRAM_APP_ID")}
+	go printCommandEvents(bot.CommandEvents())
+
+	bot.Command("query for bot - <message>", &slacker.CommandDefinition{
+		Description: "send any question to wolfram",
+		Example:     "who is the president of india",
+		Handler: func(botCtx slacker.BotContext, request slacker.Request, response slacker.ResponseWriter) {
+			query := request.Param("message")
+
+			msg, _ := client.Parse(&witai.MessageRequest{
+				Query: query,
+			})
+			data, _ := json.MarshalIndent(msg, "", "    ")
+			rough := string(data[:])
+			value := gjson.Get(rough, "entities.wit$wolfram_search_query:wolfram_search_query.0.value")
+			answer := value.String()
+			res, err := wolframClient.GetSpokentAnswerQuery(answer, wolfram.Metric, 1000)
+			if err != nil {
+				fmt.Println("there is an error")
+			}
+			fmt.Println(value)
+			response.Reply(res)
+		},
+	})
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	err := bot.Listen(ctx)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
