@@ -1,0 +1,119 @@
+<!doctype html>
+<title>Example</title>
+<style>
+.wrapper {
+  display: flex;
+  height: 95vh;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.column > div {
+  font-size: 4vh;
+  color: white;
+  background: mediumorchid;
+  margin: .1em;
+  padding: .3em 1em;
+  border-radius: 3px;
+  flex: 1;
+}
+.column:nth-child(2) > div:nth-child(1),
+.column:nth-child(12) > div:nth-child(2) {
+  flex: 1;
+  }
+.column:nth-child(2) > div:nth-child(2),
+.column:nth-child(12) > div:nth-child(1) {
+  flex: 11;
+  }
+.column:nth-child(3) > div:nth-child(1),
+.column:nth-child(11) > div:nth-child(2) {
+  flex: 2;
+  }
+.column:nth-child(3) > div:nth-child(2),
+.column:nth-child(11) > div:nth-child(1) {
+  flex: 10;
+  }
+.column:nth-child(4) > div:nth-child(1),
+.column:nth-child(10) > div:nth-child(2) {
+  flex: 3;
+  }
+.column:nth-child(4) > div:nth-child(2),
+.column:nth-child(10) > div:nth-child(1) {
+  flex: 9;
+  }
+.column:nth-child(5) > div:nth-child(1),
+.column:nth-child(9) > div:nth-child(2) {
+  flex: 4;
+  }
+.column:nth-child(5) > div:nth-child(2),
+.column:nth-child(9) > div:nth-child(1) {
+  flex: 8;
+  }
+.column:nth-child(6) > div:nth-child(1),
+.column:nth-child(8) > div:nth-child(2) {
+  flex: 5;
+  }
+.column:nth-child(6) > div:nth-child(2),
+.column:nth-child(8) > div:nth-child(1) {
+  flex: 7;
+  }
+.column:nth-child(7) > div:nth-child(1) {
+  flex: 6;
+  }
+.column:nth-child(7) > div:nth-child(2) {
+  flex: 6;
+  }
+</style>
+<div class="wrapper">
+  <div class="column">
+    <div>1</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="column">
+    <div>1</div>
+  </div>
+</div>

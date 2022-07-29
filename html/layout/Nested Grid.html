@@ -1,0 +1,36 @@
+<!doctype html>
+<title>Example</title>
+<style>
+#outer-grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+#outer-grid > div {
+  background-color: red;
+  color: white;
+  font-size: 4vw;
+  padding: 10px;
+}
+#inner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+}
+#inner-grid > div {
+  background: salmon;
+  padding: 10px;
+}
+</style>
+<div id="outer-grid">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div id="inner-grid">
+    <div>5</div>
+    <div>6</div>
+    <div>7</div>
+    <div>8</div>
+  </div>
+</div>
