@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editable Table</title>
+<style>
+* { font-family: Arial, Helvetica, sans-serif; box-sizing: border-box; }
+
+table { border-collapse: collapse; }
+table th, td { text-align: left; padding: 15px; }
+table thead { color: #fff; background: #8363fd; }
+table tbody tr:nth-child(even) { background: #f2f2f2; }
+table td.edit { background: #f8ff88; }
+</style>
+</head>
+<body>
+  <table width="50%">
+    <!-- (A) HEADER -->
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>BOD</th>
+      </tr>
+    </thead>
+
+    <!-- (B) DATA -->
+    <tbody>
+      <tr data-item="sku-item-1">
+        <td class="editable" data-field="name">Job Doe</td>
+        <td class="editable" data-field="email">job@doe.com</td>
+        <td class="editable" data-field="birthday">1990-01-01</td>
+      </tr>
+      <tr data-item="sku-item-2">
+        <td data-field="name">Joe Doe</td>
+        <td data-field="email">joe@doe.com</td>
+        <td data-field="birthday">1990-01-01</td>
+      </tr>
+      <tr data-item="sku-item-3">
+        <td data-field="name">Joi Doe</td>
+        <td data-field="email">joi@doe.com</td>
+        <td data-field="birthday">1990-01-01</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  for (let cell of document.querySelectorAll("td.editable")) {
+    cell.ondblclick = () => editable.edit(cell);
+  }
+});
+
+var editable = {
+  // (B) "CONVERT" TO EDITABLE CELL
+  edit : cell => {
+    // (B1) REMOVE "DOUBLE CLICK TO EDIT"
+    cell.ondblclick = "";
+
+    // (B2) EDITABLE CONTENT
+    cell.contentEditable = true;
+    cell.focus();
+
+    // (B3) "MARK" CURRENT SELECTED CELL
+    cell.classList.add("edit");
+    editable.selected = cell;
+
+    // (B4) PRESS ENTER OR CLICK OUTSIDE TO END EDIT
+    window.addEventListener("click", editable.close);
+    cell.onkeydown = evt => { if (evt.key=="Enter") {
+      editable.close(true);
+      return false;
+    }};
+  },
+
+  // (C) END "EDIT MODE"
+  selected : null,  // current selected cell
+
+  close : evt => { 
+    if (evt.target != editable.selected) {
+      // (C1) DO WHATEVER YOU NEED
+      // check value?
+      // send value to server?
+      // update calculations in table?
+
+      editable.submit();
+
+      // (C2) REMOVE "EDITABLE"
+      window.getSelection().removeAllRanges();
+      editable.selected.contentEditable = false;
+
+      // (C3) RESTORE CLICK LISTENERS
+      window.removeEventListener("click", editable.close);
+      let cell = editable.selected;
+      cell.ondblclick = () => editable.edit(cell);
+
+      // (C4) "UNMARK" CURRENT SELECTED CELL
+      editable.selected.classList.remove("edit");
+      editable.selected = null;
+    }
+  },
+
+  submit : () => {
+	var td = editable.selected;
+	var tr = td.parentNode;
+
+    //console.log(td.innerText);
+
+    var fd = new FormData();
+    fd.append('item', tr.dataset.item);
+    fd.append('field', td.dataset.field);
+    fd.append('value', td.innerText);
+    const data = new URLSearchParams(fd).toString();
+
+    console.log(data);
+
+    //const xhr = new XMLHttpRequest();
+    //xhr.open("POST", window.location.href);
+    //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+    //xhr.send(data);
+  }
+};
+</script>
+</html>

@@ -1,0 +1,45 @@
+https://twitter.com/yishi_oh/status/1595797129704144899
+
+我们开放了 OneKey 所有的 RPC 和 BlockBook 节点，并且提供给任何人都可以免费使用。
+
+我们承诺，IP 信息仅会在内存中用以防止恶意的滥用节点请求，所有的节点不会以任何形式物理收集来获取用户 IP 或用户地址。
+
+6) Following are the RPC nodes we built for you 
+
+ETH: 		https://node.onekey.so/eth
+ARBITRUM: 	https://node.onekey.so/arbitrum
+BOBA: 		https://node.onekey.so/boba
+CELO: 		https://node.onekey.so/celo
+ETC: 		https://node.onekey.so/etc
+FANTOM: 	https://node.onekey.so/fantom
+OKT: 		https://node.onekey.so/okt
+
+POLYGON: 	https://node.onekey.so/polygon
+AURORA: 	https://node.onekey.so/aurora
+BSC: 		https://node.onekey.so/bsc
+CRONOS: 	https://node.onekey.so/cronos
+ETF: 		https://node.onekey.so/etf
+ETHW: 		https://node.onekey.so/ethw
+HECO: 		https://node.onekey.so/heco
+OPTIMISM: 	https://node.onekey.so/optimism
+XDAI: 		https://node.onekey.so/xdai
+
+MVM: 		https://node.onekey.so/mvm
+NEAR: 		https://node.onekey.so/near
+SOL: 		https://node.onekey.so/sol
+STC: 		https://node.onekey.so/stc
+APTOS: 		https://node.onekey.so/aptos
+TRX: 		https://node.onekey.so/trx
+CFX: 		https://node.onekey.so/cfx
+ALGO: 		https://node.onekey.so/algo
+
+7) Also, blockbook nodes:
+
+BTC: 		https://node.onekey.so/btc
+DOGE: 		https://node.onekey.so/doge
+LTC: 		https://node.onekey.so/ltc
+BCH: 		https://node.onekey.so/bch
+
+
+什么是RPC节点？为什么钱包程序需要用到RPC节点？
+是每个公链(而不是每个币)都需要一个RPC节点吗？

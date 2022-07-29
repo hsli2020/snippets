@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Google Keep style input form</title>
+
+<style>
+body {
+  margin: 0;
+  background: #212121;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+  width: 540px;
+  border-radius: 8px;
+  border: solid 1px #5f6368;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+form input {
+  background: transparent;
+  border: none;
+  padding: 1rem;
+  color: white;
+}
+form input:focus {
+  outline: none;
+}
+</style>
+</head>
+
+<body>
+  <form action="">
+    <input type="text" placeholder="Title" id="title" />
+    <input type="text" placeholder="Take a note..." id="content" />
+  </form>
+
+  
+<script>
+  const form = document.querySelector('form');
+  const title = document.getElementById('title');
+  const content = document.getElementById('content');
+  
+  title.style.display = 'none';
+  
+  content.addEventListener('focus', () => title.style.display = '');
+  
+  form.addEventListener('focusout', handleFocusOut);
+  
+  function handleFocusOut(event) {
+    let relatedTarget = event.relatedTarget;
+    if (relatedTarget) {
+      return;
+    }
+    title.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

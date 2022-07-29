@@ -1,0 +1,111 @@
+<!-- Backend code
+    // Edit table cell
+    if ($btn == 'Edit') {
+		$sku = $_POST['sku'];
+		$name = $_POST['name'];
+		$value = $_POST['value'];
+        $fba_lines[$sku][$name] = $value;
+        $_SESSION[__FILE__] = $fba_lines;
+        die;
+    }
+-->
+
+  <table id="tab1">
+    <?php foreach ($fba_lines as $row) { ?>
+      <tr data-sku="<?= $row['sku'] ?>">
+        <td data-name="qty"><?= $row['qty'] ?></td>
+      </tr>
+    <?php } ?>
+  </table>
+
+<script type="text/javascript">
+function getStyle(el, cssprop) {
+	if (el.currentStyle)
+		return el.currentStyle[cssprop];	 // IE
+	else if (document.defaultView && document.defaultView.getComputedStyle)
+		return document.defaultView.getComputedStyle(el, "")[cssprop];	// Firefox
+	else
+		return el.style[cssprop]; //try and get inline style
+}
+
+function applyEdit(tabID, editables) {
+	var tab = document.getElementById(tabID);
+	if (tab) {
+		var rows = tab.getElementsByTagName("tr");
+		for(var r = 0; r < rows.length; r++) {
+			var tds = rows[r].getElementsByTagName("td");
+			for (var c = 0; c < tds.length; c++) {
+				if (editables.indexOf(c) > -1)
+					tds[c].onclick = function () { beginEdit(this); };
+			}
+		}
+	}
+}
+
+var oldColor, oldText, padTop, padBottom = "";
+
+function beginEdit(td) {
+	if (td.firstChild && td.firstChild.tagName == "INPUT")
+		return;
+
+	oldText = td.innerHTML.trim();
+	oldColor = getStyle(td, "backgroundColor");
+	padTop = getStyle(td, "paddingTop");
+	padBottom = getStyle(td, "paddingBottom");
+
+	var input = document.createElement("input");
+	input.value = oldText;
+
+	//// ------- input style -------
+	var left = getStyle(td, "paddingLeft").replace("px", "");
+	var right = getStyle(td, "paddingRight").replace("px", "");
+
+	input.style.width = td.offsetWidth - left - right - (td.clientLeft * 2) - 2 + "px";
+	input.style.height = td.offsetHeight - (td.clientTop * 2) - 2 + "px";
+	input.style.border = "0px";
+	input.style.fontFamily = "inherit";
+	input.style.fontSize = "inherit";
+	input.style.textAlign = "inherit";
+	input.style.backgroundColor = "LightGoldenRodYellow";
+
+	input.onblur = function () { endEdit(this); };
+
+	td.innerHTML = "";
+	td.style.paddingTop = "0px";
+	td.style.paddingBottom = "0px";
+	td.style.backgroundColor = "LightGoldenRodYellow";
+	td.insertBefore(input, td.firstChild);
+	input.select();
+}
+
+function endEdit(input) {
+	var td = input.parentNode;
+	var tr = td.parentNode;
+
+	td.removeChild(td.firstChild);	//remove input
+	td.innerHTML = input.value;
+
+	if (oldText != input.value.trim() ) {
+		td.style.color = "red";
+
+        var fd = new FormData();
+        fd.append('btn', 'Edit');
+        fd.append('sku', tr.dataset.sku);
+        fd.append('name', td.dataset.name);
+        fd.append('value', input.value);
+        const data = new URLSearchParams(fd).toString();
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", window.location.href);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.send(data);
+    }
+
+	td.style.paddingTop = padTop;
+	td.style.paddingBottom = padBottom;
+	td.style.backgroundColor = oldColor;
+}
+
+applyEdit("tab1", [2]);
+
+</script>
