@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- link href="https://cdn.tailwindcss.com" rel="stylesheet" -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<div x-data="modal()">
+  <button x-on:click="open()" type="button" class="inline-block font-normal text-center px-3 py-2 leading-normal text-base rounded cursor-pointer text-white bg-blue-600" data-toggle="modal" data-target="#exampleModalTwo">
+    Launch modal
+  </button>
+
+  <!-- MODAL CONTAINER WITH BACKDROP -->
+  <div x-show="isOpening()">
+
+    <!-- MODAL -->
+    <div
+      :class="{ 'opacity-0': isOpening(), 'opacity-100': isOpen() }"
+      class="fixed z-50 top-0 left-0 w-full h-full outline-none transition-opacity duration-200 linear"
+      tabindex="-1"
+      role="dialog"
+    >
+
+      <!-- MODAL DIALOG -->
+      <div
+        :class="{ 'mt-4': isOpening(), 'mt-8': isOpen() }"
+        class="relative w-auto pointer-events-none max-w-lg mt-8 mx-auto transition-all duration-200 ease-out"
+      >
+
+        <!-- MODAL CONTAINER -->
+        <div class="relative flex flex-col w-full pointer-events-auto bg-white border border-gray-300 rounded-lg shadow-xl">
+          <div class="flex items-start justify-between p-4 border-b border-gray-300 rounded-t">
+            <h5 class="mb-0 text-lg leading-normal">Awesome Modal</h5>
+            <button
+              type="button"
+              class="close"
+              x-on:click="close()"
+            >&times;</button>
+          </div>
+          <div class="relative flex p-4">
+            ...
+          </div>
+          <div class="flex items-center justify-end p-4 border-t border-gray-300">
+            <button
+              x-on:click="close()"
+              type="button"
+              class="inline-block font-normal text-center px-3 py-2 leading-normal text-base rounded cursor-pointer text-white bg-gray-600 mr-2"
+            >Close</button>
+            <button
+              type="button"
+              class="inline-block font-normal text-center px-3 py-2 leading-normal text-base rounded cursor-pointer text-white bg-blue-600"
+            >Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACKDROP -->
+    <div
+      :class="{ 'opacity-25': isOpen() }"
+      class="z-40 fixed top-0 left-0 bottom-0 right-0 bg-black opacity-0 transition-opacity duration-200 linear"
+    ></div>
+  </div>
+</div>
+
+<script>
+  function modal() {
+    return {
+      state: 'CLOSED', // [CLOSED, TRANSITION, OPEN]
+      open() {
+        this.state = 'TRANSITION'
+        setTimeout(() => { this.state = 'OPEN' }, 50)
+      },
+      close() {
+        this.state = 'TRANSITION'
+        setTimeout(() => { this.state = 'CLOSED' }, 300)
+      },
+      isOpen() { return this.state === 'OPEN' },
+      isOpening() { return this.state !== 'CLOSED' },
+    }
+  }
+</script>
+
+<p style="display:none">
+	https://fullstackphoenix.com/tutorials/create-a-bootstrap-like-modal-with-tailwind-and-alpine-js
+</p>
+
+</body>
+</html>

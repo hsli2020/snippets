@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Bootstrap 4 multi-column dropdown</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  
+<style>
+/* rows */
+div.dropdown-multicol{
+  width: 30em;
+}
+div.dropdown-row>a.dropdown-item{
+  display:inline-block;
+  width: 32%;
+}
+
+/* Columns */
+div.dropdown-multicol2{
+  width: 30em;
+}
+div.dropdown-multicol2>div.dropdown-col{
+  display:inline-block;
+  width: 32%;
+}
+
+/*
+Or just:
+div.dropdown-row>a.dropdown-item{
+  display:inline-block;
+  width: 10em;
+}
+
+(Former may be more convenient for responsive)
+*/
+</style>
+
+</head>
+
+<body translate="no">
+  <!-- ROWS -->
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Multi - rows
+  </button>
+  <div class="dropdown-menu dropdown-multicol" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-row">
+      <a class="dropdown-item" href="#">Oranges</a>
+      <a class="dropdown-item" href="#">Bananas</a>
+      <a class="dropdown-item" href="#">Apples</a>
+    </div>
+    <div class="dropdown-row">
+      <a class="dropdown-item" href="#">Potatoes</a>
+      <a class="dropdown-item" href="#">Leeks</a>
+      <a class="dropdown-item" href="#">Cauliflowers</a>
+    </div>
+    <div class="dropdown-row">
+      <a class="dropdown-item" href="#">Beef</a>
+      <a class="dropdown-item" href="#">Pork</a>
+      <a class="dropdown-item" href="#">Venison</a>
+    </div>
+  </div>
+</div>
+
+<br /><br />
+
+<!-- COLUMNS -->
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Multi - columns
+  </button>
+  <div class="dropdown-menu dropdown-multicol2" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-col">
+      <a class="dropdown-item" href="#">Oranges</a>
+      <a class="dropdown-item" href="#">Bananas</a>
+      <a class="dropdown-item" href="#">Apples</a>
+    </div>
+    <div class="dropdown-col">
+      <a class="dropdown-item" href="#">Potatoes</a>
+      <a class="dropdown-item" href="#">Leeks</a>
+      <a class="dropdown-item" href="#">Cauliflowers</a>
+    </div>
+    <div class="dropdown-col">
+      <a class="dropdown-item" href="#">Beef</a>
+      <a class="dropdown-item" href="#">Pork</a>
+      <a class="dropdown-item" href="#">Venison</a>
+    </div>
+  </div>
+</div>
+  
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+  
+</body>
+</html>

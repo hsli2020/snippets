@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alpine.js Modal Dialog</title>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+      .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+      }
+      .model-inner {
+        background-color: white;
+        border-radius: 0.5em;
+        max-width: 600px;
+        padding: 2em;
+        margin: auto;
+      }
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid black;
+      }     
+      .overlay {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: black;
+        opacity: 0.75;
+      }
+    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body x-data="{ 'isModalOpen': false }" x-on:keydown.escape="isModalOpen = false">
+    <button x-on:click="isModalOpen = true">Open Modal</button>
+    <div
+      class="modal"
+      role="dialog"
+      tabindex="-1"
+      x-show="isModalOpen"      
+      x-on:click.away="isModalOpen = false"
+      x-cloak
+      x-transition
+    >
+      <div class="model-inner">
+        <div class="modal-header">
+          <h3>Hello World</h3>
+          <button aria-label="Close" x-on:click="isModalOpen = false">✖</button>
+        </div>
+        <p>
+          Natus earum velit ab nobis eos. Sed et exercitationem voluptatum omnis
+          dolor voluptates. Velit ut ipsam sunt ipsam nostrum. Maiores officia
+          accusamus qui sapiente. Dolor qui vel placeat dolor nesciunt quo dolor
+          dolores. Quo accusamus hic atque nisi minima.
+        </p>
+      </div>
+    </div>
+    <div class="overlay" x-show="isModalOpen" x-cloak></div>
+  </body>
+</html>

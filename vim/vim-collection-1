@@ -1,0 +1,811 @@
+VIM中括号的自动补全与删除
+
+" 插入匹配括号
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+inoremap { {}<LEFT>
+
+我们还需要一个功能，如果按退格键删除了左括号，那么也要自动地把对应的右括号删除。这个操作使用简单的键盘映射就有点难度了，需要借助函数，如下：
+
+" 按退格键时判断当前光标前一个字符，如果是左括号，则删除对应的右括号以及括号中间的内容
+function! RemovePairs()
+    let l:line = getline(".")
+    let l:previous_char = l:line[col(".")-1] " 取得当前光标前一个字符
+ 
+    if index(["(", "[", "{"], l:previous_char) != -1
+        let l:original_pos = getpos(".")
+        execute "normal %"
+        let l:new_pos = getpos(".")
+ 
+        " 如果没有匹配的右括号
+        if l:original_pos == l:new_pos
+            execute "normal! a\<BS>"
+            return
+        end
+ 
+        let l:line2 = getline(".")
+        if len(l:line2) == col(".")
+            " 如果右括号是当前行最后一个字符
+            execute "normal! v%xa"
+        else
+            " 如果右括号不是当前行最后一个字符
+            execute "normal! v%xi"
+        end
+ 
+    else
+        execute "normal! a\<BS>"
+    end
+endfunction
+
+" 用退格键删除一个左括号时同时删除对应的右括号
+inoremap <BS> <ESC>:call RemovePairs()<CR>a
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Counting occurrences in Vim without marking the buffer changed
+:%s/pattern//gn
+:help count-items
+
+ctrl-t / ctrl-d Indent/Unindent in Insert Mode
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:hi[ghlight]   list all ColorGroup
+:mat[ch] todo /demo/
+:mat[ch] error /demo/
+:match none
+
+:nmap -c :set cursorcolumn!<cr>
+
+Delete all lines matching a pattern.
+:g/<pattern>/d
+
+Delete all lines that do not match a pattern.
+:g!/<pattern>/d
+
+Delete all blank lines 
+:g/^\s*$/d
+
+Copy all lines matching a pattern to end of file.
+:g/<pattern>/t$
+
+Move all lines matching a pattern to end of file.
+:g/<pattern>/m$
+
+Copy all lines matching a pattern to register 'a'.
+qaq:g/<pattern>/y A
+
+Explanation qaq is a trick to clear register a (qa starts recording a macro to register a, then q stops recording, leaving a empty). y A is an Ex command (:help :y). It yanks the current line into register A (append to register a). 
+
+Reverse a file (just to show the power of g).
+:g/^/m0
+
+Add text to the end of a line that begins with a certain string.
+:g/^pattern/s/$/mytext
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM COLORS
+
+ 1=DARK BLUE
+ 2=DARK GREEN
+ 3=DARK CYGN
+ 4=DARK RED
+ 5=DARK PURPLE
+ 6=DARK YELLOW
+ 7=GREY
+ 8=DARKGREY
+
+ 9=BLUE
+10=GREEN
+11=CYGN
+12=RED
+13=PURPLE
+14=YELLOW
+15=WHITE
+16=BLACK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM
+
+	c	change
+	d	delete
+	y	yank into register (does not change the text)
+	~	swap case (only if 'tildeop' is set)
+	g~	swap case
+	gu	make lowercase
+	gU	make uppercase
+	!	filter through an external program
+	=	filter through 'equalprg' or C-indenting if empty
+	gq	text formatting
+	g?	ROT13 encoding
+	>	shift right
+	<	shift left
+	zf	define a fold
+	g@  call function set with the 'operatorfunc' option
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <BS> :nohl<CR><BS>
+
+For illustration, here is a list of delete commands, grouped from small to big objects.  
+
+	"dl"	        delete character (alias: "x")
+	"diw"	delete inner word	
+	"daw"	delete a word	
+	"diW"	delete inner WORD (see |WORD|)
+	"daW"	delete a WORD (see |WORD|)
+	"dd"	        delete one line		
+	"dis"	        delete inner sentence
+	"das"	delete a sentence
+	"dib"	        delete inner '(' ')' block		
+	"dab"	delete a '(' ')' block	
+	"dip"	        delete inner paragraph
+	"dap"	delete a paragraph
+	"diB"	        delete inner '{' '}' block
+	"daB"	delete a '{' '}' block	
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+zz - move current line to the middle of the screen
+zt - move current line to the top of the screen
+zb - move current line to the bottom of the screen
+
+Ctrl-E Moves screen up one line
+Ctrl-Y Moves screen down one line
+Ctrl-U Moves screen up ½ page
+Ctrl-D Moves screen down ½ page
+Ctrl-B Moves screen up one page
+Ctrl-F Moves screen down one page
+
+# to see color group in vim
+:so $VIMRUNTIME/syntax/hitest.vim 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+inoremap jk            <esc>
+
+nnoremap <tab>         :tabn<cr>
+nnoremap <s-tab>       :tabp<cr>
+
+nnoremap <bs>          :nohl<cr> 
+nnoremap K             <c-w>gF
+
+nnoremap H             0
+nnoremap L             $
+nnoremap M             %
+
+nnoremap a             A
+nnoremap j             gj
+nnoremap k             gk
+
+nnoremap gf            <c-w>gF
+
+nnoremap ;d            :t.<cr>
+
+nnoremap ;f            0f{zf%0
+nnoremap ;z            zf%0
+
+nnoremap ;u            guiw
+nnoremap ;U            gUiw
+
+nnoremap ;q            :confirm q<cr>
+nnoremap ;b            [{
+
+set showtabline=2
+set guitablabel=%t
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ 1=DARK BLUE
+ 2=DARK GREEN
+ 3=DARK CYGN
+ 4=DARK RED
+ 5=DARK PURPLE
+ 6=DARK YELLOW
+ 7=GREY
+ 8=DARKGREY
+
+ 9=BLUE
+10=GREEN
+11=CYGN
+12=RED
+13=PURPLE
+14=YELLOW
+15=WHITE
+16=BLACK
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM wrap
+
+One more neat trick:
+
+augroup vimrc_autocmds
+  autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
+  autocmd BufEnter * match OverLength /\%74v.*/
+augroup END
+
+This will highlight all characters past 74 columns (tweak that number as desired) in dark grey 
+(tweak that color as desired), and is a nice visual cue when auto linewrapping isn't turned on 
+when you should think about breaking things.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM wrap
+
+The gq{motion} command will format a section of text. The ip motion selects the current paragraph, so gqip applies formatting to the current paragraph.
+
+Running the gq command moves the cursor to the end of the paragraph. If you want to keep the cursor on the same word, you can instead run the command gw.
+
+The textwidth setting is a number representing the maximum allowed width of a line. When set to zero, which is the default, Vim will use the full width of the window up to a maximum of 80 characters. When set to a value above zero, Vim will format lines of text so as not to exceed the value of textwidth.
+
+The wrapmargin setting can be used to specify the number of characters from the right window border where wrapping begins. This can be useful if you have number or foldcolumn enabled, as both of these use up some of the width of the window. The textwidth setting takes precedence over wrapmargin.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM FoldText
+
+hi Folded      ctermbg=234 ctermfg=8
+hi Folded  ctermbg=234 guifg=grey25 guibg=grey15
+
+set foldtext=MyFoldText()
+set fillchars=fold:\ ,vert:\|
+function! MyFoldText()
+    let txt = foldtext()
+    let len = strlen(txt)
+    return txt[0:len-2]." { ... }"
+endfunction
+
+nnoremap ,z            :set fdm=indent<cr>zC:set fdm=manual<cr>
+nnoremap z;            [*zf]*
+nnoremap d;            [*d]*dd
+
+these key not defined in vim
+d/ d, d\ z/ z, z\
+
+HOW TO FOLD WHOLE FILE QUICKLY?
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let b:did_ftplugin = 1
+set term=ansi
+
+" Use color syntax highlighting.
+syntax on
+
+" Color specifications. Change them as you would like.
+
+hi Comment	term=none	ctermfg=gray	guifg=Gray
+hi Constant	term=underline	ctermfg=cyan	guifg=Cyan
+hi Identifier	term=underline	ctermfg=green	guifg=White
+hi Statement	term=bold	ctermfg=white	guifg=White
+hi PreProc	term=underline	ctermfg=magenta	guifg=Magenta
+hi Type		term=underline	ctermfg=white	guifg=White
+hi Special	term=bold	ctermfg=blue	guifg=Blue
+hi Nontext	term=bold	ctermfg=red	guifg=Red
+hi Normal	guifg=Yellow	guibg=#00007F
+hi Normal	ctermfg=darkgreen
+
+hi Comment      cterm=none	gui=none
+hi Constant     cterm=bold	gui=none
+hi Identifier   cterm=none	gui=none
+hi Statement    cterm=bold	gui=none
+hi PreProc      cterm=bold	gui=none
+hi Type         cterm=bold	gui=none
+hi Special      cterm=bold	gui=none
+hi NonText	cterm=bold	gui=none
+
+" Special highlighting for XML
+hi xmlTag ctermfg=blue cterm=bold guifg=white
+hi xmlTagName ctermfg=blue cterm=bold guifg=white
+hi xmlEndTag ctermfg=blue cterm=bold guifg=white
+
+
+" Options.
+
+set autoindent
+set backspace=2		" Allows insert-mode backspace to work as one expects
+set cindent
+set cinkeys=0{,0},:,!^F,o,O,e	" See "cinkeys"; this stops "#" from indenting
+set fileformat=unix	" No crazy CR/LF
+set listchars=tab:\ \ ,trail:· " If you do ":set list", shows trailing spaces
+set mouse=		" I don't like the mouse in VIM
+set nobackup		" Don't use a backup file (also see writebackup)
+set nohlsearch		" Don't highlight search terms
+set nojoinspaces	" One space after a "." rather than 2
+set ruler		" Show the line position at the bottom of the window
+set scrolloff=1		" Minimum lines between cursor and window edge
+set shiftwidth=4	" Indent by 4 columns (for C functions, etc).
+set showcmd		" Show partially typed commands
+set showmatch		" Show parentheses matching
+set smartindent		" Indent settings (really only the cindent matters)
+set textwidth=80	" Maximum line width
+set viminfo='0,\"100,	" Stay at the start of a file when opening it
+set whichwrap=<,>,[,],h,l " Allows for left/right keys to wrap across lines
+set writebackup		" Write temporary backup files in case we crash
+
+if version >= 600
+
+" Vim 6 options
+
+"  colo cduan
+  set formatoptions=tcroql
+
+  " Increase the highlighting accuracy
+  syn sync fromstart
+
+else
+
+  set fo=tcroql
+"  source ~/.vim/colors/cduan.vim
+"  source ~/.vim/plugin/matchit.vim
+  syn sync minlines=1000
+
+end
+
+set guifont=-Schumacher-Clean-Medium-R-Normal--16-160-75-75-C-80-ISO646.1991-IRV
+
+map <Del> <BS>
+imap <Del> <BS>
+
+" My file types. TODO: These should be in the .vimft file, I think...
+au BufNewFile,BufRead *.cls set syn=tex
+au BufNewFile,BufRead *.R set syn=r
+au BufNewFile,BufRead *.R syn sync fromstart
+
+" On plain text files, no keyword chars, because we don't want tab completion
+au BufNewFile,BufRead *.txt set iskeyword=
+
+" NOTE: Sweave syntax is my own file...
+au BufNewFile,BufRead *.Snw set syn=sweave
+
+" On LaTeX files don't use indenting.
+au BufNewFile,BufRead *.tex,*.Snw set noautoindent nosmartindent nocindent
+" On HTML files don't use indenting.
+au BufNewFile,BufRead *.html set noautoindent nosmartindent nocindent
+
+" On CGI files, determine type by reading in a line.
+fun! CGICheck()
+    let l = getline(nextnonblank(1))
+    if l =~ 'php'
+	set syn=php
+    elseif l =~ 'perl'
+	set syn=perl
+    endif
+endfun
+
+au BufRead *.cgi	call CGICheck()
+
+" On reading TeX files, don't wrap to eighty characters. I know this is
+" horrible, but it makes formatting and parsing much easier for me.
+" TODO Figure out how to make the scrolling work properly with line wrapping.
+fun! TeXformat()
+    set noautoindent nosmartindent nocindent
+    set textwidth=0
+    set linebreak
+    set display=lastline
+    noremap j gj
+    noremap k gk
+    noremap $ g$
+    noremap ^ g^
+    noremap 0 g0
+    noremap A g$a
+    noremap I g^i
+    noremap C cg$
+    noremap D dg$
+endfun
+
+"au BufNewFile,BufRead *.tex call TeXformat()
+
+" Set expandtab for Fortran files
+au BufNewFile,BufRead *.f,*.for set expandtab
+
+" I don't know why I need this...
+augroup cprog
+    au!
+augroup end
+
+" Based on VIM tip 102: automatic tab completion of keywords
+function InsertTabWrapper(dir)
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+	return "\<tab>"
+    elseif "back" == a:dir
+	return "\<c-p>"
+    else
+	return "\<c-n>"
+    endif
+endfunction
+
+inoremap <tab> <c-r>=InsertTabWrapper("fwd")<cr>
+inoremap <s-tab> <c-r>=InsertTabWrapper("back")<cr>
+
+set encoding=utf-8
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM php.vim
+
+sudo vi /usr/share/vim/vim73/syntax/php.vim
+
+修改php.vim，把HiLink  phpVarSelector之后的改为Identifier($和变量名颜色相同)
+     HiLink  phpVarSelector  Identifier
+
+修改当前颜色文件(如colors/desert.vim), 加入
+hi ColorColumn ctermbg=235 guibg=grey25
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:g/^/m0                     : Reverse file (m = move)
+
+:g/^/m$                     : No effect! [N]
+
+:'a,'bg/^/m'b               : Reverse a section a to b
+
+:g/^/t.                     : duplicate every line
+
+:g/fred/t$                  : copy(transfer) lines matching fred to EOF
+
+:g/stage/t'a                : copy (transfer) lines matching stage to marker a (cannot use .) [C]
+
+:g/^Chapter/t.|s/./-/g      : Automatically underline selecting headings [N]
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Vim iab
+
+iab cl console.log(
+
+iab fu function
+iab fun function() {
+iab ns namespace
+iab vd var_dump
+iab vx var_export
+
+iab gid document.getElementById
+
+iab pub public
+iab pro protected
+iab pri private
+iab imp implements
+iab ext extends
+iab exp export
+iab prr print_r
+
+iab pf  public function
+iab ab  abstract
+iab abc abstract class 
+iab abf abstract function
+iab req request
+iab res response
+
+iab puf public function
+iab psf public static function
+
+iab pof  protected function
+iab posf protected static function
+
+iab pvf private function
+iab pvsf private static function
+
+iab this $this->
+
+iab jqready $(document).ready(function() {});
+iab jqclick $("p").click(function() {});
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+iab fm fpr(__METHOD__)
+iab ff fpr(__FILE__)
+iab p1 fpr('== 1 ==')
+iab p2 fpr('== 2 ==')
+iab p3 fpr('== 3 ==')
+iab p4 fpr('== 4 ==')
+iab p5 fpr('== 5 ==')
+iab p6 fpr('== 6 ==')
+iab p7 fpr('== 7 ==')
+iab p8 fpr('== 8 ==')
+iab p9 fpr('== 9 ==')
+iab vd var_dump
+iab pr print_r
+iab prvd e.preventDefault()
+iab ctor constructor(
+iab months var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+iab syso System.out.println
+iab sop System.out.println
+
+iab imp implements
+iab ext extends
+
+iab cl console.log
+iab fu function
+iab fun function() {
+
+iab pf public function
+iab psf public static function
+
+iab ns namespace
+iab gid document.getElementById(
+iab jqready $(document).ready(function() {});<ESC>
+iab jqclick $("p").click(function() {});<ESC>
+iab jsmod (function() {})()
+iab jmain public static void main(String [] args){}<ESC>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM abbrievation
+
+iab date_ <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iab dttm <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+iab syso System.out.println
+iab sop System.out.println
+iab imp implements
+iab cl console.log
+iab ov @Override
+iab pf public function
+iab fu function
+iab fun function() {
+iab psf public static function
+iab ut \PHPUnit_Framework_TestCase
+iab exut extends \PHPUnit_Framework_TestCase
+iab tis testItShould
+iab pft public function testItShould
+iab G $_GET['
+iab P $_POST['
+iab R $_REQUEST['
+iab ns namespace
+iab gid document.getElementById
+iab jqready $(document).ready(function() {});
+iab jqclick $("p").click(function() {});
+iab jmain public static void main(String [] args) {}
+iab puv public void
+iab vwport <meta name="viewport" content="width=device-width, initial-scale=1">
+iab cssinc <link rel="stylesheet" href="">
+iab jsinc <script type="text/javascript" src="">
+iab chset <meta charset="utf-8">
+iab favico <link rel="icon" href="/favicon.ico" type="image/x-icon">
+iab keywd <meta name="Keywords" content="">
+iab descr <meta name="Description" content="">
+cab SH w !bash
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+.vimrc for devbox
+
+set nocompatible
+set history=200
+set nowrap
+set nowrapscan
+set number
+set paste
+
+let loaded_matchparen = 1
+
+syntax on
+colorscheme pablo
+
+filetype plugin on
+filetype indent on
+
+nnoremap a             A
+nnoremap j             gj
+nnoremap k             gk
+
+nnoremap H             0
+nnoremap L             $
+nnoremap M             %
+nnoremap Y             y$
+nnoremap S             :w<cr>
+
+nnoremap <bs>          :nohl<cr>
+nnoremap ;q            :confirm q<cr>
+nnoremap ;w            :w<cr>
+nnoremap ;d            :t.<cr>
+nnoremap ;f            0f{zf%0
+nnoremap ;z            zf%0
+vnoremap //            y/<C-R>"<CR>
+
+nnoremap gf            <c-w>gF
+nnoremap ;gf           :tabe <cfile><cr>
+nnoremap (             gT
+nnoremap )             gt
+
+nnoremap --            :t.<CR>Vr-<Esc>
+nnoremap -=            :t.<CR>Vr=<Esc>
+nnoremap \\            :tabe<cr>
+
+nnoremap -c            :set cursorcolumn!<cr>
+nnoremap -w            :set wrapscan!<cr>
+nnoremap -2            :set ts=2<cr>
+nnoremap -4            :set ts=4<cr>
+nnoremap ,w            :set wrap!<cr>
+
+set laststatus=2
+set statusline=\ %F%m%r%h\ %w\ \ x%B\ Line:\ %l/%L:%c
+set statusline+=\ [%{&ff}:%{strlen(&enc)?&enc:'none'}] "file encoding
+
+set cursorline
+hi CursorLine cterm=NONE ctermbg=236
+hi LineNr     ctermfg=245 ctermbg=234
+
+command! -nargs=0 CL    :! sudo service syslog restart
+command! -nargs=0 NX    :! sudo service nginx restart
+command! -nargs=0 CM    :! sudo /etc/init.d/memcached restart
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Devbox .vimrc
+
+set nocompatible
+set history=200
+set nowrap
+set nowrapscan
+set number
+set paste
+
+let loaded_matchparen = 1
+
+syntax on
+colorscheme pablo
+
+filetype plugin on
+filetype indent on
+
+nnoremap a             A
+nnoremap j             gj
+nnoremap k             gk
+
+nnoremap H             0
+nnoremap L             $
+nnoremap M             %
+nnoremap Y             y$
+nnoremap S             :w<cr>
+
+nnoremap <bs>          :nohl<cr>
+nnoremap ;q            :confirm q<cr>
+nnoremap ;w            :w<cr>
+nnoremap ;d            :t.<cr>
+nnoremap ;f            0f{zf%0
+nnoremap ;z            zf%0
+vnoremap //            y/<C-R>"<CR>
+
+nnoremap gf            <c-w>gF
+nnoremap ;gf           :tabe <cfile><cr>
+nnoremap (             gT
+nnoremap )             gt
+
+nnoremap --            :t.<CR>Vr-<Esc>
+nnoremap -=            :t.<CR>Vr=<Esc>
+nnoremap \\            :tabe<cr>
+
+nnoremap -c            :set cursorcolumn!<cr>
+nnoremap -w            :set wrapscan!<cr>
+nnoremap -2            :set ts=2<cr>
+nnoremap -4            :set ts=4<cr>
+nnoremap ,w            :set wrap!<cr>
+
+set laststatus=2
+set statusline=\ %F%m%r%h\ %w\ \ x%B\ Line:\ %l/%L:%c
+set statusline+=\ [%{&ff}:%{strlen(&enc)?&enc:'none'}] "file encoding
+
+set cursorline
+hi CursorLine cterm=NONE ctermbg=236
+hi LineNr     ctermfg=245 ctermbg=234
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM folding for PHP
+
+http://stackoverflow.com/questions/4789605/how-do-i-enable-automatic-folds-in-vim
+
+set foldmethod=syntax
+set foldlevelstart=2
+
+let javaScript_fold=1         " JavaScript
+let perl_fold=1               " Perl
+let php_folding=1             " PHP
+let r_syntax_folding=1        " R
+let ruby_fold=1               " Ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " Vim script
+let xml_syntax_folding=1      " XML
+
+http://spf13.com/project/piv/
+
+http://www.slideshare.net/ZendCon/vim-for-php-programmers-presentation
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vimrc
+
+"disable the arrow keys
+nnoremap <left> :echoe "use h"<cr>
+nnoremap <right> :echoe "use l"<cr>
+nnoremap <up> :echoe "use k"<cr>
+nnoremap <down> :echoe "use j"<cr>
+
+"move between splits easily
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+"use 'jk' as esc
+inoremap jk <ESC>
+
+"open new split panes to right and bottom
+set splitbelow
+set splitright
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM BOM
+
+:set bomb?
+Do ':set nobomb' before saving to remove a BOM. 
+
+To save the file without a BOM:
+        :setlocal nobomb
+        :w
+
+To ask Vim if there is a BOM:
+        :setlocal bomb?
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Vim-Plug
+
+https://github.com/junegunn/vim-plug
+
+call plug#begin()
+  Plug 'vim-scripts/AutoComplPop'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'mattn/emmet-vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'fatih/vim-go'
+  Plug 'MarcWeber/vim-addon-mw-utils'
+  Plug 'scrooloose/nerdtree'
+  Plug 'garbas/vim-snipmate'
+  Plug 'honza/vim-snippets'
+  Plug 'tomtom/tlib_vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+command! -nargs=0 VIMRC :tabe $MYVIMRC
+
+https://github.com/neoclide/coc.nvim
+https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+
+#https://github.com/Shougo/denite.nvim required Python
+
+https://vimawesome.com/
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+VIM file templates
+
+autocmd BufNewFile *.xml 0r ~/.vim/xml.skel | let IndentStyle = "xml"
+autocmd BufNewFile *.html 0r ~/.vim/html.skel | let IndentStyle = "html"
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+
+<title>HTML5+CSS3+JavaScript Playground</title>
+
+<meta name="generator" content="" />
+<meta name="author" content="" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="robots" content="index,follow,archive">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+<script type="text/javascript">
+</script>
+
+<style type="text/css">
+</style>
+
+</head>
+<body>
+
+<div>
+</div>
+
+</body>
+</html>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Q: How do I duplicate a whole line in Vim in a similiar way to CTRL+D in IntelliJ IDEA/Resharper or Ctrl Alt Arrow in Eclipse?
+
+A: The Ex way: :t. will duplicate the line. :t 7 will copy it after line 7. :,+t0 will copy current and next line at the beginning of the file. :1,t$ will copy lines from beginning till cursor position to the end.
+
+Reference: :help :t
+
+nnoremap <c-d> :t.<cr>
+nnoremap ;d        :t.<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

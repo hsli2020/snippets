@@ -1,0 +1,116 @@
+VIM中括号的自动补全与删除
+
+" 插入匹配括号
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+inoremap { {}<LEFT>
+
+我们还需要一个功能，如果按退格键删除了左括号，那么也要自动地把对应的右括号删除。这个操作使用简单的键盘映射就有点难度了，需要借助函数，如下：
+
+" 按退格键时判断当前光标前一个字符，如果是左括号，则删除对应的右括号以及括号中间的内容
+function! RemovePairs()
+    let l:line = getline(".")
+    let l:previous_char = l:line[col(".")-1] " 取得当前光标前一个字符
+ 
+    if index(["(", "[", "{"], l:previous_char) != -1
+        let l:original_pos = getpos(".")
+        execute "normal %"
+        let l:new_pos = getpos(".")
+ 
+        " 如果没有匹配的右括号
+        if l:original_pos == l:new_pos
+            execute "normal! a\<BS>"
+            return
+        end
+ 
+        let l:line2 = getline(".")
+        if len(l:line2) == col(".")
+            " 如果右括号是当前行最后一个字符
+            execute "normal! v%xa"
+        else
+            " 如果右括号不是当前行最后一个字符
+            execute "normal! v%xi"
+        end
+ 
+    else
+        execute "normal! a\<BS>"
+    end
+endfunction
+
+" 用退格键删除一个左括号时同时删除对应的右括号
+inoremap <BS> <ESC>:call RemovePairs()<CR>a
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Counting occurrences in Vim without marking the buffer changed
+:%s/pattern//gn
+:help count-items
+
+ctrl-t / ctrl-d Indent/Unindent in Insert Mode
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:hi[ghlight]   list all ColorGroup
+:mat[ch] todo /demo/
+:mat[ch] error /demo/
+:match none
+
+:nmap -c :set cursorcolumn!<cr>
+
+Delete all lines matching a pattern.
+:g/<pattern>/d
+
+Delete all lines that do not match a pattern.
+:g!/<pattern>/d
+
+Delete all blank lines 
+:g/^\s*$/d
+
+Copy all lines matching a pattern to end of file.
+:g/<pattern>/t$
+
+Move all lines matching a pattern to end of file.
+:g/<pattern>/m$
+
+Copy all lines matching a pattern to register 'a'.
+qaq:g/<pattern>/y A
+
+Explanation qaq is a trick to clear register a (qa starts recording a macro to register a, then q stops recording, leaving a empty). y A is an Ex command (:help :y). It yanks the current line into register A (append to register a). 
+
+Reverse a file (just to show the power of g).
+:g/^/m0
+
+Add text to the end of a line that begins with a certain string.
+:g/^pattern/s/$/mytext
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

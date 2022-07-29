@@ -1,0 +1,153 @@
+https://github.com/webpack/webpack/blob/9c70c6c00db55821a508a5419ae5a5cfd483ce96/lib/ModuleFilenameHelpers.js#L101-L121
+
+const lazyObject = obj => {
+	const newObj = {};
+	for (const key of Object.keys(obj)) {
+		const fn = obj[key];
+		Object.defineProperty(newObj, key, {
+			get: () => fn(),
+			set: v => {
+				Object.defineProperty(newObj, key, {
+					value: v,
+					enumerable: true,
+					writable: true
+				});
+			},
+			enumerable: true,
+			configurable: true
+		});
+	}
+	return newObj;
+};
+
+------------------------------------------------------------
+Microsoft Excel Shortcuts A to Z, to maximize your productivity (bookmark these for later):
+
+CTRL + A ➡️ Select All
+CTRL + B ➡️ Toggle BOLD (font)
+CTRL + C ➡️ Copy
+CTRL + D ➡️ Fill Down
+CTRL + E ➡️ Flash Fill
+CTRL + F ➡️ Find
+CTRL + G ➡️ Go To
+CTRL + H ➡️ Find and Replace
+CTRL + I ➡️ Toggle Italic (font)
+CTRL + J ➡️ Input line break (in Find and Replace) 
+CTRL + K ➡️ Insert Hyperlink
+CTRL + L ➡️ Insert Excel Table 
+CTRL + M ➡️ Not Assigned
+CTRL + N ➡️ New Workbook
+CTRL + O ➡️ Open
+CTRL + P ➡️ Print
+CTRL + Q ➡️ Quick Analysis 
+CTRL + R ➡️ Fill Right
+CTRL + S ➡️ Save
+CTRL + T ➡️ Insert Excel Table
+CTRL + U ➡️ Toggle underline (font) 
+CTRL + V ➡️ Paste (when something is cut/copied)
+CTRL + W ➡️ Close the current workbook
+CTRL + X ➡️ Cut
+CTRL + Y ➡️ Redo (Repeat last action)
+CTRL + Z ➡️ Undo
+------------------------------------------------------------
+https://github.com/xcanwin/KeepChatGPT/blob/main/KeepChatGPT.user.js
+
+var $ = (Selector, el) => (el || document).querySelector(Selector);
+var $$ = (Selector, el) => (el || document).querySelectorAll(Selector);
+
+// ==UserScript==
+// @name              KeepChatGPT
+// @match             https://chat.openai.com/*
+// @grant             GM_addStyle
+// @grant             GM_addElement
+// @grant             GM_setValue
+// @grant             GM_getValue
+// @grant             unsafeWindow
+// @run-at            document-idle
+// ==/UserScript==
+
+------------------------------------------------------------
+Windows 10 电脑上使用听写将说出的字词转换为文本。 
+听写使用内置于 Windows 10 的语音识别功能，因此无需下载和安装即可使用。
+
+若要开始听写，请选择一个文本字段，然后按 Win + H 打开听写工具栏。 然后将你心中所想全都说出来。  
+若要在听写时随时停止听写，请说“停止听写”。
+
+------------------------------------------------------------
+Amazon CodeWhisperer
+
+// write a php function to read a csv file and return the data as an array.
+function readCsv($filename) {
+    $fp =  fopen($filename, 'r');
+    if (!$fp) {
+        return false;
+    }
+    
+    // read the header line
+    $columns = fgetcsv($fp);
+    
+    // read the data
+    $data = array();
+    while ($row = fgetcsv($fp)) {
+        // check if the row is not empty
+        if (!$row) {
+            continue;
+        }
+        
+        // check if the row is not a comment
+        if ($row[0][0] == '#') {
+            continue;
+        }
+
+        // check if the row has the same number of columns as the header
+        if (count($row) != count($columns)) {
+            continue;
+            //throw new Exception('Invalid row');
+            //return false;
+            //break;
+        }
+
+        // remove the quotes from the beginning and end of the string
+        $row = array_map('trim', $row);
+
+        // combine the header and data into one array
+        $row = array_combine($columns, $row);
+        $data[] = $row;
+    }
+    fclose($fp);
+    return $data;
+}
+------------------------------------------------------------
+div = document.createElement('div');
+div.id =  "wrapper";
+div.className= "mt-1 px-2";
+div.classList.add('bg-yellow', 'text-lg');
+div.setAttribute("id", "Div1");
+div.innerHTML = '<p>CreateElement example</p>';
+div.textContent = 'Add h2 element to the div';
+div.style.cssText = "border:2px dashed green;color:white;"
+document.body.appendChild(div);
+
+//----------------------------------------------------------
+
+let logo = document.querySelector('.logo')
+
+// insertAdjacentHTML
+logo.insertAdjacentHTML('beforebegin', '<button>Start</button>');
+logo.insertAdjacentHTML('afterend', '<button>Stop</button>') ;
+
+// insertAdjacentElement
+let btn = document.createElement('button')
+btn.textContent = 'Start'
+logo.insertAdjacentElement('beforebegin', btn)
+
+// insertAdjacentText
+logo.insertAdjacentText('beforebegin', '')
+
+logo.insertBefore(...)
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+------------------------------------------------------------

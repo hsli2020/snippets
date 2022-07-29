@@ -1,23 +1,28 @@
-// Original JavaScript code by Chirp Internet: www.chirp.com.au
+// Original JavaScript code by Chirp Internet: www.chirpinternet.eu
 // Please acknowledge use of this code by including this header.
 
 function SoundPlayer(audioContext, filterNode) {
+
   this.audioCtx = audioContext;
   this.gainNode = this.audioCtx.createGain();
+
   if(filterNode) {
     // run output through extra filter (already connected to audioContext)
     this.gainNode.connect(filterNode);
   } else {
     this.gainNode.connect(this.audioCtx.destination);
   }
+
   this.oscillator = null;
 }
 
 SoundPlayer.prototype.setFrequency = function(val, when) {
-  if(when) {
-    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime + when);
-  } else {
-    this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime);
+  if(this.oscillator !== null) {
+    if(when) {
+      this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime + when);
+    } else {
+      this.oscillator.frequency.setValueAtTime(val, this.audioCtx.currentTime);
+    }
   }
   return this;
 };
@@ -44,6 +49,7 @@ SoundPlayer.prototype.play = function(freq, vol, wave, when) {
     this.setWaveType(wave);
   }
   this.setVolume(1/1000);
+
   if(when) {
     this.setVolume(1/1000, when - 0.02);
     this.oscillator.start(when - 0.02);
@@ -52,6 +58,7 @@ SoundPlayer.prototype.play = function(freq, vol, wave, when) {
     this.oscillator.start();
     this.setVolume(vol, 0.02);
   }
+
   return this;
 };
 
