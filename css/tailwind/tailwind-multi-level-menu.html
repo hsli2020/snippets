@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Login Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<!-- 
+  https://play.tailwindcss.com/0xQBSdXxsK
+  Multi-Level Dropdown Menu
+  Created by Surjith S M
+  https://twitter.com/surjithctly 
+-->
+
+<div class="flex fixed top-0 z-10 w-full items-center gap-4 bg-white/80 py-1 px-5 shadow">
+  <span class="text-sm font-semibold cursor-default">Chrome</span>
+
+  <nav>
+    <ul class="flex justify-center text-neutral-700">
+      <li class="group relative" tabindex="-1">
+        <button class="rounded-md px-3 py-1 text-sm hover:bg-black/5">File</button>
+
+        <div class="invisible absolute top-full w-48 transform opacity-0 transition-all duration-300 group-focus-within:visible group-focus-within:opacity-100">
+          <ul class="mt-1 rounded-md border border-neutral-50 bg-white/50 py-1 shadow backdrop-blur-sm">
+            <li>
+              <a href="about:srcdoc#" target="_self" class="flex items-center justify-between px-3 py-0.5 text-sm hover:bg-black/5"><span>New Tab</span><span class="text-xs opacity-50">⌘T</span></a>
+            </li>
+            <li>
+              <a href="about:srcdoc#" target="_self" class="flex items-center justify-between px-3 py-0.5 text-sm hover:bg-black/5"> <span>New Window</span><span class="text-xs opacity-50">⌘N</span> </a>
+            </li>
+            <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">New Incognito Window</a></li>
+            <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Re-open Closed Tab</a></li>
+            <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Open File...</a></li>
+            <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Open Location...</a></li>
+            <li class="group/submenu relative my-1 border-y border-gray-200 py-1">
+              <button class="flex w-full items-center justify-between pl-3 pr-2 py-0.5 text-sm hover:bg-black/5">
+                <span>Share</span>
+                <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+              <div class="invisible absolute top-0 left-full w-40 transform opacity-0 transition-all duration-300 group-focus-within/submenu:visible group-focus-within/submenu:opacity-100 group-hover/submenu:visible group-hover/submenu:opacity-100">
+                <ul class="mt-1 rounded-md border border-neutral-50 bg-white/50 py-1 shadow backdrop-blur-lg">
+                  <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Email Link</a></li>
+                  <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Messages</a></li>
+                  <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Airdrop</a></li>
+                  <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Notes</a></li>
+                  <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Reminders</a></li>
+                  <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Shortcuts</a></li>
+                </ul>
+              </div>
+            </li>
+            <li><a href="about:srcdoc#" target="_self" class="flex px-3 py-0.5 text-sm hover:bg-black/5">Print</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li>
+        <button class="cursor-default px-3 py-1 text-sm">Edit</button>
+      </li>
+
+      <li>
+        <button class="cursor-default px-3 py-1 text-sm">View</button>
+      </li>
+
+      <li>
+        <button class="cursor-default px-3 py-1 text-sm">Help</button>
+      </li>
+    </ul>
+  </nav>
+  <time class="ml-auto hidden text-sm text-neutral-400 sm:block"> Tue 24 Jan 3:49 PM</time>
+</div>
+
+<div class="flex relative z-0 min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+  <img src="/img/beams.jpg" alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+  <div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+</div>
+
+
+</body>
+</html>

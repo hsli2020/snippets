@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Gopher (Golang) CSS only animation</title>
+  
+<style>
+body {
+  align-items: center;
+  background-color: #D5C4FF;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.gopher {
+  height: 20rem;
+  width: 20rem;
+}
+
+.gopher-animation,
+.left-arm,
+.right-arm,
+.right-foot,
+.left-foot,
+.belly,
+.shadow,
+.left-eye,
+.right-eye,
+.mouth,
+.tongue {
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+}
+
+.left-eye,
+.right-eye {
+  -webkit-animation-name: blink;
+          animation-name: blink;
+}
+
+@-webkit-keyframes blink {
+  0%,
+  18%,
+  100% {
+    visibility: hidden;
+  }
+  15% {
+    visibility: visible;
+  }
+}
+
+@keyframes blink {
+  0%,
+  18%,
+  100% {
+    visibility: hidden;
+  }
+  15% {
+    visibility: visible;
+  }
+}
+
+.mouth,
+.tongue {
+  -webkit-animation-name: shout;
+          animation-name: shout;
+}
+
+@-webkit-keyframes shout {
+  0%,
+  18%,
+  100% {
+    visibility: hidden;
+  }
+  10% {
+    visibility: visible;
+  }
+}
+
+@keyframes shout {
+  0%,
+  18%,
+  100% {
+    visibility: hidden;
+  }
+  10% {
+    visibility: visible;
+  }
+}
+
+.gopher-animation {
+  -webkit-animation-name: jump;
+          animation-name: jump;
+}
+
+@-webkit-keyframes jump {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(5%);
+  }
+  12% {
+    transform: translateY(-30%);
+  }
+}
+
+@keyframes jump {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(5%);
+  }
+  12% {
+    transform: translateY(-30%);
+  }
+}
+
+.right-arm {
+  -webkit-animation-name: rotateRightArm;
+          animation-name: rotateRightArm;
+  transform-box: fill-box;
+}
+
+@-webkit-keyframes rotateRightArm {
+  0%,
+  6%,
+  18%,
+  100% {
+    transform: rotate(0deg); 
+  }
+  13% {
+    transform: rotate(-120deg) translateX(-50%);
+  }
+}
+
+@keyframes rotateRightArm {
+  0%,
+  6%,
+  18%,
+  100% {
+    transform: rotate(0deg); 
+  }
+  13% {
+    transform: rotate(-120deg) translateX(-50%);
+  }
+}
+
+.left-arm {
+  -webkit-animation-name: rotateLeftArm;
+          animation-name: rotateLeftArm;
+  transform-box: fill-box;
+  transform-origin: top right;
+}
+
+@-webkit-keyframes rotateLeftArm {
+  0%,
+  6%,
+  18%,
+  100% {
+    transform: rotate(0deg); 
+  }
+  13% {
+    transform: rotate(120deg) translateX(50%);
+  }
+}
+
+@keyframes rotateLeftArm {
+  0%,
+  6%,
+  18%,
+  100% {
+    transform: rotate(0deg); 
+  }
+  13% {
+    transform: rotate(120deg) translateX(50%);
+  }
+}
+
+.right-foot {
+  -webkit-animation-name: bendRightFoot;
+          animation-name: bendRightFoot;
+  transform-origin: top left;
+}
+
+@-webkit-keyframes bendRightFoot {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(-3%);
+  }
+  12% {
+    transform: translateY(5%) rotate(-5deg);
+  }
+}
+
+@keyframes bendRightFoot {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(-3%);
+  }
+  12% {
+    transform: translateY(5%) rotate(-5deg);
+  }
+}
+
+
+.left-foot {
+  -webkit-animation-name: bendLeftFoot;
+          animation-name: bendLeftFoot;
+  transform-origin: top right;
+}
+
+@-webkit-keyframes bendLeftFoot {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(-3%);
+  }
+  12% {
+    transform: translateY(5%) rotate(5deg);
+  }
+}
+
+@keyframes bendLeftFoot {
+  0%,
+  15%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(-3%);
+  }
+  12% {
+    transform: translateY(5%) rotate(5deg);
+  }
+}
+
+.belly {
+  -webkit-animation-name: bounce;
+          animation-name: bounce;
+}
+
+@-webkit-keyframes bounce {
+  0%,
+  10%,
+  15%,
+  18%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(1%);
+  }
+  12% {
+    transform: translateY(-2%);
+  }
+  16% {
+    transform: translateY(1%);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  10%,
+  15%,
+  18%,
+  100% {
+    transform: translateY(0);
+  }
+  6% {
+    transform: translateY(1%);
+  }
+  12% {
+    transform: translateY(-2%);
+  }
+  16% {
+    transform: translateY(1%);
+  }
+}
+
+.shadow {
+  -webkit-animation-name: scaleShadow;
+          animation-name: scaleShadow;
+  transform-origin: center center;
+  transform: scaleX(1);
+}
+
+@-webkit-keyframes scaleShadow {
+  0%,
+  8%,
+  15%,
+  100% {
+    transform: scaleX(1)
+  }
+  12% {
+    transform: scaleX(0.65)
+  }
+}
+
+@keyframes scaleShadow {
+  0%,
+  8%,
+  15%,
+  100% {
+    transform: scaleX(1)
+  }
+  12% {
+    transform: scaleX(0.65)
+  }
+}
+</style>
+</head>
+
+<body>
+  <!-- Based on original artwork by http://reneefrench.blogspot.com/ -->
+<svg class="gopher" viewBox="0 -150 1200 1700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse class="shadow" cx="626" cy="1460" rx="280" ry="50" fill="#9B80B4"/>
+  <g class="gopher-animation">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M336.843 527.661C315.681 486.87 305.448 404.203 336.843 387.475C368.239 370.747 422.722 400.089 443.884 440.879C465.047 481.669 464.797 523.3 433.402 540.028C402.007 556.756 358.006 568.451 336.843 527.661Z" fill="#A0C6E0" stroke="#675243" stroke-width="5"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M360.931 498.7C348.903 477.633 343.087 434.936 360.931 426.296C378.774 417.657 409.739 432.811 421.767 453.879C433.795 474.946 433.653 496.448 415.809 505.087C397.966 513.727 372.958 519.768 360.931 498.7Z" fill="#C2DFE7"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M769.62 479.414C795.431 441.472 862.912 393.883 892.115 414.285C921.318 434.688 920.991 497.214 895.18 535.156C869.369 573.098 832.877 592.215 803.674 571.812C774.471 551.409 743.809 517.356 769.62 479.414Z" fill="#A0C6E0" stroke="#675243" stroke-width="5"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M810.602 477.327C824.879 457.169 862.205 431.886 878.359 442.725C894.512 453.565 894.331 486.783 880.054 506.941C865.777 527.099 845.591 537.255 829.438 526.416C813.285 515.576 796.324 497.484 810.602 477.327Z" fill="#C2DFE7"/>
+    <g class="arms">
+      <path class="left-arm" fill-rule="evenodd" clip-rule="evenodd" d="M222.749 1121.94C200.687 1108.9 196.476 1046.08 213.345 981.617C230.214 917.157 261.774 875.472 283.836 888.513C305.898 901.554 310.108 964.381 293.24 1028.84C276.371 1093.3 244.811 1134.99 222.749 1121.94Z" fill="#CBA992" stroke="#675243" stroke-width="5"/>
+      <path class="right-arm" fill-rule="evenodd" clip-rule="evenodd" d="M943.415 887.807C971.105 892.431 1004.6 948.751 1018.23 1013.6C1031.87 1078.45 1020.47 1127.27 992.784 1122.65C965.091 1118.02 931.594 1061.71 917.962 996.855C904.33 932.006 915.726 883.183 943.415 887.807Z" fill="#CBA992" stroke="#675243" stroke-width="5"/>
+    </g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M315.625 747.824C315.625 623.008 450.611 521.824 617.125 521.824C783.639 521.824 918.625 623.008 918.625 747.824C918.625 872.64 783.639 973.824 617.125 973.824C450.611 973.824 315.625 872.64 315.625 747.824Z" fill="#91BAE0" stroke="#91BAE0" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <g>
+      <path class="right-foot" fill-rule="evenodd" clip-rule="evenodd" d="M758.781 1179.38C791.125 1173.99 826.379 1226.72 837.523 1297.17C848.666 1367.62 831.48 1429.11 799.136 1434.5C766.791 1439.9 731.538 1387.15 720.395 1316.7C709.251 1246.25 726.438 1184.77 758.781 1179.38Z" fill="#CBA992" stroke="#675243" stroke-width="5"/>
+      <path class="left-foot" fill-rule="evenodd" clip-rule="evenodd" d="M466.881 1162.04C499.583 1163.72 523.261 1222.91 519.767 1294.25C516.272 1365.59 486.929 1422.06 454.227 1420.38C421.525 1418.69 397.847 1359.5 401.342 1288.16C404.835 1216.83 434.179 1160.36 466.881 1162.04Z" fill="#CBA992" stroke="#675243" stroke-width="5"/>
+    </g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M256.591 922.566C256.591 805.838 230.376 686.684 273.059 605.479C326.597 503.621 491.435 443.598 618.611 443.598C736.731 443.598 850.694 489.391 912.01 577.108C969.341 659.125 961.413 777.054 961.413 904.208C961.413 1028.84 988.568 1164.75 933.418 1253.01C872.125 1351.09 760.602 1369.83 640.291 1369.83C496.24 1369.83 336.422 1300.3 286.233 1169.56C256.787 1092.85 256.591 1019.87 256.591 922.566Z" fill="#A0C6E0" stroke="#675243" stroke-width="5"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M252.625 704.326C252.625 619.351 319.359 550.465 401.679 550.465C484 550.465 550.734 619.351 550.734 704.326C550.734 789.301 484 858.187 401.679 858.187C319.359 858.187 252.625 789.301 252.625 704.326Z" fill="white" stroke="#675243" stroke-width="5"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M638.625 704.326C638.625 619.351 705.359 550.465 787.679 550.465C870 550.465 936.734 619.351 936.734 704.326C936.734 789.301 870 858.187 787.679 858.187C705.359 858.187 638.625 789.301 638.625 704.326Z" fill="white" stroke="#675243" stroke-width="5"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M562.239 754.924C562.633 745.254 573.975 742.057 595.69 742.975C617.405 743.894 626.667 751.302 626.273 760.971C625.88 770.641 616.25 772.24 594.536 771.322C572.821 770.404 561.845 764.593 562.239 754.924Z" fill="#2A2A2A" stroke="#2A2A2A" stroke-width="5"/>
+    <path class="mouth" fill-rule="evenodd" clip-rule="evenodd" d="M539.625 873.56C539.625 840.017 563.266 812.824 592.428 812.824C621.59 812.824 645.231 840.017 645.231 873.56C645.231 907.104 621.59 934.296 592.428 934.296C563.266 934.296 539.625 907.104 539.625 873.56Z" fill="#2A2A2A" stroke="#2A2A2A" stroke-width="8"/>
+    <path opacity="0.936" fill-rule="evenodd" clip-rule="evenodd" d="M570.23 818.605L589.328 817.582L589.57 866.159L570.472 867.181L570.23 818.605Z" fill="white"/>
+    <path opacity="0.936" fill-rule="evenodd" clip-rule="evenodd" d="M595.002 818.32L614.1 817.297L614.343 865.874L595.245 866.896L595.002 818.32Z" fill="white"/>
+    <path class="tongue" fill-rule="evenodd" clip-rule="evenodd" d="M564.195 897.419C564.195 886.911 582.691 888.637 599.371 888.637C616.05 888.637 624.953 892.765 624.953 903.274C624.953 913.782 609.655 926.692 592.975 926.692C576.296 926.692 564.195 907.928 564.195 897.419Z" fill="#CC4452"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M544.971 796.261C547.106 778.075 570.639 768.322 599.766 771.756C629.966 775.317 649.785 787.939 647.65 806.125C646.43 816.517 640.772 830.207 628.853 830.168C619.912 830.139 606.331 817.835 594.612 815.662C584.825 813.847 568.566 824.64 561.212 822.294C548.019 818.086 543.6 807.938 544.971 796.261Z" fill="#CBA992" stroke="#675243" stroke-width="5"/>
+    <path opacity="0.936" fill-rule="evenodd" clip-rule="evenodd" d="M327.625 763.965C327.625 745.992 342.223 731.422 360.231 731.422C378.239 731.422 392.838 745.992 392.838 763.965C392.838 781.938 378.239 796.508 360.231 796.508C342.223 796.508 327.625 781.938 327.625 763.965Z" fill="#262626" stroke="#262626" stroke-width="30"/>
+    <path opacity="0.936" fill-rule="evenodd" clip-rule="evenodd" d="M713.625 763.965C713.625 745.992 728.223 731.422 746.231 731.422C764.239 731.422 778.838 745.992 778.838 763.965C778.838 781.938 764.239 796.508 746.231 796.508C728.223 796.508 713.625 781.938 713.625 763.965Z" fill="#262626" stroke="#262626" stroke-width="30"/>
+    <path class="belly" fill-rule="evenodd" clip-rule="evenodd" d="M394.625 1114.02C394.625 1019.16 469.271 1016.24 610.91 1023.13C754.74 1030.12 848.824 1050.62 848.824 1145.48C848.824 1240.34 778.649 1302.8 636.865 1302.8C495.081 1302.8 394.625 1208.88 394.625 1114.02Z" fill="#C2DFE7"/>
+    <path opacity="0.936" fill-rule="evenodd" clip-rule="evenodd" d="M353.625 736.636C353.625 732.311 359.778 728.805 367.369 728.805C374.959 728.805 381.112 732.311 381.112 736.636C381.112 740.96 374.959 744.466 367.369 744.466C359.778 744.466 353.625 740.96 353.625 736.636Z" fill="white"/>
+    <path opacity="0.936" fill-rule="evenodd" clip-rule="evenodd" d="M739.625 736.636C739.625 732.311 745.778 728.805 753.369 728.805C760.959 728.805 767.112 732.311 767.112 736.636C767.112 740.96 760.959 744.466 753.369 744.466C745.778 744.466 739.625 740.96 739.625 736.636Z" fill="white"/>
+    <g class="eyes">
+      <path class="left-eye" fill-rule="evenodd" clip-rule="evenodd" d="M252.125 703.326C252.125 618.351 318.859 549.465 401.179 549.465C483.5 549.465 550.234 618.351 550.234 703.326C550.234 788.301 483.5 857.187 401.179 857.187C318.859 857.187 252.125 788.301 252.125 703.326Z" fill="#A0C6E0" stroke="#675243" stroke-width="5"/>
+      <path class="left-eye" d="M253.293 699.822C298.582 643.976 492.576 652.658 550.735 699.822" stroke="#675243" stroke-width="5"/>
+      <path class="right-eye" fill-rule="evenodd" clip-rule="evenodd" d="M638.625 705.275C638.625 620.3 705.359 551.414 787.679 551.414C870 551.414 936.734 620.3 936.734 705.275C936.734 790.25 870 859.136 787.679 859.136C705.359 859.136 638.625 790.25 638.625 705.275Z" fill="#A0C6E0" stroke="#675243" stroke-width="5"/>
+      <path class="right-eye" d="M639.293 699.822C684.582 643.976 878.576 652.658 936.735 699.822" stroke="#675243" stroke-width="5"/>
+    </g>
+  </g>
+</svg>
+  
+</body>
+</html>
