@@ -1,0 +1,637 @@
+<html>
+
+<head>
+  <script src="https://benjdd.com/languages3/gsap.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  body {
+    font-family: SFMono-Regular,monospace;
+    padding: 20px;
+    margin: 0px;
+    word-wrap: break-word;
+  }
+  h1 {
+    text-align: center;
+  }
+  pre {
+    border: 1px solid black;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    overflow-x: scroll;
+    white-space: pre;
+    padding: 20px;
+    border: solid 1px black;
+  }
+  </style>
+</head>
+
+<body>
+
+<div style="max-width: 700px; margin-left: auto; margin-right: auto;">
+<br/>
+<h1>Levenshtein Distance</h1>
+<br/>
+<div id="loops" style="max-width: 700px;"></div>
+
+<br/><br/><br/>
+<a href="https://benjdd.com/languages/">languages1</a>
+<a href="https://benjdd.com/languages2/">languages2</a>
+<a href="https://benjdd.com/languages3/">languages3</a>
+<a href="https://github.com/bddicken/languages">github</a>
+
+<h2>Methodology</h2>
+<p>
+Timings taken via hyperfine on an M3 Macbook pro with 16 gb RAM.
+</p>
+<ul>
+ <li>Git repo hash: ca443ca143782de86288f1b285972c236e096e41</li>
+ <li>Swift version: swift-driver version: 1.115 Apple Swift version 6.0.2 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)</li>
+ <li>Clang version: Apple clang version 16.0.0 (clang-1600.0.26.4)</li>
+ <li>Fortran version: GNU Fortran (Homebrew GCC 14.2.0_1) 14.2.0</li>
+ <li>R version: Rscript (R) version 4.4.2 (2024-10-31)</li>
+ <li>Kotlin version: kotlinc-jvm 2.0.21 (JRE 23.0.1)</li>
+ <li>MiniRuby (ruby yjit) version: ruby 3.4.0dev</li>
+ <li>LuaJIT version: LuaJIT 2.1.1731601260</li>
+ <li>Common Lisp (SBCL) version: 2.4.11</li>
+ <li>Odin version: dev-2024-11:e6475fec4</li>
+ <li>Free Pascal version: 3.2.2</li>
+ <li>Java version: javac 23.0.1</li>
+ <li>Rust version: cargo 1.82.0</li>
+ <li>Scala CLI version: 1.5.4</li>
+ <li>Dotnet version: 9.0.100</li>
+ <li>Clang++ version: 16.0.0</li>
+ <li>Crystal version: 1.14.0</li>
+ <li>Elixir version: 1.17.3</li>
+ <li>Node version: v22.11.0</li>
+ <li>Python version: 3.13</li>
+ <li>Ruby version: 3.3.5</li>
+ <li>PHP version: 8.3.13</li>
+ <li>Dart version: 3.5.4</li>
+ <li>Bun version: 1.1.34</li>
+ <li>Deno version: 2.0.6</li>
+ <li>PyPy version: 7.3.17</li>
+ <li>Zig version: 0.13.0</li>
+ <li>Go version: 1.21.2</li>
+ <li>Nim version: 2.2.0</li>
+ <li>Scala version: 3.5.2</li>
+</ul>
+
+</br>
+
+<h2>Hyperfine output</h2>
+<pre>
+Benchmarking Java
+Benchmark 1: java jvm/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      77.8 ms ±   1.5 ms    [User: 57.9 ms, System: 21.3 ms]
+  Range (min … max):    76.0 ms …  80.4 ms    7 runs
+
+
+Benchmarking Go
+Benchmark 1:  ./go/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      31.5 ms ±   2.9 ms    [User: 17.1 ms, System: 2.9 ms]
+  Range (min … max):    25.4 ms …  34.7 ms    7 runs
+
+
+Benchmarking Zig
+Benchmark 1:  ./zig/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      34.4 ms ±   1.9 ms    [User: 11.5 ms, System: 10.5 ms]
+  Range (min … max):    31.8 ms …  36.6 ms    7 runs
+
+
+Benchmarking C
+Benchmark 1:  ./c/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      17.0 ms ±   0.8 ms    [User: 8.4 ms, System: 1.3 ms]
+  Range (min … max):    16.3 ms …  18.4 ms    7 runs
+
+
+Benchmarking Rust
+Benchmark 1:  ./rust/target/release/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      25.1 ms ±   3.3 ms    [User: 13.4 ms, System: 1.3 ms]
+  Range (min … max):    21.8 ms …  31.8 ms    7 runs
+
+
+Benchmarking Dart
+Benchmark 1:  ./dart/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      82.6 ms ±   2.4 ms    [User: 58.6 ms, System: 4.1 ms]
+  Range (min … max):    78.9 ms …  85.8 ms    7 runs
+
+
+Benchmarking Objective-C
+Benchmark 1:  ./objc/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      22.4 ms ±   0.6 ms    [User: 11.7 ms, System: 1.7 ms]
+  Range (min … max):    21.7 ms …  23.5 ms    7 runs
+
+
+Benchmarking Kotlin JVM
+Benchmark 1: java -jar kotlin/code.jar aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      90.6 ms ±   3.1 ms    [User: 83.3 ms, System: 22.3 ms]
+  Range (min … max):    85.5 ms …  93.8 ms    7 runs
+
+
+Benchmarking Node
+Benchmark 1: node ./js/code.js aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     105.3 ms ±   2.0 ms    [User: 68.3 ms, System: 4.5 ms]
+  Range (min … max):   103.0 ms … 107.7 ms    7 runs
+
+
+Benchmarking Node (jitless)
+Benchmark 1: node --jitless ./js/code.js aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     610.1 ms ±  17.3 ms    [User: 570.8 ms, System: 4.9 ms]
+  Range (min … max):   573.3 ms … 627.5 ms    7 runs
+
+
+Benchmarking Bun
+Benchmark 1: bun ./js/code.js aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      47.5 ms ±   1.7 ms    [User: 38.0 ms, System: 4.7 ms]
+  Range (min … max):    44.4 ms …  49.2 ms    7 runs
+
+
+Benchmarking Bun (Compiled)
+Benchmark 1:  ./js/bun aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      60.4 ms ±   2.8 ms    [User: 38.1 ms, System: 5.0 ms]
+  Range (min … max):    56.7 ms …  65.8 ms    7 runs
+
+
+Benchmarking Bun (jitless)
+Benchmark 1: bun ./js/code.js aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      47.4 ms ±   1.8 ms    [User: 38.1 ms, System: 4.7 ms]
+  Range (min … max):    43.6 ms …  48.8 ms    7 runs
+
+
+Benchmarking Deno (jitless)
+Benchmark 1: deno --v8-flags=--jitless ./js/code.js aaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     604.7 ms ±   4.6 ms    [User: 558.0 ms, System: 6.5 ms]
+  Range (min … max):   596.1 ms … 611.4 ms    7 runs
+
+
+Benchmarking Deno
+Benchmark 1: deno ./js/code.js aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      90.0 ms ±   2.9 ms    [User: 52.1 ms, System: 5.7 ms]
+  Range (min … max):    85.6 ms …  95.3 ms    7 runs
+
+
+Benchmarking PyPy
+Benchmark 1: pypy ./py/code.py aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+
+  Warning: Ignoring non-zero exit code.
+  Time (mean ± σ):      89.2 ms ±   5.1 ms    [User: 14.1 ms, System: 11.6 ms]
+  Range (min … max):    84.5 ms …  97.1 ms    7 runs
+
+
+Benchmarking CPP
+Benchmark 1:  ./cpp/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      19.9 ms ±   0.8 ms    [User: 8.7 ms, System: 1.4 ms]
+  Range (min … max):    19.0 ms …  21.4 ms    7 runs
+
+
+Benchmarking Scala
+Benchmark 1:  ./scala/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     237.4 ms ±  11.0 ms    [User: 243.1 ms, System: 30.1 ms]
+  Range (min … max):   222.5 ms … 249.7 ms    7 runs
+
+
+Benchmarking Scala-Native
+Benchmark 1:  ./scala/code-native aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      19.5 ms ±   3.7 ms    [User: 10.1 ms, System: 1.4 ms]
+  Range (min … max):    11.7 ms …  22.9 ms    7 runs
+
+
+Benchmarking PHP JIT
+Benchmark 1: php -dopcache.enable_cli=1 -dopcache.jit=on -dopcache.jit_buffer_si...
+  Time (mean ± σ):     257.4 ms ±   3.2 ms    [User: 153.4 ms, System: 11.6 ms]
+  Range (min … max):   254.4 ms … 262.9 ms    7 runs
+
+
+Benchmarking PHP
+Benchmark 1: php ./php/code.php aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     719.9 ms ±  10.7 ms    [User: 615.6 ms, System: 11.1 ms]
+  Range (min … max):   704.2 ms … 730.4 ms    7 runs
+
+
+Benchmarking Python
+Benchmark 1: python3.13 ./py/code.py aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     799.1 ms ±  17.9 ms    [User: 694.2 ms, System: 7.9 ms]
+  Range (min … max):   775.1 ms … 832.0 ms    7 runs
+
+
+Benchmarking Nim
+Benchmark 1:  ./nim/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      32.7 ms ±   1.8 ms    [User: 20.1 ms, System: 1.3 ms]
+  Range (min … max):    30.1 ms …  34.7 ms    7 runs
+
+
+Benchmarking Crystal
+Benchmark 1:  ./crystal/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     151.0 ms ±   2.9 ms    [User: 137.9 ms, System: 2.5 ms]
+  Range (min … max):   147.7 ms … 154.7 ms    7 runs
+
+
+Benchmarking Odin
+Benchmark 1:  ./odin/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      26.1 ms ±   1.2 ms    [User: 14.2 ms, System: 1.2 ms]
+  Range (min … max):    25.2 ms …  28.2 ms    7 runs
+
+
+Benchmarking Fortran
+Benchmark 1:  ./fortran/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      15.3 ms ±   0.4 ms    [User: 6.0 ms, System: 2.3 ms]
+  Range (min … max):    14.7 ms …  15.9 ms    7 runs
+
+
+Benchmarking LuaJIT
+Benchmark 1: luajit ./lua/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      76.8 ms ±   5.9 ms    [User: 33.5 ms, System: 2.7 ms]
+  Range (min … max):    69.8 ms …  88.9 ms    7 runs
+
+
+Benchmarking Lua
+Benchmark 1: lua ./lua/code.lua aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     580.7 ms ±  11.4 ms    [User: 536.5 ms, System: 2.7 ms]
+  Range (min … max):   564.6 ms … 596.9 ms    7 runs
+
+
+Benchmarking Swift
+Benchmark 1:  ./swift/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):      39.8 ms ±   3.3 ms    [User: 27.2 ms, System: 1.3 ms]
+  Range (min … max):    35.2 ms …  43.7 ms    7 runs
+
+
+Benchmarking Julia
+Benchmark 1: julia ./julia/code.jl aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     202.2 ms ±   6.0 ms    [User: 340.3 ms, System: 26.6 ms]
+  Range (min … max):   198.1 ms … 214.8 ms    7 runs
+
+
+Benchmarking C#
+Benchmark 1:  ./csharp/code/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+
+  Warning: Ignoring non-zero exit code.
+  Time (mean ± σ):      60.4 ms ±   8.3 ms    [User: 22.1 ms, System: 9.6 ms]
+  Range (min … max):    44.9 ms …  68.9 ms    7 runs
+
+
+Benchmarking F#
+Benchmark 1:  ./fsharp/code/code aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     100.1 ms ±   1.8 ms    [User: 79.0 ms, System: 8.9 ms]
+  Range (min … max):    97.7 ms … 102.6 ms    7 runs
+
+
+Benchmarking Ruby
+Benchmark 1: ruby ./ruby/code.rb aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     810.3 ms ±  30.8 ms    [User: 766.5 ms, System: 8.6 ms]
+  Range (min … max):   755.1 ms … 854.7 ms    7 runs
+
+
+Benchmarking Ruby YJIT
+Benchmark 1: miniruby --yjit ./ruby/code.rb aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...
+  Time (mean ± σ):     419.4 ms ±   3.1 ms    [User: 376.1 ms, System: 3.6 ms]
+  Range (min … max):   413.5 ms … 422.7 ms    7 runs
+</pre>
+
+<h2>Code</h2>
+
+<p>
+You can find all of the code and the compile / run / cleanup scripts at the <a href="https://github.com/bddicken/languages">GitHub repository</a>.
+</p>
+</br></br></br></br>
+
+</div>
+
+</body>
+
+<script>
+
+let globalIDSequence = 1;
+
+class LatencyVisual {
+
+  constructor(id, timings, speed) {
+   
+    this.timings = timings;
+
+    for (const timing of timings) {
+      timing.class = id + '-' + timing.class;
+    }
+
+    this.width = 1000;
+    this.height = timings.length * 62;
+
+    this.id = id;
+    this.dom = document.getElementById(this.id);
+    this.initializeBaseElements();
+    this.domSVG = this.dom.getElementsByClassName('latencySVG')[0];
+    
+    this.drawBox(`background-${globalIDSequence++}`, 0, 0, this.width, this.height, '#eee', '#eee');
+    this.updateSizes();
+   
+    const timeline = gsap.timeline({repeat: -1, yoyo: true, defaults: {duration: 1}});
+    timeline.pause();
+    let i = 0;
+    for (const t of this.timings) {
+      t.timeFor /= speed;
+      this.draw(timeline, 25 + i * 60, 50, t);
+      i++;
+    }
+
+    setTimeout(() => timeline.play(), 500);
+
+  }
+
+  initializeBaseElements() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${this.width} ${this.height}`)
+    svg.setAttribute('id', `${this.id}SVG`)
+    const outer = document.getElementById(this.id);
+    outer.appendChild(svg);
+    this.dom = svg;
+    gsap.set(`#${this.id}SVG`, {width: '100%', backgroundColor: '#00000000'});
+  }
+  
+  updateSizes() {
+    let spacing = (this.height / (this.timings.length+1))
+    let i = 0;
+    for (let timing of this.timings) {
+      i++;
+      timing.y = spacing * i;
+      timing.prevT = 0;
+      timing.forward = true;
+      timing.end = this.EX;
+    }
+  }
+
+  addLabel(id, label, textSize, xp, yp, w, h, color, backgroundColor=undefined, borderColor=transparent) {
+    
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('id', `${id}`);
+    this.dom.appendChild(g);
+    gsap.set(`#${id}`, {cursor: 'pointer'});
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    g.appendChild(text);
+    text.setAttribute('id', `${id}Label`);
+    text.style.fontFamily = 'monospace';
+    text.innerHTML = label;
+    gsap.set(`#${id}Label`, {
+      cursor: 'pointer',
+      x: xp, y: yp + h/2,
+      fill: color,
+      fontSize: textSize,
+      fontWeight: 'thin',
+      userSelect: 'none',
+    });
+  }
+  
+  draw(timeline, y, h, info) {
+    const outerVGap = 50;
+    const outerHGap = 25;
+    const width = this.width;
+    const height = h;
+    const innerGap = 560;
+   
+    this.drawBox(`box-${globalIDSequence++}`, 75, y, 285, h, '#444', '#444');
+    this.drawImage(10, y, h, h, info.image);
+    this.addLabel(
+      `label-${globalIDSequence++}`, 
+      info.label,
+      20,
+      90, y,
+      400, h*1.3, 
+      'white', 'green', 'white');
+    
+    const ballId = `ball-${globalIDSequence++}`;
+    const ball = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+    this.dom.appendChild(ball);
+    ball.setAttribute('id', `${ballId}`);
+    gsap.set(`#${ballId}`, {
+      cursor: 'pointer',
+      attr: {cx: 400, cy: y + 25, rx: 40, ry: 40},
+      fill: info.color,
+      fontWeight: 'bold',
+      filter: 'drop-shadow(0px 2px 4px #00000050)',
+      userSelect: 'none',
+    });
+
+    timeline.to(`#${ballId}`, { attr: {cx: 400 + innerGap}, ease: 'none', duration: (info.timeFor * 4), stagger: {repeat: -1, yoyo: true}}, '<')
+  }
+  
+  drawImage(xu, yu, w, h, src) {
+    const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    image.setAttribute('id', `image-${globalIDSequence++}`);
+    this.dom.appendChild(image);
+    gsap.set(`#${image.id}`, {
+      width: w, height: h,
+      attr: {href: src},
+      filter: 'drop-shadow(0px 2px 4px #00000025)',
+      x: xu, y: yu,
+    });
+    return image;
+  }
+  
+  drawBox(id, xu, yu, w, h, color, bgColor) {
+    const box = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    box.setAttribute('id', id);
+    this.dom.appendChild(box);
+    gsap.set(`#${id}`, {
+      width: w, height: h,
+      fill: bgColor,
+      stroke: color,
+      filter: 'drop-shadow(0px 2px 4px #00000025)',
+      strokeWidth: 0,
+      x: xu, y: yu,
+    });
+    return box;
+  }
+
+}
+
+const loops = new LatencyVisual('loops', 
+    [
+      {
+        label: 'Fortran (15.3ms)',
+        image: 'https://benjdd.com/languages3/fortran.png',
+        timeFor: 15.3,
+        class: 'fortran',
+        color: 'rgb(116, 77, 151)'
+      },
+      {
+        label: 'C (17.0ms)', 
+        image: 'https://benjdd.com/languages3/c.png',
+        timeFor: 17.0,
+        class: 'cClangO3',
+        color: 'rgb(101, 155, 211)'
+      },
+      {
+        label: 'Scala Native (19.5ms)',
+        image: 'https://benjdd.com/languages3/scala.png',
+        timeFor: 19.5,
+        class: 'scala',
+        color: 'rgb(221, 55, 53)'
+      },
+      {
+        label: 'ObjC (22.4ms)',
+        image: 'https://benjdd.com/languages3/objc.png',
+        timeFor: 22.4,
+        class: 'objc',
+        color: 'rgb(244, 106, 63)'
+      },
+      {
+        label: 'Rust (25.1ms)',
+        image: 'https://benjdd.com/languages3/rust.png',
+        timeFor: 25.1,
+        class: 'rust',
+        color: 'rgb(50, 20, 10)'
+      },
+      {
+        label: 'Odin (26.1ms)',
+        image: 'https://benjdd.com/languages3/odin.png',
+        timeFor: 26.1,
+        class: 'odin',
+        color: 'rgb(4, 112, 189)'
+      },
+      {
+        label: 'Go (31.5ms)',
+        image: 'https://benjdd.com/languages3/go.png',
+        timeFor: 31.5,
+        class: 'goLang',
+        color: '#5dcef0'
+      },
+      {
+        label: 'Nim (32.7ms)',
+        image: 'https://benjdd.com/languages3/nim.png',
+        timeFor: 32.7,
+        class: 'nim',
+        color: 'rgb(239, 200, 67)'
+      },
+      {
+        label: 'Zig (34.4ms)',
+        image: 'https://benjdd.com/languages3/zig.png',
+        timeFor: 34.4,
+        class: 'zig',
+        color: 'rgb(247, 165, 23)'
+      },
+      {
+        label: 'Swift (39.8ms)',
+        image: 'https://benjdd.com/languages3/swift.png',
+        timeFor: 39.8,
+        class: 'swift',
+        color: 'rgb(229, 119, 44)'
+      },
+      {
+        label: 'Bun (47.5ms)', 
+        image: 'https://benjdd.com/languages3/bun.png',
+        timeFor: 47.5,
+        class: 'jsBun',
+        color: '#e3a1b6'
+      },
+      {
+        label: 'C# (60.4ms)',
+        image: 'https://benjdd.com/languages3/csharp.png',
+        timeFor: 60.4,
+        class: 'csharp',
+        color: 'rgb(129, 101, 225)'
+      },
+      {
+        label: 'Lua JIT (76.8ms)',
+        image: 'https://benjdd.com/languages3/lua.png',
+        timeFor: 76.8,
+        class: 'luajit',
+        color: 'rgb(0, 0, 128)'
+      },
+      {
+        label: 'Java (77.8ms)',
+        image: 'https://benjdd.com/languages3/java.png',
+        timeFor: 77.8,
+        class: 'java',
+        color: 'rgb(242, 164, 67)'
+      },
+      {
+        label: 'Dart (82.6ms)',
+        image: 'https://benjdd.com/languages3/dart.png',
+        timeFor: 82.6,
+        class: 'dart',
+        color: 'rgb(39, 185, 247)'
+      },
+      {
+        label: 'PyPy (89.2ms)',
+        image: 'https://benjdd.com/languages3/pypy.png',
+        timeFor: 89.2,
+        class: 'pypy',
+        color: 'rgb(193, 198, 187)'
+      },
+      {
+        label: 'Deno (90.0s)',
+        image: 'https://benjdd.com/languages3/deno.png',
+        timeFor: 90.0,
+        class: 'jsDeno',
+        color: 'rgb(0, 0, 0)'
+      },
+      {
+        label: 'Kotlin (90.6ms)',
+        image: 'https://benjdd.com/languages3/kotlin.png',
+        timeFor: 90.6,
+        class: 'kotlin',
+        color: 'rgb(177, 36, 234)'
+      },
+      {
+        label: 'Node (105.3ms)',
+        image: 'https://benjdd.com/languages3/node.png',
+        timeFor: 105.3,
+        class: 'jsNode',
+        color: '#27b648'
+      },
+      {
+        label: 'Crystal (151.0ms)',
+        image: 'https://benjdd.com/languages3/crystal.png',
+        timeFor: 151.0,
+        class: 'crystal',
+        color: 'rgb(0, 0, 0)'
+      },
+      {
+        label: 'Julia (202.2ms)',
+        image: 'https://benjdd.com/languages3/julia.png',
+        timeFor: 202.2,
+        class: 'julia',
+        color: 'rgb(64, 99, 216)'
+      },
+      {
+        label: 'Scala (237.4ms)',
+        image: 'https://benjdd.com/languages3/scala.png',
+        timeFor: 237.4,
+        class: 'scala',
+        color: 'rgb(221, 55, 53)'
+      },
+      {
+        label: 'PHP JIT (257.4ms)',
+        image: 'https://benjdd.com/languages3/php.png',
+        timeFor: 257.4,
+        class: 'phpjit',
+        color: 'rgb(120, 124, 180)'
+      },
+      {
+        label: 'Ruby YJIT (419.4ms)',
+        image: 'https://benjdd.com/languages3/ruby.png',
+        timeFor: 419.4,
+        class: 'rubyyjit',
+        color: 'rgb(215, 48, 22)'
+      },
+      {
+        label: 'Python (799.1ms)',
+        image: 'https://benjdd.com/languages3/python.png',
+        timeFor: 799.1,
+        class: 'python',
+        color: 'rgb(255, 226, 94)'
+      },
+      {
+        label: 'Ruby (810.3ms)',
+        image: 'https://benjdd.com/languages3/ruby.png',
+        timeFor: 810.3,
+        class: 'ruby',
+        color: 'rgb(215, 48, 22)'
+      },
+    ],
+    100);
+
+</script>
+
+</html>

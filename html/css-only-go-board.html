@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+    <title>CSS Only Go Board</title>
+    <link rel="canonical" href="https://codepen.io/mbechara/pen/jOggEgm">
+  
+<style>
+:root {
+   --color-go-board-outer-shadow: rgba(26, 27, 1, 0.9);
+   --color-background-top-right: #cde2eb;
+   --color-background-bottom-left: #8a97a0;
+   --go-board-light-direction: -150deg;
+   --go-board-outer-shadow-x: -15px;
+   --go-board-outer-shadow-y: 10px;
+   --go-board-outer-shadow-blur: 15px;
+   --go-board-outer-shadow-spread: 5px;
+   --go-board-outer-shadow: var(--go-board-outer-shadow-x) var(--go-board-outer-shadow-y) var(--go-board-outer-shadow-blur) var(--go-board-outer-shadow-spread) var(--color-go-board-outer-shadow);
+}
+
+*, *::before, *::after {
+   box-sizing: border-box;
+}
+
+html {
+   width: 100vw;
+   height: 100svh;
+}
+
+body {
+   height: 100%;
+   width: 100%;
+   margin: 0 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+}
+
+input {
+   appearance: none;
+   display: block;
+   margin: 0 0;
+   padding: 0 0;
+   display: none;
+}
+
+.floor {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 0;
+}
+
+.floor__shadow {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   z-index: 0;
+   background: linear-gradient(var(--go-board-light-direction), transparent 20%, rgba(0, 0, 0, 0.4) 80%);
+}
+
+.tatami__mat {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   z-index: 0;
+   display: grid;
+   grid-template-columns: 1fr 2fr 1fr;
+   grid-template-rows: 1fr 2.5fr 1fr;
+}
+
+.tatami__mat__piece {
+   --color-tatami-mat-edge: #2e3d1f;
+   --color-tatami-mat-edge--divider: #191e14;
+   --color-reseda-green-1: #788e69;
+   --color-reseda-green-2: #596b44;
+   --color-pakistan-green: #284116;
+   --color-ecru: #d1b88c;
+   --color-drab-dark-brown: #534619;
+   --color-smoky-black: rgba(31, 21, 3, 0.9);
+   --tatami-mat-divider-size: 2px;
+   --tatami-mat-edge-size: 15px;
+   --tatami-mar-edge-blur: 2px; /*to fix*/
+   --tatami-mat-direction-pattern-1: 90deg;
+   --tatami-mat-direction-pattern-2: 0deg;
+   --vertical-rod-width: calc(25% / 3); 
+   --back-vertical-rod-width: calc(25% / 3); 
+   --horizontal-rod-width: calc(50% / 4);
+   --blend-size: 1px;
+   --blend-factor: 2.5;
+   --beige-rod-blend-factor: 1.5;
+   --shadow-blend-factor: 3;
+
+   background:
+      /*front vertical*/
+      linear-gradient(90deg,
+         transparent calc(var(--vertical-rod-width) * 3),
+         var(--color-reseda-green-1) calc(var(--vertical-rod-width) * 3),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 4 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--back-vertical-rod-width) * 4),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 4),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 5 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--back-vertical-rod-width) * 5),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 5),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 6 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--back-vertical-rod-width) * 6),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 6),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 7 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--back-vertical-rod-width) * 7),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 7),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 8 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--back-vertical-rod-width) * 8),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 8),
+         var(--color-reseda-green-1) calc(var(--back-vertical-rod-width) * 9),
+         transparent calc(var(--back-vertical-rod-width) * 9)),
+      /*shadow*/
+      linear-gradient(90deg,
+         transparent calc(var(--vertical-rod-width) * 3 - var(--blend-size) * var(--shadow-blend-factor)),
+         var(--color-smoky-black) calc(var(--vertical-rod-width) * 3),
+         var(--color-smoky-black) calc(var(--vertical-rod-width) * 9),
+         transparent calc(var(--vertical-rod-width) * 9 + var(--blend-size) * var(--shadow-blend-factor))),
+      /*horizontal*/
+      linear-gradient(0deg,
+         var(--color-pakistan-green),
+         var(--color-reseda-green-2) var(--blend-size),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) var(--horizontal-rod-width),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) + var(--blend-size)),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) * 2 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--horizontal-rod-width) * 2),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) * 2 + var(--blend-size)),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) * 3 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--horizontal-rod-width) * 3),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) * 3 + var(--blend-size)),
+         var(--color-reseda-green-2) calc(var(--horizontal-rod-width) * 4 - var(--blend-size) * var(--blend-factor)),
+         var(--color-pakistan-green) calc(var(--horizontal-rod-width) * 4),
+         transparent calc(var(--horizontal-rod-width) * 4 + var(--blend-size))),
+      /*back vertical*/
+      linear-gradient(90deg,
+         var(--color-drab-dark-brown),
+         var(--color-ecru) calc(var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width)),
+         var(--color-ecru) calc(var(--back-vertical-rod-width)),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 2 - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width) * 2),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 2),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 3 - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width) * 3),
+         transparent calc(var(--back-vertical-rod-width) * 3),
+         transparent calc(var(--back-vertical-rod-width) * 9 - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width) * 9),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 9),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 10 - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width) * 10),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 10),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 11 - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width) * 11),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 11),
+         var(--color-ecru) calc(var(--back-vertical-rod-width) * 12 - var(--blend-size) * var(--beige-rod-blend-factor)),
+         var(--color-drab-dark-brown) calc(var(--back-vertical-rod-width) * 12));
+
+   background-size: 1.5rem 1.5rem;
+   box-shadow: 0px 0px var(--tatami-mar-edge-blur) var(--tatami-mat-edge-size) var(--color-tatami-mat-edge) inset;
+}
+
+.tatami__mat__piece--column--1 {
+   grid-column: 1 / 1;
+   grid-row: 1 / 4;
+   border-right: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+}
+
+.tatami__mat__piece--column--2--row--1 {
+   grid-column: 2 / 2;
+   grid-row: 1 / 1;
+   border: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+   border-top: none;
+}
+
+.tatami__mat__piece--reverse--mat {
+   --tatami-mat-direction-pattern-1: 0deg;
+   --tatami-mat-direction-pattern-2: 90deg;
+}
+
+.tatami__mat__piece--column--2--row--2 {
+   grid-column: 2 / 2;
+   grid-row: 2 / 2;
+   border: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+   padding: 3rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.tatami__mat__piece__container {
+   --go-board-line-animation-duration: 0.35s;
+   --go-board-line-horizontal-9-delay: 50ms;
+   --go-board-line-vertical-J-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-9-delay));
+   --go-board-line-horizontal-1-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-J-delay));
+   --go-board-line-vertical-A-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-1-delay));
+   --go-board-line-vertical-B-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-A-delay));;
+   --go-board-line-vertical-C-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-B-delay));;
+   --go-board-line-vertical-D-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-C-delay));;
+   --go-board-line-vertical-E-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-D-delay));;
+   --go-board-line-vertical-F-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-E-delay));;
+   --go-board-line-vertical-G-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-F-delay));;
+   --go-board-line-vertical-H-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-G-delay));;
+   --go-board-line-horizontal-2-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-vertical-H-delay));;
+   --go-board-line-horizontal-3-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-2-delay));;
+   --go-board-line-horizontal-4-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-3-delay));;
+   --go-board-line-horizontal-5-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-4-delay));;
+   --go-board-line-horizontal-6-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-5-delay));;
+   --go-board-line-horizontal-7-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-6-delay));;
+   --go-board-line-horizontal-8-delay: calc(var(--go-board-line-animation-duration) + var(--go-board-line-horizontal-7-delay));;
+   --go-board-stone-delay: 1s;
+   --go-board-stone-F6-delay: calc(var(--go-board-line-horizontal-8-delay) + var(--go-board-stone-delay));
+   --go-board-stone-F5-delay: calc(var(--go-board-stone-F6-delay) + var(--go-board-stone-delay));
+   --go-board-stone-E5-delay: calc(var(--go-board-stone-F5-delay) + var(--go-board-stone-delay));
+   --go-board-stone-E6-delay: calc(var(--go-board-stone-E5-delay) + var(--go-board-stone-delay));
+   --go-board-stone-E4-delay: calc(var(--go-board-stone-E6-delay) + var(--go-board-stone-delay));
+   --go-board-stone-E7-delay: calc(var(--go-board-stone-E4-delay) + var(--go-board-stone-delay));
+   --go-board-stone-G5-delay: calc(var(--go-board-stone-E7-delay) + var(--go-board-stone-delay));
+   --go-board-stone-F4-delay: calc(var(--go-board-stone-G5-delay) + var(--go-board-stone-delay));
+   --go-board-stone-F3-delay: calc(var(--go-board-stone-F4-delay) + var(--go-board-stone-delay));
+   --go-board-stone-G4-delay: calc(var(--go-board-stone-F3-delay) + var(--go-board-stone-delay));
+   --go-board-stone-H4-delay: calc(var(--go-board-stone-G4-delay) + var(--go-board-stone-delay));
+   --go-board-stone-G3-delay: calc(var(--go-board-stone-H4-delay) + var(--go-board-stone-delay));
+   --go-board-stone-G2-delay: calc(var(--go-board-stone-G3-delay) + var(--go-board-stone-delay));
+   --go-board-stone-H3-delay: calc(var(--go-board-stone-G2-delay) + var(--go-board-stone-delay));
+   --go-board-stone-J3-delay: calc(var(--go-board-stone-H3-delay) + var(--go-board-stone-delay));
+   --go-board-stone-H2-delay: calc(var(--go-board-stone-J3-delay) + var(--go-board-stone-delay));
+   --go-board-stone-H1-delay: calc(var(--go-board-stone-H2-delay) + var(--go-board-stone-delay));
+   --go-board-stone-J2-delay: calc(var(--go-board-stone-H1-delay) + var(--go-board-stone-delay));
+   --go-board-stone-J1-delay: calc(var(--go-board-stone-J2-delay) + var(--go-board-stone-delay));
+
+
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /*position: relative; */ /*if turned on the shadow will only work for a portion of the middle mat, so it would need to be placed under the floor*/
+}
+
+.tatami__mat__piece--column--2--row--3 {
+   grid-column: 2 / 2;
+   grid-row: 3 / 3;
+   border: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+   border-bottom: none;
+}
+
+.tatami__mat__piece--column--3 {
+   grid-column: 3 / 3;
+   grid-row: 1 / 4;
+   border-left: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+}
+
+@media (width < 1100px) {
+   .tatami__mat {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.8fr 2.5fr 0.8fr;
+   }
+
+   .tatami__mat__piece--column--1, .tatami__mat__piece--column--3 {
+      display: none;
+   }
+
+   .tatami__mat__piece--column--2--row--1 {
+      grid-column: 1 / 1;
+      grid-row: 1 / 1;
+      border-bottom: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+   }
+
+   .tatami__mat__piece--column--2--row--2 {
+      grid-column: 1 / 1;
+      grid-row: 2 / 2;
+      border-top: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+      border-bottom: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+   }
+
+   .tatami__mat__piece--column--2--row--3 {
+      grid-column: 1 / 1;
+      grid-row: 3 / 3;
+      border-top: var(--tatami-mat-divider-size) solid var(--color-tatami-mat-edge--divider);
+   }
+}
+
+.go__board__stones__container {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   border-radius: inherit;
+}
+
+@keyframes place-stone {
+   0% { visibility: hidden; }
+   100% { visibility: visible; }
+}
+
+.go__board__stone {
+   --go-board-stone-width: var(--go-board-line-distance);
+
+   width: var(--go-board-stone-width);
+   aspect-ratio: 1;
+   border-radius: 50%;
+   position: absolute;
+   background: radial-gradient(circle at 90% 10%, var(--color-go-board-stone-light) 30%, var(--color-go-board-stone-dark) 80%);
+   z-index: 2;
+   visibility: hidden;
+   animation-name: place-stone;
+   animation-duration: 0s;
+   animation-fill-mode: forwards;
+   animation-timing-function: linear;
+}
+
+.go__board__stone--shadow {
+   --go-board-stone-outer-shadow: #72623f;
+
+   width: var(--go-board-stone-width);
+   aspect-ratio: 1;
+   border-radius: 50%;
+   position: absolute;
+   box-shadow: -2px 2px 5px 0px var(--go-board-stone-outer-shadow);
+   z-index: 0;
+}
+
+.go__board__stone--white {
+   --color-go-board-stone-light: #d1d1d1;
+   --color-go-board-stone-dark: #b0b0b3;
+}
+
+.go__board__stone--black {
+   --color-go-board-stone-light: #34302f;
+   --color-go-board-stone-dark: #201d1c;
+}
+
+.go__board__stone--line--vertical--E {
+   left: calc(var(--go-board-line-distance) * 4 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--vertical--F {
+   left: calc(var(--go-board-line-distance) * 5 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--vertical--G {
+   left: calc(var(--go-board-line-distance) * 6 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--vertical--H {
+   left: calc(var(--go-board-line-distance) * 7 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--vertical--J {
+   left: calc(var(--go-board-line-distance) * 8 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--1 {
+   bottom: calc(-1 * var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--2 {
+   bottom: calc(var(--go-board-line-distance) - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--3 {
+   bottom: calc(var(--go-board-line-distance) * 2 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--4 {
+   bottom: calc(var(--go-board-line-distance) * 3 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--5 {
+   bottom: calc(var(--go-board-line-distance) * 4 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--6 {
+   bottom: calc(var(--go-board-line-distance) * 5 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--line--horizontal--7 {
+   bottom: calc(var(--go-board-line-distance) * 6 - var(--go-board-stone-width) / 2);
+}
+
+.go__board__stone--F6 {
+   animation-delay: var(--go-board-stone-F6-delay);
+}
+
+.go__board__stone--F5 {
+   animation-delay: var(--go-board-stone-F5-delay);
+}
+
+.go__board__stone--E5 {
+   animation-delay: var(--go-board-stone-E5-delay);
+}
+
+.go__board__stone--E6 {
+   animation-delay: var(--go-board-stone-E6-delay);
+}
+
+.go__board__stone--E4 {
+   animation-delay: var(--go-board-stone-E4-delay);
+}
+
+.go__board__stone--E7 {
+   animation-delay: var(--go-board-stone-E7-delay);
+}
+
+.go__board__stone--G5 {
+   animation-delay: var(--go-board-stone-G5-delay);
+}
+
+.go__board__stone--F4 {
+   animation-delay: var(--go-board-stone-F4-delay);
+}
+
+.go__board__stone--F3 {
+   animation-delay: var(--go-board-stone-F3-delay);
+}
+
+.go__board__stone--G4 {
+   animation-delay: var(--go-board-stone-G4-delay);
+}
+
+.go__board__stone--H4 {
+   animation-delay: var(--go-board-stone-H4-delay);
+}
+
+.go__board__stone--G3 {
+   animation-delay: var(--go-board-stone-G3-delay);
+}
+
+.go__board__stone--G2 {
+   animation-delay: var(--go-board-stone-G2-delay);
+}
+
+.go__board__stone--H3 {
+   animation-delay: var(--go-board-stone-H3-delay);
+}
+
+.go__board__stone--J3 {
+   animation-delay: var(--go-board-stone-J3-delay);
+}
+
+.go__board__stone--H2 {
+   animation-delay: var(--go-board-stone-H2-delay);
+}
+
+.go__board__stone--H1 {
+   animation-delay: var(--go-board-stone-H1-delay);
+}
+
+.go__board__stone--J2 {
+   animation-delay: var(--go-board-stone-J2-delay);
+}
+
+.go__board__stone__J1__container {
+   animation-delay: var(--go-board-stone-J1-delay);
+}
+
+#go__board__stone__J1__input {
+   pointer-events: auto;
+}
+
+.go__board__stone--input--adjusted {
+   width: 100%;
+   aspect-ratio: 1;
+}
+
+.go__board__stone--J1 {
+   animation: none;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--F5 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--F4 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--G4 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--G3 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--H3 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--H2 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--J2 {
+   animation-iteration-count: 1;
+   animation-direction: reverse;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone__J1__container {
+   pointer-events: none;
+}
+
+.go__board__stones__container:has(#go__board__stone__J1__input:checked) .go__board__stone--J1 {
+   visibility: visible;
+}
+
+.go__board {
+   --color-go-board-light: rgba(238, 197, 96, 0.55);
+   --color-go-board-dark: #c49c2d;
+   --go-board-border-radius: 5px;
+   --go-board-border-radius-bottom: 7px; /* 7px for additional curve to give a better illusion*/
+   --go-board-front-side-height: 0.05;
+
+   width: 50%;
+   aspect-ratio: 1 / calc(1 + var(--go-board-front-side-height));
+   box-shadow: var(--go-board-outer-shadow),
+               2px -2px var(--go-board-outer-shadow-blur) 0px var(--color-go-board-outer-shadow);
+   position: relative;
+   z-index: 0;
+   border-radius: var(--go-board-border-radius-bottom);
+}
+
+.go__board__top__side {
+   --color-go-board-inner-shadow-light: rgba(243, 217, 185, 0.5);
+   --color-go-board-inner-shadow-dark: #a07d18;
+
+   width: 100%;
+   aspect-ratio: 1;
+   padding: min(5%, 2rem);
+   border-radius: var(--go-board-border-radius) var(--go-board-border-radius) var(--go-board-border-radius-bottom) var(--go-board-border-radius-bottom); 
+   background: var(--color-go-board-dark);
+   box-shadow: -5px 10px 10px 5px var(--color-go-board-inner-shadow-light) inset,
+               5px -5px 15px 2px var(--color-go-board-inner-shadow-dark) inset;
+   z-index: 1;
+   position: relative;
+}
+
+.go__board__top__side__shadow {
+   width: 100%;
+   aspect-ratio: 1;
+   position: absolute;
+   background: linear-gradient(var(--go-board-light-direction), var(--color-go-board-light) 20%, transparent 60%);
+   z-index: 1;
+   top: 0;
+   left: 0;
+}
+
+.go__board__top__side__container {
+   --go-board-line-size: 2px;
+   --go-board-num-of-lines: 8;
+   --go-board-line-distance: calc(100% / var(--go-board-num-of-lines));
+
+   width: 100%;
+   height: 100%;
+   position: relative;
+}
+
+.go__board__front__side {
+   --color-go-board-side: #946200;
+   --color-go-board-side-edge: #ac7f25;
+   --color-wood-line: #814100;
+
+   width: 100%;
+   height: calc(var(--go-board-front-side-height) * 100% + var(--go-board-border-radius));
+   background: linear-gradient(-90deg, var(--color-go-board-side-edge) 1%, var(--color-go-board-side) 10%);
+   border-radius: 0 0 var(--go-board-border-radius-bottom) var(--go-board-border-radius-bottom);
+   z-index: -1;
+   position: absolute;
+   bottom: 0;
+}
+
+.go__board__lines {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: space-between;
+   position: absolute;
+}
+
+@keyframes draw-vertical-line {
+   from { height: 0; }
+   to { height: 100%; }
+}
+
+.go__board__line {
+   background-color: black;
+   animation-duration: var(--go-board-line-animation-duration);
+   animation-iteration-count: 1;
+   animation-fill-mode: forwards;
+   animation-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860); /* easeInOutCirc */;
+}
+
+.go__board__line--vertical {
+   width: var(--go-board-line-size);
+   height: 0;
+   animation-name: draw-vertical-line;
+}
+
+#go__board__line--vertical--A {
+   animation-delay: var(--go-board-line-vertical-A-delay);
+   margin-top: auto;
+}
+
+#go__board__line--vertical--B {
+   animation-delay: var(--go-board-line-vertical-B-delay);
+}
+
+#go__board__line--vertical--C {
+   animation-delay: var(--go-board-line-vertical-C-delay);
+   margin-top: auto;
+}
+
+#go__board__line--vertical--D {
+   animation-delay: var(--go-board-line-vertical-D-delay);
+}
+
+#go__board__line--vertical--E {
+   animation-delay: var(--go-board-line-vertical-E-delay);
+   margin-top: auto;
+}
+
+#go__board__line--vertical--F {
+   animation-delay: var(--go-board-line-vertical-F-delay);
+}
+
+#go__board__line--vertical--G {
+   animation-delay: var(--go-board-line-vertical-G-delay);
+   margin-top: auto;
+}
+
+#go__board__line--vertical--H {
+   animation-delay: var(--go-board-line-vertical-H-delay);
+}
+
+#go__board__line--vertical--J {
+   animation-delay: var(--go-board-line-vertical-J-delay);
+}
+
+.go__board__lines--horizontal {
+   flex-direction: column;
+}
+
+@keyframes draw-horizontal-line {
+   from { width: 0; }
+   to { width: 100%; }
+}
+
+.go__board__line--horizontal {
+   width: 0;
+   height: var(--go-board-line-size);
+   animation-name: draw-horizontal-line;
+}
+
+#go__board__line--horizontal--9 {
+   animation-delay: var(--go-board-line-horizontal-9-delay);
+}
+
+#go__board__line--horizontal--8 {
+   animation-delay: var(--go-board-line-horizontal-8-delay);
+   margin-left: auto;
+}
+
+#go__board__line--horizontal--7 {
+   animation-delay: var(--go-board-line-horizontal-7-delay);
+}
+
+#go__board__line--horizontal--6 {
+   animation-delay: var(--go-board-line-horizontal-6-delay);
+   margin-left: auto;
+}
+
+#go__board__line--horizontal--5 {
+   animation-delay: var(--go-board-line-horizontal-5-delay);
+}
+
+#go__board__line--horizontal--4 {
+   animation-delay: var(--go-board-line-horizontal-4-delay);
+   margin-left: auto;
+}
+
+#go__board__line--horizontal--3 {
+   animation-delay: var(--go-board-line-horizontal-3-delay);
+}
+
+#go__board__line--horizontal--2 {
+   animation-delay: var(--go-board-line-horizontal-2-delay);
+   margin-left: auto;
+}
+
+#go__board__line--horizontal--1 {
+   margin-left: auto;
+   animation-delay: var(--go-board-line-horizontal-1-delay);
+}
+
+@keyframes draw-star-points {
+   from { opacity: 0; } 
+   to { opacity: 1; } 
+}
+
+.go__board__star__points {
+   --go-board-star-point-size: min(10%, 10px);
+   --go-board-star-points-margin: 2;
+
+   width: calc(var(--go-board-line-distance) * (var(--go-board-num-of-lines) - var(--go-board-star-points-margin) * 2));
+   height: calc(var(--go-board-line-distance) * (var(--go-board-num-of-lines) - var(--go-board-star-points-margin) * 2));
+   position: absolute;
+   top: calc(var(--go-board-line-distance) * var(--go-board-star-points-margin));
+   left: calc(var(--go-board-line-distance) * var(--go-board-star-points-margin));
+   opacity: 0;
+   animation-name: draw-star-points;
+   animation-duration: var(--go-board-line-animation-duration);
+   animation-timing-function: ease-in-out;
+   animation-iteration-count: 1;
+   animation-fill-mode: forwards;
+   animation-delay: var(--go-board-line-horizontal-8-delay);
+}
+
+.go__board__star__point {
+   width: var(--go-board-star-point-size);
+   aspect-ratio: 1;
+   background-color: black;
+   border-radius: 50%;
+   position: absolute;
+}
+
+#go__board__star__point--top--left {
+   top: calc(-1 * var(--go-board-star-point-size) / 2);
+   left: calc(-1 * var(--go-board-star-point-size) / 2);
+}
+
+#go__board__star__point--top--right {
+   top: calc(-1 * var(--go-board-star-point-size) / 2);
+   right: calc(-1 * var(--go-board-star-point-size) / 2);
+}
+
+#go__board__star__point--center {
+   top: calc(100% / 4 * 2 - var(--go-board-star-point-size) / 2);
+   left: calc(100% / 4 * 2 - var(--go-board-star-point-size) / 2);
+}
+
+#go__board__star__point--bottom--left {
+   bottom: calc(-1 * var(--go-board-star-point-size) / 2);
+   left: calc(-1 * var(--go-board-star-point-size) / 2);
+}
+
+#go__board__star__point--bottom--right {
+   bottom: calc(-1 * var(--go-board-star-point-size) / 2);
+   right: calc(-1 * var(--go-board-star-point-size) / 2);
+}
+
+@media (width < 500px) {
+   .go__board {
+      width: 60%;
+   }
+}
+
+.go__board__bowl__area {
+   container-type: inline-size;
+   width: 20%;
+   display: flex;
+}
+
+.go__board__bowl__area--white {
+   align-self: flex-start;
+}
+
+.go__board__bowl__container {
+   --go-board-bowl-lid-width: 0.8;
+   --go-board-bowl-animation-duration: 1.5s;
+   --go-board-bowl-animation-delay: 2200ms;
+   --go-board-bowl-lid-distance-y: 150%;
+
+   width: 75%;
+   aspect-ratio: 1;
+   position: relative;
+   z-index: 0;
+}
+
+.go__board__bowl {
+   --color-go-board-bowl-dark: #441712;
+   --color-go-board-bowl-medium: #83401e;
+   --color-go-board-bowl-light: #c66f3a;
+   --color-go-board-bowl-gradient: var(--color-go-board-bowl-light) 20%, var(--color-go-board-bowl-medium) 40%, var(--color-go-board-bowl-dark) 70%;
+   --color-go-board-bowl-lid-border: #ad4d20;
+   --color-go-board-bowl-inner-dark: #210c11;
+   --color-go-board-bowl-inner-light: #7d2a11;
+   --color-go-board-bowl-wood-line: #2e0e12;
+   --color-go-board-bowl-wood-line-variant-1: #d09b6b;
+   --color-go-board-bowl-wood-line-variant-2: #1c0b13;
+   --go-board-bowl-lid-border-size: 3px;
+
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+   position: relative;
+   background: linear-gradient(var(--go-board-light-direction), var(--color-go-board-bowl-gradient));
+   box-shadow: var(--go-board-outer-shadow);
+   perspective: 1000px;
+   transform-style: preserve-3d;
+   z-index: 0;
+}
+
+.go__board__bowl__wood__pattern__container {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: inherit;
+   z-index: 0;
+}
+
+.go__board__bowl--wood--align--bottom {
+   align-items: flex-end;
+}
+
+.go__board__bowl__wood__pattern__1 {
+   --go-board-bowl-wood-line-opacity: 0.1;
+
+   width: calc(var(--go-board-bowl-wood-line-width) * 100%);
+   aspect-ratio: 1;
+   border: 1px solid var(--color-go-board-bowl-wood-line);
+   border-radius: 50%;
+   position: absolute;
+   opacity: 0.3;
+}
+
+.go__board__bowl__wood__pattern__container > .go__board__bowl__wood__pattern__1:nth-of-type(2n) {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+   --go-board-bowl-wood-line-opacity: 0.25;
+}
+
+#go__board__bowl__wood__pattern__1--line--1 {
+   --go-board-bowl-wood-line-width: 0.87;
+}
+
+#go__board__bowl__wood__pattern__1--line--2 {
+   --go-board-bowl-wood-line-width: 0.9;
+}
+
+#go__board__bowl__wood__pattern__1--line--3 {
+   --go-board-bowl-wood-line-width: 0.93;
+}
+
+#go__board__bowl__wood__pattern__1--line--4 {
+   --go-board-bowl-wood-line-width: 0.96;
+}
+
+#go__board__bowl__wood__pattern__1--line--5 {
+   --go-board-bowl-wood-line-width: 0.99;
+}
+
+.go__board__bowl__lid__area {
+   width: calc(var(--go-board-bowl-lid-width) * 100%);
+   height: calc(var(--go-board-bowl-lid-width) * 100%);
+   border-radius: 50%;
+   position: absolute;
+   bottom: 5%;
+   left: calc((100% - var(--go-board-bowl-lid-width) * 100%) / 2);
+}
+
+.go__board__bowl__inner__space {
+   width: 100%;
+   height: 100%;
+   border-radius: inherit;
+   background: radial-gradient(circle at 20% 90%, var(--color-go-board-bowl-inner-light) 5%, var(--color-go-board-bowl-inner-dark) 80%);
+   border: var(--go-board-bowl-lid-border-size) solid var(--color-go-board-bowl-lid-border);
+   position: absolute;
+   overflow: hidden;
+   z-index: 0;
+}
+
+@keyframes flip-lid {
+   0% {
+      transform: translateZ(0) translateY(0) rotateX(0);
+      animation-timing-function: linear;
+      box-shadow: 0px 0px 5px 2px var(--go-board-bowl-lid-shadow);
+   }
+
+   20% {
+      transform: translateZ(40px) translateY(calc(var(--go-board-bowl-lid-distance-y) / 5)) rotateX(36deg);
+      animation-timing-function: linear;
+      box-shadow: 0px 0px 5px 1px var(--go-board-bowl-lid-shadow);
+   }
+
+   40% {
+      transform: translateZ(60px) translateY(calc(var(--go-board-bowl-lid-distance-y) / 5 * 2)) rotateX(72deg);
+      animation-timing-function: linear;
+      box-shadow: 0px 0px 5px 0px var(--go-board-bowl-lid-shadow);
+   }
+
+   60% {
+      transform: translateZ(30px) translateY(calc(var(--go-board-bowl-lid-distance-y) / 5 * 3)) rotateX(108deg);
+      animation-timing-function: linear;
+      box-shadow: 0px 0px 0px 0px var(--go-board-bowl-lid-shadow);
+   }
+
+   80% {
+      transform: translateZ(15px) translateY(calc(var(--go-board-bowl-lid-distance-y) / 5 * 4)) rotateX(144deg);
+      animation-timing-function: linear;
+      box-shadow: 0px 0px 0px 0px var(--go-board-bowl-lid-shadow);
+   }
+
+   100% {
+      transform: translateZ(0) translateY(var(--go-board-bowl-lid-distance-y)) rotateX(180deg);
+      animation-timing-function: ease-out;
+      box-shadow: 0px 0px 0px 0px var(--go-board-bowl-lid-shadow);
+   }
+}
+.go__board__bowl__lid {
+   --go-board-bowl-lid-shadow: #240e13;
+
+   width: 100%;
+   height: 100%;
+   border-radius: inherit;
+   animation-name: flip-lid;
+   animation-duration: var(--go-board-bowl-animation-duration);
+   animation-delay: var(--go-board-bowl-animation-delay);
+   animation-fill-mode: forwards;
+   transform-style: preserve-3d;
+   z-index: 1;
+   box-shadow: 0px 0px 5px 2px var(--go-board-bowl-lid-shadow);
+}
+
+.go__board__bowl__lid__side {
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+   position: absolute;
+}
+
+.go__board__bowl__lid__side--top {
+   background: radial-gradient(circle at 90% 20%, var(--color-go-board-bowl-gradient));
+   transform: translateZ(2px);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+}
+
+.go__board__bowl__wood__pattern__2 {
+   --go-board-bowl-wood-line-opacity: 0.35;
+
+   width: calc(var(--go-board-bowl-wood-line-width) * 100%);
+   aspect-ratio: 1 / 2;
+   border: 1px solid var(--color-go-board-bowl-wood-line);
+   border-radius: 50%;
+   position: absolute;
+   opacity: var(--go-board-bowl-wood-line-opacity);
+   transform-origin: center;
+   transform: rotateZ(-45deg);
+   border-top: none;
+   border-left: none;
+   top: calc(25% - var(--go-board-bowl-prev-wood-line-width) * 100%);
+   left: calc(25% - (var(--go-board-bowl-prev-wood-line-width) / 2) * 100%);
+   filter: blur(0.2px);
+}
+
+.go__board__bowl__wood__pattern__2:nth-of-type(2n) {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+.go__board__bowl__wood__pattern__2:nth-of-type(2n + 1) {
+   border-left: 1px solid var(--color-go-board-bowl-wood-line);
+}
+
+#go__board__bowl__wood__pattern__2--line--1 {
+   --go-board-bowl-wood-line-width: 0.1;
+   --go-board-bowl-prev-wood-line-width: 0;
+}
+
+#go__board__bowl__wood__pattern__2--line--2 {
+   --go-board-bowl-wood-line-width: 0.2;
+   --go-board-bowl-prev-wood-line-width: 0.1;
+}
+
+#go__board__bowl__wood__pattern__2--line--3 {
+   --go-board-bowl-wood-line-width: 0.3;
+   --go-board-bowl-prev-wood-line-width: 0.2;
+}
+
+#go__board__bowl__wood__pattern__2--line--4 {
+   --go-board-bowl-wood-line-width: 0.4;
+   --go-board-bowl-prev-wood-line-width: 0.3;
+}
+
+#go__board__bowl__wood__pattern__2--line--5 {
+   --go-board-bowl-wood-line-width: 0.5;
+   --go-board-bowl-prev-wood-line-width: 0.4;
+}
+
+#go__board__bowl__wood__pattern__2--line--6 {
+   --go-board-bowl-wood-line-width: 0.6;
+   --go-board-bowl-prev-wood-line-width: 0.5;
+}
+
+#go__board__bowl__wood__pattern__2--line--7 {
+   --go-board-bowl-wood-line-width: 0.7;
+   --go-board-bowl-prev-wood-line-width: 0.6;
+}
+
+#go__board__bowl__wood__pattern__2--line--8 {
+   --go-board-bowl-wood-line-width: 0.8;
+   --go-board-bowl-prev-wood-line-width: 0.7;
+   border-right: none;
+}
+
+#go__board__bowl__wood__pattern__2--line--9 {
+   --go-board-bowl-wood-line-width: 0.9;
+   --go-board-bowl-prev-wood-line-width: 0.8;
+}
+
+.go__board__bowl__lid__side--inner--space {
+   --go-board-bowl-lid-inner-space-border-max-reach: 70%;
+   --go-board-bowl-lid-inner-space-border-size: calc(var(--go-board-bowl-lid-border-size) * 2);
+   --go-board-bowl-lid-inner-space-border-start: calc(var(--go-board-bowl-lid-inner-space-border-max-reach) - var(--go-board-bowl-lid-inner-space-border-size));
+
+   background-color: var(--color-go-board-bowl-inner-light);
+   transform: translateZ(0);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   overflow: hidden;
+   z-index: 0;
+}
+
+.go__board__bowl__lid__side__inner__space__shadow {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   z-index: 1;
+   background: 
+      /*border shadow highlight*/
+      radial-gradient(circle at center,
+         transparent calc(var(--go-board-bowl-lid-inner-space-border-start) - 2px),
+         var(--color-go-board-bowl-inner-dark) var(--go-board-bowl-lid-inner-space-border-start)),
+      /*inner space coloring*/
+      radial-gradient(circle at 20% 20%,
+         transparent 45%,
+         var(--color-go-board-bowl-inner-dark) 75%);
+}
+
+.go__board__bowl__lid__side__inner__space__border {
+   --color-go-board-bowl-lid-border-dark: rgba(59, 13, 11, 0.75);
+   width: 100%;
+   height: 100%;
+   border-radius: inherit;
+   z-index: 2;
+   background: 
+      conic-gradient(from 190deg at 50% 50%, 
+         transparent 0deg, 
+         var(--color-go-board-bowl-lid-border-dark) 60deg,
+         var(--color-go-board-bowl-lid-border-dark) 180deg,
+         transparent 250deg),
+
+      radial-gradient(circle at center, 
+         transparent calc(var(--go-board-bowl-lid-inner-space-border-start) - 2px),
+         var(--color-go-board-bowl-lid-border) var(--go-board-bowl-lid-inner-space-border-start),
+         var(--color-go-board-bowl-lid-border) var(--go-board-bowl-lid-inner-space-border-max-reach));
+   mask: 
+      radial-gradient(circle at center, 
+         transparent calc(var(--go-board-bowl-lid-inner-space-border-start) - 5px),
+         black var(--go-board-bowl-lid-inner-space-border-start));
+   position: absolute;
+}
+
+.go__board__stones__container--bowl--lid--inner--space--adjusted {
+   width: 100%;
+   height: 100%;
+   border-radius: inherit;
+   z-index: 0;
+}
+
+.go__board__stone--bowl--lid--inner--space--adjusted {
+   animation: none;
+   visibility: hidden;
+   width: 40%;
+   z-index: 0;
+   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.6);
+}
+
+#go__board__stone--lid--inner--space--pos--1 {
+   top: 20%;
+   left: 50%;
+}
+
+#go__board__stone--lid--inner--space--pos--2 {
+   bottom: 20%;
+   left: 50%;
+}
+
+#go__board__stone--lid--inner--space--pos--3 {
+   bottom: 10%;
+   left: 30%;
+}
+
+#go__board__stone--lid--inner--space--pos--4 {
+   bottom: 20%;
+   left: 15%;
+}
+
+#go__board__stone--lid--inner--space--pos--5 {
+   bottom: 35%;
+   left: 10%;
+}
+
+#go__board__stone--lid--inner--space--pos--6 {
+   bottom: 35%;
+   left: 40%;
+}
+
+#go__board__stone--lid--inner--space--pos--7 {
+   top: 10%;
+   left: 35%;
+}
+
+.tatami__mat__piece__container:has(#go__board__stone__J1__input:checked) .go__board__stone--bowl--lid--inner--space--adjusted {
+   visibility: visible;
+}
+
+.tatami__mat__piece__container:has(#go__board__stone__J1__input:checked) .go__board__bowl__area--black .go__board__stone--J1 {
+   visibility: hidden;
+}
+
+.go__board__bowl__wood__pattern__1--variation {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line:);
+   --go-board-bowl-wood-line-opacity: 0.1;
+
+   transform-origin: center;
+   border-left: none;
+   border-top: none;
+   filter: blur(0.2px);
+   bottom: calc(var(--go-board-bowl--wood-line-offset) * 100%);
+   right: calc(var(--go-board-bowl--wood-line-offset) * 100%);
+}
+
+.go__board__bowl__wood__pattern__1--variation:nth-of-type(4n + 1) {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+   opacity: 0.2;
+}
+
+.go__board__bowl__wood__pattern__1--variation:nth-of-type(-n + 3) {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-2);
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--1 {
+   --go-board-bowl-wood-line-width: 1;
+   --go-board-bowl--wood-line-offset: 0.03;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--2 {
+   --go-board-bowl-wood-line-width: 1.05;
+   --go-board-bowl--wood-line-offset: 0.06;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--3 {
+   --go-board-bowl-wood-line-width: 1.1;
+   --go-board-bowl--wood-line-offset: 0.09;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--4 {
+   --go-board-bowl-wood-line-width: 1.15;
+   --go-board-bowl--wood-line-offset: 0.12;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--5 {
+   --go-board-bowl-wood-line-width: 1.2;
+   --go-board-bowl--wood-line-offset: 0.15;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--6 {
+   --go-board-bowl-wood-line-width: 1.25;
+   --go-board-bowl--wood-line-offset: 0.18;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--7 {
+   --go-board-bowl-wood-line-width: 1.3;
+   --go-board-bowl--wood-line-offset: 0.21;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--8 {
+   --go-board-bowl-wood-line-width: 1.35;
+   --go-board-bowl--wood-line-offset: 0.24;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--9 {
+   --go-board-bowl-wood-line-width: 1.4;
+   --go-board-bowl--wood-line-offset: 0.27;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--10 {
+   --go-board-bowl-wood-line-width: 1.45;
+   --go-board-bowl--wood-line-offset: 0.3;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--11 {
+   --go-board-bowl-wood-line-width: 1.5;
+   --go-board-bowl--wood-line-offset: 0.33;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--12 {
+   --go-board-bowl-wood-line-width: 1.55;
+   --go-board-bowl--wood-line-offset: 0.36;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--13 {
+   --go-board-bowl-wood-line-width: 1.6;
+   --go-board-bowl--wood-line-offset: 0.39;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--14 {
+   --go-board-bowl-wood-line-width: 1.65;
+   --go-board-bowl--wood-line-offset: 0.42;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--15 {
+   --go-board-bowl-wood-line-width: 1.7;
+   --go-board-bowl--wood-line-offset: 0.45;
+}
+
+#go__board__bowl__wood__pattern__1--variation--line--16 {
+   --go-board-bowl-wood-line-width: 1.75;
+   --go-board-bowl--wood-line-offset: 0.48;
+}
+
+@keyframes lid-shadow-follow {
+   from { transform: translateX(0) translateY(0); }
+   to { transform: translateX(var(--go-board-outer-shadow-x)) translateY(calc(var(--go-board-bowl-lid-distance-y))); }
+}
+
+.go__board__bowl__lid__area--shadow {
+   filter: blur(calc(var(--go-board-outer-shadow-blur) * 0.5));
+   background-color: var(--color-go-board-outer-shadow);
+   z-index: -1;
+   animation-name: lid-shadow-follow;
+   animation-duration: var(--go-board-bowl-animation-duration);
+   animation-delay: var(--go-board-bowl-animation-delay);
+   animation-fill-mode: forwards;
+   animation-timing-function: ease-in-out;
+}
+
+.go__board__bowl__area--black {
+   justify-content: flex-end;
+   align-self: flex-end;
+}
+
+.go__board__bowl__area--black > .go__board__bowl__container {
+   --go-board-bowl-lid-distance-y: -150%;
+}
+
+.go__board__bowl--wood--align--top {
+   align-items: flex-start;
+}
+
+.go__board__bowl__lid__area--align--top {
+   bottom: auto;
+   top: 5%;
+}
+
+.go__board__bowl__wood__pattern__2--variation {
+   --go-board-bowl-wood-line-opacity: 0.25;
+
+   transform: rotateZ(30deg);
+   filter: blur(0px);
+   border-top: 1px solid var(--color-go-board-bowl-wood-line);
+   border-left: 1px solid var(--color-go-board-bowl-wood-line-variant-2);
+   border-right: 1px solid var(--color-go-board-bowl-wood-line-variant-1);
+   border-bottom: 1px solid var(--color-go-board-bowl-wood-line);
+   top: calc(25% - var(--go-board-bowl-prev-wood-line-width) * 100%);
+   left: auto;
+   right: calc(25% - (var(--go-board-bowl-prev-wood-line-width) / 2) * 100%);
+}
+
+.go__board__bowl__wood__pattern__container--align--separately {
+   justify-content: space-evenly;
+}
+
+.go__board__bowl__wood__pattern__3 {
+   --go-board-bowl-wood-line-width: 1px;
+   --go-board-bowl-wood-line-height: 1;
+   --go-board-bowl-wood-line-opacity: 0.12;
+
+   transform: rotateZ(10deg);
+   width: var(--go-board-bowl-wood-line-width);
+   height: calc(var(--go-board-bowl-wood-line-height) * 100%);
+   background-color: var(--color-go-board-bowl-wood-line);
+   opacity: var(--go-board-bowl-wood-line-opacity);
+}
+
+#go__board__bowl__wood__pattern__3--line--1 {
+   --go-board-bowl-wood-line-height: 0.4;
+   --color-go-board-bowl-wood-line: white;
+}
+
+#go__board__bowl__wood__pattern__3--line--2 {
+   --go-board-bowl-wood-line-height: 0.9;
+   --color-go-board-bowl-wood-line: white;
+}
+
+#go__board__bowl__wood__pattern__3--line--3 {
+   --go-board-bowl-wood-line-height: 0.6;
+   --color-go-board-bowl-wood-line: white;
+}
+
+#go__board__bowl__wood__pattern__3--line--4 {
+   --go-board-bowl-wood-line-height: 0.3;
+}
+
+#go__board__bowl__wood__pattern__3--line--5 {
+   --go-board-bowl-wood-line-height: 0.9;
+}
+
+#go__board__bowl__wood__pattern__3--line--6 {
+   --go-board-bowl-wood-line-height: 0.7;
+}
+
+#go__board__bowl__wood__pattern__3--line--7 {
+   --go-board-bowl-wood-line-height: 0.8;
+   --color-go-board-bowl-wood-line: white;
+}
+
+#go__board__bowl__wood__pattern__3--line--8 {
+   --go-board-bowl-wood-line-height: 0.8;
+   --color-go-board-bowl-wood-line: white;
+}
+
+#go__board__bowl__wood__pattern__3--line--9 {
+   --go-board-bowl-wood-line-width: 1.2px;
+   --color-go-board-bowl-wood-line: white;
+}
+
+#go__board__bowl__wood__pattern__3--line--10 {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--11 {
+   --go-board-bowl-wood-line-height: 0.8;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--12 {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--13 {
+   --go-board-bowl-wood-line-height: 0.6;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--14 {
+   --go-board-bowl-wood-line-height: 0.7;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--15 {
+   --go-board-bowl-wood-line-height: 0.5;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--16 {
+   --go-board-bowl-wood-line-height: 0.5;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--17 {
+   --go-board-bowl-wood-line-height: 0.7;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-1);
+}
+
+#go__board__bowl__wood__pattern__3--line--18 {
+   --go-board-bowl-wood-line-height: 0.4;
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-2);
+}
+
+#go__board__bowl__wood__pattern__3--line--19 {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-2);
+}
+
+#go__board__bowl__wood__pattern__3--line--20 {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-2);
+}
+
+#go__board__bowl__wood__pattern__3--line--21 {
+   --color-go-board-bowl-wood-line: var(--color-go-board-bowl-wood-line-variant-2);
+}
+
+.go__board__bowl__inner__space__level {
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+   position: absolute;
+}
+
+.go__board__bowl__inner__space__shadow__level {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   border-radius: inherit;
+   z-index: 1;
+}
+
+.go__board__stone--bowl--inner--space--adjusted {
+   visibility: visible;
+   width: 43%;
+   z-index: 0;
+   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
+}
+
+.go__board__stone--bowl--picking {
+   animation-direction: reverse;
+}
+
+.go__board__bowl__inner__space__level--1 {
+   z-index: 0;
+}
+
+.go__board__bowl__inner__space__shadow__level--1 {
+   background-color: rgba(0, 0, 0, 0.45);
+}
+
+@keyframes tone-down-shadow-bottom-left-level-1 {
+   from {
+      background: rgba(0, 0, 0, 0.45);
+   }
+   to {
+      background: radial-gradient(circle at 20% 90%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.45) 80%);
+   }
+}
+
+@keyframes tone-down-shadow-level-1 {
+   from {
+      background: rgba(0, 0, 0, 0.45);
+   }
+   to {
+      background: rgba(0, 0, 0, 0.1);
+   }
+}
+
+.go__board__bowl__area--white .go__board__bowl__inner__space__shadow__level--1 {
+   animation: tone-down-shadow-level-1 0s forwards var(--go-board-stone-H2-delay);
+}
+
+.go__board__bowl__area--black .go__board__bowl__inner__space__shadow__level--1 {
+   animation: tone-down-shadow-bottom-left-level-1 0s forwards var(--go-board-stone-H4-delay);
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--1 {
+   top: 60%;
+   left: 70%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--2 {
+   top: 20%;
+   left: 70%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--3 {
+   top: 70%;
+   left: 40%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--4 {
+   top: 0%;
+   left: 40%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--5 {
+   top: 40%;
+   left: 50%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--6 {
+   top: 50%;
+   left: 20%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--7 {
+   top: 20%;
+   left: 20%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--8 {
+   top: 10%;
+   left: -5%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--9 {
+   top: 0%;
+   left: 20%;
+}
+
+.go__board__bowl__inner__space__level--1 #go__board__stone--bowl--inner--space--pos--10 {
+   top: 40%;
+   left: 0%;
+}
+
+.go__board__bowl__inner__space__level--2 {
+   z-index: 1;
+}
+
+.go__board__bowl__inner__space__shadow__level--2 {
+   background: rgba(0, 0, 0, 0.3);
+}
+
+@keyframes tone-down-shadow-bottom-left-level-2-1 {
+   from {
+      background: rgba(0, 0, 0, 0.3);
+   }
+   to {
+      background: radial-gradient(circle at 20% 90%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.3) 80%);
+   }
+}
+
+@keyframes tone-down-shadow-bottom-left-level-2-2 {
+   from {
+      background: radial-gradient(circle at 20% 90%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.3) 80%);
+   }
+   to {
+      background: radial-gradient(circle at 20% 90%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.25) 80%);
+   }
+}
+
+@keyframes tone-down-shadow-level-2-1 {
+   from {
+      background: radial-gradient(circle at 20% 90%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.3) 80%);
+   }
+   to {
+      background: rgba(0, 0, 0, 0.25);
+   }
+}
+
+@keyframes tone-down-shadow-level-2-2 {
+   from {
+      background: radial-gradient(circle at 20% 90%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.25) 80%);
+   }
+   to {
+      background: rgba(0, 0, 0, 0.1);
+   }
+}
+
+.go__board__bowl__area--white .go__board__bowl__inner__space__shadow__level--2 {
+   animation: tone-down-shadow-bottom-left-level-2-1 0s forwards var(--go-board-stone-F4-delay),
+              tone-down-shadow-bottom-left-level-2-2 0s forwards var(--go-board-stone-G4-delay),
+              tone-down-shadow-level-2-2 0s forwards var(--go-board-stone-H3-delay);
+}
+
+.go__board__bowl__area--black .go__board__bowl__inner__space__shadow__level--2 {
+   animation: tone-down-shadow-bottom-left-level-2-1 0s forwards var(--go-board-stone-G5-delay),
+              tone-down-shadow-level-2-1 0s forwards var(--go-board-stone-H4-delay);
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--1 {
+   top: 25%;
+   left: 60%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--2 {
+   top: 10%;
+   left: 30%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--3 {
+   top: 20%;
+   left: -20%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--4 {
+   top: 40%;
+   left: 20%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--5 {
+   top: -15%;
+   left: 10%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--6 {
+   top: 30%;
+   left: -10%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--7 {
+   top: 70%;
+   left: 10%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--8 {
+   top: 70%;
+   left: 60%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--9 {
+   top: 60%;
+   left: 40%;
+}
+
+.go__board__bowl__inner__space__level--2 #go__board__stone--bowl--inner--space--pos--10 {
+   top: -5%;
+   left: 80%;
+}
+
+.go__board__bowl__inner__space__level--3 {
+   z-index: 2;
+}
+
+.go__board__bowl__inner__space__shadow__level--3 {
+   background: radial-gradient(circle at 20% 90%, transparent 30%, rgba(0, 0, 0, 0.2) 80%);
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--1 {
+   top: -10%;
+   left: 60%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--2 {
+   top: 30%;
+   left: 60%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--3 {
+   top: 20%;
+   left: 20%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--4 {
+   top: 50%;
+   left: -10%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--5 {
+   top: 10%;
+   left: 50%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--6 {
+   top: 60%;
+   left: 20%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--7 {
+   top: -15%;
+   left: -10%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--8 {
+   top: 0%;
+   left: -15%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--9 {
+   top: 60%;
+   left: 60%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--10 {
+   top: -20%;
+   left: 15%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--11 {
+   top: 30%;
+   left: -20%;
+}
+
+.go__board__bowl__inner__space__level--3 #go__board__stone--bowl--inner--space--pos--12 {
+   top: 35%;
+   left: 50%;
+}
+
+@media (width < 500px) {
+   .go__board__bowl__lid__side--inner--space {
+      --go-board-bowl-lid-inner-space-border-size: calc(var(--go-board-bowl-lid-border-size));
+   }
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <body>
+   <div class="floor">
+      <div class="tatami__mat">
+         <div class="tatami__mat__piece tatami__mat__piece--column--1"></div>
+         <div class="tatami__mat__piece tatami__mat__piece--column--2--row--1 tatami__mat__piece--reverse--mat"></div>
+         <div class="tatami__mat__piece tatami__mat__piece--column--2--row--2 tatami__mat__piece--reverse--mat">
+            <div class="tatami__mat__piece__container">
+               <div class="floor__shadow"></div>
+               <div class="go__board__bowl__area go__board__bowl__area--white">
+                  <div class="go__board__bowl__container">
+                     <div class="go__board__bowl">
+                        <div class="go__board__bowl__wood__pattern__container go__board__bowl--wood--align--bottom">
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--1"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--2"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--3"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--4"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--5"></div>
+                        </div>
+                        <div class="go__board__bowl__lid__area">
+                           <div class="go__board__bowl__inner__space">
+                              <div class="go__board__bowl__inner__space__level go__board__bowl__inner__space__level--1">
+                                 <div class="go__board__bowl__inner__space__shadow__level go__board__bowl__inner__space__shadow__level--1"></div>
+                                 <div class="go__board__stones__container">
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--2"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--7"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--8"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--9"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--10"></div>
+                                 </div>
+                              </div>
+                              <div class="go__board__bowl__inner__space__level go__board__bowl__inner__space__level--2">
+                                 <div class="go__board__stones__container">
+                                    <div class="go__board__bowl__inner__space__shadow__level go__board__bowl__inner__space__shadow__level--2"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--2"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--7"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--8"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--9"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--10"></div>
+                                 </div>
+                              </div>
+                              <div class="go__board__bowl__inner__space__level go__board__bowl__inner__space__level--3">
+                                 <div class="go__board__stones__container">
+                                    <div class="go__board__bowl__inner__space__shadow__level go__board__bowl__inner__space__shadow__level--3"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--H2" id="go__board__stone--bowl--inner--space--pos--2"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--H3" id="go__board__stone--bowl--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--E7" id="go__board__stone--bowl--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--E6" id="go__board__stone--bowl--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--F4" id="go__board__stone--bowl--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--7"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--J2" id="go__board__stone--bowl--inner--space--pos--8"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--G4" id="go__board__stone--bowl--inner--space--pos--9"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--G3" id="go__board__stone--bowl--inner--space--pos--10"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--11"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--F5" id="go__board__stone--bowl--inner--space--pos--12"></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="go__board__bowl__lid">
+                              <div class="go__board__bowl__lid__side go__board__bowl__lid__side--top">
+                                 <div class="go__board__bowl__wood__pattern__container">
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--1"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--2"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--3"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--4"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--5"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--6"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--7"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--8"></div>
+                                    <div class="go__board__bowl__wood__pattern__2" id="go__board__bowl__wood__pattern__2--line--9"></div>
+                                 </div>
+                              </div>
+                              <div class="go__board__bowl__lid__side go__board__bowl__lid__side--inner--space">
+                                 <div class="go__board__bowl__wood__pattern__container">
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--1"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--2"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--3"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--4"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--5"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--6"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--7"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--8"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--9"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--10"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--11"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--12"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--13"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--14"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--15"></div>
+                                    <div class="go__board__bowl__wood__pattern__1 go__board__bowl__wood__pattern__1--variation" id="go__board__bowl__wood__pattern__1--variation--line--16"></div>
+                                 </div>
+                                 <div class="go__board__bowl__lid__side__inner__space__shadow"></div>
+                                 <div class="go__board__bowl__lid__side__inner__space__border"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="go__board__bowl__lid__area go__board__bowl__lid__area--shadow"></div>
+                  </div>
+               </div>
+               <div class="go__board">
+                  <div class="go__board__top__side">
+                     <div class="go__board__top__side__shadow"></div>
+                     <div class="go__board__top__side__container">
+                        <div class="go__board__stones__container">
+                           <div class="go__board__stone go__board__stone--F6 go__board__stone--black go__board__stone--line--vertical--F go__board__stone--line--horizontal--6"></div>
+                           <div class="go__board__stone go__board__stone--F6 go__board__stone--shadow go__board__stone--line--vertical--F go__board__stone--line--horizontal--6"></div>
+                           <div class="go__board__stone go__board__stone--F5 go__board__stone--white go__board__stone--line--vertical--F go__board__stone--line--horizontal--5"></div>
+                           <div class="go__board__stone go__board__stone--F5 go__board__stone--shadow go__board__stone--line--vertical--F go__board__stone--line--horizontal--5"></div>
+                           <div class="go__board__stone go__board__stone--E5 go__board__stone--black go__board__stone--line--vertical--E go__board__stone--line--horizontal--5"></div>
+                           <div class="go__board__stone go__board__stone--E5 go__board__stone--shadow go__board__stone--line--vertical--E go__board__stone--line--horizontal--5"></div>
+                           <div class="go__board__stone go__board__stone--E6 go__board__stone--white go__board__stone--line--vertical--E go__board__stone--line--horizontal--6"></div>
+                           <div class="go__board__stone go__board__stone--E6 go__board__stone--shadow go__board__stone--line--vertical--E go__board__stone--line--horizontal--6"></div>
+                           <div class="go__board__stone go__board__stone--E4 go__board__stone--black go__board__stone--line--vertical--E go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--E4 go__board__stone--shadow go__board__stone--line--vertical--E go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--E7 go__board__stone--white go__board__stone--line--vertical--E go__board__stone--line--horizontal--7"></div>
+                           <div class="go__board__stone go__board__stone--E7 go__board__stone--shadow go__board__stone--line--vertical--E go__board__stone--line--horizontal--7"></div>
+                           <div class="go__board__stone go__board__stone--G5 go__board__stone--black go__board__stone--line--vertical--G go__board__stone--line--horizontal--5"></div>
+                           <div class="go__board__stone go__board__stone--G5 go__board__stone--shadow go__board__stone--line--vertical--G go__board__stone--line--horizontal--5"></div>
+                           <div class="go__board__stone go__board__stone--F4 go__board__stone--white go__board__stone--line--vertical--F go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--F4 go__board__stone--shadow go__board__stone--line--vertical--F go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--F3 go__board__stone--black go__board__stone--line--vertical--F go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--F3 go__board__stone--shadow go__board__stone--line--vertical--F go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--G4 go__board__stone--white go__board__stone--line--vertical--G go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--G4 go__board__stone--shadow go__board__stone--line--vertical--G go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--H4 go__board__stone--black go__board__stone--line--vertical--H go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--H4 go__board__stone--shadow go__board__stone--line--vertical--H go__board__stone--line--horizontal--4"></div>
+                           <div class="go__board__stone go__board__stone--G3 go__board__stone--white go__board__stone--line--vertical--G go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--G3 go__board__stone--shadow go__board__stone--line--vertical--G go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--G2 go__board__stone--black go__board__stone--line--vertical--G go__board__stone--line--horizontal--2"></div>
+                           <div class="go__board__stone go__board__stone--G2 go__board__stone--shadow go__board__stone--line--vertical--G go__board__stone--line--horizontal--2"></div>
+                           <div class="go__board__stone go__board__stone--H3 go__board__stone--white go__board__stone--line--vertical--H go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--H3 go__board__stone--shadow go__board__stone--line--vertical--H go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--J3 go__board__stone--black go__board__stone--line--vertical--J go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--J3 go__board__stone--shadow go__board__stone--line--vertical--J go__board__stone--line--horizontal--3"></div>
+                           <div class="go__board__stone go__board__stone--H2 go__board__stone--white go__board__stone--line--vertical--H go__board__stone--line--horizontal--2"></div>
+                           <div class="go__board__stone go__board__stone--H2 go__board__stone--shadow go__board__stone--line--vertical--H go__board__stone--line--horizontal--2"></div>
+                           <div class="go__board__stone go__board__stone--H1 go__board__stone--black go__board__stone--line--vertical--H go__board__stone--line--horizontal--1"></div>
+                           <div class="go__board__stone go__board__stone--H1 go__board__stone--shadow go__board__stone--line--vertical--H go__board__stone--line--horizontal--1"></div>
+                           <div class="go__board__stone go__board__stone--J2 go__board__stone--white go__board__stone--line--vertical--J go__board__stone--line--horizontal--2"></div>
+                           <div class="go__board__stone go__board__stone--J2 go__board__stone--shadow go__board__stone--line--vertical--J go__board__stone--line--horizontal--2"></div>
+                           <input type="checkbox" id="go__board__stone__J1__input">
+                           <label class="go__board__stone go__board__stone__J1__container go__board__stone--line--vertical--J go__board__stone--line--horizontal--1" for="go__board__stone__J1__input">
+                              <div class="go__board__stone go__board__stone--J1 go__board__stone--input--adjusted go__board__stone--black"></div>
+                           </label>
+                           <div class="go__board__stone go__board__stone--J1 go__board__stone--shadow go__board__stone--line--vertical--J go__board__stone--line--horizontal--1"></div>
+                        </div>
+                        <div class="go__board__star__points">
+                           <div class="go__board__star__point" id="go__board__star__point--top--left"></div>
+                           <div class="go__board__star__point" id="go__board__star__point--top--right"></div>
+                           <div class="go__board__star__point" id="go__board__star__point--center"></div>
+                           <div class="go__board__star__point" id="go__board__star__point--bottom--left"></div>
+                           <div class="go__board__star__point" id="go__board__star__point--bottom--right"></div>
+                        </div>
+                        <div class="go__board__lines">
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--A"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--B"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--C"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--D"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--E"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--F"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--G"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--H"></div>
+                           <div class="go__board__line go__board__line--vertical" id="go__board__line--vertical--J"></div>
+                        </div>
+                        <div class="go__board__lines go__board__lines--horizontal">
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--9"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--8"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--7"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--6"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--5"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--4"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--3"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--2"></div>
+                           <div class="go__board__line go__board__line--horizontal" id="go__board__line--horizontal--1"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="go__board__front__side"></div>
+               </div>
+               <div class="go__board__bowl__area go__board__bowl__area--black">
+                  <div class="go__board__bowl__container">
+                     <div class="go__board__bowl">
+                        <div class="go__board__bowl__wood__pattern__container go__board__bowl--wood--align--top">
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--1"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--2"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--3"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--4"></div>
+                           <div class="go__board__bowl__wood__pattern__1" id="go__board__bowl__wood__pattern__1--line--5"></div>
+                        </div>
+                        <div class="go__board__bowl__lid__area go__board__bowl__lid__area--align--top">
+                           <div class="go__board__bowl__inner__space">
+                              <div class="go__board__bowl__inner__space__level go__board__bowl__inner_space__level--1">
+                                 <div class="go__board__stones__container">
+                                    <div class="go__board__bowl__inner__space__shadow__level go__board__bowl__inner__space__shadow__level--1"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--2"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--7"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--8"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--9"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--10"></div>
+                                 </div>
+                              </div>
+                              <div class="go__board__bowl__inner__space__level go__board__bowl__inner__space__level--2">
+                                 <div class="go__board__stones__container">
+                                    <div class="go__board__bowl__inner__space__shadow__level go__board__bowl__inner__space__shadow__level--2"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--2"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--7"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--8"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--9"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--10"></div>
+                                 </div>
+                              </div>
+                              <div class="go__board__bowl__inner__space__level go__board__bowl__inner__space__level--3">
+                                 <div class="go__board__stones__container">
+                                    <div class="go__board__bowl__inner__space__shadow__level go__board__bowl__inner__space__shadow__level--3"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--F3" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--H1" id="go__board__stone--bowl--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--J3" id="go__board__stone--bowl--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--H4" id="go__board__stone--bowl--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--G5" id="go__board__stone--bowl--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted" id="go__board__stone--bowl--inner--space--pos--7"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--G2" id="go__board__stone--bowl--inner--space--pos--8"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--E4" id="go__board__stone--bowl--inner--space--pos--9"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--J1" id="go__board__stone--bowl--inner--space--pos--10"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--E5" id="go__board__stone--bowl--inner--space--pos--11"></div>
+                                    <div class="go__board__stone go__board__stone--black go__board__stone--bowl--inner--space--adjusted go__board__stone--bowl--picking go__board__stone--F6" id="go__board__stone--bowl--inner--space--pos--12"></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="go__board__bowl__lid">
+                              <div class="go__board__bowl__lid__side go__board__bowl__lid__side--top">
+                                 <div class="go__board___bowl__wood__pattern__container">
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--1"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--2"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--3"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--4"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--5"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--6"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--7"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--8"></div>
+                                    <div class="go__board__bowl__wood__pattern__2 go__board__bowl__wood__pattern__2--variation" id="go__board__bowl__wood__pattern__2--line--9"></div>
+                                 </div>
+                              </div>
+                              <div class="go__board__bowl__lid__side go__board__bowl__lid__side--inner--space">
+                                 <div class="go__board__bowl__wood__pattern__container go__board__bowl__wood__pattern__container--align--separately">
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--1"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--2"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--3"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--4"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--5"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--6"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--7"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--8"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--9"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--10"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--11"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--12"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--13"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--14"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--15"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--16"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--17"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--18"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--19"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--20"></div>
+                                    <div class="go__board__bowl__wood__pattern__3" id="go__board__bowl__wood__pattern__3--line--21"></div>
+                                 </div>
+                                 <div class="go__board__bowl__lid__side__inner__space__shadow"></div>
+                                 <div class="go__board__bowl__lid__side__inner__space__border"></div>
+                                 <div class="go__board__stones__container go__board__stones__container--bowl--lid--inner--space--adjusted">
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--1"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--2"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--3"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--4"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--5"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--6"></div>
+                                    <div class="go__board__stone go__board__stone--white go__board__stone--bowl--lid--inner--space--adjusted" id="go__board__stone--lid--inner--space--pos--7"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="go__board__bowl__lid__area go__board__bowl__lid__area--shadow"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="tatami__mat__piece tatami__mat__piece--column--2--row--3 tatami__mat__piece--reverse--mat"></div>
+         <div class="tatami__mat__piece tatami__mat__piece--column--3"></div>
+      </div>
+   </div>
+</body>
+  
+<script id="rendered-js" >
+/* Capture the white stones at the end! */
+/* For clearer code and file organization, feel free to check it out on https://gitlab.com/css-only/css-only-go-board */
+//# sourceURL=pen.js
+</script>
+  
+</body>
+</html>

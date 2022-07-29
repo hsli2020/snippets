@@ -1,0 +1,371 @@
+﻿<html>
+
+<head>
+  <script src="https://benjdd.com/languages/d3.v7.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  body {
+    font-family: SFMono-Regular,monospace;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  </style>
+</head>
+
+<body>
+
+<div style="max-width: 800px; margin-left: auto; margin-right: auto;">
+<br/>
+<h1>1 Billion nested loop iterations</h1>
+<br/>
+<div id="latency"></div>
+
+<br/><br/>
+
+<h2>Methodology</h2>
+<p>
+Ran each three times and used the lowest timing for each.
+Timings taken on an M3 Macbook pro with 16 gb RAM using the /usr/bin/time command.
+Input value of 40 given to each.
+</p>
+<ul>
+ <li>Clang version: Apple clang version 16.0.0 (clang-1600.0.26.4)</li>
+ <li>R version: Rscript (R) version 4.4.2 (2024-10-31)</li>
+ <li>Kotlin version: kotlinc-jvm 2.0.21 (JRE 23.0.1)</li>
+ <li>Java version: javac 23.0.1</li>
+ <li>Rust version: cargo 1.82.0</li>
+ <li>Node version: v22.11.0</li>
+ <li>Python version: 3.9.6</li>
+ <li>Ruby version: 3.3.5</li>
+ <li>PHP version: 8.3.13</li>
+ <li>Dart version: 3.5.4</li>
+ <li>Bun version: 1.1.34</li>
+ <li>Deno version: 2.0.6</li>
+ <li>Go version: 1.21.2</li>
+ <li>PyPy: 7.3.17</li>
+</ul>
+
+</br>
+
+<h2>Code</h2>
+
+<p>
+You can find all of the code and the compile / run / cleanup scripts at the <a href="https://github.com/bddicken/languages">GitHub repository</a>.
+</p>
+</br></br></br></br>
+
+</div>
+
+</body>
+
+<script>
+
+class LatencyVisual {
+
+  constructor(id, timings, minSlow, maxSlow) {
+   
+    //////////////////////////////////
+    //                              //
+    // 1,000,000,000ns = 1s         //
+    // 1,000,000us = 1s             //
+    // 1,000ms = 1s                 //
+    //                              //
+    // timings below in nanoseconds //
+    //                              //
+    //////////////////////////////////
+   
+    this.timings = timings;
+
+    this.minSlow = minSlow;
+    this.maxSlow = maxSlow;
+    this.slowdown = this.maxSlow/2;
+    this.oneBillion = 1000000000;
+    this.oneMillion = 1000000;
+    this.totalTime = 1000000;
+   
+    this.id = id;
+    this.dom = document.getElementById(this.id);
+    this.initializeBaseElements();
+    this.domSVG = this.dom.getElementsByClassName('latencySVG')[0];
+    this.domSVG.style.height = this.domSVG.clientWidth/4 + 'px';
+    
+    this.updateSizes();
+    
+    window.addEventListener("resize", function(event) {
+      this.redrawAfterChange();
+    }.bind(this), false);
+    
+    this.initialize();
+   
+    setTimeout((() => { 
+      for (const t of this.timings) {
+        this.animateCircle(`.${t.class}Ball`, this.D, t, t.timeFor);
+      }
+    }).bind(this), 500);
+
+  }
+  
+  redrawAfterChange() {
+    this.updateSizes();
+    this.initialize();
+    this.update();
+  }
+
+  initializeBaseElements() {
+    const container = d3.select('#' + this.id)
+      .append('div')
+        .attr('class', 'interactivityContainer')
+        .attr('id', 'interactivityContainer')
+      .style('width', '100%');
+    const svgContainer = container.append('div')
+      .attr('class', 'svgContainer')
+      .style('margin-left', 'auto')
+      .style('margin-right', 'auto')
+      .style('width', '100%')
+      .style('max-width', '1000px');
+    this.svg = svgContainer.append('svg')
+      .attr('class', 'latencySVG')
+      .attr('id', 'latencySVGID')
+      .style('width', '100%')
+      .style('height', '100%');
+  }
+  
+  updateSizes() {
+
+    this.domSVG.style.height = this.domSVG.clientWidth + 'px';
+    this.width = this.domSVG.clientWidth;
+    this.height = this.width;
+
+    this.cr = this.height / (this.timings.length*2 + 3);
+    this.fontSize = this.width / 43;
+    this.strokeWidth = this.width * 0.025;
+    
+    this.X = this.width*0.085;
+    this.W = this.width*0.315;
+    this.H = this.height / (this.timings.length+2); 
+    this.BX = this.width*0.4 + this.cr;
+    this.EX = this.width - this.cr - this.strokeWidth/2;
+    this.D = this.EX - this.BX;
+
+    let spacing = (this.height / (this.timings.length+1))
+    let i = 0;
+    for (let timing of this.timings) {
+      i++;
+      timing.y = spacing * i;
+      timing.cx = this.BX;
+      timing.prevT = 0;
+      timing.forward = true;
+      timing.begin = this.BX;
+      timing.end = this.EX;
+    }
+  }
+
+  drawBox(timing, x, w, h) {
+    this.svg.select(`.${timing.class}Ball`)
+      .attr('fill', timing.color)
+      .attr('cx', this.BX)
+      .attr('cy', timing.y)
+      .attr('stroke', '#444')
+      .attr('stroke-width', 1)
+      .style('filter', 'drop-shadow(2px 2px 2px #00000025)')
+      .attr('rx', this.cr)
+      .attr('ry', this.cr)
+    this.svg.select(`.${timing.class}`)
+      .attr('fill', '#444')
+      .attr('x', x)
+      .attr('y', timing.y - (h/2))
+      .style('filter', 'drop-shadow(2px 2px 2px #00000025)')
+      .attr('width', w)
+      .attr('height', h);
+    this.svg.select(`.${timing.class}Label`)
+      .text(timing.label)
+      .style("font-size", this.fontSize + 'px')
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('fill', '#fff')
+      .attr('x', x + w/2)
+      .attr('y', timing.y + (h*0.05)); 
+    this.svg.select(`.${timing.class}Image`)
+      .attr('href', timing.image)
+      .attr('x', x - (h))
+      .attr('y', timing.y - (h/2))
+      .style('filter', 'drop-shadow(2px 2px 2px #00000050)')
+      .attr('width', h-10)
+      .attr('height', h)
+  }
+  
+  initialize() {
+    this.svg.selectAll('.IOsPerSecond')
+      .data([0])
+      .join((enter) => enter.append('g').attr('class', 'IOsPerSecond'));
+
+    const background = this.svg.select('.IOsPerSecond').selectAll('.diagram')
+      .data([0])
+      .join(
+        (enter) => {
+          let g = enter.append('g').attr('class', 'diagram');
+          g.append('rect').attr('class', 'background')
+          for (let timing of this.timings) {
+            g.append('rect').attr('class', timing.class);
+            g.append('text').attr('class', timing.class + 'Label');
+            g.append('ellipse').attr('class', timing.class + 'Ball');
+            g.append('image').attr('class', timing.class + 'Image');
+          }
+          return g;
+        }
+      );
+    
+    background.select('.background')
+      .attr('fill', '#eee')
+      .attr('stroke', '#444')
+      .attr('stroke-width', this.strokeWidth)
+      .attr('x', 1)
+      .attr('y', 1)
+      .attr('width', this.width-2)
+      .attr('height', this.height-2);
+    
+    for (let timing of this.timings) {
+      this.drawBox(timing, this.X, this.W, this.H)
+    } 
+  }
+
+  animateCircle(selector, d, stash, tns) {
+    let b = this.svg.select(selector);
+    b.transition().ease(d3.easeLinear).duration(this.totalTime)
+      .attrTween('cx', 
+        () => {
+          return function(t) {
+            const elapsedMS = (t*this.totalTime) - stash.prevT; // 100
+            const ioMS = ( (tns * this.slowdown) / this.oneMillion);
+            const travelDistTotal = d * (elapsedMS / ioMS);
+            let travelDist = travelDistTotal * 2;
+
+            if (!stash.forward)
+              travelDist = -travelDist;
+            stash.cx += travelDist;
+
+            if (stash.forward && stash.cx > stash.end) {
+              stash.forward = !stash.forward;
+              stash.cx -= stash.cx - stash.end;
+            } else if (!stash.forward && stash.cx < stash.begin) {
+              stash.forward = !stash.forward;
+              stash.cx -= stash.cx - stash.begin;
+            }
+
+            stash.prevT = (t*this.totalTime);
+            return stash.cx;
+          }.bind(this);
+        }
+      );
+  }
+}
+
+const latency = new LatencyVisual('latency', 
+    [
+      {
+        label: 'C/clang -O3 (0.50s)', 
+        image: 'https://benjdd.com/languages/c.png',
+        timeFor: 500000000,
+        class: 'cClangO0',
+        color: 'rgb(101, 155, 211)'
+      },
+      {
+        label: 'Rust (0.50s)',
+        image: 'https://benjdd.com/languages/rust.png',
+        timeFor: 500000000,
+        class: 'rust',
+        color: 'rgb(50, 20, 10)'
+      },
+      {
+        label: 'Java (0.54s)',
+        image: 'https://benjdd.com/languages/java.png',
+        timeFor: 540000000,
+        class: 'java',
+        color: 'rgb(242, 164, 67)'
+      },
+      {
+        label: 'Kotlin (0.56s)',
+        image: 'https://benjdd.com/languages/kotlin.png',
+        timeFor: 560000000,
+        class: 'kotlin',
+        color: 'rgb(177, 36, 234)'
+      },
+      {
+        label: 'Go (0.80s)',
+        image: 'https://benjdd.com/languages/go.png',
+        timeFor: 800000000,
+        class: 'goLang',
+        color: '#5dcef0'
+      },
+      {
+        label: 'Js/Bun (0.80s)', 
+        image: 'https://benjdd.com/languages/bun.png',
+        timeFor: 800000000,
+        class: 'jsBun',
+        color: '#e3a1b6'
+      },
+      {
+        label: 'Js/Node (1.03s)',
+        image: 'https://benjdd.com/languages/node.png',
+        timeFor: 1030000000,
+        class: 'jsNode',
+        color: '#27b648'
+      },
+      {
+        label: 'Js/Deno (1.06s)',
+        image: 'https://benjdd.com/languages/deno.png',
+        timeFor: 1060000000,
+        class: 'jsDeno',
+        color: 'rgb(0, 0, 0)'
+      },
+      {
+        label: 'Dart (1.34s)',
+        image: 'https://benjdd.com/languages/dart.png',
+        timeFor: 1340000000,
+        class: 'dart',
+        color: 'rgb(39, 185, 247)'
+      },
+      {
+        label: 'PyPy (1.53s)',
+        image: 'https://benjdd.com/languages/pypy.png',
+        timeFor: 1530000000,
+        class: 'pypy',
+        color: 'rgb(193, 198, 187)'
+      },
+      {
+        label: 'PHP (9.93s)',
+        image: 'https://benjdd.com/languages/php.png',
+        timeFor: 9930000000,
+        class: 'php',
+        color: 'rgb(120, 124, 180)'
+      },
+      {
+        label: 'Ruby (28.80s)',
+        image: 'https://benjdd.com/languages/ruby.png',
+        timeFor: 28800000000,
+        class: 'ruby',
+        color: 'rgb(215, 48, 22)'
+      },
+      {
+        label: 'R (73.16s)',
+        image: 'https://benjdd.com/languages/r.png',
+        timeFor: 73160000000,
+        class: 'r',
+        color: 'rgb(25, 103, 286)'
+      },
+      {
+        label: 'Python (74.42s)',
+        image: 'https://benjdd.com/languages/python.png',
+        timeFor: 74420000000,
+        class: 'python',
+        color: 'rgb(255, 226, 94)'
+      },
+    ],
+    1, 7);
+
+</script>
+
+</html>
