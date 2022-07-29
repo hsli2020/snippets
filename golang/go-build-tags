@@ -1,0 +1,71 @@
+//===== main.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(Foo())
+}
+
+$ go build -tags dev .
+$ go build -tags prod .
+
+//===== foo_dev.go
+
+//go:build dev
+// +build dev
+
+package main
+
+func Foo() {
+    return "from DEV"
+}
+
+//===== foo_prod.go
+
+//go:build prod
+// +build prod
+
+package main
+
+func Foo() {
+    return "from PROD"
+}
+
+========================================
+
+//===== static_prod.go
+
+//go:build !dev
+// +build !dev
+
+package main
+
+import (
+    "embed"
+    "net/http"
+)
+
+//go:embed public
+var publicFS embed.FS
+
+func public http.Handler {
+    return http.FileServerFS(publicFS)
+}
+
+//===== static_dev.go
+
+//+build dev
+//go:build dev
+// +build dev
+
+package main
+
+import (
+    "net/http"
+    "os"
+)
+
+func public http.Handler {
+    return http.StripPrefix("/public/", http.FileServerFS(os.DirFS("public")))
+}

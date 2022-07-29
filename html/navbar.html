@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    _var { --bs-body-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; }
+    _var { --bs-body-font-family: "Oswald", Helvetica, Arial, sans-serif!important }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="https://www.onedealoutlet.com/">BTE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menubar" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menubar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Purchase
+          </a>
+          <ul class="dropdown-menu">
+            <div class="row" style="min-width:540px">
+              <div class="col-6">
+                <li><a href="/purchase/assist" class="dropdown-item">Purchase assistant</a></li>
+                <li><a href="http://192.168.0.110/dataexchange/multi_order_note.php" target="_blank" class="dropdown-item">Review Automated PO</a></li>
+                <li><hr class="dropdown-divider"></li>
+
+                <li><a href="http://192.168.0.110/dataexchange/po_pre_processing_v3.php" target="_blank" class="dropdown-item">Automated PO (Single SKU)</a></li>
+                <li><a href="http://192.168.0.110/dataexchange/po_pre_processing_multi_v3.php" target="_blank" class="dropdown-item">Automated PO (Multi SKU)</a></li>
+                <li><hr class="dropdown-divider"></li>
+
+                <li><a href="http://192.168.0.110/dataexchange/sending_purchase_request.php" target="_blank" class="dropdown-item">Generate Supplier PO</a></li>
+                <li><a href="http://192.168.0.110/dataexchange/purchase_order_review.php" target="_blank" class="dropdown-item">Review Supplier PO</a></li> 
+                <li><a href="/order/summary" class="dropdown-item">Order notes summary</a></li>
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/ReOrder_shipping_center.php" target="_blank" class="dropdown-item">Short Ordered</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/arbitrage/index" class="dropdown-item">Arbitrage Orders</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/order/transparency" class="dropdown-item">Transparency orders</a></li> 
+                <li><a href="/amazon/replacement" class="dropdown-item">Replacement Orders</a></li> 
+                <li><a href="/orderonhold" class="dropdown-item">Order On Hold</a></li> 
+                <li><a href="/order/backorder" class="dropdown-item">Back Order</a></li> 
+              </div>
+
+              <div class="col-6">
+                <li><a href="/wishlist" class="dropdown-item">Wishlist</a></li> 
+                <li><a href="/wishlist/report" class="dropdown-item">Wishlist Report</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/add_sku_to_watchlist.php" target="_blank" class="dropdown-item">Add SKU to Watch List</a></li> 
+                <li><a href="/wishlist/bulkadd" class="dropdown-item">Bulk Add Wishlist</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/clear_inventory_all_marketplace.php" target="_blank" class="dropdown-item">Clear Inventory (All Channel)</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/restock_hint.php" target="_blank" class="dropdown-item">Restocking Reminder</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/special_comment_upc.php" target="_blank" class="dropdown-item">Special Pricing</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/purchase/query" class="dropdown-item">Purchase history</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/supplier_tax.php" target="_blank" class="dropdown-item">Purchase Invoice</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/process_order_log_my.php" target="_blank" class="dropdown-item">Automated PO Log</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/dropship_price_check.php" target="_blank" class="dropdown-item">Drop Ship Price Inspection</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/tools/orderprofitreport" class="dropdown-item">Order Profit Report</a></li> 
+                <li><a href="/tools/ordercountreport" class="dropdown-item">Order Count Report</a></li>
+            </div>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Inventory
+          </a>
+          <ul class="dropdown-menu">
+            <div class="row" style="min-width:600px">
+              <div class="col-6">
+                <li><a href="/overstock" class="dropdown-item">Overstock</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/overstock_snapshot.php" target="_blank" class="dropdown-item">Overstock Snapshot</a></li> 
+                <li><a href="/watchlist" class="dropdown-item">Watchlist</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/product/search" class="dropdown-item"><b>Master SKU Information</b></a></li> 
+                <li><a href="/inventory/search" class="dropdown-item">Inventory Search</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/upc_tracking.php" target="_blank" class="dropdown-item">Inventory Tracking</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/same_upc.php" target="_blank" class="dropdown-item">Same UPC</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/inventory/amazondeal" class="dropdown-item">Amazon Deal</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/cost_change_alert_v2022.php" target="_blank" class="dropdown-item">Daily Price Change Alerts</a></li> 
+                <li><a href="/inventory/priceerror" class="dropdown-item">Potential Price Error</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/checkdate.php " target="_blank" class="dropdown-item">Check Daily Pricelist Consistency</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/stock_balance_return_reminder.php" target="_blank" class="dropdown-item">Stock Balance Return Reminder</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/aged_inventory.php" target="_blank" class="dropdown-item">Aged Inventory</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/supplier_brand_statistics.php" target="_blank" class="dropdown-item">Supplier Brand Statistics</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/sales_records_by_brand.php" target="_blank" class="dropdown-item">Sales Report by Brand</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/purchase_records_by_brand.php" target="_blank" class="dropdown-item">Purchase Report by Brand</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/supplier_invoice_verify.php" target="_blank" class="dropdown-item">Supplier Invoice Verify</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/incident_upc.php" target="_blank" class="dropdown-item">UPC Incident</a></li> 
+              </div>
+
+              <div class="col-6">
+                <li><a href="http://192.168.0.110/dataexchange/lettermail_upc.php" target="_blank" class="dropdown-item">Lettermail</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/oversized_sku_new.php" target="_blank" class="dropdown-item">Oversized</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/upc_env_fee.php" target="_blank" class="dropdown-item">EHF Fee</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/wrong_listings.php" target="_blank" class="dropdown-item">Wrong Listing</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/hold_order_upc_incident.php" target="_blank" class="dropdown-item">High Return Risk</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/same_upc.php" target="_blank" class="dropdown-item">Product with Multiple UPC</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/search_po_from_sn.php" target="_blank" class="dropdown-item">Search PO # from Serial #</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/find_invoice_by_invoice_no.php" target="_blank" class="dropdown-item">Search Invoice by Invoice #</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/inbound_serialno.php" target="_blank" class="dropdown-item">Inbound Serial # Recording</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/missing_listings.php" target="_blank" class="dropdown-item">Missing Listings</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/serialno_searching.php" target="_blank" class="dropdown-item">SN search by Order</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/ds_order_serialno_report.php" target="_blank" class="dropdown-item">Dropship Order SN Report</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/unfullfilledupc_checking.php" target="_blank" class="dropdown-item">UPC Tracking</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/order_status_tracking.php" target="_blank" class="dropdown-item">Order Notes History</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/order/platform" class="dropdown-item">Platform Fulfilled Orders</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/data_from_access.html" target="_blank" class="dropdown-item"><b>Inventory Data for Daily Update</b></a></li>
+              </div>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Order
+          </a>
+          <ul class="dropdown-menu">
+            <div class="row" style="min-width:540px">
+              <div class="col-6">
+                <li><a href="/tools/printorders" class="dropdown-item">Print Orders</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/search/order" class="dropdown-item"><b>Order Information</b></a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/late_shipment_order.php" target="_blank" class="dropdown-item">Late Shipment Order List</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/missing_markship_orders.php" target="_blank" class="dropdown-item">Orde missing Tracking</a></li> 
+                <li><a href="/shipment/lettermail" class="dropdown-item">Shipped by Letter Mail</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/amazon_Signature_Recommend.php" target="_blank" class="dropdown-item">Order need Signature</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/customer_email_notify.php" target="_blank" class="dropdown-item">Email Notification</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/customer_email_notify_report.php" target="_blank" class="dropdown-item">Email Notification Month Report</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/search/upcorders" class="dropdown-item">Orders by UPC</a></li> 
+              </div>
+
+              <div class="col-6">
+                <li><a href="/order/cancelrequest" class="dropdown-item">Order Cancellation Requests</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/cancel_order_note_set.php" target="_blank" class="dropdown-item">Cancel Order List</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/search/buyerorders" class="dropdown-item">Orders by Buyer</a></li> 
+                <li><a href="/search/addrorders" class="dropdown-item">Orders by Address</a></li> 
+                <li><a href="/tools/blacklist" class="dropdown-item">Blocked Buyers</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/order/incidents" class="dropdown-item">Order Incidents</a></li> 
+                <li><a href="/order/reset" class="dropdown-item">Order Reset</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/cancel_order_process.php" target="_blank" class="dropdown-item">Order Cancel Process</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/master_remote_data.php" target="_blank" class="dropdown-item">Remote Orders Overview</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/search/address" class="dropdown-item">Order Address Information</a></li>
+              </div>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Warehouse
+          </a>
+          <ul class="dropdown-menu">
+            <div class="row" style="min-width:540px">
+              <div class="col-6">
+                <li><a href="/shipment/print" class="dropdown-item"><b>BTE Shipping Center</b></a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/anaylase_shipping_center_orders_v2.php" target="_blank" class="dropdown-item">Refresh Shipping Center</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/Inventory_update_login.php" target="_blank" class="dropdown-item">Inventory Location</a></li> 
+                <li><a href="/inventory/location" class="dropdown-item">Inventory Location History</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/tally_sheet_list_v2.php" target="_blank" class="dropdown-item">Daily Inbound</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/rma_recording.php" target="_blank" class="dropdown-item">Daily Return Inbound</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/inbound_handling.php" target="_blank" class="dropdown-item">Inbound Handling</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/inbound_incident.php" target="_blank" class="dropdown-item">Inbound Incident Management</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/tally_sheet_done.php" target="_blank" class="dropdown-item">Inbound Record (New)</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/order_link.php" target="_blank" class="dropdown-item">Inbound Reminder</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/warehouse.html" target="_blank" class="dropdown-item">BTE Warehouse Tools</a></li> 
+              </div>
+
+              <div class="col-6">
+                <li><a href="http://192.168.0.110/dataexchange/warehouse_picking_list.php" target="_blank" class="dropdown-item">Picking List</a></li> 
+                <li><a href="/tools/matchupc" class="dropdown-item">Pick &amp; Match UPC</a></li> 
+                <li><a href="/inventory/pick" class="dropdown-item">Pick Items From Shelf</a></li> 
+                <li><a href="/shipment/picking" class="dropdown-item">Items Picking Report</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/shipment/shipout" class="dropdown-item">Shipout Scan</a></li> 
+                <li><a href="http://192.168.0.110/dataexchange/inventory_out_record_login.php" target="_blank" class="dropdown-item">Inventory Out Record</a></li> 
+                <li><a href="/shipment/report" class="dropdown-item">Warehouse Work Log</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/shipment/search" class="dropdown-item">Search Outbound</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="http://192.168.0.110/dataexchange/warehouse_overstock_notfound.php" target="_blank" class="dropdown-item">Overstock Not Found</a></li> 
+                <li><hr class="dropdown-divider"></li> 
+
+                <li><a href="/tools/renew" class="dropdown-item">Renew Products Record</a></li>
+              </div>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Marketplace
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/amazonpurchase" class="dropdown-item">Amazon Purchases</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/amazon/lateshipment" class="dropdown-item">Amazon Late Orders</a></li> 
+            <li><a href="/amazonatoz" class="dropdown-item">Amazon A-to-Z Claims</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/asin_review.php" target="_blank" class="dropdown-item">Amazon Bad Asins</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/lostdamage/claim" class="dropdown-item">Lost Damage Claims</a></li> 
+            <li><a href="/returnshippinglabel" class="dropdown-item">Return Shipping Labels</a></li> 
+            <li><a href="/refundrequest" class="dropdown-item">Refund Requests</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/walmart/claims" class="dropdown-item">Walmart Claims</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/amazon/addnewitems" class="dropdown-item">Amazon New Item Feed</a></li> 
+            <li><a href="/amazon/deleteitems" class="dropdown-item">Delete Amazon Item</a></li> 
+            <li><a href="/autofeed" class="dropdown-item">Amazon Auto Feed</a></li> 
+            <li><a href="/missinglisting" class="dropdown-item">Missing Listing</a></li> 
+            <li><a href="/amazon/fee" class="dropdown-item">Amazon Fee Inquiry</a></li> 
+            <li><a href="/amazon/pageview" class="dropdown-item">Amazon Page Views</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/NeweggQueryPrice.html" target="_blank" class="dropdown-item">Newegg API Price Update</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/NeweggQueryInventory.html" target="_blank" class="dropdown-item">Newegg API Inventory Update</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/NeweggCheckVoidSoonOrders.php" target="_blank" class="dropdown-item">Newegg Orders Risk of Cancellation</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/NeweggQueryOrders.html" target="_blank" class="dropdown-item">Newegg Order Query</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Shipment
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/shipment/addressbookdhl" class="dropdown-item">DHL Address Book</a></li> 
+            <li><a href="/shipment/addressbookems" class="dropdown-item">EMS Address Book</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/cancel_lable_input.php" target="_blank" class="dropdown-item">Cancel Label Input</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/cancel_lable_update.php" target="_blank" class="dropdown-item">Cancel Label Update</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/UPSDataPreparation.html" target="_blank" class="dropdown-item">UPS Batch Label</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/ups_capital_functions.html" target="_blank" class="dropdown-item">UPS Capital</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Planning
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="http://192.168.0.110/dataexchange/fba_entry_automation2024.php" target="_blank" class="dropdown-item">Automated FBA Entry</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/fba_planning.php" target="_blank" class="dropdown-item">FBA Planning</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/fba_picking_list.php" target="_blank" class="dropdown-item">FBA Picking List</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/FBA_shipment_load.php" target="_blank" class="dropdown-item">FBA Shipment Load</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/fba_packing_list.php" target="_blank" class="dropdown-item">FBA Packing</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/fba_outbound.php" target="_blank" class="dropdown-item">FBA Outbound</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/fba_tracking.php" target="_blank" class="dropdown-item">FBA Tracking</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/fbacomplaint" class="dropdown-item">FBA Claims</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/promotion" class="dropdown-item">Promotion</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            RMA
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/rma/records" class="dropdown-item">All RMA Records</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/rma/add" class="dropdown-item">❶ New RMA Record</a></li> 
+            <li><a href="/rma/addfbaret" class="dropdown-item">❷ New FBA RMA Record</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/borderworx_processing.php" target="_blank" class="dropdown-item">Borderworx Inbound Manifest Processing</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/rma/barcode" class="dropdown-item">RMA Barcode Label</a></li> 
+            <li><a href="/shiptovendor " class="dropdown-item">RMA Ship to Vendor</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/rma_outbound_record.php" target="_blank" class="dropdown-item">RMA Outbound</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/returnapply" class="dropdown-item">Return Apply</a></li> 
+            <li><a href="/rmareminder" class="dropdown-item">RMA Reminders</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/rma/fbareturn" class="dropdown-item">FBA Returns</a></li> 
+            <li><a href="/rma/lpn2upc" class="dropdown-item">LPN to UPC</a></li> 
+            <li><a href="/rma/searchupc" class="dropdown-item">Search UPC</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/NeweggRMAData.php" target="_blank" class="dropdown-item">Marketplace Return Requests</a></li> 
+            <li><a href="/rma/amazonreturn" class="dropdown-item">Amazon Returns</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/daily-return-checkup.php" target="_blank" class="dropdown-item">Return Checkup(Daily Entries)</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/full-return-checkup.php" target="_blank" class="dropdown-item">Return Checkup(Full List)</a></li> 
+            <li><a href="http://192.168.0.110/dataexchange/view-possible-return-list.php" target="_blank" class="dropdown-item">Review Returnable SKU</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Tools
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="http://192.168.0.110/dataexchange/task_assignment_login.php" target="_blank" class="dropdown-item"><b>Internal Tasks</b></a></li> 
+            <li><a href="https://stocktrack.ca/" class="dropdown-item">Stock Track</a></li> 
+            <li><a href="/email/list" class="dropdown-item">Search Emails</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/tools/barcode" class="dropdown-item">Print Barcode Label</a></li> 
+            <li><a href="/tools/barlabel" class="dropdown-item">Print Shelf Barcode Label</a></li> 
+            <li><a href="/tools/label" class="dropdown-item">Print Product Label</a></li> 
+            <li><a href="/tools/upclabel" class="dropdown-item">Print UPC Label</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/file/upload" class="dropdown-item">Picture Upload</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/retrieve_tplink_invoices.php" target="_blank" class="dropdown-item">Retrieve TP Link Invoices</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/tools/exportbestbuyorders" class="dropdown-item">Bestbuy Orders To Quickbooks</a></li> 
+            <li><a href="/tools/exportwalmartorders" class="dropdown-item">Walmart Orders To Quickbooks</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/functions_in_testing.html" target="_blank" class="dropdown-item">Testing Functions</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="http://192.168.0.110/dataexchange/setting.html" target="_blank" class="dropdown-item">Setting</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Help
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/about" class="dropdown-item">About</a></li> 
+            <li><a href="/about/fontawesome" class="dropdown-item">Font Awesome</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+
+            <li><a href="/help" class="dropdown-item">Help Center</a></li> 
+            <li><a href="/help/new" class="dropdown-item">Create New Help Topic</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profile </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarProfile">
+            <li><a href="/user/changepassword" class="dropdown-item">Change Password</a></li> 
+            <li><hr class="dropdown-divider"></li> 
+            <li><a href="/user/logout" class="dropdown-item">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

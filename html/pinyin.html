@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - 使用 ruby 排版拼音</title>
+  <link rel="canonical" href="https://codepen.io/yisi/pen/WNWxvJr">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  
+<style>
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 2em;
+}
+
+.demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "a toolbar" "input output";
+  gap: 1em 2em;
+}
+
+textarea,
+.output {
+  font-family: 楷体, 楷体_gb2312, "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai;
+}
+
+textarea {
+  resize: vertical;
+  font-size: 22px;
+  padding: 0.6em 0.5em;
+  border: 1px solid #666;
+  border-radius: 6px;
+  grid-area: input;
+  min-height: 5lh;
+  min-width: 12em;
+  field-sizing: content;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  grid-area: toolbar;
+  padding: 0.5em;
+  position: sticky;
+  z-index: 99;
+  top: 0;
+  background-color: #fff;
+}
+
+.output-box {
+  position: relative;
+  grid-area: output;
+  min-height: 5lh;
+}
+
+.output {
+  height: 100%;
+  padding: 0.6em 0.5em;
+  font-size: var(--font-size, 22px);
+  line-height: 2.2;
+  display: grid;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid #666;
+  border-radius: 5px;
+}
+
+.py-line {
+  /* text-align-last: justify; */
+}
+
+.py-line:nth-of-type(1),
+.py-line:nth-of-type(2) {
+  text-align: center;
+  -moz-text-align-last: center;
+       text-align-last: center;
+  justify-content: center;
+}
+
+.py-line:only-child {
+  justify-content: flex-start;
+}
+
+/* 空白行分隔 */
+.py-line:empty {
+  height: 0.5lh;
+}
+
+.py-line:not(:empty) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 1px;
+  margin-bottom: 0.5em;
+}
+
+.py-result-item {
+  height: 1lh;
+  display: inline-flex;
+  text-align: center;
+  aspect-ratio: 1;
+  justify-content: center;
+  align-items: center;
+  width: var(--ic-gap, 1.25ic);
+}
+
+.py-result-item,
+.py-non-chinese-item {
+  line-height: 1.6;
+}
+
+ruby {
+  line-height: 1.3;
+}
+
+:root:has(#checkbox:checked) .py-result-item {
+  outline: 1px solid red;
+}
+
+label {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <main>
+  <h1>使用 ruby 标签排版拼音</h1>
+  <div class="demo">
+    <div class="toolbar">
+        <label>
+          字间距：<input type="range" min="1" max="1.8" step="0.001" value="1.25" id="ic-gap">
+        </label>
+        <label>
+          字号：<input type="range" min="16" max="38" value="22" id="font-size">
+        </label>
+        <label>
+          <input type="checkbox" name="" id="checkbox">
+          显示字格
+        </label>
+      </div>
+    <textarea class="input">
+侠客行
+[唐] 李白
+
+赵客缦胡缨，吴钩霜雪明。
+银鞍照白马，飒沓如流星。
+十步杀一人，千里不留行。
+事了拂衣去，深藏身与名。
+        </textarea>
+    <div class="output-box">
+      <div class="output"></div>
+    </div>
+          
+  </div>
+</main>
+  <script src='https://unpkg.com/pinyin-pro@3.18.2/dist/index.js'></script>
+
+<script id="rendered-js" >
+const { html, polyphonic } = pinyinPro;
+
+const input = document.querySelector(".input");
+const output = document.querySelector(".output");
+getPinyin();
+
+input.addEventListener("input", function () {
+  const value = this.value.split("\n");
+  getPinyin(value);
+});
+
+// 控制间距
+const ic_gap = document.querySelector("#ic-gap");
+ic_gap.addEventListener("input", function () {
+  const value = this.value;
+  document.documentElement.style.setProperty("--ic-gap", `${value}ic`);
+});
+
+const font_size = document.querySelector("#font-size");
+font_size.addEventListener("input", function () {
+  const value = this.value;
+  document.documentElement.style.setProperty("--font-size", `${value}px`);
+});
+
+function getPinyin(text) {
+  if (!text) {
+    text = input.value.split('\n').map(item => item.trim());
+  }
+  debugger;
+  const foo = polyphonic('了');
+  output.innerHTML = "";
+
+  text.forEach(item => {
+    const py = html(item, {
+      // wrapNonChinese: true
+    });
+    const div = document.createElement("div");
+    div.className = "py-line";
+    div.innerHTML = py;
+    output.appendChild(div);
+  });
+}
+//# sourceURL=pen.js
+</script>
+  
+</body>
+</html>

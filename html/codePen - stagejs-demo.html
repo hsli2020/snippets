@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Stage.js Demo</title>
+  <link rel="canonical" href="https://codepen.io/MillerTime/pen/YEgggB">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  
+<style>
+body {
+  background-color: black;
+  overflow: hidden;
+}
+</style>
+
+<script>
+  window.console = window.console || function(t) {};
+</script>
+</head>
+
+<body translate="no">
+  <!-- See JS -->
+  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/Stage%400.2.0.js'></script>
+      <script id="rendered-js" >
+// See pen description for some info on the library used.
+
+console.clear();
+
+
+
+// My factory for sampling random colors.
+// For more context, see https://codepen.io/MillerTime/pen/NXxxma?editors=0010
+const oilGradient = function GradientSamplerFactory() {
+  // The instance to be returned.
+  const sampler = {};
+
+  const colors = [
+  { "r": 111, "g": 28, "b": 136 },
+  { "r": 19, "g": 48, "b": 164 },
+  { "r": 0, "g": 104, "b": 186 },
+  { "r": 6, "g": 154, "b": 205 },
+  { "r": 58, "g": 184, "b": 182 },
+  { "r": 111, "g": 188, "b": 149 },
+  { "r": 156, "g": 196, "b": 120 },
+  { "r": 196, "g": 209, "b": 87 },
+  { "r": 235, "g": 216, "b": 26 },
+  { "r": 239, "g": 194, "b": 0 },
+  { "r": 231, "g": 167, "b": 0 },
+  { "r": 244, "g": 132, "b": 0 },
+  { "r": 242, "g": 61, "b": 41 },
+  { "r": 202, "g": 25, "b": 147 },
+  { "r": 118, "g": 35, "b": 194 },
+  { "r": 24, "g": 90, "b": 191 },
+  { "r": 0, "g": 149, "b": 141 },
+  { "r": 44, "g": 178, "b": 46 },
+  { "r": 146, "g": 179, "b": 0 },
+  { "r": 197, "g": 153, "b": 0 },
+  { "r": 241, "g": 121, "b": 2 },
+  { "r": 232, "g": 68, "b": 59 },
+  { "r": 187, "g": 38, "b": 108 },
+  { "r": 115, "g": 28, "b": 136 }];
+
+
+  const colorCount = colors.length;
+  const colorSpans = colorCount - 1;
+  const spanSize = 1 / colorSpans;
+
+  // Helper to interpolate between two numbers
+  const lerp = (a, b, p) => (b - a) * p + a;
+
+  sampler.sample = function sample(position) {
+    // Normalize position to 0..1 scale (inclusive of 0, exlusive of 1).
+    position -= position | 0;
+    if (position < 0) position = 1 - position * -1;
+
+    const startIndex = position * colorSpans | 0;
+    const startColor = colors[startIndex];
+    const endColor = colors[startIndex + 1];
+    // Compute relative position between two chosen color stops.
+    const innerPosition = (position - startIndex / colorSpans) / spanSize;
+
+    const r = lerp(startColor.r, endColor.r, innerPosition) | 0;
+    const g = lerp(startColor.g, endColor.g, innerPosition) | 0;
+    const b = lerp(startColor.b, endColor.b, innerPosition) | 0;
+
+    return `rgb(${r},${g},${b})`;
+  };
+
+  return sampler;
+}();
+
+
+
+
+// Test some features of Stage.js:
+//  - Canvas setup.
+//  - HighDPI rendering and auto resizing.
+//  - Stage lifecycle hooks.
+//  - Sprite rendering and transforms.
+//  - Ensure Sprite and CachedSprite are seamless to switch between.
+//  - Easily measure CachedSprite performance.
+
+const stage = new Stage({ container: document.body });
+
+const sprites = [];
+// const spriteRadius = Math.floor(window.innerWidth / 50);
+const spriteRadius = Math.floor((stage.width + stage.height) / 2 / 56);
+const spinSprites = true;
+const scaleSprites = false;
+const maxSpeed = Math.max(1, Math.floor(spriteRadius / 8));
+const spriteConfig = {
+  width: spriteRadius * 2,
+  height: spriteRadius * 2,
+  performFirstDraw: false,
+  draw(ctx, { width, height, hue }) {
+    const colorPosition = hue / 360;
+    const color1 = oilGradient.sample(colorPosition);
+    const color2 = oilGradient.sample(colorPosition + 0.08);
+    const color3 = oilGradient.sample(colorPosition + 0.16);
+    const spriteGradient = ctx.createLinearGradient(0, 0, width, 0);
+    spriteGradient.addColorStop(0.2, color1);
+    spriteGradient.addColorStop(0.35, color2);
+    spriteGradient.addColorStop(0.5, color3);
+    spriteGradient.addColorStop(0.65, color2);
+    spriteGradient.addColorStop(0.8, color1);
+    const radius = width / 2;
+    ctx.fillStyle = spriteGradient;
+    ctx.beginPath();
+    ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.fillStyle = color2;
+    ctx.beginPath();
+    ctx.arc(radius, radius, radius / 2, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.fillStyle = color3;
+    ctx.beginPath();
+    ctx.arc(radius, radius, radius / 4, 0, 2 * Math.PI);
+    ctx.fill();
+  } };
+
+for (let i = 0; i < 200; i++) {
+  const sprite = stage.createCachedSprite(spriteConfig);
+  sprites.push(sprite);
+}
+
+function reset() {
+  sprites.forEach(sprite => {
+    const radius = spriteRadius * (Math.random() + 0.5);
+    sprite.resize(radius * 2, radius * 2);
+    sprite.x = stage.width / 2 - spriteRadius;
+    sprite.y = stage.height / 2 - spriteRadius;
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() ** 0.5 * maxSpeed;
+    sprite.speedX = Math.sin(angle) * speed;
+    sprite.speedY = -Math.cos(angle) * speed;
+    if (spinSprites) sprite.rotation = angle;
+    if (scaleSprites) {
+      sprite.scaleX = 3;
+      sprite.scaleY = 3;
+    }
+    sprite.spinSpeed = Math.random() ** 3 * 0.20 + 0.05;
+    sprite.hue = Math.floor(Math.random() * 360);
+    sprite.redraw();
+  });
+}
+
+stage.onTick = ({ simTime, simSpeed, width, height }) => {
+
+  sprites.forEach(sprite => {
+    sprite.x += sprite.speedX * simSpeed;
+    sprite.y += sprite.speedY * simSpeed;
+    if (spinSprites) sprite.rotation += sprite.spinSpeed * simSpeed;
+
+    if (sprite.x < 0) {
+      sprite.x = 0;
+      sprite.speedX *= -1;
+    }
+    if (sprite.x + sprite.width > window.innerWidth) {
+      sprite.x = window.innerWidth - sprite.width;
+      sprite.speedX *= -1;
+    }
+    if (sprite.y < 0) {
+      sprite.y = 0;
+      sprite.speedY *= -1;
+    }
+    if (sprite.y + sprite.height > window.innerHeight) {
+      sprite.y = window.innerHeight - sprite.height;
+      sprite.speedY *= -1;
+    }
+  });
+};
+
+stage.onDraw = ({ ctx, width, height, simSpeed }) => {
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.fillStyle = `rgba(0,0,0, ${0.01 * simSpeed})`;
+  ctx.fillRect(0, 0, width, height);
+
+  sprites.forEach((sprite, i) => {
+    sprite.drawOnContext(ctx);
+  });
+};
+
+reset();
+
+window.addEventListener('click', () => {
+  reset();
+});
+//# sourceURL=pen.js
+</script>
+  
+</body>
+</html>

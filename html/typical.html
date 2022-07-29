@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - typical.js demo</title>
+  <link rel="canonical" href="https://codepen.io/camwiegert/pen/rNNepYo">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+<style>
+body {
+  background: #111;
+  color: #f0f0f0;
+  display: grid;
+  font-family: "IBM Plex Sans", monospace;
+  font-size: 18px;
+  height: 100vh;
+  margin: 0;
+  place-content: center;
+}
+
+div::after {
+  content: "|";
+  -webkit-animation: blink 1s infinite step-start;
+          animation: blink 1s infinite step-start;
+}
+
+@-webkit-keyframes blink { 50% { opacity: 0; } }
+
+@keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+
+<body>
+  <div id="target"></div>
+  
+  <script id="rendered-js" type="module">
+    import { type, type as loop } from 'https://unpkg.com/@camwiegert/typical';
+    type(target, 'Hello', 1000, 'Hello world!', 1000, loop);
+  </script>
+</body>
+</html>
