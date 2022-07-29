@@ -1,0 +1,491 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	filePath := "path/to/file.txt" // 替换为你要检查的文件路径
+
+	// 获取文件信息
+	fileInfo, err := os.Stat(filePath)
+	if err != nil {
+		fmt.Println("无法获取文件信息:", err)
+		return
+	}
+
+	// 检查文件大小
+	fileSize := fileInfo.Size()
+	if fileSize > 1024*1024 { // 如果文件大小超过1M（1M = 1024 * 1024字节）
+		// 删除文件
+		err := os.Remove(filePath)
+		if err != nil {
+			fmt.Println("无法删除文件:", err)
+			return
+		}
+
+		fmt.Println("文件删除成功")
+	} else {
+		fmt.Println("文件大小未超过1M")
+	}
+}
+
+
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"time"
+)
+
+func main() {
+	// 文件路径
+	filePath := "path_to_your_file"
+
+	// 获取文件信息
+	fileInfo, err := os.Stat(filePath)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	// 获取文件的修改日期
+	modTime := fileInfo.ModTime()
+
+	// 获取当前系统日期
+	currentTime := time.Now()
+
+	// 比较文件的修改日期和当前系统日期
+	if modTime.Year() != currentTime.Year() || modTime.YearDay() != currentTime.YearDay() {
+		// 删除文件
+		err := os.Remove(filePath)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		fmt.Println("文件已删除")
+	} else {
+		fmt.Println("文件未删除")
+	}
+}
+
+
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"math/rand"
+	"net"
+	"os"
+	"strconv"
+	"strings"
+	"time"
+)
+
+const MIN = 1
+const MAX = 100
+
+func random() int {
+	return rand.Intn(MAX-MIN) + MIN
+}
+
+func handleConnection(c net.Conn) {
+	fmt.Printf("Serving %s\n", c.RemoteAddr().String())
+	for {
+		netData, err := bufio.NewReader(c).ReadString('\n')
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		temp := strings.TrimSpace(string(netData))
+		if temp == "STOP" {
+			break
+		}
+
+		result := strconv.Itoa(random()) + "\n"
+		c.Write([]byte(string(result)))
+	}
+	c.Close()
+}
+
+func main() {
+	arguments := os.Args
+	if len(arguments) == 1 {
+		fmt.Println("Please provide a port number!")
+		return
+	}
+
+	PORT := ":" + arguments[1]
+	l, err := net.Listen("tcp4", PORT)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer l.Close()
+	rand.Seed(time.Now().Unix())
+
+	for {
+		c, err := l.Accept()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		go handleConnection(c)
+	}
+}
+
+package main
+
+import (
+	"fmt"
+	"io"
+	"os"
+)
+
+func copy(src, dst string) (int64, error) {
+	sourceFileStat, err := os.Stat(src)
+	if err != nil {
+		return 0, err
+	}
+
+	if !sourceFileStat.Mode().IsRegular() {
+		return 0, fmt.Errorf("%s is not a regular file", src)
+	}
+
+	source, err := os.Open(src)
+	if err != nil {
+		return 0, err
+	}
+	defer source.Close()
+
+	destination, err := os.Create(dst)
+	if err != nil {
+		return 0, err
+	}
+	defer destination.Close()
+	nBytes, err := io.Copy(destination, source)
+	return nBytes, err
+}
+
+func main() {
+	if len(os.Args) != 3 {
+		fmt.Println("Please provide two command line arguments!")
+		return
+	}
+
+	sourceFile := os.Args[1]
+	destinationFile := os.Args[2]
+
+	nBytes, err := copy(sourceFile, destinationFile)
+	if err != nil {
+		fmt.Printf("The copy operation failed %q\n", err)
+	} else {
+		fmt.Printf("Copied %d bytes!\n", nBytes)
+	}
+}
+
+
+package main
+
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+)
+
+func main() {
+	if len(os.Args) != 3 {
+		fmt.Println("Please provide two command line arguments!")
+		return
+	}
+
+	sourceFile := os.Args[1]
+	destinationFile := os.Args[2]
+
+	input, err := ioutil.ReadFile(sourceFile)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	err = ioutil.WriteFile(destinationFile, input, 0644)
+	if err != nil {
+		fmt.Println("Error creating", destinationFile)
+		fmt.Println(err)
+		return
+	}
+}
+
+
+package main
+
+import (
+	"fmt"
+	"io"
+	"os"
+	"path/filepath"
+	"strconv"
+)
+
+var BUFFERSIZE int64
+
+func copy(src, dst string, BUFFERSIZE int64) error {
+	sourceFileStat, err := os.Stat(src)
+	if err != nil {
+		return err
+	}
+
+	if !sourceFileStat.Mode().IsRegular() {
+		return fmt.Errorf("%s is not a regular file.", src)
+	}
+
+	source, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer source.Close()
+
+	_, err = os.Stat(dst)
+	if err == nil {
+		return fmt.Errorf("File %s already exists.", dst)
+	}
+
+	destination, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer destination.Close()
+
+	if err != nil {
+		panic(err)
+	}
+
+	buf := make([]byte, BUFFERSIZE)
+	for {
+		n, err := source.Read(buf)
+		if err != nil && err != io.EOF {
+			return err
+		}
+		if n == 0 {
+			break
+		}
+
+		if _, err := destination.Write(buf[:n]); err != nil {
+			return err
+		}
+	}
+	return err
+}
+
+func main() {
+	if len(os.Args) != 4 {
+		fmt.Printf("usage: %s source destination BUFFERSIZE\n", filepath.Base(os.Args[0]))
+		return
+	}
+
+	source := os.Args[1]
+	destination := os.Args[2]
+	BUFFERSIZE, err := strconv.ParseInt(os.Args[3], 10, 64)
+	if err != nil {
+		fmt.Printf("Invalid buffer size: %q\n", err)
+		return
+	}
+
+	fmt.Printf("Copying %s to %s\n", source, destination)
+	err = copy(source, destination, BUFFERSIZE)
+	if err != nil {
+		fmt.Printf("File copying failed: %q\n", err)
+	}
+}
+
+
+package main
+
+import (
+	"crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"os"
+	"strconv"
+)
+
+// This function returns (secure) random bytes
+func generateBytes(n int64) ([]byte, error) {
+	b := make([]byte, n)
+	_, err := rand.Read(b)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func generatePass(s int64) (string, error) {
+	b, err := generateBytes(s)
+	return base64.URLEncoding.EncodeToString(b), err
+}
+
+func main() {
+	var LENGTH int64 = 8
+	arguments := os.Args
+	switch len(arguments) {
+	case 2:
+		LENGTH, _ = strconv.ParseInt(os.Args[1], 10, 64)
+		if LENGTH <= 0 {
+			LENGTH = 8
+		}
+	default:
+		fmt.Println("Using default values!")
+	}
+
+	myPass, err := generatePass(LENGTH)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(myPass[0:LENGTH])
+}
+
+rand.Seed(time.Now().Unix())
+
+func random(min, max int) int {
+	return rand.Intn(max-min) + min
+}
+
+
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"log"
+)
+
+// https://gosamples.dev/pretty-print-json/
+func PrettyString(str string) (string, error) {
+	var prettyJSON bytes.Buffer
+	if err := json.Indent(&prettyJSON, []byte(str), "", "    "); err != nil {
+		return "", err
+	}
+	return prettyJSON.String(), nil
+}
+
+func demoJsonPrint() {
+	fruitJSON := `{"name": "Strawberry", "color": "red"}`
+	res, err := PrettyString(fruitJSON)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(res)
+}
+
+
+package main
+
+import (
+	//"bytes"
+	"fmt"
+	//"strings"
+	//"text/template"
+
+	"context"
+	"github.com/carlmjohnson/requests"
+)
+
+// https://github.com/carlmjohnson/requests
+func demoRequest1() {
+	ctx := context.TODO()
+
+	var s string
+	err := requests.
+		URL("http://example.com").
+		ToString(&s).
+		Fetch(ctx)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(s)
+}
+
+func demoRequest2() {
+	ctx := context.TODO()
+
+	err := requests.
+		URL("https://postman-echo.com/post").
+		BodyBytes([]byte(`hello, world`)).
+		ContentType("text/plain").
+		Fetch(ctx)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+
+用代码示例如何用golang将大量数据以最快的速度插入mysql数据库
+
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+	// 设置 MySQL 数据库连接信息
+	db, err := sql.Open("mysql", "username:password@tcp(127.0.0.1:3306)/dbname")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// 创建一个预备语句
+	stmt, err := db.Prepare("INSERT INTO your_table_name (column1, column2) VALUES (?, ?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+
+	// 开始计时
+	start := time.Now()
+
+	// 开始事务
+	tx, err := db.Begin()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// 设置批量插入的数据
+	for i := 0; i < 1000; i++ {
+		_, err = tx.Stmt(stmt).Exec("value1", "value2")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	// 提交事务
+	err = tx.Commit()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// 结束计时
+	elapsed := time.Since(start)
+	fmt.Printf("插入 1000 行数据所用时间: %s\n", elapsed)
+}
+
+

@@ -1,0 +1,344 @@
+# Keymaps
+
+## General
+
+Key	Description	Mode
+<A-j>	        Move down	n, i, v
+<A-k>	        Move up	n, i, v
+<S-h>	        Prev buffer	n
+<S-l>	        Next buffer	n
+[b	            Prev buffer	n
+]b	            Next buffer	n
+<leader>bb	    Switch to Other Buffer	n
+<leader>`	    Switch to Other Buffer	n
+<esc>	        Escape and clear hlsearch	i, n
+<leader>ur	    Redraw / clear hlsearch / diff update	n
+gw	            Search word under cursor	n, x
+<leader>K	    Keywordprg	n
+<leader>l	    Lazy	n
+<leader>fn	    New File	n
+<leader>xl	    Location List	n
+<leader>xq	    Quickfix List	n
+<leader>uf	    Toggle format on Save	n
+<leader>us	    Toggle Spelling	n
+<leader>uw	    Toggle Word Wrap	n
+<leader>ul	    Toggle Line Numbers	n
+<leader>ud	    Toggle Diagnostics	n
+<leader>uc	    Toggle Conceal	n
+<leader>uh	    Toggle Inlay Hints	n
+<leader>gg	    Lazygit (root dir)	n
+<leader>gG	    Lazygit (cwd)	n
+<leader>qq	    Quit all	n
+<leader>ui	    Inspect Pos	n
+<leader>L	    LazyVim Changelog	n
+<leader>ft	    Terminal (root dir)	n
+<leader>fT	    Terminal (cwd)	n
+
+## LSP
+
+Key	            Description	Mode
+<leader>cd	    Line Diagnostics	n
+<leader>cl	    Lsp Info	n
+gd	            Goto Definition	n
+gr	            References	n
+gD	            Goto Declaration	n
+gI	            Goto Implementation	n
+gy	            Goto T[y]pe Definition	n
+K	            Hover	n
+gK	            Signature Help	n
+<c-k>	        Signature Help	i
+]d	            Next Diagnostic	n
+[d	            Prev Diagnostic	n
+]e	            Next Error	n
+[e	            Prev Error	n
+]w	            Next Warning	n
+[w	            Prev Warning	n
+<leader>cf	    Format Document	n
+<leader>cf	    Format Range	v
+<leader>ca	    Code Action	n, v
+<leader>cA	    Source Action	n
+<leader>cr	    Rename	n
+
+## bufferline.nvim
+
+Key	            Description	Mode
+<leader>bp	    Toggle pin	n
+<leader>bP	    Delete non-pinned buffers	n
+
+## flash.nvim
+
+Key	  Description	Mode
+s	    Flash	n, x, o
+S	    Flash Treesitter	n, o, x
+r	    Remote Flash	o
+R	    Treesitter Search	o, x
+<c-s>	Toggle Flash Search	c
+
+## mason.nvim
+
+Key	Description	Mode
+<leader>cm	Mason	n
+
+## mini.surround
+
+Key	Description	Mode
+gza	    Add surrounding	n, v
+gzd	    Delete surrounding	n
+gzf	    Find right surrounding	n
+gzF	    Find left surrounding	n
+gzh	    Highlight surrounding	n
+gzr	    Replace surrounding	n
+gzn	    Update MiniSurround.config.n_lines	n
+
+## noice.nvim
+
+Key	Description	Mode
+<S-Enter>	    Redirect Cmdline	c
+<leader>snl	    Noice Last Message	n
+<leader>snh	    Noice History	n
+<leader>sna	    Noice All	n
+<leader>snd	    Dismiss All	n
+<c-f>	        Scroll forward	i, n, s
+<c-b>	        Scroll backward	i, n, s
+
+## nvim-notify
+
+Key	Description	Mode
+<leader>un	    Dismiss all Notifications	n
+
+## nvim-spectre
+
+Key	Description	Mode
+<leader>sr	    Replace in files (Spectre)	n
+
+## nvim-treesitter
+
+Key	Description	Mode
+<c-space>	    Increment selection	n
+<bs>	        Decrement selection	x
+
+## persistence.nvim
+
+Key	Description	Mode
+<leader>qs	    Restore Session	n
+<leader>ql	    Restore Last Session	n
+<leader>qd	    Don't Save Current Session	n
+
+## telescope.nvim
+
+Key	Description	Mode
+<leader>,	    Switch Buffer	n
+<leader>/	    Grep (root dir)	n
+<leader>:	    Command History	n
+<leader><space>	Find Files (root dir)	n
+<leader>fb	    Buffers	n
+<leader>ff	    Find Files (root dir)	n
+<leader>fF	    Find Files (cwd)	n
+<leader>fr	    Recent	n
+<leader>fR	    Recent (cwd)	n
+<leader>gc	    commits	n
+<leader>gs	    status	n
+<leader>sa	    Auto Commands	n
+<leader>sb	    Buffer	n
+<leader>sc	    Command History	n
+<leader>sC	    Commands	n
+<leader>sd	    Document diagnostics	n
+<leader>sD	    Workspace diagnostics	n
+<leader>sg	    Grep (root dir)	n
+<leader>sG	    Grep (cwd)	n
+<leader>sh	    Help Pages	n
+<leader>sH	    Search Highlight Groups	n
+<leader>sk	    Key Maps	n
+<leader>sM	    Man Pages	n
+<leader>sm	    Jump to Mark	n
+<leader>so	    Options	n
+<leader>sR	    Resume	n
+<leader>sw	    Word (root dir)	n
+<leader>sW	    Word (cwd)	n
+<leader>uC	    Colorscheme with preview	n
+<leader>ss	    Goto Symbol	n
+<leader>sS	    Goto Symbol (Workspace)	n
+
+## trouble.nvim
+
+Key	Description	Mode
+<leader>xx	Document Diagnostics (Trouble)	n
+<leader>xX	Workspace Diagnostics (Trouble)	n
+<leader>xL	Location List (Trouble)	n
+<leader>xQ	Quickfix List (Trouble)	n
+[q	        Previous trouble/quickfix item	n
+]q	        Next trouble/quickfix item	n
+
+## yanky.nvim -  Part of lazyvim.plugins.extras.coding.yanky
+
+Key	Description	Mode
+<leader>p	Open Yank History	n
+gp	Put yanked text after selection	n, x
+gP	Put yanked text before selection	n, x
+[y	Cycle forward through yank history	n
+]y	Cycle backward through yank history	n
+]p	Put indented after cursor (linewise)	n
+[p	Put indented before cursor (linewise)	n
+]P	Put indented after cursor (linewise)	n
+[P	Put indented before cursor (linewise)	n
+>p	Put and indent right	n
+<p	Put and indent left	n
+>P	Put before and indent right	n
+<P	Put before and indent left	n
+=p	Put after applying a filter	n
+=P	Put before applying a filter	n
+
+## nvim-dap - Part of lazyvim.plugins.extras.dap.core
+
+Key	Description	Mode
+<leader>dB	Breakpoint Condition	n
+<leader>db	Toggle Breakpoint	n
+<leader>dc	Continue	n
+<leader>dC	Run to Cursor	n
+<leader>dg	Go to line (no execute)	n
+<leader>di	Step Into	n
+<leader>dj	Down	n
+<leader>dk	Up	n
+<leader>dl	Run Last	n
+<leader>do	Step Out	n
+<leader>dO	Step Over	n
+<leader>dp	Pause	n
+<leader>dr	Toggle REPL	n
+<leader>ds	Session	n
+<leader>dt	Terminate	n
+<leader>dw	Widgets	n
+
+## nvim-dap-ui - Part of lazyvim.plugins.extras.dap.core
+
+Key	Description	Mode
+<leader>du	Dap UI	n
+<leader>de	Eval, v
+
+## one-small-step-for-vimkind - Part of lazyvim.plugins.extras.dap.nlua
+
+Key	Description	Mode
+<leader>daL	Adapter Lua Server	n
+<leader>dal	Adapter Lua	n
+
+## mini.files - Part of lazyvim.plugins.extras.editor.mini-files
+
+Key	Description	Mode
+<leader>fm	Open mini.files (directory of current file)	n
+<leader>fM	Open mini.files (cwd)	n
+
+## nvim-dap-python - Part of lazyvim.plugins.extras.lang.python
+
+Key	Description	Mode
+<leader>dPt	Debug Method	n
+<leader>dPc	Debug Class	n
+
+## venv-selector.nvim - Part of lazyvim.plugins.extras.lang.python
+
+Key	Description	Mode
+<leader>cv	Select VirtualEnv	n
+
+## neotest - Part of lazyvim.plugins.extras.test.core
+
+Key	Description	Mode
+<leader>tt	Run File	n
+<leader>tT	Run All Test Files	n
+<leader>tr	Run Nearest	n
+<leader>ts	Toggle Summary	n
+<leader>to	Show Output	n
+<leader>tO	Toggle Output Panel	n
+<leader>tS	Stop	n
+
+## nvim-dap - Part of lazyvim.plugins.extras.test.core
+
+Key	Description	Mode
+<leader>td	Debug Nearest	n
+
+## edgy.nvim - Part of lazyvim.plugins.extras.ui.edgy
+
+Key	Description	Mode
+<leader>ue	Edgy Toggle	n
+<leader>uE	Edgy Select Window	n
+
+## project.nvim - Part of lazyvim.plugins.extras.util.project
+
+Key	Description	Mode
+<leader>fp	Projects	n
+
+## =========================================================
+<C-h>           Go to left window   n, t
+<C-j>           Go to lower window  n, t
+<C-k>           Go to upper window  n, t
+<C-l>           Go to right window  n, t
+<C-Up>          Increase window height  n
+<C-Down>        Decrease window height  n
+<C-Left>        Decrease window width   n
+<C-Right>       Increase window width   n
+
+n               Next search result  n, x, o
+N               Prev search result  n, x, o
+<C-s>           Save file   i, v, n, s
+
+<leader><tab>l      Last Tab    n
+<leader><tab>f      First Tab   n
+<leader><tab><tab>  New Tab n
+<leader><tab>]      Next Tab    n
+<leader><tab>d      Close Tab   n
+<leader><tab>[      Previous Tab    n
+
+<leader>ww      Other window    n
+<leader>wd      Delete window   n
+<leader>w-      Split window below  n
+<leader>w|      Split window right  n
+<leader>-       Split window below  n
+<leader>|       Split window right  n
+
+<c-/>           Terminal (root dir) n
+<c-_>           which_key_ignore    n, t
+<esc><esc>      Enter Normal Mode   t
+<C-/>           Hide Terminal   t
+
+## neo-tree.nvim
+
+Key Description Mode
+<leader>fe    Explorer NeoTree (root dir) n
+<leader>fE    Explorer NeoTree (cwd)  n
+<leader>e     Explorer NeoTree (root dir)   n
+<leader>E     Explorer NeoTree (cwd)    n
+
+## mini.bufremove
+
+Key Description Mode
+<leader>bd  Delete Buffer   n
+<leader>bD  Delete Buffer (Force)   n
+
+## flit.nvim - Part of lazyvim.plugins.extras.editor.leap
+
+Key   Description   Mode
+f       f   n, x, o
+F       F   n, x, o
+t       t   n, x, o
+T       T   n, x, o
+
+## leap.nvim - Part of lazyvim.plugins.extras.editor.leap
+
+Key Description Mode
+s   Leap forward to n, x, o
+S   Leap backward to    n, x, o
+gs  Leap from windows   n, x, o
+
+## vim-illuminate
+
+Key Description Mode
+]]  Next Reference  n
+[[  Prev Reference  n
+
+## todo-comments.nvim
+
+Key Description Mode
+]t              Next todo comment   n
+[t              Previous todo comment   n
+<leader>xt      Todo (Trouble)  n
+<leader>xT      Todo/Fix/Fixme (Trouble)    n
+<leader>st      Todo    n
+<leader>sT      Todo/Fix/Fixme  n
+
