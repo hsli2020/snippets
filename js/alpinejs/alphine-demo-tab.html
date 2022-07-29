@@ -1,0 +1,61 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpine.js Demo</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</head>
+
+<body>
+  <div class="bg-gray-100 text-gray-800" x-data="{ selected: 'option-1' }">
+    <nav class="bg-gray-300">
+      <ul class="flex">
+        <li class="px-4 py-2" :class="{ 'bg-gray-100': selected === 'option-1' }">
+          <a href="#option-1" @click="selected = 'option-1'">Option 1</a>
+        </li>
+        <li class="px-4 py-2" :class="{ 'bg-gray-100': selected === 'option-2' }">
+          <a href="#option-2" @click="selected = 'option-2'">Option 2</a>
+        </li>
+        <li class="px-4 py-2" :class="{ 'bg-gray-100': selected === 'option-3' }">
+          <a href="#option-3" @click="selected = 'option-3'">Option 3</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div x-show.transition.in.opacity.duration.750ms="selected === 'option-1'" class="p-4">
+      <h2 class="text-xl mb-4">Here, you have the content of <strong>Option 1</strong></h2>
+      <p class="mb-2">Qui ipsorum lingua Celtae, nostra Galli appellantur. Quam diu etiam furor iste tuus nos eludet?
+        Morbi fringilla
+        convallis sapien, id pulvinar odio volutpat.</p>
+      <p class="mb-2">Donec sed odio operae, eu vulputate felis rhoncus. Ut enim ad minim veniam, quis nostrud
+        exercitation. Fictum,
+        deserunt mollit anim laborum astutumque! Hi omnes lingua, institutis, legibus inter se differunt. Quam temere in
+        vitiis, legem sancimus haerentia. Paullum deliquit, ponderibus modulisque suis ratio utitur.</p>
+    </div>
+
+    <div x-show.transition.in.opacity.duration.750ms="selected === 'option-2'" class="p-4">
+      <h2 class="text-xl mb-4">Here, <strong>Option 2</strong> contents are shown</h2>
+      <p class="mb-2">Qui ipsorum lingua Celtae, nostra Galli appellantur. Quam diu etiam furor iste tuus nos eludet?
+        Morbi fringilla
+        convallis sapien, id pulvinar odio volutpat.</p>
+      <p class="mb-2">Donec sed odio operae, eu vulputate felis rhoncus. Ut enim ad minim veniam, quis nostrud
+        exercitation. Fictum,
+        deserunt mollit anim laborum astutumque! Hi omnes lingua, institutis, legibus inter se differunt. Quam temere in
+        vitiis, legem sancimus haerentia. Paullum deliquit, ponderibus modulisque suis ratio utitur.</p>
+    </div>
+
+    <div x-show.transition.in.opacity.duration.750ms="selected === 'option-3'" class="p-4">
+      <h2 class="text-xl mb-4">And here, only <strong>Option 3</strong> contents should be displayed</h2>
+      <p>Qui ipsorum lingua Celtae, nostra Galli appellantur. Quam diu etiam furor iste tuus nos eludet? Morbi fringilla
+        convallis sapien, id pulvinar odio volutpat.</p>
+      <p>Donec sed odio operae, eu vulputate felis rhoncus. Ut enim ad minim veniam, quis nostrud exercitation. Fictum,
+        deserunt mollit anim laborum astutumque! Hi omnes lingua, institutis, legibus inter se differunt. Quam temere in
+        vitiis, legem sancimus haerentia. Paullum deliquit, ponderibus modulisque suis ratio utitur.</p>
+    </div>
+  </div>
+
+</body>
+
+</html>

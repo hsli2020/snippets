@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Todo List - Alpine.js</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div x-data="todoList()" 
+    class="max-w-2xl mx-auto px-12 py-8 rounded-lg shadow-lg bg-gray-200">
+    <div class="flex flex-col items-center justify-center mb-8">
+      <h1 class="text-3xl font-bold mb-8">Todo List</h1>
+      <input type="text" placeholder="I need to..." 
+        x-model="newTodo" @keydown.enter="addTodo"
+        class="mx-auto px-4 py-2 rounded shadow text-lg min-w-full">
+    </div>
+
+    <div class="bg-white w-full rounded shadow mb-8">
+      <template x-for="(todo, index) in todos" :key="index">
+        <div class="flex items-center py-4"
+            :class="{ 'border-b border-gray-400': ! isLastTodo(index) }">
+          <div class="w-1/12 text-center">
+            <input type="checkbox" @change="toggleTodoCompleted(index)" :checked="todo.completed">
+          </div>
+          <div class="w-10/12">
+            <p x-text="todo.todo" :class="{ 'line-through': todo.completed }"></p>
+          </div>
+          <div class="w-1/12 text-center">
+            <button class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+              @click="deleteTodo(index)"> ✗ </button>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div>
+      <span x-text="numberOfTodosCompleted()">0</span> / <span x-text="todoCount()">2</span> completed
+    </div>
+</div>
+
+<script src="https://unpkg.com/alpinejs" defer></script>
+<script>
+  function todoList() {
+    return {
+      newTodo: "",
+      todos: [],
+      addTodo() {
+        this.todos.push({
+          todo: this.newTodo,
+          completed: false }
+        );
+        this.newTodo = "";
+      },
+      toggleTodoCompleted(index) {
+        this.todos[index].completed = !this.todos[index].completed;
+      },
+      deleteTodo(index) {
+        this.todos = this.todos.filter((todo, todoIndex) => {
+          return index !== todoIndex;
+        });
+      },
+      numberOfTodosCompleted() {
+        return this.todos.filter(todo => todo.completed).length;
+      },
+      todoCount() {
+        return this.todos.length;
+      },
+      isLastTodo(index) {
+        return this.todos.length - 1 === index;
+      } 
+    };
+  }
+</script>
+</body></html>
