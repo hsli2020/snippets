@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter Web Component</title>
+  </head>
+  <body style="padding: 25px">
+    <!-- script type="module" src="/counter-wc.js"></script -->
+    <script>
+		class Counter extends HTMLElement {
+		  #currentValue = 0;
+
+		  set #value(val) {
+			this.#currentValue = val;
+			this.update();
+		  }
+
+		  constructor() {
+			super();
+			const container = document.createElement('div');
+
+			this.valSpan = document.createElement('span');
+
+			const increment = document.createElement('button');
+			increment.innerText = 'Increment';
+			increment.addEventListener('click', () => {
+			  this.#value = this.#currentValue + 1;
+			});
+
+			container.appendChild(this.valSpan);
+			container.appendChild(document.createElement('br'));
+			container.appendChild(increment);
+
+			this.container = container;
+		  }
+
+		  connectedCallback() {
+			this.appendChild(this.container);
+			this.update();
+		  }
+
+		  update() {
+			this.valSpan.innerText = this.#currentValue;
+		  }
+		}
+
+		if (!customElements.get('counter-wc')) {
+		  customElements.define('counter-wc', Counter);
+		}
+    </script>
+
+    <counter-wc></counter-wc>
+  </body>
+</html>

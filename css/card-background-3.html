@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Simple 1 elem pure CSS card patterns</title>
+  <script>const ID='wPIQvB1nFv0'</script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+<style>
+#btn--yp {
+  box-sizing: content-box;
+  position: fixed;
+  z-index: 9;
+  bottom: 1em;
+  right: 1em;
+  border: solid 1em transparent;
+  width: 4.625em;
+  height: 3.25em;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/icon-yp.svg) 50%/cover content-box;
+  font: 16px/1.25 trebuchet ms, sans-serif;
+  text-indent: 200vw;
+  text-shadow: none;
+  filter: grayscale(1) drop-shadow(0 0 1px #e8e0e0);
+  transition: 0.5s;
+  white-space: nowrap;
+}
+#btn--yp:before {
+  box-sizing: inherit;
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  margin: 1em -0.5em;
+  padding: 0.5em;
+  width: 100%;
+  border-radius: 5px;
+  background: #e8e0e0;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0vw;
+  white-space: normal;
+  animation: float 1s ease-in-out infinite alternate;
+  content: attr(data-txt);
+}
+#btn--yp:hover, #btn--yp:focus {
+  outline: none;
+  filter: grayscale(0) drop-shadow(0 0 1px crimson);
+}
+
+@keyframes float {
+  to {
+    transform: translateY(0.75em);
+  }
+}
+body {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17em), 1fr));
+  background: #262626;
+  color: #eaeaea;
+}
+
+p {
+  grid-column: 1/-1;
+  font: 1.5em/1.25 indie flower, purisa, segoe script, comic sans ms, cursive;
+}
+
+div {
+  aspect-ratio: 4/3;
+  min-height: min(75vw, 13em);
+  border-radius: 0.5em;
+  box-shadow: inset 0 0 0 0.25em #fff, 2px 2px 5px rgba(0, 0, 0, 0.5);
+  background: repeating-linear-gradient(45deg, var(--s)), repeating-linear-gradient(-45deg, var(--s)), repeating-linear-gradient(45deg, var(--c)), repeating-linear-gradient(-45deg, var(--c));
+  background-blend-mode: multiply, multiply, lighten;
+}
+</style>
+</head>
+
+<body translate="no" >
+  <body style="--s: rgba(0,0,0,.2) 0, transparent 5px 50px">
+  <p>Each card is 1 div. The pattern is created with the same 4 CSS gradients for all the cards (each card has a stop list set separately as a custom property). 45 CSS declarations in total (including those set in style attributes), 31 of which are these stop lists set on individual elements.</p>
+  <div style="--c: #847971 0 10px,#938981 0 20px,#9e938a 0 30px,#a89c93 0 40px,#bfb6ab 0 50px"></div>
+  <div style="--c: #333 0 10px,#555 0 20px,#c55 0 30px,#ccc 0 40px,#eee 0 50px"></div>
+  <div style="--c: #262626 0 10px,#992626 0 20px,#b93534 0 30px,#e8e8e8 0 40px,#fafafa 0 50px"></div>
+  <div style="--c: #977473 0 10px,#ab8f8e 0 20px,#c0aaa8 0 30px,#d4c5c2 0 40px,#e8e0dd 0 50px"></div>
+  <div style="--c: #e9611b 0 10px,#f77635 0 20px,#f7894a 0 30px,#f8975e 0 40px,#ffa775 0 50px"></div>
+  <div style="--c: #000 0 10px,#333 0 20px,#d79033 0 30px,#d7d7d3 0 40px,#e9e9ea 0 50px"></div>
+  <div style="--c: #c37403 0 10px,#df810f 0 20px,#edac1c 0 30px,#f8c51d 0 40px,#fbd927 0 50px"></div>
+  <div style="--c: #fdbb6b 0 10px,#ffd085 0 20px,#ffe58c 0 30px,#fff2a4 0 40px,#ffffe4 0 50px"></div>
+  <div style="--c: #ad7e08 0 10px,#ca9718 0 20px,#daa520 0 30px,#e6b844 0 40px,#efcb6f 0 50px"></div>
+  <div style="--c: #fca111 0 10px,#fdb444 0 20px,#fdc675 0 30px,#ffd99c 0 40px,#fff1be 0 50px"></div>
+  <div style="--c: #5c8803 0 10px,#7aac16 0 20px,#99cd32 0 30px,#b4e356 0 40px,#dcf283 0 50px"></div>
+  <div style="--c: #222a13 0 10px,#3d532d 0 20px,#49683f 0 30px,#8c9f5f 0 40px,#e6ffcb 0 50px"></div>
+  <div style="--c: #454d3f 0 10px,#5c6654 0 20px,#738069 0 30px,#8a997d 0 40px,#a1b392 0 50px"></div>
+  <div style="--c: #183939 0 10px,#395f43 0 20px,#5a854d 0 30px,#7aab56 0 40px,#9bd160 0 50px"></div>
+  <div style="--c: #2f3e46 0 10px,#354f52 0 20px,#52796f 0 30px,#84a98c 0 40px,#cad2c5 0 50px"></div>
+  <div style="--c: #53827f 0 10px,#658c89 0 20px,#769792 0 30px,#87a19b 0 40px,#99aca5 0 50px"></div>
+  <div style="--c: #343838 0 10px,#345f6b 0 20px,#348c9e 0 30px,#34b4cc 0 40px,#34dffc 0 50px"></div>
+  <div style="--c: #000 0 10px,#333 0 20px,#3393a5 0 30px,#cdd7b6 0 40px,#fff 0 50px"></div>
+  <div style="--c: #5193ad 0 10px,#76b4cb 0 20px,#97cadf 0 30px,#c5e7f0 0 40px,#e7f2f6 0 50px"></div>
+  <div style="--c: #023641 0 10px,#1d5770 0 20px,#246b94 0 30px,#297bb6 0 40px,#2f92ec 0 50px"></div>
+  <div style="--c: #315f7e 0 10px,#437494 0 20px,#4b89b3 0 30px,#8ec6eb 0 40px,#d3e7f5 0 50px"></div>
+  <div style="--c: #001528 0 10px,#032646 0 20px,#0b395d 0 30px,#346085 0 40px,#b1deff 0 50px"></div>
+  <div style="--c: #08061b 0 10px,#1c154b 0 20px,#514894 0 30px,#9284fd 0 40px,#d8d3ff 0 50px"></div>
+  <div style="--c: #442f70 0 10px,#5d478b 0 20px,#8968cd 0 30px,#9f79ec 0 40px,#d3bdff 0 50px"></div>
+  <div style="--c: #7941a0 0 10px,#9c67bf 0 20px,#bc84d6 0 30px,#dac5f7 0 40px,#e0d4f7 0 50px"></div>
+  <div style="--c: #372a44 0 10px,#563c86 0 20px,#a080b0 0 30px,#b984bf 0 40px,#daabcd 0 50px"></div>
+  <div style="--c: #400334 0 10px,#641053 0 20px,#9c3487 0 30px,#d46ec0 0 40px,#ffaaee 0 50px"></div>
+  <div style="--c: #b86d78 0 10px,#cd8c95 0 20px,#df8d9f 0 30px,#ffaeb9 0 40px,#ffdeea 0 50px"></div>
+  <div style="--c: #4c0108 0 10px,#76020d 0 20px,#a20312 0 30px,#c80416 0 40px,#e20419 0 50px"></div>
+  <div style="--c: #f8929a 0 10px,#fab2b8 0 20px,#ffc5ca 0 30px,#ffdfd3 0 40px,#fff1f3 0 50px"></div>
+</body>
+  
+</body>
+</html>

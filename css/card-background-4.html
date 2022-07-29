@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Simple dithering backgrounds (very little and maintainable code, no images other than CSS gradients, see description!)</title>
+
+<style>
+body {
+  /* just layout stuff, nothing to do with card backgrounds */
+  --h: 19.5rem;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(var(--n, 7), var(--w, 13rem));
+  grid-gap: 1rem;
+  place-content: center;
+  margin: 0;
+  padding: 1rem;
+  min-height: 100vh;
+  background: #333;
+}
+@media (max-width: 99rem) {
+  body {
+    --n: 6;
+  }
+}
+@media (max-width: 85rem) {
+  body {
+    --n: 5;
+  }
+}
+@media (max-width: 71rem) {
+  body {
+    --n: 4;
+  }
+}
+@media (max-width: 57rem) {
+  body {
+    --n: 3;
+  }
+}
+@media (max-width: 43rem) {
+  body {
+    --n: 2;
+  }
+}
+@media (max-width: 29rem) {
+  body {
+    --n: 1;
+  }
+}
+@media (max-width: 15rem) {
+  body {
+    --w: 100%;
+    --h: 150vw;
+    --fs: 25vw;
+  }
+}
+
+.card {
+  display: grid;
+  /* emoji placement */
+  place-content: center;
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  border-radius: 7px;
+  box-shadow: 2px 2px 17px #000;
+  font-size: var(--fs, 4em);
+  /* emoji size */
+}
+.card:before, .card:after {
+  	/* use absolutely positioned pseudos covering 
+   	 * entire card to create dithered background */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: inherit;
+  content: "";
+}
+.card:before {
+  /* striped background on the :before (bottom layer) */
+  background: Linear-Gradient(var(--slist0));
+}
+.card:after {
+  /* masking magic on top background layer */
+  --n: calc(2*var(--dn) + 1);
+  --unit: calc(var(--h)/var(--n));
+  --stripe: linear-gradient(rgba(0, 0, 0, 0) 50%, #ff0000 0%) 0 0/100% calc(2*var(--unit));
+  --disc: radial-gradient(circle, #ff0000 0.5px, rgba(0, 0, 0, 0) 1px);
+  --dots: var(--disc) calc(50% + 2px) calc(.5*var(--unit) + 3px)/ 4px var(--unit), var(--disc) calc(50% + 2px) calc(.5*var(--unit) + -3px)/ 4px var(--unit), var(--disc) 50% calc(.5*var(--unit) + 1px)/ 4px var(--unit), var(--disc) 50% calc(.5*var(--unit) + -1px)/ 4px var(--unit), var(--disc) 50% calc(.5*var(--unit) + 7px)/ 8px var(--unit), var(--disc) 50% calc(.5*var(--unit) + -7px)/ 8px var(--unit), var(--disc) calc(50% + 4px) calc(.5*var(--unit) + 5px)/ 8px var(--unit), var(--disc) calc(50% + 4px) calc(.5*var(--unit) + -5px)/ 8px var(--unit);
+  background: Linear-Gradient(transparent calc(50%/var(--n)), var(--slist1), transparent 0);
+  -webkit-mask: var(--stripe), var(--dots);
+  -webkit-mask-composite: xor;
+  /* non-standard, WebKit */
+  mask: var(--stripe), var(--dots);
+  mask-composite: exclude;
+}
+</style>
+</head>
+
+<body translate="no" >
+
+<div class="card" style="--slist0: #a728a9 33.3%, #f2408a 0,#f2408a 66.7%, #ffdb83 0; --slist1: #ce3ec1 0, #ce3ec1 50%, #ffa26c 0, #ffa26c 90%; --dn: 2">🦁</div>
+<div class="card" style="--slist0: #7019fb 33.3%, #4799fc 0,#4799fc 66.7%, #32fcfe 0; --slist1: #6b5bfc 0, #6b5bfc 50%, #34d6fd 0, #34d6fd 90%; --dn: 2">🐯</div>
+<div class="card" style="--slist0: #360b76 33.3%, #7322e9 0,#7322e9 66.7%, #d255fb 0; --slist1: #5717b6 0, #5717b6 50%, #a437f2 0, #a437f2 90%; --dn: 2">🦊</div>
+<div class="card" style="--slist0: #006dee 33.3%, #00bbee 0,#00bbee 66.7%, #88ffe9 0; --slist1: #0093fa 0, #0093fa 50%, #00eadf 0, #00eadf 90%; --dn: 2">🐺</div>
+<div class="card" style="--slist0: #f75759 33.3%, #ff9352 0,#ff9352 66.7%, #fade73 0; --slist1: #ff7f52 0, #ff7f52 50%, #ffba4a 0, #ffba4a 90%; --dn: 2">🦝</div>
+<div class="card" style="--slist0: #26a7fb 33.3%, #75d9fd 0,#75d9fd 66.7%, #e7faff 0; --slist1: #45c3fd 0, #45c3fd 50%, #a0ebff 0, #a0ebff 90%; --dn: 2">🐮</div>
+<div class="card" style="--slist0: #ffb528 33.3%, #f86759 0,#f86759 66.7%, #bb3e85 0; --slist1: #ff8c40 0, #ff8c40 50%, #e14b71 0, #e14b71 90%; --dn: 2">🐭</div>
+<div class="card" style="--slist0: #95ffdc 33.3%, #00c1f6 0,#00c1f6 66.7%, #717dbf 0; --slist1: #00e1fa 0, #00e1fa 50%, #419fe3 0, #419fe3 90%; --dn: 2">🐱</div>
+<div class="card" style="--slist0: #b5ce4f 33.3%, #fbb64b 0,#fbb64b 66.7%, #eb6575 0; --slist1: #eed54e 0, #eed54e 50%, #fc7c64 0, #fc7c64 90%; --dn: 2">🐼</div>
+<div class="card" style="--slist0: #885789 33.3%, #f7966f 0,#f7966f 66.7%, #8bbd69 0; --slist1: #cf6c84 0, #cf6c84 50%, #f6d169 0, #f6d169 90%; --dn: 2">🐻</div>
+<div class="card" style="--slist0: #00aab7 33.3%, #48678f 0,#48678f 66.7%, #fd98b3 0; --slist1: #2889ac 0, #2889ac 50%, #8478ac 0, #8478ac 90%; --dn: 2">🐨</div>
+<div class="card" style="--slist0: #ffca81 33.3%, #94688c 0,#94688c 66.7%, #4c7ba3 0; --slist1: #f29e85 0, #f29e85 50%, #595678 0, #595678 90%; --dn: 2">🐰</div>
+<div class="card" style="--slist0: #f9ffce 33.3%, #b8a09f 0,#b8a09f 66.7%, #00b3ff 0; --slist1: #e7cab2 0, #e7cab2 50%, #91ffe2 0, #91ffe2 90%; --dn: 2">🦔</div>
+<div class="card" style="--slist0: #92ffe1 33.3%, #fdffcd 0,#fdffcd 66.7%, #a06eb2 0; --slist1: #5baeff 0, #5baeff 50%, #ff82a3 0, #ff82a3 90%; --dn: 2">🐥</div>
+  
+<script id="rendered-js" >
+// NO JS AT ALL
+//# sourceURL=pen.js
+</script>
+
+</body>
+</html>

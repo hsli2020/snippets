@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - 1 element card background patterns (see description)</title>
+
+<style>
+body {
+  --sqrt2: 1.41421356237;
+  --h: 19em;
+  display: grid;
+  grid-template-columns: repeat(var(--n, 7), var(--w, 13em));
+  grid-gap: 1em;
+  place-content: center;
+  margin: 0;
+  padding: 2vmin;
+  min-width: 13em;
+  min-height: 100vh;
+  background: #333;
+}
+@media (max-width: 99em) {
+  body {
+    --n: 6 ;
+  }
+}
+@media (max-width: 85em) {
+  body {
+    --n: 5 ;
+  }
+}
+@media (max-width: 71em) {
+  body {
+    --n: 4 ;
+  }
+}
+@media (max-width: 57em) {
+  body {
+    --n: 3 ;
+  }
+}
+@media (max-width: 43em) {
+  body {
+    --n: 2 ;
+  }
+}
+@media (max-width: 29em) {
+  body {
+    --n: 1 ;
+  }
+}
+
+.card {
+  overflow: hidden;
+  position: relative;
+  width: var(--w, 13em);
+  height: var(--h, 19em);
+  border-radius: 0.5em;
+  box-shadow: 2px 2px 17px #000;
+  background: linear-gradient(var(--ang, 180deg), #ff9528, #3f7ea6);
+}
+.card, .card:before, .card:after {
+  --strip-stop: 100%;
+  --strip-f: .25;
+  --strip-stop-0: calc(var(--strip-f)*var(--strip-stop));
+  --strip-stop-1: calc(var(--strip-stop) - var(--strip-stop-0));
+  --strip-end: red;
+  --strip-mid: transparent;
+  --strip-list:
+  	var(--strip-end) 0,
+  	var(--strip-end) var(--strip-stop-0),
+  	var(--strip-mid) 0,
+  	var(--strip-mid) var(--strip-stop-1),
+  	var(--strip-end) 0,
+  	var(--strip-end) var(--strip-stop);
+  --joint-list:
+  	var(--joint-end, red) var(--joint-stop, 25%),
+  	var(--joint-mid, transparent) 0;
+  --joint-0:
+  	linear-gradient(135deg, var(--joint-list));
+  --joint-1:
+  	linear-gradient(-135deg, var(--joint-list));
+  --joint-2:
+  	linear-gradient(-45deg, var(--joint-list));
+  --joint-3:
+  	linear-gradient(45deg, var(--joint-list));
+}
+.card:before, .card:after {
+  --i: 0;
+  --noti: calc(1 - var(--i));
+  --sgni: calc(2*var(--i) - 1);
+  --c: hsl(0, 0%, 0%, var(--i));
+  --notc: hsl(0, 0%, 0%, var(--noti));
+  --fill: linear-gradient(var(--c), var(--c));
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  --c0: RGB(calc( 		var(--i)*63 + var(--noti)*255), calc( 		var(--i)*126 + var(--noti)*149), calc( 		var(--i)*166 + var(--noti)*40));
+  --c1: RGB(calc( 		var(--i)*255 + var(--noti)*63), calc( 		var(--i)*149 + var(--noti)*126), calc( 		var(--i)*40 + var(--noti)*166));
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  -webkit-mask-position: var(--mask-o, 50% 50%);
+  mask-position: var(--mask-o, 50% 50%);
+  -webkit-mask-size: var(--mask-d);
+  mask-size: var(--mask-d);
+  content: "";
+}
+.card:after {
+  --i: 1 ;
+}
+
+.card:nth-child(1) {
+  --d: 4em;
+}
+.card:nth-child(1):before, .card:nth-child(1):after {
+  --o: calc(50% - .5*var(--d));
+  --strip-stop: calc(2*var(--d)/14.1);
+  --strip-end: var(--c0);
+  background: repeating-linear-gradient(calc(var(--sgni)*45deg), var(--strip-list));
+  --mask:
+  	var(--fill),
+  	var(--joint-3), var(--joint-3),
+  	var(--joint-0), var(--joint-0);
+  --mask-o: 50%, var(--o) var(--o);
+  --mask-d: var(--d) var(--d);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:nth-child(2) {
+  --d: 4em;
+}
+.card:nth-child(2):before, .card:nth-child(2):after {
+  --strip-end: var(--c0);
+  background: linear-gradient(calc(var(--sgni)*45deg), var(--strip-list)) 50%/calc(.25*var(--d)) calc(.25*var(--d));
+  --mask:
+  	linear-gradient(calc(-90deg - var(--sgni)*45deg),
+  			var(--joint-list)),
+  	linear-gradient(calc(90deg - var(--sgni)*45deg),
+  			var(--joint-list));
+  --mask-o: 50%, 50% calc(50% - .5*var(--d));
+  --mask-d: var(--d) var(--d);
+}
+
+.card:nth-child(3) {
+  --d: 5em;
+}
+.card:nth-child(3):before, .card:nth-child(3):after {
+  --strip-stop: calc(.1*var(--d));
+  --strip-end: var(--c0);
+  background: repeating-linear-gradient(calc(var(--sgni)*45deg), var(--strip-list));
+  --o: calc(50% - var(--i)*.5*var(--d));
+  --joint-stop: calc(.275*var(--d));
+  --mask:
+  	radial-gradient(var(--joint-list));
+  --mask-o: var(--o) var(--o);
+  --mask-d: var(--d) var(--d) ;
+}
+
+.card:nth-child(4):before, .card:nth-child(4):after {
+  background: linear-gradient(calc(var(--i)*180deg + 45deg), var(--c1), transparent);
+  --strip-stop: 1em;
+  --strip-f: calc(.125 + .25*var(--i));
+  --mask:
+  	var(--fill),
+  	repeating-linear-gradient(-45deg, var(--strip-list));
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:nth-child(5) {
+  --d: 1em;
+  --ang: 45deg;
+}
+.card:nth-child(5):before, .card:nth-child(5):after {
+  --o0: calc(50% + var(--sgni)*.25*var(--d));
+  --o1: calc(50% - var(--sgni)*.25*var(--d));
+  background: radial-gradient(circle, var(--c0) 35%, transparent 37%) var(--o0) var(--o0), radial-gradient(circle, var(--c1) 19%, transparent 21%) var(--o1) var(--o1);
+  background-size: var(--d) var(--d);
+  --strip-stop: calc(4*var(--d));
+  --o: calc(var(--i)*var(--d));
+  --mask:
+  	repeating-linear-gradient(var(--strip-list)),
+  	repeating-linear-gradient(90deg, var(--strip-list));
+  --mask-o: 0 var(--o), var(--o);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:nth-child(6), .card:nth-child(6):before, .card:nth-child(6):after {
+  --strip-stop: .5em;
+  --strip-end: #3f7ea6;
+  --strip-mid: #ff9528;
+  background: repeating-linear-gradient(var(--ang, 0deg), var(--strip-list)) 50% calc(50% - var(--o, .1875*var(--strip-stop)));
+}
+.card:nth-child(6):before, .card:nth-child(6):after {
+  --ang: calc(var(--sgni)*60deg);
+  --o: 0px;
+  filter: blur(1px);
+  --mask:
+  	repeating-conic-gradient(from calc((var(--noti) + .5)*60deg),
+  			red 0deg 60deg, transparent 0deg 180deg);
+}
+
+.card:nth-child(7) {
+  --ang: 45deg;
+}
+.card:nth-child(7):before, .card:nth-child(7):after {
+  --strip-end: transparent;
+  --strip-mid: var(--c0);
+  --strip-stop: 10px;
+  --strip-f: .4;
+  background: repeating-linear-gradient(var(--strip-list)), repeating-linear-gradient(60deg, var(--strip-list)), repeating-linear-gradient(-60deg, var(--strip-list));
+  --mask:
+  	conic-gradient(from calc((var(--i) - .75)*180deg),
+  			transparent, red, transparent 50%) ;
+}
+
+.card:nth-child(8) {
+  --strip-end: #ff9528;
+  --strip-mid: #3f7ea6;
+  --strip-stop: .5em;
+  background: repeating-linear-gradient(45deg, var(--strip-list));
+}
+.card:nth-child(8):before, .card:nth-child(8):after {
+  --strip-stop: 4em;
+  background: linear-gradient(calc(var(--i)*180deg), var(--c0), transparent) 50% calc(50% - .327*var(--strip-stop))/100% calc(.5*var(--strip-stop));
+  --mask:
+  	repeating-linear-gradient(var(--strip-list)),
+  	repeating-linear-gradient(60deg, var(--strip-list)),
+  	repeating-linear-gradient(-60deg, var(--strip-list));
+  --mask-o: 50% calc(50% - .075*var(--strip-stop)), 50%, 50%;
+  --mask-d: 100% 200%, 100%, 100%;
+  -webkit-mask-composite: source-in, source-in, source-over;
+  mask-composite: intersect;
+}
+.card:nth-child(8):after {
+  -webkit-mask-composite: source-out, source-over;
+  mask-composite: subtract, add;
+}
+
+.card:nth-child(9) {
+  --d: 5em;
+  --ang: 45deg;
+  --strip-stop: var(--d);
+  --m-list: var(--strip-list);
+}
+.card:nth-child(9):before, .card:nth-child(9):after {
+  --strip-end: var(--c0);
+  --strip-stop: .375em;
+  background: repeating-linear-gradient(calc(var(--i)*90deg), var(--strip-list));
+  --mask:
+  	var(--fill),
+  	repeating-linear-gradient(45deg, var(--m-list)),
+  	repeating-linear-gradient(-45deg, var(--m-list));
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:nth-child(10) {
+  --l: 4em;
+  --d: calc(var(--l)*var(--sqrt2));
+  --strip-end: #ff9528;
+  --strip-stop: 4px;
+  background: repeating-linear-gradient(var(--strip-list)) #3f7ea6;
+}
+.card:nth-child(10):before, .card:nth-child(10):after {
+  background: linear-gradient(calc(var(--sgni)*90deg), var(--c0), transparent) 50%/calc(.5*var(--d));
+  --strip-stop: var(--l);
+  --o: calc(var(--i)*-.5*var(--d));
+  --mask:
+  	repeating-linear-gradient(45deg, var(--strip-list)),
+  	repeating-linear-gradient(-45deg, var(--strip-list));
+  --mask-o: var(--o);
+  --mask-d: calc(100% + .5*var(--d));
+  -webkit-mask-composite: source-in, source-over;
+  mask-composite: intersect;
+}
+
+.card:nth-child(11) {
+  --d: 5em;
+  --l: calc(.05*var(--d)*var(--sqrt2));
+  --joint-stop: 50%;
+  --circ-list: var(--joint-list);
+}
+.card:nth-child(11):before, .card:nth-child(11):after {
+  background: linear-gradient(calc(var(--sgni)*90deg), var(--c1), var(--c0)) calc(50% - .5*var(--d))/var(--d) var(--d);
+  --joint-stop: 25%;
+  --mask:
+  	radial-gradient(var(--circ-list)),
+  	linear-gradient(calc(-90deg - var(--sgni)*45deg),
+  			var(--joint-list)),
+  	linear-gradient(calc(90deg - var(--sgni)*45deg),
+  			var(--joint-list));
+  --mask-o: 50%, 50%, 50% calc(50% - .5*var(--d));
+  --mask-d: var(--l) var(--l), var(--d) var(--d), var(--d) var(--d);
+  -webkit-mask-composite: source-in, source-over;
+  mask-composite: intersect;
+}
+
+.card:nth-child(12) {
+  --d: 3em;
+  background: repeating-conic-gradient(#ff9528, #3f7ea6, #ff9528 5%) 50%/calc(2*var(--d)) var(--d);
+}
+.card:nth-child(12):before, .card:nth-child(12):after {
+  --strip-end: var(--c0);
+  --strip-stop: 4px;
+  background: repeating-linear-gradient(calc(var(--sgni)*45deg), var(--strip-list));
+  --mask:
+  	var(--fill),
+  	linear-gradient(115deg, var(--joint-list)),
+  	linear-gradient(115deg, var(--joint-list)),
+  	linear-gradient(245deg, var(--joint-list)),
+  	linear-gradient(245deg, var(--joint-list));
+  --mask-o: 0 0, calc(.25*var(--d)) calc(-.5*var(--d));
+  --mask-d: calc(.5*var(--d)) var(--d);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:nth-child(13) {
+  --ang: 60deg;
+}
+.card:nth-child(13):before, .card:nth-child(13):after {
+  --strip-end: transparent;
+  --strip-mid: var(--c0);
+  --strip-stop: 10px;
+  --strip-f: .4;
+  background: repeating-linear-gradient(var(--strip-list)), repeating-linear-gradient(60deg, var(--strip-list)), repeating-linear-gradient(-60deg, var(--strip-list));
+  --mask:
+  	linear-gradient(var(--ang), var(--c) 50%, var(--notc) 0) ;
+}
+
+.card:nth-child(14) {
+  --d: 2em;
+  background: conic-gradient(#ff9528, #3f7ea6, #ff9528);
+}
+.card:nth-child(14):before, .card:nth-child(14):after {
+  background: linear-gradient(calc(var(--i)*180deg), var(--c0), var(--c1), var(--c0));
+  --mask:
+  	linear-gradient(90deg, var(--joint-list));
+  --mask-o: calc(50% + (var(--i) - .25)*.5*var(--d));
+  --mask-d: var(--d) ;
+}
+
+.card:nth-child(15) {
+  --d: 4em;
+  --ang: 90deg;
+  --strip-end: #3f7ea6;
+  --strip-mid: #ff9528;
+  --strip-stop: 8px;
+  --main: var(--strip-list);
+}
+.card:nth-child(15), .card:nth-child(15):before, .card:nth-child(15):after {
+  background: repeating-linear-gradient(var(--ang), var(--main));
+}
+.card:nth-child(15):before, .card:nth-child(15):after {
+  --ang: 45deg;
+  --strip-end: var(--c);
+  --strip-mid: var(--notc);
+  --strip-stop: var(--d);
+  --mask:
+  	repeating-linear-gradient(90deg, var(--strip-list)),
+  	repeating-linear-gradient(45deg, var(--strip-list));
+  -webkit-mask-composite: source-in, source-over;
+  mask-composite: intersect;
+}
+
+.card:nth-child(16) {
+  --d: 6em;
+  --strip-end: red;
+  --strip-stop: var(--d);
+  --side: var(--strip-list);
+}
+.card:nth-child(16):before, .card:nth-child(16):after {
+  --strip-end: var(--c0);
+  --strip-stop: calc(.125*var(--d));
+  --strip-f: .125;
+  background: repeating-linear-gradient(calc(var(--sgni)*45deg), var(--strip-list));
+  --mask:
+  	var(--fill),
+  	repeating-linear-gradient(var(--side)),
+  	repeating-linear-gradient(90deg, var(--side));
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card:nth-child(17) {
+  --d: 5em;
+  --ang: 135deg;
+}
+.card:nth-child(17):before, .card:nth-child(17):after {
+  --strip-end: var(--c0);
+  --strip-stop: calc(.1*var(--d));
+  background: repeating-radial-gradient(circle, var(--strip-list)) calc(50% - var(--i)*.5*var(--d)) 50%/var(--d) var(--d);
+  --joint-end: var(--notc);
+  --joint-mid: var(--c);
+  --joint-stop: 50%;
+  --mask:
+  	linear-gradient(var(--joint-list));
+  --mask-o: 50% 50%;
+  --mask-d: 100% var(--d) ;
+}
+
+.card:nth-child(18) {
+  --d: 5em;
+}
+.card:nth-child(18):before, .card:nth-child(18):after {
+  --strip-end: var(--c0);
+  --strip-stop: .5em;
+  background: repeating-linear-gradient(calc(var(--sgni)*-45deg), var(--strip-list));
+  --mask:
+  	repeating-conic-gradient(var(--c) 0% 12.5%, var(--notc) 0% 25%);
+  --mask-d: var(--d) var(--d) ;
+}
+
+.card:nth-child(19) {
+  --d: 8em;
+  --ang: 45deg;
+}
+.card:nth-child(19):before, .card:nth-child(19):after {
+  background: var(--c0);
+  --strip-end: var(--c);
+  --strip-mid: var(--notc);
+  --strip-stop: var(--d);
+  --mask:
+  	linear-gradient(90deg, red, transparent),
+  	radial-gradient(circle at 25% 25%, red 9%, transparent 35%),
+  	repeating-linear-gradient(90deg, var(--strip-list)),
+  	repeating-linear-gradient(-45deg, var(--strip-list));
+  --mask-o: calc(50% - .25*var(--d)) 50%, 50% 50%, 50% 50%, 50% 50%;
+  --mask-d: calc(.5*var(--d)), 8px 8px, 100%, 100%;
+  -webkit-mask-composite: source-in, source-in, source-in, source-over;
+  mask-composite: intersect;
+}
+
+.card:nth-child(20) {
+  --d: 8em;
+  --ang: 45deg;
+  --strip-stop: calc(.0625*var(--d));
+  --narr: var(--strip-list);
+}
+.card:nth-child(20):before, .card:nth-child(20):after {
+  background: var(--c0);
+  --strip-end: var(--c);
+  --strip-mid: var(--notc);
+  --strip-stop: var(--d);
+  --mask:
+  	linear-gradient(90deg, var(--c), var(--notc)),
+  	repeating-linear-gradient(45deg, var(--narr)),
+  	repeating-linear-gradient(90deg, var(--strip-list)),
+  	repeating-linear-gradient(-45deg, var(--strip-list));
+  -webkit-mask-composite: source-in, source-in, source-in, source-over;
+  mask-composite: intersect;
+}
+
+.card:nth-child(21) {
+  --l: 3em;
+  --joint-stop: calc(25% + 7px);
+  --large-0: var(--joint-0);
+  --large-1: var(--joint-1);
+  --large-2: var(--joint-2);
+  --large-3: var(--joint-3);
+}
+.card:nth-child(21):before, .card:nth-child(21):after {
+  background: linear-gradient(#3f7ea6, #ff9528);
+  --o: calc(50% - var(--i)*.5*var(--l));
+  --joint-stop: calc(25% + 4px);
+  --mask:
+  	var(--top, var(--large-0), var(--large-1), var(--large-2), var(--large-3), )
+  	var(--joint-0), var(--joint-1), var(--joint-2), var(--joint-3);
+  --mask-o: var(--o) var(--o);
+  --mask-d: var(--l) var(--l);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.card:nth-child(21):after {
+  background-size: 100% calc(.5*var(--l));
+  --joint-stop: 5%;
+  --top: ;
+}
+</style>
+</head>
+
+<body translate="no" >
+
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+
+<script id="rendered-js" >
+/*
+Some of these may need native conic-gradient() support
+*/
+//# sourceURL=pen.js
+</script>
+
+</body>
+</html>

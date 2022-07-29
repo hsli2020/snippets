@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A11y Dialog Test</title>
+    <style>
+      .dialog-container {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 2;
+      }
+      
+      .dialog-container[aria-hidden='true'] {
+        display: none;
+      }
+      
+      .dialog-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgb(43 46 56 / 0.9);
+        animation: fade-in 200ms both;
+      }
+      
+      .dialog-content {
+        background-color: rgb(255, 255, 255);
+        margin: auto;
+        z-index: 2;
+        position: relative;
+        animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+        padding: 1em;
+        max-width: 90%;
+        width: 600px;
+        border-radius: 2px;
+      }
+      
+      @media screen and (min-width: 700px) {
+        .dialog-content {
+          padding: 2em;
+        }
+      }
+      
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+      }
+      
+      @keyframes slide-up {
+        from {
+          transform: translateY(10%);
+        }
+      }
+
+      /* Note, for brevity we haven't implemented prefers-reduced-motion */
+      
+      .dialog h1 {
+        margin: 0;
+        font-size: 1.25em;
+      }
+      
+      .dialog-close {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        border: 0;
+        padding: 0;
+        background-color: transparent;
+        font-weight: bold;
+        font-size: 1.25em;
+        width: 1.2em;
+        height: 1.2em;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      
+      @media screen and (min-width: 700px) {
+        .dialog-close {
+          top: 1em;
+          right: 1em;
+        }
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+      
+      body {
+        font: 125% / 1.5 -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+        padding: 2em 0;
+      }
+      
+      h1 {
+        font-size: 1.6em;
+        line-height: 1.1;
+        font-family: 'ESPI Slab', sans-serif;
+        margin-bottom: 0;
+      }
+      
+      main {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 0 1em;
+      }
+    </style>
+    <script defer src="https://cdn.jsdelivr.net/npm/a11y-dialog@7/dist/a11y-dialog.min.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <div class="dialog-container" id="my-dialog" aria-hidden="true" aria-labelledby="my-dialog-title" role="dialog">
+        <div class="dialog-overlay" data-a11y-dialog-hide></div>
+        <div class="dialog-content" role="document">
+          <button data-a11y-dialog-hide class="dialog-close" aria-label="Close this dialog window">
+            ×
+          </button>
+          <a href="https://www.yahoo.com/" target="_blank">Rando Yahoo Link</a>
+  
+          <h1 id="my-dialog-title">My Title</h1>
+          <p id="my-dialog-description">
+            Some description of what's inside this dialog…
+          </p>
+        </div>
+      </div>
+      <button type="button" data-a11y-dialog-show="my-dialog">
+        Open the dialog
+      </button>
+    </main>
+    <script>
+      // We need to ensure our deferred A11yDialog has
+      // had a chance to do its thing ;-)
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const dialogEl = document.getElementById('my-dialog')
+        const dialog = new A11yDialog(dialogEl)
+      });
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Get QR Code Function</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+<style>
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+body {
+  align-items: center;
+  background: #ffebcd;
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+p {
+  margin-bottom: 2.5rem;
+}
+
+.qr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  -webkit-margin-after: 2rem;
+          margin-block-end: 2rem;
+  width: min(650px, 100%);
+}
+
+@media (min-width: 600px) {
+  .qr-form {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.qr-input,
+.qr-button {
+  font-size: 1.3rem;
+  line-height: 1.35;
+}
+
+.qr-input {
+  color: #8b4513;
+  display: inline-block;
+  flex: 1 2 auto;
+  padding: 0.5rem;
+}
+
+.qr-button {
+  background: #8b4513;
+  border: 0;
+  color: #ffebcd;
+  opacity: 0.8;
+  padding: 0.5rem 2rem;
+}
+.qr-button:hover,
+.qr-button:focus {
+  opacity: 0.9;
+}
+.qr-button:active {
+  opacity: 1;
+}
+</style>
+</head>
+
+<body translate="no" >
+
+<h1>QR Code Generator</h1>
+<p>Enter a URL and click the button to generate a QR code.</p>
+<form class="qr-form" action="GET">
+  <input id="qrText" class="qr-input" type="url" name="text" maxlength="1024" placeholder="https://www.css-tricks.com" value="" />
+  <button id="qrSubmit" class="qr-button" type="button">Generate 🚀</button>
+</form>
+
+<div class="qr-code"></div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script>
+let FUNCTION_API_URL = "https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-10a937cb-1f12-427b-aadd-f43d0b08d64a/sample/qr";
+let last = undefined;
+
+function qr() {
+  const txt = $(".qr-input").val().trim();
+  if (last != txt) {
+    last = txt;
+    let API = FUNCTION_API_URL;
+    let src = API + "?text=" + escape(txt);
+    console.log("sending", src);
+    fetch(src).
+    then(response => response.text()).
+    then(console.log("status", status)).
+    then(data => {
+      $(".qr-code").html('<img width="200" src="' + data + '" />');
+    });
+  }
+}
+
+document.getElementById("qrSubmit").addEventListener("click", function () {
+  qr();
+});
+</script>
+
+</body>
+</html>

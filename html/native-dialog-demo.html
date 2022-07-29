@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <title>CodePen - Basic &lt;dialog&gt;</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+<style>
+html {
+  block-size: 100%;
+  color-scheme: dark light;
+}
+
+body {
+  min-block-size: 100%;
+  font-family: system-ui, sans-serif;
+  
+  display: grid;
+  place-content: center;
+  margin: 0;
+}
+
+::-webkit-backdrop {
+  background-color: rgb(255,255,255, 6%);
+}
+
+::backdrop {
+  background-color: rgb(255,255,255, 6%);
+}
+</style>
+</head>
+
+<body translate="no" >
+  <div>
+  <dialog id="dialog">
+    <form method="dialog">
+      <p>Hi, I'm a dialog. Notice I have a gray overlay behind me?</p>
+      <button>OK</button>
+    </form>
+  </dialog>
+  <button onclick="dialog.showModal()">Open Dialog</button>
+  <dialog id="dialog2" open>
+    <form method="dialog">
+      <p>I'm a dialog that is open by default. Notice I have no <i>::backdrop</i> overlay?</p>
+      <p>Try closing me and having a look at the other dialog that is programatically opened</p>
+      <button>OK</button>
+    </form>
+  </dialog>
+</div>
+  
+</body>
+</html>

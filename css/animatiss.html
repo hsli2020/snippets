@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- https://xsgames.co/animatiss/ -->
+   <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+   <meta charset="utf-8">
+	<link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48" href="assets/favicon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>AnimatiSS - A nice, colorful collection of CSS animations for your projects</title>
+   <meta name="description" content="AnimatiSS is a tool to preview custom CSS animations and grab their code with a simple click, to paste it into your own web projects">
+   <meta name="keywords" content="css, web development, developer resources, side project, movement, stock images, design inspiration, prototype, app development, design">
+   <!-- Twitter Card -->   
+   <meta property="og:title" content="AnimatiSS">
+   <meta property="og:description" content="A nice, colorful collection of CSS animations for your projects. Preview animations and click to copy their code!">
+   <meta property="og:image" content="https://xsgames.co/animatiss/assets/twitter-header.png">
+   <meta property="og:url" content="https://xsgames.co/animatiss">
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:creator" content="@xsgames_">
+
+   <!-- styles ands scripts -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://kit.fontawesome.com/ba96b2b1ef.js" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <!-- link rel="stylesheet" href="style.css" -->
+   <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;800&family=Poppins:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wire+One&display=swap');
+
+body {font-family: 'Inter', sans-serif;background: #121212;color: #f3f3f3;}
+h1 {font-size: 84px;font-weight: 800;font-family: 'Wire One', sans-serif; letter-spacing: 2px;}
+h2 {font-weight: 800;font-size: 40px;}
+h4 {font-size: 27px; font-family: 'Wire One', sans-serif;letter-spacing: 2px;}
+a { transition: .2s ease; }
+a:hover { color: #121212; }
+hr { background: #ffeb3a; }
+.container{ padding: 15px; }
+.header {margin-top: 26px;margin-bottom: 30px;}
+.header-img { width: 68px; }
+.card {border: 2px dashed #291E4F;border-radius: 20px;background: #f9edc9;padding: 18px;font-size: 13px;margin-bottom: 18px;transition: .3s ease;}
+.bottom-card a {margin-top: 10px;transition: .2s ease;text-decoration: none;background: #fbc02d;padding: 8px;border-radius:  6px;border: 1px dashed #291E4E;color: #291e4f;font-weight: 600;}
+.bottom-card a:hover { background: #fff9e8; }
+#idea-title {font-size: 18px;font-weight: 600;}
+.posted-on{margin-top: -16px;font-size: 12px;color: #524875;}
+.submit-btn {margin-top: 29px;}
+.submit-btn a {background: #f9edc9;padding: 12px;border: 1px dashed #291E4F;text-decoration: none;transition: .2s ease;border-radius: 8px;color: #291E4F;font-weight: 600;font-size: 18px;}
+.submit-btn a:hover { background: #291E4F; color: #f1f1f1;  }
+#share-btn {background: transparent;font-weight: 400;}
+.submit-input {background: #f9edc9;font-size: 13px;color: #000;width: 80%;border-radius: 5px;margin-bottom: 10px;height: auto;padding: 10px;border: none;}
+.swal2-content{ font-size: 14px; }
+.swal2-styled.swal2-confirm {background-color: #fbc02d;color: #291E4E;font-weight: 600;}
+.info-btn { color: #291E4F; margin-top: 10px; }
+#users-list {width: fit-content;margin: auto;margin-top: 44px;}
+.avatar-img {border-radius: 12px;width: 130px;box-shadow: 3px 3px 1px #0000000f;}
+.generate-btn {background: #ffc107;color: #291E4F;padding: 14px 20px;text-decoration: none;border-radius: 6px;transition: .2s ease;font-weight: 600;}
+.generate-btn:hover { background: #291E4F; color: #ffc107; }
+.option-btn {background: #291e4f;color: #ffc007;padding: 8px 18px;text-decoration: none;border-radius: 6px;transition: .2s ease;}
+.option-btn:hover { background: #e4d5ab; color: #291E4F; }
+.grayscale { filter: grayscale( 100% );  -webkit-filter: grayscale( 100% ); }
+.htu-btn {transition: .2s ease;text-decoration: none;color: #000;font-size: 18px;background: #ffeb3b;padding: 11px 12px 10px 10px;border-radius: 99px;float: right;right: 0;position: absolute;margin-right: 26px;margin-top: 44px;}
+.htu-btn:hover { color: #fff;}
+footer {margin-top: 30px;text-align: center;font-size: 26px;font-family: 'Wire One', sans-serif;letter-spacing: 1px;}
+footer a { text-decoration: none; color: #ffeb3b; transition: .2s;}
+footer a:hover { color: #f1f1f1; }
+
+.projects-btn img {width: 48px;transition: .2s ease;margin-right: 4px;margin-top: 10px;}
+.projects-btn img:hover { transform: scale(0.9); }
+/* Swal 2 */
+.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation { background: rgb(255 235 59 / 75%); }
+.swal2-modal { margin: auto; border-radius: 19px; }
+.swal2-content { padding: 20px; }
+
+/* Animated squares */
+.animated-square { margin: auto; width: 180px; height: 180px; background: #ffeb3b; border-radius: 34px; color: #121212; margin-bottom: 44px;border: 1px solid #121212;}
+.animated-square i { margin-left: 12px;margin-right: 12px;font-weight: 100;margin-top: 23px; transition: .2s ease; font-size: 20px;padding: 12px; border-radius: 50%;border: 1px dashed #121212; color: #121212;}
+.animated-square i:hover { cursor: pointer; background:  #121212; color: #f1f1f1;}
+.animated-square p {text-transform: lowercase; font-family: 'Wire One', sans-serif; font-size: 16px; padding-top: 13px;color: #000;letter-spacing: 1px;}
+
+/* Animated text */
+.animated-text { margin: auto; width: 200px; height: 200px; background: #ffeb3b; border-radius: 34px; color: #121212; margin-bottom: 44px;border: 1px solid #121212;}
+.animated-text i { margin-left: 12px;margin-right: 12px;font-weight: 100;margin-top: 16px; transition: .2s ease; font-size: 20px;padding: 12px; border-radius: 50%;border: 1px dashed #121212; color: #121212;}
+.animated-text i:hover { cursor: pointer; background:  #121212; color: #f1f1f1;}
+.animated-text p { font-family: 'Wire One', sans-serif; font-size: 60px; color: #000;letter-spacing: 1px;margin-bottom: -3px; font-weight: 800;}
+
+/* Bkg Colors of the Animated Squares */
+.original { background: #ffeb3b }
+.green { background: #9ccc65 }
+.orange { background: #ffc107 }
+.blue { background: #00bcd4 }
+.dark-orange { background: #ff5722 }
+.gray { background: #b0bec5 }
+.purple { background: #b39ddb }
+.light-purple { background: #f06292 }
+.brown { background: #8d6e63; }
+.water { background: #4db6ac }
+
+.duration-inp { width: 60%;  background: transparent;border: 1px dashed #121212;border-radius: 18px;font-size: 16px;padding-left: 18px;text-align: center;padding-top: 7px;padding-bottom: 7px;margin-left: 8px; transition: .3s;margin-top: 1px;}
+.duration-inp:hover { background: #121212; color: #ffeb3b;}
+.menu-btn { background: #ffeb3a; width: 220px;margin: auto;padding: 9px 22px;color: #121212;border-radius: 8px; font-family: 'Wire One', sans-serif;letter-spacing: 2px; font-weight: 600; text-transform: uppercase; transition: .3s; font-size: 24px;}
+.menu-btn:hover { background: #333; color: #ffeb3a; cursor: pointer;}
+.example-gif { width: 100%; border: 1px dashed #ffeb3b;border-radius: 12px;margin-top: 12px;}
+
+/* Overlay */
+.overlay { height: 0%; width: 100%; position: fixed; z-index: 1; top: 0;  left: 0; background-color: rgb(0,0,0); background-color: rgba(0,0,0, 0.95); overflow-y: hidden; transition: 0.5s; }
+.overlay-content { position: relative; top: 12%; width: 100%; text-align: center; margin-top: 30px; }
+.overlay a { padding: 2px; text-decoration: none; font-size: 28px; color: #ffeb3b; display: block; transition: 0.3s; font-family: 'Wire One';letter-spacing: 4px;font-weight: 800; text-transform: uppercase;}
+.overlay a:hover, .overlay a:focus { color: #f1f1f1; }
+.overlay .closebtn { position: absolute; top: 0px; right: 45px; font-size: 96px; color: #ffeb3b;}
+@media screen and (max-height: 450px) { 
+	.overlay {overflow-y: auto;} .overlay a {font-size: 20px} .overlay .closebtn { font-size: 40px; top: 15px; right: 35px; }
+}
+#cat-name { font-family: 'Wire One', sans-serif; font-size: 34px; color: #ffeb3b; letter-spacing: 2px;text-transform: uppercase;}
+#myNav .overlay-content a:hover {animation:focus-in-expand-fwd .4s; }
+@keyframes focus-in-expand-fwd{0%{letter-spacing:-.5em;transform:translateZ(-800px);filter:blur(12px);opacity:0}100%{transform:translateZ(0);filter:blur(0);opacity:1}}
+
+
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Tablet Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+	.animated-square { width: 152px; height: 152px; border-radius: 16px; }
+	.animated-square p { font-size: 15px;}
+	.duration-inp { padding-left: 5px; margin-top: -3px; }
+	.animated-square i { margin-top:10px; }
+}
+
+/* iPhone */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+	h1 {font-size: 48px;}
+	h4 { font-size: 19px; }
+}
+
+/* iPhone Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) { 
+
+}
+   </style>
+
+   <!-- Animations CSS -->
+   <style id='scale-up-center'>.scale-up-center{animation:scale-up-center .4s; } @keyframes scale-up-center{ 0%{transform:scale(.5)} 100%{transform:scale(1)} }</style>
+   <style id='scale-up-bottom-left'>.scale-up-bottom-left{animation:scale-up-bottom-left .4s; } @keyframes scale-up-bottom-left{0%{transform:scale(.5);transform-origin:left bottom}100%{transform:scale(1);transform-origin:left bottom}}</style>
+   <style id='scale-up-bottom-right'>.scale-up-bottom-right{animation:scale-up-bottom-right .4s; } @keyframes scale-up-bottom-right{0%{transform:scale(.5);transform-origin:right bottom}100%{transform:scale(1);transform-origin:right bottom}}</style>
+   <style id='scale-up-top-left'>.scale-up-top-left{animation:scale-up-top-left .4s; } @keyframes scale-up-top-left{0%{transform:scale(.5);transform-origin:top left}100%{transform:scale(1);transform-origin:top left}}</style>
+   <style id='scale-up-top-right'>.scale-up-top-right{animation:scale-up-top-right .4s; } @keyframes scale-up-top-right{0%{transform:scale(.5);transform-origin:top right}100%{transform:scale(1);transform-origin:top right}}</style>
+   <style id='scale-up-vertical-center'>.scale-up-vertical-center{animation:scale-up-vertical-center .4s} @keyframes scale-up-vertical-center{0%{transform:scaleY(.2)}100%{transform:scaleY(1)}}</style>
+   <style id='scale-up-horizontal-center'>.scale-up-horizontal-center{animation:scale-up-horizontal-center .4s} @keyframes scale-up-horizontal-center{0%{transform:scaleX(.2)}100%{transform:scaleX(1)}}</style>
+   <style id='scale-up-top'>.scale-up-top{animation:scale-up-top .4s; } @keyframes scale-up-top{0%{transform:scale(.5);transform-origin:center top}100%{transform:scale(1);transform-origin:center top}}</style>
+   <style id='scale-up-bottom'>.scale-up-bottom{animation:scale-up-bottom .4s; } @keyframes scale-up-bottom{0%{transform:scale(.5);transform-origin:center bottom}100%{transform:scale(1);transform-origin:center bottom}}</style>
+   <style id='scale-up-left'>.scale-up-left{animation:scale-up-left .4s; } @keyframes scale-up-left{0%{transform:scale(.5);transform-origin:left center}100%{transform:scale(1);transform-origin:left center}}</style>
+   <style id='scale-up-right'>.scale-up-right{animation:scale-up-right .4s; } @keyframes scale-up-right{0%{transform:scale(.5);transform-origin:right center}100%{transform:scale(1);transform-origin:right center}}</style>
+   <style id='scale-up-vertical-top'>.scale-up-vertical-top{animation:scale-up-vertical-top .4s linear} @keyframes scale-up-vertical-top{0%{transform:scaleY(.4);transform-origin:center top}100%{transform:scaleY(1);transform-origin:center top}}</style>
+   <style id='scale-up-vertical-bottom'>.scale-up-vertical-top{animation:scale-up-vertical-bottom .4s linear} @keyframes scale-up-vertical-bottom{0%{transform:scaleY(.4);transform-origin:center bottom}100%{transform:scaleY(1);transform-origin:center bottom}}</style>
+   <style id='scale-up-horizontal-left'>.scale-up-horizontal-left{animation:scale-up-horizontal-left .4s } @keyframes scale-up-horizontal-left{0%{transform:scaleX(.4);transform-origin:left center}100%{transform:scaleX(1);transform-origin:left center}}</style>
+   <style id='scale-up-horizontal-right'>.scale-up-horizontal-right{animation:scale-up-horizontal-right .4s } @keyframes scale-up-horizontal-right{0%{transform:scaleX(.4);transform-origin:right center}100%{transform:scaleX(1);transform-origin:right center}}</style>
+   <style id='scale-up-horizontal-right'>.scale-up-horizontal-right{animation:scale-up-horizontal-right .4s } @keyframes scale-up-horizontal-right{0%{transform:scaleX(.4);transform-origin:right center}100%{transform:scaleX(1);transform-origin:right center}}</style>
+
+   <style id='scale-down-center'>.scale-down-center{animation:scale-down-center .4s; } @keyframes scale-down-center{0%{transform:scale(1)}100%{transform:scale(.5)}}</style>
+   <style id='scale-down-top'>.scale-down-top{animation:scale-down-top .4s; } @keyframes scale-down-top{0%{transform:scale(1);transform-origin:center top}100%{transform:scale(.5);transform-origin:center top}}</style>
+   <style id='scale-down-bottom'>.scale-down-bottom{animation:scale-down-bottom .4s; } @keyframes scale-down-bottom{0%{transform:scale(1);transform-origin:center bottom}100%{transform:scale(.5);transform-origin:center bottom}}</style>
+   <style id='scale-down-left'>.scale-down-left{animation:scale-down-left .4s; } @keyframes scale-down-left{0%{transform:scale(1);transform-origin:left center;}100%{transform:scale(.5);transform-origin:left center}}</style>
+   <style id='scale-down-right'>.scale-down-right{animation:scale-down-right .4s; } @keyframes scale-down-right{0%{transform:scale(1);transform-origin:right center;}100%{transform:scale(.5);transform-origin:right center}}</style>
+   <style id='scale-down-bottom-left'>.scale-down-bottom-left{animation:scale-down-bottom-left .4s; } @keyframes scale-down-bottom-left{0%{transform:scale(1);transform-origin:left bottom;}100%{transform:scale(.5);transform-origin:left bottom;}}</style>
+   <style id='scale-down-bottom-right'>.scale-down-bottom-right{animation:scale-down-bottom-right .4s; } @keyframes scale-down-bottom-right{0%{transform:scale(1);transform-origin:right bottom;}100%{transform:scale(.5);transform-origin:right bottom;}}</style>
+   <style id='scale-down-top-left'>.scale-down-top-left{animation:scale-down-top-left .4s; } @keyframes scale-down-top-left{0%{transform:scale(1);transform-origin:left top;}100%{transform:scale(.5);transform-origin:left top;}}</style>
+   <style id='scale-down-top-right'>.scale-down-top-right{animation:scale-down-top-right .4s; } @keyframes scale-down-top-right{0%{transform:scale(1);transform-origin:right top;}100%{transform:scale(.5);transform-origin:right top;}}</style>
+   <style id='scale-down-horizontal-center'>.scale-down-horizontal-center{animation:scale-down-horizontal-center .4s} @keyframes scale-down-horizontal-center{0%{transform:scaleX(1)}100%{transform:scaleX(.3)}}</style>
+   <style id='scale-down-horizontal-left'>.scale-down-horizontal-left{animation:scale-down-horizontal-left .4s} @keyframes scale-down-horizontal-left{0%{transform:scaleX(1); transform-origin:0 0}100%{transform:scaleX(.3); transform-origin:0 0}}</style>
+   <style id='scale-down-horizontal-right'>.scale-down-horizontal-right{animation:scale-down-horizontal-right .4s} @keyframes scale-down-horizontal-right{0%{transform:scaleX(1); transform-origin:center right}100%{transform:scaleX(.3); transform-origin:center right}}</style>
+   <style id='scale-down-vertical-center'>.scale-down-vertical-center{animation:scale-down-vertical-center .4s} @keyframes scale-down-vertical-center{0%{transform:scaleY(1);}100%{transform:scaleY(.3);}}</style>
+   <style id='scale-down-vertical-top'>.scale-down-vertical-top{animation:scale-down-vertical-top .4s} @keyframes scale-down-vertical-top{0%{transform:scaleY(1);transform-origin:center top}100%{transform:scaleY(.3); transform-origin:center top}}</style>
+   <style id='scale-down-vertical-bottom'>.scale-down-vertical-bottom{animation:scale-down-vertical-bottom .4s} @keyframes scale-down-vertical-bottom{0%{transform:scaleY(1);transform-origin:center bottom}100%{transform:scaleY(.3); transform-origin:center bottom}}</style>
+   
+   <style id='rotate-center'>.rotate-center{animation:rotate-center .4s} @keyframes rotate-center{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style>
+   <style id='rotate-top'>.rotate-top{animation:rotate-top .4s linear} @keyframes rotate-top{0%{transform:rotate(0);transform-origin:top}100%{transform:rotate(360deg);transform-origin:top}}</style>
+   <style id='rotate-bottom'>.rotate-bottom{animation:rotate-bottom .4s linear} @keyframes rotate-bottom{0%{transform:rotate(0);transform-origin:bottom}100%{transform:rotate(360deg);transform-origin:bottom}}</style>
+   <style id='rotate-right'>.rotate-right{animation:rotate-right .4s } @keyframes rotate-right{0%{transform:rotate(0);transform-origin:right}100%{transform:rotate(360deg);transform-origin:right}}</style>
+   <style id='rotate-left'>.rotate-left{animation:rotate-right .4s} @keyframes rotate-left{0%{transform:rotate(0);transform-origin:left}100%{transform:rotate(360deg);transform-origin:left}}</style>
+   <style id='rotate-top-right'>.rotate-top-right{animation:rotate-top-right .4s} @keyframes rotate-top-right{0%{transform:rotate(0);transform-origin:top right}100%{transform:rotate(360deg);transform-origin:top right}}</style>
+   <style id='rotate-top-left'>.rotate-top-left{animation:rotate-top-left .4s} @keyframes rotate-top-left{0%{transform:rotate(0);transform-origin:top left}100%{transform:rotate(360deg);transform-origin:top left}}</style>
+   <style id='rotate-bottom-left'>.rotate-bottom-left{animation:rotate-bottom-left .4s} @keyframes rotate-bottom-left{0%{transform:rotate(0);transform-origin:left bottom}100%{transform:rotate(360deg);transform-origin:left bottom}}</style>
+   <style id='rotate-bottom-right'>.rotate-bottom-right{animation:rotate-bottom-right .4s} @keyframes rotate-bottom-right{0%{transform:rotate(0);transform-origin: right bottom}100%{transform:rotate(360deg);transform-origin:right bottom}}</style>
+   <style id='rotate-horizontal-center'>.rotate-horizontal-center{animation:rotate-horizontal-center .4s} @keyframes rotate-horizontal-center{0%{transform:rotateX(0)}100%{transform:rotateX(-360deg)}}</style>
+   <style id='rotate-horizontal-top'>.rotate-horizontal-top{animation:rotate-horizontal-top .4s} @keyframes rotate-horizontal-top{0%{transform:rotateX(0);transform-origin:top}100%{transform:rotateX(-360deg);transform-origin:top}}</style>
+   <style id='rotate-horizontal-bottom'>.rotate-horizontal-bottom{animation:rotate-horizontal-bottom .4s} @keyframes rotate-horizontal-bottom{0%{transform:rotateX(0);transform-origin:bottom}100%{transform:rotateX(360deg);transform-origin:bottom}}</style>
+   <style id='rotate-vertical-center'>.rotate-vertical-center{animation:rotate-vertical-center .4s} @keyframes rotate-vertical-center{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}</style>
+   <style id='rotate-vertical-left'>.rotate-vertical-left{animation:rotate-vertical-left .4s} @keyframes rotate-vertical-left{0%{transform:rotateY(0);transform-origin:left}100%{transform:rotateY(360deg);transform-origin:left}}</style>
+   <style id='rotate-vertical-right'>.rotate-vertical-right{animation:rotate-vertical-right .4s} @keyframes rotate-vertical-right{0%{transform:rotateY(0);transform-origin:right}100%{transform:rotateY(-360deg);transform-origin:right}}</style>
+   <style id='rotate-diagonal-right'>.rotate-diagonal-right{animation:rotate-diagonal-right .4s;} @keyframes rotate-diagonal-right{0%{transform:rotate3d(1,1,0,0deg)}50%{transform:rotate3d(1,1,0,-180deg)}100%{transform:rotate3d(1,1,0,-360deg)}}</style>
+   <style id='rotate-diagonal-left'>.rotate-diagonal-left{animation:rotate-diagonal-left .4s;} @keyframes rotate-diagonal-left{0%{transform:rotate3d(-1,1,0,0deg)}50%{transform:rotate3d(-1,1,0,180deg)}100%{transform:rotate3d(-1,1,0,360deg)}}</style>
+   <style id='rotate-diagonal-top-right'>.rotate-diagonal-top-right{animation:rotate-diagonal-top-right .4s linear both;} @keyframes rotate-diagonal-top-right{0%{transform:rotate3d(1,1,0,0deg);transform-origin:100% 0}50%{transform:rotate3d(1,1,0,-180deg);transform-origin:100% 0}100%{transform:rotate3d(1,1,0,-360deg);transform-origin:100% 0}}</style>
+   <style id='rotate-diagonal-top-left'>.rotate-diagonal-top-left{animation:rotate-diagonal-top-left .4s linear both;} @keyframes rotate-diagonal-top-left{0%{transform:rotate3d(-1,1,0,0deg);transform-origin:0 0}50%{transform:rotate3d(-1,1,0,180deg);transform-origin:0 0}100%{transform:rotate3d(-1,1,0,360deg);transform-origin:0 0}}</style>
+   <style id='rotate-diagonal-bottom-left'>.rotate-diagonal-bottom-left{animation:rotate-diagonal-bottom-left .4s linear both;} @keyframes rotate-diagonal-bottom-left{0%{transform:rotate3d(1,1,0,0deg);transform-origin:0 100%}50%{transform:rotate3d(1,1,0,180deg);transform-origin:0 100%}100%{transform:rotate3d(1,1,0,360deg);transform-origin:0 100%}}</style>
+   <style id='rotate-diagonal-bottom-right'>.rotate-diagonal-bottom-right{animation:rotate-diagonal-bottom-right .4s linear both;} @keyframes rotate-diagonal-bottom-right{0%{transform:rotate3d(-1,1,0,0deg);transform-origin:100% 100%}50%{transform:rotate3d(-1,1,0,-180deg);transform-origin:100% 100%}100%{transform:rotate3d(-1,1,0,-360deg);transform-origin:100% 100%}}</style>
+   <style id='rotate-scale-up'>.rotate-scale-up{animation:rotate-scale-up .4s linear both} @keyframes rotate-scale-up{0%{transform:scale(1) rotateZ(0)}50%{transform:scale(2) rotateZ(180deg)}100%{transform:scale(1) rotateZ(360deg)}}</style>
+   <style id='rotate-scale-down'>.rotate-scale-down{animation:rotate-scale-down .4s linear both} @keyframes rotate-scale-down{0%{transform:scale(1) rotateZ(0)}50%{transform:scale(.5) rotateZ(180deg)}100%{transform:scale(1) rotateZ(360deg)}}</style>
+   <style id='rotate-scale-up-horizontal'>.rotate-scale-up-horizontal{animation:rotate-scale-up-horizontal .4s linear both} @keyframes rotate-scale-up-horizontal{0%{transform:scale(1) rotateX(0)}50%{transform:scale(2) rotateX(-180deg)}100%{transform:scale(1) rotateX(-360deg)}}</style>
+   <style id='rotate-scale-down-horizontal'>.rotate-scale-down-horizontal{animation:rotate-scale-down-horizontal .4s linear both} @keyframes rotate-scale-down-horizontal{0%{transform:scale(1) rotateX(0)}50%{transform:scale(.5) rotateX(-180deg)}100%{transform:scale(1) rotateX(-360deg)}}</style>
+   <style id='rotate-scale-up-vertical'>.rotate-scale-up-vertical{animation:rotate-scale-up-vertical .4s linear both} @keyframes rotate-scale-up-vertical{0%{transform:scale(1) rotateY(0)}50%{transform:scale(2) rotateY(180deg)}100%{transform:scale(1) rotateY(360deg)}}</style>
+   <style id='rotate-scale-down-vertical'>.rotate-scale-down-vertical{animation:rotate-scale-down-vertical .4s linear both} @keyframes rotate-scale-down-vertical{0%{transform:scale(1) rotateY(0)}50%{transform:scale(.5) rotateY(180deg)}100%{transform:scale(1) rotateY(360deg)}}</style>
+   <style id='rotate-scale-up-diagonal-left'>.rotate-scale-up-diagonal-left{animation:rotate-scale-up-diagonal-left .4s linear both} @keyframes rotate-scale-up-diagonal-left{0%{transform:scale(1) rotate3d(1,1,0,0deg)}50%{transform:scale(2) rotate3d(1,1,0,-180deg)}100%{transform:scale(1) rotate3d(1,1,0,-360deg)}}</style>
+   <style id='rotate-scale-down-diagonal-right'>.rotate-scale-down-diagonal-right{animation:rotate-scale-up-diagonal-right .4s linear both} @keyframes rotate-scale-up-diagonal-right{0%{transform:scale(1) rotate3d(-1,1,0,0deg)}50%{transform:scale(2) rotate3d(-1,1,0,180deg)}100%{transform:scale(1) rotate3d(-1,1,0,360deg)}}</style>
+   <style id='rotate-scale-down-diagonal-left'>.rotate-scale-down-diagonal-left{animation:rotate-scale-down-diagonal-left .4s linear both} @keyframes rotate-scale-down-diagonal-left{0%{transform:scale(1) rotate3d(1,1,0,0deg)}50%{transform:scale(.5) rotate3d(1,1,0,-180deg)}100%{transform:scale(1) rotate3d(1,1,0,-360deg)}}</style>
+   <style id='rotate-scale-down-diagonal-right'>.rotate-scale-down-diagonal-right{animation:rotate-scale-down-diagonal-right .4s linear both} @keyframes rotate-scale-down-diagonal-right{0%{transform:scale(1) rotate3d(-1,1,0,0deg)}50%{transform:scale(.5) rotate3d(-1,1,0,180deg)}100%{transform:scale(1) rotate3d(-1,1,0,360deg)}}</style>
+
+   <style id='swing-top'>.swing-top{animation:swing-top .4s linear both} @keyframes swing-top{0%{transform:rotateX(0);transform-origin:top}100%{transform:rotateX(180deg);transform-origin:top}}</style>
+   <style id='swing-bottom'>.swing-bottom{animation:swing-bottom .4s linear both} @keyframes swing-bottom{0%{transform:rotateX(0);transform-origin:bottom}100%{transform:rotateX(-180deg);transform-origin:bottom}}</style>
+   <style id='swing-left'>.swing-left{animation:swing-left .4s linear both} @keyframes swing-left{0%{transform:rotateY(0);transform-origin:left bottom}100%{transform:rotateY(-180deg);transform-origin:left bottom}}</style>
+   <style id='swing-right'>.swing-right{animation:swing-right .4s linear both} @keyframes swing-right{0%{transform:rotateY(0);transform-origin:right bottom}100%{transform:rotateY(-180deg);transform-origin:right bottom}}</style>
+   <style id='swing-top-right'>.swing-top-right{animation:swing-top-right .4s linear both} @keyframes swing-top-right{0%{transform:rotate3d(1,1,0,0deg);transform-origin:right top}100%{transform:rotate3d(1,1,0,180deg);transform-origin:right top}}</style>
+   <style id='swing-top-left'>.swing-top-left{animation:swing-top-left .4s linear both} @keyframes swing-top-left{0%{transform:rotate3d(-1,1,0,0deg);transform-origin:0 0}100%{transform:rotate3d(-1,1,0,-180deg);transform-origin:0 0}}</style>
+   <style id='swing-bottom-right'>.swing-bottom-right{animation:swing-bottom-right .4s linear both} @keyframes swing-bottom-right{0%{transform:rotate3d(-1,1,0,0deg);transform-origin:100% 100%}100%{transform:rotate3d(-1,1,0,180deg);transform-origin:100% 100%}}</style>
+   <style id='swing-bottom-left'>.swing-bottom-left{animation:swing-bottom-left .4s linear both} @keyframes swing-bottom-left{0%{transform:rotate3d(1,1,0,0deg);transform-origin:0 100%}100%{transform:rotate3d(1,1,0,-180deg);transform-origin:0 100%}}</style>
+
+   <style id='slide-top'>.slide-top{animation:slide-top .4s linear both}@keyframes slide-top{0%{transform:translateY(0)}100%{transform:translateY(-100px)}}</style>
+   <style id='slide-bottom'>.slide-bottom{animation:slide-bottom .4s linear both}@keyframes slide-bottom{0%{transform:translateY(0)}100%{transform:translateY(100px)}}</style>
+   <style id='slide-right'>.slide-right{animation:slide-right .4s linear both}@keyframes slide-right{0%{transform:translateX(0)}100%{transform:translateX(100px)}}</style>
+   <style id='slide-left'>.slide-left{animation:slide-left .4s linear both}@keyframes slide-left{0%{transform:translateX(0)}100%{transform:translateX(-100px)}}</style>
+   <style id='slide-top-right'>.slide-top-right{animation:slide-top-right .4s linear both} @keyframes slide-top-right{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(-100px) translateX(100px)}}</style>
+   <style id='slide-top-left'>.slide-top-left{animation:slide-top-left .4s linear both} @keyframes slide-top-left{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(-100px) translateX(-100px)}}</style>
+   <style id='slide-bottom-right'>.slide-bottom-right{animation:slide-bottom-right .4s linear both} @keyframes slide-bottom-right{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(100px) translateX(100px)}}</style>
+   <style id='slide-bottom-left'>.slide-bottom-left{animation:slide-bottom-left .4s linear both} @keyframes slide-bottom-left{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(100px) translateX(-100px)}}</style>
+   <style id='slide-rotate-horizontal-top'>..slide-rotate-horizontal-top{animation:slide-rotate-horizontal-top .4s linear both} @keyframes slide-rotate-horizontal-top{0%{transform:translateY(0) rotateX(0deg)}100%{transform:translateY(-150px) rotateX(-90deg)}}</style>
+   <style id='slide-rotate-horizontal-bottom'>..slide-rotate-horizontal-bottom{animation:slide-rotate-horizontal-bottom .4s linear both} @keyframes slide-rotate-horizontal-bottom{0%{transform:translateY(0) rotateX(0deg)}100%{transform:translateY(150px) rotateX(90deg)}}</style>
+   <style id='slide-rotate-vertical-left'>.slide-rotate-vertical-left{animation:slide-rotate-vertical-left .4s linear both} @keyframes slide-rotate-vertical-left{0%{transform:translateX(0) rotateY(0)}100%{transform:translateX(-150px) rotateY(90deg)}}</style>
+   <style id='slide-rotate-vertical-right'>.slide-rotate-vertical-right{animation:slide-rotate-vertical-right .4s linear both} @keyframes slide-rotate-vertical-right{0%{transform:translateX(0) rotateY(0)}100%{transform:translateX(150px) rotateY(-90deg)}}</style>
+
+   <style id='shadow-drop-center'>.shadow-drop-center{animation:shadow-drop-center .4s linear both} @keyframes shadow-drop-center{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:0 0 20px 0 rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-top'>.shadow-drop-top{animation:shadow-drop-top .4s linear both} @keyframes shadow-drop-top{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:0 -12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-right'>.shadow-drop-right{animation:shadow-drop-right .4s linear both} @keyframes shadow-drop-right{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:12px 0 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-bottom'>.shadow-drop-bottom{animation:shadow-drop-bottom .4s linear both} @keyframes shadow-drop-bottom{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:0 12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-left'>.shadow-drop-left{animation:shadow-drop-left .4s linear both} @keyframes shadow-drop-left{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:-12px 0 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-left-right'>.shadow-drop-left-right{animation:shadow-drop-left-right .4s linear both} @keyframes shadow-drop-left-right{0%{box-shadow:0 0 0 0 transparent,0 0 0 0 transparent}100%{box-shadow:-12px 0 20px -12px rgba(255,255,255,.55),12px 0 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-top-bottom'>.shadow-drop-top-bottom{animation:shadow-drop-top-bottom .4s linear both} @keyframes shadow-drop-top-bottom{0%{box-shadow:0 0 0 0 transparent,0 0 0 0 transparent}100%{box-shadow:0 -12px 20px -12px rgba(255,255,255,.55),0 12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-top-right'>.shadow-drop-top-right{animation:shadow-drop-top-right .4s linear both} @keyframes shadow-drop-top-right{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:12px -12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-bottom-right'>.shadow-drop-bottom-right{animation:shadow-drop-bottom-right .4s linear both} @keyframes shadow-drop-bottom-right{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:12px 12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-bottom-left'>.shadow-drop-bottom-left{animation:shadow-drop-bottom-left .4s linear both} @keyframes shadow-drop-bottom-left{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:-12px 12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-drop-top-left'>.shadow-drop-top-left{animation:shadow-drop-top-left .4s linear both} @keyframes shadow-drop-top-left{0%{box-shadow:0 0 0 0 transparent}100%{box-shadow:-12px -12px 20px -12px rgba(255,255,255,.55)}}</style>
+   <style id='shadow-pop-top-right'>.shadow-pop-top-right{animation:shadow-pop-top-right .4s linear both} @keyframes shadow-pop-top-right{0%{box-shadow:0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e;transform:translateX(0) translateY(0)}100%{box-shadow:1px -1px #3e3e3e,2px -2px #3e3e3e,3px -3px #3e3e3e,4px -4px #3e3e3e,5px -5px #3e3e3e,6px -6px #3e3e3e,7px -7px #3e3e3e,8px -8px #3e3e3e;transform:translateX(-8px) translateY(8px)}}</style>
+   <style id='shadow-pop-bottom-right'>.shadow-pop-bottom-right{animation:shadow-pop-bottom-right .4s linear both} @keyframes shadow-pop-bottom-right{0%{box-shadow:0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e;transform:translateX(0) translateY(0)}100%{box-shadow:1px 1px #3e3e3e,2px 2px #3e3e3e,3px 3px #3e3e3e,4px 4px #3e3e3e,5px 5px #3e3e3e,6px 6px #3e3e3e,7px 7px #3e3e3e,8px 8px #3e3e3e;transform:translateX(-8px) translateY(-8px)}}</style>
+   <style id='shadow-pop-bottom-left'>.shadow-pop-bottom-left{animation:shadow-pop-bottom-left .4s linear both} @keyframes shadow-pop-bottom-left{0%{box-shadow:0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e;transform:translateX(0) translateY(0)}100%{box-shadow:-1px 1px #3e3e3e,-2px 2px #3e3e3e,-3px 3px #3e3e3e,-4px 4px #3e3e3e,-5px 5px #3e3e3e,-6px 6px #3e3e3e,-7px 7px #3e3e3e,-8px 8px #3e3e3e;transform:translateX(8px) translateY(-8px)}}</style>
+   <style id='shadow-pop-top-left'>.shadow-pop-top-left{animation:shadow-pop-top-left .4s linear both} @keyframes shadow-pop-top-left{0%{box-shadow:0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e,0 0 #3e3e3e;transform:translateX(0) translateY(0)}100%{box-shadow:-1px -1px #3e3e3e,-2px -2px #3e3e3e,-3px -3px #3e3e3e,-4px -4px #3e3e3e,-5px -5px #3e3e3e,-6px -6px #3e3e3e,-7px -7px #3e3e3e,-8px -8px #3e3e3e;transform:translateX(8px) translateY(8px)}}</style>
+   <style id='shadow-inset-center'>.shadow-inset-center{animation:shadow-inset-center .4s linear both} @keyframes shadow-inset-center{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset 0 0 14px 2px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-top'>.shadow-inset-top{animation:shadow-inset-top .4s linear both} @keyframes shadow-inset-top{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset 0 6px 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-right'>.shadow-inset-right{animation:shadow-inset-right .4s linear both} @keyframes shadow-inset-right{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset -6px 0 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-bottom'>.shadow-inset-bottom{animation:shadow-inset-bottom .4s linear both} @keyframes shadow-inset-bottom{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset 0 -6px 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-left'>.shadow-inset-left{animation:shadow-inset-left .4s linear both} @keyframes shadow-inset-left{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset 6px 0 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-top-right'>.shadow-inset-top-right{animation:shadow-inset-top-right .4s linear both} @keyframes shadow-inset-top-right{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset -6px 6px 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-bottom-right'>.shadow-inset-bottom-right{animation:shadow-inset-bottom-right .4s linear both} @keyframes shadow-inset-bottom-right{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset -6px -6px 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-bottom-left'>.shadow-inset-bottom-left{animation:shadow-inset-bottom-left .4s linear both} @keyframes shadow-inset-bottom-left{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset 6px -6px 14px -6px rgba(0,0,0,1)}}</style>
+   <style id='shadow-inset-top-left'>.shadow-inset-top-left{animation:shadow-inset-top-left .4s linear both} @keyframes shadow-inset-top-left{0%{box-shadow:inset 0 0 0 0 transparent}100%{box-shadow:inset 6px 6px 14px -6px rgba(0,0,0,1)}}</style>
+
+   <style id='tracking-in-expand'>.tracking-in-expand{animation:tracking-in-expand .4s linear both} @keyframes tracking-in-expand{0%{letter-spacing:-.2em;opacity:0}40%{opacity:.6}100%{opacity:1}}</style>
+   <style id='tracking-in-expand-forward-top'>.tracking-in-expand-forward-top{animation:tracking-in-expand-forward-top .4s linear both} @keyframes tracking-in-expand-forward-top{0%{letter-spacing:-.2em;transform:translateZ(-700px) translateY(-100px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0) translateY(0);opacity:1}}</style>
+   <style id='tracking-in-expand-forward-bottom'>.tracking-in-expand-forward-bottom{animation:tracking-in-expand-forward-bottom .4s linear both} @keyframes tracking-in-expand-forward-bottom{0%{letter-spacing:-.2em;transform:translateZ(-700px) translateY(100px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0) translateY(0);opacity:1}}</style>
+   <style id="tracking-in-contract">.tracking-in-contract{animation:tracking-in-contract .4s linear both} @keyframes tracking-in-contract{0%{letter-spacing:.6em;opacity:0}40%{opacity:.6}100%{letter-spacing:normal;opacity:1}}</style>
+   <style id="tracking-out-contract">.tracking-out-contract{animation:tracking-out-contract .4s linear both} @keyframes tracking-out-contract{0%{opacity:1}50%{opacity:1}100%{letter-spacing:-.2em;opacity:0}}</style>
+   <style id="tracking-out-expand-forward-top">.tracking-out-expand-forward-top{animation:tracking-out-expand-forward-top .4s linear both} @keyframes tracking-out-expand-forward-top{0%{transform:translateZ(0) translateY(0);opacity:1}60%{opacity:.8}100%{letter-spacing:1em;transform:translateZ(300px) translateY(-200px);opacity:0}}</style>
+   <style id="tracking-out-expand-forward-bottom">.tracking-out-expand-forward-bottom{animation:tracking-out-expand-forward-bottom .4s linear both} @keyframes tracking-out-expand-forward-bottom{0%{transform:translateZ(0) translateY(0);opacity:1}60%{opacity:.8}100%{letter-spacing:1em;transform:translateZ(300px) translateY(200px);opacity:0}}</style>
+   
+   <style id="blur-in">.blur-in{animation:blur-in .4s linear both} @keyframes blur-in{0%{filter:blur(12px);opacity:0}100%{filter:blur(0);opacity:1}}</style>
+   <style id="blur-in-expand">.blur-in-expand{animation:blur-in-expand .4s linear both} @keyframes blur-in-expand{0%{transform:scale(0);filter:blur(12px);opacity:0}100%{transform:scale(1);filter:blur(0);opacity:1}}</style>
+   <style id="blur-out">.blur-out{animation:blur-out .4s linear both} @keyframes blur-out{0%{filter:blur(.01px);}100%{filter:blur(12px);opacity:0}}</style>
+   <style id="blur-out-expand">.blur-out-expand{animation:blur-out-expand .4s linear both} @keyframes blur-out-expand{0%{transform:scale(1);filter:blur(.01px);} 100%{transform:scale(2);filter:blur(12px);opacity:0}}</style>
+   <style id="blur-out-contract">.blur-out-contract{animation:blur-out-contract .4s linear both} @keyframes blur-out-contract{0%{transform:scale(1);filter:blur(.01px);} 100%{transform:scale(0);filter:blur(12px);opacity:0}}</style>
+
+   <style id="vibrate">.vibrate{animation:vibrate 1.5s linear both} @keyframes vibrate{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(-2px,-2px)}60%{transform:translate(2px,2px)}80%{transform:translate(2px,-2px)}100%{transform:translate(0)}}</style>
+   <style id="flicker">.flicker{animation:flicker .4s linear infinite both} @keyframes flicker{0%,100%{opacity:1}41.99%{opacity:1}42%{opacity:0}43%{opacity:0}43.01%{opacity:1}47.99%{opacity:1}48%{opacity:0}49%{opacity:0}49.01%{opacity:1}}</style>
+   <style id="shake-horizontal">.shake-horizontal{animation:shake-horizontal .4s linear both} @keyframes shake-horizontal{0%,100%{transform:translateX(0)}10%,30%,50%,70%{transform:translateX(-10px)}20%,40%,60%{transform:translateX(10px)}80%{transform:translateX(8px)}90%{transform:translateX(-8px)}}</style>
+   <style id="shake-vertical">.shake-vertical{animation:shake-vertical .4s linear both} @keyframes shake-vertical{0%,100%{transform:translateY(0)}10%,30%,50%,70%{transform:translateY(-8px)}20%,40%,60%{transform:translateY(8px)}80%{transform:translateY(6.4px)}90%{transform:translateY(-6.4px)}}</style>
+   <style id="shake-left-right">.shake-left-right{animation:shake-left-right .4s linear both} @keyframes shake-left-right{0%,100%{transform:rotate(0deg);transform-origin:50% 50%}10%{transform:rotate(8deg)}20%,40%,60%{transform:rotate(-10deg)}30%,50%,70%{transform:rotate(10deg)}80%{transform:rotate(-8deg)}90%{transform:rotate(8deg)}}</style>
+   <style id="shake-right">.shake-right{animation:shake-right .4s linear both} @keyframes shake-right{0%,100%{transform:rotate(0deg);transform-origin:100% 50%}10%{transform:rotate(2deg)}20%,40%,60%{transform:rotate(-4deg)}30%,50%,70%{transform:rotate(4deg)}80%{transform:rotate(-2deg)}90%{transform:rotate(2deg)}}</style>
+   <style id="shake-left">.shake-left{animation:shake-left .4s linear both} @keyframes shake-left{0%,100%{transform:rotate(0deg);transform-origin:0 50%}10%{transform:rotate(2deg)}20%,40%,60%{transform:rotate(-4deg)}30%,50%,70%{transform:rotate(4deg)}80%{transform:rotate(-2deg)}90%{transform:rotate(2deg)}}</style>
+   <style id="jello-horizontal">.jello-horizontal{animation:jello-horizontal .9s linear both} @keyframes jello-horizontal{0%{transform:scale3d(1,1,1)}30%{transform:scale3d(1.25,.75,1)}40%{transform:scale3d(.75,1.25,1)}50%{transform:scale3d(1.15,.85,1)}65%{transform:scale3d(.95,1.05,1)}75%{transform:scale3d(1.05,.95,1)}100%{transform:scale3d(1,1,1)}}</style>
+   <style id="jello-vertical">.jello-vertical{animation:jello-vertical .9s linear both} @keyframes jello-vertical{0%{transform:scale3d(1,1,1)}30%{transform:scale3d(.75,1.25,1)}40%{transform:scale3d(1.25,.75,1)}50%{transform:scale3d(.85,1.15,1)}65%{transform:scale3d(1.05,.95,1)}75%{transform:scale3d(.95,1.05,1)}100%{transform:scale3d(1,1,1)}}</style>
+   <style id="jello-diagonal">.jello-diagonal{animation:jello-diagonal .9s linear both} @keyframes jello-diagonal{0%{transform:skew(0deg 0deg)}30%{transform:skew(25deg 25deg)}40%{transform:skew(-15deg,-15deg)}50%{transform:skew(15deg,15deg)}65%{transform:skew(-5deg,-5deg)}75%{transform:skew(5deg,5deg)}100%{transform:skew(0deg 0deg)}}</style>
+   <style id="wobble-horizontal-bottom">.wobble-horizontal-bottom{animation:wobble-horizontal-bottom .8s linear both} @keyframes wobble-horizontal-bottom{0%,100%{transform:translateX(0);transform-origin:50% 50%}15%{transform:translateX(-30px) rotate(-6deg)}30%{transform:translateX(15px) rotate(6deg)}45%{transform:translateX(-15px) rotate(-3.6deg)}60%{transform:translateX(9px) rotate(2.4deg)}75%{transform:translateX(-6px) rotate(-1.2deg)}}</style>
+   <style id="wobble-horizontal-top">.wobble-horizontal-top{animation:wobble-horizontal-top .8s linear both} @keyframes wobble-horizontal-top{0%,100%{transform:translateX(0);transform-origin:50% 50%}15%{transform:translateX(-30px) rotate(6deg)}30%{transform:translateX(15px) rotate(-6deg)}45%{transform:translateX(-15px) rotate(3.6deg)}60%{transform:translateX(9px) rotate(-2.4deg)}75%{transform:translateX(-6px) rotate(1.2deg)}}</style>
+   <style id="wobble-vertical-left">.wobble-vertical-left{animation:wobble-vertical-left .8s linear both} @keyframes wobble-vertical-left{0%,100%{transform:translateY(0) rotate(0);transform-origin:50% 50%}15%{transform:translateY(-30px) rotate(-6deg)}30%{transform:translateY(15px) rotate(6deg)}45%{transform:translateY(-15px) rotate(-3.6deg)}60%{transform:translateY(9px) rotate(2.4deg)}75%{transform:translateY(-6px) rotate(-1.2deg)}}</style>
+   <style id="wobble-vertical-right">.wobble-vertical-right{animation:wobble-vertical-right .8s linear both} @keyframes wobble-vertical-right{0%,100%{transform:translateY(0) rotate(0);transform-origin:50% 50%}15%{transform:translateY(-30px) rotate(6deg)}30%{transform:translateY(15px) rotate(-6deg)}45%{transform:translateY(-15px) rotate(3.6deg)}60%{transform:translateY(9px) rotate(-2.4deg)}75%{transform:translateY(-6px) rotate(1.2deg)}}</style>
+   <style id="bounce-top">.bounce-top{animation:bounce-top .9s linear both} @keyframes bounce-top{0%{transform:translateY(-45px);animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{transform:translateY(-24px);animation-timing-function:ease-in}65%{transform:translateY(-12px);animation-timing-function:ease-in}82%{transform:translateY(-6px);animation-timing-function:ease-in}93%{transform:translateY(-4px);animation-timing-function:ease-in}25%,55%,75%,87%{transform:translateY(0);animation-timing-function:ease-out}100%{transform:translateY(0);animation-timing-function:ease-out;opacity:1}}</style>
+   <style id="bounce-bottom">.bounce-bottom{animation:bounce-bottom .9s linear both} @keyframes bounce-bottom{0%{transform:translateY(45px);animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{transform:translateY(24px);animation-timing-function:ease-in}65%{transform:translateY(12px);animation-timing-function:ease-in}82%{transform:translateY(6px);animation-timing-function:ease-in}93%{transform:translateY(4px);animation-timing-function:ease-in}25%,55%,75%,87%{transform:translateY(0);animation-timing-function:ease-out}100%{transform:translateY(0);animation-timing-function:ease-out;opacity:1}}</style>
+   <style id="bounce-left">.bounce-left{animation:bounce-left .9s linear both} @keyframes bounce-left{0%{transform:translateX(-48px);animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{transform:translateX(-26px);animation-timing-function:ease-in}65%{transform:translateX(-13px);animation-timing-function:ease-in}82%{transform:translateX(-6.5px);animation-timing-function:ease-in}93%{transform:translateX(-4px);animation-timing-function:ease-in}25%,55%,75%,87%,98%{transform:translateX(0);animation-timing-function:ease-out}100%{transform:translateX(0);animation-timing-function:ease-out;opacity:1}}</style>
+   <style id="bounce-right">.bounce-right{animation:bounce-right .9s linear both} @keyframes bounce-right{0%{transform:translateX(48px);animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{transform:translateX(26px);animation-timing-function:ease-in}65%{transform:translateX(13px);animation-timing-function:ease-in}82%{transform:translateX(6.5px);animation-timing-function:ease-in}93%{transform:translateX(4px);animation-timing-function:ease-in}25%,55%,75%,87%,98%{transform:translateX(0);animation-timing-function:ease-out}100%{transform:translateX(0);animation-timing-function:ease-out;opacity:1}}</style>
+
+
+   <!-- Force HTTPS -->
+   <script>if (document.URL.substring(0,5) == "http:") window.location.replace('https:' + document.URL.substring(5));</script>   
+   </head>
+   <body>
+   <div class="container">
+      <a class="htu-btn" href="javascript:void(0)" onclick="showHTUAlert()">&nbsp;<i class="fas fa-question-circle"></i>&nbsp; </a>
+
+      <div class="header text-center">
+         <img class="header-img jello-vertical" src="https://xsgames.co/animatiss/assets/favicon.png"><br>
+         <h1>AnimatiSS</h1>
+         <h4>Nice collection of CSS animations for your awesome web projects</h4>
+         <br>
+         
+         <!-- Overlay navigation -->
+         <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+               <a href="javascript:void(0)" onclick="setCategory('scale up')">scale up</a>
+               <a href="javascript:void(0)" style="color: #9ccc65" onclick="setCategory('scale down')">scale down</a>
+               <a href="javascript:void(0)" style="color: #ffc107" onclick="setCategory('rotate')">rotate</a>
+               <a href="javascript:void(0)" style="color: #00bcd4" onclick="setCategory('rotate and scale')">rotate and scale</a>
+               <a href="javascript:void(0)" style="color: #ff5722" onclick="setCategory('swing')">swing</a>
+               <a href="javascript:void(0)" style="color: #b0bec5" onclick="setCategory('slide')">slide</a>
+               <a href="javascript:void(0)" style="color: #b39ddb" onclick="setCategory('shadow')">shadow</a>
+               <a href="javascript:void(0)" style="color: #f06292" onclick="setCategory('tracking in/out')">tracking in/out</a>
+               <a href="javascript:void(0)" style="color: #8d6e63" onclick="setCategory('blur')">blur</a>
+               <a href="javascript:void(0)" style="color: #4db6ac" onclick="setCategory('special')">special</a>
+            </div>
+         </div><!-- Overlay navigation  -->
+
+         <!-- menu button -->
+         <div class="menu-btn" onclick="openNav()"><i class="fas fa-caret-down"></i> Styles <i class="fas fa-caret-down"></i></div>
+         <hr>
+
+
+         <!-------- SCALE UP -------->
+         <div class="row" id="scaleup-row">
+            <p id="cat-name">scale up</p>
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-center-div" class="animated-square original">
+                  <p>scale-up-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-top-div" class="animated-square original">
+                  <p>scale-up-top</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-top-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-top')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-top-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-bottom-div" class="animated-square original">
+                  <p>scale-up-bottom</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-bottom-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-bottom')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-bottom-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-left-div" class="animated-square original">
+                  <p>scale-up-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-right-div" class="animated-square original">
+                  <p>scale-up-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-bottom-left-div" class="animated-square original">
+                  <p>scale-up-bottom-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-bottom-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-bottom-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-bottom-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-bottom-right-div" class="animated-square original">
+                  <p>scale-up-bottom-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-bottom-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-bottom-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-bottom-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-top-left-div" class="animated-square original">
+                  <p>scale-up-top-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-top-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-top-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-top-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-top-right-div" class="animated-square original">
+                  <p>scale-up-top-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-top-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-top-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-top-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-vertical-center-div" class="animated-square original">
+                  <p>scale-up-vertical-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-vertical-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-vertical-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-vertical-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-horizontal-center-div" class="animated-square original">
+                  <p>scale-up-horizontal-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-horizontal-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-horizontal-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-horizontal-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-vertical-top-div" class="animated-square original">
+                  <p>scale-up-vertical-top</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-vertical-top-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-vertical-top')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-vertical-top-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-vertical-bottom-div" class="animated-square original">
+                  <p>scale-up-vertical-bottom</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-vertical-bottom-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-vertical-bottom')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-vertical-bottom-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-horizontal-left-div" class="animated-square original">
+                  <p>scale-up-horizontal-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-horizontal-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-horizontal-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-horizontal-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-up-horizontal-right-div" class="animated-square original">
+                  <p>scale-up-horizontal-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-up-horizontal-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-up-horizontal-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-up-horizontal-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+         </div><!-- ./ row -->
+
+
+         <!-------- SCALE DOWN --------->
+         <div class="row" id="scaledown-row">
+            <p id="cat-name" style="color: #9ccc65;">scale down</p>
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-center-div" class="animated-square green">
+                  <p>scale-down-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-top-div" class="animated-square green">
+                  <p>scale-down-top</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-top-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-top')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-top-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-bottom-div" class="animated-square green">
+                  <p>scale-down-bottom</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-bottom-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-bottom')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-bottom-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-left-div" class="animated-square green">
+                  <p>scale-down-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-right-div" class="animated-square green">
+                  <p>scale-down-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-bottom-left-div" class="animated-square green">
+                  <p>scale-down-bottom-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-bottom-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-bottom-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-bottom-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-bottom-right-div" class="animated-square green">
+                  <p>scale-down-bottom-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-bottom-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-bottom-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-bottom-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-top-left-div" class="animated-square green">
+                  <p>scale-down-top-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-top-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-top-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-top-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-top-right-div" class="animated-square green">
+                  <p>scale-down-top-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-top-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-top-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-top-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-horizontal-center-div" class="animated-square green">
+                  <p>scale-down-horizontal-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-horizontal-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-horizontal-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-horizontal-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-horizontal-left-div" class="animated-square green">
+                  <p>scale-down-horizontal-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-horizontal-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-horizontal-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-horizontal-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-horizontal-right-div" class="animated-square green">
+                  <p>scale-down-horizontal-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-horizontal-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-horizontal-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-horizontal-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-vertical-center-div" class="animated-square green">
+                  <p>scale-down-vertical-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-vertical-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-vertical-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-vertical-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-vertical-top-div" class="animated-square green">
+                  <p>scale-down-vertical-top</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-vertical-top-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-vertical-top')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-vertical-top-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="scale-down-vertical-bottom-div" class="animated-square green">
+                  <p>scale-down-vertical-bottom</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="scale-down-vertical-bottom-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('scale-down-vertical-bottom')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('scale-down-vertical-bottom-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+         </div><!-- ./ row -->
+
+
+         <!------- ROTATE -------->
+         <div class="row" id="rotate-row">
+            <p id="cat-name" style="color: #ffc107">rotate</p>
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-center-div" class="animated-square orange">
+                  <p>rotate-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-top-div" class="animated-square orange">
+                  <p>rotate-top</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-top-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-top')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-top-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-bottom-div" class="animated-square orange">
+                  <p>rotate-bottom</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-bottom-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-bottom')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-bottom-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-right-div" class="animated-square orange">
+                  <p>rotate-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-left-div" class="animated-square orange">
+                  <p>rotate-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-top-right-div" class="animated-square orange">
+                  <p>rotate-top-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-top-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-top-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-top-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-top-left-div" class="animated-square orange">
+                  <p>rotate-top-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-top-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-top-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-top-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-bottom-left-div" class="animated-square orange">
+                  <p>rotate-bottom-left</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-bottom-left-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-bottom-left')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-bottom-left-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-bottom-right-div" class="animated-square orange">
+                  <p>rotate-bottom-right</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-bottom-right-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-bottom-right')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-bottom-right-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4">
+               <div id="rotate-horizontal-center-div" class="animated-square orange">
+                  <p>rotate-horizontal-center</p>
+                  <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-horizontal-center-div-duration" value="0.4"> s
+                  <i class="fas fa-clone" onclick="copyCode('rotate-horizontal-center')"></i>
+                  <i class="fas fa-play-circle" onclick="playAnimation('rotate-horizontal-center-div')"></i>
+               </div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-horizontal-top-div" class="animated-square orange">
+               <p>rotate-horizontal-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-horizontal-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-horizontal-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-horizontal-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-horizontal-bottom-div" class="animated-square orange">
+               <p>rotate-horizontal-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-horizontal-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-horizontal-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-horizontal-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-vertical-center-div" class="animated-square orange">
+               <p>rotate-vertical-center</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-vertical-center-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-vertical-center')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-vertical-center-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-vertical-left-div" class="animated-square orange">
+               <p>rotate-vertical-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-vertical-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-vertical-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-vertical-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-vertical-right-div" class="animated-square orange">
+               <p>rotate-vertical-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-vertical-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-vertical-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-vertical-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-diagonal-right-div" class="animated-square orange">
+               <p>rotate-diagonal-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-diagonal-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-diagonal-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-diagonal-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-diagonal-left-div" class="animated-square orange">
+               <p>rotate-diagonal-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-diagonal-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-diagonal-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-diagonal-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-diagonal-top-right-div" class="animated-square orange">
+               <p>rotate-diagonal-top-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-diagonal-top-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-diagonal-top-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-diagonal-top-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-diagonal-top-left-div" class="animated-square orange">
+               <p>rotate-diagonal-top-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-diagonal-top-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-diagonal-top-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-diagonal-top-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-diagonal-bottom-left-div" class="animated-square orange">
+               <p>rotate-diagonal-bottom-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-diagonal-bottom-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-diagonal-bottom-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-diagonal-bottom-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-diagonal-bottom-right-div" class="animated-square orange">
+               <p>rotate-diagonal-bottom-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-diagonal-bottom-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-diagonal-bottom-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-diagonal-bottom-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+         </div><!-- ./ row -->
+
+
+
+         <!------- ROTATE AND SCALE ------->
+         <div class="row" id="rotatescale-row">
+            <p id="cat-name" style="color: #00bcd4">rotate and scale</p>
+            
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-up-div" class="animated-square blue">
+               <p>rotate-scale-up</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-up-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-up')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-up-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-down-div" class="animated-square blue">
+               <p>rotate-scale-down</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-down-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-down')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-down-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-up-horizontal-div" class="animated-square blue">
+               <p>rotate-scale-up-horizontal</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-up-horizontal-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-up-horizontal')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-up-horizontal-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-down-horizontal-div" class="animated-square blue">
+               <p>rotate-scale-down-horizontal</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-down-horizontal-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-down-horizontal')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-down-horizontal-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-up-vertical-div" class="animated-square blue">
+               <p>rotate-scale-up-vertical</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-up-vertical-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-up-vertical')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-up-vertical-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-down-vertical-div" class="animated-square blue">
+               <p>rotate-scale-down-vertical</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-down-vertical-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-down-vertical')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-down-vertical-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-up-diagonal-left-div" class="animated-square blue">
+               <p>rotate-scale-up-diagonal-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-up-diagonal-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-up-diagonal-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-up-diagonal-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-up-diagonal-right-div" class="animated-square blue">
+               <p>rotate-scale-up-diagonal-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-up-diagonal-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-up-diagonal-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-up-diagonal-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-down-diagonal-left-div" class="animated-square blue">
+               <p>rotate-scale-down-diagonal-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-down-diagonal-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-down-diagonal-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-down-diagonal-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="rotate-scale-down-diagonal-right-div" class="animated-square blue">
+               <p>rotate-scale-down-diagonal-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="rotate-scale-down-diagonal-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('rotate-scale-down-diagonal-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('rotate-scale-down-diagonal-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+         </div><!-- ./ row -->
+
+
+
+         <!------- SWING ------->
+         <div class="row" id="swing-row">
+            <p id="cat-name" style="color: #ff5722">swing</p>
+
+            <div class="col-lg-2 col-md-4"><div id="swing-top-div" class="animated-square dark-orange">
+               <p>swing-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-bottom-div" class="animated-square dark-orange">
+               <p>swing-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-right-div" class="animated-square dark-orange">
+               <p>swing-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-left-div" class="animated-square dark-orange">
+               <p>swing-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-top-right-div" class="animated-square dark-orange">
+               <p>swing-top-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-top-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-top-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-top-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-top-left-div" class="animated-square dark-orange">
+               <p>swing-top-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-top-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-top-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-top-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-bottom-left-div" class="animated-square dark-orange">
+               <p>swing-bottom-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-bottom-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-bottom-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-bottom-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="swing-bottom-right-div" class="animated-square dark-orange">
+               <p>swing-bottom-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="swing-bottom-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('swing-bottom-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('swing-bottom-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+         </div><!-- ./ row -->
+
+
+
+
+         <!------- SLIDE ------->
+         <div class="row" id="slide-row">
+            <p id="cat-name" style="color: #b0bec5">slide</p>
+            
+            <div class="col-lg-2 col-md-4"><div id="slide-top-div" class="animated-square gray">
+               <p>slide-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-bottom-div" class="animated-square gray">
+               <p>slide-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-left-div" class="animated-square gray">
+               <p>slide-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-right-div" class="animated-square gray">
+               <p>slide-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-top-right-div" class="animated-square gray">
+               <p>slide-top-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-top-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-top-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-top-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-top-left-div" class="animated-square gray">
+               <p>slide-top-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-top-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-top-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-top-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-bottom-right-div" class="animated-square gray">
+               <p>slide-bottom-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-bottom-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-bottom-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-bottom-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-bottom-left-div" class="animated-square gray">
+               <p>slide-bottom-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-bottom-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-bottom-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-bottom-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-rotate-horizontal-top-div" class="animated-square gray">
+               <p>slide-rotate-horizontal-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-rotate-horizontal-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-rotate-horizontal-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-rotate-horizontal-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-rotate-horizontal-bottom-div" class="animated-square gray">
+               <p>slide-rotate-horizontal-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-rotate-horizontal-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-rotate-horizontal-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-rotate-horizontal-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-rotate-vertical-left-div" class="animated-square gray">
+               <p>slide-rotate-vertical-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-rotate-vertical-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-rotate-vertical-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-rotate-vertical-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="slide-rotate-vertical-right-div" class="animated-square gray">
+               <p>slide-rotate-vertical-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="slide-rotate-vertical-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('slide-rotate-vertical-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('slide-rotate-vertical-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+         </div><!-- ./ row -->
+
+         
+         <!------- SHADOW DROP ------->
+         <div class="row" id="shadow-row">
+            <p id="cat-name" style="color: #b39ddb">shadow</p>
+            
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-center-div" class="animated-square purple">
+               <p>shadow-drop-center</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-center-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-center')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-center-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-top-div" class="animated-square purple">
+               <p>shadow-drop-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-right-div" class="animated-square purple">
+               <p>shadow-drop-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-bottom-div" class="animated-square purple">
+               <p>shadow-drop-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-left-div" class="animated-square purple">
+               <p>shadow-drop-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-left-right-div" class="animated-square purple">
+               <p>shadow-drop-left-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-left-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-left-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-left-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-top-bottom-div" class="animated-square purple">
+               <p>shadow-drop-top-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-top-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-top-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-top-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-top-right-div" class="animated-square purple">
+               <p>shadow-drop-top-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-top-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-top-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-top-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-bottom-right-div" class="animated-square purple">
+               <p>shadow-drop-bottom-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-bottom-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-bottom-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-bottom-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-bottom-left-div" class="animated-square purple">
+               <p>shadow-drop-bottom-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-bottom-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-bottom-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-bottom-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-drop-top-left-div" class="animated-square purple">
+               <p>shadow-drop-top-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-drop-top-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-drop-top-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-drop-top-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-pop-top-right-div" class="animated-square purple">
+               <p>shadow-pop-top-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-pop-top-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-pop-top-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-pop-top-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-pop-bottom-right-div" class="animated-square purple">
+               <p>shadow-pop-bottom-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-pop-bottom-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-pop-bottom-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-pop-bottom-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-pop-bottom-left-div" class="animated-square purple">
+               <p>shadow-pop-bottom-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-pop-bottom-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-pop-bottom-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-pop-bottom-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-pop-top-left-div" class="animated-square purple">
+               <p>shadow-pop-top-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-pop-top-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-pop-top-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-pop-top-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-center-div" class="animated-square purple">
+               <p>shadow-inset-center</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-center-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-center')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-center-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-top-div" class="animated-square purple">
+               <p>shadow-inset-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-right-div" class="animated-square purple">
+               <p>shadow-inset-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-bottom-div" class="animated-square purple">
+               <p>shadow-inset-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-left-div" class="animated-square purple">
+               <p>shadow-inset-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-top-right-div" class="animated-square purple">
+               <p>shadow-inset-top-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-top-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-top-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-top-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-bottom-right-div" class="animated-square purple">
+               <p>shadow-inset-bottom-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-bottom-right-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-bottom-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-bottom-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-bottom-left-div" class="animated-square purple">
+               <p>shadow-inset-bottom-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-bottom-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-bottom-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-bottom-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shadow-inset-top-left-div" class="animated-square purple">
+               <p>shadow-inset-top-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shadow-inset-top-left-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('shadow-inset-top-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shadow-inset-top-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+         </div><!-- ./ row -->
+
+
+         <!------- TRACKING IN/OUT ------->
+         <div class="row" id="tracking-in-row">
+            <p id="cat-name" style="color: #f06292">tracking in/out</p>
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-in-expand-div" class="animated-text light-purple">
+               <p id="tracking-in-expand-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-in-expand-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-in-expand')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-in-expand-text')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-in-expand-forward-top-div" class="animated-text light-purple">
+               <p id="tracking-in-expand-forward-top-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-in-expand-forward-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-in-expand-forward-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-in-expand-forward-top-text')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-in-expand-forward-bottom-div" class="animated-text light-purple">
+               <p id="tracking-in-expand-forward-bottom-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-in-expand-forward-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-in-expand-forward-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-in-expand-forward-bottom-text')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-in-contract-div" class="animated-text light-purple">
+               <p id="tracking-in-contract-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-in-contract-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-in-contract')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-in-contract-text')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-out-contract-div" class="animated-text light-purple">
+               <p id="tracking-out-contract-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-out-contract-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-out-contract')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-out-contract-text')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-out-expand-forward-top-div" class="animated-text light-purple">
+               <p id="tracking-out-expand-forward-top-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-out-expand-forward-top-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-out-expand-forward-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-out-expand-forward-top-text')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="tracking-out-expand-forward-bottom-div" class="animated-text light-purple">
+               <p id="tracking-out-expand-forward-bottom-text">AnimatiSS</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="tracking-out-expand-forward-bottom-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('tracking-out-expand-forward-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimationText('tracking-out-expand-forward-bottom-text')"></i></div>
+            </div><!-- ./ col -->
+         </div><!-- ./ row -->
+
+
+
+         <!------- BLUR ------->
+         <div class="row" id="blur-row">
+            <p id="cat-name" style="color: #8d6e63">blur</p>
+
+            <div class="col-lg-2 col-md-4"><div id="blur-in-div" class="animated-square brown">
+               <p>blur-in</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="blur-in-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('blur-in')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('blur-in-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="blur-in-expand-div" class="animated-square brown">
+               <p>blur-in-expand</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="blur-in-expand-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('blur-in-expand')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('blur-in-expand-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="blur-out-div" class="animated-square brown">
+               <p>blur-out</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="blur-out-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('blur-out')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('blur-out-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="blur-out-expand-div" class="animated-square brown">
+               <p>blur-out-expand</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="blur-out-expand-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('blur-out-expand')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('blur-out-expand-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="blur-out-contract-div" class="animated-square brown">
+               <p>blur-out-contract</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="blur-out-contract-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('blur-out-contract')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('blur-out-contract-div')"></i></div>
+            </div><!-- ./ col -->
+
+         </div><!-- ./ row -->
+
+
+
+         <!------- SPECIAL ------->
+         <div class="row" id="special-row">
+            <p id="cat-name" style="color: #4db6ac">special</p>
+
+            <div class="col-lg-2 col-md-4"><div id="vibrate-div" class="animated-square water">
+               <p>vibrate</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="vibrate-div-duration" value="0.4"> s
+               <i class="fas fa-clone" onclick="copyCode('vibrate')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('vibrate-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="flicker-div" class="animated-square water">
+               <p>flicker</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="flicker-div-duration" value="1.5"> s
+               <i class="fas fa-clone" onclick="copyCode('flicker')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('flicker-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shake-horizontal-div" class="animated-square water">
+               <p>shake-horizontal</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shake-horizontal-div-duration" value="0.8"> s
+               <i class="fas fa-clone" onclick="copyCode('shake-horizontal')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shake-horizontal-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shake-vertical-div" class="animated-square water">
+               <p>shake-vertical</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shake-vertical-div-duration" value="0.8"> s
+               <i class="fas fa-clone" onclick="copyCode('shake-vertical')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shake-vertical-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shake-left-right-div" class="animated-square water">
+               <p>shake-left-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shake-left-right-div-duration" value="0.8"> s
+               <i class="fas fa-clone" onclick="copyCode('shake-left-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shake-left-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shake-right-div" class="animated-square water">
+               <p>shake-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shake-right-div-duration" value="0.8"> s
+               <i class="fas fa-clone" onclick="copyCode('shake-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shake-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="shake-left-div" class="animated-square water">
+               <p>shake-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="shake-left-div-duration" value="0.8"> s
+               <i class="fas fa-clone" onclick="copyCode('shake-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('shake-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="jello-horizontal-div" class="animated-square water">
+               <p>jello-horizontal</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="jello-horizontal-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('jello-horizontal')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('jello-horizontal-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="jello-vertical-div" class="animated-square water">
+               <p>jello-vertical</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="jello-vertical-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('jello-vertical')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('jello-vertical-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="jello-diagonal-div" class="animated-square water">
+               <p>jello-diagonal</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="jello-diagonal-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('jello-diagonal')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('jello-diagonal-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="wobble-horizontal-bottom-div" class="animated-square water">
+               <p>wobble-horizontal-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="wobble-horizontal-bottom-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('wobble-horizontal-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('wobble-horizontal-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="wobble-horizontal-top-div" class="animated-square water">
+               <p>wobble-horizontal-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="wobble-horizontal-top-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('wobble-horizontal-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('wobble-horizontal-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="wobble-vertical-left-div" class="animated-square water">
+               <p>wobble-vertical-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="wobble-vertical-left-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('wobble-vertical-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('wobble-vertical-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="wobble-vertical-right-div" class="animated-square water">
+               <p>wobble-vertical-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="wobble-vertical-right-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('wobble-vertical-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('wobble-vertical-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="bounce-top-div" class="animated-square water">
+               <p>bounce-top</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="bounce-top-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('bounce-top')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('bounce-top-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="bounce-bottom-div" class="animated-square water">
+               <p>bounce-bottom</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="bounce-bottom-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('bounce-bottom')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('bounce-bottom-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="bounce-left-div" class="animated-square water">
+               <p>bounce-left</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="bounce-left-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('bounce-left')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('bounce-left-div')"></i></div>
+            </div><!-- ./ col -->
+
+            <div class="col-lg-2 col-md-4"><div id="bounce-right-div" class="animated-square water">
+               <p>bounce-right</p>
+               <input class="duration-inp" type="number" step="0.1" min="0.1" id="bounce-right-div-duration" value="0.9"> s
+               <i class="fas fa-clone" onclick="copyCode('bounce-right')"></i>
+               <i class="fas fa-play-circle" onclick="playAnimation('bounce-right-div')"></i></div>
+            </div><!-- ./ col -->
+
+
+         </div><!-- ./ row -->
+
+
+         <!-- Buy me a coffe -->
+         <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" target="_blank" data-name="bmc-button" data-slug="frankeno" data-color="#FFDD00" data-emoji="🍺"  data-font="Cookie" data-text="Support AnimatiSS" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+         <br>
+
+         <!-- ProductHunt -->
+         <a href="https://www.producthunt.com/posts/animatiss?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-animatiss" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=347173&theme=light" alt="AnimatiSS - A&#0032;nice&#0044;&#0032;colorful&#0032;collection&#0032;of&#0032;CSS&#0032;animations | Product Hunt" style="width: 280px; height: 54px;" width="280" height="54" /></a>
+
+      </div><!-- ./ text-center -->
+
+      <footer>
+         A project by <strong><a href="https://twitter.com/xsgames_" target="_blank">@xsgames_</a></strong>
+         <br>
+			Other projects and tools<br>
+			<a class="projects-btn" href="https://linkyy.co" target="_blank"><img src="https://linkyy.co/_assets/favicon.png" ></a>
+			<a class="projects-btn" href="https://xsgames.co/tweetify" target="_blank"><img src="https://xsgames.co/newsite/img/tweetify.png" ></a> 
+			<a class="projects-btn" href="https://xsgames.co/pixelme" target="_blank"><img src="https://xsgames.co/newsite/img/pixelme.png" ></a>
+			<a class="projects-btn" href="https://xsgames.co/devassets" target="_blank"><img src="https://xsgames.co/newsite/img/devassets.png" ></a> 
+			<a class="projects-btn" href="https://xsgames.co/filterss" target="_blank"><img src="https://xsgames.co/newsite/img/filterss.png" ></a> 
+			<a class="projects-btn" href="https://xsgames.co/tweetcards" target="_blank"><img src="https://xsgames.co/newsite/img/tc.png" ></a> 
+      </footer>      
+   </div><!-- ./ container -->
+
+<script>
+   // localStorage.clear();
+
+   var category = localStorage.getItem('category');
+   
+   // On page load
+   $(function(){
+      if(category == null){ category = 'scale up'; }
+      setCategory(category);
+
+   }); // ./ on page load
+
+   // open/close nav menu
+   function openNav() { document.getElementById("myNav").style.height = "100%"; }
+   function closeNav() { document.getElementById("myNav").style.height = "0%"; }
+
+   // set category
+   function setCategory(catName) {
+      switch(catName){
+         case 'scale up': 
+            $('#scaleup-row').show();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();  
+            $('#swing-row').hide();  
+            $('#slide-row').hide();  
+            $('#shadow-row').hide();  
+            $('#tracking-in-row').hide();  
+            $('#special-row').hide();  
+            $('#blur-row').hide();  
+         break;
+         case 'scale down': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').show(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'rotate': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').show();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'rotate and scale': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').show();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'swing': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').show();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'slide': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').show();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'shadow': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').show();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'tracking in/out': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').show();
+            $('#special-row').hide();
+            $('#blur-row').hide();
+         break;
+         case 'special': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').show();
+            $('#blur-row').hide();
+         break;
+         case 'blur': 
+            $('#scaleup-row').hide();
+            $('#scaledown-row').hide(); 
+            $('#rotate-row').hide();
+            $('#rotatescale-row').hide();
+            $('#swing-row').hide();
+            $('#slide-row').hide();
+            $('#shadow-row').hide();
+            $('#tracking-in-row').hide();
+            $('#special-row').hide();
+            $('#blur-row').show();
+         break;
+      }
+      localStorage.setItem('category', catName);
+      closeNav();
+   }
+
+   // play animation
+   function playAnimation(divName){
+      var cssName = divName.replace('-div', '');
+      var duration = $('#'+cssName+'-div-duration').val();
+      $('#'+divName).css('animation', cssName+' '+duration+'s');
+      setTimeout(function(){ $("#"+divName).removeAttr("style"); }, (duration+100)*1000);
+   }
+
+   function playAnimationText(textName){
+      var cssName = textName.replace('-text', '');
+      var duration = $('#'+cssName+'-div-duration').val();
+      $('#'+textName).css('animation', cssName+' '+duration+'s');
+      setTimeout(function(){ $("#"+textName).removeAttr("style"); }, (duration+100)*1000);
+   }
+
+
+   // copy CSS code
+   function copyCode(cssName){
+      var text = $('#'+cssName).text();
+      var duration = $('#'+cssName+'-div-duration').val();
+      text = text.replace('.4s', duration+'s');
+      var copyHex = document.createElement('textarea');
+      
+      Swal.fire({ position: 'center', title: '', 
+         html: '<h4>Code preview (minified)</h4><br><pre style="white-space: pre-wrap; word-wrap: break-word;background: #ffeb3b;padding: 10px;border-radius: 8px;font-size: 11px; text-align: left;box-shadow: 3px 2px 0px #777;color: #121212;">'+text+'<pre>', 
+         confirmButtonText: '<i class="fas fa-clone"></i> Copy code!',
+         confirmButtonColor: '#ffeb3b',
+         showCancelButton: true,
+         cancelButtonText: 'Close',
+         cancelButtonColor: '#546e7a',
+
+      }).then((result) => {
+         if (result.value) {
+            copyHex.value = '/* ----------------------------------------------\n'+
+            '  Generated by AnimatiSS\n'+
+            '  Licensed under FreeBSD License\n'+
+            '  URL: https://xsgames.co/animatiss\n'+
+            '  Twitter: @xsgames_\n'+
+            '---------------------------------------------- */\n\n'+ text;
+            document.body.appendChild(copyHex);
+            copyHex.select();
+            document.execCommand('copy');
+            document.body.removeChild(copyHex);
+
+            Swal.fire({ position: 'center', icon: 'success', title: '', text: 'Code copied to your Clipboard!', showConfirmButton: false, timer: 1500 });
+      }});
+  }
+
+   // How to Use: Alert
+   function showHTUAlert() {
+      Swal.fire({
+         html: 'Click the <i class="fas fa-clone"></i> button to copy the CSS code and paste it into your style file.<br>'+
+         'You can use it for text, buttons, divs, images, etc. <img class="example-gif" src="assets/1.gif"><br><br><br><br>'+
+         'Click the "STYLES" button to browse different animation categories <img class="example-gif" src="assets/2.gif"><br><br><br><br>'+
+         'Click the <i class="fas fa-play-circle"></i> button to view a preview of an animation. You can also change the duration as you wish<br><br><img class="example-gif" src="assets/3.gif">',
+         confirmButtonText: 'Got it!'
+      });
+   }
+
+</script>
+</body>
+</html>

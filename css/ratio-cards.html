@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Variable ratio cards</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<style>
+* {
+  box-sizing: inherit;
+  margin: 0;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+html {
+  overflow-x: hidden;
+  background: #22242a;
+  color: #7b849c;
+  font: clamp(.625em, 6.25vw, 1.25em) ubuntu mono, consolas, monaco, monospace;
+}
+
+body, form, section, datalist, option, div {
+  display: grid;
+}
+
+body {
+  box-sizing: border-box;
+  grid-gap: 1.75ch;
+  padding: 1.75ch;
+}
+
+form, section {
+  max-width: 100%;
+}
+
+form {
+  --i: var(--narr, 1);
+  --not-i: calc(1 - var(--i));
+  --j: var(--wide, 0);
+  --not-j: calc(1 - var(--j));
+  --hl: 0;
+  --not-hl: calc(1 - var(--hl));
+  --pos: calc(1ch + var(--val)/var(--max)*(100% - 2ch));
+  --col: calc(100% + var(--j)*-24ch + var(--not-i)*-9ch);
+  overflow-x: hidden;
+  padding: 1.75ch 3.5ch;
+  border-radius: 0.25em;
+  grid-template-columns: calc(var(--j)*24ch) var(--col) calc(var(--not-i)*9ch);
+  box-shadow: 0 0 1px 1px #484d5a;
+  background: #1b1d22;
+  filter: Saturate(var(--hl));
+}
+form:focus-within {
+  --hl: 1 ;
+}
+@media (min-width: 1005px) {
+  form {
+    --narr: 0 ;
+  }
+}
+@media (min-width: 1600px) {
+  form {
+    --wide: 1 ;
+  }
+}
+
+label {
+  align-self: center;
+  grid-column: 1/calc(2 + var(--not-j));
+  font: 1rem/1.25 raleway, trebuchet ms, verdana, arial, sans-serif;
+}
+
+input, output {
+  grid-row: calc(1 + var(--not-j));
+}
+
+input {
+  grid-column: 2;
+  padding: 0.375em 0;
+  background: repeating-linear-gradient(90deg, #484d5a 0 2px, transparent 0 calc((100% - 2ch)/var(--max))) calc(1ch - 1px) 100%/100% 0.375em no-repeat;
+}
+input, input::-webkit-slider-runnable-track, input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input:focus {
+  outline: none;
+}
+input::-webkit-slider-runnable-track {
+  border: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: radial-gradient(circle at var(--pos), transparent calc(0.5*1ch + 3px), #484d5a calc(0.5*1ch + 3px + 1px));
+}
+input::-moz-range-track {
+  border: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: radial-gradient(circle at var(--pos), transparent calc(0.5*1ch + 3px), #484d5a calc(0.5*1ch + 3px + 1px));
+}
+input::-webkit-slider-thumb {
+  margin-top: calc(1*(3px - 1ch));
+  border: none;
+  width: 2ch;
+  height: 2ch;
+  border-radius: 50%;
+  transform: scale(calc(var(--not-hl)*0.5 + var(--hl)));
+  background: #eaa753;
+  transition: transform 0.3s;
+  cursor: ew-resize;
+}
+input::-moz-range-thumb {
+  margin-top: calc(0*(3px - 1ch));
+  border: none;
+  width: 2ch;
+  height: 2ch;
+  border-radius: 50%;
+  transform: scale(calc(var(--not-hl)*0.5 + var(--hl)));
+  background: #eaa753;
+  transition: transform 0.3s;
+  cursor: ew-resize;
+}
+
+output {
+  --xy: calc(var(--i)*50%) calc((1 + var(--i))*50%);
+  grid-column: calc(2 + var(--not-i));
+  place-self: center start;
+  position: relative;
+  left: calc(var(--i)*var(--pos));
+  border: solid 1ch transparent;
+  padding: 0.25em 0;
+  width: 9ch;
+  border-radius: calc(1ch + 5px);
+  transform: translate(calc(var(--i)*-50%), calc(var(--i)*(-50% - 1ch))) scale(calc(var(--not-i) + var(--i)*var(--hl)));
+  background: #eaa753 padding-box;
+  color: #1b1d22;
+  text-align: center;
+  transition: transform 0.3s;
+}
+output::before {
+  position: absolute;
+  top: -1ch;
+  right: -1ch;
+  bottom: -1ch;
+  left: -1ch;
+  z-index: -1;
+  background: conic-gradient(from calc((1 - var(--i))*90deg - .5*70deg) at var(--xy), transparent, #eaa753 5deg 65deg, transparent 70deg) var(--xy)/50% 50% no-repeat;
+  content: "";
+}
+
+output, datalist {
+  word-spacing: -1ch;
+}
+
+datalist {
+  --ruler-w: calc((var(--max) + 1)*(100% - 2ch)/var(--max));
+  grid-area: calc(2 + var(--not-j))/2;
+  grid-template-columns: repeat(calc(var(--max) + 1), calc(100%/(var(--max) + 1)));
+  place-self: center;
+  width: var(--ruler-w);
+}
+
+option {
+  place-content: center;
+  place-self: center;
+}
+@media (max-width: 1250px) {
+  option {
+    font-size: 0.8em;
+  }
+}
+@media (max-width: 900px) and (min-width: 641px) {
+  option:not(:nth-child(2n+1)) {
+    transform: scale(0);
+  }
+}
+@media (max-width: 640px) {
+  option:not(:nth-child(3n+1)) {
+    transform: scale(0);
+  }
+}
+
+section {
+  grid-gap: 0.25em;
+  grid-template-columns: repeat(auto-fit, min(100%, calc(5em*(1 + var(--ratio)))));
+  place-content: center;
+}
+
+.card {
+  aspect-ratio: var(--ratio);
+  position: relative;
+  color: #fff;
+  font: 600 1.5em parisienne, z003, segoe script, comic sans ms, cursive;
+  text-align: center;
+  text-shadow: 1px 1px 1px #1b1d22;
+}
+.card::before {
+  position: absolute;
+  z-index: -1;
+  padding: 50%;
+  border-radius: 0.25em/calc(0.25em*(var(--ratio)));
+  transform-origin: 50% 0;
+  transform: scaley(calc(1/(var(--ratio))));
+  background: conic-gradient(from 45deg at 0 100%, var(--sl0), transparent 0%), conic-gradient(from 225deg at 100% 0, var(--sl1), transparent 0%) var(--c0);
+  content: "";
+}
+.card::after {
+  display: grid;
+  place-content: center;
+  padding: 0.25em;
+  border-radius: 0.25em;
+  background: rgba(123, 132, 156, 0.1);
+  backdrop-filter: blur(1px);
+  content: "Hello, Gorgeous!";
+}
+</style>
+</head>
+
+<body translate="no" >
+  <body style="--ratio: 1/ 1; --val: 7">
+  <style>
+    .card {
+    	--sl0: var(--c2) 0% 15deg,var(--c1) 0% 30deg,var(--c0) 0% 45deg;
+    	--sl1: var(--c3) 0% 15deg,var(--c4) 0% 30deg,var(--c5) 0% 45deg
+    }
+  </style>
+  <form style="--max: 18">
+    <label for="val">Control card aspect ratio</label>
+    <input id="val" type="range" value="7" max="18" list="l"/>
+    <output for="val">1/ 1</output>
+    <datalist id="l">
+      <option value="0" label="1/ 3" style="--idx: 0"></option>
+      <option value="1" label="1/ 2" style="--idx: 1"></option>
+      <option value="2" label="9/ 16" style="--idx: 2"></option>
+      <option value="3" label="3/ 5" style="--idx: 3"></option>
+      <option value="4" label="2/ 3" style="--idx: 4"></option>
+      <option value="5" label="3/ 4" style="--idx: 5"></option>
+      <option value="6" label="4/ 5" style="--idx: 6"></option>
+      <option value="7" label="1/ 1" style="--idx: 7"></option>
+      <option value="8" label="5/ 4" style="--idx: 8"></option>
+      <option value="9" label="4/ 3" style="--idx: 9"></option>
+      <option value="10" label="3/ 2" style="--idx: 10"></option>
+      <option value="11" label="5/ 3" style="--idx: 11"></option>
+      <option value="12" label="16/ 10" style="--idx: 12"></option>
+      <option value="13" label="16/ 9" style="--idx: 13"></option>
+      <option value="14" label="1.85/ 1" style="--idx: 14"></option>
+      <option value="15" label="2/ 1" style="--idx: 15"></option>
+      <option value="16" label="2.35/ 1" style="--idx: 16"></option>
+      <option value="17" label="3/ 1" style="--idx: 17"></option>
+      <option value="18" label="4/ 1" style="--idx: 18"></option>
+    </datalist>
+  </form>
+  <section>
+    <div class="card" style="--c0: #ffb528; --c1: #ff8c40; --c2: #f86759; --c3: #e14b71; --c4: #bb3e85; --c5: #883d90"></div>
+    <div class="card" style="--c0: #95ffdc; --c1: #47fff1; --c2: #00e1fa; --c3: #00c1f6; --c4: #419fe3; --c5: #717dbf"></div>
+    <div class="card" style="--c0: #b5ce4f; --c1: #eed54e; --c2: #fbb64b; --c3: #ff9854; --c4: #fc7c64; --c5: #eb6575"></div>
+    <div class="card" style="--c0: #885789; --c1: #cf6c84; --c2: #f7966f; --c3: #f6d169; --c4: #8bbd69; --c5: #139d7f"></div>
+    <div class="card" style="--c0: #00aab7; --c1: #2889ac; --c2: #48678f; --c3: #8478ac; --c4: #c486b8; --c5: #fd98b3"></div>
+    <div class="card" style="--c0: #ffca81; --c1: #f29e85; --c2: #cc7d8e; --c3: #94688c; --c4: #595678; --c5: #4c7ba3"></div>
+    <div class="card" style="--c0: #f9ffce; --c1: #e7cab2; --c2: #b8a09f; --c3: #91ffe2; --c4: #00edff; --c5: #00b3ff"></div>
+    <div class="card" style="--c0: #92ffe1; --c1: #00ecff; --c2: #5baeff; --c3: #fdffcd; --c4: #ff82a3; --c5: #a06eb2"></div>
+  </section>
+</body>
+
+  
+<script id="rendered-js" >
+addEventListener('input', e => {
+  let _t = e.target,
+  val = +_t.value,
+  ratio = document.querySelector(`option[value='${val}']`).label;
+
+  document.body.style.setProperty('--val', val);
+  document.body.style.setProperty('--ratio', _t.nextElementSibling.textContent = ratio);
+});
+/*
+Context: created for my Variable Aspect Ratio Card With Conic Gradients Meeting Along the Diagonal (https://css-tricks.com/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal/) article on CSS-Tricks.
+*/
+//# sourceURL=pen.js
+</script>
+
+</body>
+</html>

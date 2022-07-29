@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Centering | GUI Challenges</title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ff69b4">
+    <meta name="description" content="💀🤘">
+
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+:root{--surface1:#101010;--surface2:#3b3b3b;--text1:#c2cfd6;--pink:#e189b5;--purple:#ac6ef7;--blue:#6ee5f7}@media (color-index:70){:root{--surface1:#fffffe;--surface2:#c6c6c6;--text1:#29363d}}@media (prefers-color-scheme:light){:root{--surface1:#fffffe;--surface2:#c6c6c6;--text1:#29363d}}body{color:#c2cfd6;color:var(--text1);font-size:200%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;display:grid;grid-auto-rows:60vh;align-content:center;justify-content:center;place-content:center;padding-top:5ch;padding-bottom:5ch}body,h1{background:#101010;background:var(--surface1)}h1{margin:0;font-weight:lighter;padding:1ch 2ch;border-radius:1rem}section{display:grid;align-items:center;grid-template-columns:30vw 1fr;grid-gap:5ch;gap:5ch}section>details{justify-self:flex-end}article{margin-top:5ch;margin-bottom:5ch;background:#3b3b3b;background:var(--surface2);border-radius:1rem 1rem 0 1rem;color:#c2cfd6;color:var(--text1);overflow:auto;resize:both}label,summary{cursor:pointer;font-weight:lighter}summary{padding:.5ex 1ch;border-left:5px solid transparent;transition:border-color .5s ease}summary:focus{outline:none;border-color:#639}.option{font-size:75%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}code[class*=language-],pre[class*=language-]{font-size:1.5rem;display:inline-block;col-or:#e2e2e2;font-family:Dank Mono,Operator Mono,Inconsolata,Fira Mono,SF Mono,Monaco,Droid Sans Mono,Source Code Pro,monospace}pre[class*=language-]{padding:1em 1.25em}.line-numbers .line-numbers-rows{border-right:1px solid #333;width:2.5em}.token.function,.token.keyword,.token.property,.token.tag{color:#6ee5f7;color:var(--blue)}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.operator,.token.selector{color:#ac6ef7;color:var(--purple)}.token.punctuation{color:#767676}.token.attr-value,.token.string{color:#e2e2e2}.token.class-name,.token.number{color:#e189b5;color:var(--pink)}.token.comment,.token.function,.token.property,.token.tag{font-style:italic}.line-numbers-rows>span:before{color:var(--text)}[grid]{display:grid;align-content:center;place-content:center;border:2px solid #ff69b4}[flex],[grid]{justify-content:center;grid-gap:1ch;gap:1ch}[flex]{flex-direction:column;align-items:center;border:2px solid #ff69b4}[flex],[margin]{display:flex}[margin]>*{margin:auto}[margin],[margin]>*{border:2px solid #ff69b4}[padding]>*{padding:15vmin}[padding]{display:grid;align-content:center;justify-content:center;place-content:center}[padding]>*{border:2px solid #ff69b4}[absolute]>*{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}[absolute]{position:relative}[absolute],[absolute]>*{border:2px solid #ff69b4}.github-corner{color:#101010;color:var(--surface1);fill:#3b3b3b;fill:var(--surface2)}.github-corner:hover .octo-arm{-webkit-animation:octocat-wave .56s ease-in-out;animation:octocat-wave .56s ease-in-out}@-webkit-keyframes octocat-wave{0%,to{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@keyframes octocat-wave{0%,to{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}
+    </style>
+  </head>
+  <body>
+
+    <section>
+      <details>
+        <summary>CSS</summary>
+        <pre class="language-css show-language">
+          <code>
+            display: grid;
+            place-content: center;
+            gap: 1ch;
+          </code>
+        </pre>
+        <div class="option">
+          <input type="checkbox" name="direction" id="rtl" value="rtl">
+          <label for="rtl">rtl</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" name="writing-mode" id="vertical-rl" value="vertical-rl">
+          <label for="vertical-rl">vertical-rl</label>
+        </div>
+      </details>
+      <article grid style="block-size: 25vh; inline-size: 35vmax;">
+        <h1>Content Center</h1>
+      </article>
+    </section>
+
+    <section>
+      <details>
+        <summary>CSS</summary>
+        <pre class="language-css show-language">
+          <code>
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1ch;
+          </code>
+        </pre>
+        <div class="option">
+          <input type="checkbox" name="direction" id="rtl2" value="rtl">
+          <label for="rtl2">rtl</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" name="writing-mode" id="vertical-rl2" value="vertical-rl">
+          <label for="vertical-rl2">vertical-rl</label>
+        </div>
+      </details>
+      <article flex style="block-size: 25vh; inline-size: 40vmax;">
+        <h1>Gentle Flex</h1>
+      </article>
+    </section>
+
+    <section>
+      <details>
+        <summary>CSS</summary>
+        <pre class="language-css show-language">
+          <code>
+            display: flex;
+            
+            & > * {
+              margin: auto;
+            }
+          </code>
+        </pre>
+        <div class="option">
+          <input type="checkbox" name="direction" id="rtl3" value="rtl">
+          <label for="rtl3">rtl</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" name="writing-mode" id="vertical-rl3" value="vertical-rl">
+          <label for="vertical-rl3">vertical-rl</label>
+        </div>
+      </details>
+      <article margin style="block-size: 25vh; inline-size: 30vmax;">
+        <h1>Autobot</h1>
+      </article>
+    </section>
+
+    <section>
+      <details>
+        <summary>CSS</summary>
+        <pre class="language-css show-language">
+          <code>
+            padding: 15vmin;
+          </code>
+        </pre>
+        <div class="option">
+          <input type="checkbox" name="direction" id="rtl4" value="rtl">
+          <label for="rtl4">rtl</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" name="writing-mode" id="vertical-rl4" value="vertical-rl">
+          <label for="vertical-rl4">vertical-rl</label>
+        </div>
+      </details>
+      <article padding style="block-size: 50vh; inline-size: 50vmax;">
+        <h1>Fluffy Center</h1>
+      </article>
+    </section>
+
+    <section>
+      <details>
+        <summary>CSS</summary>
+        <pre class="language-css show-language">
+          <code>
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          </code>
+        </pre>
+        <div class="option">
+          <input type="checkbox" name="direction" id="rtl5" value="rtl">
+          <label for="rtl5">rtl</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" name="writing-mode" id="vertical-rl5" value="vertical-rl">
+          <label for="vertical-rl5">vertical-rl</label>
+        </div>
+      </details>
+      <article absolute style="block-size: 40vh; inline-size: 40vmax;">
+        <h1>Pop & Plop</h1>
+      </article>
+    </section>
+
+    <a href="https://github.com/argyleink/gui-challenges" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+      </svg>
+    </a>
+    
+  </body>
+</html>
