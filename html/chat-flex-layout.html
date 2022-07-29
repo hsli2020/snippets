@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Flexbox Chat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href="https://weloveiconfonts.com/api/?family=fontawesome">
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+[class*="fontawesome-"]:before { font-family: 'FontAwesome', sans-serif; }
+
+html, body { height: 100%; font: 100%/1.5em "Varela Round", sans-serif; }
+body { flex-direction: column; }
+body,header,.msg,.toolbar,form { display: flex; }
+header, .messages, blockquote { padding: .5em; }
+header { background-color: #374455; color: white; padding-right: 0; line-height: 0.5em; }
+
+.contact--details__name { font-weight: normal; font-size: 1.75em; }
+.contact--details__tel { font-size: .875em; }
+
+.messages,input { background-color: black; }
+
+input { padding-left: .325em; border: none; color: white; flex: 1; }
+
+.msg { position: relative; margin-bottom: 2em; }
+
+.msg--date {
+    margin-top: 0;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    background: #222;
+    color: #727b80;
+}
+
+blockquote {
+    border-radius: .35em;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    max-width: 60%;
+}
+
+.msg--them blockquote::after, .msg--me blockquote::before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 0;
+    height: 0;
+}
+
+.msg--them blockquote { background-color: #FFBB73; }
+.msg--them blockquote::after {
+    border: .5em solid #FFBB73;
+    border-color: #FFBB73 transparent transparent #FFBB73;
+    top: .5em;
+    right: -1em;
+}
+
+.msg--me blockquote { background-color: #0099cc; margin-left: 1em; }
+.msg--me blockquote::before {
+    border: .5em solid #0099cc;
+    border-color: #0099cc #0099cc transparent transparent;
+    top: .5em;
+    left: -1em;
+}
+
+form { background-color: #727b80; padding: 1px; }
+
+.messages { flex: 1; overflow: auto; }
+
+.msg--them { justify-content: flex-end; }
+.msg--them blockquote { order: -1; margin-right: 1em; }
+
+.msg-send { padding: 5px; }
+.online { color: lightgreen; }
+.offline { color: red; }
+</style>
+
+</head>
+
+<body translate="no">
+  <header class="contact">
+    <section class="contact--details">
+      <h1 class="contact--details__name online">Homer</h1>
+      <p class="contact--details__tel">+44 9 555 66 777</p>
+    </section>
+  </header>
+
+  <section class="messages">
+    <section>
+      <h3 class="msg--date">Today - 19:44</h3>
+      <div class="msg msg--me">
+        <blockquote>Dad! You killed the zombie Flanders!</blockquote>
+      </div>
+      <div class="msg msg--them">
+        <blockquote>He was a zombie?</blockquote>
+      </div>
+    </section>
+
+    <section>
+      <h3 class="msg--date">Yesterday - 08:17</h3>
+      <div class="msg msg--them">
+        <blockquote>Grrrr WHY YOU LITTLE...</blockquote>
+      </div>
+      <div class="msg msg--me">
+        <blockquote>It was like that when I got here!</blockquote>
+      </div>
+      <div class="msg msg--them">
+        <blockquote>Hehehe, that's my boy</blockquote>
+      </div>
+    </section>
+  </section>
+
+  <form>
+    <input type="text" placeholder="Your message">
+    <div class="msg-send"><span class="fontawesome-play"/></div>
+  </form>
+
+<script>
+/* Inspired by the very talented Stephen Hay - www.the-haystack.com */
+</script>
+
+</body>
+</html>

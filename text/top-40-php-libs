@@ -1,0 +1,55 @@
+# Top 40 PHP Libraries
+
+Symfony Console Component       composer require symfony/console
+Symfony Finder Component        composer require symfony/finder
+Psr/log                         composer require psr/log
+Monolog                         composer require monolog/monolog
+Guzzle                          composer require guzzlehttp/guzzle
+Assert                          composer require webmozart/assert
+Symfony/translation             composer require symfony/translation
+PHPUnit                         composer require phpunit/phpunit
+PHP-code-coverage               composer require phpunit/php-code-coverage
+Swiftmailer                     composer require swiftmailer/swiftmailer
+Email-validator                 composer require egulias/email-validator
+PHP dotenv                      composer require vlucas/phpdotenv
+Symfony Filesystem Component    composer require symfony/filesystem
+Twig                            composer require twig/twig
+Faker                           composer require fzaninotto/faker
+AWS SDK for PHP                 composer require aws/aws-sdk-php          
+PHPseclib                       composer require phpseclib/phpseclib
+Laravel Tinker                  composer require laravel/tinker
+Predis                          composer require predis/predis
+PHP AMQP Library                composer require php-amqplib/php-amqplib
+Laravel-Permission Library      composer require spatie/laravel-permission
+Twill Library                   composer require yanhaoli/create-twill-app
+OAuth 2.0                       composer require league/oauth2-server
+Laravel Backup                  composer require spatie/laravel-backup
+PHP Rector                      composer require rector/rector
+Lighthouse                      composer require nuwave/lighthouse
+Laravel Admin LTE               composer require jeroennoten/laravel-adminlte
+Swagger PHP library             composer require zircote/swagger-php
+Laravel/Passport MongoDB        composer require jenssegers/mongodb
+Stripe-PHP                      composer require stripe/stripe-php
+Omnipay                         composer require league/omnipay
+Laravel Cashier                 composer require laravel/cashier
+Sylius                          composer create-project sylius/sylius
+Laravel Aimeos                  composer require aimeos/aimeos-laravel
+Spatie Image Optimizer          composer require spatie/image-optimizer
+Elastica                        composer require ruflin/elastica
+Intervention/image               
+Minify                          composer require matthiasmullie/minify
+Swap                            composer require florianv/swap
+Tcpdf                           composer require tecnickcom/tcpdf
+
+Frameworks
+
+Laravel
+Symfony
+CodeIgniter
+Zend Framework / Laminas Project
+Yii (Framework)
+CakePHP
+Slim
+Phalcon
+FuelPHP
+Fat-Free Framework

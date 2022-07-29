@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MutationObserver Demo: ChildList</title>
+</head>
+<body>
+    <ul id="language">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>TypeScript</li>
+    </ul>
+
+    <button id="btnStart">Start Observing</button>
+    <button id="btnStop">Stop Observing</button>
+    <button id="btnAdd">Add</button>
+    <button id="btnRemove">Remove the Last Child</button>
+
+<script>
+(function () {
+    // selecting the list
+    let list = document.querySelector('#language');
+
+    // selecting the buttons
+    let btnAdd = document.querySelector('#btnAdd');
+    let btnRemove = document.querySelector('#btnRemove');
+    let btnStart = document.querySelector('#btnStart');
+
+    // disable the stop button
+    let btnStop = document.querySelector('#btnStop');
+    btnStop.disabled = true;
+
+    function log(mutations) {
+        for (let mutation of mutations) {
+            if (mutation.type === 'childList') {
+                console.log(mutation);
+            }
+        }
+    }
+
+    let observer = new MutationObserver(log);
+
+    btnStart.addEventListener('click', function () {
+        observer.observe(list, {
+            childList: true
+        });
+
+        btnStart.disabled = true;
+        btnStop.disabled = false;
+    });
+
+    btnStop.addEventListener('click', function () {
+        observer.disconnect();
+
+        // Set the button state
+        btnStart.disabled = false;
+        btnStop.disabled = true;
+    });
+
+    let counter = 1;
+    btnAdd.addEventListener('click', function () {
+        // create a new item element
+        let item = document.createElement('li');
+        item.textContent = `Item ${counter++}`;
+
+        // append it to the child nodes of list
+        list.appendChild(item);
+    });
+
+    btnRemove.addEventListener('click', function () {
+        list.lastElementChild ?
+            list.removeChild(list.lastElementChild) :
+            console.log('No more child node to remove');
+    });
+
+})();
+</script>
+
+<script>
+
+function waitForElement(selector) {
+  return new Promise((resolve) => {
+    if (document.querySelector(selector)) {
+      return resolve(element);
+    }
+    const observer = new MutationObserver(() => {
+      const element = document.querySelector(selector);
+      if (element) {
+        resolve(element);
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
+}
+
+// Because the waitForElement() returns a Promise, you can use the then() method like this:
+
+waitForElement()('.a-class').then((element) => {
+    console.log('Element is ready');
+    console.log(element.textContent);
+});
+Code language: JavaScript (javascript)
+
+// Or you can use await syntax:
+
+const element = await waitForElement()('.a-class');
+console.log(element.textContent);
+
+</script>
+
+</body>
+</html>

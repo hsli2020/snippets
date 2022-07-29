@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Dynamically Loaded Bootstrap Modal Content</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link 
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+	crossorigin="anonymous">
+
+  <!-- Bootstrap 5 JS -->
+  <script 
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+  <button id="btn1" class="btn btn-primary">Open</button>
+
+  <script>
+	// Learn Template literals: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+	// Learn about Modal: https://getbootstrap.com/docs/5.0/components/modal/
+
+	var modalWrap = null;
+
+	/**
+	 * 
+	 * @param {string} title 
+	 * @param {string} description content of modal body 
+	 * @param {string} yesBtnLabel label of Yes button 
+	 * @param {string} noBtnLabel label of No button 
+	 * @param {function} callback callback function when click Yes button
+	 */
+	const showModal = (title, description, yesBtnLabel = 'Yes', noBtnLabel = 'Cancel', callback) => {
+	  if (modalWrap !== null) {
+		modalWrap.remove();
+	  }
+
+	  modalWrap = document.createElement('div');
+	  modalWrap.innerHTML = `
+		<div class="modal fade" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header bg-light">
+				<h5 class="modal-title">${title}</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+			  <div class="modal-body">
+				<p>${description}</p>
+			  </div>
+			  <div class="modal-footer bg-light">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${noBtnLabel}</button>
+				<button type="button" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal">${yesBtnLabel}</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  `;
+
+	  modalWrap.querySelector('.modal-success-btn').onclick = callback;
+
+	  document.body.append(modalWrap);
+
+	  var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+	  modal.show();
+	}
+  </script>
+
+  <script>
+	// showModal(title, description, yesBtnLabel = 'Yes', noBtnLabel = 'Cancel', callbackAfterClickingYesBtn);
+	document.getElementById('btn1').onclick = () => 
+	  showModal('File Deletion', 'Do you want to delete this file?', "Yes", "No", () => {
+		console.log('File deleted successfully');
+	  }
+	);  
+  </script>
+
+</body>
+</html>

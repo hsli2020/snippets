@@ -1,0 +1,372 @@
+- Livewire
+- Inertia + (Vue/React)
+- Vite
+- Tailwind
+--------------------------------------------------------------------------------
+Getting Started                                   Security
+  - Installation                                    - Authentication
+  - Configuration                                   - Authorization
+  - Directory Structure                             - Email Verification
+  - Frontend                                        - Encryption
+  - Starter Kits                                    - Hashing
+  - Deployment                                      - Password Reset
+                             
+Architecture Concepts                             Database
+  - Request Lifecycle                               - Getting Started
+  - Service Container                               - Query Builder
+  - Service Providers                               - Pagination
+  - Facades                                         - Migrations
+                                                    - Seeding
+The Basics                                          - Redis
+  - Routing                  
+  - Middleware                                    Eloquent ORM
+  - CSRF Protection                                 - Getting Started
+  - Controllers                                     - Relationships
+  - Requests                                        - Collections
+  - Responses                                       - Mutators / Casts
+  - Views                                           - API Resources
+  - Blade Templates                                 - Serialization
+  - Asset Bundling                                  - Factories
+  - URL Generation           
+  - Session                                       Testing
+  - Validation                                      - Getting Started
+  - Error Handling                                  - HTTP Tests
+  - Logging                                         - Console Tests
+                                                    - Browser Tests
+Digging Deeper                                      - Database
+  - Artisan Console                                 - Mocking
+  - Broadcasting             
+  - Cache                                         Packages
+  - Collections                                      - Breeze
+  - Contracts                                        - Sanctum
+  - Events                                           - Jetstream
+  - File Storage                                     - Fortify         
+  - Helpers                                          - Cashier (Stripe)
+  - HTTP Client                                      - Cashier (Paddle)
+  - Localization                                     - Dusk            
+  - Mail                                             - Envoy           
+  - Notifications                                    - Horizon    
+  - Package Development                              - Octane     
+  - Queues                                           - Passport        
+  - Rate Limiting                                    - Scout           
+  - Task Scheduling                                  - Socialite       
+                                                     - Telescope       
+--------------------------------------------------------------------------------
+- ProjectName
+  - app
+     - Broadcasting
+     - Console
+     - Events
+     - Exceptions
+     - Http
+     - Jobs
+     - Listeners
+     - Mail
+     - Models
+     - Notifications
+     - Policies
+     - Providers
+     - Rules
+  - bootstrap
+  - config
+  - database
+  - lang
+  - public
+  - resources
+  - routes
+  - storage
+  - tests
+  - vendor
+--------------------------------------------------------------------------------
+Facade 	                Class 	                                         Service Container Binding
+App 	                Illuminate\Foundation\Application 	             app
+Artisan 	            Illuminate\Contracts\Console\Kernel 	         artisan
+Auth 	                Illuminate\Auth\AuthManager 	                 auth
+Auth (Instance) 	    Illuminate\Contracts\Auth\Guard 	             auth.driver
+Blade 	                Illuminate\View\Compilers\BladeCompiler 	     blade.compiler
+Broadcast 	            Illuminate\Contracts\Broadcasting\Factory
+Broadcast (Instance) 	Illuminate\Contracts\Broadcasting\Broadcaster
+Bus 	                Illuminate\Contracts\Bus\Dispatcher
+Cache 	                Illuminate\Cache\CacheManager 	                 cache
+Cache (Instance) 	    Illuminate\Cache\Repository 	                 cache.store
+Config 	                Illuminate\Config\Repository 	                 config
+Cookie 	                Illuminate\Cookie\CookieJar 	                 cookie
+Crypt 	                Illuminate\Encryption\Encrypter 	             encrypter
+Date 	                Illuminate\Support\DateFactory 	                 date
+DB 	                    Illuminate\Database\DatabaseManager 	         db
+DB (Instance) 	        Illuminate\Database\Connection 	                 db.connection
+Event 	                Illuminate\Events\Dispatcher 	                 events
+File 	                Illuminate\Filesystem\Filesystem 	             files
+Gate 	                Illuminate\Contracts\Auth\Access\Gate
+Hash 	                Illuminate\Contracts\Hashing\Hasher 	         hash
+Http 	                Illuminate\Http\Client\Factory
+Lang 	                Illuminate\Translation\Translator 	             translator
+Log 	                Illuminate\Log\LogManager 	                     log
+Mail 	                Illuminate\Mail\Mailer 	                         mailer
+Notification 	        Illuminate\Notifications\ChannelManager
+Password 	            Illuminate\Auth\Passwords\PasswordBrokerManager  auth.password
+Password (Instance) 	Illuminate\Auth\Passwords\PasswordBroker 	     auth.password.broker
+Queue 	                Illuminate\Queue\QueueManager 	                 queue
+Queue (Instance) 	    Illuminate\Contracts\Queue\Queue 	             queue.connection
+Queue (Base Class) 	    Illuminate\Queue\Queue
+Redirect 	            Illuminate\Routing\Redirector 	                 redirect
+Redis 	                Illuminate\Redis\RedisManager 	                 redis
+Redis (Instance) 	    Illuminate\Redis\Connections\Connection 	     redis.connection
+Request 	            Illuminate\Http\Request 	                     request
+Response 	            Illuminate\Contracts\Routing\ResponseFactory
+Response (Instance) 	Illuminate\Http\Response
+Route 	                Illuminate\Routing\Router 	                     router
+Schema 	                Illuminate\Database\Schema\Builder
+Session 	            Illuminate\Session\SessionManager 	             session
+Session (Instance) 	    Illuminate\Session\Store 	                     session.store
+Storage 	            Illuminate\Filesystem\FilesystemManager 	     filesystem
+Storage (Instance) 	    Illuminate\Contracts\Filesystem\Filesystem 	     filesystem.disk
+URL 	                Illuminate\Routing\UrlGenerator 	             url
+Validator 	            Illuminate\Validation\Factory 	                 validator
+Validator (Instance) 	Illuminate\Validation\Validator
+View 	                Illuminate\View\Factory 	                     view
+View (Instance) 	    Illuminate\View\View
+Vite 	                Illuminate\Foundation\Vite
+--------------------------------------------------------------------------------
+Contract Reference
+
+Contract 	                                            References Facade
+Illuminate\Contracts\Auth\Access\Authorizable
+Illuminate\Contracts\Auth\Access\Gate 	                Gate
+Illuminate\Contracts\Auth\Authenticatable
+Illuminate\Contracts\Auth\CanResetPassword
+Illuminate\Contracts\Auth\Factory 	                    Auth
+Illuminate\Contracts\Auth\Guard 	                    Auth::guard()
+Illuminate\Contracts\Auth\PasswordBroker 	            Password::broker()
+Illuminate\Contracts\Auth\PasswordBrokerFactory 	    Password
+Illuminate\Contracts\Auth\StatefulGuard
+Illuminate\Contracts\Auth\SupportsBasicAuth
+Illuminate\Contracts\Auth\UserProvider
+Illuminate\Contracts\Bus\Dispatcher 	                Bus
+Illuminate\Contracts\Bus\QueueingDispatcher 	        Bus::dispatchToQueue()
+Illuminate\Contracts\Broadcasting\Factory 	            Broadcast
+Illuminate\Contracts\Broadcasting\Broadcaster 	        Broadcast::connection()
+Illuminate\Contracts\Broadcasting\ShouldBroadcast
+Illuminate\Contracts\Broadcasting\ShouldBroadcastNow
+Illuminate\Contracts\Cache\Factory 	                    Cache
+Illuminate\Contracts\Cache\Lock
+Illuminate\Contracts\Cache\LockProvider
+Illuminate\Contracts\Cache\Repository 	                Cache::driver()
+Illuminate\Contracts\Cache\Store
+Illuminate\Contracts\Config\Repository 	                Config
+Illuminate\Contracts\Console\Application
+Illuminate\Contracts\Console\Kernel 	                Artisan
+Illuminate\Contracts\Container\Container 	            App
+Illuminate\Contracts\Cookie\Factory 	                Cookie
+Illuminate\Contracts\Cookie\QueueingFactory 	        Cookie::queue()
+Illuminate\Contracts\Database\ModelIdentifier
+Illuminate\Contracts\Debug\ExceptionHandler
+Illuminate\Contracts\Encryption\Encrypter 	            Crypt
+Illuminate\Contracts\Events\Dispatcher 	                Event
+Illuminate\Contracts\Filesystem\Cloud 	                Storage::cloud()
+Illuminate\Contracts\Filesystem\Factory 	            Storage
+Illuminate\Contracts\Filesystem\Filesystem 	            Storage::disk()
+Illuminate\Contracts\Foundation\Application 	        App
+Illuminate\Contracts\Hashing\Hasher 	                Hash
+Illuminate\Contracts\Http\Kernel
+Illuminate\Contracts\Mail\MailQueue 	                Mail::queue()
+Illuminate\Contracts\Mail\Mailable
+Illuminate\Contracts\Mail\Mailer 	                    Mail
+Illuminate\Contracts\Notifications\Dispatcher 	        Notification
+Illuminate\Contracts\Notifications\Factory 	            Notification
+Illuminate\Contracts\Pagination\LengthAwarePaginator
+Illuminate\Contracts\Pagination\Paginator
+Illuminate\Contracts\Pipeline\Hub
+Illuminate\Contracts\Pipeline\Pipeline
+Illuminate\Contracts\Queue\EntityResolver
+Illuminate\Contracts\Queue\Factory 	                    Queue
+Illuminate\Contracts\Queue\Job
+Illuminate\Contracts\Queue\Monitor 	                    Queue
+Illuminate\Contracts\Queue\Queue 	                    Queue::connection()
+Illuminate\Contracts\Queue\QueueableCollection
+Illuminate\Contracts\Queue\QueueableEntity
+Illuminate\Contracts\Queue\ShouldQueue
+Illuminate\Contracts\Redis\Factory 	                    Redis
+Illuminate\Contracts\Routing\BindingRegistrar 	        Route
+Illuminate\Contracts\Routing\Registrar 	Route
+Illuminate\Contracts\Routing\ResponseFactory 	        Response
+Illuminate\Contracts\Routing\UrlGenerator 	            URL
+Illuminate\Contracts\Routing\UrlRoutable
+Illuminate\Contracts\Session\Session 	                Session::driver()
+Illuminate\Contracts\Support\Arrayable
+Illuminate\Contracts\Support\Htmlable
+Illuminate\Contracts\Support\Jsonable
+Illuminate\Contracts\Support\MessageBag
+Illuminate\Contracts\Support\MessageProvider
+Illuminate\Contracts\Support\Renderable
+Illuminate\Contracts\Support\Responsable
+Illuminate\Contracts\Translation\Loader
+Illuminate\Contracts\Translation\Translator 	        Lang
+Illuminate\Contracts\Validation\Factory 	            Validator
+Illuminate\Contracts\Validation\ImplicitRule
+Illuminate\Contracts\Validation\Rule
+Illuminate\Contracts\Validation\ValidatesWhenResolved
+Illuminate\Contracts\Validation\Validator 	            Validator::make()
+Illuminate\Contracts\View\Engine
+Illuminate\Contracts\View\Factory 	                    View
+Illuminate\Contracts\View\View 	                        View::make()
+--------------------------------------------------------------------------------
+https://laravel.com/docs/9.x/collections
+
+all                         keys                           sort             
+average                     last                           sortBy           
+avg                         lazy                           sortByDesc       
+chunk                       macro                          sortDesc         
+chunkWhile                  make                           sortKeys         
+collapse                    map                            sortKeysDesc     
+collect                     mapInto                        sortKeysUsing    
+combine                     mapSpread                      splice           
+concat                      mapToGroups                    split            
+contains                    mapWithKeys                    splitIn          
+containsOneItem             max                            sum              
+containsStrict              median                         take             
+count                       merge                          takeUntil        
+countBy                     mergeRecursive                 takeWhile        
+crossJoin                   min                            tap              
+dd                          mode                           times            
+diff                        nth                            toArray          
+diffAssoc                   only                           toJson           
+diffKeys                    pad                            transform        
+doesntContain               partition                      undot            
+dump                        pipe                           union            
+duplicates                  pipeInto                       unique           
+duplicatesStrict            pipeThrough                    uniqueStrict     
+each                        pluck                          unless           
+eachSpread                  pop                            unlessEmpty      
+every                       prepend                        unlessNotEmpty   
+except                      pull                           unwrap           
+filter                      push                           value            
+first                       put                            values           
+firstOrFail                 random                         when             
+firstWhere                  range                          whenEmpty        
+flatMap                     reduce                         whenNotEmpty     
+flatten                     reduceSpread                   where            
+flip                        reject                         whereStrict      
+forget                      replace                        whereBetween     
+forPage                     replaceRecursive               whereIn          
+get                         reverse                        whereInStrict    
+groupBy                     search                         whereInstanceOf  
+has                         shift                          whereNotBetween  
+hasAny                      shuffle                        whereNotIn       
+implode                     skip                           whereNotInStrict 
+intersect                   skipUntil                      whereNotNull     
+intersectByKeys             skipWhile                      whereNull        
+isEmpty                     slice                          wrap             
+isNotEmpty                  sliding                        zip              
+join                        sole                          
+keyBy                       some                          
+--------------------------------------------------------------------------------
+https://laravel.com/docs/9.x/helpers
+
+# Arrays & Objects
+
+Arr::accessible             Arr::isAssoc                  Arr::shuffle        
+Arr::add                    Arr::isList                   Arr::sort          
+Arr::collapse               Arr::join                     Arr::sortDesc      
+Arr::crossJoin              Arr::keyBy                    Arr::sortRecursive 
+Arr::divide                 Arr::last                     Arr::toCssClasses  
+Arr::dot                    Arr::map                      Arr::undot         
+Arr::except                 Arr::only                     Arr::where         
+Arr::exists                 Arr::pluck                    Arr::whereNotNull  
+Arr::first                  Arr::prepend                  Arr::wrap          
+Arr::flatten                Arr::prependKeysWith          data_fill          
+Arr::forget                 Arr::pull                     data_get           
+Arr::get                    Arr::query                    data_set           
+Arr::has                    Arr::random                   head               
+Arr::hasAny                 Arr::set                      last               
+
+# Paths
+
+app_path                    database_path                 public_path    
+base_path                   lang_path                     resource_path 
+config_path                 mix                           storage_path  
+
+# Strings
+
+__                          Str::isUuid                   Str::snake         
+class_basename              Str::kebab                    Str::squish        
+e                           Str::lcfirst                  Str::start         
+preg_replace_array          Str::length                   Str::startsWith    
+Str::after                  Str::limit                    Str::studly        
+Str::afterLast              Str::lower                    Str::substr        
+Str::ascii                  Str::markdown                 Str::substrCount   
+Str::before                 Str::mask                     Str::substrReplace 
+Str::beforeLast             Str::orderedUuid              Str::swap          
+Str::between                Str::padBoth                  Str::title         
+Str::betweenFirst           Str::padLeft                  Str::toHtmlString  
+Str::camel                  Str::padRight                 Str::ucfirst       
+Str::contains               Str::plural                   Str::ucsplit       
+Str::containsAll            Str::pluralStudly             Str::upper         
+Str::endsWith               Str::random                   Str::ulid          
+Str::excerpt                Str::remove                   Str::uuid          
+Str::finish                 Str::replace                  Str::wordCount     
+Str::headline               Str::replaceArray             Str::words         
+Str::inlineMarkdown         Str::replaceFirst             str                
+Str::is                     Str::replaceLast              trans              
+Str::isAscii                Str::reverse                  trans_choice       
+Str::isJson                 Str::singular      
+Str::isUlid                 Str::slug          
+
+# Fluent Strings
+
+after                       lcfirst                       start               
+afterLast                   length                        startsWith          
+append                      limit                         studly              
+ascii                       lower                         substr              
+basename                    ltrim                         substrReplace       
+before                      markdown                      swap                
+beforeLast                  mask                          tap                 
+between                     match                         test                
+betweenFirst                matchAll                      title               
+camel                       newLine                       trim                
+classBasename               padBoth                       ucfirst             
+contains                    padLeft                       ucsplit             
+containsAll                 padRight                      upper               
+dirname                     pipe                          when                
+endsWith                    plural                        whenContains        
+excerpt                     prepend                       whenContainsAll     
+exactly                     remove                        whenEmpty           
+explode                     replace                       whenNotEmpty        
+finish                      replaceArray                  whenStartsWith      
+headline                    replaceFirst                  whenEndsWith        
+inlineMarkdown              replaceLast                   whenExactly         
+is                          replaceMatches                whenNotExactly      
+isAscii                     rtrim                         whenIs              
+isEmpty                     scan                          whenIsAscii         
+isNotEmpty                  singular                      whenIsUlid          
+isJson                      slug                          whenIsUuid          
+isUlid                      snake                         whenTest            
+isUuid                      split                         wordCount           
+kebab                       squish                        words               
+
+# URLs
+
+action                      secure_asset                  url 
+asset                       secure_url                    route        to_route                  
+
+# Miscellaneous
+
+abort                        dispatch                    request               
+abort_if                     dump                        rescue                     
+abort_unless                 encrypt                     resolve                    
+app                          env                         response                   
+auth                         event                       retry                      
+back                         fake                        session                    
+bcrypt                       filled                      tap                        
+blank                        info                        throw_if                   
+broadcast                    logger                      throw_unless               
+cache                        method_field                today                      
+class_uses_recursive         now                         trait_uses_recursive       
+collect                      old                         transform                  
+config                       optional                    validator                  
+cookie                       policy                      value                      
+csrf_field                   redirect                    view                       
+csrf_token                   report                      with                       
+decrypt                      report_if                         
+dd                           report_unless                     
+--------------------------------------------------------------------------------
